@@ -109,3 +109,7 @@
 ### Aleksi Nokelainen
 
 > [Krugou](https://github.com/Krugou)
+>
+## Future
+proper metropolia server
+[HAKA LOGIN](https://wiki.eduuni.fi/display/CSCHAKA/Tekninen+dokumentaatio)
