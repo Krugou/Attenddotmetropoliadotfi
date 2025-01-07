@@ -7,13 +7,13 @@ const Team: React.FC = () => {
         Original Development Team
       </h1>
       <div className='flex flex-col gap-2 mb-4 text-3xl text-gray-700 md:flex-row font-regular'>
-        <div className='p-4 border-2 rounded-md'>
+        <div className='p-4 text-center border-2 rounded-md'>
           <strong>J</strong>oonas Lamminmäki.
         </div>
-        <div className='p-4 border-2 rounded-md'>
+        <div className='p-4 text-center border-2 rounded-md'>
           <strong>A</strong>leksi Nokelainen.
         </div>
-        <div className='p-4 border-2 rounded-md'>
+        <div className='p-4 text-center border-2 rounded-md'>
           <strong>K</strong>aarle Häyhä.
         </div>
       </div>
@@ -24,7 +24,7 @@ const Team: React.FC = () => {
           <h2 className='mb-4 text-3xl font-bold text-metropoliaMainOrange'>
             Additional Development
           </h2>
-          <div className='p-4 text-3xl text-gray-700 border-2 rounded-md font-regular'>
+          <div className='p-4 text-3xl text-center text-gray-700 border-2 rounded-md font-regular'>
             Nestori Laine
           </div>
         </div>
