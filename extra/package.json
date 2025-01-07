@@ -1,17 +1,15 @@
 {
-	"name": "github-contributor-scores",
-	"type": "module",
-	"version": "1.0.0",
-	"description": "A script to generate scores for GitHub repository contributors",
-	"main": "generateScores.js",
-	"scripts": {
-		"start": "node generateScores.js"
-	},
-	"dependencies": {
-		"@octokit/rest": "^20.0.2",
-		"dotenv": "^16.4.5"
-	},
-	"devDependencies": {
-		"typedoc": "^0.26.10"
-	}
+  "name": "github-contributor-scores",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A script to generate scores for GitHub repository contributors",
+  "main": "generateScores.js",
+  "scripts": {
+    "start": "node generateScores.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {}
 }

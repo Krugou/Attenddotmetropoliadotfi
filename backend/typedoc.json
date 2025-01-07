@@ -1,14 +1,9 @@
 {
-  "includes": ["src"],
-  "exclude": ["**/_*.ts", "**/*.test.ts", "**/*.spec.ts"],
+  "entryPoints": ["src"],
+  "exclude": ["**/_*.ts", "**/*.test.ts", "**/*.spec.ts", "**/node_modules/**"],
   "out": "../extra/backend",
   "name": "JakSec Backend",
   "theme": "default",
   "includeVersion": true,
-  "entryPointStrategy": "expand",
-  "plugin": [
-    "typedoc-plugin-coverage",
-    "typedoc-plugin-extras",
-    "typedoc-comments"
-  ]
+  "entryPointStrategy": "expand"
 }

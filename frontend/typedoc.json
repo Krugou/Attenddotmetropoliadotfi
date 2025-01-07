@@ -1,6 +1,6 @@
 {
-  "includes": ["src"],
-  "exclude": ["**/_*.ts", "**/_*.tsx", "**/*.test.ts", "**/*.test.tsx"],
+  "entryPoints": ["src"],
+  "exclude": ["**/_*.ts", "**/_*.tsx", "**/*.test.ts", "**/*.test.tsx", "**/node_modules/**"],
   "out": "../extra/frontend",
   "name": "JakSec Frontend",
   "theme": "default",
@@ -8,10 +8,5 @@
   "excludePrivate": false,
   "excludeProtected": false,
   "excludeExternals": false,
-  "entryPointStrategy": "expand",
-  "plugin": [
-    "typedoc-plugin-coverage",
-    "typedoc-plugin-extras",
-    "typedoc-comments"
-  ]
+  "entryPointStrategy": "expand"
 }

@@ -6,14 +6,12 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    /* Bundler mode */
     "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -25,6 +23,7 @@
     "noErrorTruncation": true
   },
   "include": ["src", "node_modules/vite-plugin-pwa/client.d.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

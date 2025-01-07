@@ -7,15 +7,18 @@
     "aleksi": "concurrently \"powershell -File gitpull.ps1\" \" npm i && npm run alldev\"",
     "build": " cd frontend && npm run build",
     "newVersion": "git pull && npm run build && cd backend && npm i && npm run tsc && pm2 delete all && pm2 start ecosystem.config.cjs && pm2 save",
-    "start": "npm i && cd backend && npm run alldev"
+    "start": "npm i && concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "test:chrome": "cd browsertesting && npm run test:chrome",
+    "test:firefox": "cd browsertesting && npm run test:firefox",
+    "test:safari": "cd browsertesting && npm run test:safari",
+    "backendDev": "cd backend && npm run dev",
+    "frontendDev": "cd frontend && npm run dev",
+    "docs": "concurrently \"cd backend && npm run docs \" \"cd frontend && npm run docs\""
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "concurrently": "^8.2.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5"
+    "concurrently": "^9.1.2"
   },
   "dependencies": {
-    "eslint": "^8.56.0"
+    "eslint": "^9.17.0"
   }
 }

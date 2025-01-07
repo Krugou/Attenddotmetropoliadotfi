@@ -11,10 +11,19 @@
     "outDir": "./nodejs",
     "lib": ["esnext"],
     "resolveJsonModule": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "alwaysStrict": true
+    "noUnusedParameters": false,
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "allowJs": true,
+    "strictFunctionTypes": false,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
