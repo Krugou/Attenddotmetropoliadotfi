@@ -125,28 +125,66 @@
                 // Create an array of border colors for the chart (you may want to adjust this)
                 const borderColors = [ 'rgba(75, 192, 192, 1)', 'rgba(192, 75, 75, 1)', 'rgba(75, 75, 192, 1)', 'rgba(192, 192, 75, 1)' ];
 
+                // Filter out weeks with zero scores and create date ranges
+                const getWeekDates = ( weekIndex ) => {
+                    const startDate = new Date();
+                    startDate.setDate( startDate.getDate() - ( ( weekIndex + 1 ) * 7 ) );
+                    const endDate = new Date( startDate );
+                    endDate.setDate( startDate.getDate() + 6 );
+                    return `Week ${ weekIndex + 1 } (${ startDate.toLocaleDateString() } - ${ endDate.toLocaleDateString() })`;
+                };
+
                 const datasets = sortedData.map( ( [ contributor, stats ], index ) => {
-                    const data = stats.weeklyScores.map( week => week.totalChanges );
+                    // Filter out weeks with zero scores
+                    const nonZeroWeeks = stats.weeklyScores.map( ( week, idx ) => ( {
+                        ...week,
+                        weekIndex: idx
+                    } ) ).filter( week => week.totalChanges > 0 );
+
                     return {
                         label: contributor,
-                        data: data,
+                        data: nonZeroWeeks.map( week => week.totalChanges ),
                         backgroundColor: colors[ index % colors.length ],
                         borderColor: borderColors[ index % borderColors.length ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        weekIndices: nonZeroWeeks.map( week => week.weekIndex )
                     };
+                } );
+
+                // Get unique week indices across all datasets
+                const allWeekIndices = [ ...new Set( datasets.flatMap( ds => ds.weekIndices ) ) ].sort( ( a, b ) => a - b );
+
+                // Update datasets to align with filtered weeks
+                datasets.forEach( dataset => {
+                    const alignedData = allWeekIndices.map( weekIndex => {
+                        const weekData = dataset.weekIndices.indexOf( weekIndex );
+                        return weekData !== -1 ? dataset.data[ weekData ] : null;
+                    } );
+                    dataset.data = alignedData;
+                    // Clean up temporary property
+                    delete dataset.weekIndices;
                 } );
 
                 const ctx = document.getElementById( 'myChart' ).getContext( '2d' );
                 const myChart = new Chart( ctx, {
-                    type: 'line', // Change the chart type to 'line'
+                    type: 'line',
                     data: {
-                        labels: Array.from( { length: sortedData[ 0 ][ 1 ].weeklyScores.length }, ( _, i ) => `Week ${ i + 1 }` ), // Create labels for each week
+                        labels: allWeekIndices.map( getWeekDates ),
                         datasets: datasets
                     },
                     options: {
                         scales: {
                             y: {
                                 beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: ( context ) => {
+                                        return context[ 0 ].label;
+                                    }
+                                }
                             }
                         }
                     }
