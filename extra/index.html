@@ -169,7 +169,7 @@
                 const myChart = new Chart( ctx, {
                     type: 'line',
                     data: {
-                        labels: allWeekIndices.map( getWeekDates ),
+                        labels: allWeekIndices.map( index => `Week ${ index + 1 }` ),
                         datasets: datasets
                     },
                     options: {
