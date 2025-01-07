@@ -60,7 +60,7 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "terser": "^5.27.2",
-    "typedoc": "^0.27.6",
+    "typedoc": "^0.26.10",
     "typedoc-comments": "^1.0.1",
     "typedoc-plugin-coverage": "^3.4.1",
     "typedoc-plugin-extras": "^3.1.0",

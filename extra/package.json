@@ -10,5 +10,8 @@
 	"dependencies": {
 		"@octokit/rest": "^20.0.2",
 		"dotenv": "^16.4.5"
+	},
+	"devDependencies": {
+		"typedoc": "^0.26.10"
 	}
 }
