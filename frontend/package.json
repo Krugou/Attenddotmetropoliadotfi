@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "prebuild": "node build-date.cjs",
-    "dev": " vite --port 8080 --open --host",
-    "dev2": "  vite --port 8080",
+    "dev": " npm i &vite --port 8080 --open --host",
+    "dev2": " npm i & vite --port 8080",
     "devBrutal": "  vite --port 8080 --open -d --force --host",
     "devDebug": "  vite --port 8080 --open -d --host",
     "build": "npm i & tsc && vite build --outDir ../backend/jaksec --emptyOutDir --base /",
@@ -15,6 +15,7 @@
     "preview": "vite preview",
     "all": " npm i & tsc --watch & vite build --outDir ../backend/jaksec --emptyOutDir  --base / --watch",
     "alldev": "npm i &  vite --port 8080",
+    "start": "npm run dev",
     "docs": "typedoc src",
     "docs:watch": "nodemon --watch 'src/**/*.ts*' --exec npm run docs"
   },

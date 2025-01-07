@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "module": "commonjs",
   "scripts": {
+    "start": "npm run all",
     "sW": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon nodejs/jaksecserver.js\"",
     "notscsW": "concurrently  \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
     "test": "jest",
