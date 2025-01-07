@@ -58,7 +58,7 @@
     "typedoc-comments": "^1.0.1",
     "typedoc-plugin-coverage": "^3.4.1",
     "typedoc-plugin-extras": "^3.1.0",
-    "typedoc-plugin-markdown": "^4.4.1"
+    "typedoc-plugin-markdown": "^3.17.1"
   },
   "jest": {
     "transformIgnorePatterns": [
