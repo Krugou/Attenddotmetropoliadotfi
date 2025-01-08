@@ -5,6 +5,11 @@ import AdminFeedback from './AdminFeedback';
 import AdminGuide from './AdminGuide';
 import AdminLogs from './AdminLogs';
 import AdminStats from './AdminStats';
+import HelpIcon from '@mui/icons-material/Help';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import ErrorIcon from '@mui/icons-material/Error';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -14,11 +19,23 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    {path: '/admin/dashboard/', label: 'Guide'},
-    {path: '/admin/dashboard/stats', label: 'Statistics'},
-    {path: '/admin/dashboard/logs', label: 'Logs'},
-    {path: '/admin/dashboard/errorlogs', label: 'Error Logs'},
-    {path: '/admin/dashboard/user-feedback', label: 'User Feedback'},
+    {path: '/admin/dashboard/', label: 'Guide', icon: <HelpIcon />},
+    {
+      path: '/admin/dashboard/stats',
+      label: 'Statistics',
+      icon: <QueryStatsIcon />,
+    },
+    {path: '/admin/dashboard/logs', label: 'Logs', icon: <ListAltIcon />},
+    {
+      path: '/admin/dashboard/errorlogs',
+      label: 'Error Logs',
+      icon: <ErrorIcon />,
+    },
+    {
+      path: '/admin/dashboard/user-feedback',
+      label: 'User Feedback',
+      icon: <FeedbackIcon />,
+    },
   ];
 
   return (
@@ -26,14 +43,14 @@ const AdminDashboard = () => {
       <h2 className='p-3 mb-6 text-3xl font-bold text-center border-b text-metropolia border-metropolia/20'>
         Server Dashboard
       </h2>
-      <div className='flex flex-col gap-6 md:flex-row'>
-        <nav className='w-full p-4 bg-white border shadow-md md:w-72 rounded-xl border-metropoliaMainGrey/10'>
+      <div className='flex flex-col gap-4 md:flex-row'>
+        <nav className='w-full p-4 bg-white border shadow-md md:w-60 rounded-xl border-metropoliaMainGrey/10'>
           <ul className='space-y-2'>
             {navItems.map((item) => (
               <li key={item.path} className='overflow-hidden rounded-lg'>
                 <Link
                   to={item.path}
-                  className={`block py-3 px-6 transition-all duration-200 ease-in-out
+                  className={` py-3 px-6 transition-all duration-200 ease-in-out flex items-center gap-3
                     ${
                       isActivePath(item.path)
                         ? 'bg-metropoliaMainGrey text-white shadow-md transform scale-102'
@@ -41,6 +58,7 @@ const AdminDashboard = () => {
                     }
                     hover:shadow-md hover:translate-x-1
                   `}>
+                  <span className='w-6 h-6'>{item.icon}</span>
                   {item.label}
                 </Link>
               </li>
