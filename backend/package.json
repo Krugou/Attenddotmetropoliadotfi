@@ -12,7 +12,8 @@
     "tsc": "npm i && tsc",
     "tscW": " npm i && tsc --watch",
     "docs": " npm i && typedoc src",
-    "docs:watch": " npm i && nodemon --watch 'src/**/*.ts' --exec npm run docs"
+    "docs:watch": " npm i && nodemon --watch 'src/**/*.ts' --exec npm run docs",
+    "build": "tsc && tsc src/jaksecbackupsql.ts --outDir nodejs"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
