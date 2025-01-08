@@ -5,8 +5,8 @@
  */
 
 // Import required Node.js modules
-import { exec } from 'child_process';
-import { promises as fs } from 'fs';
+import {exec} from 'child_process';
+import {promises as fs} from 'fs';
 import path from 'path';
 import util from 'util';
 
@@ -41,7 +41,7 @@ interface DatabaseConfig {
  * Defines settings for backup storage and retention
  */
 interface BackupConfig {
-  backupDir: string;    // Directory where backups will be stored
+  backupDir: string; // Directory where backups will be stored
   retentionDays: number; // Number of days to keep backups
 }
 
@@ -53,7 +53,7 @@ const dbConfig: DatabaseConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
-  database: 'jaksec',
+  database: process.env.DB_NAME || 'jaksec',
   port: parseInt(process.env.DB_PORT || '3306'),
 };
 
@@ -89,7 +89,7 @@ const ensureBackupDir = async (): Promise<void> => {
   try {
     await fs.access(backupConfig.backupDir);
   } catch {
-    await fs.mkdir(backupConfig.backupDir, { recursive: true });
+    await fs.mkdir(backupConfig.backupDir, {recursive: true});
   }
 };
 
@@ -106,7 +106,8 @@ const cleanOldBackups = async (): Promise<void> => {
     for (const file of files) {
       const filePath = path.join(backupConfig.backupDir, file);
       const stats = await fs.stat(filePath);
-      const daysOld = (now.getTime() - stats.mtime.getTime()) / (1000 * 60 * 60 * 24);
+      const daysOld =
+        (now.getTime() - stats.mtime.getTime()) / (1000 * 60 * 60 * 24);
 
       if (daysOld > backupConfig.retentionDays) {
         await fs.unlink(filePath);
@@ -129,8 +130,11 @@ const performBackup = async (): Promise<void> => {
   const backupFile = path.join(backupConfig.backupDir, getBackupFileName());
 
   // Construct mysqldump command with all necessary options
-  const mysqldumpCmd = `mysqldump --host=${dbConfig.host} --port=${dbConfig.port} ` +
-    `--user=${dbConfig.user} ${dbConfig.password ? `--password=${dbConfig.password}` : ''} ` +
+  const mysqldumpCmd =
+    `mysqldump --host=${dbConfig.host} --port=${dbConfig.port} ` +
+    `--user=${dbConfig.user} ${
+      dbConfig.password ? `--password=${dbConfig.password}` : ''
+    } ` +
     `--databases ${dbConfig.database} --result-file="${backupFile}" ` +
     // Use single-transaction for consistency, include routines, triggers, and events
     `--single-transaction --routines --triggers --events`;
@@ -139,7 +143,7 @@ const performBackup = async (): Promise<void> => {
     await ensureBackupDir();
     console.log('Starting database backup...');
 
-    const { stderr } = await execPromise(mysqldumpCmd);
+    const {stderr} = await execPromise(mysqldumpCmd);
 
     if (stderr) {
       console.warn('Warnings during backup:', stderr);
@@ -150,7 +154,8 @@ const performBackup = async (): Promise<void> => {
     // Clean old backups after successful backup
     await cleanOldBackups();
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
     throw new BackupError(`Backup failed: ${errorMessage}`);
   }
 };
@@ -164,7 +169,9 @@ const main = async (): Promise<void> => {
   try {
     await performBackup();
   } catch (error) {
-    console.error(error instanceof Error ? error.message : 'Unknown error occurred');
+    console.error(
+      error instanceof Error ? error.message : 'Unknown error occurred',
+    );
     process.exit(1);
   }
 };
