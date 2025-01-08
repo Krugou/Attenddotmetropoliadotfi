@@ -9,82 +9,53 @@ import AdminStats from './AdminStats';
 const AdminDashboard = () => {
   const location = useLocation();
 
+  const isActivePath = (path: string) => {
+    return location.pathname === `/admin/dashboard/${path}`;
+  };
+
+  const navItems = [
+    {path: '/admin/dashboard/', label: 'Guide'},
+    {path: '/admin/dashboard/stats', label: 'Statistics'},
+    {path: '/admin/dashboard/logs', label: 'Logs'},
+    {path: '/admin/dashboard/errorlogs', label: 'Error Logs'},
+    {path: '/admin/dashboard/user-feedback', label: 'User Feedback'},
+  ];
+
   return (
-    <div className='flex flex-col w-full p-2 rounded-lg shadow-md bg-slate-100'>
-      <h2 className='p-2 m-2 text-2xl font-bold text-center text-metropolia'>
+    <div className='flex flex-col w-full p-4 transition-all duration-300 ease-in-out shadow-lg rounded-xl bg-slate-50'>
+      <h2 className='p-3 mb-6 text-3xl font-bold text-center border-b text-metropolia border-metropolia/20'>
         Server Dashboard
       </h2>
-      <div className='flex flex-col md:flex-row'>
-        <div className='w-full p-2 border rounded-lg shadow-md bg-metropoliaSupportWhite md:w-64 border-metropoliaMainGrey '>
-          <ul className='space-y-4'>
-            <li className='transition-colors duration-200 hover:bg-metropoliaMainGrey hover:text-metropoliaSupportWhite'>
-              <Link
-                to='./'
-                className={`block py-2 px-4 ${
-                  location.pathname === '/admin/dashboard/'
-                    ? 'bg-metropoliaMainGrey text-metropoliaSupportWhite'
-                    : 'text-metropoliaMainGrey'
-                }`}>
-                Guide
-              </Link>
-            </li>
-            <li className='transition-colors duration-200 hover:bg-metropoliaMainGrey hover:text-metropoliaSupportWhite'>
-              <Link
-                to='./stats'
-                className={`block py-2 px-4 ${
-                  location.pathname === '/admin/dashboard/stats'
-                    ? 'bg-metropoliaMainGrey text-metropoliaSupportWhite'
-                    : 'text-metropoliaMainGrey'
-                }`}>
-                Statistics
-              </Link>
-            </li>
-
-            <li className='transition-colors duration-200 hover:bg-metropoliaMainGrey hover:text-metropoliaSupportWhite'>
-              <Link
-                to='./logs'
-                className={`block py-2 px-4 ${
-                  location.pathname === '/admin/dashboard/logs'
-                    ? 'bg-metropoliaMainGrey text-metropoliaSupportWhite'
-                    : 'text-metropoliaMainGrey'
-                }`}>
-                Logs
-              </Link>
-            </li>
-            <li className='transition-colors duration-200 hover:bg-metropoliaMainGrey hover:text-metropoliaSupportWhite'>
-              <Link
-                to='errorlogs'
-                className={`block py-2 px-4 ${
-                  location.pathname === '/admin/dashboard/errorlogs'
-                    ? 'bg-metropoliaMainGrey text-metropoliaSupportWhite'
-                    : 'text-metropoliaMainGrey'
-                }`}>
-                Error Logs
-              </Link>
-            </li>
-            <li className='transition-colors duration-200 hover:bg-metropoliaMainGrey hover:text-metropoliaSupportWhite'>
-              <Link
-                to='./user-feedback'
-                className={`block py-2 px-4 ${
-                  location.pathname === '/admin/dashboard/user-feedback'
-                    ? 'bg-metropoliaMainGrey text-metropoliaSupportWhite'
-                    : 'text-metropoliaMainGrey'
-                }`}>
-                User Feedback
-              </Link>
-            </li>
+      <div className='flex flex-col gap-6 md:flex-row'>
+        <nav className='w-full p-4 bg-white border shadow-md md:w-72 rounded-xl border-metropoliaMainGrey/10'>
+          <ul className='space-y-2'>
+            {navItems.map((item) => (
+              <li key={item.path} className='overflow-hidden rounded-lg'>
+                <Link
+                  to={item.path}
+                  className={`block py-3 px-6 transition-all duration-200 ease-in-out
+                    ${
+                      isActivePath(item.path)
+                        ? 'bg-metropoliaMainGrey text-white shadow-md transform scale-102'
+                        : 'text-metropoliaMainGrey hover:bg-metropoliaMainGrey/10'
+                    }
+                    hover:shadow-md hover:translate-x-1
+                  `}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div className='flex-grow p-2 shadow-md'>
+        </nav>
+        <main className='flex-grow p-6 transition-all duration-300 ease-in-out bg-white shadow-md rounded-xl hover:shadow-lg'>
           <Routes>
-            <Route path='/' element={<AdminGuide />} />
-
+            <Route index element={<AdminGuide />} />
             <Route path='stats' element={<AdminStats />} />
             <Route path='logs' element={<AdminLogs />} />
             <Route path='user-feedback' element={<AdminFeedback />} />
             <Route path='errorlogs' element={<AdminErrorLogs />} />
           </Routes>
-        </div>
+        </main>
       </div>
     </div>
   );
