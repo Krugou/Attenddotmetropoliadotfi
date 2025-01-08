@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `topicsingroup` (
   `topicid` int(11) NOT NULL,
   KEY `topicgroupid` (`topicgroupid`),
   KEY `topicid` (`topicid`),
-  CONSTRAINT `topicsingroup_ibfk_1` FOREIGN KEY (`topicgroupid`) REFERENCES `topicgroups` (`topicgroupid`) ON DELETE CASCADE, 
+  CONSTRAINT `topicsingroup_ibfk_1` FOREIGN KEY (`topicgroupid`) REFERENCES `topicgroups` (`topicgroupid`) ON DELETE CASCADE,
   CONSTRAINT `topicsingroup_ibfk_2` FOREIGN KEY (`topicid`) REFERENCES `topics` (`topicid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -194,13 +194,25 @@ CREATE TABLE IF NOT EXISTS `usercourse_topics` (
   `topicid` int(11) NOT NULL,
   KEY `usercourseid` (`usercourseid`),
   KEY `topicid` (`topicid`),
-  CONSTRAINT `usercourse_topics_ibfk_1` FOREIGN KEY (`usercourseid`) REFERENCES `usercourses` (`usercourseid`) ON DELETE CASCADE, 
+  CONSTRAINT `usercourse_topics_ibfk_1` FOREIGN KEY (`usercourseid`) REFERENCES `usercourses` (`usercourseid`) ON DELETE CASCADE,
   CONSTRAINT `usercourse_topics_ibfk_2` FOREIGN KEY (`topicid`) REFERENCES `topics` (`topicid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table jaksec.usercourse_topics: ~0 rows (suunnilleen)
 /*!40000 ALTER TABLE `usercourse_topics` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usercourse_topics` ENABLE KEYS */;
+
+-- Create languages table (before users table)
+CREATE TABLE IF NOT EXISTS `languages` (
+  `languageid` varchar(2) NOT NULL,
+  PRIMARY KEY (`languageid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Add default languages
+INSERT INTO `languages` (`languageid`) VALUES
+  ('en'),
+  ('fi'),
+  ('sv');
 
 -- Dumping structure for taulu jaksec.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -215,11 +227,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `studentgroupid` int(11) DEFAULT NULL,
   `roleid` int(11) NOT NULL DEFAULT 1,
   `GDPR` int(11) NOT NULL DEFAULT 0,
+  `darkMode` int(11) NOT NULL DEFAULT 0,
+  `language` varchar(2) NOT NULL DEFAULT 'en',
   PRIMARY KEY (`userid`),
   KEY `studentgroupid` (`studentgroupid`),
   KEY `roleid` (`roleid`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`studentgroupid`) REFERENCES `studentgroups` (`studentgroupid`),
-  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`roleid`) REFERENCES `roles` (`roleid`)
+  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`roleid`) REFERENCES `roles` (`roleid`),
+  CONSTRAINT `users_ibfk_3` FOREIGN KEY (`language`) REFERENCES `languages`(`languageid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 
@@ -256,7 +271,7 @@ CREATE TABLE `serversettings` (
   `leewayspeed` INT,
   `timeouttime` INT,
   `attendancethreshold` INT
-  
+
 );
 
 -- Insert the values into the serversettings table
