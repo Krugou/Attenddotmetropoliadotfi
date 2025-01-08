@@ -1,5 +1,6 @@
-import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
+import {UserContext} from '../contexts/UserContext';
 import Feedback from '../views/main/Feedback.tsx';
 import Team from '../views/main/Team.tsx';
 import TeacherLectures from '../views/main/teacher/Lectures/TeacherLectures.tsx';
@@ -21,6 +22,24 @@ import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
  * @returns {JSX.Element} The rendered TeacherRoutes component.
  */
 const TeacherRoutes = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      if (user?.role === 'student') {
+        navigate('/student', { replace: true });
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  }, [user, navigate]);
+
+  // Guard clause for student role
+  if (user?.role === 'student') {
+    return null; // Prevent rendering of teacher routes for students
+  }
+  
   return (
     <Routes>
       <Route path='mainview' element={<TeacherMainView />} />

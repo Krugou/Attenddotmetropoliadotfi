@@ -1,5 +1,6 @@
-import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import React, {useContext, useEffect} from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
+import {UserContext} from '../contexts/UserContext';
 import Feedback from '../views/main/Feedback.tsx';
 import Team from '../views/main/Team.tsx';
 import AdminDashboard from '../views/main/admin/AdminDashboard.tsx';
@@ -20,6 +21,24 @@ import AdminUserRoutes from './admin/AdminUserRoutes';
  * @returns {JSX.Element} The rendered AdminRoutes component.
  */
 const AdminRoutes = () => {
+  const {user} = useContext(UserContext);
+  const navigate =  useNavigate();
+
+  useEffect(() => {
+    try {
+      if (user?.role === 'student') {
+        navigate('/student', {replace: true});
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  }, [user, navigate]);
+
+  // Guard clause for student role
+  if (user?.role === 'student') {
+    return null; // Prevent rendering of admin routes for students
+  }
+
   return (
     <Routes>
       <Route path='mainview' element={<AdminMainView />} />
