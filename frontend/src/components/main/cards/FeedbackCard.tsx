@@ -3,13 +3,15 @@ import Card from './Card'; // replace with the actual path to your Card componen
 
 interface FeedbackCardProps {
   role: string;
+  icon?: React.ComponentType<any>;
 }
 
-const FeedbackCard: React.FC<FeedbackCardProps> = ({role}) => {
+const FeedbackCard: React.FC<FeedbackCardProps> = ({role, icon}) => {
   return (
     <Card
       path={'/' + role + '/feedback'}
       title='Feedback'
+      icon={icon}
       description='Give feedback to the developers'
     />
   );
