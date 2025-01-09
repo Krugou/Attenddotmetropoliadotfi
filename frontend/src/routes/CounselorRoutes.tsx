@@ -28,14 +28,16 @@ const CounselorRoutes = () => {
     try {
       if (user?.role === 'student') {
         navigate('/student', { replace: true });
+      } else if (user?.role === 'teacher') {
+        navigate('/teacher', { replace: true });
       }
     } catch (error) {
       console.error('Navigation error:', error);
     }
   }, [user, navigate]);
 
-  // Guard clause for student role
-  if (user?.role === 'student') {
+  // Guard clause for student and teacher role
+  if (user?.role === 'student' || user?.role === 'teacher') {
     return null; // Prevent rendering of counselor routes for students
   }
 

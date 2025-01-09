@@ -28,6 +28,10 @@ const AdminRoutes = () => {
     try {
       if (user?.role === 'student') {
         navigate('/student', {replace: true});
+      } else if (user?.role === 'teacher') {
+        navigate('/teacher', {replace: true});
+      }else if (user?.role === 'counselor') {
+        navigate('/counselor', {replace: true});
       }
     } catch (error) {
       console.error('Navigation error:', error);
@@ -35,7 +39,7 @@ const AdminRoutes = () => {
   }, [user, navigate]);
 
   // Guard clause for student role
-  if (user?.role === 'student') {
+  if (user?.role === 'student' || user?.role === 'teacher' || user?.role === 'counselor') { 
     return null; // Prevent rendering of admin routes for students
   }
 
