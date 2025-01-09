@@ -1,5 +1,5 @@
 import WarningIcon from '@mui/icons-material/Warning';
-import {CircularProgress} from '@mui/material';
+import {CircularProgress, Pagination} from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import React, {useContext, useEffect, useState} from 'react';
@@ -56,6 +56,8 @@ const TeacherStudentsView: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<SelectedCourse | null>(
     null,
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const studentsPerPage = 6;
 
   // Fetch all students on mount
   useEffect(() => {
@@ -105,6 +107,16 @@ const TeacherStudentsView: React.FC = () => {
           value.toLowerCase().includes(searchTerm.toLowerCase()),
       ),
   );
+  const totalpages = Math.ceil(filteredStudents.length / studentsPerPage);
+  const paginatedStudents = filteredStudents.slice(
+    (currentPage - 1) * studentsPerPage,
+    currentPage * studentsPerPage,
+  );  
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
 
   // This function is called when a course is selected
   const handleCourseSelect = async (value: string) => {
@@ -199,7 +211,7 @@ const TeacherStudentsView: React.FC = () => {
           </span>
         </p>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-          {filteredStudents.map((student) => (
+          {paginatedStudents.map((student) => (
             <Link
               key={student.userid}
               to={
@@ -235,6 +247,15 @@ const TeacherStudentsView: React.FC = () => {
               </div>
             </Link>
           ))}
+        </div>
+        <div className='flex justify-center my-4'>
+          <Pagination
+            count={totalpages}
+            page={currentPage}
+            onChange={handlePageChange}
+            variant='outlined'
+            shape='rounded'
+          />
         </div>
       </div>
     </div>

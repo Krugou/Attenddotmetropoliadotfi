@@ -1,4 +1,4 @@
-import {QrScanner} from '@yudiel/react-qr-scanner';
+import {Scanner, IDetectedBarcode} from '@yudiel/react-qr-scanner';
 import React, {
   useCallback,
   useContext,
@@ -61,8 +61,13 @@ const StudentQrSelectScanner: React.FC = () => {
   };
   const decodedTextCheck = useRef('');
 
-  const onNewScanResult = useCallback((decodedText: string) => {
+  const onNewScanResult = useCallback((detectedCodes: IDetectedBarcode[]) => {
+    if (!detectedCodes.length || !detectedCodes[0].rawValue) {
+      return;
+    }
+    const decodedText = detectedCodes[0].rawValue;
     setLoading(true);
+
     if (decodedText === decodedTextCheck.current) {
       setLoading(false);
       return;
@@ -147,7 +152,7 @@ const StudentQrSelectScanner: React.FC = () => {
     };
   }, [socket]);
 
-  const handleError = (error: Error) => {
+  const handleError = (error: any) => {
     console.log('error', error);
     if (!successState) {
       toast.error('Error scanning QR code');
@@ -178,11 +183,10 @@ const StudentQrSelectScanner: React.FC = () => {
               </select>
             </div>
             {selectedDevice && (
-              <QrScanner
-                onDecode={onNewScanResult}
+              <Scanner
+                onScan={onNewScanResult}
                 onError={handleError}
                 scanDelay={200}
-                hideCount={false}
                 constraints={{deviceId: selectedDevice}}
               />
             )}
