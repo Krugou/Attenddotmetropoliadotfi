@@ -11,6 +11,7 @@ import AdminRoutes from './AdminRoutes';
 import CounselorRoutes from './CounselorRoutes';
 import StudentRoutes from './StudentRoutes';
 import TeacherRoutes from './TeacherRoutes';
+import QrSelectScannerTester from '../views/QrSelectScannerTester';
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -34,6 +35,7 @@ const AllRoutes = () => {
         <Route path='login' element={<Login />} />
         <Route path='gdpr' element={<Gdpr />} />
         <Route path='*' element={<StartView />} />
+        <Route path='qrscantest' element={<QrSelectScannerTester />} />
       </Routes>
     </BackgroundContainer>
   );

@@ -9,6 +9,10 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
+    server: {
+      https: env.USE_SSL === 'true',
+      host: true, // Expose to all network interfaces
+    },
     plugins: [
       ...(env.USE_SSL === 'true' ? [basicSsl()] : []),
       // Use the React plugin with SWC
