@@ -10,7 +10,7 @@ import {
   Event,
   Settings,
   Dashboard,
-  Support,
+
 } from '@mui/icons-material';
 
 /**
@@ -75,7 +75,7 @@ const AdminMainView: React.FC = () => {
           description='View server statistics and usage'
           icon={Dashboard}
         />
-        <FeedbackCard role='admin' icon={Support} />
+        <FeedbackCard role='admin'  />
       </div>
     </>
   );

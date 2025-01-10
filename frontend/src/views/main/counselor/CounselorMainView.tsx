@@ -2,6 +2,13 @@ import React from 'react';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
+import {
+  People,
+  Help,
+  Assessment,
+  PersonAdd,
+} from '@mui/icons-material';
+
 /**
  * CounselorMainView component.
  * This component is responsible for rendering the main view for counselors.
@@ -19,22 +26,26 @@ const CounselorMainView: React.FC = () => {
           path='/counselor/students'
           title='Students'
           description='Manage any student'
+          icon={People}
         />
 
         <Card
           path='/counselor/helpvideos'
           title='Instructions'
           description='See instructions for all available tasks'
+          icon={Help}
         />
         <Card
           path='/counselor/courses/stats'
           title='Attendance statistics'
           description='See attendance statistics for all courses'
+          icon={Assessment}
         />
         <Card
           path='/counselor/lateenrollment'
           title='Late Enrollment'
           description='Enroll students in courses'
+          icon={PersonAdd}
         />
         <FeedbackCard role='counselor' />
       </div>

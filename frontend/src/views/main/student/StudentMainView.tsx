@@ -2,6 +2,14 @@ import React from 'react';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
+import {
+  QrCode,
+  Person,
+  School,
+  Help,
+  PhotoCamera,
+} from '@mui/icons-material';
+
 /**
  * MainView component.
  *
@@ -26,26 +34,31 @@ const MainView: React.FC = () => {
           path='/student/qr'
           title='Attendance QR Scanner'
           description='Scan QR to mark attendance'
+          icon={QrCode}
         />
         <Card
           path='/student/profile'
           title='Your Profile'
           description='View your own profile'
+          icon={Person}
         />
         <Card
           path='/student/courses'
           title='Your Courses'
           description='View your own courses'
+          icon={School}
         />
         <Card
           path='/student/helpvideos'
           title='Instructions'
           description='See instructions for all available tasks'
+          icon={Help}
         />
         <Card
           path='/student/aqr'
           title='Attendance QR Scanner with Camera Selection'
           description='Scan QR to mark attendance with camera selection'
+          icon={PhotoCamera}
         />
 
         <FeedbackCard role='student' />

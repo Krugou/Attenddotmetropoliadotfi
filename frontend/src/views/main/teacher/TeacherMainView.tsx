@@ -7,6 +7,18 @@ import WelcomeModal from '../../../components/main/modals/WelcomeModal';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
 import {UserContext} from '../../../contexts/UserContext';
 import apihooks from '../../../hooks/ApiHooks';
+import {
+  Add,
+  Help,
+  People,
+  School,
+  Assessment,
+  QrCode,
+  Timeline,
+  PersonAdd,
+  Today,
+} from '@mui/icons-material';
+
 /**
  * MainView component.
  * This component is responsible for rendering the main view for a teacher.
@@ -69,6 +81,7 @@ const MainView: React.FC = () => {
               path='/teacher/courses/create'
               title='Create new Course'
               description='Create a new course for your students'
+              icon={Add}
             />
 
             {courses.length >= 0 && (
@@ -76,6 +89,7 @@ const MainView: React.FC = () => {
                 path='/teacher/helpvideos'
                 title='Instructions'
                 description='See instructions for all available tasks'
+                icon={Help}
               />
             )}
 
@@ -85,12 +99,14 @@ const MainView: React.FC = () => {
                   path='/teacher/students'
                   title='Manage Students'
                   description='Manage your students details'
+                  icon={People}
                 />
 
                 <Card
                   path='/teacher/courses/'
                   title='Your Courses'
                   description='View all of your courses'
+                  icon={School}
                 />
                 <CheckOpenLectures />
 
@@ -98,16 +114,19 @@ const MainView: React.FC = () => {
                   path='/teacher/attendance/createlecture'
                   title='Create new Lecture'
                   description='Open attendance gathering'
+                  icon={QrCode}
                 />
                 <Card
                   path='/teacher/courses/stats'
                   title='Show Attendance stats'
                   description='Open attendance stats page'
+                  icon={Assessment}
                 />
                 <Card
                   path='/teacher/lateenrollment'
                   title='Late Enrollment'
                   description='Enroll students in courses'
+                  icon={PersonAdd}
                 />
               </>
             )}
@@ -115,6 +134,7 @@ const MainView: React.FC = () => {
               path='/teacher/lectures'
               title='Your lectures stats'
               description='View stats of your lectures'
+              icon={Timeline}
             />
             <FeedbackCard role='teacher' />
           </div>
