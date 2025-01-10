@@ -35,6 +35,8 @@ interface Lecture {
   actualStudentCount: number;
 }
 
+const ITEMS_PER_PAGE = 50;
+
 const AdminAllLectures: React.FC = () => {
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +50,8 @@ const AdminAllLectures: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [extraStats, setExtraStats] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
   const getLectures = async () => {
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
@@ -105,6 +109,18 @@ const AdminAllLectures: React.FC = () => {
           value.toLowerCase().includes(searchTerm.toLowerCase()),
       ),
   );
+
+  const paginatedLectures = filteredLectures.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+  
+  const totalPages = Math.ceil(filteredLectures.length / ITEMS_PER_PAGE);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page on search
+  };
 
   const handleDialogOpen = (lectureid: string, action: 'close' | 'delete') => {
     setSelectedLecture(lectureid);
@@ -196,6 +212,35 @@ const AdminAllLectures: React.FC = () => {
     (lecture) => lecture.notattended === minNotAttended,
   );
 
+  const PaginationControls = () => (
+    <div className="flex items-center justify-between my-4">
+      <div className="text-sm text-gray-700">
+        Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredLectures.length)} of {filteredLectures.length} lectures
+      </div>
+      <div className="flex gap-2">
+        {currentPage > 1 && (
+        <button
+          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+          className="px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50"
+        >
+          Previous
+        </button>
+        )}  
+        <span className="px-4 py-1">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className='relative w-full p-5 bg-white rounded-lg'>
       <div className='mt-4 mb-4 space-x-2'>
@@ -278,11 +323,14 @@ const AdminAllLectures: React.FC = () => {
           type='text'
           name='search'
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchChange}
           placeholder='Search by any field..'
           label='Search'
         />
       </div>
+
+      {/* <PaginationControls /> */}
+      
       {filterOpen && filteredLectures.length > 0 && (
         <h2 className='mb-2 text-lg'>{`Open lectures: ${filteredLectures.length}`}</h2>
       )}
@@ -311,8 +359,8 @@ const AdminAllLectures: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredLectures.length > 0 ? (
-              filteredLectures.map((lecture) => (
+            {paginatedLectures.length > 0 ? (
+              paginatedLectures.map((lecture) => (
                 <TableRow
                   key={lecture.lectureid}
                   className={`hover:bg-gray-200 ${
@@ -431,6 +479,9 @@ const AdminAllLectures: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <PaginationControls />
+      
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>{`Are you sure you want to ${action} the lecture?`}</DialogTitle>
         <DialogContent>

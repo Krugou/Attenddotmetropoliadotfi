@@ -57,7 +57,7 @@ const TeacherStudentsView: React.FC = () => {
     null,
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const studentsPerPage = 6;
+  const studentsPerPage = 100;
 
   // Fetch all students on mount
   useEffect(() => {
