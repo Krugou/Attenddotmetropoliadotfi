@@ -13,7 +13,8 @@
     "test:safari": "cd browsertesting && npm run test:safari",
     "backendDev": "cd backend && npm run dev",
     "frontendDev": "cd frontend && npm run dev",
-    "docs": "concurrently \"cd backend && npm run docs \" \"cd frontend && npm run docs\""
+    "docs": "concurrently \"cd backend && npm run docs \" \"cd frontend && npm run docs\"",
+    "sqlBackup": "cd backend && npm run sqlBackup"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

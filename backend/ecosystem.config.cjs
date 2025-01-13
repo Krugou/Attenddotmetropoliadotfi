@@ -18,14 +18,14 @@ module.exports = {
       watch_delay: 3000, // Delay between restart
       cron_restart: '0 0 * * *', // Reboot at midnight
     },
-    {
-      name: 'DatabaseBackup', // Application name
-      script: './nodejs/jaksecbackupsql.js', // Script to be run
-      watch: false,
-      autorestart: false, // Don't auto-restart
-      cron_restart: '0 0 * * 0', // Run at midnight (00:00) every Sunday
-      instances: 1,
-      exec_mode: 'fork',
-    },
+    // {
+    //   name: 'DatabaseBackup', // Application name
+    //   script: './nodejs/jaksecbackupsql.js', // Script to be run
+    //   watch: false,
+    //   autorestart: false, // Don't auto-restart
+    //   cron_restart: '0 0 * * 0', // Run at midnight (00:00) every Sunday
+    //   instances: 1,
+    //   exec_mode: 'fork',
+    // },
   ],
 };
