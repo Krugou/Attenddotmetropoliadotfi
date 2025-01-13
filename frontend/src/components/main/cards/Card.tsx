@@ -34,10 +34,12 @@ const Card: React.FC<CardProps> = ({
     <div
       onClick={handleCardClick}
       className={`card-link m-3 cursor-pointer ${className?.toString()}`}>
-      <div className='relative bg-white p-4 rounded-md  transition-transform transform hover:scale-105 group w-[15rem] h-[8rem] shadow-[4px_5px_0px_0px_rgba(0,0,0,1)] shadow-metropoliaMainOrange'>
+      <div className='relative bg-white p-4 rounded-md  transition-transform transform hover:scale-105 group w-[15rem] h-[8rem] hover:shadow-none shadow-[4px_5px_0px_0px_rgba(0,0,0,1)] shadow-metropoliaMainOrange'>
         <div className='flex items-center gap-2 mb-2'>
           {Icon && <Icon className='text-metropoliaMainOrange' />}
-          <h2 className='text-lg font-semibold'>{title}</h2>
+          <h2 className='text-lg font-semibold text-metropoliaSupportBlack'>
+            {title}
+          </h2>
         </div>
         <div className='absolute bottom-0 left-0 flex items-center justify-between w-full p-2 transition-opacity duration-300 ease-in-out opacity-0 h-1/2 bg-metropoliaMainOrange rounded-b-md sm:group-hover:opacity-100'>
           <p className='inline-block text-white'>{description}</p>
