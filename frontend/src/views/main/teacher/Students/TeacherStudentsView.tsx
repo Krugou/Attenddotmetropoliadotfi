@@ -49,15 +49,15 @@ const TeacherStudentsView: React.FC = () => {
   const {user} = useContext(UserContext);
   const [allStudents, setAllStudents] = useState<Student[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const {courses} = useCourses();
   const [selectedCourse, setSelectedCourse] = useState<SelectedCourse | null>(
     null,
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const studentsPerPage = 100;
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [studentsPerPage] = useState(100);
 
   // Fetch all students on mount
   useEffect(() => {
@@ -69,29 +69,34 @@ const TeacherStudentsView: React.FC = () => {
     }
 
     const fetchStudents = async () => {
-      if (user?.role === 'teacher') {
-        const students = await apiHooks.getStudentsByInstructorId(
-          user?.userid,
-          token,
-        );
-        setAllStudents(students);
-        setLoading(false);
-      }
+      try {
+        if (user?.role === 'teacher') {
+          const students = await apiHooks.getStudentsByInstructorId(
+            user?.userid,
+            token,
+          );
+          setAllStudents(students);
+          setLoading(false);
+        }
 
-      if (user?.role === 'counselor') {
-        const students = await apiHooks.fetchAllStudents(token);
-        setAllStudents(students);
-        setLoading(false);
-      }
-      if (user?.role === 'admin') {
-        const students = await apiHooks.fetchAllStudents(token);
-        setAllStudents(students);
+        if (user?.role === 'counselor' || user?.role === 'admin') {
+          console.log('fetching paginated students');
+          console.log('page:', page);
+          console.log('studentsPerPage:', studentsPerPage);
+          const result = await apiHooks.fetchPaginatedStudents(token, studentsPerPage, page);
+          setAllStudents(result.students);
+          setTotalPages(result.totalPages);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error fetching students:', error);
+        toast.error('Failed to fetch students');
         setLoading(false);
       }
     };
 
     fetchStudents();
-  }, [user]);
+  }, [user, page, studentsPerPage]); // Add page and studentsPerPage to dependencies
 
   // If loading, show loading spinner
   if (loading) {
@@ -107,16 +112,6 @@ const TeacherStudentsView: React.FC = () => {
           value.toLowerCase().includes(searchTerm.toLowerCase()),
       ),
   );
-  const totalpages = Math.ceil(filteredStudents.length / studentsPerPage);
-  const paginatedStudents = filteredStudents.slice(
-    (currentPage - 1) * studentsPerPage,
-    currentPage * studentsPerPage,
-  );  
-
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
 
   // This function is called when a course is selected
   const handleCourseSelect = async (value: string) => {
@@ -150,6 +145,11 @@ const TeacherStudentsView: React.FC = () => {
       }
     }
   };
+
+  const handlePageChange = (_event: null, value: number) => {
+    setPage(value);
+};
+
 
   return (
     <div className='w-full mx-auto 2xl:w-9/12'>
@@ -211,7 +211,7 @@ const TeacherStudentsView: React.FC = () => {
           </span>
         </p>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-          {paginatedStudents.map((student) => (
+          {filteredStudents.map((student) => (
             <Link
               key={student.userid}
               to={
@@ -248,10 +248,10 @@ const TeacherStudentsView: React.FC = () => {
             </Link>
           ))}
         </div>
-        <div className='flex justify-center my-4'>
-          <Pagination
-            count={totalpages}
-            page={currentPage}
+        <div className="flex justify-center p-4">
+          <Pagination 
+            count={totalPages}
+            page={page}
             onChange={handlePageChange}
             variant='outlined'
             shape='rounded'

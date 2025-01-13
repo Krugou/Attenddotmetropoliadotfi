@@ -22,6 +22,8 @@ interface UserInfo {
   role?: string;
   gdpr?: number;
 }
+
+
 /**
  * @interface User
  * @description Defines the structure of the User object.
@@ -367,6 +369,28 @@ const UserModel = {
       throw new Error('Database error');
     }
   },
+  getStudentsPaginationByInstructorId: async (userid: number, limit:number, offset:number): Promise<UserInfo[]> => {
+    try {
+      const [rows] = await UserModel.pool.promise().query<RowDataPacket[]>(
+        `SELECT DISTINCT u.*, studentgroups.group_name
+          FROM users u
+					JOIN studentgroups ON u.studentgroupid = studentgroups.studentgroupid
+          JOIN usercourses uc ON u.userid = uc.userid
+          JOIN courses c ON uc.courseid = c.courseid
+          JOIN courseinstructors ci ON c.courseid = ci.courseid
+          WHERE ci.userid = ? AND u.roleid = 1
+          ORDER BY u.userid
+          LIMIT ? OFFSET ?;`,
+        [userid, limit, offset],
+      );
+
+      return rows as UserInfo[];
+    } catch (error) {
+      console.error(error);
+      throw new Error('Database error');
+    }
+  },
+
   /**
    * Changes the role ID of a user.
    * @param email - The email of the user.
@@ -520,6 +544,52 @@ const UserModel = {
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
+    }
+  },
+
+  /**
+   * Fetches a paginated list of students.
+   * @param limit - The number of students to fetch.
+   * @param offset - The offset to start fetching students.
+   * @returns A promise that resolves to an object containing the students and the total count of students.
+    */
+  fetchNumberOfStudents: async (
+    limit: number,
+    offset: number
+  ) => {
+    try {
+      // Get paginated students
+      const [students] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT 
+          u.userid, 
+          u.username, 
+          u.email, 
+          u.first_name, 
+          u.last_name, 
+          u.studentnumber, 
+          u.staff, 
+          u.roleid, 
+          r.name AS role
+        FROM users u 
+        JOIN roles r ON u.roleid = r.roleid
+        WHERE u.roleid = 1
+        ORDER BY u.userid
+        LIMIT ? OFFSET ?`,
+        [limit, offset]
+      );
+
+      // Get total count of students
+      const [countResult] = await pool.promise().query<RowDataPacket[]>(
+        'SELECT COUNT(*) as total FROM users WHERE roleid = 1'
+      );
+
+      return {
+        students: students as UserInfo[],
+        total: countResult[0].total
+      };
+    } catch (error) {
+      console.error('Error fetching paginated students:', error);
+      throw new Error('Database error while fetching students');
     }
   },
   /**

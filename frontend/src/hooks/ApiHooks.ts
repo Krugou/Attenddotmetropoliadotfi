@@ -993,6 +993,25 @@ const fetchErrorLogs = async (token: string, lineLimit: number) => {
   return await doFetch(`${baseUrl}admin/errorlogs/${lineLimit}`, options);
 };
 
+
+const fetchPaginatedStudents = async (
+  token: string,
+  limit: number = 10,
+  page: number = 1
+) =>{
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+
+  return await doFetch(
+    `${baseUrl}secure/students/paginated?limit=${limit}&page=${page}`,
+    options
+  );
+};
+
 const apiHooks = {
   fetchErrorLogs,
   fetchLogs,
@@ -1061,5 +1080,6 @@ const apiHooks = {
   updateUserEdit,
   checkStudentEmailExists,
   addNewStaffUser,
+  fetchPaginatedStudents,
 };
 export default apiHooks;
