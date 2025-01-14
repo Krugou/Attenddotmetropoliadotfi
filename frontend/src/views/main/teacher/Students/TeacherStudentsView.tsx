@@ -57,7 +57,7 @@ const TeacherStudentsView: React.FC = () => {
   );
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [studentsPerPage] = useState(10);
+  const [studentsPerPage] = useState(100);
 
   // Fetch all students on mount
   useEffect(() => {
@@ -71,11 +71,9 @@ const TeacherStudentsView: React.FC = () => {
     const fetchStudents = async () => {
       try {
         if (user?.role === 'teacher') {
-          const students = await apiHooks.getStudentsByInstructorId(
-            user?.userid,
-            token,
-          );
-          setAllStudents(students);
+          const result = await apiHooks.fetchStudentsPaginationByInstructorId(user?.userid,token, studentsPerPage, page);
+          setAllStudents(result.students);
+          setTotalPages(result.totalPages);
           setLoading(false);
         }
 
@@ -143,7 +141,7 @@ const TeacherStudentsView: React.FC = () => {
     }
   };
 
-  const handlePageChange = (_event: null, value: number) => {
+  const handlePageChange = async (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
 };
 

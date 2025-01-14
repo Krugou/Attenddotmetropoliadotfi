@@ -54,6 +54,12 @@ interface UpdateUser {
     studentnumber: string;
   };
 }
+
+interface PaginatedStudentsResult {
+  students: UserInfo[];
+  total: number;
+}
+
 /**
  * @description Creates a User Model object literal.
  */
@@ -369,7 +375,16 @@ const UserModel = {
       throw new Error('Database error');
     }
   },
-  getStudentsPaginationByInstructorId: async (userid: number, limit:number, offset:number): Promise<UserInfo[]> => {
+/**
+ * 
+get students by instructor id with pagination
+@param userid - The ID of the instructor.
+@param limit - The number of students to fetch.
+@param offset - The offset to start fetching students.
+@returns A promise that resolves to an array of students.
+ */
+
+  fetchStudentsPaginationByInstructorId: async (userid: number, limit:number, offset:number): Promise<PaginatedStudentsResult> => {
     try {
       const [rows] = await UserModel.pool.promise().query<RowDataPacket[]>(
         `SELECT DISTINCT u.*, studentgroups.group_name
@@ -384,7 +399,22 @@ const UserModel = {
         [userid, limit, offset],
       );
 
-      return rows as UserInfo[];
+      const [countResult] = await UserModel.pool.promise().query<RowDataPacket[]>(
+        `SELECT COUNT(DISTINCT u.userid) as total
+          FROM users u
+          JOIN usercourses uc ON u.userid = uc.userid
+          JOIN courses c ON uc.courseid = c.courseid
+          JOIN courseinstructors ci ON c.courseid = ci.courseid
+          WHERE ci.userid = ? AND u.roleid = 1;`,
+        [userid],
+      );
+      
+
+      return {
+        students: rows as UserInfo[],
+        total: countResult[0].total
+      };
+
     } catch (error) {
       console.error(error);
       throw new Error('Database error');

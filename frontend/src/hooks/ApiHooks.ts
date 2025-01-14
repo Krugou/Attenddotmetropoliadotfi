@@ -1012,6 +1012,25 @@ const fetchPaginatedStudents = async (
   );
 };
 
+const fetchStudentsPaginationByInstructorId = async (
+  userId: number,
+  token: string,
+  limit: number = 10,
+  page: number = 1
+) =>{
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+
+  return await doFetch(
+    `${baseUrl}courses/students/pagination/${userId}?limit=${limit}&page=${page}`,
+    options
+  );
+}
+
 const apiHooks = {
   fetchErrorLogs,
   fetchLogs,
@@ -1081,5 +1100,6 @@ const apiHooks = {
   checkStudentEmailExists,
   addNewStaffUser,
   fetchPaginatedStudents,
+  fetchStudentsPaginationByInstructorId,
 };
 export default apiHooks;

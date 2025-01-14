@@ -466,6 +466,7 @@ router.get(
     }
   },
 );
+
 /**
  * Route that updates a course by its ID.
  *
@@ -764,6 +765,52 @@ router.get(
       logger.error(error);
       console.error(error);
       res.status(500).json({message: 'Internal server error'});
+    }
+  },
+);
+
+router.get(
+  '/students/pagination/:userid',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req: Request, res: Response) => {
+    // Get the instructor ID from the request
+    try {
+    const userid = Number(req.params.userid);
+    const limit = Number(req.query.limit) || 10;
+    const page = Number(req.query.page) || 1;
+    const offset = (page - 1) * limit;
+
+    if (isNaN(userid)) {
+      res.status(400).send('Invalid user ID');
+      return;
+    }
+       // Input validation
+       if (limit < 1 || limit > 100) {
+        return res.status(400).json({ 
+          message: 'Limit must be between 1 and 100' 
+        });
+      }
+
+      if (page < 1) {
+        return res.status(400).json({ 
+          message: 'Page must be greater than 0' 
+        });
+      }
+
+
+
+      // Get the students for the instructor
+      const students = await usermodel.fetchStudentsPaginationByInstructorId(userid, limit, offset);
+      res.json({
+        students: students.students,
+        total: students.total,
+        currentPage: page,
+        totalPages: Math.ceil(students.total / limit),
+        limit
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
     }
   },
 );
