@@ -57,7 +57,7 @@ const TeacherStudentsView: React.FC = () => {
   );
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [studentsPerPage] = useState(100);
+  const [studentsPerPage] = useState(10);
 
   // Fetch all students on mount
   useEffect(() => {
@@ -80,9 +80,6 @@ const TeacherStudentsView: React.FC = () => {
         }
 
         if (user?.role === 'counselor' || user?.role === 'admin') {
-          console.log('fetching paginated students');
-          console.log('page:', page);
-          console.log('studentsPerPage:', studentsPerPage);
           const result = await apiHooks.fetchPaginatedStudents(token, studentsPerPage, page);
           setAllStudents(result.students);
           setTotalPages(result.totalPages);
