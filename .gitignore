@@ -121,3 +121,4 @@ extra/frontend/
 backend/src/database/cleardatabase.ts
 backend/logs/
 extra/asddd.sql
+translationCheckResult/*

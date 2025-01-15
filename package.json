@@ -14,7 +14,8 @@
     "backendDev": "cd backend && npm run dev",
     "frontendDev": "cd frontend && npm run dev",
     "docs": "concurrently \"cd backend && npm run docs \" \"cd frontend && npm run docs\"",
-    "sqlBackup": "cd backend && npm run sqlBackup"
+    "sqlBackup": "cd backend && npm run sqlBackup",
+    "translationCheck": "node runTranslationChecks.js"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
