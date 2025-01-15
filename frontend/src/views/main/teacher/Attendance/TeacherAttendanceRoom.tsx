@@ -42,7 +42,7 @@ const AttendanceRoom: React.FC = () => {
   const [hashDataReceived, setHashDataReceived] = useState(false);
   const toastDisplayed = useRef(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [isAnimationStopped, setIsAnimationStopped] = useState(false);
+  const [isAnimationStopped, setIsAnimationStopped] = useState(true);
   const [latency, setLatency] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lectureSuccess, setLectureSuccess] = useState(false);
@@ -358,7 +358,7 @@ const AttendanceRoom: React.FC = () => {
                 </div>
               )}
               <button
-                className='bg-metropoliaSupportRed sm:w-fit h-[4em] transition h-fit p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded'
+                className='bg-metropoliaSupportRed sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded'
                 onClick={() => {
                   navigate(`/teacher/attendance/reload/${lectureid}`);
                 }}
