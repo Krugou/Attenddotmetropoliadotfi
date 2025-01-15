@@ -5,6 +5,8 @@ import ErrorAlert from '../../components/main/ErrorAlert.tsx';
 import ServerStatus from '../../components/main/ServerStatus.tsx';
 import {UserContext} from '../../contexts/UserContext.tsx';
 import apiHooks from '../../hooks/ApiHooks.ts';
+import {IconButton} from '@mui/material';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 /**
  * Login component.
@@ -20,6 +22,9 @@ const Login: React.FC = () => {
   const [alert, setAlert] = useState<string | null>('');
   const {setUser} = useContext(UserContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   /**
    * Handles the form submission.
@@ -99,14 +104,25 @@ const Login: React.FC = () => {
             htmlFor='password'>
             Password
           </label>
-          <input
-            className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
-            id='password'
-            type='password'
-            ref={passwordRef}
-            aria-label='Metropolia password'
-            placeholder='Metropolia password'
-          />
+          <div className='flex items-center justify-between gap-1'>
+            <input
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+              id='password'
+              type={showPassword ? 'text' : 'password'}
+              ref={passwordRef}
+              aria-label='Metropolia password'
+              placeholder='Metropolia password'
+            />
+            <IconButton
+              aria-label='toggle password visibility'
+              title='Toggle password visibility'
+              onClick={handleClickShowPassword}
+              edge='end'
+              className='flex items-center justify-center p-2 m-2'
+              size='medium'>
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </div>
         </div>
         <div className='flex justify-center w-full'>
           <button
