@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: 'class', // Enable dark mode
   theme: {
     fontFamily: {
       sans: ['Open Sans', 'sans-serif'],
@@ -11,18 +12,54 @@ export default {
         135: '135deg',
       },
       colors: {
-        metropoliaMainOrange: '#ff5000',
-        metropoliaSecondaryOrange: '#e54b00',
-        metropoliaMainGrey: '#53565a',
-        metropoliaSupportWhite: '#ffffff',
-        metropoliaSupportBlack: '#000000',
-        metropoliaSupportRed: '#cb2228',
-        metropoliaSupportSecondaryRed: '#e60000',
-        metropoliaSupportBlue: '#4046a8',
-        metropoliaSupportYellow: '#fff000',
-        metropoliaTrendPink: '#e384c4',
-        metropoliaTrendLightBlue: '#5db1e4',
-        metropoliaTrendGreen: '#3ba88f',
+        metropoliaMainOrange: {
+          DEFAULT: '#ff5000',
+          dark: '#cc4000',
+        },
+        metropoliaSecondaryOrange: {
+          DEFAULT: '#e54b00',
+          dark: '#b63b00',
+        },
+        metropoliaMainGrey: {
+          DEFAULT: '#53565a',
+          dark: '#2d2e30',
+        },
+        metropoliaSupportWhite: {
+          DEFAULT: '#ffffff',
+          dark: '#1a1a1a',
+        },
+        metropoliaSupportBlack: {
+          DEFAULT: '#000000',
+          dark: '#111111',
+        },
+        metropoliaSupportRed: {
+          DEFAULT: '#cb2228',
+          dark: '#a31b20',
+        },
+        metropoliaSupportSecondaryRed: {
+          DEFAULT: '#e60000',
+          dark: '#b30000',
+        },
+        metropoliaSupportBlue: {
+          DEFAULT: '#4046a8',
+          dark: '#333886',
+        },
+        metropoliaSupportYellow: {
+          DEFAULT: '#fff000',
+          dark: '#ccc000',
+        },
+        metropoliaTrendPink: {
+          DEFAULT: '#e384c4',
+          dark: '#b6699d',
+        },
+        metropoliaTrendLightBlue: {
+          DEFAULT: '#5db1e4',
+          dark: '#4a8eb6',
+        },
+        metropoliaTrendGreen: {
+          DEFAULT: '#3ba88f',
+          dark: '#2f8672',
+        },
       },
       animation: {
         spin: 'spin 2s linear infinite',
