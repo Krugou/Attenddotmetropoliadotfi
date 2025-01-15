@@ -118,10 +118,17 @@ const AttendanceRoom: React.FC = () => {
         import.meta.env.MODE === 'development' ? 'http://localhost:3002' : '/';
       const socketPath =
         import.meta.env.MODE === 'development' ? '' : '/api/socket.io';
-
+      const token: string | null = localStorage.getItem('userToken');
+      if (!token) {
+        throw new Error('No token available');
+      }
       const newSocket = io(socketURL, {
         path: socketPath,
         transports: ['websocket'],
+        auth: {
+          token: `${token}`,
+          userId: `${user.userid}`,
+        },
       });
       // Set the socket state
       setSocket(newSocket);

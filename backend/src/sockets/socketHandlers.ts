@@ -1,9 +1,58 @@
 import crypto from 'crypto';
 import {config} from 'dotenv';
 import {Server, Socket} from 'socket.io';
+import passport from 'passport';
+import {Request, Response} from 'express';
 import doFetch from '../utils/doFetch.js';
 import getToken from '../utils/getToken.js';
 import logger from '../utils/logger.js';
+
+// Custom error class for socket errors
+class SocketError extends Error {
+  constructor(message: string, public code: string) {
+    super(message);
+    this.name = 'SocketError';
+  }
+}
+
+// Extended Socket interface with auth user
+interface AuthenticatedSocket extends Socket {
+  user?: any;
+  data: {
+    userId?: string;
+    lectureid?: string;
+    unsubscribeLecture?: () => void;
+  };
+}
+
+// Authentication middleware for sockets
+const authenticateSocket = (
+  socket: AuthenticatedSocket,
+  next: (err?: Error) => void,
+) => {
+  const token = socket.handshake.auth.token;
+  if (!token) {
+    return next(
+      new SocketError('Authentication token is missing', 'AUTH_ERROR'),
+    );
+  }
+
+  const req = {headers: {authorization: `Bearer ${token}`}} as Request;
+  const res = {} as Response;
+  passport.authenticate('jwt', {session: false}, (err, user, info) => {
+    if (err) {
+      logger.error('Socket token verification failed:', err.message);
+      return next(new SocketError('Invalid token', 'AUTH_ERROR'));
+    }
+    if (!user) {
+      logger.error('No user found:', info?.message || 'No auth token');
+      return next(new SocketError('Invalid token', 'AUTH_ERROR'));
+    }
+    socket.user = user;
+    next();
+  })(req, res, next);
+};
+
 /**
  * Socket event handlers for managing attendance in lectures.
  * This module sets up Socket.IO server event handlers for various actions related to lecture attendance,
@@ -181,7 +230,12 @@ const lectureTimeoutIds = new Map();
  * - 'manualStudentRemove': Handles the event when the teacher manually removes a student.
  */
 const setupSocketHandlers = (io: Server) => {
-  io.on('connection', (socket: Socket) => {
+
+  io.use(authenticateSocket);
+
+  io.on('connection', (socket: AuthenticatedSocket) => {
+    logger.info(`Authenticated user ${socket.user?.id} connected`);
+
     // console.log(
     // 	`User with socket ID: ${
     // 		socket.id
@@ -197,6 +251,21 @@ const setupSocketHandlers = (io: Server) => {
       // );
     });
     socket.on('createAttendanceCollection', async (lectureid) => {
+      // Add user role check
+      console.log(socket.user);
+      if (
+        !['teacher', 'admin', 'counselor'].some((role) =>
+          socket.user?.role.includes(role),
+        )
+      ) {
+        socket.emit('error', {
+          code: 'UNAUTHORIZED',
+          message:
+            'Only teachers, admins, or counselors can create attendance collections',
+        });
+        return;
+      }
+
       console.log(
         `Attendance collection created for Lecture ID: ${lectureid} at ${new Date().toISOString()}`,
       );
@@ -335,6 +404,18 @@ const setupSocketHandlers = (io: Server) => {
           lectureTimeoutIds.set(lectureid, timeoutId);
           // Handle the 'lecturefinishedwithbutton' event
           socket.on('lectureFinishedWithButton', async (lectureid: string) => {
+            if (
+              !['teacher', 'admin', 'counselor'].some((role) =>
+                socket.user?.role.includes(role),
+              )
+            ) {
+              socket.emit('error', {
+                code: 'UNAUTHORIZED',
+                message:
+                  'Only teachers, admins, or counselors can finish lectures',
+              });
+              return;
+            }
             console.log(
               `Lecture with ID: ${lectureid} finished at ${new Date().toISOString()}`,
             );
@@ -495,6 +576,19 @@ const setupSocketHandlers = (io: Server) => {
     socket.on(
       'manualStudentInsert',
       async (studentId: string, lectureid: number) => {
+        if (
+          !['teacher', 'admin', 'counselor'].some((role) =>
+            socket.user?.role.includes(role),
+          )
+        ) {
+          socket.emit('error', {
+            code: 'UNAUTHORIZED',
+            message:
+              'Only teachers, admins, or counselors can manually insert students',
+          });
+          return;
+        }
+
         console.log(
           `Manual insertion initiated for student with ID: ${studentId} into lecture with ID: ${lectureid} at ${new Date().toISOString()}`,
         );
@@ -563,6 +657,19 @@ const setupSocketHandlers = (io: Server) => {
     socket.on(
       'manualStudentRemove',
       async (studentId: string, lectureid: number) => {
+        if (
+          !['teacher', 'admin', 'counselor'].some((role) =>
+            socket.user?.role.includes(role),
+          )
+        ) {
+          socket.emit('error', {
+            code: 'UNAUTHORIZED',
+            message:
+              'Only teachers, admins, or counselors can manually remove students',
+          });
+          return;
+        }
+
         console.log(
           `Manual removal initiated for student with ID: ${studentId} from lecture with ID: ${lectureid} at ${new Date().toISOString()}`,
         );
@@ -630,6 +737,17 @@ const setupSocketHandlers = (io: Server) => {
 
     // Handle the 'lecturecanceled' event
     socket.on('lectureCanceled', async (lectureid) => {
+      if (
+        !['teacher', 'admin', 'counselor'].some((role) =>
+          socket.user?.role.includes(role),
+        )
+      ) {
+        socket.emit('error', {
+          code: 'UNAUTHORIZED',
+          message: 'Only teachers, admins, or counselors can cancel lectures',
+        });
+        return;
+      }
       const token = await getToken();
       try {
         await doFetch(
