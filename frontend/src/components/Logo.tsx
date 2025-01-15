@@ -13,7 +13,7 @@ const Logo = () => {
   return (
     <>
       <div className='p-2 m-4 logo'>
-        <div className='oval-shape'>
+        <div className='oval-shape bg-metropoliaMainOrange dark:bg-metropoliaMainOrange-dark'>
           <div className='big-brother-eye'>
             <div className='eye'></div>
           </div>
