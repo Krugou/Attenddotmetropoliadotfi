@@ -4,6 +4,7 @@ import CounselorStudentAttendance from '../../../assets/videos/CounselorStudentA
 import CounselorStudentDetails from '../../../assets/videos/CounselorStudentDetails.mp4';
 import RoleChange from '../../../assets/videos/RoleChange.mp4';
 import VideoDropdown from '../../../components/main/dropdown/VideoDropdown';
+import {useTranslation} from 'react-i18next';
 
 /**
  * CounselorHelpVideos component.
@@ -13,10 +14,11 @@ import VideoDropdown from '../../../components/main/dropdown/VideoDropdown';
  * @returns {JSX.Element} The rendered CounselorHelpVideos component.
  */
 const CounselorHelpVideos: React.FC = () => {
+  const {t} = useTranslation();
   return (
     <div className='w-full p-5'>
       <h1 className='p-3 mb-10 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
-        Counselor Help Videos
+        {t('counselor.helpVideos.counselorHelpVideos')}
       </h1>
       <div className='flex flex-col space-y-6'>
         <VideoDropdown

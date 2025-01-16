@@ -6,6 +6,7 @@ import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButto
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * AdminUsers component.
  * This component is responsible for rendering a list of users for an admin.
@@ -16,6 +17,7 @@ import apiHooks from '../../../hooks/ApiHooks';
  * @returns {JSX.Element} The rendered AdminUsers component.
  */
 const AdminUsers: React.FC = () => {
+  const {t} = useTranslation();
   const {user} = useContext(UserContext);
   const [users, setUsers] = useState<any[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -72,7 +74,7 @@ const AdminUsers: React.FC = () => {
         </div>
       ) : users.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>No users available</p>
+          <p>{t('admin.common.noUsersAvailable')}</p>
         </div>
       ) : (
         <>

@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
 import ProfileInfo from '../../../components/profiles/ProfileInfo';
 import {UserContext} from '../../../contexts/UserContext';
+import {useTranslation} from 'react-i18next';
+
 /**
  * AdminProfile component.
  * This component is responsible for rendering the profile information of an admin.
@@ -10,6 +12,7 @@ import {UserContext} from '../../../contexts/UserContext';
  * @returns {JSX.Element} The rendered AdminProfile component.
  */
 const AdminProfile: React.FC = () => {
+  const {t} = useTranslation();
   /**
    * User context.
    *
@@ -19,7 +22,7 @@ const AdminProfile: React.FC = () => {
 
   // Error handling
   if (!user) {
-    return <div>No user data available.</div>;
+    return <div>{t('admin.adminProfile.noData')}</div>;
   }
   /**
    * Render the component.
@@ -28,7 +31,7 @@ const AdminProfile: React.FC = () => {
    */
   return (
     <div className='flex flex-col items-center justify-center p-5 font-sans bg-white rounded-lg h-fit sm:p-10'>
-      <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>Admin Profile</h1>
+      <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>{t('admin.adminProfile.profile')}</h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
       </div>

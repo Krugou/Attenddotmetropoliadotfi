@@ -12,6 +12,8 @@ import {
   Dashboard,
 
 } from '@mui/icons-material';
+import {useTranslation} from 'react-i18next';
+
 
 /**
  * AdminMainView component.
@@ -22,6 +24,7 @@ import {
  * @returns {JSX.Element} The rendered AdminMainView component.
  */
 const AdminMainView: React.FC = () => {
+    const {t} = useTranslation();
   return (
     <>
       <MainViewTitle role={'Admin'} />
@@ -29,50 +32,50 @@ const AdminMainView: React.FC = () => {
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/teacher/mainview'
-          title='Teacher Dashboard'
-          description='Access and manage your teaching modules'
+          title={t('admin.mainView.teacherDashboard')}
+          description={t('admin.mainView.teacherDashboardDesc')}
           icon={School}
         />
         <Card
           path='/counselor/mainview'
-          title='Counselor Dashboard'
-          description='Access and manage student counseling services'
+          title={t('admin.mainView.counselorDashboard')}
+          description={t('admin.mainView.counselorDashboardDesc')}
           icon={SupervisorAccount}
         />
         <Card
           path='/admin/courses/'
-          title='Course Management'
-          description='Create, update, and delete courses'
+          title={t('admin.mainView.courseManagement')}
+          description={t('admin.mainView.courseManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/users/'
-          title='User Management'
-          description='Manage user accounts and permissions'
+          title={t('admin.mainView.userManagement')}
+          description={t('admin.mainView.userManagementDesc')}
           icon={People}
         />
         <Card
           path='/admin/newuser/'
-          title='User Registration'
-          description='Register a new user'
+          title={t('admin.mainView.userRegistration')}
+          description={t('admin.mainView.userRegistrationDesc')}
           icon={PersonAdd}
         />
         <Card
           path='/admin/lectures/'
-          title='Lecture Management'
-          description='View and manage all lectures'
+          title={t('admin.mainView.lectureManagement')}
+          description={t('admin.mainView.lectureManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/settings/'
-          title='Server Configuration'
-          description='Manage server settings and configurations'
+          title={t('admin.mainView.serverConfiguration')}
+          description={t('admin.mainView.serverConfigurationDesc')}
           icon={Settings}
         />
         <Card
           path='/admin/dashboard/'
-          title='Server Dashboard'
-          description='View server statistics and usage'
+          title={t('admin.mainView.serverDashboard')}
+          description={t('admin.mainView.serverDashboardDesc')}
           icon={Dashboard}
         />
         <FeedbackCard role='admin'  />

@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx'; // Main application component
 import './css/index.css'; // Global styles
+import './utils/i18n'; 
 
 // Rendering the main application component into the root element of the HTML document
 ReactDOM.createRoot(document.getElementById('root')!).render(

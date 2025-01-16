@@ -10,6 +10,7 @@ import {toast} from 'react-toastify';
 
 import React, {useEffect, useState} from 'react';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * AdminSettings component.
  * This component is responsible for rendering and managing server settings for an admin.
@@ -19,6 +20,7 @@ import apiHooks from '../../../hooks/ApiHooks';
  * @returns {JSX.Element} The rendered AdminSettings component.
  */
 const AdminSettings = () => {
+  const {t} = useTranslation();
   const [settings, setSettings] = useState(null);
   const [speedofhash, setSpeedofhash] = useState(0);
   const [leewayspeed, setLeewayspeed] = useState(0);
@@ -74,28 +76,25 @@ const AdminSettings = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant='h4' className='mb-4'>
-            Server Settings
+            {t('admin.settings.serverSettings')}
           </Typography>
           <Typography variant='body1' className='mb-4'>
-            Welcome to the settings section. Here, you can configure the
-            parameters that govern the attendance gathering page settings and
-            set the attendance requirement threshold. Adjust these settings to
-            best suit your needs.
+          {t('admin.settings.serverSettingsDesc')}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant='h6' className='mb-4'>
-            Current Settings:
+          {t('admin.settings.currentSettings')}:
           </Typography>
           <Typography variant='body1' className='mb-4'>
-            Speed of Hash: {(speedofhash / 1000).toFixed(2)} seconds
+          {t('admin.settings.speedOfHash')}: {(speedofhash / 1000).toFixed(2)} seconds
           </Typography>
 
           <Typography variant='body1' className='mb-4'>
-            Hash Speed Multiplier for Network Catch-up: {leewayspeed}
+          {t('admin.settings.hashSpeedMultiplier')}: {leewayspeed}
           </Typography>
           <Typography variant='body1' className='mb-4'>
-            Leeway time:
+          {t('admin.settings.leeway')}:
             {Math.floor((speedofhash * leewayspeed) / 3600000) > 0 &&
               `${Math.floor((speedofhash * leewayspeed) / 3600000)} hours `}
             {Math.floor(((speedofhash * leewayspeed) % 3600000) / 60000) > 0 &&
@@ -109,7 +108,7 @@ const AdminSettings = () => {
               )} seconds`}
           </Typography>
           <Typography variant='body1' className='mb-4'>
-            Timeout Time:
+          {t('admin.settings.timeOut')}:
             {Math.floor(timeouttime / 3600000) > 0 &&
               `${Math.floor(timeouttime / 3600000)} hours `}
             {Math.floor((timeouttime % 3600000) / 60000) > 0 &&
@@ -118,7 +117,7 @@ const AdminSettings = () => {
               `${((timeouttime % 60000) / 1000).toFixed(2)} seconds`}
           </Typography>
           <Typography variant='body1' className='mb-4'>
-            Attendance Threshold: {attendancethreshold}%
+          {t('admin.settings.attendanceThreshold')}: {attendancethreshold}%
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -177,7 +176,7 @@ const AdminSettings = () => {
             color='primary'
             onClick={handleUpdate}
             fullWidth>
-            Update Settings
+            {t('admin.settings.updateSettings')}
           </Button>
         </Grid>
       </Grid>

@@ -8,6 +8,7 @@ import {
   Assessment,
   PersonAdd,
 } from '@mui/icons-material';
+import {useTranslation} from 'react-i18next';
 
 /**
  * CounselorMainView component.
@@ -18,33 +19,34 @@ import {
  * @returns {JSX.Element} The rendered CounselorMainView component.
  */
 const CounselorMainView: React.FC = () => {
+  const {t} = useTranslation();
   return (
     <>
       <MainViewTitle role={'Counselor'} />
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/counselor/students'
-          title='Students'
-          description='Manage any student'
+          title={t('counselor.mainView.students')}
+          description={t('counselor.mainView.studentsDesc')}
           icon={People}
         />
 
         <Card
           path='/counselor/helpvideos'
-          title='Instructions'
-          description='See instructions for all available tasks'
+          title={t('counselor.mainView.instructions')}
+          description={t('counselor.mainView.instructionsDesc')}
           icon={Help}
         />
         <Card
           path='/counselor/courses/stats'
-          title='Attendance statistics'
-          description='See attendance statistics for all courses'
+          title={t('counselor.mainView.attendanceStatistics')}
+          description={t('counselor.mainView.attendanceStatisticsDesc')}
           icon={Assessment}
         />
         <Card
           path='/counselor/lateenrollment'
-          title='Late Enrollment'
-          description='Enroll students in courses'
+          title={t('counselor.mainView.lateEnrollmen')}
+          description={t('counselor.mainView.lateEnrollmentDesc')}
           icon={PersonAdd}
         />
         <FeedbackCard role='counselor' />

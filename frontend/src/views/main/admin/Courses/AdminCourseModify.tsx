@@ -9,6 +9,7 @@ import AddTeachers from '../../../../components/main/course/createcourse/AddTeac
 import CourseDetails from '../../../../components/main/course/createcourse/CourseDetails';
 import EditTopicsModal from '../../../../components/main/modals/EditTopicsModal';
 import apiHooks from '../../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * CourseDetail interface.
  * This interface defines the shape of a course detail object.
@@ -34,6 +35,7 @@ interface CourseDetail {
  * @returns {JSX.Element} The rendered AdminCourseModify component.
  */
 const AdminCourseModify: React.FC = () => {
+  const {t} = useTranslation();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [courseName, setCourseName] = useState(
     courseData ? courseData.name : '',
@@ -103,7 +105,7 @@ const AdminCourseModify: React.FC = () => {
     }
   }, [courseData]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t('admin.common.loading')}</div>;
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -122,20 +124,20 @@ const AdminCourseModify: React.FC = () => {
     try {
       const result = await apiHooks.modifyCourse(token, id, modifiedData);
       console.log(result);
-      toast.success('Course modified successfully');
+      toast.success(t('admin.courses.success.modifySuccess'));
       navigate('/admin/courses/' + id);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error('An unknown error occurred');
+        toast.error(t('admin.courses.error.modifyError'));
       }
     }
     console.log(modifiedData);
   };
 
   const handleTopicChange = (topic) => {
-    toast.info('Topics changed');
+    toast.info(t('admin.courses.info.topicChange'));
     setModifiedTopics((prevTopics) =>
       prevTopics.includes(topic)
         ? prevTopics.filter((t) => t !== topic)
@@ -155,7 +157,7 @@ const AdminCourseModify: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='mb-6 font-semibold text-center text-gray-800 text-md sm:text-2xl'>
-        Modify Course
+        {t('admin.courses.modify.mainTitle')}
       </h2>
 
       <form
@@ -184,7 +186,7 @@ const AdminCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            Modify Teachers
+            {t('admin.courses.modify.modifyTeachers')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -199,7 +201,7 @@ const AdminCourseModify: React.FC = () => {
         <button
           className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(true)}>
-          Modify Topics
+          {t('admin.courses.modify.modifyTopics')}
         </button>
         <EditTopicsModal
           open={open}
@@ -219,7 +221,7 @@ const AdminCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 font-bold text-white  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            Finish
+            {t('admin.courses.finnish.finnish')}
           </button>
         </div>
       </form>

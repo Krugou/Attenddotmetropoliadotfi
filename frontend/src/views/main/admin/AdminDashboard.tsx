@@ -10,8 +10,10 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ErrorIcon from '@mui/icons-material/Error';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import {useTranslation} from 'react-i18next';
 
 const AdminDashboard = () => {
+  const {t} = useTranslation();
   const location = useLocation();
 
   const isActivePath = (path: string) => {
@@ -41,7 +43,7 @@ const AdminDashboard = () => {
   return (
     <div className='flex flex-col w-full p-4 transition-all duration-300 ease-in-out shadow-lg rounded-xl bg-slate-50'>
       <h2 className='p-3 mb-6 text-3xl font-bold text-center border-b text-metropolia border-metropolia/20'>
-        Server Dashboard
+        {t('admin.dashboard.title')}
       </h2>
       <div className='flex flex-col gap-4 md:flex-row'>
         <nav className='w-full p-4 bg-white border shadow-md md:w-60 rounded-xl border-metropoliaMainGrey/10'>

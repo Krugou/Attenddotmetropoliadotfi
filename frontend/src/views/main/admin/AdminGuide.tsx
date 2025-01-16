@@ -1,34 +1,27 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
+
 
 const AdminGuide = () => {
+  const {t} = useTranslation();
   return (
     <div className='p-4 bg-white rounded-lg shadow-md md:p-8'>
-      <h2 className='mb-4 text-2xl font-bold md:text-3xl'>Guide</h2>
+      <h2 className='mb-4 text-2xl font-bold md:text-3xl'>{t('admin.guide.title')}</h2>
       <p className='mb-4 text-sm md:text-base'>
-        This is the guide for administrators. It provides instructions and
-        information on how to navigate and utilize the various features of the
-        admin dashboard.
+       {t('admin.guide.guideText')}
       </p>
       <ul className='space-y-2 list-disc list-inside'>
         <li className='text-sm md:text-base'>
-          <strong>Statistics:</strong> This section provides statistical data
-          and analysis relevant to the system's performance and user
-          interactions.
+          <strong>{t('admin.guide.statistics')}: </strong> {t('admin.guide.statisticsText')}
         </li>
         <li className='text-sm md:text-base'>
-          <strong>Logs:</strong> Here, administrators can view detailed logs of
-          system activities, including user actions, errors, and other important
-          events.
+          <strong>{t('admin.guide.logs')}: </strong> {t('admin.guide.logsText')}
         </li>
         <li className='text-sm md:text-base'>
-          <strong>Error Logs:</strong> This area displays logs specifically
-          related to errors encountered within the system, aiding in
-          troubleshooting and debugging.
+          <strong>{t('admin.guide.errorLogs')}: </strong> {t('admin.guide.errorLogsText')}
         </li>
         <li className='text-sm md:text-base'>
-          <strong>User Feedback:</strong> Administrators can access and review
-          feedback submitted by users, helping to understand user experiences
-          and address any issues or concerns.
+          <strong>{t('admin.guide.userFeedback')}: </strong> {t('admin.guide.userFeedbackText')}
         </li>
       </ul>
     </div>

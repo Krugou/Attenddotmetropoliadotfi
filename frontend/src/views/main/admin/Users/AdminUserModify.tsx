@@ -4,6 +4,7 @@ import {toast} from 'react-toastify';
 import EditUserView from '../../../../components/main/admin/EditUserView';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * User interface.
  * This interface defines the structure of a user object.
@@ -46,6 +47,7 @@ interface User {
  * @returns {JSX.Element} The rendered AdminUserModify component.
  */
 const AdminUserModify: React.FC = () => {
+  const {t} = useTranslation();
   /**
    * User ID parameter from the URL.
    *

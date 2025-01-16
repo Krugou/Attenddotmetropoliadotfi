@@ -6,6 +6,7 @@ import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButto
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * Course interface.
  * This interface defines the structure of a course object.
@@ -40,6 +41,7 @@ interface Course {
  * @returns {JSX.Element} The rendered AdminCourses component.
  */
 const AdminCourses: React.FC = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
 
   const {user} = useContext(UserContext);
@@ -102,7 +104,7 @@ const AdminCourses: React.FC = () => {
         </div>
       ) : courses.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>No courses available</p>
+          <p>{t('admin.common.noCoursesAvailable')}</p>
         </div>
       ) : (
         <>

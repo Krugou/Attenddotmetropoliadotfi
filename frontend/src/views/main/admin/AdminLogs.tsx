@@ -3,6 +3,7 @@ import {toast} from 'react-toastify';
 import AdminLogsTable from '../../../components/main/admin/AdminLogsTable';
 import apiHooks from '../../../hooks/ApiHooks';
 
+
 const AdminLogs = () => {
   const [lineLimit, setLineLimit] = useState(100);
   const [logs, setLogs] = useState<{lineNumber: number; line: string}[]>([]);

@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 interface FeedbackItem {
   feedbackId: number;
   text: string;
@@ -24,6 +25,7 @@ interface FeedbackItem {
 }
 
 const AdminFeedback = () => {
+  const {t} = useTranslation();
   const [feedback, setFeedback] = useState<FeedbackItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -85,15 +87,15 @@ const AdminFeedback = () => {
   return (
     <div className='w-full bg-white'>
       <h1 className='p-3 m-auto mb-10 text-3xl font-bold text-center rounded-lg w-fit'>
-        Feedback
+        {t('admin.feedback.title')}
       </h1>
       <div className='flex flex-col justify-center p-4 m-auto bg-white rounded-lg 2xl:w-1/3 md:w-2/3 w-fit'>
         <div className='flex flex-col items-center justify-center m-2'>
           <p className='mb-2 text-xl text-center'>
-            Filter feedback by topic below:
+            {t('admin.feedback.filterFeedback')}:
           </p>
           <select
-            title='Select topic'
+            title={t('admin.feedback.topic')}
             className='w-2/3 p-2 my-2 text-xl font-bold text-white rounded cursor-pointer bg-metropoliaTrendGreen focus:outline-none focus:shadow-outline'
             onChange={(e) => handleTopicChange(e.target.value)}>
             <option value=''>All</option>
@@ -134,7 +136,7 @@ const AdminFeedback = () => {
                       <button
                         className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
                         onClick={() => handleClickOpen(item.feedbackId)}>
-                        Delete
+                        {t('admin.common.delete')}
                       </button>
                     </div>
                   </AccordionDetails>
@@ -142,7 +144,7 @@ const AdminFeedback = () => {
               ))
           ) : (
             <p className='text-center'>
-              No feedback has been provided yet. Stay tuned!
+              {t('admin.feedback.noFeedbackAvailable')}
             </p>
           )}
           <Dialog
@@ -155,20 +157,20 @@ const AdminFeedback = () => {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id='alert-dialog-description'>
-                Are you sure you want to delete this feedback?
+                {t('admin.feedback.confirmDelete')}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <button
                 className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
                 onClick={handleClose}>
-                Cancel
+                {t('admin.common.cancel')}
               </button>
               <button
                 className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
                 onClick={handleConfirmDelete}
                 autoFocus>
-                Delete
+                {t('admin.common.delete')}
               </button>
             </DialogActions>
           </Dialog>

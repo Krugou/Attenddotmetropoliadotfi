@@ -14,6 +14,7 @@ import {Bar} from 'react-chartjs-2';
 import {toast} from 'react-toastify';
 import LecturesByDayChart from '../../../components/main/admin/LecturesByDayChart';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 
 ChartJS.register(
   CategoryScale,
@@ -57,6 +58,7 @@ interface Lecture {
   actualStudentCount: number;
 }
 const AdminStats = () => {
+  const {t} = useTranslation();
   const [userStatistics, setUserStatistics] = useState<{
     labels: string[];
     datasets: ChartDataset<'bar', number[]>[];
@@ -192,10 +194,10 @@ const AdminStats = () => {
       className='grid w-full grid-cols-1 gap-4 p-5 bg-white xl:grid-cols-2'
       key={windowWidth}>
       <h2 className='mb-4 text-2xl md:text-3xl col-span-full'>
-        Administrator Statistics
+        {t('admin.adminStats.administratorStatistics')}
       </h2>
       <div className='justify-start w-full mx-4'>
-        <h2 className='mb-4 text-xl md:text-2xl'>User Statistics</h2>
+        <h2 className='mb-4 text-xl md:text-2xl'>{t('admin.adminStats.userStatistics')}</h2>
         <p className='text-sm md:text-base'>{`Percentage of students who have logged in at least once: ${userStatisticsPercentage.toFixed(
           2,
         )}%`}</p>
@@ -204,7 +206,7 @@ const AdminStats = () => {
         </div>
       </div>
       <div className='justify-start w-full mx-4'>
-        <h2 className='mb-4 text-xl md:text-2xl'>Attendance Statistics</h2>
+        <h2 className='mb-4 text-xl md:text-2xl'>{t('admin.adminStats.attendanceStatistics')}</h2>
         {attendanceStatistics && (
           <p className='text-sm md:text-base'>
             {`Total lectures: ${attendanceStatistics[0]}. Attendance ratio: ${(
@@ -220,7 +222,7 @@ const AdminStats = () => {
       </div>
       <div className='justify-start w-full mx-4'>
         <h2 className='mb-4 text-xl md:text-2xl'>
-          Weekly Distribution of Saved Lectures Count by Day
+        {t('admin.adminStats.distributtion')}
         </h2>
         <div className='w-full'>
           <LecturesByDayChart lectures={lectures} />

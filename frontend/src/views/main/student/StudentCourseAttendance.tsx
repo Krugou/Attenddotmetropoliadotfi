@@ -7,6 +7,7 @@ import AttendanceStatsTable from '../../../components/main/course/attendance/Att
 import AttendanceTable from '../../../components/main/course/attendance/AttendanceTable';
 import apiHooks from '../../../hooks/ApiHooks';
 import {useCourses} from '../../../hooks/courseHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * Interface for the attendance data.
  *
@@ -45,6 +46,7 @@ interface Attendance {
  * @returns A JSX element representing the student course attendance component.
  */
 const StudentCourseAttendance: React.FC = () => {
+  const {t} = useTranslation();
   // Get the usercourseid from the url
   const {usercourseid} = useParams<{usercourseid}>();
 
@@ -91,7 +93,7 @@ const StudentCourseAttendance: React.FC = () => {
 
   // If the attendance data is not available, return a loading message
   if (!attendanceData) {
-    return <div>Loading...</div>;
+    return <div>{t('admin.common.loading')}</div>;
   }
 
   // Function to handle sort option change

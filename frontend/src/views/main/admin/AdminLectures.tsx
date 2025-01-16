@@ -20,6 +20,7 @@ import {toast} from 'react-toastify';
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 interface Lecture {
   lectureid: number;
   start_date: string;
@@ -38,6 +39,7 @@ interface Lecture {
 const ITEMS_PER_PAGE = 50;
 
 const AdminAllLectures: React.FC = () => {
+  const {t} = useTranslation();
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterOpen, setFilterOpen] = useState(true);
@@ -247,23 +249,23 @@ const AdminAllLectures: React.FC = () => {
         <button
           onClick={() => setFilterOpen(!filterOpen)}
           className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {filterOpen ? 'Show All Lectures' : 'Show Open Lectures Only'}
+          {filterOpen ? t('admin.lectures.alternative.showAllLectures') : t('admin.lectures.alternative.showOpenLecture')}
         </button>
         <button
           onClick={toggleSortOrder}
           className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {sortOrder === 'asc' ? 'Sort by Newest' : 'Sort by Oldest'}
+          {sortOrder === 'asc' ? t('admin.lectures.alternative.sortByNewest') : t('admin.lectures.alternative.sortByOldest')}
         </button>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {isExpanded ? 'Shrink Table' : 'Expand to full'}
+          {isExpanded ? t('admin.lectures.alternative.shrinkTable') : t('admin.lectures.alternative.expandTable')}
         </button>
         {!filterOpen && (
           <button
             onClick={() => setExtraStats(!extraStats)}
             className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-            {extraStats ? 'Hide Stats' : 'Show Stats'}
+            {extraStats ? t('admin.lectures.alternative.hideStats') : t('admin.lectures.alternative.showStats')}
           </button>
         )}
       </div>
@@ -271,13 +273,13 @@ const AdminAllLectures: React.FC = () => {
         <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2'>
           <div className='p-2 bg-blue-100 rounded col-span-full'>
             <h2 className='mb-2 text-lg'>
-              Total Lectures: {totalLectures} | Attendance Ratio:{' '}
+              {t('admin.lectures.stats.totalLectures')}: {totalLectures} | {t('admin.lectures.stats.attendanceRatio')}:{' '}
               {attendanceRatio.toFixed(2)}%
             </h2>
           </div>
           <div className='p-2 bg-green-100 rounded'>
             <h2 className='mb-2 text-lg'>
-              Highest Attended:
+            {t('admin.lectures.stats.highestAttendance')}:
               {highestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -287,7 +289,7 @@ const AdminAllLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-red-100 rounded'>
             <h2 className='mb-2 text-lg'>
-              Lowest Attended:
+            {t('admin.lectures.stats.lowestAttendance')}:
               {lowestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -298,7 +300,7 @@ const AdminAllLectures: React.FC = () => {
           <div className='p-2 bg-yellow-100 rounded'>
             <h2 className='mb-2 text-lg'>
               {' '}
-              Highest Not Attended:
+              {t('admin.lectures.stats.highestNotAttended')}
               {highestNotAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.notattended} (ID: {lecture.lectureid})
@@ -308,7 +310,7 @@ const AdminAllLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-purple-100 rounded'>
             <h2 className='mb-2 text-lg'>
-              Lowest Not Attended:
+            {t('admin.lectures.stats.lowestNotAttended')}:
               {lowestNotAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.notattended} (ID: {lecture.lectureid})
@@ -342,20 +344,20 @@ const AdminAllLectures: React.FC = () => {
         <Table className='table-auto'>
           <TableHead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
             <TableRow>
-              <TableCell>Lecture ID</TableCell>
+              <TableCell>{t('admin.common.lectureId')}</TableCell>
 
-              <TableCell>Teacher Email</TableCell>
-              <TableCell>Course name</TableCell>
-              <TableCell>Course code</TableCell>
-              <TableCell>Topic name</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>am/pm</TableCell>
-              <TableCell>Attendance</TableCell>
-              <TableCell>Total Attendance</TableCell>
-              <TableCell>Current Topic Student Count</TableCell>
-              <TableCell>Ratio(%)</TableCell>
-              <TableCell>State</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.teacherEmail')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.courseName')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.courseCode')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.topicName')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.date')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.dayTime')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.attendance')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.totalAttendance')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.currentTopicStudentCount')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.ratio')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.state')}</TableCell>
+              <TableCell>{t('admin.lectures.tableContent.actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -434,7 +436,7 @@ const AdminAllLectures: React.FC = () => {
                           )
                         }
                         className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                        Details
+                       {t('admin.common.details')}
                       </button>
                       {lecture.state === 'open' && (
                         <button
@@ -446,7 +448,7 @@ const AdminAllLectures: React.FC = () => {
                             )
                           }
                           className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                          Close
+                        {t('admin.common.close')}
                         </button>
                       )}
                       {(lecture.state === 'open' ||
@@ -460,7 +462,7 @@ const AdminAllLectures: React.FC = () => {
                             )
                           }
                           className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                          Delete
+                          {t('admin.common.delete')}
                         </button>
                       )}
                     </div>
@@ -485,14 +487,14 @@ const AdminAllLectures: React.FC = () => {
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>{`Are you sure you want to ${action} the lecture?`}</DialogTitle>
         <DialogContent>
-          <DialogContentText>This action cannot be undone.</DialogContentText>
+          <DialogContentText>{t('admin.lectures.dialog.dialogText')}.</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color='primary'>
-            Cancel
+          {t('admin.common.cancel')}
           </Button>
           <Button onClick={handleConfirm} color='primary' autoFocus>
-            Confirm
+          {t('admin.common.confirm')}
           </Button>
         </DialogActions>
       </Dialog>
