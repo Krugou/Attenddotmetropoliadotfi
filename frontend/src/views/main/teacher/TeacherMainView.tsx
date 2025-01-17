@@ -18,6 +18,7 @@ import {
   PersonAdd,
   Today,
 } from '@mui/icons-material';
+import {useTranslation} from 'react-i18next';
 
 /**
  * MainView component.
@@ -27,6 +28,7 @@ import {
  */
 const MainView: React.FC = () => {
   const {user} = useContext(UserContext);
+  const {t} = useTranslation();
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -72,23 +74,25 @@ const MainView: React.FC = () => {
             {courses.length === 0 && (
               <div>
                 <div className='flex flex-col items-center gap-1 p-2 rounded-md animate-bounce bg-metropoliaMainOrange md:flex-row'>
-                  <p className='text-lg text-center text-white'>Start Here!</p>
+                  <p className='text-lg text-center text-white'>
+                    {t('teacher.mainView.startHere')}
+                  </p>
                   <div className='w-4 h-4 transform border-t-2 border-r-2 border-white md:rotate-45 rotate-135'></div>
                 </div>
               </div>
             )}
             <Card
               path='/teacher/courses/create'
-              title='Create new Course'
-              description='Create a new course for your students'
+              title={t('teacher.mainView.cards.createCourse.title')}
+              description={t('teacher.mainView.cards.createCourse.description')}
               icon={Add}
             />
 
             {courses.length >= 0 && (
               <Card
                 path='/teacher/helpvideos'
-                title='Instructions'
-                description='See instructions for all available tasks'
+                title={t('teacher.mainView.cards.instructions.title')}
+                description={t('teacher.mainView.cards.instructions.description')}
                 icon={Help}
               />
             )}
@@ -97,43 +101,43 @@ const MainView: React.FC = () => {
               <>
                 <Card
                   path='/teacher/students'
-                  title='Manage Students'
-                  description='Manage your students details'
+                  title={t('teacher.mainView.cards.manageStudents.title')}
+                  description={t('teacher.mainView.cards.manageStudents.description')}
                   icon={People}
                 />
 
                 <Card
                   path='/teacher/courses/'
-                  title='Your Courses'
-                  description='View all of your courses'
+                  title={t('teacher.mainView.cards.yourCourses.title')}
+                  description={t('teacher.mainView.cards.yourCourses.description')}
                   icon={School}
                 />
                 <CheckOpenLectures />
 
                 <Card
                   path='/teacher/attendance/createlecture'
-                  title='Create new Lecture'
-                  description='Open attendance gathering'
+                  title={t('teacher.mainView.cards.createLecture.title')}
+                  description={t('teacher.mainView.cards.createLecture.description')}
                   icon={QrCode}
                 />
                 <Card
                   path='/teacher/courses/stats'
-                  title='Show Attendance stats'
-                  description='Open attendance stats page'
+                  title={t('teacher.mainView.cards.attendanceStats.title')}
+                  description={t('teacher.mainView.cards.attendanceStats.description')}
                   icon={Assessment}
                 />
                 <Card
                   path='/teacher/lateenrollment'
-                  title='Late Enrollment'
-                  description='Enroll students in courses'
+                  title={t('teacher.mainView.cards.lateEnrollment.title')}
+                  description={t('teacher.mainView.cards.lateEnrollment.description')}
                   icon={PersonAdd}
                 />
               </>
             )}
             <Card
               path='/teacher/lectures'
-              title='Your lectures stats'
-              description='View stats of your lectures'
+              title={t('teacher.mainView.cards.lectureStats.title')}
+              description={t('teacher.mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
             <FeedbackCard role='teacher' />

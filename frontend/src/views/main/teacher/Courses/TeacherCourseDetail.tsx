@@ -4,6 +4,7 @@ import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkBu
 import CourseData from '../../../../components/main/course/CourseData';
 import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * CourseDetail interface.
  * This interface defines the shape of a CourseDetail object.
@@ -30,6 +31,7 @@ const TeacherCourseDetail: React.FC = () => {
   const {id} = useParams<{id: string}>();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const {user} = useContext(UserContext);
+  const {t} = useTranslation();
   useEffect(() => {
     console.log(id);
     const fetchCourses = async () => {
@@ -64,7 +66,7 @@ const TeacherCourseDetail: React.FC = () => {
                 ? '/counselor/courses'
                 : `/${user?.role}/courses`
             }
-            text='Back to courses'
+            text={t('teacher.courseDetail.buttons.backToCourses')}
           />
         </div>
         {courseData && <CourseData courseData={courseData} />}

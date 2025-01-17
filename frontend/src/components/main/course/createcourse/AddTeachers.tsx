@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import apiHooks from '../../../../hooks/ApiHooks';
 import InputField from './coursedetails/InputField';
 
@@ -17,6 +18,7 @@ const AddTeachers = ({
 	instructorEmail,
 	modify = false,
 }) => {
+	const {t} = useTranslation();
 	const [errorMessages, setErrorMessages] = useState<string[]>([]);
 	const timeouts = useRef<(number | null)[]>([]);
 
@@ -70,14 +72,14 @@ const AddTeachers = ({
 
 	return (
 		<fieldset className="mb-5">
-			{!modify ? <legend className="text-xl mb-3">Add teachers</legend> : <></>}
+			{!modify ? <legend className="text-xl mb-3">{t('teacher.addTeachers.title')}</legend> : <></>}
 			{instructors.map((instructor, index) => (
 				<div key={index} className="flex items-center mb-3">
 					<div className="flex flex-col mb-3">
 						<InputField
 							type="text"
 							name="email"
-							label="Email"
+							label={t('teacher.addTeachers.emailLabel')}
 							value={instructor.email}
 							onChange={event => handleInputChange(index, event)}
 						/>
@@ -99,7 +101,7 @@ const AddTeachers = ({
 				className="w-48 p-1 mt-2 bg-metropoliaMainOrange text-white transition font-bold rounded hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange"
 				onClick={addInstructor}
 			>
-				Add another teacher
+				{t('teacher.addTeachers.addAnother')}
 			</button>
 		</fieldset>
 	);

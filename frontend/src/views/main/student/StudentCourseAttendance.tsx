@@ -158,18 +158,18 @@ const StudentCourseAttendance: React.FC = () => {
     return (
       <div className='flex flex-col w-full p-5 overflow-x-auto bg-gray-100 border-t rounded-lg 2xl:w-3/4 border-x'>
         <h1 className='mt-2 mb-8 text-xl font-bold text-center sm:text-4xl'>
-          Attendance for Course {attendanceData[0].name}
+          {t('student.course.attendaceOfCourse')} {attendanceData[0].name}
         </h1>
         <div className='flex flex-col flex-wrap items-center justify-around gap-5 mb-5 sm:flex-row'>
           <input
             type='text'
-            placeholder='Search by date'
+            placeholder={t('admin.common.searchByDate')}
             value={searchTerm}
             onChange={handleSearchChange}
             className='w-10/12 sm:w-[20em] mt-10 p-4 m-2 border border-black rounded'
           />
           <FormControl className='mt-2 md:w-1/4 md:mt-0'>
-            <label>Sort Topics:</label>
+            <label>{t('student.course.sortTopics')}:</label>
             <Select
               className='favorite-selector'
               value={sortOption}
@@ -177,7 +177,7 @@ const StudentCourseAttendance: React.FC = () => {
               <MenuItem value='All'>
                 <div className='item-selector'>
                   <AutorenewIcon className='highest-star-selector-icon' />
-                  <span className='selector-text'>All</span>
+                  <span className='selector-text'>{t('student.course.all')}</span>
                 </div>
               </MenuItem>
               {uniqueTopics.map((topic, index) => (
@@ -198,7 +198,9 @@ const StudentCourseAttendance: React.FC = () => {
             startIcon={<ShowChartIcon />}
             className='w-fit '
             onClick={() => setShowTable(!showTable)}>
-            {showTable ? 'Show Attendance Stats' : 'Show Attendance Table'}
+            {showTable
+              ? t('student.course.showAttendanceStats')
+              : t('student.course.showAttendanceTable')}
           </Button>
         </div>
         {showTable && (
@@ -216,7 +218,7 @@ const StudentCourseAttendance: React.FC = () => {
   } else {
     return (
       <div className='p-3 m-10 text-3xl font-bold text-center bg-white rounded-lg'>
-        No Data available
+        {t('admin.common.noDataAvailable')}
       </div>
     );
   }

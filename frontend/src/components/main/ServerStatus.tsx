@@ -3,6 +3,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {baseUrl} from '../../hooks/ApiHooks';
+import { useTranslation } from 'react-i18next';
 
 interface ServerResponse {
   builddate: string;
@@ -15,6 +16,7 @@ interface ServerResponse {
  * @returns {JSX.Element} The rendered ServerStatus component.
  */
 const ServerStatus: React.FC = () => {
+  const { t } = useTranslation();
   // Define the URL for the VPN test page
   // const vpnTestUrl =
   // 	import.meta.env.MODE === 'development'
@@ -83,8 +85,7 @@ const ServerStatus: React.FC = () => {
             href='https://wiki.metropolia.fi/display/itservices/VPN+Connection+via+GlobalProtect+Service'
             target='_blank'
             rel='noopener noreferrer'>
-            You are presently not linked to the internal network of Metropolia.
-            Click here to access the VPN instructions
+            {t('serverStatus.vpnNotConnected')}
           </a>
         )}
       </p>
@@ -92,16 +93,16 @@ const ServerStatus: React.FC = () => {
       <div className='p-2 m-2 rounded-xl'>
         {isServerOnline && (
           <p className='p-2 m-2'>
-            Version: {newestVersion ? <DoneIcon /> : <DangerousIcon />}
+            {t('serverStatus.version')}: {newestVersion ? <DoneIcon /> : <DangerousIcon />}
           </p>
         )}
         <p className='p-2 m-2'>
-          Server Connection: {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
+          {t('serverStatus.connection')}: {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
         </p>
       </div>
       {!newestVersion && isServerOnline && (
         <p className='p-2 m-2  rounded-xl'>
-          <strong>Please reload the page until this text disappears</strong>
+          <strong>{t('serverStatus.reloadNeeded')}</strong>
         </p>
       )}
     </>

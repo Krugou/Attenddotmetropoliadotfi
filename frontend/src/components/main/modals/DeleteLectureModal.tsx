@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * lecture interface represents the structure of a lecture.
@@ -44,7 +45,7 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
   onCloseLecture,
 }) => {
   console.log(lecture);
-
+  const { t } = useTranslation();
   return (
     <Dialog
       open={open}
@@ -54,55 +55,51 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       <DialogTitle
         className='p-4 text-white bg-metropoliaMainOrange'
         id='alert-dialog-title'>
-        {'Deal with previous lecture first'}
+        {t('teacher.deleteLecture.title')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
           <strong className='pt-4 mb-4 text-lg font-bold'>
-            There is already an open lecture for this course.
+            {t('teacher.deleteLecture.subtitle')}
           </strong>
         </DialogContentText>
         <ul className='mb-4 list-disc list-inside'>
           <li>
-            Date:{' '}
+            {t('teacher.deleteLecture.details.date')}{' '}
             {lecture?.start_date
               ? new Date(lecture?.start_date).toLocaleDateString()
               : ''}
           </li>
-          <li>Time of day: {lecture?.timeofday}</li>
-          <li>Teacher Email: {lecture?.teacher} </li>
-          <li>Course Code: {lecture?.code} </li>
-
-          <li>Topic Name: {lecture?.topicname} </li>
+          <li>{t('teacher.deleteLecture.details.timeOfDay')} {lecture?.timeofday}</li>
+          <li>{t('teacher.deleteLecture.details.teacherEmail')} {lecture?.teacher}</li>
+          <li>{t('teacher.deleteLecture.details.courseCode')} {lecture?.code}</li>
+          <li>{t('teacher.deleteLecture.details.topicName')} {lecture?.topicname}</li>
         </ul>
         <DialogContentText id='alert-dialog-description'>
           <strong className='mb-4 text-lg font-bold'>
-            Do you want to Delete it or Finish it?
+            {t('teacher.deleteLecture.question')}
           </strong>{' '}
           <br />
-          Finishing the lecture involves recording attendance for all remaining
-          students who are not yet marked as attended by setting them as "not
-          attended." Deleting, on the other hand, means completely removing the
-          lecture from the database.
+          {t('teacher.deleteLecture.explanation')}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <button
           className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
           onClick={onClose}>
-          Close this window
+          {t('teacher.deleteLecture.buttons.close')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-metropoliaSupportSecondaryRed'
           onClick={onDelete}
           autoFocus>
-          Delete previous lecture
+          {t('teacher.deleteLecture.buttons.delete')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaTrendGreen sm:w-fit h-fit hover:bg-metropoliaMainGrey'
           onClick={onCloseLecture}
           autoFocus>
-          Finish previous lecture
+          {t('teacher.deleteLecture.buttons.finish')}
         </button>
       </DialogActions>
     </Dialog>

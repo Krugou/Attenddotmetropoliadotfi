@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 /**
  * SuccessAlertProps interface represents the structure of the SuccessAlert props.
  * It includes properties for the success alert message and a function to close the alert.
@@ -20,13 +22,17 @@ interface SuccessAlertProps {
  * @returns {JSX.Element} The rendered SuccessAlert component.
  */
 const SuccessAlert: React.FC<SuccessAlertProps> = ({successAlert, onClose}) => {
+  const { t } = useTranslation();
+  
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center ${
         successAlert ? 'block' : 'hidden'
       }`}>
       <div className='p-4 mx-auto mt-10 bg-green-100 rounded-lg shadow-lg modal-container w-96'>
-        <h2 className='mb-4 text-xl font-bold text-green-600'>Success</h2>
+        <h2 className='mb-4 text-xl font-bold text-green-600'>
+          {t('successAlert.title')}
+        </h2>
         <div className='mb-4'>
           {successAlert && <p className='text-green-700'>{successAlert}</p>}
         </div>
@@ -34,7 +40,7 @@ const SuccessAlert: React.FC<SuccessAlertProps> = ({successAlert, onClose}) => {
           <button
             onClick={onClose}
             className='px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600'>
-            Close
+            {t('common.close')}
           </button>
         </div>
       </div>

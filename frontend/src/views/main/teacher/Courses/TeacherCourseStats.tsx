@@ -14,6 +14,7 @@ import {
   exportStatsTableToExcel,
   exportStatsTableToPdf,
 } from '../../../../utils/exportData';
+import {useTranslation} from 'react-i18next';
 /**
  * Course interface.
  * This interface defines the shape of a Course object.
@@ -52,6 +53,7 @@ interface TopicAttendance {
  * Additionally, it provides functionality for the teacher to export the attendance data to PDF or Excel.
  */
 const TeacherCourseStats = () => {
+  const {t} = useTranslation();
   const [showTable, setShowTable] = useState(false);
   const {courseid} = useParams<{courseid: string}>();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -221,12 +223,11 @@ const TeacherCourseStats = () => {
   return (
     <>
       <h1 className='p-3 mb-2 text-2xl font-bold text-center bg-white rounded-md'>
-        {' '}
-        Attendance Statistics per course{' '}
+        {t('teacher.courseStats.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
         <div className='flex justify-between sm:justify-around'>
-          <Tooltip title='Print to pdf'>
+          <Tooltip title={t('teacher.courseStats.buttons.printPdf')}>
             <button
               onClick={handlePdfExport}
               className='p-2 text-white rounded bg-metropoliaMainOrange'>
@@ -248,13 +249,13 @@ const TeacherCourseStats = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label='Search courses'
+                label={t('teacher.courseStats.search.label')}
                 margin='normal'
                 variant='outlined'
               />
             )}
           />
-          <Tooltip title='Export to Excel'>
+          <Tooltip title={t('teacher.courseStats.buttons.exportExcel')}>
             <button
               onClick={handleExcelExport}
               className='p-2 text-white rounded bg-metropoliaMainOrange'>

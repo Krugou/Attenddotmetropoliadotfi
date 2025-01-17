@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from 'react-i18next';
+
 /**
  * EditTopicsModalProps interface represents the structure of the EditTopicsModal props.
  * It includes properties for the modal's open state, course name, new topic, course topics, modified topics, 
@@ -54,6 +56,8 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
 	handleSave,
 	usercourseid,
 }) => {
+	const { t } = useTranslation();
+
 	return (
 		<Modal
 			open={open}
@@ -61,12 +65,12 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
 			onClick={e => e.stopPropagation()}
 		>
 			<div className="p-4 bg-white rounded shadow-lg max-w-lg mx-auto mt-10">
-				<h2 className="text-2xl mb-4">Edit Topics for {courseName}</h2>
+				<h2 className="text-2xl mb-4">{t('editTopics.title', { courseName })}</h2>
 				{!counselor && (
 					<TextField
 						value={newTopic}
 						onChange={e => setNewTopic(e.target.value)}
-						label="New Topic"
+						label={t('editTopics.newTopicLabel')}
 						variant="outlined"
 						className="mb-6"
 						fullWidth
@@ -106,12 +110,11 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
 				))}
 				{counselor ? (
 					<p className="text-sm text-gray-500 mb-4">
-						Only checked topics will be included in the course
+						{t('editTopics.counselorHelpText')}
 					</p>
 				) : (
 					<p className="text-sm text-gray-500 mb-4">
-						Only checked topics will be included in the course, deleting them from the
-						view will also exclude them.
+						{t('editTopics.teacherHelpText')}
 					</p>
 				)}
 				<div className="flex justify-between mt-6">
@@ -119,14 +122,14 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
 						onClick={resetData}
 						className="p-2 text-white rounded transition hover:bg-red-700 bg-metropoliaSupportRed"
 					>
-						Reset
+						{t('common.reset')}
 					</button>
 					{counselor && (
 						<button
 							onClick={() => handleSave && handleSave(usercourseid)}
 							className="p-2 text-white rounded transition hover:bg-green-600 bg-metropoliaTrendGreen"
 						>
-							Save new topics
+							{t('editTopics.saveTopics')}
 						</button>
 					)}
 				</div>

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ProfileInfo from '../../../components/profiles/ProfileInfo';
 import {UserContext} from '../../../contexts/UserContext';
-
+import {useTranslation} from 'react-i18next';
 import {CircularProgress} from '@mui/material';
 import {useNavigate} from 'react-router-dom'; // Import useNavigate
 /**
@@ -14,6 +14,7 @@ const TeacherProfile: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate(); // Initialize useNavigate
   const [isLoading, setIsLoading] = useState(true);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (user) {
@@ -26,13 +27,13 @@ const TeacherProfile: React.FC = () => {
   }
 
   if (!user) {
-    return <div>No user data available.</div>;
+    return <div>{t('teacher.profile.noData')}</div>;
   }
 
   return (
     <div className='flex flex-col items-center justify-center w-11/12 p-5 font-sans bg-white rounded-lg sm:w-fit h-fit sm:p-10'>
       <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>
-        Teacher Profile
+        {t('teacher.profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
@@ -40,7 +41,7 @@ const TeacherProfile: React.FC = () => {
       <button
         className='px-4 py-2 mt-4 text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
         onClick={() => navigate('/teacher/courses')}>
-        My Courses
+        {t('teacher.profile.myCourses')}
       </button>
     </div>
   );

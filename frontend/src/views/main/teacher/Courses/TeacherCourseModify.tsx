@@ -10,6 +10,7 @@ import AddTeachers from '../../../../components/main/course/createcourse/AddTeac
 import CourseDetails from '../../../../components/main/course/createcourse/CourseDetails';
 import EditTopicsModal from '../../../../components/main/modals/EditTopicsModal';
 import apiHooks from '../../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 
 /**
  * CourseDetail interface.
@@ -33,6 +34,7 @@ interface CourseDetail {
  * It fetches the course details and provides functionality for the teacher to modify the course details, including the course name, code, student group, start and end dates, topics, and instructors.
  */
 const TeacherCourseModify: React.FC = () => {
+  const {t} = useTranslation();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [courseName, setCourseName] = useState(
     courseData ? courseData.name : '',
@@ -123,7 +125,7 @@ const TeacherCourseModify: React.FC = () => {
     }
   }, [courseData]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t('teacher.courseModify.loading')}</div>;
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -176,7 +178,7 @@ const TeacherCourseModify: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='p-3 m-auto mb-6 font-bold text-center text-gray-800 bg-white rounded-lg w-fit text-md sm:text-2xl'>
-        Modify Course
+        {t('teacher.courseModify.title')}
       </h2>
 
       <form
@@ -185,7 +187,10 @@ const TeacherCourseModify: React.FC = () => {
         }}
         className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
         <div className='mt-2 mb-4'>
-          <GeneralLinkButton path={`/teacher/courses`} text='Back to courses' />
+          <GeneralLinkButton 
+            path={`/teacher/courses`} 
+            text={t('teacher.courseModify.buttons.backToCourses')} 
+          />
         </div>
         <CourseDetails
           courseCode={courseCode}
@@ -208,7 +213,7 @@ const TeacherCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            Modify Teachers
+            {t('teacher.courseModify.sections.teachers.title')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -223,7 +228,7 @@ const TeacherCourseModify: React.FC = () => {
         <button
           className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow focus:outline-none focus:shadow-outline'
           onClick={() => setOpen(true)}>
-          Modify Topics
+          {t('teacher.courseModify.sections.topics.title')}
         </button>
         <EditTopicsModal
           open={open}
@@ -243,7 +248,7 @@ const TeacherCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 font-bold text-white transition  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            Finish
+            {t('teacher.courseModify.buttons.finish')}
           </button>
         </div>
       </form>

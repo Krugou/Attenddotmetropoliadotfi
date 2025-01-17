@@ -1,5 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 /**
  * ErrorAlertProps interface represents the structure of the ErrorAlert props.
@@ -23,6 +24,7 @@ interface ErrorAlertProps {
  */
 const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div
@@ -30,7 +32,9 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
         alert ? 'block' : 'hidden'
       }`}>
       <div className='p-4 mx-auto mt-10 bg-red-100 rounded-lg shadow-lg modal-container w-96'>
-        <h2 className='mb-4 text-xl font-bold text-red-600'>Error</h2>
+        <h2 className='mb-4 text-xl font-bold text-red-600'>
+          {t('errorAlert.title')}
+        </h2>
         <div className='mb-4'>
           {alert && <p className='text-red-700'>{alert}</p>}
         </div>
@@ -42,13 +46,13 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
                 onClose();
               }}
               className='px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600'>
-              Back to Login
+              {t('errorAlert.backToLogin')}
             </button>
           )}
           <button
             onClick={onClose}
             className='px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600'>
-            Close
+            {t('errorAlert.close')}
           </button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import StudentAttendance from '../../../assets/videos/StudentCourseAndAttendance.mp4';
 import StudentLecture from '../../../assets/videos/StudentLecture.mp4';
 import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // Import the VideoDropdown component
@@ -8,17 +9,22 @@ import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // 
  * It uses the VideoDropdown component to display each video with a title.
  */
 const StudentHelpVideos: React.FC = () => {
+  const {t} = useTranslation();
+
   return (
     <div className='w-full p-5'>
       <h1 className='p-3 m-auto mb-10 text-2xl font-bold text-center bg-white rounded-lg w-fit'>
-        Student Help Videos
+        {t('student.helpVideos.title')}
       </h1>
       <div className='flex flex-col space-y-6'>
         <VideoDropdown
-          title='How do I access my course and attendance details'
+          title={t('student.helpVideos.courseAccess')}
           src={StudentAttendance}
         />
-        <VideoDropdown title='How do I join a lecture?' src={StudentLecture} />
+        <VideoDropdown
+          title={t('student.helpVideos.joinLecture')}
+          src={StudentLecture}
+        />
       </div>
     </div>
   );

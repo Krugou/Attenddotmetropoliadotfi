@@ -1,6 +1,7 @@
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import React, {useContext, useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import StudentCourseGrid from '../../../components/main/course/StudentCourseGrid';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
@@ -20,6 +21,7 @@ import apiHooks from '../../../hooks/ApiHooks';
  * @returns A JSX element representing the student courses component.
  */
 const StudentCourses: React.FC = () => {
+  const {t} = useTranslation();
   /**
    * Interface for the course data.
    *
@@ -84,7 +86,7 @@ const StudentCourses: React.FC = () => {
   return (
     <div className='flex flex-col items-center justify-center p-5 bg-gray-100 rounded-lg h-fit'>
       <h1 className='mb-8 text-2xl font-bold text-center sm:text-4xl'>
-        Your Courses
+        {t('student.course.yourCourses')}
       </h1>
       <FormControlLabel
         control={
@@ -95,7 +97,7 @@ const StudentCourses: React.FC = () => {
             color='primary'
           />
         }
-        label='Show ended courses'
+        label={t('student.course.showEndedCourses')}
       />
       <StudentCourseGrid
         courses={courses}

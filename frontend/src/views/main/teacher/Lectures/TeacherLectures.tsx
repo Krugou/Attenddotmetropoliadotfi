@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Table,
   TableBody,
@@ -28,6 +29,7 @@ interface Lecture {
 }
 
 const TeacherLectures: React.FC = () => {
+  const {t} = useTranslation();
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const {user} = useContext(UserContext);
@@ -91,33 +93,29 @@ const TeacherLectures: React.FC = () => {
   return (
     <div className='relative w-full p-5 bg-white rounded-lg xl:w-fit'>
       <h1 className='mb-4 text-2xl font-bold'>
-        These are your saved lecture stats. Please review them carefully for any
-        inaccuracies. If you find any errors, kindly report them to admins using
-        the feedback option in the main view. Thank you!
+        {t('teacher.lectures.title')}
       </h1>
       <h2 className='mb-2 text-xl'>
-        Total Lectures: {totalLectures} | Attendance Ratio:{' '}
+        {t('teacher.lectures.stats.totalLectures')}: {totalLectures} | {t('teacher.lectures.stats.attendanceRatio')}:{' '}
         {attendanceRatio.toFixed(2)}%
       </h2>
 
       <div className='mt-4 mb-4 space-x-2'></div>
-      <TableContainer
-        className={`relative bg-gray-100 overflow-auto h-[384px]
-				}`}>
+      <TableContainer className='relative bg-gray-100 overflow-auto h-[384px]'>
         <Table className='table-auto'>
           <TableHead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
             <TableRow>
-              <TableCell>Lecture ID</TableCell>
-              <TableCell>Course name</TableCell>
-              <TableCell>Course code</TableCell>
-              <TableCell>Topic name</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>am/pm</TableCell>
-              <TableCell>Attendance</TableCell>
-              <TableCell>Total Attendance</TableCell>
-              <TableCell>Students with this topic</TableCell>
-              <TableCell>Ratio(%)</TableCell>
-              <TableCell>State</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.lectureId')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.courseName')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.courseCode')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.topicName')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.date')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.timeOfDay')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.attendance')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.totalAttendance')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.studentsWithTopic')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.ratio')}</TableCell>
+              <TableCell>{t('teacher.lectures.table.headers.state')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -136,11 +134,10 @@ const TeacherLectures: React.FC = () => {
                     {new Date(lecture.start_date).toLocaleDateString()}
                   </TableCell>
                   <TableCell>{lecture.timeofday}</TableCell>
-
                   <TableCell
-                    title={`Total attendance gathered: ${
-                      lecture.attended + lecture.notattended
-                    }`}>
+                    title={t('teacher.lectures.table.tooltips.attendance', {
+                      total: lecture.attended + lecture.notattended
+                    })}>
                     <span className='text-metropoliaTrendGreen'>
                       {lecture.attended}
                     </span>
@@ -158,8 +155,7 @@ const TeacherLectures: React.FC = () => {
                       (lecture.attended /
                         (lecture.attended + lecture.notattended)) *
                         100,
-                    )}{' '}
-                    %
+                    )}%
                   </TableCell>
                   <TableCell>
                     <span
@@ -178,7 +174,7 @@ const TeacherLectures: React.FC = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={10} align='center'>
-                  {'No data available'}
+                  {t('teacher.lectures.table.noData')}
                 </TableCell>
               </TableRow>
             )}

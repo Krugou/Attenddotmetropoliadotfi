@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 
 interface ConfirmDialogProps {
   title: string;
@@ -22,6 +23,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   setOpen,
   onConfirm,
 }) => {
+  const {t} = useTranslation();
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -47,13 +50,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <button
           className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
           onClick={handleClose}>
-          No
+          {t('common.dialog.cancel')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-metropoliaSupportRed'
           onClick={handleConfirm}
           autoFocus>
-          Yes
+          {t('common.dialog.confirm')}
         </button>
       </DialogActions>
     </Dialog>

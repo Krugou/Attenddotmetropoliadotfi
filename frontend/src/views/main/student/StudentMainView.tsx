@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
@@ -26,41 +27,42 @@ import {
  * @returns A JSX element representing the main view component.
  */
 const MainView: React.FC = () => {
+  const {t} = useTranslation();
+
   return (
     <div className='w-full'>
-      <MainViewTitle role={'Student'} />
+      <MainViewTitle role={t('student.mainView.title')} />
       <div className='grid items-center justify-center grid-cols-1 gap-4 p-5 m-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/student/qr'
-          title='Attendance QR Scanner'
-          description='Scan QR to mark attendance'
+          title={t('student.mainView.qrScanner.title')}
+          description={t('student.mainView.qrScanner.description')}
           icon={QrCode}
         />
         <Card
           path='/student/profile'
-          title='Your Profile'
-          description='View your own profile'
+          title={t('student.mainView.profile.title')}
+          description={t('student.mainView.profile.description')}
           icon={Person}
         />
         <Card
           path='/student/courses'
-          title='Your Courses'
-          description='View your own courses'
+          title={t('student.mainView.courses.title')}
+          description={t('student.mainView.courses.description')}
           icon={School}
         />
         <Card
           path='/student/helpvideos'
-          title='Instructions'
-          description='See instructions for all available tasks'
+          title={t('student.mainView.instructions.title')}
+          description={t('student.mainView.instructions.description')}
           icon={Help}
         />
         <Card
           path='/student/aqr'
-          title='Attendance QR Scanner with Camera Selection'
-          description='Scan QR to mark attendance with camera selection'
+          title={t('student.mainView.qrScannerCamera.title')}
+          description={t('student.mainView.qrScannerCamera.description')}
           icon={PhotoCamera}
         />
-
         <FeedbackCard role='student' />
       </div>
     </div>

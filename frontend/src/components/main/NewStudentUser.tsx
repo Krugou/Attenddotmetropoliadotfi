@@ -4,6 +4,7 @@ import {Container} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import React, {useContext, useEffect, useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext';
 import apiHooks from '../../hooks/ApiHooks';
@@ -13,6 +14,7 @@ import StudentGroupSelect from './newUser/StudentGroupSelect';
 import SubmitButton from './newUser/SubmitButton';
 
 const NewStudentUser: React.FC = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -178,55 +180,55 @@ const NewStudentUser: React.FC = () => {
           studentGroupId,
           selectedCourseId,
         );
-        toast.success('New student user added successfully');
+        toast.success(t('newStudent.success.userAdded'));
       } catch (error) {
         console.error('Failed to add new student user', error);
-        toast.error('Failed to add new student user ' + error);
+        toast.error(t('newStudent.errors.addFailed', { error }));
       }
     } else if (isStudentNumberTaken) {
-      toast.error('The student number is already taken');
+      toast.error(t('newStudent.errors.studentNumberTaken'));
     }
   };
 
   return (
     <>
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
-        Late enrollment
+        {t('newStudent.title')}
       </h1>
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
             <div className='flex flex-col'>
               <h2 className='m-2 text-xl font-bold text-center'>
-                Student Details
+                {t('newStudent.studentDetails')}
               </h2>
               <FormInput
-                label='Email'
+                label={t('common.email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
               />
-              {isEmailTaken && <h2 className='text-red-500'>Email taken</h2>}
+              {isEmailTaken && <h2 className='text-red-500'>{t('common.errors.emailTaken')}</h2>}
               <FormInput
-                label='First Name'
+                label={t('common.firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label='Last Name'
+                label={t('common.lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}
               />
               <FormInput
-                label='Student Number'
+                label={t('common.studentNumber')}
                 placeholder='123456'
                 value={studentNumber}
                 onChange={setStudentNumber}
               />
               {isStudentNumberTaken && (
-                <h2 className='text-red-500'>Student Number taken</h2>
+                <h2 className='text-red-500'>{t('common.errors.studentNumberTaken')}</h2>
               )}
               <StudentGroupSelect
                 studentGroups={studentGroups}
@@ -243,11 +245,9 @@ const NewStudentUser: React.FC = () => {
                 </div>
                 <div className='flex items-end mb-3 ml-2'>
                   <Tooltip
-                    title={
-                      showEndedCourses
-                        ? 'Hide ended courses'
-                        : 'Show ended courses'
-                    }
+                    title={t(showEndedCourses 
+                      ? 'common.hideEndedCourses' 
+                      : 'common.showEndedCourses')}
                     placement='top'>
                     <IconButton
                       className='h-fit'
@@ -263,15 +263,9 @@ const NewStudentUser: React.FC = () => {
               </div>
             </div>
             <div className='mt-4 w-fit'>
-              <h2 className='text-lg font-bold'>Note!</h2>
-              <p className='mt-2'>
-                Please make sure the details are right before adding the
-                student.
-              </p>
-              <p className='mt-4'>
-                If you have added a student with incorrect details, contact your
-                administrator.
-              </p>
+              <h2 className='text-lg font-bold'>{t('newStudent.note.title')}</h2>
+              <p className='mt-2'>{t('newStudent.note.checkDetails')}</p>
+              <p className='mt-4'>{t('newStudent.note.contactAdmin')}</p>
             </div>
             <div className='flex justify-center pb-3'>
               <SubmitButton disabled={isEmailTaken || isStudentNumberTaken} />

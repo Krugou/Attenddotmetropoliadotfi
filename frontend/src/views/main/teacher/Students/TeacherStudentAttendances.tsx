@@ -8,6 +8,7 @@ import AttendanceTable from '../../../../components/main/course/attendance/Atten
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../hooks/ApiHooks';
 import {exportToExcel, exportToPDF} from '../../../../utils/exportData';
+import {useTranslation} from 'react-i18next';
 /**
  * Attendance interface.
  * This interface defines the shape of an Attendance object.
@@ -46,6 +47,7 @@ interface StudentInfo {
  * Additionally, it provides functionality for the teacher to export the attendance data to PDF or Excel.
  */
 const TeacherStudentCourseAttendance: React.FC = () => {
+  const {t} = useTranslation();
   // Get the usercourseid from the url
   const {usercourseid} = useParams<{usercourseid}>();
   const {update, setUpdate} = useContext(UserContext);
@@ -94,7 +96,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
 
   // If the attendance data is not available, return a loading message
   if (!attendanceData) {
-    return <div>Loading...</div>;
+    return <div>{t('teacher.studentAttendances.loading')}</div>;
   }
 
   // Function to handle sort option change
@@ -148,20 +150,20 @@ const TeacherStudentCourseAttendance: React.FC = () => {
         <div className='flex flex-col flex-wrap items-center justify-around gap-5 md:flex-row md:gap-0'>
           <input
             type='text'
-            placeholder='Search by date'
+            placeholder={t('teacher.studentAttendances.search.placeholder')}
             value={searchTerm}
             onChange={handleSearchChange}
             className='md:w-[10em] p-4 m-2 border border-black rounded'
           />
           <div className='flex gap-10 md:gap-2'>
-            <Tooltip title='Print to pdf'>
+            <Tooltip title={t('teacher.studentAttendances.buttons.printPdf')}>
               <button
                 onClick={handleExportToPDF}
                 className='p-2 text-white rounded bg-metropoliaMainOrange'>
                 <PrintIcon fontSize='large' />
               </button>
             </Tooltip>
-            <Tooltip title='Export to Excel'>
+            <Tooltip title={t('teacher.studentAttendances.buttons.exportExcel')}>
               <button
                 onClick={handleExportToExcel}
                 className='p-2 text-white rounded bg-metropoliaMainOrange'>
@@ -171,7 +173,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
           </div>
           <FormControl className='mt-2 md:w-1/4 md:mt-0'>
             <div className='flex items-center gap-3 md:flex-none md:items-none'>
-              <label>Sort Topics:</label>
+              <label>{t('teacher.studentAttendances.sort.label')}</label>
               <Select
                 className='favorite-selector'
                 value={sortOption}
@@ -179,7 +181,9 @@ const TeacherStudentCourseAttendance: React.FC = () => {
                 <MenuItem value='All Topics'>
                   <div className='item-selector'>
                     <AutorenewIcon className='highest-star-selector-icon' />
-                    <span className='selector-text'>All Topics</span>
+                    <span className='selector-text'>
+                      {t('teacher.studentAttendances.sort.allTopics')}
+                    </span>
                   </div>
                 </MenuItem>
                 {uniqueTopics.map((topic, index) => (
@@ -201,13 +205,13 @@ const TeacherStudentCourseAttendance: React.FC = () => {
         />
       </div>
     );
-  } else {
-    return (
-      <div className='p-3 m-10 text-3xl font-bold text-center bg-white rounded-lg'>
-        No Data available
-      </div>
-    );
   }
+
+  return (
+    <div className='p-3 m-10 text-3xl font-bold text-center bg-white rounded-lg'>
+      {t('teacher.studentAttendances.noData')}
+    </div>
+  );
 };
 
 export default TeacherStudentCourseAttendance;

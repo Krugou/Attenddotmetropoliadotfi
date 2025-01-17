@@ -14,6 +14,7 @@ import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import io, {Socket} from 'socket.io-client';
 import {UserContext} from '../../../contexts/UserContext.tsx';
+import {useTranslation} from 'react-i18next';
 /**
  * StudentQrScanner component.
  *
@@ -32,6 +33,7 @@ import {UserContext} from '../../../contexts/UserContext.tsx';
 const StudentQrSelectScanner: React.FC = () => {
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
+  const {t} = useTranslation();
   const [scanned, setScanned] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(false);
@@ -181,14 +183,14 @@ const StudentQrSelectScanner: React.FC = () => {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <p>{t('student.qrScanner.loading')}</p>
       ) : (
         user &&
         user.studentnumber && (
           <>
             <div className='p-2 m-2'>
               <label className='m-1' htmlFor='cameraSelect'>
-                Choose desired camera input:
+                {t('student.qrScanner.camera.selectLabel')}
               </label>
               <select
                 className='m-1'

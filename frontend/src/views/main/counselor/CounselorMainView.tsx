@@ -45,7 +45,7 @@ const CounselorMainView: React.FC = () => {
         />
         <Card
           path='/counselor/lateenrollment'
-          title={t('counselor.mainView.lateEnrollmen')}
+          title={t('counselor.mainView.lateEnrollment')}
           description={t('counselor.mainView.lateEnrollmentDesc')}
           icon={PersonAdd}
         />

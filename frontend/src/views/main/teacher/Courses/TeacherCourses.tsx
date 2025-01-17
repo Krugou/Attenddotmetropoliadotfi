@@ -6,6 +6,7 @@ import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkBu
 import CourseData from '../../../../components/main/course/CourseData';
 import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../hooks/ApiHooks';
+import {useTranslation} from 'react-i18next';
 
 /**
  * Course interface.
@@ -28,6 +29,7 @@ interface Course {
  * It fetches the courses that the teacher is instructing and provides functionality for the teacher to navigate to the course creation view.
  */
 const TeacherCourses: React.FC = () => {
+  const {t} = useTranslation();
   const {user} = useContext(UserContext);
   const [courses, setCourses] = useState<Course[]>([]); // Specify the type for courses
   const {update, setUpdate} = useContext(UserContext);
@@ -61,7 +63,7 @@ const TeacherCourses: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='p-3 ml-auto mr-auto text-3xl font-bold text-center bg-white rounded-lg w-fit xl:text-4xl'>
-        My courses
+        {t('teacher.courses.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
@@ -71,7 +73,7 @@ const TeacherCourses: React.FC = () => {
                 ? '/counselor/mainview'
                 : `/${user?.role}/mainview`
             }
-            text='Back to mainview'
+            text={t('teacher.courses.buttons.backToMainview')}
           />
           <FormControlLabel
             control={
@@ -82,7 +84,7 @@ const TeacherCourses: React.FC = () => {
                 color='primary'
               />
             }
-            label='Show ended courses'
+            label={t('teacher.courses.toggles.showEndedCourses')}
           />
         </div>
         <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 m-auto'>
@@ -111,7 +113,7 @@ const TeacherCourses: React.FC = () => {
                   d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                 />
               </svg>
-              Add new course
+              {t('teacher.courses.buttons.addNewCourse')}
             </button>
           </div>
         </div>

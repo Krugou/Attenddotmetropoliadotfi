@@ -14,6 +14,7 @@ import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import io, {Socket} from 'socket.io-client';
 import {UserContext} from '../../../contexts/UserContext.tsx';
+import {useTranslation} from 'react-i18next';
 /**
  * StudentQrScanner component.
  *
@@ -30,6 +31,7 @@ import {UserContext} from '../../../contexts/UserContext.tsx';
  * @returns A JSX element representing the QR scanner component.
  */
 const StudentQrScanner: React.FC = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const [scanned, setScanned] = useState(false);
@@ -161,7 +163,7 @@ const StudentQrScanner: React.FC = () => {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <p>{t('student.qrScanner.loading')}</p>
       ) : (
         user &&
         user.studentnumber && (

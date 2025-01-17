@@ -9,6 +9,7 @@ import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkBu
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../hooks/ApiHooks';
 import {useCourses} from '../../../../hooks/courseHooks';
+import {useTranslation} from 'react-i18next';
 /**
  * Student interface.
  * This interface defines the shape of a Student object.
@@ -58,6 +59,7 @@ const TeacherStudentsView: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [studentsPerPage] = useState(100);
+  const {t} = useTranslation();
 
   // Fetch all students on mount
   useEffect(() => {
@@ -150,7 +152,7 @@ const TeacherStudentsView: React.FC = () => {
     <div className='w-full mx-auto 2xl:w-9/12'>
       <div className='flex flex-col items-center gap-5 sm:gap-0 sm:flex-row'>
         <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
-          Your Students
+          {t('teacher.studentsView.title')}
         </h1>
       </div>
       <div className='w-full max-h-[40em] 2xl:max-h-[60em] overflow-y-scroll rounded-xl bg-gray-100 p-2 sm:p-5'>
@@ -161,7 +163,7 @@ const TeacherStudentsView: React.FC = () => {
                 ? '/counselor/mainview'
                 : `/${user?.role}/mainview`
             }
-            text='Back to mainview'
+            text={t('teacher.studentsView.buttons.backToMainview')}
           />
         </div>
         <div className='flex flex-col items-center justify-between md:flex-row'>
@@ -169,7 +171,7 @@ const TeacherStudentsView: React.FC = () => {
             <TextField
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              label='Search by name'
+              label={t('teacher.studentsView.search.byName')}
               className='bg-white'
             />
           </div>
@@ -189,7 +191,7 @@ const TeacherStudentsView: React.FC = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label='Search By course'
+                label={t('teacher.studentsView.search.byCourse')}
                 margin='normal'
                 variant='outlined'
                 className='bg-white'
@@ -200,9 +202,11 @@ const TeacherStudentsView: React.FC = () => {
         <p className='flex items-center p-4 text-lg text-yellow-600'>
           <WarningIcon fontSize='large' />
           <span className='ml-2'>
-            {selectedCourse
-              ? 'Searching only from students on the selected course.'
-              : 'Searching from all students.'}
+            {t(
+              `teacher.studentsView.info.${
+                selectedCourse ? 'searchingCourse' : 'searchingAll'
+              }`
+            )}
           </span>
         </p>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
@@ -219,24 +223,24 @@ const TeacherStudentsView: React.FC = () => {
                 <div className='mb-2 text-lg font-bold underline underline-offset-8 decoration-metropoliaMainOrange'>
                   {student.first_name} {student.last_name}
                 </div>
-                {student.email && <p>Email: </p>}
+                {student.email && <p>{t('teacher.studentsView.studentCard.email')}</p>}
                 <p className='break-all'>{student.email}</p>
                 <div className='flex flex-col gap-3 mt-3'>
-                  {student.username && <p>Username: {student.username}</p>}
+                  {student.username && <p>{t('teacher.studentsView.studentCard.username')} {student.username}</p>}
                   {student.studentnumber && (
-                    <p>Student Number: {student.studentnumber}</p>
+                    <p>{t('teacher.studentsView.studentCard.studentNumber')} {student.studentnumber}</p>
                   )}
                   {student.group_name && (
-                    <p>Student Group: {student.group_name}</p>
+                    <p>{t('teacher.studentsView.studentCard.studentGroup')} {student.group_name}</p>
                   )}
                   {student.created_at && (
                     <p>
-                      Account created:{' '}
+                      {t('teacher.studentsView.studentCard.accountCreated')}{' '}
                       {new Date(student.created_at).toLocaleString()}
                     </p>
                   )}
                   <div className='flex flex-wrap items-center justify-between p-2'>
-                    <p className='text-blue-500'>Click for details</p>
+                    <p className='text-blue-500'>{t('teacher.studentsView.studentCard.clickDetails')}</p>
                   </div>
                 </div>
               </div>

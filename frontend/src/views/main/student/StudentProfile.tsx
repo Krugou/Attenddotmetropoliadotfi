@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import ProfileInfo from '../../../components/profiles/ProfileInfo';
 import {UserContext} from '../../../contexts/UserContext';
-
+import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom'; // Import useNavigate
 /**
  * StudentProfile component.
@@ -18,31 +18,31 @@ import {useNavigate} from 'react-router-dom'; // Import useNavigate
  * @returns A JSX element representing the student profile component.
  */
 const StudentProfile: React.FC = () => {
+  const {t} = useTranslation();
   const {user} = useContext(UserContext);
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Error handling
   if (!user) {
-    return <div>No user data available.</div>;
+    return <div>{t('student.profile.noData')}</div>;
   }
 
   return (
     <div className='flex flex-col items-center justify-center p-10 font-sans bg-white rounded-lg h-fit'>
       <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>
-        Student Profile
+        {t('student.profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
         <p className='mt-5 mb-5'>
-          <strong>Student Group:</strong>{' '}
+          <strong>{t('student.profile.studentGroup')}:</strong>{' '}
           <span className='profileStat'>{user.group_name}</span>
         </p>
       </div>
       <button
         className='px-4 py-2 mt-4 text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
-        onClick={() => navigate('/student/courses')} // Navigate to /student/courses when the button is clicked
-      >
-        My Courses
+        onClick={() => navigate('/student/courses')}>
+        {t('student.profile.myCourses')}
       </button>
     </div>
   );

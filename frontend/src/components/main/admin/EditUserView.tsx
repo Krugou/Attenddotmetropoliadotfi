@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import apihooks from '../../../hooks/ApiHooks';
 /**
  * Represents a user in the system.
@@ -45,6 +46,7 @@ interface Role {
  * @param {EditUserViewProps} props - The props.
  */
 const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
+  const { t } = useTranslation();
   // State for the edited user, roles, student groups, and whether the student number is taken
   const [editedUser, setEditedUser] = useState(user);
   const [roles, setRoles] = useState<Role[]>([]);
@@ -185,12 +187,12 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
   return (
     <div className='flex flex-col items-center justify-center w-fit'>
       <h1 className='p-3 mb-4 text-2xl font-bold bg-white rounded-lg'>
-        Edit User {editedUser.userid}
+        {t('admin.editUser.title')} {editedUser.userid}
       </h1>
       <div className='w-full p-5 bg-white rounded-lg'>
         {editedUser.created_at && (
           <div>
-            <span className='font-bold text-gray-700'>Created At</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.createdAt')}</span>
             <p className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
               {new Date(editedUser.created_at).toISOString().substring(0, 16)}
             </p>
@@ -198,7 +200,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {editedUser.last_name && (
           <label className='block mt-4'>
-            <span className='font-bold text-gray-700'>Last Name</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.lastName')}</span>
             <input
               required={!!editedUser.last_name}
               type='text'
@@ -211,7 +213,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {editedUser.first_name && (
           <label className='block mt-4'>
-            <span className='font-bold text-gray-700'>First Name</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.firstName')}</span>
             <input
               required={!!editedUser.first_name}
               type='text'
@@ -225,7 +227,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
 
         {editedUser.email !== undefined && editedUser.email !== null && (
           <label className='block mt-4'>
-            <span className='font-bold text-gray-700'>Email</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.email')}</span>
             <input
               required={!!editedUser.email}
               type='email'
@@ -235,13 +237,13 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
             />
             {isStudentEmailTaken && (
-              <span className='text-red-500'>Student email taken</span>
+              <span className='text-red-500'>{t('admin.editUser.errors.studentEmailTaken')}</span>
             )}
           </label>
         )}
         {editedUser.username && (
           <label className='block mt-4'>
-            <span className='font-bold text-gray-700'>Username</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.username')}</span>
             <input
               required={!!editedUser.username}
               type='text'
@@ -254,7 +256,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {roles.length > 0 && (
           <label className='block mt-4'>
-            <span className='font-bold text-gray-700'>Role</span>
+            <span className='font-bold text-gray-700'>{t('admin.editUser.role')}</span>
             <select
               required={!!editedUser.roleid}
               name='roleid'
@@ -279,8 +281,8 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               value={editedUser.GDPR}
               onChange={handleInputChange}
               className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
-              <option value={0}>Not Accepted</option>
-              <option value={1}>Accepted</option>
+              <option value={0}>{t('admin.editUser.gdprOptions.notAccepted')}</option>
+              <option value={1}>{t('admin.editUser.gdprOptions.accepted')}</option>
             </select>
           </label>
         )}
@@ -288,7 +290,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.studentnumber !== undefined &&
           editedUser.studentnumber !== null && (
             <label className='block mt-4'>
-              <span className='font-bold text-gray-700'>Student Number</span>
+              <span className='font-bold text-gray-700'>{t('admin.editUser.studentNumber')}</span>
               <input
                 type='number'
                 name='studentnumber'
@@ -297,7 +299,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
                 className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
               />
               {isStudentNumberTaken && (
-                <span className='text-red-500'>Student number taken</span>
+                <span className='text-red-500'>{t('admin.editUser.errors.studentNumberTaken')}</span>
               )}
             </label>
           )}
@@ -305,7 +307,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.studentgroupid !== undefined &&
           editedUser.studentgroupid !== null && (
             <label className='block mt-4'>
-              <span className='font-bold text-gray-700'>Student Group</span>
+              <span className='font-bold text-gray-700'>{t('admin.editUser.studentGroup')}</span>
               <select
                 required={!!editedUser.studentgroupid}
                 name='studentgroupid'
@@ -331,7 +333,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
                 ? 'bg-gray-500'
                 : 'bg-metropoliaTrendGreen hover:bg-green-600 transition'
             } text-white rounded-md`}>
-            Save
+            {t('admin.editUser.saveButton')}
           </button>
         </div>
       </div>

@@ -10,12 +10,15 @@ import AttendanceTable from '../../../../components/main/course/attendance/Atten
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../hooks/ApiHooks';
 import {exportToExcel, exportToPDF} from '../../../../utils/exportData';
+import {useTranslation} from 'react-i18next';
+
 /**
  * TeacherCourseAttendances component.
  * This component is responsible for rendering the attendance view for a course for a teacher.
  * It fetches the lectures and their attendances and provides functionality for the teacher to filter the attendances based on a selected date, print the attendances to a PDF, export the attendances to an Excel file, and navigate to the attendance statistics view.
  */
 const TeacherCourseAttendances: React.FC = () => {
+  const {t} = useTranslation();
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [lecturesAndTheirAttendances, setLecturesAndTheirAttendances] =
     useState<any[]>([]); // [lecture, [attendances]
@@ -101,13 +104,13 @@ const TeacherCourseAttendances: React.FC = () => {
   return (
     <div className='w-full p-4 bg-gray-100 rounded-lg lg:w-fit'>
       <h1 className='mb-5 text-3xl font-bold text-center'>
-        Teacher Course Attendances
+        {t('teacher.courseAttendances.title')}
       </h1>
       <div className='flex justify-center m-4 '>
         <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4'>
           <div className='w-full sm:w-1/2 lg:w-1/3'>
             <h2 className='p-2 text-center text-white bg-metropoliaSecondaryOrange'>
-              Find attendances based on day
+              {t('teacher.courseAttendances.search.heading')}
             </h2>
             <Calendar
               className='w-full mb-4 sm:mb-0'
@@ -130,7 +133,7 @@ const TeacherCourseAttendances: React.FC = () => {
               startIcon={<ShowChartIcon />}
               className='mt-4 h-fit sm:mt-0'
               onClick={() => navigate(`/teacher/courses/stats/${courseId}`)}>
-              Attendance statistics
+              {t('teacher.courseAttendances.buttons.statistics')}
             </Button>
           </div>
         </div>
@@ -140,33 +143,37 @@ const TeacherCourseAttendances: React.FC = () => {
           {filteredAttendances.length > 0 ? (
             <>
               <div className='flex justify-around mt-4 '>
-                <Tooltip title='Print to pdf'>
+                <Tooltip title={t('teacher.courseAttendances.buttons.printPdf')}>
                   <button
                     onClick={handlePrintToPdf}
                     className='p-2 text-white rounded bg-metropoliaMainOrange'
-                    title='Print to pdf'>
+                    title={t('teacher.courseAttendances.buttons.printPdf')}>
                     <PrintIcon fontSize='large' />
                   </button>
                 </Tooltip>
                 <div className='flex flex-col'>
                   <h2 className='text-2xl text-center'>
-                    Attendances for {selectedDate.toLocaleDateString()}
+                    {t('teacher.courseAttendances.table.title', {
+                      date: selectedDate.toLocaleDateString(),
+                    })}
                   </h2>
                   {user?.role !== 'student' && (
                     <button
                       className='p-2 m-2 text-white rounded bg-metropoliaMainOrange'
                       onClick={handleToggleOwnAttendances}>
-                      {showOwnAttendances
-                        ? 'Show all lecture attendances for this course today'
-                        : 'Show own lecture attendances for this course today'}
+                      {t(
+                        `teacher.courseAttendances.buttons.toggleView.${
+                          showOwnAttendances ? 'showAll' : 'showOwn'
+                        }`,
+                      )}
                     </button>
                   )}
                 </div>
-                <Tooltip title='Export to Excel'>
+                <Tooltip title={t('teacher.courseAttendances.buttons.exportExcel')}>
                   <button
                     onClick={handleExportToExcel}
                     className='p-2 text-white rounded bg-metropoliaMainOrange'
-                    title='Export to Excel'>
+                    title={t('teacher.courseAttendances.buttons.exportExcel')}>
                     <GetAppIcon fontSize='large' />
                   </button>
                 </Tooltip>
@@ -184,16 +191,20 @@ const TeacherCourseAttendances: React.FC = () => {
                 <button
                   className='w-1/2 p-2 m-2 text-white rounded bg-metropoliaMainOrange'
                   onClick={handleToggleOwnAttendances}>
-                  {showOwnAttendances
-                    ? 'Show all lecture attendances for this course today'
-                    : 'Show own lecture attendances for this course today'}
+                  {t(
+                    `teacher.courseAttendances.buttons.toggleView.${
+                      showOwnAttendances ? 'showAll' : 'showOwn'
+                    }`,
+                  )}
                 </button>
               )}
               <p className='text-xl '>
-                {showOwnAttendances
-                  ? 'No own attendances found for ' +
-                    selectedDate.toDateString()
-                  : 'No attendances found for ' + selectedDate.toDateString()}
+                {t(
+                  `teacher.courseAttendances.search.noAttendances.${
+                    showOwnAttendances ? 'own' : 'all'
+                  }`,
+                  {date: selectedDate.toDateString()},
+                )}
               </p>
             </div>
           )}

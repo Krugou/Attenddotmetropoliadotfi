@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Course {
   courseid: number;
@@ -23,15 +24,18 @@ const CourseSelect: React.FC<CourseSelectProps> = ({
   selectedCourse,
   onChange,
 }) => {
+  const { t } = useTranslation();
+    
   return (
     <label className='block mt-4'>
-      <span className='font-bold text-gray-700'>Course</span>
+      <span className='font-bold text-gray-700'>{t('courseSelect.label')}</span>
       <select
         required
         value={selectedCourse || ''}
         onChange={(e) => onChange(Number(e.target.value))}
-        className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'>
-        <option value='null'>Select a course</option>
+        className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'
+      >
+        <option value='null'>{t('courseSelect.placeholder')}</option>
         {courses.map((course) => (
           <option key={course.courseid} value={course.courseid}>
             {course.name + '|' + course.code}

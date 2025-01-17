@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import apiHooks from '../../hooks/ApiHooks'; // Replace with the correct path to your ApiHooks file
+import {useTranslation} from 'react-i18next';
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.
  * It includes a property for the user's information.
@@ -37,6 +38,7 @@ interface Role {
  * @returns {JSX.Element} The rendered ProfileInfo component.
  */
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
+  const {t} = useTranslation();
   // Define navigate
   const Navigate = useNavigate();
   // Define state variables for the modal
@@ -98,60 +100,62 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   return (
     <div className='space-y-5'>
       <p className='flex items-center gap-2'>
-        <strong>Name:</strong>{' '}
+        <strong>{t('profileInfo.labels.name')}:</strong>{' '}
         <span className='profileStat'>
           {user.first_name + ' ' + user.last_name}
         </span>
       </p>
       <p className='flex items-center gap-2'>
-        <strong>Username:</strong>{' '}
+        <strong>{t('profileInfo.labels.username')}:</strong>{' '}
         <span className='profileStat'>{user.username}</span>
       </p>
       <p className='flex flex-wrap items-center gap-1 items-base'>
-        <strong>Email:</strong>{' '}
+        <strong>{t('profileInfo.labels.email')}:</strong>{' '}
         <span className='profileStat w-fit'>{user.email}</span>
       </p>
       <p className='flex items-center gap-2 mt-5'>
-        <strong>Account created:</strong>{' '}
+        <strong>{t('profileInfo.labels.accountCreated')}:</strong>{' '}
         <span className='profileStat'>
           {new Date(user.created_at).toLocaleDateString()}
         </span>
       </p>
       <p className='flex items-center gap-2'>
-        <strong>Role:</strong> <span className='profileStat'>{user.role}</span>
+        <strong>{t('profileInfo.labels.role')}:</strong> <span className='profileStat'>{user.role}</span>
         {['counselor', 'teacher'].includes(user.role) && (
           <button
             className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
             onClick={handleOpen}>
-            Change
+            {t('profileInfo.buttons.change')}
           </button>
         )}
       </p>
 
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>
-          <h2 className='mb-3 text-lg font-bold sm:text-2xl'>Change Role</h2>
+          <h2 className='mb-3 text-lg font-bold sm:text-2xl'>
+            {t('profileInfo.roleChange.title')}
+          </h2>
           <select
-            title='Role Selection' // Add title attribute here
+            title={t('profileInfo.roleChange.selectTitle')} 
             className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded appearance-none cursor-pointer focus:outline-none focus:bg-white focus:border-gray-500'
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}>
             {roles.map((role) => (
-              <option value={role.roleid}>{role.name}</option>
+              <option key={role.roleid} value={role.roleid}>{role.name}</option>
             ))}
           </select>
           <div className='flex justify-between gap-10 mt-5'>
             <button
-              type='button' // Add type attribute here
+              type='button'
               className='px-2 py-1 text-sm font-bold text-white transition bg-red-500 rounded hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
-              type='button' // Add type attribute here
+              type='button'
               className='px-2 py-1 text-sm font-bold text-white transition bg-green-500 rounded hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
-              Change Role
+              {t('profileInfo.buttons.changeRole')}
             </button>
           </div>
         </div>

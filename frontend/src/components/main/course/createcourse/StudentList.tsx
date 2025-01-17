@@ -10,6 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import InputField from './coursedetails/InputField';
 
 /**
@@ -20,6 +21,7 @@ import InputField from './coursedetails/InputField';
  * @param {Function} props.setStudentList - Setter for the student list
  */
 const StudentList = ({studentList, setStudentList}) => {
+	const {t} = useTranslation();
 	// State for various component features
 	const [lastStudentNumber, setLastStudentNumber] = useState(777);
 	const [lastEmailNumber, setLastEmailNumber] = useState(1);
@@ -129,14 +131,14 @@ const StudentList = ({studentList, setStudentList}) => {
 		<div className="relative">
 			<div className="h-1/2 relative overflow-x-scroll">
 				<button
-					aria-label={hideExtraColumns ? 'Show All Columns' : 'Hide Extra Columns'}
+					aria-label={hideExtraColumns ? t('teacher.studentList.buttons.showAllColumns') : t('teacher.studentList.buttons.hideExtraColumns')}
 					className="p-1 bg-metropoliaMainOrange text-sm text-white transition font-bold rounded-xl hover:bg-metropoliaSecondaryOrange focus:outline-none mb-4 sticky top-0 left-0"
 					onClick={event => {
 						event.preventDefault();
 						toggleExtraColumns();
 					}}
 				>
-					{hideExtraColumns ? 'Show All Columns' : 'Hide Extra Columns'}
+					{hideExtraColumns ? t('teacher.studentList.buttons.showAllColumns') : t('teacher.studentList.buttons.hideExtraColumns')}
 				</button>
 				<div className="max-h-96 h-96 overflow-y-scroll relative">
 					<table className="table-auto w-full">
@@ -150,7 +152,7 @@ const StudentList = ({studentList, setStudentList}) => {
 													{key}
 													{key === 'last_name' && (
 														<button
-															aria-label="Sort Column"
+															aria-label={t('teacher.studentList.aria.sortColumn')}
 															className="ml-2 bg-metropoliaMainOrange text-sm text-white font-bold transition rounded hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark p-1"
 															onClick={sortStudents}
 														>
@@ -196,7 +198,7 @@ const StudentList = ({studentList, setStudentList}) => {
 													{lockedFields[index] ? <LockOpenIcon /> : <LockIcon />}
 												</IconButton>
 												<IconButton
-													aria-label="Delete Student"
+													aria-label={t('teacher.studentList.aria.deleteStudent')}
 													color="error"
 													onClick={() => handleClickOpen(index)}
 												>
@@ -209,17 +211,17 @@ const StudentList = ({studentList, setStudentList}) => {
 													aria-describedby="alert-dialog-description"
 												>
 													<DialogTitle id="alert-dialog-title">
-														{'Delete Student'}
+														{t('teacher.studentList.dialog.title')}
 													</DialogTitle>
 													<DialogContent>
 														<DialogContentText id="alert-dialog-description">
-															Are you sure you want to delete this student?
+															{t('teacher.studentList.dialog.message')}
 														</DialogContentText>
 													</DialogContent>
 													<DialogActions>
-														<Button onClick={handleClose}>Cancel</Button>
+														<Button onClick={handleClose}>{t('teacher.studentList.buttons.cancel')}</Button>
 														<Button onClick={handleDelete} color="error" autoFocus>
-															Delete
+															{t('teacher.studentList.buttons.delete')}
 														</Button>
 													</DialogActions>
 												</Dialog>
@@ -235,7 +237,7 @@ const StudentList = ({studentList, setStudentList}) => {
 					className="p-1 mt-2 text-sm sticky top-0 left-0 bg-metropoliaMainOrange text-white font-bold rounded-xl hover:bg-metropoliaSecondaryOrange focus:outline-none mb-4"
 					onClick={event => addStudent(event)}
 				>
-					Add Student
+					{t('teacher.studentList.buttons.addStudent')}
 				</button>
 			</div>
 		</div>
