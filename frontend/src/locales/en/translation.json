@@ -231,8 +231,8 @@
       "title": "Counselor Profile"
     }
   },
-  "student":{
-    "course":{
+  "student": {
+    "course": {
       "attendaceOfCourse": "Attendance of Course",
       "sortTopics": "Sort Topics",
       "showAttendanceStats": "Show Attendance Stats",
@@ -277,7 +277,6 @@
     },
     "qrScanner": {
       "loading": "Loading...",
-  
       "camera": {
         "selectLabel": "Choose desired camera input:",
         "noDevices": "No cameras available"
