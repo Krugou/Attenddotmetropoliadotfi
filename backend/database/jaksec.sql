@@ -283,6 +283,8 @@ CREATE TABLE IF NOT EXISTS `work_log_courses` (
   `start_date` DATE NOT NULL,
   `end_date` DATE NOT NULL,
   `code` VARCHAR(20) NOT NULL UNIQUE,
+  `title` VARCHAR(100) NOT NULL,
+  `description` TEXT NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   PRIMARY KEY (`work_log_course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
