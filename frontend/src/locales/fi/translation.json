@@ -718,6 +718,8 @@
     }
   },
   "common": {
+    "yes": "Kyllä",
+    "no": "Ei",
     "login": "Kirjaudu sisään",
     "dialog": {
       "confirm": "Kyllä",
@@ -818,5 +820,10 @@
       "success": "Rooli vaihdettu onnistuneesti, kirjaudu sisään uudelleen",
       "error": "Roolin vaihtaminen epäonnistui"
     }
+  },
+  "languages": {
+    "en": "Englanti",
+    "fi": "Suomi",
+    "sv": "Ruotsi"
   }
 }

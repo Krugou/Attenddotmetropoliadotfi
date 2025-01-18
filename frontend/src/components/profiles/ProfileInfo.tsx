@@ -100,7 +100,17 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       // handle the error appropriately, e.g., show a message to the user
     }
   };
-
+  const getLanguageName = (
+    code: string,
+    t: (key: string) => string,
+  ): string => {
+    const languages = {
+      en: t('languages.en'),
+      fi: t('languages.fi'),
+      sv: t('languages.sv'),
+    };
+    return languages[code as keyof typeof languages] || code;
+  };
   return (
     <div className='space-y-5'>
       <p className='flex items-center gap-2'>
@@ -137,15 +147,19 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* add to show user.language, user.activeStatus, user.darkMode */}
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.language')}:</strong>{' '}
-        <span className='profileStat'>{user.language}</span>
+        <span className='profileStat'>{getLanguageName(user.language, t)}</span>
       </p>
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
-        <span className='profileStat'>{user.activeStatus}</span>
+        <span className='profileStat'>
+          {user.activeStatus === 1 ? t('common.yes') : t('common.no')}
+        </span>
       </p>
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.darkMode')}:</strong>{' '}
-        <span className='profileStat'>{user.darkMode}</span>
+        <span className='profileStat'>
+          {user.darkMode === 1 ? t('common.yes') : t('common.no')}
+        </span>
       </p>
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>

@@ -718,6 +718,8 @@
     }
   },
   "common": {
+    "yes": "Yes",
+    "no": "No",
     "login": "Login",
     "dialog": {
       "confirm": "Yes",
@@ -818,5 +820,10 @@
       "success": "Role changed successfully, please log in again",
       "error": "Failed to change role"
     }
+  },
+  "languages": {
+    "en": "English",
+    "fi": "Finnish",
+    "sv": "Swedish"
   }
 }
