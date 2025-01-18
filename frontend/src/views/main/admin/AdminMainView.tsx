@@ -10,10 +10,8 @@ import {
   Event,
   Settings,
   Dashboard,
-
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
-
 
 /**
  * AdminMainView component.
@@ -24,7 +22,7 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered AdminMainView component.
  */
 const AdminMainView: React.FC = () => {
-    const {t} = useTranslation();
+  const {t} = useTranslation();
   return (
     <>
       <MainViewTitle role={'Admin'} />
@@ -78,7 +76,16 @@ const AdminMainView: React.FC = () => {
           description={t('admin.mainView.serverDashboardDesc')}
           icon={Dashboard}
         />
-        <FeedbackCard role='admin'  />
+        {import.meta.env.MODE === 'development' && (
+          // add work log course management
+          <Card
+            path='/admin/worklog/'
+            title={t('admin.mainView.workLog')}
+            description={t('admin.mainView.workLogDesc')}
+            icon={Event}
+          />
+        )}
+        <FeedbackCard role='admin' />
       </div>
     </>
   );

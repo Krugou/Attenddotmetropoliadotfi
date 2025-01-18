@@ -59,7 +59,9 @@
       "serverConfiguration": "Server Configuration",
       "serverConfigurationDesc": "Manage server settings and configurations",
       "serverDashboard": "Server Dashboard",
-      "serverDashboardDesc": "View server statistics and usage"
+      "serverDashboardDesc": "View server statistics and usage",
+      "workLog": "Worklog course management",
+      "workLogDesc": "View and manage all worklogs"
     },
     "courses": {
       "modify": {

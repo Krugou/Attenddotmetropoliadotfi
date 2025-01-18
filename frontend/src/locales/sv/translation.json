@@ -59,7 +59,9 @@
       "serverConfiguration": "Serverinställningar",
       "serverConfigurationDesc": "Hantera serverinställningar och konfigurationer",
       "serverDashboard": "Serverpanel",
-      "serverDashboardDesc": "Visa serverstatistik och användning"
+      "serverDashboardDesc": "Visa serverstatistik och användning",
+      "workLog": "Hantering av arbetsloggsböcker",
+      "workLogDesc": "Visa och hantera arbetsloggar"
     },
     "courses": {
       "modify": {

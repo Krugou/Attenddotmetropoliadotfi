@@ -92,7 +92,9 @@ const MainView: React.FC = () => {
               <Card
                 path='/teacher/helpvideos'
                 title={t('teacher.mainView.cards.instructions.title')}
-                description={t('teacher.mainView.cards.instructions.description')}
+                description={t(
+                  'teacher.mainView.cards.instructions.description',
+                )}
                 icon={Help}
               />
             )}
@@ -102,14 +104,18 @@ const MainView: React.FC = () => {
                 <Card
                   path='/teacher/students'
                   title={t('teacher.mainView.cards.manageStudents.title')}
-                  description={t('teacher.mainView.cards.manageStudents.description')}
+                  description={t(
+                    'teacher.mainView.cards.manageStudents.description',
+                  )}
                   icon={People}
                 />
 
                 <Card
                   path='/teacher/courses/'
                   title={t('teacher.mainView.cards.yourCourses.title')}
-                  description={t('teacher.mainView.cards.yourCourses.description')}
+                  description={t(
+                    'teacher.mainView.cards.yourCourses.description',
+                  )}
                   icon={School}
                 />
                 <CheckOpenLectures />
@@ -117,19 +123,25 @@ const MainView: React.FC = () => {
                 <Card
                   path='/teacher/attendance/createlecture'
                   title={t('teacher.mainView.cards.createLecture.title')}
-                  description={t('teacher.mainView.cards.createLecture.description')}
+                  description={t(
+                    'teacher.mainView.cards.createLecture.description',
+                  )}
                   icon={QrCode}
                 />
                 <Card
                   path='/teacher/courses/stats'
                   title={t('teacher.mainView.cards.attendanceStats.title')}
-                  description={t('teacher.mainView.cards.attendanceStats.description')}
+                  description={t(
+                    'teacher.mainView.cards.attendanceStats.description',
+                  )}
                   icon={Assessment}
                 />
                 <Card
                   path='/teacher/lateenrollment'
                   title={t('teacher.mainView.cards.lateEnrollment.title')}
-                  description={t('teacher.mainView.cards.lateEnrollment.description')}
+                  description={t(
+                    'teacher.mainView.cards.lateEnrollment.description',
+                  )}
                   icon={PersonAdd}
                 />
               </>
@@ -140,6 +152,27 @@ const MainView: React.FC = () => {
               description={t('teacher.mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
+            {import.meta.env.MODE === 'development' && (
+              <>
+                <Card
+                  path='/teacher/worklog/create'
+                  title={t('teacher.mainView.cards.createWorkLogCourse.title')}
+                  description={t(
+                    'teacher.mainView.cards.createWorkLogCourse.description',
+                  )}
+                  icon={Add}
+                />
+                <Card
+                  path='/teacher/worklog'
+                  title={t('teacher.mainView.cards.yourWorkLogCourses.title')}
+                  description={t(
+                    'teacher.mainView.cards.yourWorkLogCourses.description',
+                  )}
+                  icon={School}
+                />
+              </>
+            )}
+
             <FeedbackCard role='teacher' />
           </div>
           <WelcomeModal />

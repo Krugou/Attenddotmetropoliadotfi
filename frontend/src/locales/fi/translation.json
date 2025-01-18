@@ -59,7 +59,9 @@
       "serverConfiguration": "Palvelinasetukset",
       "serverConfigurationDesc": "Hallitse palvelinasetuksia ja -konfiguraatioita",
       "serverDashboard": "Palvelimen hallintapaneeli",
-      "serverDashboardDesc": "Näytä palvelimen tilastot ja käyttö"
+      "serverDashboardDesc": "Näytä palvelimen tilastot ja käyttö",
+      "workLog": "Työpäiväkirjakurssien hallinta",
+      "workLogDesc": "Näytä ja hallitse työpäiväkirjoja"
     },
     "courses": {
       "modify": {
