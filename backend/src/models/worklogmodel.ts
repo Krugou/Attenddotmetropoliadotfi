@@ -23,6 +23,7 @@ interface WorkLogEntry extends RowDataPacket {
   start_time: Date;
   end_time: Date;
   description: string;
+  status: 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
 }
 
 interface WorkLogCourseUser extends RowDataPacket {
@@ -83,13 +84,14 @@ const workLogModel = {
     startTime: Date,
     endTime: Date,
     description: string,
+    status: 0 | 1 | 2 | 3 = 0,
   ): Promise<ResultSetHeader> {
     try {
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
-          'INSERT INTO work_log_entries (userid, work_log_course_id, start_time, end_time, description) VALUES (?, ?, ?, ?, ?)',
-          [userId, courseId, startTime, endTime, description],
+          'INSERT INTO work_log_entries (userid, work_log_course_id, start_time, end_time, description, status) VALUES (?, ?, ?, ?, ?, ?)',
+          [userId, courseId, startTime, endTime, description, status],
         );
       return result;
     } catch (error) {
@@ -331,6 +333,36 @@ const workLogModel = {
       return result;
     } catch (error) {
       console.error('Error updating work log entry:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Updates only the status of a work log entry
+   * @param entryId The ID of the work log entry
+   * @param status The new status (0=pending, 1=approved, 2=rejected, 3=submitted)
+   * @returns Promise<ResultSetHeader>
+   * @throws Error if entry not found
+   */
+  async updateWorkLogEntryStatus(
+    entryId: number,
+    status: 0 | 1 | 2 | 3,
+  ): Promise<ResultSetHeader> {
+    try {
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'UPDATE work_log_entries SET status = ? WHERE entry_id = ?',
+          [status, entryId],
+        );
+
+      if (result.affectedRows === 0) {
+        throw new Error('Work log entry not found');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error updating work log entry status:', error);
       throw error;
     }
   },
