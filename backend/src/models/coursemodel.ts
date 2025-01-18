@@ -675,6 +675,7 @@ const course: CourseModel = {
 								users.first_name,
 								users.last_name,
 								users.studentnumber,
+                users.activeStatus,
 								usercourses.usercourseid,
 								users.userid,
 								users.created_at
