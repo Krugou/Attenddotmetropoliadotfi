@@ -14,6 +14,7 @@ import openData from '../utils/opendata.js';
 import validate from '../utils/validate.js';
 import attendanceRoutes from './course/attendanceRoutes.js';
 import topicRoutes from './course/topicRoutes.js';
+import worklogRoutes from './course/worklogRoutes.js';
 
 config();
 const upload = multer();
@@ -24,6 +25,7 @@ const router: Router = express.Router();
 
 router.use('/attendance', attendanceRoutes);
 router.use('/topics', topicRoutes);
+router.use('/worklog', worklogRoutes);
 
 /**
  * Route that checks if a course exists in the database.
@@ -35,7 +37,7 @@ router.post(
   '/check',
   checkUserRole(['admin', 'counselor', 'teacher']),
   express.json(),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const {codes} = req.body;
 
     try {
@@ -72,10 +74,11 @@ router.post(
     .isString()
     .notEmpty()
     .withMessage('Code must be a non-empty string'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({errors: errors.array()});
+      res.status(400).json({errors: errors.array()});
+      return;
     }
     try {
       const {code} = req.params;
@@ -98,7 +101,7 @@ router.post(
 router.post(
   '/checkreservations/',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const {code = '', studentGroup = ''} = req.body;
 
     try {
@@ -168,7 +171,7 @@ router.post(
     .withMessage('Each topic must be a string'),
   body('instructors').isArray().withMessage('Instructors must be an array'),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     if (req.user) {
       console.log('create course ', req.user?.email);
       logger.info({email: req.user?.email}, 'create course');
@@ -331,7 +334,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   param('email').isEmail().withMessage('Email must be a valid email address'),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const courses = await course.getCoursesByInstructorEmail(
         req.params.email,
@@ -357,7 +360,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   param('id').isNumeric().withMessage('ID must be a number'),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const courseId = Number(req.params.id);
       if (isNaN(courseId)) {
@@ -385,30 +388,35 @@ declare module 'express-serve-static-core' {
  *
  * @returns {Promise<Course[]>} A promise that resolves with all courses for the user.
  */
-router.get('/user/all', async (req: Request, res: Response) => {
-  try {
-    // Validate that the user is logged in
-    if (!req.user) {
-      res.status(403).send('User Info Unavailable');
-      return;
-    }
+router.get(
+  '/user/all',
+  checkUserRole(['admin', 'counselor', 'teacher', 'student']),
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      // Validate that the user is logged in
+      if (!req.user) {
+        res.status(403).send('User Info Unavailable');
+        return;
+      }
 
-    // Get the email from the request
-    const email = req.user.email;
+      // Get the email from the request
+      const email = req.user.email;
 
-    // Check if the user is an admin or the user is requesting their own info
-    if (req.user.userrole !== 0 && req.user.email !== email) {
-      return res.status(403).json({error: 'Access denied'});
+      // Check if the user is an admin or the user is requesting their own info
+      if (req.user.userrole !== 0 && req.user.email !== email) {
+        res.status(403).json({error: 'Access denied'});
+        return;
+      }
+      // Get the courses for the user
+      const courses = await course.getStudentsCourses(email);
+      res.json(courses);
+    } catch (err) {
+      logger.error(err);
+      console.error(err);
+      res.status(500).send('Server error');
     }
-    // Get the courses for the user
-    const courses = await course.getStudentsCourses(email);
-    res.json(courses);
-  } catch (err) {
-    logger.error(err);
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+  },
+);
 /**
  * Route that deletes a course by its ID.
  *
@@ -418,7 +426,7 @@ router.get('/user/all', async (req: Request, res: Response) => {
 router.delete(
   '/delete/:id',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     if (req.user) {
       logger.info({email: req.user?.email}, ' delete course');
     }
@@ -447,7 +455,7 @@ router.delete(
 router.get(
   '/students/:userid',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     // Get the instructor ID from the request
     const userid = Number(req.params.userid);
 
@@ -507,7 +515,7 @@ router.put(
       .withMessage('Each topic must be a string'),
   ],
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     if (req.user) {
       logger.info({email: req.user?.email}, ' update course');
     }
@@ -520,7 +528,8 @@ router.put(
         req.user.role !== 'admin'
       ) {
         // If not, return an error
-        return res.status(403).json({error: 'Unauthorized'});
+        res.status(403).json({error: 'Unauthorized'});
+        return;
       }
     } catch (error) {
       logger.error(error);
@@ -576,7 +585,7 @@ router.put(
 router.get(
   '/getallcourses',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       if (req.user?.role === 'counselor' || req.user?.role === 'admin') {
         const courses = await course.fetchAllCourses();
@@ -611,7 +620,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   param('courseId').isNumeric().withMessage('Course ID must be a number'),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const courseId = req.params.courseId;
       const details = await courseController.getDetailsByCourseId(courseId);
@@ -752,7 +761,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   param('userid').isNumeric().withMessage('User ID must be a number'),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const userid = req.params.userid;
     try {
       const useridNumber = parseInt(userid, 10);
@@ -772,43 +781,48 @@ router.get(
 router.get(
   '/students/pagination/:userid',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     // Get the instructor ID from the request
     try {
-    const userid = Number(req.params.userid);
-    const limit = Number(req.query.limit) || 10;
-    const page = Number(req.query.page) || 1;
-    const offset = (page - 1) * limit;
+      const userid = Number(req.params.userid);
+      const limit = Number(req.query.limit) || 10;
+      const page = Number(req.query.page) || 1;
+      const offset = (page - 1) * limit;
 
-    if (isNaN(userid)) {
-      res.status(400).send('Invalid user ID');
-      return;
-    }
-       // Input validation
-       if (limit < 1 || limit > 100) {
-        return res.status(400).json({ 
-          message: 'Limit must be between 1 and 100' 
+      if (isNaN(userid)) {
+        res.status(400).send('Invalid user ID');
+        return;
+      }
+      // Input validation
+      if (limit < 1 || limit > 100) {
+        res.status(400).json({
+          message: 'Limit must be between 1 and 100',
         });
+        return;
       }
 
       if (page < 1) {
-        return res.status(400).json({ 
-          message: 'Page must be greater than 0' 
+        res.status(400).json({
+          message: 'Page must be greater than 0',
         });
+        return;
       }
 
-
-
       // Get the students for the instructor
-      const students = await usermodel.fetchStudentsPaginationByInstructorId(userid, limit, offset);
+      const students = await usermodel.fetchStudentsPaginationByInstructorId(
+        userid,
+        limit,
+        offset,
+      );
       res.json({
         students: students.students,
         total: students.total,
         currentPage: page,
         totalPages: Math.ceil(students.total / limit),
-        limit
+        limit,
       });
     } catch (err) {
+      logger.error(err);
       console.error(err);
       res.status(500).send('Server error');
     }

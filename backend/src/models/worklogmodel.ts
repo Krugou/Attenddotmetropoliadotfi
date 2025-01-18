@@ -4,16 +4,24 @@ import createPool from '../config/createPool.js';
 // Create pool with admin privileges since we need full access
 const pool = createPool('ADMIN');
 
+// Helper function to format dates for MySQL
+const formatDateForMySQL = (date: Date | string): string => {
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
+  return date.toISOString().slice(0, 19).replace('T', ' ');
+};
+
 // Interfaces for type safety
 interface WorkLogCourse extends RowDataPacket {
   work_log_course_id: number;
   name: string;
-  title: string;
   description: string;
   start_date: Date;
   end_date: Date;
   code: string;
   created_at: Date;
+  required_hours: number;
 }
 
 interface WorkLogEntry extends RowDataPacket {
@@ -42,18 +50,21 @@ const workLogModel = {
   // Course operations
   async createWorkLogCourse(
     name: string,
-    startDate: Date,
-    endDate: Date,
+    startDate: Date | string,
+    endDate: Date | string,
     code: string,
-    title: string,
     description: string,
+    required_hours: number,
   ): Promise<ResultSetHeader> {
     try {
+      const formattedStartDate = formatDateForMySQL(startDate);
+      const formattedEndDate = formatDateForMySQL(endDate);
+
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
-          'INSERT INTO work_log_courses (name, start_date, end_date, code, title, description) VALUES (?, ?, ?, ?, ?, ?)',
-          [name, startDate, endDate, code, title, description],
+          'INSERT INTO work_log_courses (name, start_date, end_date, code, description, required_hours) VALUES (?, ?, ?, ?, ?, ?)',
+          [name, formattedStartDate, formattedEndDate, code, description, required_hours],
         );
       return result;
     } catch (error) {
@@ -289,7 +300,7 @@ const workLogModel = {
     updates: Partial<
       Pick<
         WorkLogCourse,
-        'name' | 'start_date' | 'end_date' | 'code' | 'title' | 'description'
+        'name' | 'start_date' | 'end_date' | 'code' | 'description'
       >
     >,
   ): Promise<ResultSetHeader> {

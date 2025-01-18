@@ -993,12 +993,11 @@ const fetchErrorLogs = async (token: string, lineLimit: number) => {
   return await doFetch(`${baseUrl}admin/errorlogs/${lineLimit}`, options);
 };
 
-
 const fetchPaginatedStudents = async (
   token: string,
   limit: number = 10,
-  page: number = 1
-) =>{
+  page: number = 1,
+) => {
   const options = {
     method: 'GET',
     headers: {
@@ -1008,7 +1007,7 @@ const fetchPaginatedStudents = async (
 
   return await doFetch(
     `${baseUrl}secure/students/paginated?limit=${limit}&page=${page}`,
-    options
+    options,
   );
 };
 
@@ -1016,8 +1015,8 @@ const fetchStudentsPaginationByInstructorId = async (
   userId: number,
   token: string,
   limit: number = 10,
-  page: number = 1
-) =>{
+  page: number = 1,
+) => {
   const options = {
     method: 'GET',
     headers: {
@@ -1027,11 +1026,24 @@ const fetchStudentsPaginationByInstructorId = async (
 
   return await doFetch(
     `${baseUrl}courses/students/pagination/${userId}?limit=${limit}&page=${page}`,
-    options
+    options,
   );
-}
+};
+const createWorkLogCourse = async (token: string, course: any) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(course),
+  };
+
+  return await doFetch(baseUrl + 'courses/worklog/courses', options);
+};
 
 const apiHooks = {
+  createWorkLogCourse,
   fetchErrorLogs,
   fetchLogs,
   deleteAttendanceByAttendanceId,

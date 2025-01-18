@@ -230,7 +230,7 @@ router.get(
   '/students/paginated',
   checkUserRole(['admin', 'counselor', 'teacher']),
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const limit = Number(req.query.limit) || 10;
       const page = Number(req.query.page) || 1;
@@ -238,19 +238,21 @@ router.get(
 
       // Input validation
       if (limit < 1 || limit > 100) {
-        return res.status(400).json({ 
-          message: 'Limit must be between 1 and 100' 
+        res.status(400).json({
+          message: 'Limit must be between 1 and 100'
         });
+        return;
       }
 
       if (page < 1) {
-        return res.status(400).json({ 
-          message: 'Page must be greater than 0' 
+        res.status(400).json({
+          message: 'Page must be greater than 0'
         });
+        return;
       }
 
       const result = await usermodel.fetchNumberOfStudents(limit, offset);
-      
+
       res.json({
         students: result.students,
         total: result.total,

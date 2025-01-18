@@ -5,11 +5,20 @@ import {NextFunction, Request, Response} from 'express';
  * @param {string[]} roles - The list of authorized roles.
  * @returns {Function} Middleware function that checks the user's role.
  */
-const checkUserRole = (roles: string[]) => {
+const checkUserRole = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user || !roles.includes(req.user.role)) {
-      return res.status(403).json({error: 'Unauthorized'});
+    if (!req.user) {
+      res.status(403).json({error: 'No user logged in'});
+
+      return;
     }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      res.status(403).json({error: 'Access denied'});
+
+      return;
+    }
+
     next();
   };
 };

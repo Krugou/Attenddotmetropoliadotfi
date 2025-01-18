@@ -122,3 +122,5 @@ backend/src/database/cleardatabase.ts
 backend/logs/
 extra/asddd.sql
 translationCheckResult/*
+frontend/dev-dist/workbox-54d0af47.js
+frontend/dev-dist/sw.js

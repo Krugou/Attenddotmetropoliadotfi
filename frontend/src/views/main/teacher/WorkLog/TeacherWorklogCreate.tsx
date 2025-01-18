@@ -58,7 +58,11 @@ const WorkLogCreate = () => {
 
     try {
       // Call your API here using ApiHooks
-      // const result = await ApiHooks.createWorkLogCourse(formData);
+      const token: string | null = localStorage.getItem('userToken');
+      if (!token) {
+        throw new Error('No token available');
+      }
+      const result = await ApiHooks.createWorkLogCourse(token, formData);
       setSuccess(t('teacher.worklog.success.courseCreated'));
       // Reset form
       setFormData({
@@ -70,8 +74,22 @@ const WorkLogCreate = () => {
         description: '',
         requiredHours: 0,
       });
+      if (result) {
+        setSuccess(t('teacher.worklog.success.courseCreated'));
+        setTimeout(() => {
+          setSuccess('');
+        }, 5000);
+      } else {
+        setError(t('teacher.worklog.errors.createFailed'));
+        setTimeout(() => {
+          setError('');
+        }, 5000);
+      }
     } catch (err) {
       setError(t('teacher.worklog.errors.createFailed'));
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
   };
 

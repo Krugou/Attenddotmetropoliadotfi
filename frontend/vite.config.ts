@@ -4,6 +4,7 @@ import {defineConfig, loadEnv} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
 
 // Define the Vite configuration
+//@ts-expect-error
 export default defineConfig(({mode}) => {
   // Load env file based on mode
   const env = loadEnv(mode, process.cwd(), '');
@@ -20,10 +21,13 @@ export default defineConfig(({mode}) => {
       // Use the PWA plugin
       VitePWA({
         registerType: 'autoUpdate',
-
+        devOptions: {
+          enabled: true,
+          type: 'module',
+        },
         manifest: {
           // Set the name of the PWA
-          name: 'Jak Sec',
+          name: 'JakSurveillance',
           // Set the short name of the PWA
           short_name: 'JakSec',
           // Set the theme color of the PWA
@@ -42,6 +46,9 @@ export default defineConfig(({mode}) => {
               type: 'image/png',
             },
           ],
+          id: 'jak-surveillance',
+          start_url: '.',
+          display: 'standalone',
         },
         workbox: {
           // Define Workbox options for generateSW

@@ -31,6 +31,7 @@ const TeacherWorkLogs: React.FC = () => {
   ];
 
   // Mock data for development, filtered by selected course
+  //@ts-expect-error
   const mockEntries: WorkLogEntry[] = [
     // Web Development entries
     {

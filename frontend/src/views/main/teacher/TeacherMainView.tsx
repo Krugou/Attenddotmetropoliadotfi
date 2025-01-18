@@ -16,7 +16,6 @@ import {
   QrCode,
   Timeline,
   PersonAdd,
-  Today,
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
 

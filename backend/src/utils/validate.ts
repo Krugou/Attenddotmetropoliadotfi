@@ -1,5 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
+
 import {validationResult} from 'express-validator';
+
+import {RequestHandler} from 'express-serve-static-core';
 /**
  * Middleware to validate the request using express-validator.
  *
@@ -7,11 +10,18 @@ import {validationResult} from 'express-validator';
  * @param {Response} res - The Express response object.
  * @param {NextFunction} next - The next middleware function.
  */
-const validate = (req: Request, res: Response, next: NextFunction) => {
+const validate: RequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
-    return res.status(400).json({errors: errors.array()});
+    res.status(400).json({errors: errors.array()});
+    return;
   }
+
   next();
 };
 

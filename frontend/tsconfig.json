@@ -20,7 +20,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noErrorTruncation": true
+    "noErrorTruncation": true,
+    "types": ["vite-plugin-pwa/client"]
   },
   "include": ["src", "node_modules/vite-plugin-pwa/client.d.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"],
