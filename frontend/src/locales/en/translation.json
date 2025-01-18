@@ -61,7 +61,9 @@
       "serverDashboard": "Server Dashboard",
       "serverDashboardDesc": "View server statistics and usage",
       "workLog": "Worklog course management",
-      "workLogDesc": "View and manage all worklogs"
+      "workLogDesc": "View and manage all worklogs",
+      "studentDashboard": "Student Dashboard",
+      "studentDashboardDesc": "Access student modules"
     },
     "courses": {
       "modify": {
@@ -269,6 +271,14 @@
       "qrScannerCamera": {
         "title": "Attendance QR Scanner with Camera Selection",
         "description": "Scan QR to mark attendance with camera selection"
+      },
+      "workLog": {
+        "title": "Worklog course logger",
+        "description": "Log your worklogs"
+      },
+      "workLogs": {
+        "title": "Your Worklog courses",
+        "description": "View and manage your worklogs"
       }
     },
     "profile": {

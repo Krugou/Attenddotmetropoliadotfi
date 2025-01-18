@@ -61,7 +61,9 @@
       "serverDashboard": "Palvelimen hallintapaneeli",
       "serverDashboardDesc": "Näytä palvelimen tilastot ja käyttö",
       "workLog": "Työpäiväkirjakurssien hallinta",
-      "workLogDesc": "Näytä ja hallitse työpäiväkirjoja"
+      "workLogDesc": "Näytä ja hallitse työpäiväkirjoja",
+      "studentDashboard": " Opiskelijan hallintapaneeli",
+      "studentDashboardDesc": "Hallinnoi opiskelija moduuleja"
     },
     "courses": {
       "modify": {
@@ -269,6 +271,14 @@
       "qrScannerCamera": {
         "title": "Läsnäolon QR-skanneri kameravalinnalla",
         "description": "Skannaa QR merkitäksesi läsnäolon kameravalinnalla"
+      },
+      "workLog": {
+        "title": "Työpäiväkirjakurssit",
+        "description": "Kirjaa työpäiväkirjasi"
+      },
+      "workLogs": {
+        "title": "Työpäiväkirjakurssisi",
+        "description": "Näytä ja hallitse työpäiväkirjojasi"
       }
     },
     "profile": {

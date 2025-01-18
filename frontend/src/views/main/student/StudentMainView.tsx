@@ -3,13 +3,7 @@ import {useTranslation} from 'react-i18next';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
-import {
-  QrCode,
-  Person,
-  School,
-  Help,
-  PhotoCamera,
-} from '@mui/icons-material';
+import {QrCode, Person, School, Help, PhotoCamera} from '@mui/icons-material';
 
 /**
  * MainView component.
@@ -63,6 +57,22 @@ const MainView: React.FC = () => {
           description={t('student.mainView.qrScannerCamera.description')}
           icon={PhotoCamera}
         />
+        {import.meta.env.MODE === 'development' && (
+          <>
+            <Card
+              path='/student/worklog'
+              title={t('student.mainView.workLog.title')}
+              description={t('student.mainView.workLog.description')}
+              icon={PhotoCamera}
+            />
+            <Card
+              path='/student/worklogs'
+              title={t('student.mainView.workLogs.title')}
+              description={t('student.mainView.workLogs.description')}
+              icon={PhotoCamera}
+            />
+          </>
+        )}
         <FeedbackCard role='student' />
       </div>
     </div>

@@ -61,7 +61,9 @@
       "serverDashboard": "Serverpanel",
       "serverDashboardDesc": "Visa serverstatistik och användning",
       "workLog": "Hantering av arbetsloggsböcker",
-      "workLogDesc": "Visa och hantera arbetsloggar"
+      "workLogDesc": "Visa och hantera arbetsloggar",
+      "studentDashboard": "Studentpanel",
+      "studentDashboardDesc": "Visa och hantera studentdata"
     },
     "courses": {
       "modify": {
@@ -269,6 +271,14 @@
       "qrScannerCamera": {
         "title": "Närvarosökare med QR och kameraval",
         "description": "Skanna QR för att markera närvaro med kameraval"
+      },
+      "workLog": {
+        "title": "Arbetsloggsböcker",
+        "description": "Logga dina arbetsloggar"
+      },
+      "workLogs": {
+        "title": "Dina arbetsloggsböcker",
+        "description": "Visa och hantera dina arbetsloggar"
       }
     },
     "profile": {
