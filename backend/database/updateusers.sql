@@ -2,7 +2,8 @@
 ALTER TABLE `users`
 DROP FOREIGN KEY IF EXISTS `users_ibfk_3`,
 DROP COLUMN IF EXISTS `darkMode`,
-DROP COLUMN IF EXISTS `language`;
+DROP COLUMN IF EXISTS `language`,
+DROP COLUMN IF EXISTS `activeStatus`;
 
 -- Create languages table with only id
 DROP TABLE IF EXISTS `languages`;
@@ -21,6 +22,7 @@ INSERT INTO `languages` (`languageid`) VALUES
 ALTER TABLE `users`
 ADD COLUMN `darkMode` TINYINT(1) NOT NULL DEFAULT 0,
 ADD COLUMN `language` varchar(2) NOT NULL DEFAULT 'en',
+ADD COLUMN `activeStatus` TINYINT(1) NOT NULL DEFAULT 1,
 ADD INDEX `idx_users_language` (`language`),
 ADD CONSTRAINT `fk_users_languages`
 FOREIGN KEY (`language`)
