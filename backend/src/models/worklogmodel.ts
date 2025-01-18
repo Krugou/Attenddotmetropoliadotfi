@@ -1,4 +1,4 @@
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import createPool from '../config/createPool.js';
 
 // Create pool with admin privileges since we need full access
@@ -8,6 +8,8 @@ const pool = createPool('ADMIN');
 interface WorkLogCourse extends RowDataPacket {
   work_log_course_id: number;
   name: string;
+  title: string;
+  description: string;
   start_date: Date;
   end_date: Date;
   code: string;
@@ -37,12 +39,21 @@ interface WorkLogCourseGroup extends RowDataPacket {
 
 const workLogModel = {
   // Course operations
-  async createWorkLogCourse(name: string, startDate: Date, endDate: Date, code: string): Promise<ResultSetHeader> {
+  async createWorkLogCourse(
+    name: string,
+    startDate: Date,
+    endDate: Date,
+    code: string,
+    title: string,
+    description: string,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO work_log_courses (name, start_date, end_date, code) VALUES (?, ?, ?, ?)',
-        [name, startDate, endDate, code]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_courses (name, start_date, end_date, code, title, description) VALUES (?, ?, ?, ?, ?, ?)',
+          [name, startDate, endDate, code, title, description],
+        );
       return result;
     } catch (error) {
       console.error('Error creating work log course:', error);
@@ -52,10 +63,12 @@ const workLogModel = {
 
   async getWorkLogCourseById(courseId: number): Promise<WorkLogCourse[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourse[]>(
-        'SELECT * FROM work_log_courses WHERE work_log_course_id = ?',
-        [courseId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE work_log_course_id = ?',
+          [courseId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log course:', error);
@@ -69,13 +82,15 @@ const workLogModel = {
     courseId: number,
     startTime: Date,
     endTime: Date,
-    description: string
+    description: string,
   ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO work_log_entries (userid, work_log_course_id, start_time, end_time, description) VALUES (?, ?, ?, ?, ?)',
-        [userId, courseId, startTime, endTime, description]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_entries (userid, work_log_course_id, start_time, end_time, description) VALUES (?, ?, ?, ?, ?)',
+          [userId, courseId, startTime, endTime, description],
+        );
       return result;
     } catch (error) {
       console.error('Error creating work log entry:', error);
@@ -85,10 +100,12 @@ const workLogModel = {
 
   async getWorkLogEntriesByUserId(userId: number): Promise<WorkLogEntry[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogEntry[]>(
-        'SELECT * FROM work_log_entries WHERE userid = ?',
-        [userId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogEntry[]>(
+          'SELECT * FROM work_log_entries WHERE userid = ?',
+          [userId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log entries:', error);
@@ -97,12 +114,17 @@ const workLogModel = {
   },
 
   // Course user operations
-  async addUserToCourse(userId: number, courseId: number): Promise<ResultSetHeader> {
+  async addUserToCourse(
+    userId: number,
+    courseId: number,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
-        [userId, courseId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
+          [userId, courseId],
+        );
       return result;
     } catch (error) {
       console.error('Error adding user to course:', error);
@@ -112,10 +134,12 @@ const workLogModel = {
 
   async getUserCourses(userId: number): Promise<WorkLogCourseUser[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourseUser[]>(
-        'SELECT * FROM work_log_course_users WHERE userid = ?',
-        [userId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourseUser[]>(
+          'SELECT * FROM work_log_course_users WHERE userid = ?',
+          [userId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting user courses:', error);
@@ -124,12 +148,17 @@ const workLogModel = {
   },
 
   // Group operations
-  async createWorkLogGroup(courseId: number, groupName: string): Promise<ResultSetHeader> {
+  async createWorkLogGroup(
+    courseId: number,
+    groupName: string,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO work_log_course_groups (work_log_course_id, group_name) VALUES (?, ?)',
-        [courseId, groupName]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_course_groups (work_log_course_id, group_name) VALUES (?, ?)',
+          [courseId, groupName],
+        );
       return result;
     } catch (error) {
       console.error('Error creating work log group:', error);
@@ -137,12 +166,17 @@ const workLogModel = {
     }
   },
 
-  async assignStudentToGroup(groupId: number, userId: number): Promise<ResultSetHeader> {
+  async assignStudentToGroup(
+    groupId: number,
+    userId: number,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO student_group_assignments (group_id, userid) VALUES (?, ?)',
-        [groupId, userId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO student_group_assignments (group_id, userid) VALUES (?, ?)',
+          [groupId, userId],
+        );
       return result;
     } catch (error) {
       console.error('Error assigning student to group:', error);
@@ -156,7 +190,7 @@ const workLogModel = {
         `SELECT u.* FROM users u
          JOIN student_group_assignments sga ON u.userid = sga.userid
          WHERE sga.group_id = ?`,
-        [groupId]
+        [groupId],
       );
       return rows;
     } catch (error) {
@@ -168,10 +202,12 @@ const workLogModel = {
   // Delete operations
   async deleteWorkLogCourse(courseId: number): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM work_log_courses WHERE work_log_course_id = ?',
-        [courseId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM work_log_courses WHERE work_log_course_id = ?',
+          [courseId],
+        );
       return result;
     } catch (error) {
       console.error('Error deleting work log course:', error);
@@ -181,10 +217,12 @@ const workLogModel = {
 
   async deleteWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM work_log_entries WHERE entry_id = ?',
-        [entryId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM work_log_entries WHERE entry_id = ?',
+          [entryId],
+        );
       return result;
     } catch (error) {
       console.error('Error deleting work log entry:', error);
@@ -192,12 +230,17 @@ const workLogModel = {
     }
   },
 
-  async removeUserFromCourse(userId: number, courseId: number): Promise<ResultSetHeader> {
+  async removeUserFromCourse(
+    userId: number,
+    courseId: number,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM work_log_course_users WHERE userid = ? AND work_log_course_id = ?',
-        [userId, courseId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM work_log_course_users WHERE userid = ? AND work_log_course_id = ?',
+          [userId, courseId],
+        );
       return result;
     } catch (error) {
       console.error('Error removing user from course:', error);
@@ -207,10 +250,12 @@ const workLogModel = {
 
   async deleteWorkLogGroup(groupId: number): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM work_log_course_groups WHERE group_id = ?',
-        [groupId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM work_log_course_groups WHERE group_id = ?',
+          [groupId],
+        );
       return result;
     } catch (error) {
       console.error('Error deleting work log group:', error);
@@ -218,12 +263,17 @@ const workLogModel = {
     }
   },
 
-  async removeStudentFromGroup(groupId: number, userId: number): Promise<ResultSetHeader> {
+  async removeStudentFromGroup(
+    groupId: number,
+    userId: number,
+  ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM student_group_assignments WHERE group_id = ? AND userid = ?',
-        [groupId, userId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM student_group_assignments WHERE group_id = ? AND userid = ?',
+          [groupId, userId],
+        );
       return result;
     } catch (error) {
       console.error('Error removing student from group:', error);
@@ -234,7 +284,12 @@ const workLogModel = {
   // Update operations
   async updateWorkLogCourse(
     courseId: number,
-    updates: Partial<Pick<WorkLogCourse, 'name' | 'start_date' | 'end_date' | 'code'>>
+    updates: Partial<
+      Pick<
+        WorkLogCourse,
+        'name' | 'start_date' | 'end_date' | 'code' | 'title' | 'description'
+      >
+    >,
   ): Promise<ResultSetHeader> {
     try {
       const updateFields = Object.entries(updates)
@@ -242,10 +297,12 @@ const workLogModel = {
         .join(', ');
       const values = [...Object.values(updates), courseId];
 
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        `UPDATE work_log_courses SET ${updateFields} WHERE work_log_course_id = ?`,
-        values
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          `UPDATE work_log_courses SET ${updateFields} WHERE work_log_course_id = ?`,
+          values,
+        );
       return result;
     } catch (error) {
       console.error('Error updating work log course:', error);
@@ -255,7 +312,9 @@ const workLogModel = {
 
   async updateWorkLogEntry(
     entryId: number,
-    updates: Partial<Pick<WorkLogEntry, 'start_time' | 'end_time' | 'description'>>
+    updates: Partial<
+      Pick<WorkLogEntry, 'start_time' | 'end_time' | 'description'>
+    >,
   ): Promise<ResultSetHeader> {
     try {
       const updateFields = Object.entries(updates)
@@ -263,10 +322,12 @@ const workLogModel = {
         .join(', ');
       const values = [...Object.values(updates), entryId];
 
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        `UPDATE work_log_entries SET ${updateFields} WHERE entry_id = ?`,
-        values
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          `UPDATE work_log_entries SET ${updateFields} WHERE entry_id = ?`,
+          values,
+        );
       return result;
     } catch (error) {
       console.error('Error updating work log entry:', error);
@@ -276,13 +337,15 @@ const workLogModel = {
 
   async updateWorkLogGroup(
     groupId: number,
-    groupName: string
+    groupName: string,
   ): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'UPDATE work_log_course_groups SET group_name = ? WHERE group_id = ?',
-        [groupName, groupId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'UPDATE work_log_course_groups SET group_name = ? WHERE group_id = ?',
+          [groupName, groupId],
+        );
       return result;
     } catch (error) {
       console.error('Error updating work log group:', error);
@@ -293,9 +356,11 @@ const workLogModel = {
   // Additional list/search operations
   async getAllWorkLogCourses(): Promise<WorkLogCourse[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourse[]>(
-        'SELECT * FROM work_log_courses ORDER BY start_date DESC'
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses ORDER BY start_date DESC',
+        );
       return rows;
     } catch (error) {
       console.error('Error getting all work log courses:', error);
@@ -303,12 +368,17 @@ const workLogModel = {
     }
   },
 
-  async getWorkLogCoursesByDateRange(startDate: Date, endDate: Date): Promise<WorkLogCourse[]> {
+  async getWorkLogCoursesByDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<WorkLogCourse[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourse[]>(
-        'SELECT * FROM work_log_courses WHERE start_date >= ? AND end_date <= ? ORDER BY start_date',
-        [startDate, endDate]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE start_date >= ? AND end_date <= ? ORDER BY start_date',
+          [startDate, endDate],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log courses by date range:', error);
@@ -318,10 +388,12 @@ const workLogModel = {
 
   async getWorkLogEntriesByCourse(courseId: number): Promise<WorkLogEntry[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogEntry[]>(
-        'SELECT * FROM work_log_entries WHERE work_log_course_id = ? ORDER BY start_time DESC',
-        [courseId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogEntry[]>(
+          'SELECT * FROM work_log_entries WHERE work_log_course_id = ? ORDER BY start_time DESC',
+          [courseId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log entries by course:', error);
@@ -329,12 +401,16 @@ const workLogModel = {
     }
   },
 
-  async getWorkLogGroupsByCourse(courseId: number): Promise<WorkLogCourseGroup[]> {
+  async getWorkLogGroupsByCourse(
+    courseId: number,
+  ): Promise<WorkLogCourseGroup[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourseGroup[]>(
-        'SELECT * FROM work_log_course_groups WHERE work_log_course_id = ?',
-        [courseId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourseGroup[]>(
+          'SELECT * FROM work_log_course_groups WHERE work_log_course_id = ?',
+          [courseId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log groups by course:', error);
@@ -348,7 +424,7 @@ const workLogModel = {
         `SELECT g.* FROM work_log_course_groups g
          JOIN student_group_assignments sga ON g.group_id = sga.group_id
          WHERE sga.userid = ?`,
-        [userId]
+        [userId],
       );
       return rows;
     } catch (error) {
@@ -359,10 +435,12 @@ const workLogModel = {
 
   async searchWorkLogCourses(searchTerm: string): Promise<WorkLogCourse[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogCourse[]>(
-        'SELECT * FROM work_log_courses WHERE name LIKE ? OR code LIKE ?',
-        [`%${searchTerm}%`, `%${searchTerm}%`]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE name LIKE ? OR code LIKE ?',
+          [`%${searchTerm}%`, `%${searchTerm}%`],
+        );
       return rows;
     } catch (error) {
       console.error('Error searching work log courses:', error);
@@ -381,7 +459,7 @@ const workLogModel = {
          JOIN work_log_entries wle ON wlc.work_log_course_id = wle.work_log_course_id
          WHERE wle.userid = ?
          GROUP BY wlc.work_log_course_id`,
-        [userId]
+        [userId],
       );
       return rows;
     } catch (error) {
@@ -390,18 +468,23 @@ const workLogModel = {
     }
   },
 
-  async validateUserCourseAccess(userId: number, courseId: number): Promise<boolean> {
+  async validateUserCourseAccess(
+    userId: number,
+    courseId: number,
+  ): Promise<boolean> {
     try {
-      const [rows] = await pool.promise().query<RowDataPacket[]>(
-        'SELECT 1 FROM work_log_course_users WHERE userid = ? AND work_log_course_id = ?',
-        [userId, courseId]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<RowDataPacket[]>(
+          'SELECT 1 FROM work_log_course_users WHERE userid = ? AND work_log_course_id = ?',
+          [userId, courseId],
+        );
       return rows.length > 0;
     } catch (error) {
       console.error('Error validating user course access:', error);
       throw error;
     }
-  }
+  },
 };
 
 export default workLogModel;
