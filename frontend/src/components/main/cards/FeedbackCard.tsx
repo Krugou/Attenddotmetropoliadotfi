@@ -3,10 +3,9 @@ import Card from './Card'; // replace with the actual path to your Card componen
 import {Support} from '@mui/icons-material';
 interface FeedbackCardProps {
   role: string;
-  icon?: React.ComponentType<any>;
 }
 
-const FeedbackCard: React.FC<FeedbackCardProps> = ({role, icon}) => {
+const FeedbackCard: React.FC<FeedbackCardProps> = ({role}) => {
   return (
     <Card
       path={'/' + role + '/feedback'}
