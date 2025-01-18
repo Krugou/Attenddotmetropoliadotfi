@@ -278,17 +278,17 @@ CREATE TABLE `serversettings` (
 -- Insert the values into the serversettings table
 INSERT INTO `serversettings` (`speedofhash`, `leewayspeed`, `timeouttime`, `attendancethreshold`) VALUES (5000, 4, 3600000 , 80 );
 -- Creating a table for work log specific courses
-CREATE TABLE IF NOT EXISTS `work_log_courses` (
-  `work_log_course_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
-  `code` VARCHAR(20) NOT NULL UNIQUE,
-  `title` VARCHAR(100) NOT NULL,
-  `description` TEXT NOT NULL,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  PRIMARY KEY (`work_log_course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+   CREATE TABLE IF NOT EXISTS `work_log_courses` (
+     `work_log_course_id` INT(11) NOT NULL AUTO_INCREMENT,
+     `name` VARCHAR(100) NOT NULL,
+     `start_date` DATE NOT NULL,
+     `end_date` DATE NOT NULL,
+     `code` VARCHAR(20) NOT NULL UNIQUE,
+     `description` TEXT NOT NULL,
+     `required_hours` INT(11) NOT NULL,
+     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+     PRIMARY KEY (`work_log_course_id`)
+   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Creating a new table to record work log entries specific to work log courses
 CREATE TABLE IF NOT EXISTS `work_log_entries` (
