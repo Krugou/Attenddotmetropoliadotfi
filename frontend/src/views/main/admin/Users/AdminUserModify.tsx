@@ -48,29 +48,10 @@ interface User {
  */
 const AdminUserModify: React.FC = () => {
   const {t} = useTranslation();
-  /**
-   * User ID parameter from the URL.
-   *
-   * @type {useParams<{userid: string}>}
-   */
   const {userid} = useParams<{userid: string}>();
-  /**
-   * User context.
-   *
-   * @type {React.Context<UserContext>}
-   */
   const {user} = useContext(UserContext);
-  /**
-   * State variable for the user to be modified.
-   *
-   * @type {React.useState<User | null>}
-   */
   const [modifyUser, setModifyUser] = useState<User | null>(null);
-  /**
-   * Effect hook to fetch user data.
-   *
-   * @type {React.useEffect}
-   */
+
   useEffect(() => {
     if (user) {
       // Get token from local storage
