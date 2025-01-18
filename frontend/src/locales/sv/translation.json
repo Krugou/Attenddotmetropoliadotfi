@@ -715,6 +715,26 @@
         "delete": "Radera tidigare föreläsning",
         "finish": "Avsluta tidigare föreläsning"
       }
+    },
+    "worklog": {
+      "create": {
+        "title": "Skapa arbetsloggskurs"
+      },
+      "form": {
+        "name": "Kursnamn",
+        "code": "Kurskod",
+        "title": "Kurstitel",
+        "startDate": "Startdatum",
+        "endDate": "Slutdatum",
+        "description": "Kursbeskrivning",
+        "submit": "Skapa kurs"
+      },
+      "success": {
+        "courseCreated": "Arbetsloggskurs skapades framgångsrikt"
+      },
+      "errors": {
+        "createFailed": "Det gick inte att skapa arbetsloggskurs"
+      }
     }
   },
   "common": {

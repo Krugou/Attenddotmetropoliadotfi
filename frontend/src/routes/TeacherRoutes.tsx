@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Route, Routes, useNavigate} from 'react-router-dom';
 import {UserContext} from '../contexts/UserContext';
 import Feedback from '../views/main/Feedback.tsx';
@@ -11,6 +11,7 @@ import TeacherProfile from '../views/main/teacher/TeacherProfile.tsx';
 import TeacherAttendanceRoutes from './teacher/TeacherAttendanceRoutes';
 import TeacherCoursesRoutes from './teacher/TeacherCoursesRoutes';
 import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
+import WorkLogCreate from '../views/main/teacher/WorkLog/worklogCreate.tsx';
 
 /**
  * TeacherRoutes component.
@@ -22,15 +23,15 @@ import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
  * @returns {JSX.Element} The rendered TeacherRoutes component.
  */
 const TeacherRoutes = () => {
-  const { user } = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     try {
       if (user?.role === 'student') {
-        navigate('/student', { replace: true });
+        navigate('/student', {replace: true});
       } else if (user?.role === 'counselor') {
-        navigate('/counselor', { replace: true });
+        navigate('/counselor', {replace: true});
       }
     } catch (error) {
       console.error('Navigation error:', error);
@@ -41,7 +42,7 @@ const TeacherRoutes = () => {
   if (user?.role === 'student' || user?.role === 'counselor') {
     return null; // Prevent rendering of teacher routes for students
   }
-  
+
   return (
     <Routes>
       <Route path='mainview' element={<TeacherMainView />} />
@@ -53,6 +54,7 @@ const TeacherRoutes = () => {
       <Route path='profile' element={<TeacherProfile />} />
       <Route path='feedback' element={<Feedback />} />
       <Route path='team' element={<Team />} />
+      <Route path='worklog/create' element={<WorkLogCreate />} />
 
       <Route path='lateenrollment' element={<TeacherLateEnrollment />} />
 

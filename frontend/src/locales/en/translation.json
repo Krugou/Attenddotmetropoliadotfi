@@ -715,6 +715,26 @@
         "delete": "Delete previous lecture",
         "finish": "Finish previous lecture"
       }
+    },
+    "worklog": {
+      "create": {
+        "title": "Create Work Log Course"
+      },
+      "form": {
+        "name": "Course Name",
+        "code": "Course Code",
+        "title": "Course Title",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "description": "Course Description",
+        "submit": "Create Course"
+      },
+      "success": {
+        "courseCreated": "Work log course created successfully"
+      },
+      "errors": {
+        "createFailed": "Failed to create work log course"
+      }
     }
   },
   "common": {
@@ -740,7 +760,8 @@
     "errors": {
       "emailTaken": "Email taken",
       "studentNumberTaken": "Student Number taken",
-      "noToken": "No token available"
+      "noToken": "No token available",
+      "fillRequiredFields": "Please fill all required fields"
     },
     "email": "Email",
     "firstName": "First Name",

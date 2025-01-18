@@ -715,6 +715,26 @@
         "delete": "Poista aiempi luento",
         "finish": "Lopeta aiempi luento"
       }
+    },
+    "worklog": {
+      "create": {
+        "title": "Luo työpäiväkirjakurssi"
+      },
+      "form": {
+        "name": "Kurssin nimi",
+        "code": "Kurssikoodi",
+        "title": "Kurssin otsikko",
+        "startDate": "Alkamispäivä",
+        "endDate": "Päättymispäivä",
+        "description": "Kurssin kuvaus",
+        "submit": "Luo kurssi"
+      },
+      "success": {
+        "courseCreated": "Työpäiväkirjakurssi luotu onnistuneesti"
+      },
+      "errors": {
+        "createFailed": "Työpäiväkirjakurssin luominen epäonnistui"
+      }
     }
   },
   "common": {
