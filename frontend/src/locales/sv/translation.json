@@ -808,7 +808,10 @@
       "username": "Användarnamn",
       "email": "E-post",
       "accountCreated": "Konto skapat",
-      "role": "Roll"
+      "role": "Roll",
+      "language": "Språk",
+      "activeStatus": "Aktiv status",
+      "darkMode": "Mörkt läge"
     },
     "buttons": {
       "change": "Ändra",

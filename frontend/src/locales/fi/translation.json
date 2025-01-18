@@ -808,7 +808,10 @@
       "username": "Käyttäjänimi",
       "email": "Sähköposti",
       "accountCreated": "Tili luotu",
-      "role": "Rooli"
+      "role": "Rooli",
+      "language": "Kieli",
+      "activeStatus": "Aktiivinen",
+      "darkMode": "Tumma tila"
     },
     "buttons": {
       "change": "Vaihda",

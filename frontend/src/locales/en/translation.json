@@ -808,7 +808,10 @@
       "username": "Username",
       "email": "Email",
       "accountCreated": "Account created",
-      "role": "Role"
+      "role": "Role",
+      "language": "Language",
+      "activeStatus": "Active status",
+      "darkMode": "Dark mode"
     },
     "buttons": {
       "change": "Change",
