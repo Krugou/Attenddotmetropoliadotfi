@@ -734,7 +734,8 @@
         "startDate": "Startdatum",
         "endDate": "Slutdatum",
         "description": "Kursbeskrivning",
-        "submit": "Skapa kurs"
+        "submit": "Skapa kurs",
+        "requiredHours": "Obligatoriska timmar"
       },
       "success": {
         "courseCreated": "Arbetsloggskurs skapades framgångsrikt"

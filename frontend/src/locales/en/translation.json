@@ -734,7 +734,8 @@
         "startDate": "Start Date",
         "endDate": "End Date",
         "description": "Course Description",
-        "submit": "Create Course"
+        "submit": "Create Course",
+        "requiredHours": "Required Hours"
       },
       "success": {
         "courseCreated": "Work log course created successfully"

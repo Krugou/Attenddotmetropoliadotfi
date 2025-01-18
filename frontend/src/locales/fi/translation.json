@@ -734,7 +734,8 @@
         "startDate": "Alkamispäivä",
         "endDate": "Päättymispäivä",
         "description": "Kurssin kuvaus",
-        "submit": "Luo kurssi"
+        "submit": "Luo kurssi",
+        "requiredHours": "Vaadittu tuntimäärä"
       },
       "success": {
         "courseCreated": "Työpäiväkirjakurssi luotu onnistuneesti"
