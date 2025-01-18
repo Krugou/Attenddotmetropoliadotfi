@@ -731,7 +731,6 @@
       "form": {
         "name": "Kursnamn",
         "code": "Kurskod",
-        "title": "Kurstitel",
         "startDate": "Startdatum",
         "endDate": "Slutdatum",
         "description": "Kursbeskrivning",

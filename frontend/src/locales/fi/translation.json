@@ -555,13 +555,13 @@
           "title": "Luennotilastosi",
           "description": "Näytä luentojesi tilastot"
         },
-        "createWorkLogCourse":{
-          "title":"",
-          "description":""
+        "createWorkLogCourse": {
+          "title": "",
+          "description": ""
         },
-        "yourWorkLogCourses":{
-          "title":"",
-          "description":""
+        "yourWorkLogCourses": {
+          "title": "",
+          "description": ""
         }
       }
     },
@@ -731,7 +731,6 @@
       "form": {
         "name": "Kurssin nimi",
         "code": "Kurssikoodi",
-        "title": "Kurssin otsikko",
         "startDate": "Alkamispäivä",
         "endDate": "Päättymispäivä",
         "description": "Kurssin kuvaus",
