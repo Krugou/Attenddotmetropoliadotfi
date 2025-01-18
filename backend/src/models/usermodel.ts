@@ -21,8 +21,10 @@ interface UserInfo {
   studentnumber?: string;
   role?: string;
   gdpr?: number;
+  activeStatus: number;
+  language: string;
+  darkMode: number;
 }
-
 
 /**
  * @interface User
@@ -39,6 +41,9 @@ interface User {
   userid?: number;
   studentnumber?: string;
   roleid: number;
+  activeStatus: number;
+  language: string;
+  darkMode: number;
 }
 interface UpdateUser {
   user: {
@@ -52,6 +57,9 @@ interface UpdateUser {
     staff: number;
     studentgroupid: number;
     studentnumber: string;
+    activeStatus: number;
+    language: string;
+    darkMode: number;
   };
 }
 
@@ -103,7 +111,7 @@ const UserModel = {
       const [userRows] = await UserModel.pool
         .promise()
         .query<RowDataPacket[]>(
-          `SELECT users.userid, users.username, users.email, users.first_name, users.last_name, users.created_at, users.studentnumber, users.gdpr AS gdpr, roles.name AS role FROM users JOIN roles ON users.roleid = roles.roleid WHERE users.email = ?;`,
+          `SELECT users.userid, users.username, users.email, users.first_name, users.last_name, users.created_at, users.studentnumber, users.activeStatus, users.language, users.darkMode, users.gdpr AS gdpr, roles.name AS role FROM users JOIN roles ON users.roleid = roles.roleid WHERE users.email = ?;`,
           [email],
         );
 
@@ -375,8 +383,8 @@ const UserModel = {
       throw new Error('Database error');
     }
   },
-/**
- * 
+  /**
+ *
 get students by instructor id with pagination
 @param userid - The ID of the instructor.
 @param limit - The number of students to fetch.
@@ -384,7 +392,11 @@ get students by instructor id with pagination
 @returns A promise that resolves to an array of students.
  */
 
-  fetchStudentsPaginationByInstructorId: async (userid: number, limit:number, offset:number): Promise<PaginatedStudentsResult> => {
+  fetchStudentsPaginationByInstructorId: async (
+    userid: number,
+    limit: number,
+    offset: number,
+  ): Promise<PaginatedStudentsResult> => {
     try {
       const [rows] = await UserModel.pool.promise().query<RowDataPacket[]>(
         `SELECT DISTINCT u.*, studentgroups.group_name
@@ -399,22 +411,22 @@ get students by instructor id with pagination
         [userid, limit, offset],
       );
 
-      const [countResult] = await UserModel.pool.promise().query<RowDataPacket[]>(
-        `SELECT COUNT(DISTINCT u.userid) as total
+      const [countResult] = await UserModel.pool
+        .promise()
+        .query<RowDataPacket[]>(
+          `SELECT COUNT(DISTINCT u.userid) as total
           FROM users u
           JOIN usercourses uc ON u.userid = uc.userid
           JOIN courses c ON uc.courseid = c.courseid
           JOIN courseinstructors ci ON c.courseid = ci.courseid
           WHERE ci.userid = ? AND u.roleid = 1;`,
-        [userid],
-      );
-      
+          [userid],
+        );
 
       return {
         students: rows as UserInfo[],
-        total: countResult[0].total
+        total: countResult[0].total,
       };
-
     } catch (error) {
       console.error(error);
       throw new Error('Database error');
@@ -486,7 +498,7 @@ get students by instructor id with pagination
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(
-          `SELECT u.userid, u.username, u.email, u.first_name, u.last_name, u.studentnumber, u.staff, u.roleid, r.name AS role, u.created_at FROM users u JOIN roles r ON u.roleid = r.roleid;`,
+          `SELECT u.userid, u.username, u.email, u.first_name, u.last_name, u.studentnumber, u.staff,u.activeStatus, u.roleid, r.name AS role, u.created_at FROM users u JOIN roles r ON u.roleid = r.roleid;`,
         );
       return result;
     } catch (error) {
@@ -582,40 +594,39 @@ get students by instructor id with pagination
    * @param limit - The number of students to fetch.
    * @param offset - The offset to start fetching students.
    * @returns A promise that resolves to an object containing the students and the total count of students.
-    */
-  fetchNumberOfStudents: async (
-    limit: number,
-    offset: number
-  ) => {
+   */
+  fetchNumberOfStudents: async (limit: number, offset: number) => {
     try {
       // Get paginated students
       const [students] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT 
-          u.userid, 
-          u.username, 
-          u.email, 
-          u.first_name, 
-          u.last_name, 
-          u.studentnumber, 
-          u.staff, 
-          u.roleid, 
+        `SELECT
+          u.userid,
+          u.username,
+          u.email,
+          u.first_name,
+          u.last_name,
+          u.studentnumber,
+          u.staff,
+          u.roleid,
           r.name AS role
-        FROM users u 
+        FROM users u
         JOIN roles r ON u.roleid = r.roleid
         WHERE u.roleid = 1
         ORDER BY u.userid
         LIMIT ? OFFSET ?`,
-        [limit, offset]
+        [limit, offset],
       );
 
       // Get total count of students
-      const [countResult] = await pool.promise().query<RowDataPacket[]>(
-        'SELECT COUNT(*) as total FROM users WHERE roleid = 1'
-      );
+      const [countResult] = await pool
+        .promise()
+        .query<RowDataPacket[]>(
+          'SELECT COUNT(*) as total FROM users WHERE roleid = 1',
+        );
 
       return {
         students: students as UserInfo[],
-        total: countResult[0].total
+        total: countResult[0].total,
       };
     } catch (error) {
       console.error('Error fetching paginated students:', error);
