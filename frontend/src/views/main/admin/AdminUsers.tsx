@@ -103,6 +103,7 @@ const AdminUsers: React.FC = () => {
                       'role',
                       'studentnumber',
                       'created_at',
+                      'activeStatus',
                     ].map((key, index) => (
                       <th key={index} className='px-4 py-2'>
                         {key}
@@ -133,9 +134,14 @@ const AdminUsers: React.FC = () => {
                           'role',
                           'studentnumber',
                           'created_at',
+                          'activeStatus',
                         ].map((key, innerIndex) => (
                           <td key={innerIndex} className='px-2 py-2 border'>
-                            {user[key]}
+                            {key === 'activeStatus'
+                              ? user[key] === 1
+                                ? 'Yes'
+                                : 'No'
+                              : user[key]}
                           </td>
                         ))}
                       </tr>
