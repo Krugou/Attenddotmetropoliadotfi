@@ -15,6 +15,9 @@ interface ProfileInfoPros {
     created_at: string;
     first_name: string;
     last_name: string;
+    activeStatus: number;
+    darkMode: number;
+    language: string;
   };
 }
 
@@ -38,6 +41,7 @@ interface Role {
  * @returns {JSX.Element} The rendered ProfileInfo component.
  */
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
+  console.log('🚀 ~ user:', user);
   const {t} = useTranslation();
   // Define navigate
   const Navigate = useNavigate();
@@ -120,7 +124,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         </span>
       </p>
       <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.role')}:</strong> <span className='profileStat'>{user.role}</span>
+        <strong>{t('profileInfo.labels.role')}:</strong>{' '}
+        <span className='profileStat'>{user.role}</span>
         {['counselor', 'teacher'].includes(user.role) && (
           <button
             className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
@@ -129,19 +134,33 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           </button>
         )}
       </p>
-
+      {/* add to show user.language, user.activeStatus, user.darkMode */}
+      <p className='flex items-center gap-2'>
+        <strong>{t('profileInfo.labels.language')}:</strong>{' '}
+        <span className='profileStat'>{user.language}</span>
+      </p>
+      <p className='flex items-center gap-2'>
+        <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
+        <span className='profileStat'>{user.activeStatus}</span>
+      </p>
+      <p className='flex items-center gap-2'>
+        <strong>{t('profileInfo.labels.darkMode')}:</strong>{' '}
+        <span className='profileStat'>{user.darkMode}</span>
+      </p>
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>
           <h2 className='mb-3 text-lg font-bold sm:text-2xl'>
             {t('profileInfo.roleChange.title')}
           </h2>
           <select
-            title={t('profileInfo.roleChange.selectTitle')} 
+            title={t('profileInfo.roleChange.selectTitle')}
             className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded appearance-none cursor-pointer focus:outline-none focus:bg-white focus:border-gray-500'
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}>
             {roles.map((role) => (
-              <option key={role.roleid} value={role.roleid}>{role.name}</option>
+              <option key={role.roleid} value={role.roleid}>
+                {role.name}
+              </option>
             ))}
           </select>
           <div className='flex justify-between gap-10 mt-5'>

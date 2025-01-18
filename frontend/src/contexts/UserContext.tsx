@@ -15,6 +15,9 @@ export interface User {
   userid: number;
   studentnumber?: number;
   gdpr?: number;
+  activeStatus: number;
+  language: string;
+  darkMode: number;
 }
 /**
  * UserContextProps interface represents the structure of the UserContext.
