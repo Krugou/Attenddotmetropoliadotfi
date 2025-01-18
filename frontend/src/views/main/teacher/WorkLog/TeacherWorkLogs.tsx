@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 interface WorkLogEntry {
@@ -13,45 +13,364 @@ interface WorkLogEntry {
   status?: 'pending' | 'approved' | 'rejected'; // Added status field
 }
 
+interface Course {
+  id: number;
+  name: string;
+  code: string;
+}
+
 const TeacherWorkLogs: React.FC = () => {
   const {t} = useTranslation();
+  const [selectedCourse, setSelectedCourse] = useState<number>(1);
 
-  // Mock data for development
+  // Mock courses data
+  const mockCourses: Course[] = [
+    {id: 1, name: 'Web Development', code: 'WEB2024'},
+    {id: 2, name: 'Database Systems', code: 'DBS2024'},
+    {id: 3, name: 'Software Engineering', code: 'SWE2024'},
+  ];
+
+  // Mock data for development, filtered by selected course
   const mockEntries: WorkLogEntry[] = [
+    // Web Development entries
     {
-      id: 1,
+      id: 101,
       date: '2024-01-15',
       startTime: '09:00',
       endTime: '12:30',
       duration: '3h 30min',
-      description: 'Frontend development for project X',
+      description: 'Frontend React components',
       course: 'Web Development',
       student: 'John Smith',
       status: 'pending',
     },
     {
-      id: 2,
+      id: 102,
       date: '2024-01-15',
       startTime: '13:30',
       endTime: '16:00',
       duration: '2h 30min',
-      description: 'Backend API implementation',
+      description: 'REST API integration',
       course: 'Web Development',
-      student: 'Jane Doe',
+      student: 'Sarah Connor',
       status: 'approved',
     },
     {
-      id: 3,
+      id: 103,
       date: '2024-01-16',
       startTime: '10:00',
       endTime: '15:00',
       duration: '5h',
-      description: 'Database design and implementation',
-      course: 'Database Systems',
-      student: 'Mike Johnson',
+      description: 'User authentication implementation',
+      course: 'Web Development',
+      student: 'Mike Ross',
+      status: 'approved',
+    },
+    {
+      id: 104,
+      date: '2024-01-17',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'State management with Redux',
+      course: 'Web Development',
+      student: 'Emma Wilson',
+      status: 'pending',
+    },
+    {
+      id: 105,
+      date: '2024-01-17',
+      startTime: '14:30',
+      endTime: '17:30',
+      duration: '3h',
+      description: 'Unit testing setup',
+      course: 'Web Development',
+      student: 'Alex Johnson',
+      status: 'approved',
+    },
+    {
+      id: 106,
+      date: '2024-01-18',
+      startTime: '09:00',
+      endTime: '12:00',
+      duration: '3h',
+      description: 'CSS styling and responsive design',
+      course: 'Web Development',
+      student: 'Lisa Brown',
       status: 'rejected',
     },
-  ];
+    {
+      id: 107,
+      date: '2024-01-18',
+      startTime: '13:00',
+      endTime: '16:00',
+      duration: '3h',
+      description: 'Performance optimization',
+      course: 'Web Development',
+      student: 'David Chen',
+      status: 'pending',
+    },
+    {
+      id: 108,
+      date: '2024-01-19',
+      startTime: '10:00',
+      endTime: '15:00',
+      duration: '5h',
+      description: 'Error handling implementation',
+      course: 'Web Development',
+      student: 'Maria Garcia',
+      status: 'approved',
+    },
+    {
+      id: 109,
+      date: '2024-01-19',
+      startTime: '15:30',
+      endTime: '17:30',
+      duration: '2h',
+      description: 'Documentation writing',
+      course: 'Web Development',
+      student: 'Tom Wilson',
+      status: 'pending',
+    },
+    {
+      id: 110,
+      date: '2024-01-20',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'Final testing and deployment',
+      course: 'Web Development',
+      student: 'Anna Lee',
+      status: 'approved',
+    },
+
+    // Database Systems entries
+    {
+      id: 201,
+      date: '2024-01-15',
+      startTime: '09:00',
+      endTime: '12:00',
+      duration: '3h',
+      description: 'Database schema design',
+      course: 'Database Systems',
+      student: 'Peter Parker',
+      status: 'approved',
+    },
+    {
+      id: 202,
+      date: '2024-01-15',
+      startTime: '13:00',
+      endTime: '16:00',
+      duration: '3h',
+      description: 'SQL query optimization',
+      course: 'Database Systems',
+      student: 'Mary Jane',
+      status: 'pending',
+    },
+    {
+      id: 203,
+      date: '2024-01-16',
+      startTime: '10:00',
+      endTime: '15:00',
+      duration: '5h',
+      description: 'Indexing implementation',
+      course: 'Database Systems',
+      student: 'Harry Osborn',
+      status: 'approved',
+    },
+    {
+      id: 204,
+      date: '2024-01-17',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'Stored procedures',
+      course: 'Database Systems',
+      student: 'Gwen Stacy',
+      status: 'rejected',
+    },
+    {
+      id: 205,
+      date: '2024-01-17',
+      startTime: '14:30',
+      endTime: '17:30',
+      duration: '3h',
+      description: 'Triggers and functions',
+      course: 'Database Systems',
+      student: 'Miles Morales',
+      status: 'approved',
+    },
+    {
+      id: 206,
+      date: '2024-01-18',
+      startTime: '09:00',
+      endTime: '12:00',
+      duration: '3h',
+      description: 'Database backup implementation',
+      course: 'Database Systems',
+      student: 'Otto Octavius',
+      status: 'pending',
+    },
+    {
+      id: 207,
+      date: '2024-01-18',
+      startTime: '13:00',
+      endTime: '16:00',
+      duration: '3h',
+      description: 'Data migration scripts',
+      course: 'Database Systems',
+      student: 'Norman Osborn',
+      status: 'approved',
+    },
+    {
+      id: 208,
+      date: '2024-01-19',
+      startTime: '10:00',
+      endTime: '15:00',
+      duration: '5h',
+      description: 'Performance tuning',
+      course: 'Database Systems',
+      student: 'Betty Brant',
+      status: 'pending',
+    },
+    {
+      id: 209,
+      date: '2024-01-19',
+      startTime: '15:30',
+      endTime: '17:30',
+      duration: '2h',
+      description: 'Security implementation',
+      course: 'Database Systems',
+      student: 'Flash Thompson',
+      status: 'approved',
+    },
+    {
+      id: 210,
+      date: '2024-01-20',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'Documentation and testing',
+      course: 'Database Systems',
+      student: 'J. Jonah Jameson',
+      status: 'pending',
+    },
+
+    // Software Engineering entries
+    {
+      id: 301,
+      date: '2024-01-15',
+      startTime: '09:00',
+      endTime: '12:00',
+      duration: '3h',
+      description: 'Requirements analysis',
+      course: 'Software Engineering',
+      student: 'Bruce Wayne',
+      status: 'approved',
+    },
+    {
+      id: 302,
+      date: '2024-01-15',
+      startTime: '13:00',
+      endTime: '16:00',
+      duration: '3h',
+      description: 'System architecture design',
+      course: 'Software Engineering',
+      student: 'Clark Kent',
+      status: 'pending',
+    },
+    {
+      id: 303,
+      date: '2024-01-16',
+      startTime: '10:00',
+      endTime: '15:00',
+      duration: '5h',
+      description: 'UML diagrams',
+      course: 'Software Engineering',
+      student: 'Diana Prince',
+      status: 'approved',
+    },
+    {
+      id: 304,
+      date: '2024-01-17',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'Design patterns implementation',
+      course: 'Software Engineering',
+      student: 'Barry Allen',
+      status: 'approved',
+    },
+    {
+      id: 305,
+      date: '2024-01-17',
+      startTime: '14:30',
+      endTime: '17:30',
+      duration: '3h',
+      description: 'Code refactoring',
+      course: 'Software Engineering',
+      student: 'Hal Jordan',
+      status: 'rejected',
+    },
+    {
+      id: 306,
+      date: '2024-01-18',
+      startTime: '09:00',
+      endTime: '12:00',
+      duration: '3h',
+      description: 'Unit testing',
+      course: 'Software Engineering',
+      student: 'Oliver Queen',
+      status: 'pending',
+    },
+    {
+      id: 307,
+      date: '2024-01-18',
+      startTime: '13:00',
+      endTime: '16:00',
+      duration: '3h',
+      description: 'Integration testing',
+      course: 'Software Engineering',
+      student: 'Arthur Curry',
+      status: 'approved',
+    },
+    {
+      id: 308,
+      date: '2024-01-19',
+      startTime: '10:00',
+      endTime: '15:00',
+      duration: '5h',
+      description: 'CI/CD pipeline setup',
+      course: 'Software Engineering',
+      student: 'Victor Stone',
+      status: 'pending',
+    },
+    {
+      id: 309,
+      date: '2024-01-19',
+      startTime: '15:30',
+      endTime: '17:30',
+      duration: '2h',
+      description: 'Documentation',
+      course: 'Software Engineering',
+      student: 'John Stewart',
+      status: 'approved',
+    },
+    {
+      id: 310,
+      date: '2024-01-20',
+      startTime: '09:00',
+      endTime: '14:00',
+      duration: '5h',
+      description: 'Final system testing',
+      course: 'Software Engineering',
+      student: 'Billy Batson',
+      status: 'pending',
+    },
+  ].filter(
+    (entry) =>
+      entry.course === mockCourses.find((c) => c.id === selectedCourse)?.name,
+  );
 
   const tableHeaderClass = `
     px-4 py-2 text-left text-sm font-semibold
@@ -77,9 +396,30 @@ const TeacherWorkLogs: React.FC = () => {
 
   return (
     <div className='container px-4 py-8 mx-auto'>
-      <h1 className='mb-6 text-2xl font-bold text-metropoliaMainOrange'>
-        {t('worklog.entries.title')}
-      </h1>
+      <div className='flex items-center justify-between mb-8'>
+        <h1 className='text-2xl font-bold text-metropoliaMainOrange'>
+          {t('worklog.entries.title')}
+        </h1>
+
+        <div className='flex items-center gap-4'>
+          <label
+            htmlFor='courseSelect'
+            className='text-sm font-medium text-metropoliaMainGrey'>
+            {t('worklog.entries.selectCourse')}:
+          </label>
+          <select
+            id='courseSelect'
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(Number(e.target.value))}
+            className='p-2 border rounded-lg focus:ring-2 focus:ring-metropoliaMainOrange focus:border-metropoliaMainOrange text-metropoliaMainGrey'>
+            {mockCourses.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.name} ({course.code})
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       <div className='overflow-hidden bg-white rounded-lg shadow-lg'>
         <div className='overflow-x-auto'>
