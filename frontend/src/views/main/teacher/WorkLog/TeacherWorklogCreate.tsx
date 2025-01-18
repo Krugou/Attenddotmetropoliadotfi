@@ -9,6 +9,7 @@ interface WorkLogCourseFormData {
   code: string;
   title: string;
   description: string;
+  requiredHours: number;
 }
 
 const WorkLogCreate = () => {
@@ -20,6 +21,7 @@ const WorkLogCreate = () => {
     code: '',
     title: '',
     description: '',
+    requiredHours: 0,
   });
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
@@ -66,6 +68,7 @@ const WorkLogCreate = () => {
         code: '',
         title: '',
         description: '',
+        requiredHours: 0,
       });
     } catch (err) {
       setError(t('teacher.worklog.errors.createFailed'));
@@ -73,7 +76,7 @@ const WorkLogCreate = () => {
   };
 
   return (
-    <div className='flex flex-col max-w-2xl p-6 mx-auto'>
+    <div className='flex flex-col max-w-2xl p-6 mx-auto bg-white'>
       <h1 className='mb-6 text-2xl font-bold text-gray-800'>
         {t('teacher.worklog.create.title')}
       </h1>
@@ -127,21 +130,19 @@ const WorkLogCreate = () => {
 
           <div className='flex flex-col'>
             <label
-              htmlFor='title'
+              htmlFor='description'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('teacher.worklog.form.title')} *
+              {t('teacher.worklog.form.description')}
             </label>
-            <input
-              type='text'
-              id='title'
-              name='title'
-              required
-              value={formData.title}
+            <textarea
+              id='description'
+              name='description'
+              rows={4}
+              value={formData.description}
               onChange={handleInputChange}
               className='p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
             />
           </div>
-
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
             <div className='flex flex-col'>
               <label
@@ -191,15 +192,17 @@ const WorkLogCreate = () => {
 
           <div className='flex flex-col'>
             <label
-              htmlFor='description'
+              htmlFor='requiredHours'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('teacher.worklog.form.description')}
+              {t('teacher.worklog.form.requiredHours')} *
             </label>
-            <textarea
-              id='description'
-              name='description'
-              rows={4}
-              value={formData.description}
+            <input
+              type='number'
+              id='requiredHours'
+              name='requiredHours'
+              required
+              min='0'
+              value={formData.requiredHours}
               onChange={handleInputChange}
               className='p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
             />
@@ -217,6 +220,7 @@ const WorkLogCreate = () => {
                 code: '',
                 title: '',
                 description: '',
+                requiredHours: 0,
               })
             }
             className='px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300'>
