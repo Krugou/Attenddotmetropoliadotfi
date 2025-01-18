@@ -19,6 +19,7 @@
      `start_time` DATETIME NOT NULL,
      `end_time` DATETIME NOT NULL,
      `description` TEXT NOT NULL,
+     `status` ENUM('0', '1', '2', '3') NOT NULL DEFAULT '0',
      PRIMARY KEY (`entry_id`),
      CONSTRAINT `work_log_entries_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE CASCADE,
      CONSTRAINT `work_log_entries_ibfk_2` FOREIGN KEY (`work_log_course_id`) REFERENCES `work_log_courses`(`work_log_course_id`) ON DELETE CASCADE
