@@ -229,6 +229,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `GDPR` int(11) NOT NULL DEFAULT 0,
   `darkMode` int(11) NOT NULL DEFAULT 0,
   `language` varchar(2) NOT NULL DEFAULT 'en',
+  `activeStatus` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`userid`),
   KEY `studentgroupid` (`studentgroupid`),
   KEY `roleid` (`roleid`),
