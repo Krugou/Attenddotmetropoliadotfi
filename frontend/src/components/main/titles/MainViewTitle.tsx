@@ -20,10 +20,10 @@ interface MainViewTitleProps {
  */
 const MainViewTitle: React.FC<MainViewTitleProps> = ({role}) => {
   const { t } = useTranslation();
-  
   return (
     <h1 className='p-3 mt-5 mb-5 ml-auto mr-auto text-2xl font-bold text-center bg-white md:text-4xl rounded-xl w-fit text-metropoliaSupportBlack'>
-      {t('mainViewTitle.dashboard', { role })}
+      {role} {t('mainViewTitle.dashboard')} 
+
     </h1>
   );
 };

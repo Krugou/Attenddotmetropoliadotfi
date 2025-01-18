@@ -554,6 +554,14 @@
         "lectureStats": {
           "title": "Luennotilastosi",
           "description": "Näytä luentojesi tilastot"
+        },
+        "createWorkLogCourse":{
+          "title":"",
+          "description":""
+        },
+        "yourWorkLogCourses":{
+          "title":"",
+          "description":""
         }
       }
     },
@@ -789,7 +797,7 @@
     "notInSystem": "Ei vielä järjestelmässä"
   },
   "mainViewTitle": {
-    "dashboard": "{{role}} Hallintapaneeli"
+    "dashboard": "Hallintapaneeli"
   },
   "errorAlert": {
     "title": "Virhe",
@@ -842,6 +850,36 @@
       "selectTitle": "Roolin valinta",
       "success": "Rooli vaihdettu onnistuneesti, kirjaudu sisään uudelleen",
       "error": "Roolin vaihtaminen epäonnistui"
+    }
+  },
+  "worklog": {
+    "entries": {
+      "title": "Työaikakirjaukset",
+      "date": "Päivämäärä",
+      "startTime": "Aloitusaika",
+      "endTime": "Lopetusaika",
+      "duration": "Kesto",
+      "course": "Kurssi",
+      "description": "Kuvaus",
+      "total": "Yhteensä",
+      "entries": "merkintää"
+    },
+    "actions": {
+      "clockIn": "Leimaa sisään",
+      "clockOut": "Leimaa ulos",
+      "edit": "Muokkaa merkintöjä",
+      "in": "Sisään",
+      "out": "Ulos"
+    },
+    "notifications": {
+      "clockedIn": "Sisäänleimaus klo {{time}}",
+      "clockedOut": "Ulosleimaus klo {{time}}",
+      "editClicked": "Muokkaus klikattu klo {{time}}"
+    },
+    "aria": {
+      "clockIn": "Sisäänleimaus-painike",
+      "clockOut": "Ulosleimaus-painike",
+      "edit": "Muokkaa merkintöjä -painike"
     }
   },
   "languages": {

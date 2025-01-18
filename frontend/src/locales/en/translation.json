@@ -554,6 +554,14 @@
         "lectureStats": {
           "title": "Your lectures stats",
           "description": "View stats of your lectures"
+        },
+        "createWorkLogCourse": {
+          "title": "Create Worklog Course",
+          "description": "Create a new worklog course for your worklogs"
+        },
+        "yourWorkLogCourses": {
+          "title": "Your Worklog Courses",
+          "description": "View all of your worklog courses"
         }
       }
     },
@@ -738,8 +746,6 @@
     }
   },
   "common": {
-    "yes": "Yes",
-    "no": "No",
     "login": "Login",
     "dialog": {
       "confirm": "Yes",
@@ -760,15 +766,16 @@
     "errors": {
       "emailTaken": "Email taken",
       "studentNumberTaken": "Student Number taken",
-      "noToken": "No token available",
-      "fillRequiredFields": "Please fill all required fields"
+      "noToken": "No token available"
     },
     "email": "Email",
     "firstName": "First Name",
     "lastName": "Last Name",
     "studentNumber": "Student Number",
     "showEndedCourses": "Show ended courses",
-    "hideEndedCourses": "Hide ended courses"
+    "hideEndedCourses": "Hide ended courses",
+    "yes": "Yes",
+    "no": "No"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",
@@ -790,7 +797,7 @@
     "notInSystem": "Not in system yet"
   },
   "mainViewTitle": {
-    "dashboard": "{{role}} Dashboard"
+    "dashboard": "Dashboard"
   },
   "errorAlert": {
     "title": "Error",
@@ -843,6 +850,36 @@
       "selectTitle": "Role Selection",
       "success": "Role changed successfully, please log in again",
       "error": "Failed to change role"
+    }
+  },
+  "worklog": {
+    "entries": {
+      "title": "Work Log Entries",
+      "date": "Date",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "duration": "Duration",
+      "course": "Course",
+      "description": "Description",
+      "total": "Total",
+      "entries": "entries"
+    },
+    "actions": {
+      "clockIn": "Clock In",
+      "clockOut": "Clock Out",
+      "edit": "Edit Entries",
+      "in": "In",
+      "out": "Out"
+    },
+    "notifications": {
+      "clockedIn": "Clocked in at {{time}}",
+      "clockedOut": "Clocked out at {{time}}",
+      "editClicked": "Edit clicked at {{time}}"
+    },
+    "aria": {
+      "clockIn": "Clock in button",
+      "clockOut": "Clock out button",
+      "edit": "Edit entries button"
     }
   },
   "languages": {
