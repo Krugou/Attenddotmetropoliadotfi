@@ -6,8 +6,8 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
 import enTranslation from '../locales/en/translation.json';
-//import fiTranslation from '../locales/fi/translation.json';
-//import svTranslation from '../locales/sv/translation.json';
+import fiTranslation from '../locales/fi/translation.json';
+import svTranslation from '../locales/sv/translation.json';
 
 /**
  * Initialize and configure i18next with translation resources.
@@ -19,12 +19,12 @@ i18n
       en: {
         translation: enTranslation,
       },
-     /*  fi: {
+      fi: {
         translation: fiTranslation,
       },
       sv: {
         translation: svTranslation,
-      }, */
+      }, 
     },
     lng: 'en', // Default language is English.
     fallbackLng: 'en', // Fallback language is English.

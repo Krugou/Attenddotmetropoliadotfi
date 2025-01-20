@@ -731,11 +731,11 @@
       "form": {
         "name": "Course Name",
         "code": "Course Code",
+        "title": "Course Title",
         "startDate": "Start Date",
         "endDate": "End Date",
         "description": "Course Description",
-        "submit": "Create Course",
-        "requiredHours": "Required Hours"
+        "submit": "Create Course"
       },
       "success": {
         "courseCreated": "Work log course created successfully"

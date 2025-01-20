@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import apiHooks from '../../hooks/ApiHooks'; // Replace with the correct path to your ApiHooks file
 import {useTranslation} from 'react-i18next';
+import {UserContext} from '../../contexts/UserContext';
+import { FI,GB,SE } from 'country-flag-icons/react/3x2';
+
+
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.
  * It includes a property for the user's information.
@@ -42,7 +46,8 @@ interface Role {
  */
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   console.log('🚀 ~ user:', user);
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const {setUser} = useContext(UserContext);
   // Define navigate
   const Navigate = useNavigate();
   // Define state variables for the modal
@@ -111,6 +116,30 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
     };
     return languages[code as keyof typeof languages] || code;
   };
+
+  const handleLanguageChange = async (newLanguage: string) => {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      toast.error(t('languages.errors.noToken'));
+      return;
+    }
+
+    try {
+      const response = await apiHooks.updateUserLanguage(user.email, newLanguage, token);
+      
+      if (response.ok) {
+        await i18n.changeLanguage(newLanguage);
+        setUser(prev => prev ? {...prev, language: newLanguage} : null);
+        toast.success(t('languages.success.changed'));
+      } else {
+        toast.error(t('languages.errors.changeFailed'));
+      }
+    } catch (error) {
+      console.error('Language update error:', error);
+      toast.error(t('languages.errors.changeFailed'));
+    }
+  };
+
   return (
     <div className='space-y-5'>
       <p className='flex items-center gap-2'>
@@ -144,10 +173,34 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           </button>
         )}
       </p>
-      {/* add to show user.language, user.activeStatus, user.darkMode */}
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.language')}:</strong>{' '}
-        <span className='profileStat'>{getLanguageName(user.language, t)}</span>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleLanguageChange('en')}
+            className={`p-1 rounded ${user.language === 'en' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            title={t('languages.flags.en')}
+            aria-label={t('languages.flags.en')}
+          >
+            <GB className="w-6 h-4" aria-hidden="true" />
+          </button>
+          <button
+            onClick={() => handleLanguageChange('fi')}
+            className={`p-1 rounded ${user.language === 'fi' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            title={t('languages.flags.fi')}
+            aria-label={t('languages.flags.fi')}
+          >
+            <FI className="w-6 h-4" aria-hidden="true" />
+          </button>
+          <button
+            onClick={() => handleLanguageChange('sv')}
+            className={`p-1 rounded ${user.language === 'sv' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            title={t('languages.flags.sv')}
+            aria-label={t('languages.flags.sv')}
+          >
+            <SE className="w-6 h-4" aria-hidden="true" />
+          </button>
+        </div>
       </p>
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}

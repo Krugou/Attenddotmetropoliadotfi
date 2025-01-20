@@ -58,6 +58,7 @@ export const UserContext = createContext<UserContextProps>({
 export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to null
   const [update, setUpdate] = useState<boolean>(true);
+ 
 
   return (
     <UserContext.Provider value={{user, setUser, update, setUpdate}}>

@@ -1042,6 +1042,30 @@ const createWorkLogCourse = async (token: string, course: any) => {
   return await doFetch(baseUrl + 'courses/worklog/courses', options);
 };
 
+const updateUserLanguage = async (email: string, language: string, token: string) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({ email, language }),
+  };
+  return await doFetch(`${baseUrl}secure/update-language`, options);
+};
+
+const updateUserDarkMode = async (email: string, darkMode: number, token: string) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({ email, darkMode }),
+  };
+  return await doFetch(`${baseUrl}secure/update-darkmode`, options);
+};
+
 const apiHooks = {
   createWorkLogCourse,
   fetchErrorLogs,
@@ -1113,5 +1137,7 @@ const apiHooks = {
   addNewStaffUser,
   fetchPaginatedStudents,
   fetchStudentsPaginationByInstructorId,
+  updateUserLanguage,
+  updateUserDarkMode,
 };
 export default apiHooks;

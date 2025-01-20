@@ -266,4 +266,35 @@ router.get(
     }
   }
 );
+
+router.put(
+  '/update-language',
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const { email, language } = req.body;
+
+      if (!['en', 'fi', 'sv'].includes(language)) {
+        return res.status(400).json({ 
+          ok: false,
+          error: 'Invalid language code' 
+        });
+      }
+
+      await usermodel.updateUserLanguage(email, language);
+      
+      res.json({ 
+        ok: true,
+        message: 'Language updated successfully' 
+      });
+    } catch (error) {
+      logger.error('Error updating language:', error);
+      res.status(500).json({ 
+        ok: false,
+        error: 'Internal server error' 
+      });
+    }
+  }
+);
+
 export default router;

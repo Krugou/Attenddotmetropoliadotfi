@@ -732,6 +732,21 @@ get students by instructor id with pagination
 
     return rows[0]?.user_logged || 0;
   },
+
+  updateUserLanguage: async (email: string, language: string) => {
+    try {
+      const [result] = await pool
+        .promise()
+        .query('UPDATE users SET language = ? WHERE email = ?', [
+          language,
+          email,
+        ]);
+      return result;
+    } catch (error) {
+      console.error('Error updating user language:', error);
+      throw new Error('Database error while updating language');
+    }
+  },
 };
 
 export default UserModel;
