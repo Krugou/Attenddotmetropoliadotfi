@@ -733,11 +733,24 @@ get students by instructor id with pagination
     return rows[0]?.user_logged || 0;
   },
 
+  getUsersLanguage: async (email: string) => {
+    try {
+      const [result] = await pool
+        .promise()
+        .query<RowDataPacket[]>(`SELECT language FROM users WHERE email = ?`, [
+          email,
+        ]);
+      return result;
+    } catch (error) {
+      console.error('Error fetching user language:', error);
+      throw new Error('Database error while fetching language');
+    }
+  },
   updateUserLanguage: async (email: string, language: string) => {
     try {
       const [result] = await pool
         .promise()
-        .query('UPDATE users SET language = ? WHERE email = ?', [
+        .query<RowDataPacket[]>(`UPDATE users SET language = ? WHERE email = ?`, [
           language,
           email,
         ]);

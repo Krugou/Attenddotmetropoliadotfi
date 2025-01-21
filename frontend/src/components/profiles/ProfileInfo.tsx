@@ -44,7 +44,6 @@ interface Role {
  * @returns {JSX.Element} The rendered ProfileInfo component.
  */
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
-  console.log('🚀 ~ user:', user);
   const {t, i18n} = useTranslation();
   const {setUser} = useContext(UserContext);
   // Define navigate
@@ -176,7 +175,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           </button>
         )}
       </p>
-      <p className='flex items-center gap-2'>
+      <div className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.language')}:</strong>{' '}
         <div className='flex gap-2'>
           <button
@@ -213,7 +212,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
             <SE className='w-6 h-4' aria-hidden='true' />
           </button>
         </div>
-      </p>
+      </div>
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
         <span className='profileStat'>

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {Dispatch, SetStateAction, createContext, useState} from 'react';
+import React, {Dispatch, SetStateAction, createContext, use, useEffect, useState} from 'react';
+import i18n from '../utils/i18n';
 /**
  * User interface represents the structure of a user object.
  * It includes properties for the user's role, username, first name, last name, email, group name, creation date, user ID, student number, and GDPR consent.
@@ -58,6 +59,10 @@ export const UserContext = createContext<UserContextProps>({
 export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to null
   const [update, setUpdate] = useState<boolean>(true);
+
+  useEffect(() => {
+    i18n.changeLanguage(user?.language );
+  }, [user]);
  
 
   return (

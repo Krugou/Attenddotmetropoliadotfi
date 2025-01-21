@@ -42,7 +42,9 @@ const Header: React.FC<HeaderProps> = () => {
     // If the user token exists, try to get the user info
     if (userToken) {
       try {
-        const user = await apiHooks.getUserInfoByToken(userToken);
+        const user = await apiHooks.getUserInfoByToken(userToken)
+        console.log('user', user);
+        
 
         // If the user info is successfully fetched, set the user
         if (user) {

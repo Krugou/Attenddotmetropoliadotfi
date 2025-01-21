@@ -1066,6 +1066,17 @@ const updateUserDarkMode = async (email: string, darkMode: number, token: string
   return await doFetch(`${baseUrl}secure/update-darkmode`, options);
 };
 
+const getUserLanguage = async (email: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}secure/user-language/${email}`, options);
+};
+
 const apiHooks = {
   createWorkLogCourse,
   fetchErrorLogs,
@@ -1139,5 +1150,6 @@ const apiHooks = {
   fetchStudentsPaginationByInstructorId,
   updateUserLanguage,
   updateUserDarkMode,
+  getUserLanguage,
 };
 export default apiHooks;

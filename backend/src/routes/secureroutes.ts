@@ -278,19 +278,47 @@ router.put(
         return res.status(400).json({ 
           ok: false,
           error: 'Invalid language code' 
-        });
+        } as const);
       }
 
       await usermodel.updateUserLanguage(email, language);
       
-      res.json({ 
+      return res.json({ 
         ok: true,
         message: 'Language updated successfully' 
-      });
+      } as const);
     } catch (error) {
       logger.error('Error updating language:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         ok: false,
+        error: 'Internal server error' 
+      } as const);
+    }
+  }
+);
+
+router.get(
+  '/user-language/:email',
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const { email } = req.params;
+      const result = await usermodel.getUserLanguage(email);
+      if (result && result[0]) {
+        res.json({ 
+          ok: true,
+          language: result[0].language 
+        });
+      } else {
+        res.status(404).json({ 
+          ok: false, 
+          error: 'User language not found' 
+        });
+      }
+    } catch (error) {
+      logger.error('Error fetching user language:', error);
+      res.status(500).json({ 
+        ok: false, 
         error: 'Internal server error' 
       });
     }
