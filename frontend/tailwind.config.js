@@ -3,10 +3,8 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      sans: ['Open Sans', 'sans-serif'],
-      bold: [ 'Roboto bold', 'sans-serif' ],
-      heading: [ 'Roboto Slab', 'sans-serif' ],
-      body: [ 'Open Sans', 'sans-serif' ],
+      heading: ['Roboto Slab', 'sans-serif'],
+      body: ['Open Sans', 'sans-serif'],
     },
     extend: {
       rotate: {
