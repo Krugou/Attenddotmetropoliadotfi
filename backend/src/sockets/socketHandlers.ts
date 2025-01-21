@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import {config} from 'dotenv';
-import {Server, Socket} from 'socket.io';
+import {Server} from 'socket.io';
 
 import doFetch from '../utils/doFetch.js';
 import getToken from '../utils/getToken.js';
@@ -10,6 +10,7 @@ import {
   authenticateSocket,
   type AuthenticatedSocket,
 } from '../utils/authenticateSocket.js';
+import {handleLectureCanceled} from './EmitMessages/handleLectureCanceled.js';
 config();
 
 logger.info('SocketHandlers.ts is loading correctly');
@@ -110,13 +111,10 @@ const notYetPresentStudents: {[lectureid: string]: Student[]} = {};
 // The timeout id for the lecture
 const lectureTimeoutIds = new Map();
 
-const setupSocketHandlers = (io: Server) => {
+const SocketHandlers = (io: Server) => {
   io.use(authenticateSocket);
-
   io.on('connection', (socket: AuthenticatedSocket) => {
     logger.info(`Authenticated user ${socket.user?.id} connected`);
-
-    // handle disconnect
     socket.on('disconnect', () => {});
     socket.on('createAttendanceCollection', async (lectureid) => {
       // Add user role check
@@ -144,11 +142,14 @@ const setupSocketHandlers = (io: Server) => {
           leewaytimes = response.leewaytimes;
           timeout = response.timeout;
           howMuchLeeWay = speedOfHashChange * leewaytimes;
-          // Join the room with the lectureid
           socket.join(lectureid);
+          // server logger info with lecture id
+
           // Emit the 'lecturestarted' event to the room with the lectureid
           io.to(lectureid).emit('lectureStarted', lectureid, timeout);
-          logger.info(`Lecture with ID: ${lectureid} started`);
+          logger.info(
+            `Lecture with ID: ${lectureid} created, settings fetched and emited lectureStarted event`,
+          );
           io.to(lectureid).emit('pingEvent', lectureid, Date.now());
           setInterval(() => {
             io.to(lectureid).emit('pingEvent', lectureid, Date.now());
@@ -156,6 +157,7 @@ const setupSocketHandlers = (io: Server) => {
           socket.on('pongEvent', (lectureid: string, unixtime: number) => {
             socket.emit('pongEvent', lectureid, unixtime);
           });
+
           // Get the list of students who have arrived and who have not yet arrived
           const token = await getToken();
           if (presentStudents[lectureid] && notYetPresentStudents[lectureid]) {
@@ -338,10 +340,6 @@ const setupSocketHandlers = (io: Server) => {
           logger.info(`Timestamp not found for Student ID: ${studentId} !`);
         }
 
-        // logger.info(
-        // 	'🚀 ~ file: socketHandlers.ts:257 ~ io.on ~ timestamp:',
-        // 	timestamp,
-        // );
         if (timestamp) {
           const token = await getToken();
           doFetch('http://localhost:3002/courses/attendance/', {
@@ -357,12 +355,7 @@ const setupSocketHandlers = (io: Server) => {
               lectureid: lectureid,
             }),
           })
-            .then((response) => {
-              // logger.info(
-              // 	`Input that student has arrived to lecture was successful at ${new Date().toISOString()}`,
-              // );
-              logger.info(`Response: ${JSON.stringify(response)}`);
-
+            .then(() => {
               const studentIndex = notYetPresentStudents[lectureid].findIndex(
                 (student: Student) =>
                   Number(student.studentnumber) === Number(studentId),
@@ -393,9 +386,7 @@ const setupSocketHandlers = (io: Server) => {
             })
             .catch(() => {
               // Handle the error here
-              logger.info(
-                'Attendance record already exists. No further action needed.',
-              );
+
               io.to(socket.id).emit(
                 'youHaveBeenSavedIntoLectureAlready',
                 lectureid,
@@ -403,7 +394,6 @@ const setupSocketHandlers = (io: Server) => {
               logger.info(
                 `Student with ID: ${studentId} has been saved into lecture with ID: ${lectureid} already`,
               );
-              // logger.error(error);
             });
         } else {
           io.to(socket.id).emit(
@@ -576,51 +566,17 @@ const setupSocketHandlers = (io: Server) => {
 
     // Handle the 'lecturecanceled' event
     socket.on('lectureCanceled', async (lectureid) => {
-      if (
-        !['teacher', 'admin', 'counselor'].some((role) =>
-          socket.user?.role.includes(role),
-        )
-      ) {
-        socket.emit('error', {
-          code: 'UNAUTHORIZED',
-          message: 'Only teachers, admins, or counselors can cancel lectures',
-        });
-        return;
-      }
-      const token = await getToken();
-      try {
-        await doFetch(
-          'http://localhost:3002/courses/attendance/deletelecture/',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token,
-            },
-            body: JSON.stringify({
-              lectureid: lectureid,
-            }),
-          },
-        );
-
-        io.to(lectureid).emit('lectureCanceledSuccess', lectureid);
-        logger.info(
-          `Lecture with ID: ${lectureid} was successfully canceled at ${new Date().toISOString()}`,
-        );
-        logger.info(
-          `Lecture with ID: ${lectureid} was successfully destroyed `,
-        );
-        // Purge lectureid from notYetPresentStudents and presentStudents
-        delete notYetPresentStudents[lectureid];
-        delete presentStudents[lectureid];
-        delete lectureData[lectureid];
-        clearTimeout(lectureTimeoutIds.get(lectureid));
-      } catch (error) {
-        // Handle the error here
-        logger.error(error);
-      }
+      handleLectureCanceled(
+        socket,
+        io,
+        lectureid,
+        notYetPresentStudents,
+        presentStudents,
+        lectureData,
+        lectureTimeoutIds,
+      );
     });
   });
 };
 
-export default setupSocketHandlers;
+export default SocketHandlers;

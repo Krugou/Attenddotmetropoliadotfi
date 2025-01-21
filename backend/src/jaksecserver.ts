@@ -8,7 +8,7 @@ import adminRoutes from './routes/adminroutes.js';
 import courseRoutes from './routes/courseroutes.js';
 import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
-import setupSocketHandlers from './sockets/socketHandlers.js';
+import SocketHandlers from './sockets/socketHandlers.js';
 // import logger from './utils/logger.js';
 /**
  * Load environment variables from .env file
@@ -44,7 +44,7 @@ const io = new Server(http, {
 /**
  * Setup socket handlers
  */
-setupSocketHandlers(io);
+SocketHandlers(io);
 
 /**
  * Port number for the server to listen on
