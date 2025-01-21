@@ -8,6 +8,7 @@ import usermodel from '../models/usermodel.js';
 import checkUserRole from '../utils/checkRole.js';
 import logger from '../utils/logger.js';
 import validate from '../utils/validate.js';
+import UserModel from '../models/usermodel.js';
 const pool = createPool('ADMIN');
 /**
  * Router for secure routes.
@@ -16,8 +17,11 @@ const router: Router = express.Router();
 /**
  * Route that returns the user object from the request.
  */
-router.get('/', (req: Request, res: Response) => {
-  res.json(req.user);
+router.get('/', async (req: Request, res: Response) => {
+  if (req.user) {
+    const user = await UserModel.getAllUserInfo(req.user.email);
+    res.json(user);
+  }
 });
 /**
  * Route that fetches all students.
