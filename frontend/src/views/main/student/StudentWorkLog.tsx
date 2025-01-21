@@ -44,7 +44,7 @@ const StudentWorkLog: React.FC = () => {
             focus:ring-metropoliaMainOrange`}
           aria-label={t('worklog.clockIn')}>
           <LoginIcon />
-          <span>{t('worklog.in')}</span>
+          <span>{t('worklog.actions.in')}</span>
         </button>
 
         <button
@@ -54,7 +54,7 @@ const StudentWorkLog: React.FC = () => {
             focus:ring-metropoliaSupportRed`}
           aria-label={t('worklog.clockOut')}>
           <LogoutIcon />
-          <span>{t('worklog.out')}</span>
+          <span>{t('worklog.actions.out')}</span>
         </button>
 
         <button
@@ -64,7 +64,7 @@ const StudentWorkLog: React.FC = () => {
             focus:ring-metropoliaTrendGreen`}
           aria-label={t('worklog.edit')}>
           <EditIcon />
-          <span>{t('worklog.edit')}</span>
+          <span>{t('worklog.actions.edit')}</span>
         </button>
       </div>
     </div>
