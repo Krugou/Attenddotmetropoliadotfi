@@ -4,36 +4,53 @@ import {createStream} from 'rotating-file-stream';
 // Import the pino logging library
 import pino from 'pino';
 
-/**
- * The stream used for logging.
- *
- * This creates a rotating file stream that writes to a new file every 14 days.
- * The files are written in the './logs' directory and are named 'logfile.log'.
- */
-
-// Stream for regular logs
+// Create the rotating file streams
 const stream = createStream('logfile.log', {
   interval: '14d',
   path: './logs',
 });
 
-// Stream for error logs
 const errorStream = createStream('error-logfile.log', {
   interval: '14d',
   path: './logs',
 });
 
-// Create a new pino logger that writes logs to our rotating file stream.
-// The logger is configured to log messages with a level of 'info' and above.
-// @ts-expect-error
-const logger = pino({level: 'info'}, stream);
+// Create multistream configuration for both console and file output
+const streams = [
+  // Console output stream with pretty printing for development
+  {stream: process.stdout},
+  // Regular log file stream
+  {stream: stream},
+];
 
-// Create a new pino logger that writes logs to our rotating file stream.
-// The logger is configured to log messages with a level of 'error' and above.
-// @ts-expect-error
-logger.error = pino({level: 'error'}, errorStream).error;
+const errorStreams = [
+  // Console error output stream
+  {stream: process.stderr},
+  // Error log file stream
+  {stream: errorStream},
+];
 
-// Add error handling for stream creation
+// Create the logger with multistream support
+// @ts-expect-error
+const logger = pino(
+  {
+    level: 'info',
+    timestamp: pino.stdTimeFunctions.isoTime,
+  },
+  pino.multistream(streams),
+);
+
+// Configure error logger
+// @ts-expect-error
+logger.error = pino(
+  {
+    level: 'error',
+    timestamp: pino.stdTimeFunctions.isoTime,
+  },
+  pino.multistream(errorStreams),
+).error;
+
+// Add error handling for streams
 stream.on('error', (err) => {
   console.error('Error with log stream:', err);
 });
