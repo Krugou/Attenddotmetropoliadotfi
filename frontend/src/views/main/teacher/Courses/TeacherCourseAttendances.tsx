@@ -103,7 +103,7 @@ const TeacherCourseAttendances: React.FC = () => {
 
   return (
     <div className='w-full p-4 bg-gray-100 rounded-lg lg:w-fit'>
-      <h1 className='mb-5 text-3xl font-bold text-center'>
+      <h1 className='mb-5 text-3xl font-heading text-center'>
         {t('teacher.courseAttendances.title')}
       </h1>
       <div className='flex justify-center m-4 '>
@@ -143,7 +143,8 @@ const TeacherCourseAttendances: React.FC = () => {
           {filteredAttendances.length > 0 ? (
             <>
               <div className='flex justify-around mt-4 '>
-                <Tooltip title={t('teacher.courseAttendances.buttons.printPdf')}>
+                <Tooltip
+                  title={t('teacher.courseAttendances.buttons.printPdf')}>
                   <button
                     onClick={handlePrintToPdf}
                     className='p-2 text-white rounded bg-metropoliaMainOrange'
@@ -169,7 +170,8 @@ const TeacherCourseAttendances: React.FC = () => {
                     </button>
                   )}
                 </div>
-                <Tooltip title={t('teacher.courseAttendances.buttons.exportExcel')}>
+                <Tooltip
+                  title={t('teacher.courseAttendances.buttons.exportExcel')}>
                   <button
                     onClick={handleExportToExcel}
                     className='p-2 text-white rounded bg-metropoliaMainOrange'

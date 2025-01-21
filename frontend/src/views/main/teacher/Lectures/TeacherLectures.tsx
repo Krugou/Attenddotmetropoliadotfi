@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {
   Table,
   TableBody,
@@ -92,11 +92,12 @@ const TeacherLectures: React.FC = () => {
 
   return (
     <div className='relative w-full p-5 bg-white rounded-lg xl:w-fit'>
-      <h1 className='mb-4 text-2xl font-bold'>
+      <h1 className='mb-4 text-2xl font-heading'>
         {t('teacher.lectures.title')}
       </h1>
       <h2 className='mb-2 text-xl'>
-        {t('teacher.lectures.stats.totalLectures')}: {totalLectures} | {t('teacher.lectures.stats.attendanceRatio')}:{' '}
+        {t('teacher.lectures.stats.totalLectures')}: {totalLectures} |{' '}
+        {t('teacher.lectures.stats.attendanceRatio')}:{' '}
         {attendanceRatio.toFixed(2)}%
       </h2>
 
@@ -105,15 +106,31 @@ const TeacherLectures: React.FC = () => {
         <Table className='table-auto'>
           <TableHead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
             <TableRow>
-              <TableCell>{t('teacher.lectures.table.headers.lectureId')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.courseName')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.courseCode')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.topicName')}</TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.lectureId')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.courseName')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.courseCode')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.topicName')}
+              </TableCell>
               <TableCell>{t('teacher.lectures.table.headers.date')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.timeOfDay')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.attendance')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.totalAttendance')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.studentsWithTopic')}</TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.timeOfDay')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.attendance')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.totalAttendance')}
+              </TableCell>
+              <TableCell>
+                {t('teacher.lectures.table.headers.studentsWithTopic')}
+              </TableCell>
               <TableCell>{t('teacher.lectures.table.headers.ratio')}</TableCell>
               <TableCell>{t('teacher.lectures.table.headers.state')}</TableCell>
             </TableRow>
@@ -136,7 +153,7 @@ const TeacherLectures: React.FC = () => {
                   <TableCell>{lecture.timeofday}</TableCell>
                   <TableCell
                     title={t('teacher.lectures.table.tooltips.attendance', {
-                      total: lecture.attended + lecture.notattended
+                      total: lecture.attended + lecture.notattended,
                     })}>
                     <span className='text-metropoliaTrendGreen'>
                       {lecture.attended}
@@ -155,7 +172,8 @@ const TeacherLectures: React.FC = () => {
                       (lecture.attended /
                         (lecture.attended + lecture.notattended)) *
                         100,
-                    )}%
+                    )}
+                    %
                   </TableCell>
                   <TableCell>
                     <span

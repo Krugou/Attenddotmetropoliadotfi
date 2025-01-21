@@ -5,8 +5,8 @@ export default {
     fontFamily: {
       sans: ['Open Sans', 'sans-serif'],
       bold: [ 'Roboto bold', 'sans-serif' ],
-      heading: [ 'Roboto bold', 'sans-serif' ],
-      body: [ 'Roboto', 'sans-serif' ],
+      heading: [ 'Roboto Slab', 'sans-serif' ],
+      body: [ 'Open Sans', 'sans-serif' ],
     },
     extend: {
       rotate: {

@@ -55,7 +55,7 @@ const TeacherCourseDetail: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <h2 className='p-3 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
+      <h2 className='p-3 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
         {courseData && courseData[0].name} - {courseData && courseData[0].code}
       </h2>
       <div className='w-full mx-auto mt-4 bg-white rounded-lg shadow-lg sm:w-3/4 md:w-2/4 lg:w-2/5 2xl:w-1/5'>

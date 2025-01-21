@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 /**
  * WelcomeModal component.
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
  */
 const WelcomeModal = () => {
   const [showModal, setShowModal] = useState(false);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const firstVisit = localStorage.getItem('firstVisit');
@@ -28,12 +28,8 @@ const WelcomeModal = () => {
     showModal && (
       <div className='fixed bottom-0 right-0 z-50 max-w-xs p-6 m-6 bg-white rounded-lg shadow-lg sm:max-w-md md:max-w-lg lg:max-w-xl'>
         <div>
-          <h2 className='mb-2 text-2xl font-bold'>
-            {t('welcome.title')}
-          </h2>
-          <p className='mb-4'>
-            {t('welcome.description')}
-          </p>
+          <h2 className='mb-2 text-2xl font-heading'>{t('welcome.title')}</h2>
+          <p className='mb-4'>{t('welcome.description')}</p>
           <button
             className='px-4 py-2 text-white bg-blue-500 rounded'
             onClick={() => setShowModal(false)}>

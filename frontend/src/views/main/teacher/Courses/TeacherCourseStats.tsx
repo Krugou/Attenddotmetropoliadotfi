@@ -222,7 +222,7 @@ const TeacherCourseStats = () => {
   };
   return (
     <>
-      <h1 className='p-3 mb-2 text-2xl font-bold text-center bg-white rounded-md'>
+      <h1 className='p-3 mb-2 text-2xl font-heading text-center bg-white rounded-md'>
         {t('teacher.courseStats.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>

@@ -374,7 +374,7 @@ const CreateLecture: React.FC = () => {
           ))}
           <div className='flex flex-col items-center justify-center w-full p-1 m-auto bg-gray-100 rounded-lg 2xl:w-3/6 lg:w-4/6 sm:p-5'>
             <CheckOpenLectures />
-            <h1 className='p-2 mt-5 mb-8 text-lg font-bold sm:text-2xl'>
+            <h1 className='p-2 mt-5 mb-8 text-lg font-heading sm:text-2xl'>
               {t('teacher.createLecture.title')}
             </h1>
             <h2 className='p-4 mt-2 text-xl'>
@@ -430,14 +430,18 @@ const CreateLecture: React.FC = () => {
               </div>
               <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12'>
                 <select
-                  title={t('teacher.createLecture.courseSection.tooltips.pickCourse')}
+                  title={t(
+                    'teacher.createLecture.courseSection.tooltips.pickCourse',
+                  )}
                   id='course'
                   className='block h-8 mt-1 ml-1 mr-3 cursor-pointer sm:ml-5'
                   value={selectedSession}
                   onClick={() => {
                     if (courses.length === 0) {
                       toast.error(
-                        t('teacher.createLecture.courseSection.errors.noCourses'),
+                        t(
+                          'teacher.createLecture.courseSection.errors.noCourses',
+                        ),
                       );
                     }
                   }}
@@ -483,7 +487,9 @@ const CreateLecture: React.FC = () => {
                     })}
                 </select>
                 <select
-                  title={t('teacher.createLecture.courseSection.tooltips.pickTopic')}
+                  title={t(
+                    'teacher.createLecture.courseSection.tooltips.pickTopic',
+                  )}
                   id='topic'
                   className='block h-8 ml-1 mr-3 cursor-pointer sm:ml-5 sm:mt-2 mt-none'
                   value={selectedTopic}
@@ -517,14 +523,18 @@ const CreateLecture: React.FC = () => {
                   {t('teacher.createLecture.dateSection.calendar.label')}
                 </label>
                 <input
-                  title={t('teacher.createLecture.dateSection.calendar.tooltip')}
+                  title={t(
+                    'teacher.createLecture.dateSection.calendar.tooltip',
+                  )}
                   ref={inputRef}
                   type='text'
                   aria-label='Date'
                   className='py-2 pl-4 pr-4 text-center border cursor-pointer rounded-xl focus:ring focus:ring-metropoliaSecondaryOrange focus:outline-none'
                   value={
                     Array.isArray(date)
-                      ? t('teacher.createLecture.dateSection.calendar.multipleDates')
+                      ? t(
+                          'teacher.createLecture.dateSection.calendar.multipleDates',
+                        )
                       : date.toDateString()
                   }
                   onClick={toggleCalendar}
@@ -549,8 +559,12 @@ const CreateLecture: React.FC = () => {
                   {t('teacher.createLecture.dateSection.timeOfDay.label')}
                 </label>
                 <select
-                  aria-label={t('teacher.createLecture.dateSection.timeOfDay.label')}
-                  title={t('teacher.createLecture.dateSection.timeOfDay.tooltip')}
+                  aria-label={t(
+                    'teacher.createLecture.dateSection.timeOfDay.label',
+                  )}
+                  title={t(
+                    'teacher.createLecture.dateSection.timeOfDay.tooltip',
+                  )}
                   value={selectedTimeOfDay}
                   onChange={(e) => setSelectedTimeOfDay(e.target.value)}
                   className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white border border-gray-300 shadow appearance-none cursor-pointer hover:border-gray-400 focus:outline-none focus:shadow-outline'>
@@ -571,7 +585,7 @@ const CreateLecture: React.FC = () => {
               title={`${t('teacher.createLecture.buttons.open')} ${
                 selectedCourse?.name
               } - ${selectedCourse?.code} - ${selectedTopic}`}
-              className='w-2/4 px-4 py-2 m-4 font-bold text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
+              className='w-2/4 px-4 py-2 m-4 font-heading text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
               onClick={handleOpenAttendance}>
               {t('teacher.createLecture.buttons.open')}
             </button>

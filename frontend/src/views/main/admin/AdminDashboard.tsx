@@ -42,7 +42,7 @@ const AdminDashboard = () => {
 
   return (
     <div className='flex flex-col w-full p-4 transition-all duration-300 ease-in-out shadow-lg rounded-xl bg-slate-50'>
-      <h2 className='p-3 mb-6 text-3xl font-bold text-center border-b text-metropolia border-metropolia/20'>
+      <h2 className='p-3 mb-6 text-3xl font-heading text-center border-b text-metropolia border-metropolia/20'>
         {t('admin.dashboard.title')}
       </h2>
       <div className='flex flex-col gap-4 md:flex-row'>

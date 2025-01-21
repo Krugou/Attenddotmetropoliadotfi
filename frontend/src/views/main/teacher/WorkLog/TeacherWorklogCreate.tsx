@@ -95,7 +95,7 @@ const WorkLogCreate = () => {
 
   return (
     <div className='flex flex-col max-w-2xl p-6 mx-auto bg-white'>
-      <h1 className='mb-6 text-2xl font-bold text-gray-800'>
+      <h1 className='mb-6 text-2xl font-heading text-gray-800'>
         {t('teacher.worklog.create.title')}
       </h1>
 

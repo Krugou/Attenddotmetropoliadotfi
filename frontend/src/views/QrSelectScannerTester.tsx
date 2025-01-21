@@ -148,7 +148,7 @@ const QrSelectScannerTester: React.FC = () => {
 
   return (
     <div className='container p-4 mx-auto'>
-      <h1 className='mb-4 text-2xl font-bold'>QR Scanner Tester</h1>
+      <h1 className='mb-4 text-2xl font-heading'>QR Scanner Tester</h1>
 
       {/* Add security context status */}
       <div className='p-2 mb-4 text-sm bg-gray-100 rounded'>
@@ -195,7 +195,7 @@ const QrSelectScannerTester: React.FC = () => {
       {/* Display decoded data */}
       {Object.keys(decodedData).length > 0 && (
         <div className='p-4 mt-4 border rounded'>
-          <h2 className='mb-2 text-xl font-bold'>Last Scanned Data:</h2>
+          <h2 className='mb-2 text-xl font-heading'>Last Scanned Data:</h2>
           <pre className='p-2 bg-gray-100 rounded'>
             {JSON.stringify(decodedData, null, 2)}
           </pre>

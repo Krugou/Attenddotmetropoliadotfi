@@ -172,13 +172,13 @@ const TeacherStudentDetail: React.FC = () => {
             />
           )}
         </div>
-        <h2 className='mt-5 mb-5 text-2xl font-bold'>
+        <h2 className='mt-5 mb-5 text-2xl font-heading'>
           {student.first_name + ' ' + student.last_name}'s Info
         </h2>
         <ProfileInfo user={student} />
 
         <div className='w-full h-1 mt-5 rounded-md bg-metropoliaMainOrange'></div>
-        <h2 className='mt-5 mb-5 text-2xl font-bold'>
+        <h2 className='mt-5 mb-5 text-2xl font-heading'>
           {student.first_name + ' ' + student.last_name}'s Courses
         </h2>
         <div className='pt-1 pb-2 pl-2 pr-2 bg-gray-100'>

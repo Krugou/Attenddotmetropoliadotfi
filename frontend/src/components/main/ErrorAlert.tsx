@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 /**
  * ErrorAlertProps interface represents the structure of the ErrorAlert props.
@@ -24,7 +24,7 @@ interface ErrorAlertProps {
  */
 const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   return (
     <div
@@ -32,7 +32,7 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
         alert ? 'block' : 'hidden'
       }`}>
       <div className='p-4 mx-auto mt-10 bg-red-100 rounded-lg shadow-lg modal-container w-96'>
-        <h2 className='mb-4 text-xl font-bold text-red-600'>
+        <h2 className='mb-4 text-xl font-heading text-red-600'>
           {t('errorAlert.title')}
         </h2>
         <div className='mb-4'>

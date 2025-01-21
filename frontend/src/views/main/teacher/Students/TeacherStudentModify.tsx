@@ -36,7 +36,7 @@ const TeacherStudentModify: React.FC = () => {
     <div className='p-5 bg-gray-100'>
       <div className='w-full m-4 mx-auto bg-white rounded shadow-lg sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/5'>
         <form onSubmit={handleSubmit} className='px-6 py-4'>
-          <label className='mb-2 text-xl font-bold'>
+          <label className='mb-2 text-xl font-heading'>
             {t('teacher.studentModify.labels.name')}
           </label>
           <input
@@ -46,7 +46,7 @@ const TeacherStudentModify: React.FC = () => {
             onChange={(e) => setName(e.target.value)}
             className='w-full p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600'
           />
-          <label className='mb-2 text-xl font-bold'>
+          <label className='mb-2 text-xl font-heading'>
             {t('teacher.studentModify.labels.email')}
           </label>
           <input
@@ -58,7 +58,7 @@ const TeacherStudentModify: React.FC = () => {
           />
           <button
             type='submit'
-            className='w-full p-2 font-bold text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-blue-600'>
+            className='w-full p-2 font-heading text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-blue-600'>
             {t('teacher.studentModify.buttons.submit')}
           </button>
         </form>

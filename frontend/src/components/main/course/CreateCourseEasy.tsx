@@ -278,7 +278,7 @@ const CreateCourseEasy: React.FC = () => {
             <div className='flex justify-end'>
               <button
                 type='button'
-                className='w-40 p-2 mt-2 font-bold text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+                className='w-40 p-2 mt-2 font-heading text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
                 onClick={handleExcelInput}>
                 {t('teacher.createCourseEasy.buttons.next')}
               </button>

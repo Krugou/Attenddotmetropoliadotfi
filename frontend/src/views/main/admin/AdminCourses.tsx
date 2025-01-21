@@ -140,7 +140,7 @@ const AdminCourses: React.FC = () => {
                         {key}
                         <button
                           aria-label={`Sort by ${key}`} // Add this line
-                          className='p-1 ml-2 text-sm font-bold text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark'
+                          className='p-1 ml-2 text-sm font-heading text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark'
                           onClick={() => sortCourses(key)}>
                           <SortIcon />
                         </button>

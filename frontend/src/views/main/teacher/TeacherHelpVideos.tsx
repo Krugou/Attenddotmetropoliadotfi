@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import CourseAttendance from '../../../assets/videos/CourseAttendance.mp4';
 import CourseDetail from '../../../assets/videos/CourseDetails.mp4';
 import CreateCourse from '../../../assets/videos/CreateCourse.mp4';
@@ -16,17 +16,17 @@ import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // 
  * It uses the VideoDropdown component to display each video with a title.
  */
 const TeacherHelpVideos: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   return (
     <div className='w-full p-5'>
-      <h1 className='p-3 m-auto mb-10 text-2xl font-bold text-center bg-white rounded-lg w-fit'>
+      <h1 className='p-3 m-auto mb-10 text-2xl font-heading text-center bg-white rounded-lg w-fit'>
         {t('teacher.helpVideos.title')}
       </h1>
       <div className='flex flex-col space-y-6'>
-        <VideoDropdown 
-          title={t('teacher.helpVideos.videos.createCourse')} 
-          src={CreateCourse} 
+        <VideoDropdown
+          title={t('teacher.helpVideos.videos.createCourse')}
+          src={CreateCourse}
         />
         <VideoDropdown
           title={t('teacher.helpVideos.videos.createAttendance')}
@@ -48,9 +48,9 @@ const TeacherHelpVideos: React.FC = () => {
           title={t('teacher.helpVideos.videos.accessStudentAttendance')}
           src={TeacherAttendance}
         />
-        <VideoDropdown 
-          title={t('teacher.helpVideos.videos.changeRole')} 
-          src={RoleChange} 
+        <VideoDropdown
+          title={t('teacher.helpVideos.videos.changeRole')}
+          src={RoleChange}
         />
         <VideoDropdown
           title={t('teacher.helpVideos.videos.studentJoin')}

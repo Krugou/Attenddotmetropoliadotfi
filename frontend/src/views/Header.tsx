@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = () => {
         />
       </Link>
       {import.meta.env.MODE === 'development' && (
-        <h1 className='text-lg font-bold'>In Development Mode</h1>
+        <h1 className='text-lg font-heading'>In Development Mode</h1>
       )}
       {user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>

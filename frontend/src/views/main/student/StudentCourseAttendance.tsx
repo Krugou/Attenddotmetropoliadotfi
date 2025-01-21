@@ -157,7 +157,7 @@ const StudentCourseAttendance: React.FC = () => {
   if (attendanceData.length > 0) {
     return (
       <div className='flex flex-col w-full p-5 overflow-x-auto bg-gray-100 border-t rounded-lg 2xl:w-3/4 border-x'>
-        <h1 className='mt-2 mb-8 text-xl font-bold text-center sm:text-4xl'>
+        <h1 className='mt-2 mb-8 text-xl font-heading text-center sm:text-4xl'>
           {t('student.course.attendaceOfCourse')} {attendanceData[0].name}
         </h1>
         <div className='flex flex-col flex-wrap items-center justify-around gap-5 mb-5 sm:flex-row'>
@@ -177,7 +177,9 @@ const StudentCourseAttendance: React.FC = () => {
               <MenuItem value='All'>
                 <div className='item-selector'>
                   <AutorenewIcon className='highest-star-selector-icon' />
-                  <span className='selector-text'>{t('student.course.all')}</span>
+                  <span className='selector-text'>
+                    {t('student.course.all')}
+                  </span>
                 </div>
               </MenuItem>
               {uniqueTopics.map((topic, index) => (
@@ -217,7 +219,7 @@ const StudentCourseAttendance: React.FC = () => {
     );
   } else {
     return (
-      <div className='p-3 m-10 text-3xl font-bold text-center bg-white rounded-lg'>
+      <div className='p-3 m-10 text-3xl font-heading text-center bg-white rounded-lg'>
         {t('admin.common.noDataAvailable')}
       </div>
     );

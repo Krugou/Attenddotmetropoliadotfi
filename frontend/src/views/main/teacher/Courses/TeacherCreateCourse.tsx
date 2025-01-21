@@ -15,7 +15,7 @@ const TeacherCreateCourse: React.FC = () => {
   return (
     <div>
       <div className='w-full pt-10 pb-10'>
-        <h1 className='p-3 mb-8 ml-auto mr-auto text-4xl font-bold text-center bg-white rounded-lg w-fit'>
+        <h1 className='p-3 mb-8 ml-auto mr-auto text-4xl font-heading text-center bg-white rounded-lg w-fit'>
           {t('teacher.createCourse.title')}
         </h1>
         <p className='p-2 mb-4 ml-auto mr-auto text-center bg-white rounded-lg w-fit'>

@@ -20,7 +20,7 @@ const NavigationButton: FC<NavigationButtonProps> = ({user, path, label}) => {
     user && (
       <button
         type='button'
-        className='px-4 py-2 mx-2 font-bold text-white transition border border-white rounded sm:w-full w-fit bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+        className='px-4 py-2 mx-2 font-heading text-white transition border border-white rounded sm:w-full w-fit bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
         onClick={() => navigate(path)}>
         {label}
       </button>

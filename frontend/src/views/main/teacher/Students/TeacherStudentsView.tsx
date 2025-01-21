@@ -73,14 +73,23 @@ const TeacherStudentsView: React.FC = () => {
     const fetchStudents = async () => {
       try {
         if (user?.role === 'teacher') {
-          const result = await apiHooks.fetchStudentsPaginationByInstructorId(user?.userid,token, studentsPerPage, page);
+          const result = await apiHooks.fetchStudentsPaginationByInstructorId(
+            user?.userid,
+            token,
+            studentsPerPage,
+            page,
+          );
           setAllStudents(result.students);
           setTotalPages(result.totalPages);
           setLoading(false);
         }
 
         if (user?.role === 'counselor' || user?.role === 'admin') {
-          const result = await apiHooks.fetchPaginatedStudents(token, studentsPerPage, page);
+          const result = await apiHooks.fetchPaginatedStudents(
+            token,
+            studentsPerPage,
+            page,
+          );
           setAllStudents(result.students);
           setTotalPages(result.totalPages);
           setLoading(false);
@@ -143,15 +152,17 @@ const TeacherStudentsView: React.FC = () => {
     }
   };
 
-  const handlePageChange = async (_event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = async (
+    _event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
     setPage(value);
-};
-
+  };
 
   return (
     <div className='w-full mx-auto 2xl:w-9/12'>
       <div className='flex flex-col items-center gap-5 sm:gap-0 sm:flex-row'>
-        <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
+        <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
           {t('teacher.studentsView.title')}
         </h1>
       </div>
@@ -205,7 +216,7 @@ const TeacherStudentsView: React.FC = () => {
             {t(
               `teacher.studentsView.info.${
                 selectedCourse ? 'searchingCourse' : 'searchingAll'
-              }`
+              }`,
             )}
           </span>
         </p>
@@ -220,18 +231,31 @@ const TeacherStudentsView: React.FC = () => {
               }
               className='max-w-full mx-1 mb-4 transition duration-300 bg-white rounded shadow-lg lg:mx-2 xl:mx-4 w-12/12 hover:bg-gray-200'>
               <div className='flex flex-col px-4 py-2 text-sm lg:px-4 lg:py-4 md:text-base'>
-                <div className='mb-2 text-lg font-bold underline underline-offset-8 decoration-metropoliaMainOrange'>
+                <div className='mb-2 text-lg font-heading underline underline-offset-8 decoration-metropoliaMainOrange'>
                   {student.first_name} {student.last_name}
                 </div>
-                {student.email && <p>{t('teacher.studentsView.studentCard.email')}</p>}
+                {student.email && (
+                  <p>{t('teacher.studentsView.studentCard.email')}</p>
+                )}
                 <p className='break-all'>{student.email}</p>
                 <div className='flex flex-col gap-3 mt-3'>
-                  {student.username && <p>{t('teacher.studentsView.studentCard.username')} {student.username}</p>}
+                  {student.username && (
+                    <p>
+                      {t('teacher.studentsView.studentCard.username')}{' '}
+                      {student.username}
+                    </p>
+                  )}
                   {student.studentnumber && (
-                    <p>{t('teacher.studentsView.studentCard.studentNumber')} {student.studentnumber}</p>
+                    <p>
+                      {t('teacher.studentsView.studentCard.studentNumber')}{' '}
+                      {student.studentnumber}
+                    </p>
                   )}
                   {student.group_name && (
-                    <p>{t('teacher.studentsView.studentCard.studentGroup')} {student.group_name}</p>
+                    <p>
+                      {t('teacher.studentsView.studentCard.studentGroup')}{' '}
+                      {student.group_name}
+                    </p>
                   )}
                   {student.created_at && (
                     <p>
@@ -240,15 +264,17 @@ const TeacherStudentsView: React.FC = () => {
                     </p>
                   )}
                   <div className='flex flex-wrap items-center justify-between p-2'>
-                    <p className='text-blue-500'>{t('teacher.studentsView.studentCard.clickDetails')}</p>
+                    <p className='text-blue-500'>
+                      {t('teacher.studentsView.studentCard.clickDetails')}
+                    </p>
                   </div>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        <div className="flex justify-center p-4">
-          <Pagination 
+        <div className='flex justify-center p-4'>
+          <Pagination
             count={totalPages}
             page={page}
             onChange={handlePageChange}

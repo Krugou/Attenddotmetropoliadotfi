@@ -177,7 +177,7 @@ const TeacherCourseModify: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <h2 className='p-3 m-auto mb-6 font-bold text-center text-gray-800 bg-white rounded-lg w-fit text-md sm:text-2xl'>
+      <h2 className='p-3 m-auto mb-6 font-heading text-center text-gray-800 bg-white rounded-lg w-fit text-md sm:text-2xl'>
         {t('teacher.courseModify.title')}
       </h2>
 
@@ -187,9 +187,9 @@ const TeacherCourseModify: React.FC = () => {
         }}
         className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
         <div className='mt-2 mb-4'>
-          <GeneralLinkButton 
-            path={`/teacher/courses`} 
-            text={t('teacher.courseModify.buttons.backToCourses')} 
+          <GeneralLinkButton
+            path={`/teacher/courses`}
+            text={t('teacher.courseModify.buttons.backToCourses')}
           />
         </div>
         <CourseDetails
@@ -245,7 +245,7 @@ const TeacherCourseModify: React.FC = () => {
         />
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 font-bold text-white transition  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 font-heading text-white transition  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('teacher.courseModify.buttons.finish')}

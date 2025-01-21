@@ -129,7 +129,11 @@ const CourseData: React.FC<CourseDataProps> = ({
           return (
             <Tooltip
               key={course.courseid}
-              title={isCourseEnded ? t('teacher.courseData.tooltips.courseEnded') : ''}
+              title={
+                isCourseEnded
+                  ? t('teacher.courseData.tooltips.courseEnded')
+                  : ''
+              }
               placement='top'>
               <div
                 key={course.courseid}
@@ -137,12 +141,13 @@ const CourseData: React.FC<CourseDataProps> = ({
                   isCourseEnded ? 'opacity-50 bg-gray-200' : 'bg-white'
                 }`}>
                 <div className='flex items-center justify-between'>
-                  <p className='text-lg font-bold'>{course.name}</p>
+                  <p className='text-lg font-heading'>{course.name}</p>
                   <p className='text-base text-gray-700'>
                     {course.description}
                   </p>
                   <div className='flex gap-5'>
-                    <Tooltip title={t('teacher.courseData.tooltips.modifyCourse')}>
+                    <Tooltip
+                      title={t('teacher.courseData.tooltips.modifyCourse')}>
                       <EditIcon
                         fontSize='large'
                         className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
@@ -151,7 +156,8 @@ const CourseData: React.FC<CourseDataProps> = ({
                         }
                       />
                     </Tooltip>
-                    <Tooltip title={t('teacher.courseData.tooltips.deleteCourse')}>
+                    <Tooltip
+                      title={t('teacher.courseData.tooltips.deleteCourse')}>
                       <DeleteIcon
                         fontSize='large'
                         className='p-1 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
@@ -162,44 +168,58 @@ const CourseData: React.FC<CourseDataProps> = ({
                 </div>
                 <div className='mt-2'>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.courseData.labels.startDate')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.courseData.labels.startDate')}
+                    </p>
                     <p>{new Date(course.start_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.courseData.labels.endDate')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.courseData.labels.endDate')}
+                    </p>
                     <p>{new Date(course.end_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
-                    <div className='text-gray-700'>{t('teacher.courseData.labels.code')}</div>
+                    <div className='text-gray-700'>
+                      {t('teacher.courseData.labels.code')}
+                    </div>
                     <div>{course.code}</div>
                   </div>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.courseData.labels.studentGroup')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.courseData.labels.studentGroup')}
+                    </p>
                     <p>{course.studentgroup_name}</p>
                   </div>
                   <div className='flex flex-col justify-between mb-4'>
-                    <h2 className='mt-4 text-lg font-bold'>{t('teacher.courseData.labels.topics')}</h2>
+                    <h2 className='mt-4 text-lg font-heading'>
+                      {t('teacher.courseData.labels.topics')}
+                    </h2>
                     <p>{course.topic_names?.replace(/,/g, ', ')}</p>
                   </div>
                   {!allCourses ? (
                     <>
                       <div className='w-full border-t-4 border-metropoliaMainOrange'></div>
-                      <h2 className='mt-4 text-lg font-bold'>
+                      <h2 className='mt-4 text-lg font-heading'>
                         {t('teacher.courseData.labels.additionalInfo')}
                       </h2>
                       <div className='flex justify-between'>
-                        <p className='text-gray-700'>{t('teacher.courseData.labels.courseCreatedAt')}</p>
+                        <p className='text-gray-700'>
+                          {t('teacher.courseData.labels.courseCreatedAt')}
+                        </p>
                         <p>
                           {new Date(course.created_at).toLocaleDateString()}
                         </p>
                       </div>
                       <div className='flex justify-between mb-4'>
-                        <p className='text-gray-700'>{t('teacher.courseData.labels.amountOfStudents')}</p>
+                        <p className='text-gray-700'>
+                          {t('teacher.courseData.labels.amountOfStudents')}
+                        </p>
                         <p>{course.user_count}</p>
                       </div>
                       <div className='w-full border-t-4 border-metropoliaMainOrange'></div>
                       <div className='mt-4 mb-5'>
-                        <h2 className='text-lg font-bold text-gray-700'>
+                        <h2 className='text-lg font-heading text-gray-700'>
                           {t('teacher.courseData.labels.instructors')}
                         </h2>
                         <ul>

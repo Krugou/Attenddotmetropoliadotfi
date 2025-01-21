@@ -114,9 +114,9 @@ const AdminAllLectures: React.FC = () => {
 
   const paginatedLectures = filteredLectures.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
-  
+
   const totalPages = Math.ceil(filteredLectures.length / ITEMS_PER_PAGE);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,28 +215,28 @@ const AdminAllLectures: React.FC = () => {
   );
 
   const PaginationControls = () => (
-    <div className="flex items-center justify-between my-4">
-      <div className="text-sm text-gray-700">
-        Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredLectures.length)} of {filteredLectures.length} lectures
+    <div className='flex items-center justify-between my-4'>
+      <div className='text-sm text-gray-700'>
+        Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{' '}
+        {Math.min(currentPage * ITEMS_PER_PAGE, filteredLectures.length)} of{' '}
+        {filteredLectures.length} lectures
       </div>
-      <div className="flex gap-2">
+      <div className='flex gap-2'>
         {currentPage > 1 && (
-        <button
-          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-          disabled={currentPage === 1}
-          className="px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50"
-        >
-          Previous
-        </button>
-        )}  
-        <span className="px-4 py-1">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className='px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50'>
+            Previous
+          </button>
+        )}
+        <span className='px-4 py-1'>
           Page {currentPage} of {totalPages}
         </span>
         <button
-          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50"
-        >
+          className='px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50'>
           Next
         </button>
       </div>
@@ -248,24 +248,32 @@ const AdminAllLectures: React.FC = () => {
       <div className='mt-4 mb-4 space-x-2'>
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {filterOpen ? t('admin.lectures.alternative.showAllLectures') : t('admin.lectures.alternative.showOpenLecture')}
+          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          {filterOpen
+            ? t('admin.lectures.alternative.showAllLectures')
+            : t('admin.lectures.alternative.showOpenLecture')}
         </button>
         <button
           onClick={toggleSortOrder}
-          className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {sortOrder === 'asc' ? t('admin.lectures.alternative.sortByNewest') : t('admin.lectures.alternative.sortByOldest')}
+          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          {sortOrder === 'asc'
+            ? t('admin.lectures.alternative.sortByNewest')
+            : t('admin.lectures.alternative.sortByOldest')}
         </button>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {isExpanded ? t('admin.lectures.alternative.shrinkTable') : t('admin.lectures.alternative.expandTable')}
+          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          {isExpanded
+            ? t('admin.lectures.alternative.shrinkTable')
+            : t('admin.lectures.alternative.expandTable')}
         </button>
         {!filterOpen && (
           <button
             onClick={() => setExtraStats(!extraStats)}
-            className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-            {extraStats ? t('admin.lectures.alternative.hideStats') : t('admin.lectures.alternative.showStats')}
+            className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+            {extraStats
+              ? t('admin.lectures.alternative.hideStats')
+              : t('admin.lectures.alternative.showStats')}
           </button>
         )}
       </div>
@@ -273,13 +281,14 @@ const AdminAllLectures: React.FC = () => {
         <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2'>
           <div className='p-2 bg-blue-100 rounded col-span-full'>
             <h2 className='mb-2 text-lg'>
-              {t('admin.lectures.stats.totalLectures')}: {totalLectures} | {t('admin.lectures.stats.attendanceRatio')}:{' '}
+              {t('admin.lectures.stats.totalLectures')}: {totalLectures} |{' '}
+              {t('admin.lectures.stats.attendanceRatio')}:{' '}
               {attendanceRatio.toFixed(2)}%
             </h2>
           </div>
           <div className='p-2 bg-green-100 rounded'>
             <h2 className='mb-2 text-lg'>
-            {t('admin.lectures.stats.highestAttendance')}:
+              {t('admin.lectures.stats.highestAttendance')}:
               {highestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -289,7 +298,7 @@ const AdminAllLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-red-100 rounded'>
             <h2 className='mb-2 text-lg'>
-            {t('admin.lectures.stats.lowestAttendance')}:
+              {t('admin.lectures.stats.lowestAttendance')}:
               {lowestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -310,7 +319,7 @@ const AdminAllLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-purple-100 rounded'>
             <h2 className='mb-2 text-lg'>
-            {t('admin.lectures.stats.lowestNotAttended')}:
+              {t('admin.lectures.stats.lowestNotAttended')}:
               {lowestNotAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.notattended} (ID: {lecture.lectureid})
@@ -332,7 +341,7 @@ const AdminAllLectures: React.FC = () => {
       </div>
 
       {/* <PaginationControls /> */}
-      
+
       {filterOpen && filteredLectures.length > 0 && (
         <h2 className='mb-2 text-lg'>{`Open lectures: ${filteredLectures.length}`}</h2>
       )}
@@ -346,15 +355,29 @@ const AdminAllLectures: React.FC = () => {
             <TableRow>
               <TableCell>{t('admin.common.lectureId')}</TableCell>
 
-              <TableCell>{t('admin.lectures.tableContent.teacherEmail')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.courseName')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.courseCode')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.topicName')}</TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.teacherEmail')}
+              </TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.courseName')}
+              </TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.courseCode')}
+              </TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.topicName')}
+              </TableCell>
               <TableCell>{t('admin.lectures.tableContent.date')}</TableCell>
               <TableCell>{t('admin.lectures.tableContent.dayTime')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.attendance')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.totalAttendance')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.currentTopicStudentCount')}</TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.attendance')}
+              </TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.totalAttendance')}
+              </TableCell>
+              <TableCell>
+                {t('admin.lectures.tableContent.currentTopicStudentCount')}
+              </TableCell>
               <TableCell>{t('admin.lectures.tableContent.ratio')}</TableCell>
               <TableCell>{t('admin.lectures.tableContent.state')}</TableCell>
               <TableCell>{t('admin.lectures.tableContent.actions')}</TableCell>
@@ -435,8 +458,8 @@ const AdminAllLectures: React.FC = () => {
                             lecture.lectureid.toString(),
                           )
                         }
-                        className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                       {t('admin.common.details')}
+                        className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                        {t('admin.common.details')}
                       </button>
                       {lecture.state === 'open' && (
                         <button
@@ -447,8 +470,8 @@ const AdminAllLectures: React.FC = () => {
                               'close',
                             )
                           }
-                          className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                        {t('admin.common.close')}
+                          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          {t('admin.common.close')}
                         </button>
                       )}
                       {(lecture.state === 'open' ||
@@ -461,7 +484,7 @@ const AdminAllLectures: React.FC = () => {
                               'delete',
                             )
                           }
-                          className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
                           {t('admin.common.delete')}
                         </button>
                       )}
@@ -483,18 +506,20 @@ const AdminAllLectures: React.FC = () => {
       </TableContainer>
 
       <PaginationControls />
-      
+
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>{`Are you sure you want to ${action} the lecture?`}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{t('admin.lectures.dialog.dialogText')}.</DialogContentText>
+          <DialogContentText>
+            {t('admin.lectures.dialog.dialogText')}.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color='primary'>
-          {t('admin.common.cancel')}
+            {t('admin.common.cancel')}
           </Button>
           <Button onClick={handleConfirm} color='primary' autoFocus>
-          {t('admin.common.confirm')}
+            {t('admin.common.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

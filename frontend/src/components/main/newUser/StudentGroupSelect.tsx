@@ -20,7 +20,7 @@ const StudentGroupSelect: React.FC<StudentGroupSelectProps> = ({
 
   return (
     <label className='block mt-4'>
-      <span className='font-bold text-gray-700'>
+      <span className='font-heading text-gray-700'>
         {t('studentGroupSelect.label')}
       </span>
       <select

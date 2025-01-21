@@ -143,7 +143,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
   if (attendanceData.length > 0) {
     return (
       <div className='flex flex-col w-full p-5 bg-gray-100 rounded-lg lg:w-fit'>
-        <h1 className='mt-2 mb-8 text-xl font-bold text-center sm:text-3xl'>
+        <h1 className='mt-2 mb-8 text-xl font-heading text-center sm:text-3xl'>
           {student?.first_name + ' ' + student?.last_name}'s attendance in
           course: {attendanceData[0].name}
         </h1>
@@ -163,7 +163,8 @@ const TeacherStudentCourseAttendance: React.FC = () => {
                 <PrintIcon fontSize='large' />
               </button>
             </Tooltip>
-            <Tooltip title={t('teacher.studentAttendances.buttons.exportExcel')}>
+            <Tooltip
+              title={t('teacher.studentAttendances.buttons.exportExcel')}>
               <button
                 onClick={handleExportToExcel}
                 className='p-2 text-white rounded bg-metropoliaMainOrange'>
@@ -208,7 +209,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
   }
 
   return (
-    <div className='p-3 m-10 text-3xl font-bold text-center bg-white rounded-lg'>
+    <div className='p-3 m-10 text-3xl font-heading text-center bg-white rounded-lg'>
       {t('teacher.studentAttendances.noData')}
     </div>
   );

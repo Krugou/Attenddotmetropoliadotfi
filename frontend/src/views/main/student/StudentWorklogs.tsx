@@ -57,30 +57,41 @@ const StudentWorklogs: React.FC = () => {
   `;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-metropoliaMainOrange mb-6">
+    <div className='container mx-auto px-4 py-8'>
+      <h1 className='text-2xl font-heading text-metropoliaMainOrange mb-6'>
         {t('worklog.entries.title')}
       </h1>
 
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full">
+      <div className='bg-white shadow-lg rounded-lg overflow-hidden'>
+        <div className='overflow-x-auto'>
+          <table className='min-w-full'>
             <thead>
               <tr>
-                <th className={tableHeaderClass}>{t('worklog.entries.date')}</th>
-                <th className={tableHeaderClass}>{t('worklog.entries.startTime')}</th>
-                <th className={tableHeaderClass}>{t('worklog.entries.endTime')}</th>
-                <th className={tableHeaderClass}>{t('worklog.entries.duration')}</th>
-                <th className={tableHeaderClass}>{t('worklog.entries.course')}</th>
-                <th className={tableHeaderClass}>{t('worklog.entries.description')}</th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.date')}
+                </th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.startTime')}
+                </th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.endTime')}
+                </th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.duration')}
+                </th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.course')}
+                </th>
+                <th className={tableHeaderClass}>
+                  {t('worklog.entries.description')}
+                </th>
               </tr>
             </thead>
             <tbody>
               {mockEntries.map((entry) => (
                 <tr
                   key={entry.id}
-                  className="hover:bg-metropoliaMainGrey/5 transition-colors"
-                >
+                  className='hover:bg-metropoliaMainGrey/5 transition-colors'>
                   <td className={tableCellClass}>{entry.date}</td>
                   <td className={tableCellClass}>{entry.startTime}</td>
                   <td className={tableCellClass}>{entry.endTime}</td>
@@ -93,9 +104,10 @@ const StudentWorklogs: React.FC = () => {
           </table>
         </div>
 
-        <div className="p-4 border-t border-metropoliaMainGrey/10">
-          <p className="text-sm text-metropoliaMainGrey">
-            {t('worklog.entries.total')}: {mockEntries.length} {t('worklog.entries.entries')}
+        <div className='p-4 border-t border-metropoliaMainGrey/10'>
+          <p className='text-sm text-metropoliaMainGrey'>
+            {t('worklog.entries.total')}: {mockEntries.length}{' '}
+            {t('worklog.entries.entries')}
           </p>
         </div>
       </div>

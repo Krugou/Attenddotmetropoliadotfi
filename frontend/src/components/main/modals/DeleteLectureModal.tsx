@@ -4,7 +4,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 /**
  * lecture interface represents the structure of a lecture.
@@ -45,7 +45,7 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
   onCloseLecture,
 }) => {
   console.log(lecture);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   return (
     <Dialog
       open={open}
@@ -59,7 +59,7 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
-          <strong className='pt-4 mb-4 text-lg font-bold'>
+          <strong className='pt-4 mb-4 text-lg font-heading'>
             {t('teacher.deleteLecture.subtitle')}
           </strong>
         </DialogContentText>
@@ -70,13 +70,21 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
               ? new Date(lecture?.start_date).toLocaleDateString()
               : ''}
           </li>
-          <li>{t('teacher.deleteLecture.details.timeOfDay')} {lecture?.timeofday}</li>
-          <li>{t('teacher.deleteLecture.details.teacherEmail')} {lecture?.teacher}</li>
-          <li>{t('teacher.deleteLecture.details.courseCode')} {lecture?.code}</li>
-          <li>{t('teacher.deleteLecture.details.topicName')} {lecture?.topicname}</li>
+          <li>
+            {t('teacher.deleteLecture.details.timeOfDay')} {lecture?.timeofday}
+          </li>
+          <li>
+            {t('teacher.deleteLecture.details.teacherEmail')} {lecture?.teacher}
+          </li>
+          <li>
+            {t('teacher.deleteLecture.details.courseCode')} {lecture?.code}
+          </li>
+          <li>
+            {t('teacher.deleteLecture.details.topicName')} {lecture?.topicname}
+          </li>
         </ul>
         <DialogContentText id='alert-dialog-description'>
-          <strong className='mb-4 text-lg font-bold'>
+          <strong className='mb-4 text-lg font-heading'>
             {t('teacher.deleteLecture.question')}
           </strong>{' '}
           <br />
@@ -85,18 +93,18 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       </DialogContent>
       <DialogActions>
         <button
-          className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
           onClick={onClose}>
           {t('teacher.deleteLecture.buttons.close')}
         </button>
         <button
-          className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-metropoliaSupportSecondaryRed'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-metropoliaSupportSecondaryRed'
           onClick={onDelete}
           autoFocus>
           {t('teacher.deleteLecture.buttons.delete')}
         </button>
         <button
-          className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaTrendGreen sm:w-fit h-fit hover:bg-metropoliaMainGrey'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaTrendGreen sm:w-fit h-fit hover:bg-metropoliaMainGrey'
           onClick={onCloseLecture}
           autoFocus>
           {t('teacher.deleteLecture.buttons.finish')}

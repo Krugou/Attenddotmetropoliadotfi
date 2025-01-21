@@ -13,7 +13,7 @@ const StudentHelpVideos: React.FC = () => {
 
   return (
     <div className='w-full p-5'>
-      <h1 className='p-3 m-auto mb-10 text-2xl font-bold text-center bg-white rounded-lg w-fit'>
+      <h1 className='p-3 m-auto mb-10 text-2xl font-heading text-center bg-white rounded-lg w-fit'>
         {t('student.helpVideos.title')}
       </h1>
       <div className='flex flex-col space-y-6'>

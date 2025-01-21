@@ -9,14 +9,14 @@ const AdminLogsTable = ({
 }) => {
   return (
     <div className='flex flex-col justify-center px-4 md:px-0'>
-      <h1 className='mb-4 text-2xl font-bold text-center'>
+      <h1 className='mb-4 text-2xl font-heading text-center'>
         Admin {logType === 'error' ? 'Error Logs' : 'Logs'}
       </h1>
       <div className='flex flex-col items-center justify-center w-full p-2 mb-4 bg-metropoliaSupportWhite md:mb-0'>
         <div className='flex flex-col items-center justify-center md:flex-row'>
           <button
             onClick={handleShowMore}
-            className={`m-4 font-bold py-2 px-4 rounded ${
+            className={`m-4 font-heading py-2 px-4 rounded ${
               lineLimit >= 500
                 ? 'bg-gray-500 cursor-not-allowed'
                 : 'bg-blue-500 hover:bg-blue-700 text-white'
@@ -26,7 +26,7 @@ const AdminLogsTable = ({
           </button>
           <button
             onClick={handleReset}
-            className='px-4 py-2 m-2 font-bold text-white bg-red-500 rounded hover:bg-red-700'>
+            className='px-4 py-2 m-2 font-heading text-white bg-red-500 rounded hover:bg-red-700'>
             Reset/Reload
           </button>
         </div>

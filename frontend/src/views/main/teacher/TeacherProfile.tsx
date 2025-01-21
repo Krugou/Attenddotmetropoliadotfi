@@ -31,8 +31,8 @@ const TeacherProfile: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center w-11/12 p-5 font-sans bg-white rounded-lg sm:w-fit h-fit sm:p-10'>
-      <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>
+    <div className='flex flex-col items-center justify-center w-11/12 p-5 font-body bg-white rounded-lg sm:w-fit h-fit sm:p-10'>
+      <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
         {t('teacher.profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>

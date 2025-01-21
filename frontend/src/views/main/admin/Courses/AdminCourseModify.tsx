@@ -218,7 +218,7 @@ const AdminCourseModify: React.FC = () => {
         />
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 font-bold text-white  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 font-heading text-white  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('admin.courses.finnish.finnish')}

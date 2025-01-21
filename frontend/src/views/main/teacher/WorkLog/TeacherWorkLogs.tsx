@@ -398,7 +398,7 @@ const TeacherWorkLogs: React.FC = () => {
   return (
     <div className='container px-4 py-8 mx-auto'>
       <div className='flex items-center justify-between mb-8'>
-        <h1 className='text-2xl font-bold text-metropoliaMainOrange'>
+        <h1 className='text-2xl font-heading text-metropoliaMainOrange'>
           {t('worklog.entries.title')}
         </h1>
 

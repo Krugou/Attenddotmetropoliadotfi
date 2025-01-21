@@ -4,8 +4,7 @@ import {toast} from 'react-toastify';
 import apiHooks from '../../hooks/ApiHooks'; // Replace with the correct path to your ApiHooks file
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../contexts/UserContext';
-import { FI,GB,SE } from 'country-flag-icons/react/3x2';
-
+import {FI, GB, SE} from 'country-flag-icons/react/3x2';
 
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.
@@ -125,11 +124,15 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
     }
 
     try {
-      const response = await apiHooks.updateUserLanguage(user.email, newLanguage, token);
-      
+      const response = await apiHooks.updateUserLanguage(
+        user.email,
+        newLanguage,
+        token,
+      );
+
       if (response.ok) {
         await i18n.changeLanguage(newLanguage);
-        setUser(prev => prev ? {...prev, language: newLanguage} : null);
+        setUser((prev) => (prev ? {...prev, language: newLanguage} : null));
         toast.success(t('languages.success.changed'));
       } else {
         toast.error(t('languages.errors.changeFailed'));
@@ -167,7 +170,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         <span className='profileStat'>{user.role}</span>
         {['counselor', 'teacher'].includes(user.role) && (
           <button
-            className='px-2 py-1 font-bold text-white transition rounded bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
+            className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
             onClick={handleOpen}>
             {t('profileInfo.buttons.change')}
           </button>
@@ -175,30 +178,39 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       </p>
       <p className='flex items-center gap-2'>
         <strong>{t('profileInfo.labels.language')}:</strong>{' '}
-        <div className="flex gap-2">
+        <div className='flex gap-2'>
           <button
             onClick={() => handleLanguageChange('en')}
-            className={`p-1 rounded ${user.language === 'en' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            className={`p-1 rounded ${
+              user.language === 'en'
+                ? 'bg-metropoliaMainOrange'
+                : 'bg-metropoliaMainGrey'
+            }`}
             title={t('languages.flags.en')}
-            aria-label={t('languages.flags.en')}
-          >
-            <GB className="w-6 h-4" aria-hidden="true" />
+            aria-label={t('languages.flags.en')}>
+            <GB className='w-6 h-4' aria-hidden='true' />
           </button>
           <button
             onClick={() => handleLanguageChange('fi')}
-            className={`p-1 rounded ${user.language === 'fi' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            className={`p-1 rounded ${
+              user.language === 'fi'
+                ? 'bg-metropoliaMainOrange'
+                : 'bg-metropoliaMainGrey'
+            }`}
             title={t('languages.flags.fi')}
-            aria-label={t('languages.flags.fi')}
-          >
-            <FI className="w-6 h-4" aria-hidden="true" />
+            aria-label={t('languages.flags.fi')}>
+            <FI className='w-6 h-4' aria-hidden='true' />
           </button>
           <button
             onClick={() => handleLanguageChange('sv')}
-            className={`p-1 rounded ${user.language === 'sv' ? 'bg-metropoliaMainOrange' : 'bg-metropoliaMainGrey'}`}
+            className={`p-1 rounded ${
+              user.language === 'sv'
+                ? 'bg-metropoliaMainOrange'
+                : 'bg-metropoliaMainGrey'
+            }`}
             title={t('languages.flags.sv')}
-            aria-label={t('languages.flags.sv')}
-          >
-            <SE className="w-6 h-4" aria-hidden="true" />
+            aria-label={t('languages.flags.sv')}>
+            <SE className='w-6 h-4' aria-hidden='true' />
           </button>
         </div>
       </p>
@@ -216,7 +228,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       </p>
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>
-          <h2 className='mb-3 text-lg font-bold sm:text-2xl'>
+          <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
             {t('profileInfo.roleChange.title')}
           </h2>
           <select
@@ -233,13 +245,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           <div className='flex justify-between gap-10 mt-5'>
             <button
               type='button'
-              className='px-2 py-1 text-sm font-bold text-white transition bg-red-500 rounded hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm font-heading text-white transition bg-red-500 rounded hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
               {t('common.cancel')}
             </button>
             <button
               type='button'
-              className='px-2 py-1 text-sm font-bold text-white transition bg-green-500 rounded hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm font-heading text-white transition bg-green-500 rounded hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
               {t('profileInfo.buttons.changeRole')}
             </button>

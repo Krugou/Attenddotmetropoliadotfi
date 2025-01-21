@@ -331,7 +331,7 @@ const AttendanceRoom: React.FC = () => {
             lectureSuccess ? 'border-metropoliaTrendGreen border-2' : ''
           }`}>
           <div className='flex flex-col items-center justify-between sm:flex-row'>
-            <h1 className='text-2xl font-bold'>
+            <h1 className='text-2xl font-heading'>
               {courseName} | {courseCode} | {topicname} |
               {lectureSuccess
                 ? ' All students are here! '
@@ -414,14 +414,14 @@ const AttendanceRoom: React.FC = () => {
           </div>
           <div className='flex flex-col items-center justify-end gap-5 sm:flex-row-reverse'>
             <button
-              className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-red-500'
+              className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-red-500'
               onClick={() => setConfirmOpen(true)}
               title='Delete this lecture'>
               Cancel Lecture
             </button>
             <button
               onClick={handleLectureFinished}
-              className='w-full p-2 mt-4 text-sm font-bold text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
+              className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
               title='Finish Lecture and set rest of bottom list of students to not attended'>
               Finish Lecture
             </button>

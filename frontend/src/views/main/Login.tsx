@@ -84,7 +84,7 @@ const Login: React.FC = () => {
         className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
         <div className='mb-4'>
           <label
-            className='block mb-2 text-sm font-bold text-gray-700 sm:text-lg'
+            className='block mb-2 text-sm font-heading text-gray-700 sm:text-lg'
             htmlFor='username'>
             Username
           </label>
@@ -100,7 +100,7 @@ const Login: React.FC = () => {
         </div>
         <div className='mb-6'>
           <label
-            className='block mb-2 text-sm font-bold text-gray-700 sm:text-lg'
+            className='block mb-2 text-sm font-heading text-gray-700 sm:text-lg'
             htmlFor='password'>
             Password
           </label>
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
         </div>
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 font-bold text-white bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 font-heading text-white bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange rounded-xl focus:outline-none focus:shadow-outline'
             onClick={handleSubmit}
             type='submit'
             aria-label='Sign In'>

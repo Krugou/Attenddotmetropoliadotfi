@@ -24,7 +24,7 @@ const StepButton: React.FC<StepButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={`w-40 h-fit p-2 ${marginTop} transition bg-metropoliaMainOrange text-white font-bold rounded hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange`}
+      className={`w-40 h-fit p-2 ${marginTop} transition bg-metropoliaMainOrange text-white font-heading rounded hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange`}
       disabled={disabled}>
       {text}
     </button>

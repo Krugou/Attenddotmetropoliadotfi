@@ -14,7 +14,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
 }) => (
   <label className='block mt-4'>
-    <span className='font-bold text-gray-700'>{label}</span>
+    <span className='font-heading text-gray-700'>{label}</span>
     <input
       placeholder={placeholder}
       value={value}

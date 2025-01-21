@@ -67,7 +67,7 @@ const Feedback: React.FC = () => {
   return (
     <>
       <div className='p-4 bg-white rounded-lg shadow-md'>
-        <h2 className='mb-4 text-xl font-bold'>
+        <h2 className='mb-4 text-xl font-heading'>
           Help us improve, {user?.username} by sharing your feedback.
         </h2>
         <form onSubmit={handleSubmit} className='flex flex-col mb-4'>
@@ -101,7 +101,7 @@ const Feedback: React.FC = () => {
           />
           <button
             type='submit'
-            className='px-4 py-2 m-4 font-bold text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'>
+            className='px-4 py-2 m-4 font-heading text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'>
             Submit
           </button>
         </form>

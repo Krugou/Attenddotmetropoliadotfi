@@ -223,7 +223,11 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
           return (
             <Tooltip
               placement='top'
-              title={isCourseEnded ? t('teacher.studentCourse.tooltips.courseEnded') : ''}
+              title={
+                isCourseEnded
+                  ? t('teacher.studentCourse.tooltips.courseEnded')
+                  : ''
+              }
               key={index}>
               <div
                 className={`p-5 bg-white shadow-md rounded-lg relative ${
@@ -234,25 +238,32 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     <ReportIcon style={{color: 'red'}} />
                   </div>
                 )}
-                <h2 className='mb-2 text-lg font-bold text-black underline sm:text-2xl underline-offset-8 decoration-metropoliaMainOrange'>
+                <h2 className='mb-2 text-lg font-heading text-black underline sm:text-2xl underline-offset-8 decoration-metropoliaMainOrange'>
                   {course.course_name + ' ' + course.code}
                 </h2>
                 <p className='mb-1'>
-                  <strong>{t('teacher.studentCourse.labels.assignedTopics')}</strong> {topics}
+                  <strong>
+                    {t('teacher.studentCourse.labels.assignedTopics')}
+                  </strong>{' '}
+                  {topics}
                 </p>
                 {user?.role !== 'student' && (
                   <p className='mb-1'>
-                    <strong>{t('teacher.studentCourse.labels.allTopics')}</strong>{' '}
+                    <strong>
+                      {t('teacher.studentCourse.labels.allTopics')}
+                    </strong>{' '}
                     {course?.topic_names.replace(/,/g, ', ')}
                   </p>
                 )}
                 <p className='mb-1'>
-                  <strong>{t('teacher.studentCourse.labels.startDate')}</strong> {startDate}
+                  <strong>{t('teacher.studentCourse.labels.startDate')}</strong>{' '}
+                  {startDate}
                 </p>
                 <p className='mb-1'>
-                  <strong>{t('teacher.studentCourse.labels.endDate')}</strong> {endDateString}
+                  <strong>{t('teacher.studentCourse.labels.endDate')}</strong>{' '}
+                  {endDateString}
                 </p>
-                <h2 className='mt-2 text-lg font-bold text-gray-700'>
+                <h2 className='mt-2 text-lg font-heading text-gray-700'>
                   {t('teacher.studentCourse.labels.instructors')}
                 </h2>
                 <ul>
@@ -264,7 +275,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                 </ul>
                 <div className='flex flex-wrap items-center justify-between'>
                   <button
-                    className={`mt-4 mr-4 transition font-bold md:text-base text-sm py-2 px-4 rounded ${
+                    className={`mt-4 mr-4 transition font-heading md:text-base text-sm py-2 px-4 rounded ${
                       isCourseEnded
                         ? 'bg-metropoliaSupportRed hover:bg-red-900'
                         : 'bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
@@ -285,7 +296,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                   {user?.role !== 'student' && (
                     <>
                       <button
-                        className={`mt-4 mr-2 transition md:text-base text-sm md:mr-4 font-bold py-2 px-4 rounded ${
+                        className={`mt-4 mr-2 transition md:text-base text-sm md:mr-4 font-heading py-2 px-4 rounded ${
                           isCourseEnded
                             ? 'bg-metropoliaSupportRed hover:bg-red-900'
                             : 'bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
@@ -300,7 +311,10 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                         }>
                         {t('teacher.studentCourse.buttons.editTopics')}
                       </button>
-                      <Tooltip title={t('teacher.studentCourse.tooltips.removeStudent')}>
+                      <Tooltip
+                        title={t(
+                          'teacher.studentCourse.tooltips.removeStudent',
+                        )}>
                         <div className='w-[2.5em] mt-5  right-5 bg-gray-100 rounded-lg'>
                           <IconButton
                             onClick={() => {
@@ -430,7 +444,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     </div>
                   )}
                   <button
-                    className='px-4 py-2 mt-4 font-bold text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                    className='px-4 py-2 mt-4 font-heading text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
                     onClick={() => {
                       handleAddStudentToCourse &&
                         handleAddStudentToCourse(selectedCourse?.courseid);

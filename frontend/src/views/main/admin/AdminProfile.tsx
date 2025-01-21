@@ -30,8 +30,10 @@ const AdminProfile: React.FC = () => {
    * @returns {JSX.Element} The rendered JSX element.
    */
   return (
-    <div className='flex flex-col items-center justify-center p-5 font-sans bg-white rounded-lg h-fit sm:p-10'>
-      <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>{t('admin.adminProfile.profile')}</h1>
+    <div className='flex flex-col items-center justify-center p-5 font-body bg-white rounded-lg h-fit sm:p-10'>
+      <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
+        {t('admin.adminProfile.profile')}
+      </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
       </div>

@@ -86,7 +86,7 @@ const AdminFeedback = () => {
 
   return (
     <div className='w-full bg-white'>
-      <h1 className='p-3 m-auto mb-10 text-3xl font-bold text-center rounded-lg w-fit'>
+      <h1 className='p-3 m-auto mb-10 text-3xl font-heading text-center rounded-lg w-fit'>
         {t('admin.feedback.title')}
       </h1>
       <div className='flex flex-col justify-center p-4 m-auto bg-white rounded-lg 2xl:w-1/3 md:w-2/3 w-fit'>
@@ -96,7 +96,7 @@ const AdminFeedback = () => {
           </p>
           <select
             title={t('admin.feedback.topic')}
-            className='w-2/3 p-2 my-2 text-xl font-bold text-white rounded cursor-pointer bg-metropoliaTrendGreen focus:outline-none focus:shadow-outline'
+            className='w-2/3 p-2 my-2 text-xl font-heading text-white rounded cursor-pointer bg-metropoliaTrendGreen focus:outline-none focus:shadow-outline'
             onChange={(e) => handleTopicChange(e.target.value)}>
             <option value=''>All</option>
             {feedback &&
@@ -134,7 +134,7 @@ const AdminFeedback = () => {
                     <Typography className='break-words'>{item.text}</Typography>
                     <div className='flex justify-end'>
                       <button
-                        className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
+                        className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
                         onClick={() => handleClickOpen(item.feedbackId)}>
                         {t('admin.common.delete')}
                       </button>
@@ -162,12 +162,12 @@ const AdminFeedback = () => {
             </DialogContent>
             <DialogActions>
               <button
-                className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
+                className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
                 onClick={handleClose}>
                 {t('admin.common.cancel')}
               </button>
               <button
-                className='p-2 m-2 font-bold text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
+                className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
                 onClick={handleConfirmDelete}
                 autoFocus>
                 {t('admin.common.delete')}

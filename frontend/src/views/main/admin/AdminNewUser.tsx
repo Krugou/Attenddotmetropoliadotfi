@@ -188,21 +188,22 @@ const AdminNewUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl font-bold text-center bg-white rounded-lg w-fit'>
-        {t('admin.newUser.addNew')}{userType === 'student' ? 'Student' : 'Staff'} {t('admin.common.user')}
+      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
+        {t('admin.newUser.addNew')}
+        {userType === 'student' ? 'Student' : 'Staff'} {t('admin.common.user')}
       </h1>
       <div className='relative bg-white rounded-lg w-fit'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4'>
             <div className='flex flex-col'>
-              <h2 className='mb-5 text-xl font-bold text-center'>
+              <h2 className='mb-5 text-xl font-heading text-center'>
                 {t('admin.newUser.userDetails')}
               </h2>
 
               <div className='flex flex-col items-start justify-center mt-4'>
                 <label
                   htmlFor='userType'
-                  className='mb-1 mr-2 font-bold text-gray-700'>
+                  className='mb-1 mr-2 font-heading text-gray-700'>
                   {t('admin.newUser.userType')}
                 </label>
                 <select
@@ -212,15 +213,19 @@ const AdminNewUser: React.FC = () => {
                     setUserType(e.target.value as 'staff' | 'student')
                   }
                   className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'>
-                  <option value='student'>{t('admin.newUser.optionStudent')}</option>
-                  <option value='staff'>{t('admin.newUser.optionTeacher')}</option>
+                  <option value='student'>
+                    {t('admin.newUser.optionStudent')}
+                  </option>
+                  <option value='staff'>
+                    {t('admin.newUser.optionTeacher')}
+                  </option>
                 </select>
               </div>
               {userType === 'staff' && (
                 <div className='flex flex-col items-start justify-center mt-4'>
                   <label
                     htmlFor='staffRole'
-                    className='mb-1 mr-2 font-bold text-gray-700'>
+                    className='mb-1 mr-2 font-heading text-gray-700'>
                     {t('admin.newUser.staffRole')}
                   </label>
                   <select
@@ -234,7 +239,7 @@ const AdminNewUser: React.FC = () => {
                       setStaff(1);
                     }}>
                     <option value='' disabled>
-                    {t('admin.newUser.staffRolTitle')}
+                      {t('admin.newUser.staffRolTitle')}
                     </option>
                     {roles.map((role) => (
                       <option key={role.roleid} value={role.roleid}>
@@ -250,7 +255,12 @@ const AdminNewUser: React.FC = () => {
                 value={email}
                 onChange={setEmail}
               />
-              {isEmailTaken && <h2 className='text-red-500'> {t('admin.newUser.emailTaken')}</h2>}
+              {isEmailTaken && (
+                <h2 className='text-red-500'>
+                  {' '}
+                  {t('admin.newUser.emailTaken')}
+                </h2>
+              )}
               <FormInput
                 label={t('admin.common.firstName')}
                 placeholder='Matti'
@@ -272,7 +282,9 @@ const AdminNewUser: React.FC = () => {
                     onChange={setStudentNumber}
                   />
                   {isStudentNumberTaken && (
-                    <h2 className='text-red-500'>{t('admin.newUser.studentNumberTaken')}</h2>
+                    <h2 className='text-red-500'>
+                      {t('admin.newUser.studentNumberTaken')}
+                    </h2>
                   )}
                   <StudentGroupSelect
                     studentGroups={studentGroups}

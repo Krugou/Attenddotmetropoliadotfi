@@ -62,7 +62,7 @@ const TeacherCourses: React.FC = () => {
   };
   return (
     <div className='w-full'>
-      <h2 className='p-3 ml-auto mr-auto text-3xl font-bold text-center bg-white rounded-lg w-fit xl:text-4xl'>
+      <h2 className='p-3 ml-auto mr-auto text-3xl font-heading text-center bg-white rounded-lg w-fit xl:text-4xl'>
         {t('teacher.courses.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>

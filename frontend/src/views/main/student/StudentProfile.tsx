@@ -28,8 +28,8 @@ const StudentProfile: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center p-10 font-sans bg-white rounded-lg h-fit'>
-      <h1 className='mt-5 mb-8 text-xl font-bold sm:text-4xl'>
+    <div className='flex flex-col items-center justify-center p-10 font-body bg-white rounded-lg h-fit'>
+      <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
         {t('student.profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>

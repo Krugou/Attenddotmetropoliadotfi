@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 /**
  * MainViewTitleProps interface represents the structure of the MainViewTitle props.
@@ -19,11 +19,10 @@ interface MainViewTitleProps {
  * @returns {JSX.Element} The rendered MainViewTitle component.
  */
 const MainViewTitle: React.FC<MainViewTitleProps> = ({role}) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   return (
-    <h1 className='p-3 mt-5 mb-5 ml-auto mr-auto text-2xl font-bold text-center bg-white md:text-4xl rounded-xl w-fit text-metropoliaSupportBlack'>
-      {role} {t('mainViewTitle.dashboard')} 
-
+    <h1 className='p-3 mt-5 mb-5 ml-auto mr-auto text-2xl font-heading text-center bg-white md:text-4xl rounded-xl w-fit text-metropoliaSupportBlack'>
+      {role} {t('mainViewTitle.dashboard')}
     </h1>
   );
 };

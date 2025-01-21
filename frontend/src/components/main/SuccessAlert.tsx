@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 /**
  * SuccessAlertProps interface represents the structure of the SuccessAlert props.
@@ -22,15 +22,15 @@ interface SuccessAlertProps {
  * @returns {JSX.Element} The rendered SuccessAlert component.
  */
 const SuccessAlert: React.FC<SuccessAlertProps> = ({successAlert, onClose}) => {
-  const { t } = useTranslation();
-  
+  const {t} = useTranslation();
+
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center ${
         successAlert ? 'block' : 'hidden'
       }`}>
       <div className='p-4 mx-auto mt-10 bg-green-100 rounded-lg shadow-lg modal-container w-96'>
-        <h2 className='mb-4 text-xl font-bold text-green-600'>
+        <h2 className='mb-4 text-xl font-heading text-green-600'>
           {t('successAlert.title')}
         </h2>
         <div className='mb-4'>
