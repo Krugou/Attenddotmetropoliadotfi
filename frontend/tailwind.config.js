@@ -4,7 +4,9 @@ export default {
   theme: {
     fontFamily: {
       sans: ['Open Sans', 'sans-serif'],
-      bold: ['Roboto bold', 'sans-serif'],
+      bold: [ 'Roboto bold', 'sans-serif' ],
+      heading: [ 'Roboto bold', 'sans-serif' ],
+      body: [ 'Roboto', 'sans-serif' ],
     },
     extend: {
       rotate: {

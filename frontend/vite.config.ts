@@ -27,9 +27,9 @@ export default defineConfig(({mode}) => {
         },
         manifest: {
           // Set the name of the PWA
-          name: 'JakSurveillance',
+          name: 'Attendance App',
           // Set the short name of the PWA
-          short_name: 'JakSec',
+          short_name: 'Attend',
           // Set the theme color of the PWA
           theme_color: '#ffffff',
           icons: [
