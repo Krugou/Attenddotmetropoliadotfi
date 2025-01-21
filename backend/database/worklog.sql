@@ -1,4 +1,4 @@
-   -- Creating a table for work log specific courses
+-- Creating a table for work log specific courses
    CREATE TABLE IF NOT EXISTS `work_log_courses` (
      `work_log_course_id` INT(11) NOT NULL AUTO_INCREMENT,
      `name` VARCHAR(100) NOT NULL,
@@ -52,4 +52,15 @@
      PRIMARY KEY (`assignment_id`),
      FOREIGN KEY (`group_id`) REFERENCES `work_log_course_groups`(`group_id`) ON DELETE CASCADE,
      FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE CASCADE
+   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+   -- Creating a table to manage instructors for work log courses
+   CREATE TABLE IF NOT EXISTS `work_log_course_instructors` (
+     `instructor_id` INT(11) NOT NULL AUTO_INCREMENT,
+     `userid` INT(11) NOT NULL,
+     `work_log_course_id` INT(11) NOT NULL,
+     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+     PRIMARY KEY (`instructor_id`),
+     CONSTRAINT `work_log_course_instructors_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE CASCADE,
+     CONSTRAINT `work_log_course_instructors_ibfk_2` FOREIGN KEY (`work_log_course_id`) REFERENCES `work_log_courses`(`work_log_course_id`) ON DELETE CASCADE
    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
