@@ -5,7 +5,6 @@
  *              student attendance references.
  */
 
-import {Socket} from 'socket.io';
 import type {Server} from 'socket.io';
 import logger from '../../utils/logger.js';
 import getToken from '../../utils/getToken.js';

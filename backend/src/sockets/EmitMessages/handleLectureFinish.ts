@@ -6,7 +6,6 @@
 
 import {Server} from 'socket.io';
 import getToken from '../../utils/getToken.js';
-import doFetch from '../../utils/doFetch.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
 
