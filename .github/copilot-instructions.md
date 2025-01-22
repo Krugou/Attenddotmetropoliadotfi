@@ -58,3 +58,9 @@
 using tailwind css
 use font-heading for headings
 use font-body for body text
+
+## References
+
+- [Backend README](../backend/README.md)
+- [Frontend README](../frontend/README.md)
+- [Centralized Documentation](../DOCUMENTATION.md)
