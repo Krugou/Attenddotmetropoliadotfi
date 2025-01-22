@@ -243,14 +243,14 @@ router.get(
       // Input validation
       if (limit < 1 || limit > 100) {
         res.status(400).json({
-          message: 'Limit must be between 1 and 100'
+          message: 'Limit must be between 1 and 100',
         });
         return;
       }
 
       if (page < 1) {
         res.status(400).json({
-          message: 'Page must be greater than 0'
+          message: 'Page must be greater than 0',
         });
         return;
       }
@@ -262,43 +262,44 @@ router.get(
         total: result.total,
         currentPage: page,
         totalPages: Math.ceil(result.total / limit),
-        limit
+        limit,
       });
     } catch (error) {
       logger.error('Error fetching paginated students:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({message: 'Internal server error'});
     }
-  }
+  },
 );
 
 router.put(
   '/update-language',
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
-      const { email, language } = req.body;
+      const {email, language} = req.body;
 
       if (!['en', 'fi', 'sv'].includes(language)) {
-        return res.status(400).json({ 
+        res.status(400).json({
           ok: false,
-          error: 'Invalid language code' 
+          error: 'Invalid language code',
         } as const);
+        return;
       }
 
       await usermodel.updateUserLanguage(email, language);
-      
-      return res.json({ 
+
+      res.json({
         ok: true,
-        message: 'Language updated successfully' 
+        message: 'Language updated successfully',
       } as const);
     } catch (error) {
       logger.error('Error updating language:', error);
-      return res.status(500).json({ 
+      res.status(500).json({
         ok: false,
-        error: 'Internal server error' 
+        error: 'Internal server error',
       } as const);
     }
-  }
+  },
 );
 
 router.get(
@@ -306,27 +307,28 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
-      const { email } = req.params;
+      const {email} = req.params;
+      //@ts-expect-error
       const result = await usermodel.getUserLanguage(email);
       if (result && result[0]) {
-        res.json({ 
+        res.json({
           ok: true,
-          language: result[0].language 
+          language: result[0].language,
         });
       } else {
-        res.status(404).json({ 
-          ok: false, 
-          error: 'User language not found' 
+        res.status(404).json({
+          ok: false,
+          error: 'User language not found',
         });
       }
     } catch (error) {
       logger.error('Error fetching user language:', error);
-      res.status(500).json({ 
-        ok: false, 
-        error: 'Internal server error' 
+      res.status(500).json({
+        ok: false,
+        error: 'Internal server error',
       });
     }
-  }
+  },
 );
 
 export default router;

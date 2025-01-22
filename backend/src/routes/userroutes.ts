@@ -173,6 +173,7 @@ router.post(
 
           if (userFromDB === null) {
             // If the staff user doesn't exist, add them to the database
+            //@ts-expect-error
             const addStaffUserResponse = await usermodel.addStaffUser(userData);
             if (!addStaffUserResponse) {
               logger.error('Failed to add staff user to the database.');
