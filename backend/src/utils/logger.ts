@@ -1,11 +1,8 @@
-// Import the rotating-file-stream module
 import {createStream} from 'rotating-file-stream';
-
-// Import the pino logging library
-import pino from 'pino';
+import pino, {MultiStreamRes} from 'pino';
 
 // Create the rotating file streams
-const stream = createStream('logfile.log', {
+const infoStream = createStream('logfile.log', {
   interval: '14d',
   path: './logs',
 });
@@ -15,23 +12,27 @@ const errorStream = createStream('error-logfile.log', {
   path: './logs',
 });
 
-// Create multistream configuration for both console and file output
+// Error handling for streams
+infoStream.on('error', (err) => {
+  console.error('Error with info log stream:', err);
+});
+
+errorStream.on('error', (err) => {
+  console.error('Error with error log stream:', err);
+});
+
+// Configure multistream with level-based routing
 const streams = [
-  // Console output stream with pretty printing for development
-  {stream: process.stdout},
-  // Regular log file stream
-  {stream: stream},
+  // Console streams
+  {stream: process.stdout, level: 'info'},
+  {stream: process.stderr, level: 'error'},
+
+  // File streams
+  {stream: infoStream, level: 'info'},
+  {stream: errorStream, level: 'error'},
 ];
 
-const errorStreams = [
-  // Console error output stream
-  {stream: process.stderr},
-  // Error log file stream
-  {stream: errorStream},
-];
-
-// Create the logger with multistream support
-// @ts-expect-error
+// Create the logger instance
 const logger = pino(
   {
     level: 'info',
@@ -40,24 +41,4 @@ const logger = pino(
   pino.multistream(streams),
 );
 
-// Configure error logger
-// @ts-expect-error
-logger.error = pino(
-  {
-    level: 'error',
-    timestamp: pino.stdTimeFunctions.isoTime,
-  },
-  pino.multistream(errorStreams),
-).error;
-
-// Add error handling for streams
-stream.on('error', (err) => {
-  console.error('Error with log stream:', err);
-});
-
-errorStream.on('error', (err) => {
-  console.error('Error with error log stream:', err);
-});
-
-// Export the logger so it can be used in other parts of our application.
 export default logger;
