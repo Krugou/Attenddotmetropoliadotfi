@@ -1,5 +1,5 @@
 import {createStream} from 'rotating-file-stream';
-import pino, {MultiStreamRes} from 'pino';
+import pino from 'pino';
 
 // Create the rotating file streams
 const infoStream = createStream('logfile.log', {
@@ -33,6 +33,7 @@ const streams = [
 ];
 
 // Create the logger instance
+//@ts-ignore - pino does not have types for multistream
 const logger = pino(
   {
     level: 'info',
