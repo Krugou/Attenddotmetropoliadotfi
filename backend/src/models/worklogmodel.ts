@@ -395,7 +395,7 @@ const workLogModel = {
     }
   },
 
-  // Additional list/search operations
+
   async getAllWorkLogCourses(): Promise<WorkLogCourse[]> {
     try {
       const [rows] = await pool
@@ -528,11 +528,11 @@ const workLogModel = {
     }
   },
 
-  // Add these new methods for instructor and user management
+
   async addInstructorsToCourse(instructors: { email: string }[], courseId: number): Promise<void> {
     try {
       for (const instructor of instructors) {
-        // First get userid from email
+
         const [userRows] = await pool.promise().query<RowDataPacket[]>(
           'SELECT userid FROM users WHERE email = ?',
           [instructor.email]
@@ -540,7 +540,6 @@ const workLogModel = {
 
         if (userRows.length > 0) {
           const userId = userRows[0].userid;
-          // Insert into work_log_course_instructors
           await pool.promise().query(
             'INSERT INTO work_log_course_instructors (userid, work_log_course_id) VALUES (?, ?)',
             [userId, courseId]
@@ -555,15 +554,13 @@ const workLogModel = {
     }
   },
 
-  async addStudentsToCourse(students: string[], courseId: number): Promise<void> {
+  async addStudentsToCourse(students: ({ email: string } | string)[], courseId: number): Promise<void> {
     try {
       for (const studentEmail of students) {
-        // Extract just the email if it's a string or an object
         const email = typeof studentEmail === 'string' ? 
           studentEmail : 
-          (studentEmail as any).email || studentEmail;
+          (studentEmail as { email: string }).email || studentEmail;
 
-        // Query for user ID using just the email
         const [userRows] = await pool.promise().query<RowDataPacket[]>(
           'SELECT userid FROM users WHERE email = ?',
           [email]
@@ -571,7 +568,6 @@ const workLogModel = {
 
         if (userRows.length > 0) {
           const userId = userRows[0].userid;
-          // Insert into work_log_course_users
           await pool.promise().query(
             'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
             [userId, courseId]

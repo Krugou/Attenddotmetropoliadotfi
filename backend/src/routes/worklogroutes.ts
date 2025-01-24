@@ -101,7 +101,6 @@ router.get('/stats/:userId', async (req, res) => {
 });
 
 router.get('/checkcode/:code', async (req, res) => {
-  console.log('Received request to check worklog code:', req.params.code);
   try {
     const code = req.params.code;
     const exists = await workLogController.checkWorklogCodeExists(code);

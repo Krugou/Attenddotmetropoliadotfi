@@ -21,7 +21,6 @@ const CreateCourseProgress: React.FC<ProgressProps> = ({
 	const totalSteps = createCourseMode === 'easy' ? 4 : 3;
 
 	return (
-		<>
 			<div className="relative w-full h-4 mb-6  bg-gray-200 rounded-full">
 				{[...Array(totalSteps)].map((_, step) => (
 					<div
@@ -43,7 +42,6 @@ const CreateCourseProgress: React.FC<ProgressProps> = ({
 					</div>
 				))}
 			</div>
-		</>
 	);
 };
 

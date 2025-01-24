@@ -162,7 +162,6 @@ const CreateWorklogCustom: React.FC = () => {
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
       throw new Error('No token available');
-      return;
     }
 
     const response = await apiHooks.createWorkLogCourse(worklogCourse, token);

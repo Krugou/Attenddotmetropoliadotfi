@@ -16,22 +16,22 @@ const ModeSelection: React.FC = () => {
     <div>
       <div className='w-full pt-10 pb-10'>
         <h1 className='p-3 mb-8 ml-auto mr-auto text-4xl font-heading text-center bg-white rounded-lg w-fit'>
-          Create a worklog
+          {t('teacher.worklog.create.title')}
         </h1>
         <p className='p-2 mb-4 ml-auto mr-auto text-center bg-white rounded-lg w-fit'>
-          Choose between modes
+          {t('teacher.worklog.create.subtitle')}
         </p>
         <div className='flex flex-wrap justify-center space-x-4'>
           <Card
             path='/teacher/courses/create/worklog-easy'
-            title='add throw excel'
-            description='add students from excel'
+            title={t('teacher.worklog.create.modes.easy.title')}
+            description={t('teacher.worklog.create.modes.easy.description')}
           />
 
           <Card
             path='/teacher/courses/create/worklog-custom'
-            title='add manually'
-            description='add students manually'
+            title={t('teacher.worklog.create.modes.custom.title')}
+            description={t('teacher.worklog.create.modes.custom.description')}
           />
         </div>
       </div>

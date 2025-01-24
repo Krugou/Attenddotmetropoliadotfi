@@ -72,7 +72,7 @@ export interface WorkLogController {
   /**
    * Gets details of a worklog course by ID
    */
-  getWorkLogCourseDetails: (courseId: number) => Promise<any>;
+  getWorkLogCourseDetails: (courseId: number) => Promise<ResultSetHeader>;
 
   /**
    * Creates a new worklog entry
@@ -82,7 +82,7 @@ export interface WorkLogController {
   /**
    * Gets all worklog entries for a user
    */
-  getWorkLogEntriesByUser: (userId: number) => Promise<any>;
+  getWorkLogEntriesByUser: (userId: number) => Promise<ResultSetHeader>;
 
   /**
    * Updates the status of a worklog entry
@@ -97,7 +97,7 @@ export interface WorkLogController {
   createWorkLogGroup: (courseId: number, groupName:string ) => Promise<ResultSetHeader>;
   assignStudentToGroup: (groupId:number ,userId: number) => Promise<ResultSetHeader>;
   assignUserToCourse: (userId: number, courseId:number ) => Promise<ResultSetHeader>;
-  getWorkLogStats: (userId: number) => Promise<any>;
+  getWorkLogStats: (userId: number) => Promise<ResultSetHeader>
 
   // ... other methods remain the same
 }
@@ -292,16 +292,15 @@ const workLogController: WorkLogController = {
    * @returns Promise<boolean> True if code exists, false otherwise
    */
   async checkWorklogCodeExists(code: string): Promise<boolean> {
+    if (!code) {
+      throw new Error('Worklog code is required');
+    }
     try {
-      const exits = await workLogModel.checkWorklogCodeExists(code);
-      if ( exits.length > 0 ) {
-        return true;
-      } else {
-        return false;
-      }
+      const records = await workLogModel.checkWorklogCodeExists(code);
+      return records.length > 0;
     } catch (error) {
-      console.error('Error in checkWorklogCodeExists:', error);
-      throw error;
+      console.error('Error checking worklog code:', error);
+      throw error; 
     }
   }
 };

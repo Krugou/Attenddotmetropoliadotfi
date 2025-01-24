@@ -726,7 +726,18 @@
     },
     "worklog": {
       "create": {
-        "title": "Create Work Log Course"
+        "title": "Create Work Log Course",
+        "subtitle": "Choose between modes",
+        "modes": {
+          "easy": {
+            "title": "Easy mode",
+            "description": "Create a worklog course with Excel file"
+          },
+          "custom": {
+            "title": "Custom mode",
+            "description": "Create a worklog course manually"
+          }
+        }
       },
       "form": {
         "name": "Course Name",

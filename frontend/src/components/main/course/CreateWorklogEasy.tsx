@@ -36,7 +36,7 @@ const CreateCourseEasy: React.FC = () => {
   const [courseName, setCourseName] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [courseCode, setCourseCode] = useState('');
-  /*   const [studentGroup, setStudentGroup] = useState(''); */
+/*   const [studentGroup, setStudentGroup] = useState(''); */
   const [startDate, setStartDate] = useState('');
   const [selectedFile, setSelectedFile] = useState<string>('No file selected');
   const [uploadFile, setUploadFile] = useState<string>(
@@ -102,7 +102,7 @@ const CreateCourseEasy: React.FC = () => {
         if (response) {
           toast.success('Excel file uploaded');
           setCourseName(response.courseName);
-          /*           setStudentGroup(response.studentGroup); */
+/*           setStudentGroup(response.studentGroup); */
           setCourseCode(response.courseCode);
 
           setStartDate(changeDateToBetterFormat(response.startDate));
@@ -163,7 +163,8 @@ const CreateCourseEasy: React.FC = () => {
   };
 
   const handleSubmitWrapper = async () => {
-    await handleSubmit({} as React.FormEvent);
+    const syntheticEvent = { preventDefault: () => {} } as React.FormEvent;
+    handleSubmit(syntheticEvent);
   };
 
   const validateFields = () => {
