@@ -8,6 +8,7 @@ import adminRoutes from './routes/adminroutes.js';
 import courseRoutes from './routes/courseroutes.js';
 import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
+import workLogRoutes from './routes/worklogroutes.js'; // Add this import
 import SocketHandlers from './sockets/socketHandlers.js';
 // import logger from './utils/logger.js';
 /**
@@ -115,6 +116,12 @@ app.use(
  * This sets up admin-specific routes that require JWT authentication under the /admin path.
  */
 app.use('/admin', passport.authenticate('jwt', {session: false}), adminRoutes);
+
+/**
+ * Use worklog routes for /worklog path with JWT authentication
+ * This sets up routes related to worklog that require JWT authentication
+ */
+app.use('/worklog', passport.authenticate('jwt', {session: false}), workLogRoutes);
 
 /**
  * Start the server

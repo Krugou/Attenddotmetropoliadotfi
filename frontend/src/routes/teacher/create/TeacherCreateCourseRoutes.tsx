@@ -4,6 +4,9 @@ import CreateCourseCustom from '../../../components/main/course/CreateCourseCust
 import CreateCourseEasy from '../../../components/main/course/CreateCourseEasy.tsx';
 import TeacherCreateCourse from '../../../views/main/teacher/Courses/TeacherCreateCourse.tsx';
 import TeacherMainView from '../../../views/main/teacher/TeacherMainView.tsx';
+import TeacherWorkLogCreate from '../../../views/main/teacher/WorkLog/TeacherWorklogCreate.tsx';
+import CreateWorklogEasy from '../../../components/main/course/CreateWorklogEasy.tsx';
+import CreateWorklogCustom from '../../../components/main/course/CreateWorklogCustom.tsx';
 /**
  * TeacherCreateCourseRoutes component.
  * This component is responsible for defining the routes for the teacher's course creation section of the application.
@@ -19,6 +22,9 @@ const TeacherCreateCourseRoutes: React.FC = () => {
       <Route path='/' element={<TeacherCreateCourse />} />
       <Route path='easy' element={<CreateCourseEasy />} />
       <Route path='custom' element={<CreateCourseCustom />} />
+      <Route path='create' element={<TeacherWorkLogCreate />} />
+      <Route path='worklog-easy' element={<CreateWorklogEasy />}/>
+      <Route path='worklog-custom' element={<CreateWorklogCustom />} />
       <Route path='*' element={<TeacherMainView />} />
     </Routes>
   );

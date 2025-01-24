@@ -61,7 +61,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
   const [update, setUpdate] = useState<boolean>(true);
 
   useEffect(() => {
-    i18n.changeLanguage(user?.language );
+    if (user){
+    i18n.changeLanguage(user.language )
+    }
   }, [user]);
  
 

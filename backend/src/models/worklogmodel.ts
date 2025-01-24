@@ -47,7 +47,6 @@ interface WorkLogCourseGroup extends RowDataPacket {
 }
 
 const workLogModel = {
-  // Course operations
   async createWorkLogCourse(
     name: string,
     startDate: Date | string,
@@ -528,6 +527,108 @@ const workLogModel = {
       throw error;
     }
   },
-};
 
+  // Add these new methods for instructor and user management
+  async addInstructorsToCourse(instructors: { email: string }[], courseId: number): Promise<void> {
+    try {
+      for (const instructor of instructors) {
+        // First get userid from email
+        const [userRows] = await pool.promise().query<RowDataPacket[]>(
+          'SELECT userid FROM users WHERE email = ?',
+          [instructor.email]
+        );
+
+        if (userRows.length > 0) {
+          const userId = userRows[0].userid;
+          // Insert into work_log_course_instructors
+          await pool.promise().query(
+            'INSERT INTO work_log_course_instructors (userid, work_log_course_id) VALUES (?, ?)',
+            [userId, courseId]
+          );
+        } else {
+          console.warn(`Instructor with email ${instructor.email} not found`);
+        }
+      }
+    } catch (error) {
+      console.error('Error adding instructors to course:', error);
+      throw error;
+    }
+  },
+
+  async addStudentsToCourse(students: string[], courseId: number): Promise<void> {
+    try {
+      for (const studentEmail of students) {
+        // Extract just the email if it's a string or an object
+        const email = typeof studentEmail === 'string' ? 
+          studentEmail : 
+          (studentEmail as any).email || studentEmail;
+
+        // Query for user ID using just the email
+        const [userRows] = await pool.promise().query<RowDataPacket[]>(
+          'SELECT userid FROM users WHERE email = ?',
+          [email]
+        );
+
+        if (userRows.length > 0) {
+          const userId = userRows[0].userid;
+          // Insert into work_log_course_users
+          await pool.promise().query(
+            'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
+            [userId, courseId]
+          );
+        } else {
+          console.warn(`Student with email ${email} not found`);
+        }
+      }
+    } catch (error) {
+      console.error('Error adding students to course:', error);
+      throw error;
+    }
+  },
+
+  async getInstructorsByCourse(courseId: number): Promise<RowDataPacket[]> {
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT u.userid, u.email, u.first_name, u.last_name 
+         FROM users u
+         JOIN work_log_course_instructors wci ON u.userid = wci.userid
+         WHERE wci.work_log_course_id = ?`,
+        [courseId]
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error getting course instructors:', error);
+      throw error;
+    }
+  },
+
+  async getStudentsByCourse(courseId: number): Promise<RowDataPacket[]> {
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT u.userid, u.email, u.first_name, u.last_name 
+         FROM users u
+         JOIN work_log_course_users wcu ON u.userid = wcu.userid
+         WHERE wcu.work_log_course_id = ?`,
+        [courseId]
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error getting course students:', error);
+      throw error;
+    }
+  },
+
+  async checkWorklogCodeExists(code: string): Promise<RowDataPacket[]> {
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(
+        'SELECT 1 FROM work_log_courses WHERE code = ?',
+        [code]
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error checking worklog code:', error);
+      throw error;
+    }
+  },
+};
 export default workLogModel;

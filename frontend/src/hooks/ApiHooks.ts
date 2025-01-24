@@ -1029,17 +1029,33 @@ const fetchStudentsPaginationByInstructorId = async (
     options,
   );
 };
-const createWorkLogCourse = async (token: string, course: any) => {
-  const options = {
+
+interface WorkLogCourseFormData {
+  name: string;
+  code: string;
+  description: string;
+  requiredHours: number;
+  startDate: string;
+  endDate: string;
+  instructors: {email: string}[];
+  studentList: string[];
+  instructorEmail: string;
+}
+
+
+const createWorkLogCourse = async (worklog: WorkLogCourseFormData, token: string) => {
+
+  const options: RequestInit = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify(course),
+    body: JSON.stringify(worklog),
   };
+  console.log(worklog);
 
-  return await doFetch(baseUrl + 'courses/worklog/courses', options);
+  return await doFetch(`${baseUrl}worklog`, options);
 };
 
 const updateUserLanguage = async (email: string, language: string, token: string) => {
@@ -1075,6 +1091,18 @@ const getUserLanguage = async (email: string, token: string) => {
     },
   };
   return await doFetch(`${baseUrl}secure/user-language/${email}`, options);
+};
+
+const checkWorklogCode = async (code: string, token: string) => {
+  console.log(code);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/checkcode/${code}`, options);
 };
 
 const apiHooks = {
@@ -1151,5 +1179,6 @@ const apiHooks = {
   updateUserLanguage,
   updateUserDarkMode,
   getUserLanguage,
+  checkWorklogCode,
 };
 export default apiHooks;
