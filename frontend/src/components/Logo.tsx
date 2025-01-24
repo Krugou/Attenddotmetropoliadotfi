@@ -11,7 +11,7 @@ import '../css/logo.css';
  */
 const Logo = () => {
   return (
-    <>
+    <div>
       <div className='p-2 m-4 logo'>
         <div className='oval-shape bg-metropoliaMainOrange dark:bg-metropoliaMainOrange-dark'>
           <div className='big-brother-eye'>
@@ -20,10 +20,13 @@ const Logo = () => {
         </div>
       </div>
 
-      <p className='p-2 m-2 text-4xl subpixel-antialiased font-heading tracking-widest text-center'>
+      <p className='p-2 m-2 text-4xl subpixel-antialiased tracking-widest text-center font-heading'>
         JakSec
       </p>
-    </>
+      <p className='p-2 m-2 text-base subpixel-antialiased text-center font-body'>
+        Attendance app
+      </p>
+    </div>
   );
 };
 

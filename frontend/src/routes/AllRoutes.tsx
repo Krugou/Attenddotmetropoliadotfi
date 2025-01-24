@@ -12,6 +12,7 @@ import CounselorRoutes from './CounselorRoutes';
 import StudentRoutes from './StudentRoutes';
 import TeacherRoutes from './TeacherRoutes';
 import QrSelectScannerTester from '../views/QrSelectScannerTester';
+import NoUserHelp from '../views/main/NoUserHelp';
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -34,6 +35,7 @@ const AllRoutes = () => {
         <Route path='logout' element={<Logout />} />
         <Route path='login' element={<Login />} />
         <Route path='gdpr' element={<Gdpr />} />
+        <Route path='help' element={<NoUserHelp />} />
         <Route path='*' element={<StartView />} />
         <Route path='qrscantest' element={<QrSelectScannerTester />} />
       </Routes>

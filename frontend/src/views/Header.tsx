@@ -42,9 +42,8 @@ const Header: React.FC<HeaderProps> = () => {
     // If the user token exists, try to get the user info
     if (userToken) {
       try {
-        const user = await apiHooks.getUserInfoByToken(userToken)
+        const user = await apiHooks.getUserInfoByToken(userToken);
         console.log('user', user);
-        
 
         // If the user info is successfully fetched, set the user
         if (user) {
@@ -63,7 +62,11 @@ const Header: React.FC<HeaderProps> = () => {
         setUser(null);
       }
     } else {
-      if (location.pathname !== '/' && location.pathname !== '/login') {
+      if (
+        location.pathname !== '/' &&
+        location.pathname !== '/login' &&
+        location.pathname !== '/help'
+      ) {
         navigate('/login');
       }
     }
@@ -96,11 +99,15 @@ const Header: React.FC<HeaderProps> = () => {
       {user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
           <NavigationButton
-            user={user}
             path={`/${user.role.toLowerCase()}/profile`}
             label={'Profile'}
           />
-          <NavigationButton user={user} path='/logout' label='Logout' />
+          <NavigationButton path='/logout' label='Logout' />
+        </div>
+      )}
+      {!user && (
+        <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
+          <NavigationButton path='help' label='Help' />
         </div>
       )}
     </header>
