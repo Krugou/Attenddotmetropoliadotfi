@@ -119,7 +119,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           <input
             type='date'
             id='startDate'
-            value={startDate}
+            value={startDate ? startDate.split('T')[0] : ''}
             onChange={(e) => setStartDate(e.target.value)}
             className='p-2 border rounded-lg'
             required
@@ -132,7 +132,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           <input
             type='date'
             id='endDate'
-            value={endDate}
+            value={endDate ? endDate.split('T')[0] : ''}
             onChange={(e) => setEndDate(e.target.value)}
             className='p-2 border rounded-lg'
             required

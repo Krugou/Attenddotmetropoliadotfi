@@ -54,7 +54,7 @@ const CreateCourseEasy: React.FC = () => {
   };
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
-
+  const [studentGroup, setStudentGroup] = useState('');
   const [studentList, setStudentList] = useState<string[]>([]);
   const [endDate, setEndDate] = useState('');
   const [courseExists, setCourseExists] = useState(false);
@@ -102,7 +102,7 @@ const CreateCourseEasy: React.FC = () => {
         if (response) {
           toast.success('Excel file uploaded');
           setCourseName(response.courseName);
-/*           setStudentGroup(response.studentGroup); */
+          /* setStudentGroup(response.studentGroup);  */
           setCourseCode(response.courseCode);
 
           setStartDate(changeDateToBetterFormat(response.startDate));
@@ -146,6 +146,7 @@ const CreateCourseEasy: React.FC = () => {
         throw new Error('No token available');
       }
       const response = await apiHooks.createWorkLogCourse(courseData, token);
+      
 
       if (response) {
         toast.success('Course created');

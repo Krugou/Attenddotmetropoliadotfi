@@ -23,6 +23,7 @@ import WorklogDetailsStep from '../worklog/WorklogDetailsStep';
  *
  * @returns {JSX.Element} The rendered CreateCourseCustom component.
  */
+
 const CreateWorklogCustom: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
@@ -37,13 +38,11 @@ const CreateWorklogCustom: React.FC = () => {
     exists?: boolean;
   };
   const [courseCode, setCourseCode] = useState('');
-  const [studentGroup, setStudentGroup] = useState('');
   const [startDate, setStartDate] = useState('');
-
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [isCustomGroup, setIsCustomGroup] = useState(false);
-  const [studentList, setStudentList] = useState<string[]>([]);
+  const [studentList, setStudentList] = useState<Student[]>([]);
   const [endDate, setEndDate] = useState('');
   const [courseExists, setCourseExists] = useState(false);
   const [description, setDescription] = useState('');
@@ -147,6 +146,8 @@ const CreateWorklogCustom: React.FC = () => {
       email = user.email;
     }
 
+
+
     const worklogCourse = {
       name: courseName,
       code: courseCode,
@@ -157,7 +158,7 @@ const CreateWorklogCustom: React.FC = () => {
       requiredHours: requiredHours,
       instructors: instructors,
       instructorEmail: email,
-    };
+    };  
 
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
