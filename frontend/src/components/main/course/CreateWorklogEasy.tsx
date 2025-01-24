@@ -163,8 +163,7 @@ const CreateCourseEasy: React.FC = () => {
   };
 
   const handleSubmitWrapper = async () => {
-    const syntheticEvent = { preventDefault: () => {} } as React.FormEvent;
-    handleSubmit(syntheticEvent);
+     await handleSubmit({} as React.FormEvent);
   };
 
   const validateFields = () => {
