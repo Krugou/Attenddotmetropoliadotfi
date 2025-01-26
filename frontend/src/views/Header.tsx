@@ -22,7 +22,9 @@ const Header: React.FC<HeaderProps> = () => {
   // Get the current location and navigation function from react-router
   const location = useLocation();
   const navigate = useNavigate();
-
+  // if lang params are present use it in help link
+  const lang = location.pathname.split('/')[1];
+  console.log('🚀 ~ lang:', lang);
   // State for storing any alert messages
   const [alert, setAlert] = useState<string | null>('');
 
@@ -118,7 +120,10 @@ const Header: React.FC<HeaderProps> = () => {
       )}
       {!user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
-          <NavigationButton path='fi/help' label='Help' />
+          <NavigationButton
+            path={lang ? `/${lang}/help` : '/help'}
+            label='Help'
+          />
         </div>
       )}
     </header>
