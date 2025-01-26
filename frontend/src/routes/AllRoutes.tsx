@@ -20,7 +20,7 @@ const LanguageWrapper = ({children}: {children: React.ReactNode}) => {
   const {lang} = useParams();
 
   useEffect(() => {
-    if (lang && i18n.languages.includes(lang)) {
+    if (lang) {
       i18n.changeLanguage(lang);
     }
   }, [lang, i18n]);
