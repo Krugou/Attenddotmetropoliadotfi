@@ -9,6 +9,12 @@
   "arrowParens": "always",
   "jsxSingleQuote": true,
   "jsxBracketSameLine": true,
-  "endOfLine": "auto",
-  "quoteProps": "consistent"
+  "endOfLine": "lf",
+  "quoteProps": "consistent",
+  "parser": "typescript",
+  "requirePragma": false,
+  "insertPragma": false,
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "embeddedLanguageFormatting": "auto"
 }
