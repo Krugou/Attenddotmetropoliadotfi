@@ -775,7 +775,8 @@
     "lastName": "Efternamn",
     "studentNumber": "Studentnummer",
     "showEndedCourses": "Visa avslutade kurser",
-    "hideEndedCourses": "Dölj avslutade kurser"
+    "hideEndedCourses": "Dölj avslutade kurser",
+    "required": "obligatoriskt"
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
@@ -886,5 +887,47 @@
     "en": "Engelska",
     "fi": "Finska",
     "sv": "Svenska"
+  },
+  "login": {
+    "title": "Logga in med ditt Metropolia-konto",
+    "username": "Användarnamn",
+    "password": "Lösenord",
+    "usernamePlaceholder": "Ange ditt Metropolia användarnamn",
+    "passwordPlaceholder": "Ange ditt Metropolia lösenord",
+    "signIn": "Logga in",
+    "togglePassword": "{{action}} lösenord",
+    "forgotPassword": "Återställ ditt lösenord (öppnas i ny flik)",
+    "forgotPasswordLink": "Glömt ditt lösenord?"
+  },
+  "help": {
+    "title": "Hjälpcenter",
+    "gettingStarted": {
+      "title": "Komma igång",
+      "description": "För att använda denna applikation behöver du ha:",
+      "item1": "Metropolia inloggningsuppgifter",
+      "item2": "Tillgång till Metropolias nätverk eller VPN",
+      "item3": "Google Chrome webbläsare (rekommenderas för bästa upplevelse)",
+      "pwa": "Denna applikation är byggd som en progressiv webbapp (PWA) optimerad för Chrome. För bästa upplevelse rekommenderar vi Chrome-webbläsaren där du kan installera den som en skrivbordsapplikation. På mobila enheter kan du lägga till appen på startskärmen: på Android, tryck på menyn (⋮) och välj \"Lägg till på startskärmen\", på iOS tryck på delningsknappen och välj \"Lägg till på hemskärmen\"."
+    },
+    "commonIssues": {
+      "title": "Vanliga problem",
+      "login": {
+        "title": "Kan inte logga in?",
+        "description": "Se till att du är ansluten till Metropolias nätverk eller VPN"
+      },
+      "connection": {
+        "title": "Anslutningsproblem?",
+        "description": "Kontrollera din internetanslutning och försök uppdatera sidan"
+      },
+      "iphone": {
+        "title": "Problem med iPhone?",
+        "description": "Om du använder en iPhone, se till att iCloud Private Relay är inaktiverat eftersom det kan störa VPN-anslutningen. Du kan inaktivera det i Inställningar > Apple-ID > iCloud > Private Relay."
+      }
+    },
+    "contact": {
+      "title": "Behöver du mer hjälp?",
+      "description": "Om du behöver ytterligare hjälp, kontakta Metropolias IT-support:",
+      "email": "E-post: kimmo.sauren@metropolia.fi"
+    }
   }
 }

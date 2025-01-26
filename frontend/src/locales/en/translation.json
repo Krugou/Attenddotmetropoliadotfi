@@ -786,7 +786,8 @@
     "showEndedCourses": "Show ended courses",
     "hideEndedCourses": "Hide ended courses",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "required": "required"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",
@@ -794,6 +795,17 @@
     "counselorHelpText": "Only checked topics will be included in the course",
     "teacherHelpText": "Only checked topics will be included in the course, deleting them from the view will also exclude them.",
     "saveTopics": "Save new topics"
+  },
+  "login": {
+    "title": "Sign in using your Metropolia Account",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter your Metropolia username",
+    "passwordPlaceholder": "Enter your Metropolia password",
+    "signIn": "Sign In",
+    "togglePassword": "{{action}} password",
+    "forgotPassword": "Reset your password (opens in new tab)",
+    "forgotPasswordLink": "Forgot your password?"
   },
   "welcome": {
     "title": "Welcome to JakSec! It's your first time here",
@@ -897,5 +909,36 @@
     "en": "English",
     "fi": "Finnish",
     "sv": "Swedish"
+  },
+  "help": {
+    "title": "Help Center",
+    "gettingStarted": {
+      "title": "Getting Started",
+      "description": "To use this application, you need to have:",
+      "item1": "Metropolia credentials",
+      "item2": "Access to Metropolia network or VPN",
+      "item3": "Google Chrome browser (recommended for best experience)",
+      "pwa": "This application is built as a Progressive Web App (PWA) optimized for Chrome. For the best experience, we recommend using Chrome browser where you can install it as a desktop application. On mobile devices, you can add the app to your home screen: on Android, tap the menu (⋮) and select \"Add to Home screen\", on iOS tap the share button and choose \"Add to Home Screen\"."
+    },
+    "commonIssues": {
+      "title": "Common Issues",
+      "login": {
+        "title": "Cannot Log In?",
+        "description": "Make sure you are connected to Metropolia network or VPN"
+      },
+      "connection": {
+        "title": "Connection Issues?",
+        "description": "Check your internet connection and try refreshing the page"
+      },
+      "iphone": {
+        "title": "Issues with iPhone?",
+        "description": "If using an iPhone, make sure to disable iCloud Private Relay as it may interfere with VPN connectivity. You can disable it in Settings > Apple ID > iCloud > Private Relay."
+      }
+    },
+    "contact": {
+      "title": "Need More Help?",
+      "description": "If you need additional assistance, please contact Metropolia IT support:",
+      "email": "Email: kimmo.sauren@metropolia.fi"
+    }
   }
 }

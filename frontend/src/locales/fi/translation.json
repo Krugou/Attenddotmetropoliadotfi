@@ -775,7 +775,8 @@
     "lastName": "Sukunimi",
     "studentNumber": "Opiskelijan numero",
     "showEndedCourses": "Näytä päättyneet kurssit",
-    "hideEndedCourses": "Piilota päättyneet kurssit"
+    "hideEndedCourses": "Piilota päättyneet kurssit",
+    "required": "pakollinen"
   },
   "editTopics": {
     "title": "Muokkaa aiheita kurssille {{courseName}}",
@@ -886,5 +887,47 @@
     "en": "Englanti",
     "fi": "Suomi",
     "sv": "Ruotsi"
+  },
+  "login": {
+    "title": "Kirjaudu sisään Metropolian tunnuksilla",
+    "username": "Käyttäjätunnus",
+    "password": "Salasana",
+    "usernamePlaceholder": "Syötä Metropolian käyttäjätunnuksesi",
+    "passwordPlaceholder": "Syötä Metropolian salasanasi",
+    "signIn": "Kirjaudu sisään",
+    "togglePassword": "{{action}} salasana",
+    "forgotPassword": "Nollaa salasanasi (avautuu uuteen välilehteen)",
+    "forgotPasswordLink": "Unohditko salasanasi?"
+  },
+  "help": {
+    "title": "Ohjekeskus",
+    "gettingStarted": {
+      "title": "Aloittaminen",
+      "description": "Tämän sovelluksen käyttämiseen tarvitset:",
+      "item1": "Metropolian tunnukset",
+      "item2": "Pääsyn Metropolian verkkoon tai VPN-yhteyden",
+      "item3": "Google Chrome -selaimen (suositeltu parhaan käyttökokemuksen saamiseksi)",
+      "pwa": "Tämä sovellus on rakennettu progressiivisena verkkosovelluksena (PWA) ja optimoitu Chromelle. Parhaan käyttökokemuksen saamiseksi suosittelemme Chrome-selainta, jossa voit asentaa sen työpöytäsovelluksena. Mobiililaitteissa voit lisätä sovelluksen aloitusnäyttöön: Androidissa napauta valikkoa (⋮) ja valitse \"Lisää aloitusnäyttöön\", iOS:ssä napauta jakopainiketta ja valitse \"Lisää kotinäyttöön\"."
+    },
+    "commonIssues": {
+      "title": "Yleiset ongelmat",
+      "login": {
+        "title": "Etkö pääse kirjautumaan?",
+        "description": "Varmista, että olet yhteydessä Metropolian verkkoon tai VPN:ään"
+      },
+      "connection": {
+        "title": "Yhteysongelmia?",
+        "description": "Tarkista internet-yhteytesi ja yritä päivittää sivu"
+      },
+      "iphone": {
+        "title": "Ongelmia iPhonen kanssa?",
+        "description": "Jos käytät iPhonea, varmista että iCloud Private Relay on pois päältä, sillä se voi häiritä VPN-yhteyttä. Voit poistaa sen käytöstä kohdasta Asetukset > Apple ID > iCloud > Private Relay."
+      }
+    },
+    "contact": {
+      "title": "Tarvitsetko lisäapua?",
+      "description": "Jos tarvitset lisäapua, ota yhteyttä Metropolian IT-tukeen:",
+      "email": "Sähköposti: kimmo.sauren@metropolia.fi"
+    }
   }
 }
