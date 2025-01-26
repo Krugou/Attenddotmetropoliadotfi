@@ -1,6 +1,5 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-
 /**
  * NoUserHelp component that displays help sections for users who haven't logged in.
  * Includes sections about getting started, common issues, and contact information.
@@ -9,6 +8,7 @@ import {useTranslation} from 'react-i18next';
  */
 const NoUserHelp: React.FC = () => {
   const {t} = useTranslation();
+
   return (
     <div className='max-w-4xl p-6 mx-auto space-y-8'>
       {/* Main heading */}
