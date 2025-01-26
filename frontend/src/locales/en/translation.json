@@ -940,5 +940,9 @@
       "description": "If you need additional assistance, please contact Metropolia IT support:",
       "email": "Email: kimmo.sauren@metropolia.fi"
     }
+  },
+  "navigation": {
+    "help": "Help",
+    "backToLogin": "Back to Login"
   }
 }

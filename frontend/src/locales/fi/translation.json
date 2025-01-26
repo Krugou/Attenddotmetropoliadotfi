@@ -929,5 +929,9 @@
       "description": "Jos tarvitset lisäapua, ota yhteyttä Metropolian IT-tukeen:",
       "email": "Sähköposti: kimmo.sauren@metropolia.fi"
     }
+  },
+  "navigation": {
+    "help": "Ohje",
+    "backToLogin": "Takaisin kirjautumiseen"
   }
 }

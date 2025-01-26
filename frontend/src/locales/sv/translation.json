@@ -929,5 +929,9 @@
       "description": "Om du behöver ytterligare hjälp, kontakta Metropolias IT-support:",
       "email": "E-post: kimmo.sauren@metropolia.fi"
     }
+  },
+  "navigation": {
+    "help": "Hjälp",
+    "backToLogin": "Tillbaka till inloggning"
   }
 }
