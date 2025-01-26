@@ -155,7 +155,25 @@
       "filterFeedback": "Suodata palaute aiheen mukaan alla",
       "topic": "Valitse aihe",
       "noFeedbackAvailable": "Palautetta ei ole vielä annettu. Pysy kuulolla!",
-      "confirmDelete": "Haluatko varmasti poistaa tämän palautteen?"
+      "confirmDelete": "Haluatko varmasti poistaa tämän palautteen?",
+      "header": "Auta meitä kehittämään palvelua, {{username}}, antamalla palautetta.",
+      "topicLabel": "Palautteen aihe",
+      "textLabel": "Palautteen teksti",
+      "selectTopic": "Valitse aihe",
+      "placeholder": "Kirjoita palautteesi tähän...",
+      "submit": "Lähetä",
+      "submitSuccess": "Palautteesi on lähetetty onnistuneesti!",
+      "submitError": "Palautteen lähettämisessä tapahtui virhe.",
+      "topics": {
+        "Qr Code Scanning": "QR-koodin skannaus",
+        "User Interface / Accessibility": "Käyttöliittymä / Saavutettavuus",
+        "Attendance info": "Läsnäolotiedot",
+        "Course Creation": "Kurssin luominen",
+        "Lecture Creation": "Luennon luominen",
+        "Attendance gathering": "Läsnäolon kerääminen",
+        "Course/Student info": "Kurssi/Opiskelija tiedot",
+        "Other": "Muu"
+      }
     },
     "guide": {
       "title": "Opas",

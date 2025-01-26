@@ -155,7 +155,25 @@
       "filterFeedback": "Filtrera feedback efter ämne nedan",
       "topic": "Välj ämne",
       "noFeedbackAvailable": "Ingen feedback har ännu lämnats. Håll utkik!",
-      "confirmDelete": "Är du säker på att du vill radera denna feedback?"
+      "confirmDelete": "Är du säker på att du vill radera denna feedback?",
+      "header": "Hjälp oss förbättra, {{username}}, genom att dela din återkoppling.",
+      "topicLabel": "Återkopplingsämne",
+      "textLabel": "Återkopplingstext",
+      "selectTopic": "Välj ämne",
+      "placeholder": "Skriv din återkoppling här...",
+      "submit": "Skicka",
+      "submitSuccess": "Din återkoppling har skickats framgångsrikt!",
+      "submitError": "Ett fel uppstod när återkopplingen skulle skickas.",
+      "topics": {
+        "Qr Code Scanning": "QR-kodskanning",
+        "User Interface / Accessibility": "Användargränssnitt / Tillgänglighet",
+        "Attendance info": "Närvaroinformation",
+        "Course Creation": "Kursskapande",
+        "Lecture Creation": "Föreläsningsskapande",
+        "Attendance gathering": "Närvaroregistrering",
+        "Course/Student info": "Kurs/Studentinformation",
+        "Other": "Övrigt"
+      }
     },
     "guide": {
       "title": "Guide",

@@ -944,5 +944,25 @@
   "navigation": {
     "help": "Help",
     "backToLogin": "Back to Login"
+  },
+  "feedback": {
+    "header": "Help us improve, {{username}} by sharing your feedback.",
+    "topicLabel": "Feedback Topic",
+    "textLabel": "Feedback Text",
+    "selectTopic": "Select a topic",
+    "placeholder": "Enter your feedback here...",
+    "submit": "Submit",
+    "submitSuccess": "Your feedback has been submitted successfully!",
+    "submitError": "An error occurred while submitting your feedback.",
+    "topics": {
+      "Qr Code Scanning": "QR Code Scanning",
+      "User Interface / Accessibility": "User Interface / Accessibility",
+      "Attendance info": "Attendance Information",
+      "Course Creation": "Course Creation",
+      "Lecture Creation": "Lecture Creation",
+      "Attendance gathering": "Attendance Gathering",
+      "Course/Student info": "Course/Student Information",
+      "Other": "Other"
+    }
   }
 }
