@@ -14,6 +14,8 @@ import StudentRoutes from './StudentRoutes';
 import TeacherRoutes from './TeacherRoutes';
 import QrSelectScannerTester from '../views/QrSelectScannerTester';
 import NoUserHelp from '../views/main/NoUserHelp';
+import About from '../views/main/About';
+import Team from '../views/main/Team';
 
 const LanguageWrapper = ({children}: {children: React.ReactNode}) => {
   const {i18n} = useTranslation();
@@ -67,6 +69,9 @@ const AllRoutes = () => {
           }
         />
         <Route path='/qrscantest' element={<QrSelectScannerTester />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/team' element={<Team />} />
+        
         <Route path='*' element={<StartView />} />
       </Routes>
     </BackgroundContainer>
