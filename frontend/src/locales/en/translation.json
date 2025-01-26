@@ -155,7 +155,8 @@
       "filterFeedback": "Filter feedback by topic below",
       "topic": "Select topic",
       "noFeedbackAvailable": "No feedback has been provided yet. Stay tuned!",
-      "confirmDelete": "Are you sure you want to delete this feedback?"
+      "confirmDelete": "Are you sure you want to delete this feedback?",
+      "description": "Give feedback to the developers"
     },
     "guide": {
       "title": "Guide",
@@ -964,5 +965,10 @@
       "Course/Student info": "Course/Student Information",
       "Other": "Other"
     }
+  },
+  "header": {
+    "developmentMode": "In Development Mode",
+    "profile": "Profile",
+    "logout": "Logout"
   }
 }
