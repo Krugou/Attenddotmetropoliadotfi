@@ -9,7 +9,6 @@ import {useTranslation} from 'react-i18next';
  */
 const NoUserHelp: React.FC = () => {
   const {t} = useTranslation();
-
   return (
     <div className='max-w-4xl p-6 mx-auto space-y-8'>
       {/* Main heading */}
