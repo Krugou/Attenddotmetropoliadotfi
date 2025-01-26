@@ -977,5 +977,27 @@
     "developmentMode": "I utvecklingsläge",
     "profile": "Profil",
     "logout": "Logga ut"
+  },
+  "footer": {
+    "appName": "Metropolia Närvaroapp",
+    "developedBy": "Utvecklad av",
+    "metropolia": "Metropolia",
+    "navigation": "Navigation"
+  },
+  "team": {
+    "title": "Utvecklingsteam",
+    "originalTeam": "Ursprungligt utvecklingsteam",
+    "additionalTeam": "Ytterligare utveckling",
+    "jakDescription": "Initialerna bildar akronymen \"JAK\"",
+    "roles": {
+      "originalDev": "Ursprunglig utvecklare",
+      "additionalDev": "Ytterligare utvecklare"
+    },
+    "viewGithub": "Visa GitHub-profil"
+  }, "about": {
+    "title": "Om Metropolia Attendance-appen",
+    "description": "Metropolia Attendance är ett omfattande närvarohanteringssystem särskilt utformat för Metropolia yrkeshögskola. Denna plattform representerar ett betydande steg framåt i moderniseringen av hur vi hanterar och registrerar studenternas deltagande i akademiska aktiviteter.",
+    "modernization": "Vårt system effektiviserar den traditionella närvarohanteringsprocessen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder realtidsspårning, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
+    "benefits": "För studenter erbjuder plattformen ett enkelt sätt att markera sin närvaro och följa sin deltagandehistorik. Lärare drar nytta av automatiserad närvarohantering, vilket låter dem fokusera mer på undervisning och mindre på administrativa uppgifter."
   }
 }

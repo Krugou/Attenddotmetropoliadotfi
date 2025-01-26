@@ -949,7 +949,6 @@
       "email": "Sähköposti: kimmo.sauren@metropolia.fi"
     }
   },
-
   "navigation": {
     "help": "Ohje",
     "backToLogin": "Takaisin kirjautumiseen"
@@ -978,5 +977,27 @@
     "developmentMode": "Kehitystilassa",
     "profile": "Profiili",
     "logout": "Kirjaudu ulos"
+  },
+  "footer": {
+    "appName": "Metropolia Läsnäolosovellus",
+    "developedBy": "Kehittänyt",
+    "metropolia": "Metropolia",
+    "navigation": "Navigointi"
+  },
+  "team": {
+    "title": "Kehitystiimi",
+    "originalTeam": "Alkuperäinen kehitystiimi",
+    "additionalTeam": "Lisäkehitys",
+    "jakDescription": "Nimikirjaimet muodostavat lyhenteen \"JAK\"",
+    "roles": {
+      "originalDev": "Alkuperäinen kehittäjä",
+      "additionalDev": "Lisäkehittäjä"
+    },
+    "viewGithub": "Katso GitHub-profiili"
+  }, "about": {
+    "title": "Tietoa Metropolia Attendance -sovelluksesta",
+    "description": "Metropolia Attendance on kattava läsnäolon seurantajärjestelmä, joka on suunniteltu erityisesti Metropolia Ammattikorkeakoululle. Tämä alusta edustaa merkittävää edistysaskelta opiskelijoiden osallistumisen hallinnan ja kirjaamisen modernisoinnissa.",
+    "modernization": "Järjestelmämme tehostaa perinteistä läsnäolon kirjaamisprosessia korvaamalla manuaaliset paperimenetelmät tehokkaalla digitaalisella ratkaisulla. Se tarjoaa reaaliaikaisen seurannan, automaattisen raportoinnin ja saumattoman integraation Metropolian olemassa olevaan digitaaliseen infrastruktuuriin.",
+    "benefits": "Opiskelijoille alusta tarjoaa helpon tavan merkitä läsnäolonsa ja seurata osallistumishistoriaansa. Opettajat hyötyvät automaattisesta läsnäolon hallinnasta, mikä mahdollistaa keskittymisen enemmän opettamiseen ja vähemmän hallinnollisiin tehtäviin."
   }
 }
