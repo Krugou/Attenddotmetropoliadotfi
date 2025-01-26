@@ -70,8 +70,23 @@ const AllRoutes = () => {
         />
         <Route path='/qrscantest' element={<QrSelectScannerTester />} />
         <Route path='/about' element={<About />} />
+        <Route
+          path='/:lang/about'
+          element={
+            <LanguageWrapper>
+              <About />
+            </LanguageWrapper>
+          }
+        />
         <Route path='/team' element={<Team />} />
-        
+        <Route
+          path='/:lang/team'
+          element={
+            <LanguageWrapper>
+              <Team />
+            </LanguageWrapper>
+          }
+        />
         <Route path='*' element={<StartView />} />
       </Routes>
     </BackgroundContainer>
