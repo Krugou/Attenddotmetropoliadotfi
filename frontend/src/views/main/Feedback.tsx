@@ -122,7 +122,7 @@ const Feedback: React.FC = () => {
   };
 
   const userRole = user?.role;
-  let feedbackTopics = [];
+  let feedbackTopics: string[] = [];
   if (userRole) {
     feedbackTopics = feedbackTopicsByRole[userRole];
   }
