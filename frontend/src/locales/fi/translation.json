@@ -853,6 +853,11 @@
       "selectTitle": "Roolin valinta",
       "success": "Rooli vaihdettu onnistuneesti, kirjaudu sisään uudelleen",
       "error": "Roolin vaihtaminen epäonnistui"
+    },
+    "sections": {
+      "personal": "Henkilökohtaiset tiedot",
+      "account": "Tilitiedot",
+      "preferences": "Asetukset"
     }
   },
   "worklog": {
@@ -888,7 +893,19 @@
   "languages": {
     "en": "Englanti",
     "fi": "Suomi",
-    "sv": "Ruotsi"
+    "sv": "Ruotsi",
+    "flags": {
+      "en": "Englanti",
+      "fi": "Suomi",
+      "sv": "Ruotsi"
+    },
+    "errors": {
+      "noToken": "Ei käyttöoikeustunnistetta saatavilla",
+      "changeFailed": "Kielen vaihto epäonnistui"
+    },
+    "success": {
+      "changed": "Kieli vaihdettu onnistuneesti"
+    }
   },
   "login": {
     "title": "Kirjaudu sisään Metropolian tunnuksilla",

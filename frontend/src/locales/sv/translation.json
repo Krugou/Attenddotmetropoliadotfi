@@ -853,6 +853,11 @@
       "selectTitle": "Rollval",
       "success": "Rollen ändrades framgångsrikt, vänligen logga in igen",
       "error": "Lyckades inte ändra roll"
+    },
+    "sections": {
+      "personal": "Personlig information",
+      "account": "Kontoinformation",
+      "preferences": "Inställningar"
     }
   },
   "worklog": {
@@ -888,7 +893,19 @@
   "languages": {
     "en": "Engelska",
     "fi": "Finska",
-    "sv": "Svenska"
+    "sv": "Svenska",
+    "flags": {
+      "en": "Engelska",
+      "fi": "Finska",
+      "sv": "Svenska"
+    },
+    "errors": {
+      "noToken": "Ingen token tillgänglig",
+      "changeFailed": "Kunde inte ändra språk"
+    },
+    "success": {
+      "changed": "Språket ändrades framgångsrikt"
+    }
   },
   "login": {
     "title": "Logga in med ditt Metropolia-konto",

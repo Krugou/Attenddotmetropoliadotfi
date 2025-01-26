@@ -874,6 +874,11 @@
       "selectTitle": "Role Selection",
       "success": "Role changed successfully, please log in again",
       "error": "Failed to change role"
+    },
+    "sections": {
+      "personal": "Personal Information",
+      "account": "Account Information",
+      "preferences": "Preferences"
     }
   },
   "worklog": {
@@ -909,7 +914,19 @@
   "languages": {
     "en": "English",
     "fi": "Finnish",
-    "sv": "Swedish"
+    "sv": "Swedish",
+    "flags": {
+      "en": "English",
+      "fi": "Finnish",
+      "sv": "Swedish"
+    },
+    "errors": {
+      "noToken": "No token available",
+      "changeFailed": "Failed to change language"
+    },
+    "success": {
+      "changed": "Language changed successfully"
+    }
   },
   "help": {
     "title": "Help Center",
