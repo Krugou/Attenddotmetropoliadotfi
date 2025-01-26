@@ -1,6 +1,30 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {UserContext} from '../contexts/UserContext';
+import {useTranslation} from 'react-i18next';
+
+/**
+ * Footer link configuration
+ */
+interface FooterLink {
+  label: string;
+  url: string;
+  external?: boolean;
+}
+
+const footerLinks: Record<string, FooterLink[]> = {
+  metropolia: [
+    {label: 'OMA', url: 'https://oma.metropolia.fi', external: true},
+    {label: 'Wiki', url: 'https://wiki.metropolia.fi', external: true},
+    {label: 'Lukkarit', url: 'https://lukkarit.metropolia.fi', external: true},
+  ],
+  navigation: [
+    {label: 'About', url: '/about'},
+    {label: 'Team', url: '/team'},
+    {label: 'Help', url: '/help'},
+  ],
+};
+
 /**
  * `buildDate` is the date when the application was built.
  */
@@ -34,25 +58,72 @@ const diffHours: number = Math.floor((diffTime / (1000 * 60 * 60)) % 24);
  */
 const Footer: React.FC = () => {
   const {user} = React.useContext(UserContext);
+  const {t} = useTranslation();
 
   const buildInfo = `Build date: ${buildDate.toLocaleDateString()}${
     diffDays > 0 ? ` Time since build date: ${diffDays} days` : ''
   }${diffHours > 0 ? ` and ${diffHours} hours` : ''}`;
+
+  const renderLinks = (links: FooterLink[]) => (
+    <ul className='p-0 list-none'>
+      {links.map((link, index) => (
+        <li key={index} className='mb-2'>
+          {link.external ? (
+            <a
+              href={link.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-white transition-colors duration-200 hover:text-gray-200'>
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              to={link.url}
+              className='text-white transition-colors duration-200 hover:text-gray-200'>
+              {link.label}
+            </Link>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <footer className='px-8 py-4 text-center text-white bg-metropoliaMainOrange'>
-      <p className='mb-2'>
-        © {new Date().getFullYear()} Metropolia Attendance App
-      </p>
-      <p title={buildInfo}>
-        Developed by{' '}
-        {user ? <Link to={`/${user?.role}/team`}>JAK</Link> : 'JAK'}
-      </p>
-      <a
-        href='https://oma.metropolia.fi'
-        target='_blank'
-        rel='noopener noreferrer'>
-        Oma
-      </a>
+    <footer className='px-8 py-4 text-white bg-metropoliaMainOrange'>
+      {user ? (
+        // Logged in view
+        <div className='text-center'>
+          <p className='mb-2 font-bold font-heading'>
+            © {new Date().getFullYear()} {t('footer.appName')}
+          </p>
+          <p title={buildInfo}>
+            {t('footer.developedBy')}{' '}
+            <Link to={`/${user?.role}/team`}>JAK</Link>
+          </p>
+        </div>
+      ) : (
+        // Not logged in view
+        <div className='flex justify-between mx-auto '>
+          <div>
+            <h3 className='mb-4 text-lg font-bold font-heading'>
+              {t('footer.metropolia')}
+            </h3>
+            {renderLinks(footerLinks.metropolia)}
+          </div>
+          <div className='mb-4 text-center'>
+            <p className='mb-2 font-bold font-heading'>
+              © {new Date().getFullYear()} {t('footer.appName')}
+            </p>
+            <p title={buildInfo}>{t('footer.developedBy')} JAK</p>
+          </div>
+          <div>
+            <h3 className='mb-4 text-lg font-bold font-heading'>
+              {t('footer.navigation')}
+            </h3>
+            {renderLinks(footerLinks.navigation)}
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
