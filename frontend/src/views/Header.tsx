@@ -24,7 +24,20 @@ const Header: React.FC<HeaderProps> = () => {
   const location = useLocation();
   const navigate = useNavigate();
   // if lang params are present use it in help link
-  const lang = location.pathname.split('/')[1];
+  type SupportedLanguage = 'fi' | 'en' | 'sv' | null;
+
+  // Create language validation function
+  const validateLanguage = (pathLang: string): SupportedLanguage => {
+    const supportedLangs = ['fi', 'en', 'sv'];
+    if (pathLang === 'login' || !supportedLangs.includes(pathLang)) {
+      return null;
+    }
+    return pathLang as SupportedLanguage;
+  };
+
+  // Extract and validate language from path
+  const pathParts = location.pathname.split('/');
+  const lang: SupportedLanguage = validateLanguage(pathParts[1]);
   // State for storing any alert messages
   const [alert, setAlert] = useState<string | null>('');
 
@@ -120,10 +133,17 @@ const Header: React.FC<HeaderProps> = () => {
       )}
       {!user && (
         <div className='relative flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
-          <NavigationButton
-            path={lang ? `/${lang}/help` : '/help'}
-            label='Help'
-          />
+          {location.pathname.includes('/help') ? (
+            <NavigationButton
+              path={lang ? `/${lang}/login` : '/login'}
+              label={t('navigation.backToLogin', 'Back to Login')}
+            />
+          ) : (
+            <NavigationButton
+              path={lang ? `/${lang}/help` : '/help'}
+              label={t('navigation.help', 'Help')}
+            />
+          )}
 
           <FirstTimeHereGuide
             message={t(
