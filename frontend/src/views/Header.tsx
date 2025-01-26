@@ -81,15 +81,23 @@ const Header: React.FC<HeaderProps> = () => {
         '/',
         '/login',
         '/help',
+        '/team',
+        '/about',
         '/fi',
         '/fi/login',
         '/fi/help',
+        '/fi/team',
+        '/fi/about',
         '/en',
         '/en/login',
         '/en/help',
+        '/en/team',
+        '/en/about',
         '/sv',
         '/sv/login',
         '/sv/help',
+        '/sv/team',
+        '/sv/about',
       ];
 
       if (!publicPaths.includes(location.pathname)) {
