@@ -2,10 +2,11 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import logo from '../assets/images/metropolia_s_oranssi_en.png';
 import ErrorAlert from '../components/main/ErrorAlert';
+import FirstTimeHereGuide from '../components/main/FirstTimeHereGuide';
 import NavigationButton from '../components/main/buttons/NavigationButton';
 import {UserContext} from '../contexts/UserContext';
 import apiHooks from '../hooks/ApiHooks';
-
+import {useTranslation} from 'react-i18next';
 /**
  * Define the props for the Header component.
  */
@@ -24,13 +25,12 @@ const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
   // if lang params are present use it in help link
   const lang = location.pathname.split('/')[1];
-  console.log('🚀 ~ lang:', lang);
   // State for storing any alert messages
   const [alert, setAlert] = useState<string | null>('');
 
   // Get the current user and the setUser function from the UserContext
   const {user, setUser} = useContext(UserContext);
-
+  const {t} = useTranslation();
   /**
    * Function to get the user info based on the token stored in localStorage.
    */
@@ -119,10 +119,20 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
       )}
       {!user && (
-        <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
+        <div className='relative flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
           <NavigationButton
             path={lang ? `/${lang}/help` : '/help'}
             label='Help'
+          />
+
+          <FirstTimeHereGuide
+            message={t(
+              'guide.help',
+              'Need help? Click the help button above to get started!',
+            )}
+            position='bottom'
+            storageKey='help-guided-seen'
+            isFixed={false}
           />
         </div>
       )}
