@@ -144,87 +144,102 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
 
   return (
     <div className='space-y-5'>
-      <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.name')}:</strong>{' '}
-        <span className='profileStat'>
-          {user.first_name + ' ' + user.last_name}
-        </span>
-      </p>
-      <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.username')}:</strong>{' '}
-        <span className='profileStat'>{user.username}</span>
-      </p>
-      <p className='flex flex-wrap items-center gap-1 items-base'>
-        <strong>{t('profileInfo.labels.email')}:</strong>{' '}
-        <span className='profileStat w-fit'>{user.email}</span>
-      </p>
-      <p className='flex items-center gap-2 mt-5'>
-        <strong>{t('profileInfo.labels.accountCreated')}:</strong>{' '}
-        <span className='profileStat'>
-          {new Date(user.created_at).toLocaleDateString()}
-        </span>
-      </p>
-      <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.role')}:</strong>{' '}
-        <span className='profileStat'>{user.role}</span>
-        {['counselor', 'teacher'].includes(user.role) && (
-          <button
-            className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
-            onClick={handleOpen}>
-            {t('profileInfo.buttons.change')}
-          </button>
-        )}
-      </p>
-      <div className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.language')}:</strong>{' '}
-        <div className='flex gap-2'>
-          <button
-            onClick={() => handleLanguageChange('en')}
-            className={`p-1 rounded ${
-              user.language === 'en'
-                ? 'bg-metropoliaMainOrange'
-                : 'bg-metropoliaMainGrey'
-            }`}
-            title={t('languages.flags.en')}
-            aria-label={t('languages.flags.en')}>
-            <GB className='w-6 h-4' aria-hidden='true' />
-          </button>
-          <button
-            onClick={() => handleLanguageChange('fi')}
-            className={`p-1 rounded ${
-              user.language === 'fi'
-                ? 'bg-metropoliaMainOrange'
-                : 'bg-metropoliaMainGrey'
-            }`}
-            title={t('languages.flags.fi')}
-            aria-label={t('languages.flags.fi')}>
-            <FI className='w-6 h-4' aria-hidden='true' />
-          </button>
-          <button
-            onClick={() => handleLanguageChange('sv')}
-            className={`p-1 rounded ${
-              user.language === 'sv'
-                ? 'bg-metropoliaMainOrange'
-                : 'bg-metropoliaMainGrey'
-            }`}
-            title={t('languages.flags.sv')}
-            aria-label={t('languages.flags.sv')}>
-            <SE className='w-6 h-4' aria-hidden='true' />
-          </button>
-        </div>
+      {/* Personal Information Section */}
+      <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.name')}:</strong>{' '}
+          <span className='profileStat'>
+            {user.first_name + ' ' + user.last_name}
+          </span>
+        </p>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.username')}:</strong>{' '}
+          <span className='profileStat'>{user.username}</span>
+        </p>
+        <p className='flex flex-wrap items-center justify-between gap-1 items-base'>
+          <strong>{t('profileInfo.labels.email')}:</strong>{' '}
+          <span className='profileStat w-fit'>{user.email}</span>
+        </p>
       </div>
-      <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
-        <span className='profileStat'>
-          {user.activeStatus === 1 ? t('common.yes') : t('common.no')}
-        </span>
-      </p>
-      <p className='flex items-center gap-2'>
-        <strong>{t('profileInfo.labels.darkMode')}:</strong>{' '}
-        <span className='profileStat'>
-          {user.darkMode === 1 ? t('common.yes') : t('common.no')}
-        </span>
-      </p>
+
+      {/* Account Information Section */}
+      <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.accountCreated')}:</strong>{' '}
+          <span className='profileStat'>
+            {new Date(user.created_at).toLocaleDateString()}
+          </span>
+        </p>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.role')}:</strong>{' '}
+          <div className='flex items-center gap-2'>
+            <span className='profileStat'>{user.role}</span>
+            {['counselor', 'teacher'].includes(user.role) && (
+              <button
+                className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
+                onClick={handleOpen}>
+                {t('profileInfo.buttons.change')}
+              </button>
+            )}
+          </div>
+        </p>
+      </div>
+
+      {/* Preferences Section */}
+      <div className='p-4 space-y-4'>
+        <div className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.language')}:</strong>{' '}
+          <div className='flex gap-2'>
+            <button
+              onClick={() => handleLanguageChange('en')}
+              className={`p-1 rounded ${
+                user.language === 'en'
+                  ? 'bg-metropoliaMainOrange'
+                  : 'bg-metropoliaMainGrey'
+              }`}
+              title={t('languages.flags.en')}
+              aria-label={t('languages.flags.en')}>
+              <GB className='w-6 h-4' aria-hidden='true' />
+            </button>
+            <button
+              onClick={() => handleLanguageChange('fi')}
+              className={`p-1 rounded ${
+                user.language === 'fi'
+                  ? 'bg-metropoliaMainOrange'
+                  : 'bg-metropoliaMainGrey'
+              }`}
+              title={t('languages.flags.fi')}
+              aria-label={t('languages.flags.fi')}>
+              <FI className='w-6 h-4' aria-hidden='true' />
+            </button>
+            <button
+              onClick={() => handleLanguageChange('sv')}
+              className={`p-1 rounded ${
+                user.language === 'sv'
+                  ? 'bg-metropoliaMainOrange'
+                  : 'bg-metropoliaMainGrey'
+              }`}
+              title={t('languages.flags.sv')}
+              aria-label={t('languages.flags.sv')}>
+              <SE className='w-6 h-4' aria-hidden='true' />
+            </button>
+          </div>
+        </div>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
+          <span className='profileStat'>
+            {user.activeStatus === 1 ? t('common.yes') : t('common.no')}
+          </span>
+        </p>
+        <p className='flex items-center justify-between gap-2'>
+          <strong>{t('profileInfo.labels.darkMode')}:</strong>{' '}
+          <span className='profileStat'>
+            {user.darkMode === 1 ? t('common.yes') : t('common.no')}
+          </span>
+        </p>
+      </div>
+
+      {/* Role Change Modal */}
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>
           <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
@@ -244,13 +259,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           <div className='flex justify-between gap-10 mt-5'>
             <button
               type='button'
-              className='px-2 py-1 text-sm font-heading text-white transition bg-red-500 rounded hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm text-white transition bg-red-500 rounded font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
               {t('common.cancel')}
             </button>
             <button
               type='button'
-              className='px-2 py-1 text-sm font-heading text-white transition bg-green-500 rounded hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm text-white transition bg-green-500 rounded font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
               {t('profileInfo.buttons.changeRole')}
             </button>
