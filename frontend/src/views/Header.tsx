@@ -62,11 +62,22 @@ const Header: React.FC<HeaderProps> = () => {
         setUser(null);
       }
     } else {
-      if (
-        location.pathname !== '/' &&
-        location.pathname !== '/login' &&
-        location.pathname !== '/help'
-      ) {
+      const publicPaths = [
+        '/',
+        '/login',
+        '/help',
+        '/fi',
+        '/fi/login',
+        '/fi/help',
+        '/en',
+        '/en/login',
+        '/en/help',
+        '/sv',
+        '/sv/login',
+        '/sv/help',
+      ];
+
+      if (!publicPaths.includes(location.pathname)) {
         navigate('/login');
       }
     }
@@ -107,7 +118,7 @@ const Header: React.FC<HeaderProps> = () => {
       )}
       {!user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
-          <NavigationButton path='help' label='Help' />
+          <NavigationButton path='fi/help' label='Help' />
         </div>
       )}
     </header>
