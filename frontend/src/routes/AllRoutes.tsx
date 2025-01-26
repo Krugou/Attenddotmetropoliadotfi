@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation, useParams} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 import BackgroundContainer from '../components/main/background/BackgroundContainer';
 import {UserContext} from '../contexts/UserContext';
 import Logout from '../views/Logout';
@@ -13,6 +14,19 @@ import StudentRoutes from './StudentRoutes';
 import TeacherRoutes from './TeacherRoutes';
 import QrSelectScannerTester from '../views/QrSelectScannerTester';
 import NoUserHelp from '../views/main/NoUserHelp';
+
+const LanguageWrapper = ({children}: {children: React.ReactNode}) => {
+  const {i18n} = useTranslation();
+  const {lang} = useParams();
+
+  useEffect(() => {
+    if (lang && i18n.languages.includes(lang)) {
+      i18n.changeLanguage(lang);
+    }
+  }, [lang, i18n]);
+
+  return <>{children}</>;
+};
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -28,16 +42,32 @@ const AllRoutes = () => {
     <BackgroundContainer>
       <Routes>
         <Route path='/' element={<StartView />} />
-        <Route path='student/*' element={<StudentRoutes />} />
-        <Route path='admin/*' element={<AdminRoutes />} />
-        <Route path='counselor/*' element={<CounselorRoutes />} />
-        <Route path='teacher/*' element={<TeacherRoutes />} />
-        <Route path='logout' element={<Logout />} />
-        <Route path='login' element={<Login />} />
-        <Route path='gdpr' element={<Gdpr />} />
-        <Route path='help' element={<NoUserHelp />} />
+        <Route path='/student/*' element={<StudentRoutes />} />
+        <Route path='/admin/*' element={<AdminRoutes />} />
+        <Route path='/counselor/*' element={<CounselorRoutes />} />
+        <Route path='/teacher/*' element={<TeacherRoutes />} />
+        <Route path='/logout' element={<Logout />} />
+        <Route path='/login' element={<Login />} />
+        <Route
+          path='/:lang/login'
+          element={
+            <LanguageWrapper>
+              <Login />
+            </LanguageWrapper>
+          }
+        />
+        <Route path='/gdpr' element={<Gdpr />} />
+        <Route path='/help' element={<NoUserHelp />} />
+        <Route
+          path='/:lang/help'
+          element={
+            <LanguageWrapper>
+              <NoUserHelp />
+            </LanguageWrapper>
+          }
+        />
+        <Route path='/qrscantest' element={<QrSelectScannerTester />} />
         <Route path='*' element={<StartView />} />
-        <Route path='qrscantest' element={<QrSelectScannerTester />} />
       </Routes>
     </BackgroundContainer>
   );
