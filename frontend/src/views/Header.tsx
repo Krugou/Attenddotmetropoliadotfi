@@ -120,15 +120,20 @@ const Header: React.FC<HeaderProps> = () => {
         />
       </Link>
       {import.meta.env.MODE === 'development' && (
-        <h1 className='text-lg font-heading'>In Development Mode</h1>
+        <h1 className='text-lg font-heading'>
+          {t('header.developmentMode', 'In Development Mode')}
+        </h1>
       )}
       {user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
           <NavigationButton
             path={`/${user.role.toLowerCase()}/profile`}
-            label={'Profile'}
+            label={t('header.profile', 'Profile')}
           />
-          <NavigationButton path='/logout' label='Logout' />
+          <NavigationButton
+            path='/logout'
+            label={t('header.logout', 'Logout')}
+          />
         </div>
       )}
       {!user && (
