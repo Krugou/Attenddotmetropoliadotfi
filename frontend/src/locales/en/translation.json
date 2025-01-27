@@ -450,11 +450,18 @@
           "totalAttendance": "Total Attendance",
           "studentsWithTopic": "Students with this topic",
           "ratio": "Ratio(%)",
-          "state": "State"
+          "state": "State",
+          "actions": "Actions",
+          "technicalDetails": "Technical Details"
         },
         "noData": "No data available",
         "tooltips": {
           "attendance": "Total attendance gathered: {{total}}"
+        },
+        "buttons": {
+          "showTechnical": "Show Technical Details",
+          "hideTechnical": "Hide Technical Details",
+          "edit": "Edit"
         }
       }
     },

@@ -451,11 +451,18 @@
           "totalAttendance": "Läsnäolo yhteensä",
           "studentsWithTopic": "Opiskelijat tämän aiheen kanssa",
           "ratio": "Suhdeluku(%)",
-          "state": "Tila"
+          "state": "Tila",
+          "actions": "Toiminnot",
+          "technicalDetails": "Tekniset tiedot"
         },
         "noData": "Ei tietoja saatavilla",
         "tooltips": {
           "attendance": "Kerätty läsnäolo yhteensä: {{total}}"
+        },
+        "buttons": {
+          "showTechnical": "Näytä tekniset tiedot",
+          "hideTechnical": "Piilota tekniset tiedot",
+          "edit": "Muokkaa"
         }
       }
     },

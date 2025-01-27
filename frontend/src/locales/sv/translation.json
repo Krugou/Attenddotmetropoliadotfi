@@ -451,11 +451,18 @@
           "totalAttendance": "Total närvaro",
           "studentsWithTopic": "Studenter med detta ämne",
           "ratio": "Förhållande(%)",
-          "state": "Tillstånd"
+          "state": "Tillstånd",
+          "actions": "Åtgärder",
+          "technicalDetails": "Tekniska detaljer"
         },
         "noData": "Inga data tillgängliga",
         "tooltips": {
           "attendance": "Total närvaro samlad: {{total}}"
+        },
+        "buttons": {
+          "showTechnical": "Visa tekniska detaljer",
+          "hideTechnical": "Dölj tekniska detaljer",
+          "edit": "Redigera"
         }
       }
     },
