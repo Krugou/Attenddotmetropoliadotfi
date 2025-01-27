@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 
 interface Lecture {
   lectureid: number;
@@ -22,7 +23,12 @@ interface DesktopLecturesProps {
 
 const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
   const {t} = useTranslation();
+  const navigate = useNavigate();
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
+
+  const handleEditLecture = (lectureId: number) => {
+    navigate(`/teacher/lectures/${lectureId}`);
+  };
 
   return (
     <div className='space-y-4'>
@@ -30,7 +36,9 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
         <button
           onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
           className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300'>
-          {showTechnicalDetails ? 'Hide' : 'Show'} Technical Details
+          {showTechnicalDetails
+            ? t('teacher.lectures.table.buttons.hideTechnical')
+            : t('teacher.lectures.table.buttons.showTechnical')}
         </button>
       </div>
 
@@ -72,6 +80,9 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
               )}
               <th className='p-4 text-left font-heading'>
                 {t('teacher.lectures.table.headers.state')}
+              </th>
+              <th className='p-4 text-left font-heading'>
+                {t('teacher.lectures.table.headers.actions')}
               </th>
             </tr>
           </thead>
@@ -136,6 +147,13 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                       }`}>
                       {lecture.state}
                     </span>
+                  </td>
+                  <td className='p-4'>
+                    <button
+                      onClick={() => handleEditLecture(lecture.lectureid)}
+                      className='px-3 py-1 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-full hover:bg-blue-200'>
+                      {t('teacher.lectures.table.buttons.edit')}
+                    </button>
                   </td>
                 </tr>
               ))
