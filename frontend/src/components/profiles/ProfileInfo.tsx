@@ -134,7 +134,9 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
     <div className='space-y-5'>
       {/* Personal Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
-        <h3 className='mb-3 text-lg font-heading'>{t('profileInfo.sections.personal')}</h3>
+        <h3 className='mb-3 text-lg font-heading'>
+          {t('profileInfo.sections.personal')}:
+        </h3>
         <p className='flex items-center justify-between gap-2'>
           <strong>{t('profileInfo.labels.name')}:</strong>{' '}
           <span className='profileStat'>
@@ -153,7 +155,9 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
 
       {/* Account Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
-        <h3 className='mb-3 text-lg font-heading'>{t('profileInfo.sections.account')}</h3>
+        <h3 className='mb-3 text-lg font-heading'>
+          {t('profileInfo.sections.account')}:
+        </h3>
         <p className='flex items-center justify-between gap-2'>
           <strong>{t('profileInfo.labels.accountCreated')}:</strong>{' '}
           <span className='profileStat'>
@@ -177,7 +181,9 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
 
       {/* Preferences Section */}
       <div className='p-4 space-y-4'>
-        <h3 className='mb-3 text-lg font-heading'>{t('profileInfo.sections.preferences')}</h3>
+        <h3 className='mb-3 text-lg font-heading'>
+          {t('profileInfo.sections.preferences')}:
+        </h3>
         <div className='flex items-center justify-between gap-2'>
           <strong>{t('profileInfo.labels.language')}:</strong>{' '}
           <div className='flex gap-2'>
