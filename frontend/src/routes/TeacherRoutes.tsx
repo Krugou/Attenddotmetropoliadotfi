@@ -12,6 +12,7 @@ import TeacherAttendanceRoutes from './teacher/TeacherAttendanceRoutes';
 import TeacherCoursesRoutes from './teacher/TeacherCoursesRoutes';
 import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
 import TeacherWorkLogRoutes from './teacher/TeacherWorkLogRoutes.tsx';
+import TeacherLectureDetail from '../views/main/teacher/Lectures/TeacherLectureDetail.tsx';
 
 /**
  * TeacherRoutes component.
@@ -51,6 +52,7 @@ const TeacherRoutes = () => {
       <Route path='students/*' element={<TeacherStudentsRoutes />} />
       <Route path='attendance/*' element={<TeacherAttendanceRoutes />} />
       <Route path='lectures' element={<TeacherLectures />} />
+      <Route path='lectures/:lectureid' element={<TeacherLectureDetail />} />
       <Route path='profile' element={<TeacherProfile />} />
       <Route path='feedback' element={<Feedback />} />
       <Route path='team' element={<Team />} />
