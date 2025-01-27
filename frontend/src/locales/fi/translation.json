@@ -434,7 +434,7 @@
       }
     },
     "lectures": {
-      "title": "Tässä ovat tallennetut luentotilastosi. Tarkista ne huolellisesti virheiden varalta. Jos löydät virheitä, ilmoita niistä ylläpidolle päänäkymän palaute-vaihtoehdon avulla. Kiitos!",
+      "title": "Tallennetut luentosi",
       "stats": {
         "totalLectures": "Luennot yhteensä",
         "attendanceRatio": "Läsnäoloprosentti"

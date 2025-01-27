@@ -434,7 +434,7 @@
       }
     },
     "lectures": {
-      "title": "Detta är dina sparade föreläsningsstatistik. Vänligen granska dem noggrant för eventuella felaktigheter. Om du hittar några fel, vänligen rapportera dem till administratörerna genom feedback-alternativet i huvudvyn. Tack!",
+      "title": "Dina sparade föreläsningar",
       "stats": {
         "totalLectures": "Totala föreläsningar",
         "attendanceRatio": "Närvaroförhållande"

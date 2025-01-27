@@ -433,7 +433,7 @@
       }
     },
     "lectures": {
-      "title": "These are your saved lecture stats. Please review them carefully for any inaccuracies. If you find any errors, kindly report them to admins using the feedback option in the main view. Thank you!",
+      "title": "Your Saved Lectures",
       "stats": {
         "totalLectures": "Total Lectures",
         "attendanceRatio": "Attendance Ratio"
