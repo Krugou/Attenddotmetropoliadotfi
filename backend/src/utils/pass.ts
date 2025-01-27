@@ -24,7 +24,6 @@ passport.use(
       // Find a user in the database with the provided email
       const user: User | null = await UserModel.getAllUserInfo(email);
       // Check if the user exists
-      // console.log(email, 'IAWJDUOIAWDIOJAWD ');
       if (user === null || user === undefined) {
         return done(null, false, {message: 'Incorrect username.'});
       }
@@ -49,7 +48,6 @@ passport.use(
       secretOrKey: process.env.JWT_SECRET as string, // Assert process.env.JWT_SECRET as a string
     },
     (jwtPayload: JwtPayload, done: DoneJwtFunction) => {
-      //console.log('JWTStrategy', jwtPayload); // Log the JWT payload
       done(null, jwtPayload); // Pass the JWT payload as the authenticated user
     },
   ),
