@@ -18,7 +18,6 @@ const fetchServerSettings = async (): Promise<ServerSettings> => {
         'Authorization': 'Bearer ' + token,
       },
     });
-    logger.info('Settings update Success' + ' ' + new Date().toISOString());
 
     return {
       speedOfHashChange: response.speedofhash,
