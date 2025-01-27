@@ -1,6 +1,6 @@
-import express, { Router } from 'express';
+import express, {Router} from 'express';
 import workLogController from '../controllers/worklogcontroller.js';
-
+import logger from '../utils/logger.js';
 const router: Router = express.Router();
 
 // Update routes to remove /worklog prefix since it's now handled by app.use
@@ -9,8 +9,8 @@ router.post('/', async (req, res) => {
     const result = await workLogController.createWorkLogCourse(req.body);
     res.json(result);
   } catch (error) {
-    console.error('Error creating worklog course:', error);
-    res.status(500).json({ error: 'Failed to create worklog course' });
+    logger.error('Error creating worklog course:', error);
+    res.status(500).json({error: 'Failed to create worklog course'});
   }
 });
 
@@ -20,7 +20,7 @@ router.get('/:courseId', async (req, res) => {
     const result = await workLogController.getWorkLogCourseDetails(courseId);
     res.json(result);
   } catch (error) {
- console.log(error)
+    logger.error(error);
   }
 });
 
@@ -30,7 +30,7 @@ router.post('/entries', async (req, res) => {
     const result = await workLogController.createWorkLogEntry(req.body);
     res.json(result);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
@@ -40,7 +40,7 @@ router.get('/entries/user/:userId', async (req, res) => {
     const entries = await workLogController.getWorkLogEntriesByUser(userId);
     res.json(entries);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
@@ -48,32 +48,41 @@ router.put('/entries/:entryId/status', async (req, res) => {
   try {
     const entryId = Number(req.params.entryId);
     const status = req.body.status as 0 | 1 | 2 | 3;
-    const result = await workLogController.updateWorkLogEntryStatus( entryId, status );
+    const result = await workLogController.updateWorkLogEntryStatus(
+      entryId,
+      status,
+    );
     res.json(result);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
 // Group Management Routes
 router.post('/groups', async (req, res) => {
   try {
-    const { courseId, groupName } = req.body;
-    const result = await workLogController.createWorkLogGroup( courseId, groupName );
+    const {courseId, groupName} = req.body;
+    const result = await workLogController.createWorkLogGroup(
+      courseId,
+      groupName,
+    );
     res.json(result);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
 router.post('/groups/:groupId/students', async (req, res) => {
   try {
     const groupId = Number(req.params.groupId);
-    const { userId } = req.body;
-    const result = await workLogController.assignStudentToGroup(groupId, userId);
+    const {userId} = req.body;
+    const result = await workLogController.assignStudentToGroup(
+      groupId,
+      userId,
+    );
     res.json(result);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
@@ -81,11 +90,11 @@ router.post('/groups/:groupId/students', async (req, res) => {
 router.post('/courses/:courseId/users', async (req, res) => {
   try {
     const courseId = Number(req.params.courseId);
-    const { userId } = req.body;
+    const {userId} = req.body;
     const result = await workLogController.assignUserToCourse(userId, courseId);
     res.json(result);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
@@ -96,7 +105,7 @@ router.get('/stats/:userId', async (req, res) => {
     const stats = await workLogController.getWorkLogStats(userId);
     res.json(stats);
   } catch (error) {
-    console.log(error)
+    logger.error(error);
   }
 });
 
@@ -104,10 +113,10 @@ router.get('/checkcode/:code', async (req, res) => {
   try {
     const code = req.params.code;
     const exists = await workLogController.checkWorklogCodeExists(code);
-    res.json({ exists });
+    res.json({exists});
   } catch (error) {
-    console.error('Error checking worklog code:', error);
-    res.status(500).json({ error: 'Failed to check worklog code' });
+    logger.error('Error checking worklog code:', error);
+    res.status(500).json({error: 'Failed to check worklog code'});
   }
 });
 
