@@ -29,18 +29,21 @@ const TeacherWorkLogRoutes: React.FC = () => {
     <Routes>
       <Route path='/' element={<TeacherWorkLogs />} />
       <Route path='create' element={<TeacherModeSelection />} />
-      <Route path=':id/modify' element={<TeacherWorklogCourseModify />} />
+      <Route path=':courseid/modify' element={<TeacherWorklogCourseModify />} />
       <Route path='stats/:courseid?' element={<TeacherWorklogCourseStats />} />
-      <Route path=':id' element={<TeacherWorklogCourseDetail />} />
-      <Route path=':id/entries' element={<TeacherWorklogCourseEntries />} />
-      <Route path='group/' element={<TeacherWorklogCourseGroups />} />
-      <Route path='group/:id' element={<TeacherWorklogCourseGroup />} />
+      <Route path=':courseid' element={<TeacherWorklogCourseDetail />} />
       <Route
-        path='group/:id/stats'
+        path=':courseid/entries'
+        element={<TeacherWorklogCourseEntries />}
+      />
+      <Route path='group/' element={<TeacherWorklogCourseGroups />} />
+      <Route path='group/:groupid' element={<TeacherWorklogCourseGroup />} />
+      <Route
+        path='group/:groupid/stats'
         element={<TeacherWorklogCourseGroupStats />}
       />
       <Route
-        path='group/:id/entries'
+        path='group/:groupid/entries'
         element={<TeacherWorklogCourseGroupEntries />}
       />
 
