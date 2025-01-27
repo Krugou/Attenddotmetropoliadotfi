@@ -464,6 +464,23 @@
           "hideTechnical": "Piilota tekniset tiedot",
           "edit": "Muokkaa"
         }
+      },
+      "details": {
+        "back": "Takaisin luentoihin",
+        "warning": "Varoitus: Tämä luento on saattanut epäonnistua, koska sillä on 0 osallistujaa",
+        "date": "Päivämäärä",
+        "time": "Aika",
+        "attendance": "Läsnäolo",
+        "ratio": "Suhdeluku",
+        "status": "Tila",
+        "closeLecture": "Sulje luento",
+        "deleteLecture": "Poista luento",
+        "confirmDialog": {
+          "title": "Haluatko varmasti {{action}} luennon?",
+          "message": "Tätä toimintoa ei voi peruuttaa.",
+          "cancel": "Peruuta",
+          "confirm": "Vahvista"
+        }
       }
     },
     "studentAttendances": {

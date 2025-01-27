@@ -463,6 +463,23 @@
           "hideTechnical": "Hide Technical Details",
           "edit": "Edit"
         }
+      },
+      "details": {
+        "back": "Back to Lectures",
+        "warning": "Warning: This lecture might have failed as it has 0 attendees",
+        "date": "Date",
+        "time": "Time",
+        "attendance": "Attendance",
+        "ratio": "Ratio",
+        "status": "Status",
+        "closeLecture": "Close Lecture",
+        "deleteLecture": "Delete Lecture",
+        "confirmDialog": {
+          "title": "Are you sure you want to {{action}} the lecture?",
+          "message": "This action cannot be undone.",
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        }
       }
     },
     "studentAttendances": {

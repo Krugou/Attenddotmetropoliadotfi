@@ -464,6 +464,23 @@
           "hideTechnical": "Dölj tekniska detaljer",
           "edit": "Redigera"
         }
+      },
+      "details": {
+        "back": "Tillbaka till föreläsningar",
+        "warning": "Varning: Denna föreläsning kan ha misslyckats eftersom den har 0 deltagare",
+        "date": "Datum",
+        "time": "Tid",
+        "attendance": "Närvaro",
+        "ratio": "Förhållande",
+        "status": "Status",
+        "closeLecture": "Stäng föreläsning",
+        "deleteLecture": "Radera föreläsning",
+        "confirmDialog": {
+          "title": "Är du säker på att du vill {{action}} föreläsningen?",
+          "message": "Denna åtgärd kan inte ångras.",
+          "cancel": "Avbryt",
+          "confirm": "Bekräfta"
+        }
       }
     },
     "studentAttendances": {
