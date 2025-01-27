@@ -21,8 +21,6 @@ const getToken = async () => {
     return response.token;
   } catch (error) {
     logger.error(error);
-    // Handle the error here
-    console.error(error);
   }
 };
 
