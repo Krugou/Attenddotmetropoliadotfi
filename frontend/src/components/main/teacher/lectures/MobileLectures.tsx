@@ -1,5 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 
 interface Lecture {
   lectureid: number;
@@ -22,6 +23,11 @@ interface MobileLecturesProps {
 
 const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
   const {t} = useTranslation();
+  const navigate = useNavigate();
+
+  const handleEditLecture = (lectureId: number) => {
+    navigate(`/teacher/lectures/${lectureId}`);
+  };
 
   return (
     <div className='space-y-6'>
@@ -115,6 +121,14 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
                 }`}>
                 {lecture.state}
               </span>
+            </div>
+
+            <div className='flex justify-end mt-4 pt-4 border-t'>
+              <button
+                onClick={() => handleEditLecture(lecture.lectureid)}
+                className='px-4 py-2 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-lg hover:bg-blue-200'>
+                Edit
+              </button>
             </div>
           </div>
         ))
