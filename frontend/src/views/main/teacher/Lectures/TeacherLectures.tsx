@@ -1,18 +1,13 @@
 import {useTranslation} from 'react-i18next';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
-
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../hooks/ApiHooks';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import MobileLectures from '../../../../components/main/teacher/lectures/MobileLectures';
+import DesktopLectures from '../../../../components/main/teacher/lectures/DesktopLectures';
+
 interface Lecture {
   lectureid: number;
   start_date: string;
@@ -34,6 +29,7 @@ const TeacherLectures: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {user} = useContext(UserContext);
   const [sortOrder] = useState<'asc' | 'desc'>('desc');
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const getLectures = async () => {
     const token: string | null = localStorage.getItem('userToken');
@@ -73,6 +69,7 @@ const TeacherLectures: React.FC = () => {
   if (isLoading) {
     return <CircularProgress />;
   }
+
   // Calculate total lectures count
   const totalLectures = lectures.length;
 
@@ -92,113 +89,21 @@ const TeacherLectures: React.FC = () => {
 
   return (
     <div className='relative w-full p-5 bg-white rounded-lg xl:w-fit'>
-      <h1 className='mb-4 text-2xl font-heading'>
-        {t('teacher.lectures.title')}
-      </h1>
-      <h2 className='mb-2 text-xl'>
-        {t('teacher.lectures.stats.totalLectures')}: {totalLectures} |{' '}
-        {t('teacher.lectures.stats.attendanceRatio')}:{' '}
-        {attendanceRatio.toFixed(2)}%
-      </h2>
-
-      <div className='mt-4 mb-4 space-x-2'></div>
-      <TableContainer className='relative bg-gray-100 overflow-auto h-[384px]'>
-        <Table className='table-auto'>
-          <TableHead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
-            <TableRow>
-              <TableCell>
-                {t('teacher.lectures.table.headers.lectureId')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.courseName')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.courseCode')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.topicName')}
-              </TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.date')}</TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.timeOfDay')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.attendance')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.totalAttendance')}
-              </TableCell>
-              <TableCell>
-                {t('teacher.lectures.table.headers.studentsWithTopic')}
-              </TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.ratio')}</TableCell>
-              <TableCell>{t('teacher.lectures.table.headers.state')}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {lectures.length > 0 ? (
-              lectures.map((lecture) => (
-                <TableRow
-                  key={lecture.lectureid}
-                  className={`hover:bg-gray-200 ${
-                    lecture.attended === 0 ? 'bg-red-200' : ''
-                  }`}>
-                  <TableCell>{lecture.lectureid}</TableCell>
-                  <TableCell>{lecture.coursename}</TableCell>
-                  <TableCell>{lecture.coursecode}</TableCell>
-                  <TableCell>{lecture.topicname}</TableCell>
-                  <TableCell>
-                    {new Date(lecture.start_date).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{lecture.timeofday}</TableCell>
-                  <TableCell
-                    title={t('teacher.lectures.table.tooltips.attendance', {
-                      total: lecture.attended + lecture.notattended,
-                    })}>
-                    <span className='text-metropoliaTrendGreen'>
-                      {lecture.attended}
-                    </span>
-                    /
-                    <span className='text-metropoliaSupportRed'>
-                      {lecture.notattended}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {lecture.attended + lecture.notattended}
-                  </TableCell>
-                  <TableCell>{lecture.actualStudentCount}</TableCell>
-                  <TableCell>
-                    {Math.round(
-                      (lecture.attended /
-                        (lecture.attended + lecture.notattended)) *
-                        100,
-                    )}
-                    %
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={
-                        lecture.state === 'open' &&
-                        new Date(lecture.start_date).getTime() <
-                          Date.now() - 24 * 60 * 60 * 1000
-                          ? 'text-metropoliaSupportRed'
-                          : 'text-metropoliaTrendGreen'
-                      }>
-                      {lecture.state}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={10} align='center'>
-                  {t('teacher.lectures.table.noData')}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className='flex flex-col justify-between md:flex-row'>
+        <h1 className='mb-4 text-2xl font-heading'>
+          {t('teacher.lectures.title')}
+        </h1>
+        <h2 className='mb-2 text-xl'>
+          {t('teacher.lectures.stats.totalLectures')}: {totalLectures} |{' '}
+          {t('teacher.lectures.stats.attendanceRatio')}:{' '}
+          {attendanceRatio.toFixed(2)}%
+        </h2>
+      </div>
+      {isMobile ? (
+        <MobileLectures lectures={lectures} />
+      ) : (
+        <DesktopLectures lectures={lectures} />
+      )}
     </div>
   );
 };
