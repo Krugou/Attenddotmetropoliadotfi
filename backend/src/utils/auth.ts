@@ -4,6 +4,7 @@ import passport from 'passport';
 import usermodel from '../models/usermodel.js';
 import {User} from '../types.js';
 import logger from './logger.js';
+
 /**
  * Authenticates a user and generates a JWT token for them.
  *
@@ -20,9 +21,8 @@ export const authenticate = (
 ) => {
   passport.authenticate('local', {session: false}, (err: Error, user: User) => {
     if (err || !user) {
-      console.log('User is not assigned to any courses ');
-      console.error('User not found in database, error:', err);
-      logger.error(err);
+      logger.info('User is not assigned to any courses');
+      logger.error('User not found in database', {error: err});
       return res.status(403).json({
         message:
           'You are currently not assigned to any courses. Please contact your teacher to be assigned to a course.',
@@ -30,9 +30,8 @@ export const authenticate = (
     }
     req.login(user, {session: false}, async (err) => {
       if (err) {
-        console.log('User is not assigned to any courses ', user.email);
-        console.error('User found in database, error:', err);
-        logger.error(err);
+        logger.info('User is not assigned to any courses', {email: user.email});
+        logger.error('User found in database but login failed', {error: err});
         return res.status(403).json({
           message:
             'You are registered in the system but not assigned to any courses. Please contact your teacher to be assigned to a course.',
@@ -40,20 +39,16 @@ export const authenticate = (
       }
       if (user && !user.username) {
         try {
-          console.log(
-            'New login detected for user without username, updating ',
-            newUsername,
-            ' ',
-            user.email,
-          );
           logger.info(
-            {email: user.email},
-            'New login detected for user without username, updating ',
+            'New login detected for user without username, updating',
+            {
+              newUsername,
+              email: user.email,
+            },
           );
           await usermodel.updateUsernameByEmail(user.email, newUsername);
         } catch (error) {
-          logger.error(error);
-          console.error(error);
+          logger.error('Failed to update username', {error});
         }
         user.username = newUsername;
       }
