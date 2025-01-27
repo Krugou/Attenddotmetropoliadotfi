@@ -558,12 +558,12 @@
           "description": "Visa statistik för dina föreläsningar"
         },
         "createWorkLogCourse": {
-          "title": "",
-          "description": ""
+          "title": "Skapa arbetsdagbokskurs",
+          "description": "Skapa en ny arbetsdagbokskurs för dina arbetsdagböcker"
         },
         "yourWorkLogCourses": {
-          "title": "",
-          "description": ""
+          "title": "Dina arbetsdagbokskurser",
+          "description": "Visa alla dina arbetsdagbokskurser"
         }
       }
     },

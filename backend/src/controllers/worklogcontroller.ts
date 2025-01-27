@@ -1,5 +1,7 @@
 import {ResultSetHeader} from 'mysql2';
 import workLogModel from '../models/worklogmodel.js';
+import studentGroupModel from '../models/studentgroupmodel.js';
+import userModel from '../models/usermodel.js';
 
 // Define interfaces for input data
 export interface Student {
@@ -7,6 +9,7 @@ export interface Student {
   first_name: string;
   last_name: string;
   studentnumber: string;
+  arrivalgroup: string;
 }
 
 export interface Instructor {
@@ -50,7 +53,7 @@ export interface AssignUserData {
 
 /**
  * WorkLogController interface represents the structure of the worklog controller.
- * 
+ *
  * This interface provides methods for managing worklog courses and entries.
  */
 export interface WorkLogController {
@@ -103,29 +106,55 @@ export interface WorkLogController {
 }
 
 const workLogController: WorkLogController = {
-  async createWorkLogCourse(
-   worklog: WorkLogCourseCreate
-  ) {
+  async createWorkLogCourse(worklog: WorkLogCourseCreate) {
     try {
-      // Create the course
       const result = await workLogModel.createWorkLogCourse(
         worklog.name,
         worklog.startDate,
         worklog.endDate,
-        worklog.code, 
+        worklog.code,
         worklog.description,
         worklog.requiredHours
       );
 
       const courseId = result.insertId;
 
-      // Add instructors if any
       if (worklog.instructors?.length) {
         await workLogModel.addInstructorsToCourse(worklog.instructors, courseId);
       }
 
-      // Add students if any
       if (worklog.studentList?.length) {
+        for (const student of worklog.studentList) {
+          const groupName = student.arrivalgroup || 'default';
+
+          let studentGroupId;
+          const existingGroup = await studentGroupModel.checkIfGroupNameExists(groupName);
+
+          if (existingGroup && existingGroup?.length > 0) {
+            studentGroupId = existingGroup[0].studentgroupid;
+          } else {
+            const newGroup = await studentGroupModel.insertIntoStudentGroup(groupName);
+            studentGroupId = newGroup.insertId;
+          }
+
+          const existingUser = await userModel.checkIfUserExistsByEmail(student.email);
+
+          if (existingUser.length > 0) {
+            await userModel.updateUserStudentNumber(
+              student.studentnumber,
+              student.email
+            );
+          } else {
+            await userModel.insertStudentUser(
+              student.email,
+              student.first_name,
+              student.last_name,
+              student.studentnumber,
+              studentGroupId
+            );
+          }
+        }
+
         await workLogModel.addStudentsToCourse(
           worklog.studentList.map(s => s.email),
           courseId
@@ -150,7 +179,7 @@ const workLogController: WorkLogController = {
         entryData.userId,
         entryData.courseId
       );
-      
+
       if (!hasAccess) {
         throw new Error('User does not have access to this course');
       }
@@ -300,7 +329,7 @@ const workLogController: WorkLogController = {
       return records.length > 0;
     } catch (error) {
       console.error('Error checking worklog code:', error);
-      throw error; 
+      throw error;
     }
   }
 };

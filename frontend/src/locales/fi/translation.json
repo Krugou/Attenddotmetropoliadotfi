@@ -558,12 +558,12 @@
           "description": "Näytä luentojesi tilastot"
         },
         "createWorkLogCourse": {
-          "title": "",
-          "description": ""
+          "title": "Luo työpäiväkirjakurssi",
+          "description": "Luo uusi työpäiväkirjakurssi työpäiväkirjojasi varten"
         },
         "yourWorkLogCourses": {
-          "title": "",
-          "description": ""
+          "title": "Työpäiväkirjakurssisi",
+          "description": "Näytä kaikki työpäiväkirjakurssisi"
         }
       }
     },
@@ -728,7 +728,18 @@
     },
     "worklog": {
       "create": {
-        "title": "Luo työpäiväkirjakurssi"
+        "title": "Luo työpäiväkirjakurssi",
+        "subtitle": "Valitse tilojen väliltä",
+        "modes": {
+          "easy": {
+            "title": "Helppo tila",
+            "description": "Luo työpäiväkirjakurssi Excel-tiedostolla"
+          },
+          "custom": {
+            "title": "Mukautettu tila",
+            "description": "Luo työpäiväkirjakurssi manuaalisesti"
+          }
+        }
       },
       "form": {
         "name": "Kurssin nimi",
