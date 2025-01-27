@@ -1,4 +1,5 @@
 import fs from 'fs';
+import logger from './logger.js';
 /**
  * readFile function
  *
@@ -46,7 +47,7 @@ const readLogFile = async (
     }));
     return jsonOutput;
   } catch (error) {
-    console.error('Error reading log file:', error);
+    logger.error('Error reading log file:', error);
   }
 };
 
