@@ -1,3 +1,5 @@
+import React from 'react';
+
 const TeacherWorklogCourseEntries = () => {
   return (
     <div>
