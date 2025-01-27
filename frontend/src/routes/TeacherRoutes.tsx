@@ -11,8 +11,7 @@ import TeacherProfile from '../views/main/teacher/TeacherProfile.tsx';
 import TeacherAttendanceRoutes from './teacher/TeacherAttendanceRoutes';
 import TeacherCoursesRoutes from './teacher/TeacherCoursesRoutes';
 import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
-import TeacherWorkLogs from '../views/main/teacher/WorkLog/TeacherWorkLogs.tsx';
-import TeacherModeSelection from '../views/main/teacher/WorkLog/TeacherModeSelection.tsx';
+import TeacherWorkLogRoutes from './teacher/TeacherWorkLogRoutes.tsx';
 
 /**
  * TeacherRoutes component.
@@ -55,9 +54,7 @@ const TeacherRoutes = () => {
       <Route path='profile' element={<TeacherProfile />} />
       <Route path='feedback' element={<Feedback />} />
       <Route path='team' element={<Team />} />
-      <Route path='worklog/create' element={<TeacherModeSelection />} />
-      <Route path='worklog' element={<TeacherWorkLogs />} />
-
+      <Route path='worklog/*' element={<TeacherWorkLogRoutes />} />
       <Route path='lateenrollment' element={<TeacherLateEnrollment />} />
 
       <Route path='*' element={<TeacherMainView />} />
