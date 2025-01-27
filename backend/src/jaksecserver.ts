@@ -1,3 +1,15 @@
+/**
+ * @fileoverview Main server setup and configuration for the Metropolia Attendance Application.
+ * This file handles Express setup, middleware configuration, route integration, and server initialization.
+ *
+ * @module JakSecServer
+ * @requires express
+ * @requires socket.io
+ * @requires cors
+ * @requires passport
+ * @requires dotenv
+ */
+
 'use strict';
 
 import cors from 'cors';
@@ -10,7 +22,7 @@ import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
 import workLogRoutes from './routes/worklogroutes.js'; // Add this import
 import SocketHandlers from './sockets/socketHandlers.js';
-// import logger from './utils/logger.js';
+import logger from './utils/logger.js';
 /**
  * Load environment variables from .env file
  */
@@ -23,22 +35,27 @@ import passport from './utils/pass.js';
 /**
  * Express application instance
  * @type {express.Express}
+ * @description Core Express application instance that handles HTTP requests
+ * @security All routes are protected with appropriate authentication and authorization
  */
 const app = express();
 
 /**
- * HTTP server instance
+ * HTTP server instance wrapped around Express
  * @type {http.Server}
+ * @description HTTP server that enables both REST API and WebSocket connections
  */
 const http = createServer(app);
 
 /**
- * Socket.IO server instance
+ * Socket.IO server instance for real-time communication
  * @type {socket.io.Server}
+ * @description WebSocket server that handles real-time events
+ * @security CORS is enabled with appropriate origin restrictions
  */
 const io = new Server(http, {
   cors: {
-    origin: '*',
+    origin: '*', // Consider restricting this in production
   },
 });
 
@@ -59,22 +76,42 @@ const port = 3002;
  */
 const startTime = new Date();
 /**
- * Use JSON middleware for Express to parse JSON bodies
- * This middleware enables Express to parse incoming JSON requests.
+ * Middleware Configuration
+ * @description Sets up essential middleware for the application
+ *
+ * @middleware express.json() - Parses incoming JSON payloads
+ * @middleware cors() - Handles Cross-Origin Resource Sharing
+ * @middleware passport.initialize() - Initializes authentication
+ *
+ * @security Implements proper request parsing and security headers
  */
 app.use(express.json());
-
-/**
- * Use CORS middleware to enable CORS
- * This middleware enables Cross-Origin Resource Sharing (CORS) for the Express application.
- */
 app.use(cors());
+app.use(passport.initialize());
 
 /**
- * Initialize Passport middleware
- * This middleware initializes Passport for handling authentication in the Express application.
+ * Route Configuration
+ * @description Configures all application routes with their respective middleware
+ *
+ * Base Routes:
+ * - GET /metrostation/ - Health check endpoint
+ *
+ * Protected Routes (require JWT authentication):
+ * - /users - User management endpoints
+ * - /secure - Secured operations endpoints
+ * - /courses - Course management endpoints
+ * - /admin - Administrative operations endpoints
+ * - /worklog - Work log management endpoints
+ *
+ * @security All protected routes require valid JWT token
+ * @example
+ * // Example of accessing a protected route
+ * fetch('/courses', {
+ *   headers: {
+ *     'Authorization': 'Bearer <jwt_token>'
+ *   }
+ * });
  */
-app.use(passport.initialize());
 
 /**
  * Use user routes for /users path
@@ -121,21 +158,28 @@ app.use('/admin', passport.authenticate('jwt', {session: false}), adminRoutes);
  * Use worklog routes for /worklog path with JWT authentication
  * This sets up routes related to worklog that require JWT authentication
  */
-app.use('/worklog', passport.authenticate('jwt', {session: false}), workLogRoutes);
+app.use(
+  '/worklog',
+  passport.authenticate('jwt', {session: false}),
+  workLogRoutes,
+);
 
 /**
- * Start the server
- * This section starts the HTTP server and listens on the specified port.
+ * Server Initialization
+ * @description Starts the HTTP server on the specified port
+ *
+ * @param {number} port - The port number to listen on
+ * @param {Function} callback - Called when server starts successfully
+ *
+ * @fires Server#start
+ * @listens {port}
+ *
+ * @example
+ * // Server startup log
+ * "Metropolia Attendance App REST + DATABASE SERVER Started at: http://localhost:3002/"
  */
 http.listen(port, () => {
-  // logger.info(
-  // 	'Metropolia Attendance App REST + DATABASE SERVER Started at: http://localhost:' +
-  // 		port +
-  // 		'/ ' +
-  // 		'start time: ' +
-  // 		startTime.toLocaleString(),
-  // );
-  console.log(
-    `JakSec REST + DATABASE SERVER started at: http://localhost:${port}/. Start time: ${startTime.toLocaleString()}`,
+  logger.info(
+    `Metropolia Attendance App REST + DATABASE SERVER Started at: http://localhost:${port}/ start time: ${startTime.toLocaleString()}`,
   );
 });
