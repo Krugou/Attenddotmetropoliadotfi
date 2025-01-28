@@ -1105,7 +1105,80 @@ const checkWorklogCode = async (code: string, token: string) => {
   return await doFetch(`${baseUrl}worklog/checkcode/${code}`, options);
 };
 
+const getWorkLogCoursesByInstructor = async (email: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/instructor/${email}`, options);
+};
+
+const deleteWorklog = async (worklogId: number, token: string | null) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/${worklogId}`, options);
+};
+
+const getWorkLogDetail = async (courseId: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/${courseId}`, options);
+};
+
+const getWorkLogCourseDetail = async (id: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/${id}`, options);
+};
+
+interface ModifyWorkLogData {
+  name: string;
+  code: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  required_hours: number;
+  instructors: string[];
+}
+
+const modifyWorkLog = async (token: string, worklogId: string | undefined, modifiedData: ModifyWorkLogData) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({
+      modifiedData,
+    }),
+  };
+  return await doFetch(`${baseUrl}worklog/${worklogId}`, options);
+};
+
 const apiHooks = {
+  modifyWorkLog,
+  getWorkLogCourseDetail,
+  getWorkLogDetail,
+  deleteWorklog,
+  getWorkLogCoursesByInstructor,
   createWorkLogCourse,
   fetchErrorLogs,
   fetchLogs,

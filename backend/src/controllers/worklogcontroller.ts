@@ -1,5 +1,10 @@
-import {ResultSetHeader} from 'mysql2';
-import workLogModel from '../models/worklogmodel.js';
+import {ResultSetHeader, RowDataPacket} from 'mysql2';
+import workLogModel, {
+  WorkLogCourse,
+  WorkLogEntry,
+  WorkLogCourseUser,
+  WorkLogCourseGroup
+} from '../models/worklogmodel.js';
 import studentGroupModel from '../models/studentgroupmodel.js';
 import userModel from '../models/usermodel.js';
 
@@ -50,6 +55,29 @@ export interface AssignUserData {
   courseId: number;
 }
 
+export interface WorkLogEntriesResponse {
+  entries: WorkLogEntry[];
+  courses: WorkLogCourseUser[];
+  stats: RowDataPacket[];
+}
+
+export interface WorkLogCourseDetails {
+  course: WorkLogCourse & {
+    instructor_name: string;
+  };
+  entries: WorkLogEntry[];
+  groups: WorkLogCourseGroup[];
+}
+
+export interface WorkLogCourseUpdate {
+  name?: string;
+  code?: string;
+  description?: string;
+  start_date?: string;
+  end_date?: string;
+  required_hours?: number;
+  instructors?: string[];
+}
 
 /**
  * WorkLogController interface represents the structure of the worklog controller.
@@ -75,7 +103,7 @@ export interface WorkLogController {
   /**
    * Gets details of a worklog course by ID
    */
-  getWorkLogCourseDetails: (courseId: number) => Promise<ResultSetHeader>;
+  getWorkLogCourseDetails: (courseId: number) => Promise<WorkLogCourseDetails>;
 
   /**
    * Creates a new worklog entry
@@ -84,8 +112,10 @@ export interface WorkLogController {
 
   /**
    * Gets all worklog entries for a user
+   * @param userId The user ID to get entries for
+   * @returns Promise with entries, courses and stats
    */
-  getWorkLogEntriesByUser: (userId: number) => Promise<ResultSetHeader>;
+  getWorkLogEntriesByUser: (userId: number) => Promise<WorkLogEntriesResponse>;
 
   /**
    * Updates the status of a worklog entry
@@ -100,7 +130,16 @@ export interface WorkLogController {
   createWorkLogGroup: (courseId: number, groupName:string ) => Promise<ResultSetHeader>;
   assignStudentToGroup: (groupId:number ,userId: number) => Promise<ResultSetHeader>;
   assignUserToCourse: (userId: number, courseId:number ) => Promise<ResultSetHeader>;
-  getWorkLogStats: (userId: number) => Promise<ResultSetHeader>
+  getWorkLogStats: (userId: number) => Promise<ResultSetHeader>;
+  getWorkLogCoursesByInstructor: (email: string) => Promise<WorkLogCourse[]>;
+  deleteWorkLog: (worklogId: number) => Promise<ResultSetHeader>;
+
+  /**
+   * Updates a worklog course
+   * @param worklogId The ID of the worklog to update
+   * @param updates The update data
+   */
+  updateWorkLogCourse: (worklogId: number, updates: WorkLogCourseUpdate) => Promise<ResultSetHeader>;
 
   // ... other methods remain the same
 }
@@ -201,8 +240,9 @@ const workLogController: WorkLogController = {
   /**
    * Gets all work log entries for a user
    * @param userId The user ID to get entries for
+   * @returns Promise with entries, courses and stats
    */
-  async getWorkLogEntriesByUser(userId: number) {
+  async getWorkLogEntriesByUser(userId: number): Promise<WorkLogEntriesResponse> {
     try {
       const entries = await workLogModel.getWorkLogEntriesByUserId(userId);
       const courses = await workLogModel.getUserCourses(userId);
@@ -224,7 +264,7 @@ const workLogController: WorkLogController = {
    * @param entryId The entry ID to update
    * @param status The new status
    */
-  async updateWorkLogEntryStatus(entryId: number , status: 0 | 1 | 2 | 3 ) {
+  async updateWorkLogEntryStatus(entryId: number, status: 0 | 1 | 2 | 3) {
 
     try {
       const result = await workLogModel.updateWorkLogEntryStatus(entryId, status);
@@ -239,14 +279,18 @@ const workLogController: WorkLogController = {
    * Gets detailed information about a work log course
    * @param courseId The course ID to get details for
    */
-  async getWorkLogCourseDetails(courseId: number) {
+  async getWorkLogCourseDetails(courseId: number): Promise<WorkLogCourseDetails> {
     try {
       const course = await workLogModel.getWorkLogCourseById(courseId);
       const entries = await workLogModel.getWorkLogEntriesByCourse(courseId);
       const groups = await workLogModel.getWorkLogGroupsByCourse(courseId);
+      const instructors = await workLogModel.getInstructorsByCourse(courseId);
 
       return {
-        course: course[0],
+        course: {
+          ...course[0],
+          instructor_name: instructors.map(i => i.email).join(',')
+        },
         entries,
         groups
       };
@@ -261,7 +305,7 @@ const workLogController: WorkLogController = {
    * @param userId The user ID to assign
    * @param courseId The course ID to assign to
    */
-  async assignUserToCourse( userId, courseId ) {
+  async assignUserToCourse(userId, courseId) {
     try {
       const result = await workLogModel.addUserToCourse(userId, courseId);
       return result;
@@ -276,7 +320,7 @@ const workLogController: WorkLogController = {
    * @param courseId The course ID to create the group for
    * @param groupName The name of the group
    */
-  async createWorkLogGroup( courseId, groupName ) {
+  async createWorkLogGroup(courseId, groupName) {
     try {
       const result = await workLogModel.createWorkLogGroup(courseId, groupName);
       return result;
@@ -291,7 +335,7 @@ const workLogController: WorkLogController = {
    * @param groupId The group ID to assign to
    * @param userId The user ID to assign
    */
-  async assignStudentToGroup( groupId, userId ) {
+  async assignStudentToGroup(groupId, userId) {
     try {
       const result = await workLogModel.assignStudentToGroup(groupId, userId);
       return result;
@@ -305,16 +349,15 @@ const workLogController: WorkLogController = {
    * Gets work log statistics for a user
    * @param userId The user ID to get stats for
    */
-  async getWorkLogStats(userId: number) {
-    try {
-      const stats = await workLogModel.getWorkLogStatsByUser(userId);
-      return stats;
-    } catch (error) {
-      console.error('Error in getWorkLogStats:', error);
-      throw error;
-    }
-  },
-
+  /*   async getWorkLogStats(userId: number) {
+      try {
+        const stats = await workLogModel.getWorkLogStatsByUser(userId);
+        return stats;
+      } catch (error) {
+        console.error('Error in getWorkLogStats:', error);
+        throw error;
+      }
+    }, */
   /**
    * Checks if a worklog course with the given code already exists
    * @param code The code to check
@@ -331,7 +374,67 @@ const workLogController: WorkLogController = {
       console.error('Error checking worklog code:', error);
       throw error;
     }
+  },
+  async getWorkLogCoursesByInstructor(email: string): Promise<WorkLogCourse[]> {
+    try {
+      return await workLogModel.getWorkLogCoursesByInstructor(email);
+    } catch (error) {
+      console.error('Error in getWorkLogCoursesByInstructor:', error);
+      throw error;
+    }
+  },
+
+  async deleteWorkLog(worklogId: number) {
+    try {
+      const result = await workLogModel.deleteWorkLogCourse(worklogId);
+      if (result.affectedRows === 0) {
+        throw new Error('Worklog not found');
+      }
+      return result;
+    } catch (error) {
+      console.error('Error in deleteWorkLog:', error);
+      throw error;
+    }
+  },
+
+  async updateWorkLogCourse(worklogId: number, updates: WorkLogCourseUpdate) {
+    try {
+      // First validate the worklog exists
+      const existingWorklog = await workLogModel.getWorkLogCourseById(worklogId);
+      if (!existingWorklog?.length) {
+        throw new Error('Worklog course not found');
+      }
+
+      // Update basic course details
+      const courseUpdateResult = await workLogModel.updateWorkLogCourse(worklogId, {
+        name: updates.name,
+        code: updates.code,
+        description: updates.description,
+        start_date: updates.start_date,
+        end_date: updates.end_date,
+        required_hours: updates.required_hours
+      });
+
+      // Handle instructor updates if provided
+      if (updates.instructors && updates.instructors.length > 0) {
+        await workLogModel.removeAllInstructors(worklogId);
+        await workLogModel.addInstructorsToCourse(
+          updates.instructors.map(email => ({ email })),
+          worklogId
+        );
+      }
+
+      return courseUpdateResult;
+    } catch (error) {
+      console.error('Error in updateWorkLogCourse:', error);
+      throw error;
+    }
+  },
+  getWorkLogStats: function (userId: number): Promise<ResultSetHeader> {
+    throw new Error('Function not implemented.');
   }
 };
+
+
 
 export default workLogController;

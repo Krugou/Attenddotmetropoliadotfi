@@ -141,20 +141,15 @@ const CreateCourseEasy: React.FC = () => {
         instructors: instructors,
         instructorEmail: email,
       };
-      const token: string | null = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token available');
-      }
-      const response = await apiHooks.createWorkLogCourse(courseData, token);
-      
+      const token = localStorage.getItem('userToken');
+      if (!token) throw new Error('No token available');
 
-      if (response) {
-        toast.success('Course created');
-        navigate(`/teacher/worklog/${response.id}`);
-        console.log('Course created');
+      const response = await apiHooks.createWorkLogCourse(courseData, token);
+      if (response && response.insertId) { // Check for insertId
+        toast.success('Worklog course created');
+        navigate(`/teacher/worklog/${response.insertId}`); // Use insertId
       } else {
-        toast.error('Course creation failed');
-        console.error('Course creation failed');
+        toast.error('Worklog course creation failed - no ID returned');
       }
     } catch (error) {
       if (error instanceof Error) {

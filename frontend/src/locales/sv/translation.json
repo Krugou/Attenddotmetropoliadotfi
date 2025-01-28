@@ -768,6 +768,44 @@
       },
       "errors": {
         "createFailed": "Det gick inte att skapa arbetsloggskurs"
+      },
+      "detail": {
+        "backToWorklog": "Tillbaka till arbetsloggen"
+      },
+      "details": {
+        "title": "Arbetsloggdetaljer",
+        "name": "Namn",
+        "code": "Kurskod",
+        "description": "Beskrivning",
+        "requiredHours": "Obligatoriska timmar",
+        "startDate": "Startdatum",
+        "endDate": "Slutdatum"
+      },
+      "data": {
+        "courseCode": "Kurskod",
+        "startDate": "Startdatum",
+        "endDate": "Slutdatum",
+        "requiredHours": "Obligatoriska timmar",
+        "description": "Beskrivning",
+        "courseEnded": "Kursen har avslutats",
+        "modifyCourse": "Ändra denna kurs",
+        "deleteCourse": "Radera denna kurs",
+        "viewCourse": "Visa kurs",
+        "courseCreatedAt": "Kurs skapad",
+        "studentCount": "Antal studenter",
+        "instructors": "Lärare",
+        "noInstructors": "Inga lärare tilldelade",
+        "additionalInfo": "Ytterligare information",
+        "deleteSuccess": "Arbetsloggskurs raderades framgångsrikt",
+        "createdAt": "Skapad"
+      },
+      "modify": {
+        "title": "Ändra arbetsloggskurs",
+        "loading": "Laddar...",
+        "backToWorklog": "Tillbaka till arbetsloggen",
+        "instructors": "Ändra lärare",
+        "save": "Spara ändringar",
+        "success": "Arbetsloggskurs ändrades framgångsrikt"
       }
     }
   },

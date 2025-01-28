@@ -13,7 +13,7 @@ const formatDateForMySQL = (date: Date | string): string => {
 };
 
 // Interfaces for type safety
-interface WorkLogCourse extends RowDataPacket {
+export interface WorkLogCourse extends RowDataPacket {
   work_log_course_id: number;
   name: string;
   description: string;
@@ -24,7 +24,7 @@ interface WorkLogCourse extends RowDataPacket {
   required_hours: number;
 }
 
-interface WorkLogEntry extends RowDataPacket {
+export interface WorkLogEntry extends RowDataPacket {
   entry_id: number;
   userid: number;
   work_log_course_id: number;
@@ -34,13 +34,13 @@ interface WorkLogEntry extends RowDataPacket {
   status: 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
 }
 
-interface WorkLogCourseUser extends RowDataPacket {
+export interface WorkLogCourseUser extends RowDataPacket {
   user_course_id: number;
   userid: number;
   work_log_course_id: number;
 }
 
-interface WorkLogCourseGroup extends RowDataPacket {
+export interface WorkLogCourseGroup extends RowDataPacket {
   group_id: number;
   work_log_course_id: number;
   group_name: string;
@@ -293,28 +293,55 @@ const workLogModel = {
     }
   },
 
-  // Update operations
   async updateWorkLogCourse(
     courseId: number,
-    updates: Partial<
-      Pick<
-        WorkLogCourse,
-        'name' | 'start_date' | 'end_date' | 'code' | 'description'
-      >
-    >,
+    updates: {
+      name?: string;
+      code?: string;
+      description?: string;
+      start_date?: string;
+      end_date?: string;
+      required_hours?: number;
+    }
   ): Promise<ResultSetHeader> {
     try {
-      const updateFields = Object.entries(updates)
-        .map(([key]) => `${key} = ?`)
-        .join(', ');
-      const values = [...Object.values(updates), courseId];
+      // Build the update query dynamically based on provided fields
+      const updateFields: string[] = [];
+      const values: any[] = [];
 
-      const [result] = await pool
-        .promise()
-        .query<ResultSetHeader>(
-          `UPDATE work_log_courses SET ${updateFields} WHERE work_log_course_id = ?`,
-          values,
-        );
+      if (updates.name) {
+        updateFields.push('name = ?');
+        values.push(updates.name);
+      }
+      if (updates.code) {
+        updateFields.push('code = ?');
+        values.push(updates.code);
+      }
+      if (updates.description) {
+        updateFields.push('description = ?');
+        values.push(updates.description);
+      }
+      if (updates.start_date) {
+        updateFields.push('start_date = ?');
+        values.push(updates.start_date);
+      }
+      if (updates.end_date) {
+        updateFields.push('end_date = ?');
+        values.push(updates.end_date);
+      }
+      if (updates.required_hours !== undefined) {
+        updateFields.push('required_hours = ?');
+        values.push(updates.required_hours);
+      }
+
+      // Add the courseId to values array
+      values.push(courseId);
+
+      const [result] = await pool.promise().query<ResultSetHeader>(
+        `UPDATE work_log_courses SET ${updateFields.join(', ')} WHERE work_log_course_id = ?`,
+        values
+      );
+
       return result;
     } catch (error) {
       console.error('Error updating work log course:', error);
@@ -557,8 +584,8 @@ const workLogModel = {
   async addStudentsToCourse(students: ({ email: string } | string)[], courseId: number): Promise<void> {
     try {
       for (const studentEmail of students) {
-        const email = typeof studentEmail === 'string' ? 
-          studentEmail : 
+        const email = typeof studentEmail === 'string' ?
+          studentEmail :
           (studentEmail as { email: string }).email || studentEmail;
 
         const [userRows] = await pool.promise().query<RowDataPacket[]>(
@@ -585,7 +612,7 @@ const workLogModel = {
   async getInstructorsByCourse(courseId: number): Promise<RowDataPacket[]> {
     try {
       const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT u.userid, u.email, u.first_name, u.last_name 
+        `SELECT u.userid, u.email, u.first_name, u.last_name
          FROM users u
          JOIN work_log_course_instructors wci ON u.userid = wci.userid
          WHERE wci.work_log_course_id = ?`,
@@ -601,7 +628,7 @@ const workLogModel = {
   async getStudentsByCourse(courseId: number): Promise<RowDataPacket[]> {
     try {
       const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT u.userid, u.email, u.first_name, u.last_name 
+        `SELECT u.userid, u.email, u.first_name, u.last_name
          FROM users u
          JOIN work_log_course_users wcu ON u.userid = wcu.userid
          WHERE wcu.work_log_course_id = ?`,
@@ -623,6 +650,36 @@ const workLogModel = {
       return rows;
     } catch (error) {
       console.error('Error checking worklog code:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogCoursesByInstructor(email: string): Promise<WorkLogCourse[]> {
+    try {
+      const [rows] = await pool.promise().query<WorkLogCourse[]>(
+        `SELECT wlc.*
+         FROM work_log_courses wlc
+         JOIN work_log_course_instructors wci ON wlc.work_log_course_id = wci.work_log_course_id
+         JOIN users u ON u.userid = wci.userid
+         WHERE u.email = ?
+         ORDER BY wlc.start_date DESC`,
+        [email]
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error getting instructor worklog courses:', error);
+      throw error;
+    }
+  },
+
+  async removeAllInstructors(courseId: number): Promise<void> {
+    try {
+      await pool.promise().query(
+        'DELETE FROM work_log_course_instructors WHERE work_log_course_id = ?',
+        [courseId]
+      );
+    } catch (error) {
+      console.error('Error removing course instructors:', error);
       throw error;
     }
   },

@@ -750,6 +750,45 @@
       }
     },
     "worklog": {
+      "title": "your Worklog courses",
+      "detail":{
+        "backToWorklog": "Back to Worklog"
+      },
+      "details":{
+        "title": "Worklog Details",
+        "name": " Course Name",
+        "code":"Course Code",
+        "description":"Description",
+        "requiredHours":"Required Hours",
+        "startDate":"Start Date",
+        "endDate":"End Date"
+      },
+      "data": {
+        "courseCode": "Course Code",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "requiredHours": "Required Hours",
+        "description": "Description",
+        "courseEnded": "Course has ended",
+        "modifyCourse": "Modify this course",
+        "deleteCourse": "Delete this course",
+        "viewCourse": "View course",
+        "courseCreatedAt": "Course Created at",
+        "studentCount": "Student Count",
+        "instructors": "Instructors",
+        "noInstructors": "No instructors assigned",
+        "additionalInfo": "Additional Info",
+        "deleteSuccess": "Worklog course deleted successfully",
+        "createdAt": "Created at"
+      },
+      "modify": {
+        "title": "Modify Worklog Course",
+        "loading": "Loading...",
+        "backToWorklog": "Back to Worklog",
+        "instructors": "Modify Instructors",
+        "save": "Save Changes",
+        "success": "Worklog course modified successfully"
+      },
       "create": {
         "title": "Create Work Log Course",
         "subtitle": "Choose between modes",

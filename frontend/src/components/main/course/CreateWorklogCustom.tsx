@@ -42,7 +42,7 @@ const CreateWorklogCustom: React.FC = () => {
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [isCustomGroup, setIsCustomGroup] = useState(false);
-  const [studentList, setStudentList] = useState<Student[]>([]);
+  const [studentList, setStudentList] = useState<string[]>([]);
   const [endDate, setEndDate] = useState('');
   const [courseExists, setCourseExists] = useState(false);
   const [description, setDescription] = useState('');
@@ -141,38 +141,38 @@ const CreateWorklogCustom: React.FC = () => {
    */
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    let email = '';
-    if (user) {
-      email = user.email;
-    }
+    try {
+      let email = '';
+      if (user) {
+        email = user.email;
+      }
 
+      const worklogCourse = {
+        name: courseName,
+        code: courseCode,
+        startDate: startDate,
+        endDate: endDate,
+        description: description,
+        studentList: studentList,
+        requiredHours: requiredHours,
+        instructors: instructors,
+        instructorEmail: email,
+      };
 
+      const token = localStorage.getItem('userToken');
+      if (!token) throw new Error('No token available');
 
-    const worklogCourse = {
-      name: courseName,
-      code: courseCode,
-      startDate: startDate,
-      endDate: endDate,
-      description: description,
-      studentList: studentList,
-      requiredHours: requiredHours,
-      instructors: instructors,
-      instructorEmail: email,
-    };  
-
-    const token: string | null = localStorage.getItem('userToken');
-    if (!token) {
-      throw new Error('No token available');
-    }
-
-    const response = await apiHooks.createWorkLogCourse(worklogCourse, token);
-
-    if (response) {
-      toast.success('Worklog course created');
-      navigate(`/teacher/worklog/${response.id}`);
-    } else {
-      toast.error('Worklog course creation failed');
-      console.log('Worklog course creation failed');
+      const response = await apiHooks.createWorkLogCourse(worklogCourse, token);
+      if (response && response.insertId) { // Check for insertId
+        toast.success('Worklog course created');
+        navigate(`/teacher/worklog/${response.insertId}`); // Use insertId
+      } else {
+        toast.error('Worklog course creation failed - no ID returned');
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 

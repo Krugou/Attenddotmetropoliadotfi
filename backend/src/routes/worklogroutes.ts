@@ -24,6 +24,45 @@ router.get('/:courseId', async (req, res) => {
   }
 });
 
+router.put('/:worklogId', async (req, res) => {
+  try {
+    const worklogId = Number(req.params.worklogId);
+    // Extract modifiedData from request body
+    const { modifiedData } = req.body;
+
+    if (!modifiedData) {
+      return res.status(400).json({ error: 'No modified data provided' });
+    }
+
+    const result = await workLogController.updateWorkLogCourse(worklogId, modifiedData);
+    res.json(result);
+  } catch (error) {
+    logger.error('Error updating worklog course:', error);
+    res.status(500).json({error: 'Failed to update worklog course'});
+  }
+});
+
+router.delete('/:worklogId', async (req, res) => {
+  try {
+    const worklogId = Number(req.params.worklogId);
+
+    if (isNaN(worklogId)) {
+      return res.status(400).json({ error: 'Invalid worklog ID' });
+    }
+
+    const result = await workLogController.deleteWorkLog(worklogId);
+
+    if (!result) {
+      return res.status(404).json({ error: 'Worklog not found' });
+    }
+
+    res.json({ message: 'Worklog deleted successfully' });
+  } catch (error) {
+    logger.error('Error deleting worklog:', error);
+    res.status(500).json({ error: 'Failed to delete worklog' });
+  }
+});
+
 // Update other routes to remove /worklog prefix
 router.post('/entries', async (req, res) => {
   try {
@@ -117,6 +156,17 @@ router.get('/checkcode/:code', async (req, res) => {
   } catch (error) {
     logger.error('Error checking worklog code:', error);
     res.status(500).json({error: 'Failed to check worklog code'});
+  }
+});
+
+router.get('/instructor/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+    const courses = await workLogController.getWorkLogCoursesByInstructor(email);
+    res.json(courses);
+  } catch (error) {
+    logger.error('Error getting worklog courses by instructor:', error);
+    res.status(500).json({error: 'Failed to get worklog courses'});
   }
 });
 

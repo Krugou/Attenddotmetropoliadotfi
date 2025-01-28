@@ -779,6 +779,44 @@
       },
       "errors": {
         "createFailed": "Työpäiväkirjakurssin luominen epäonnistui"
+      },
+      "detail": {
+        "backToWorklog": "Takaisin työpäiväkirjaan"
+      },
+      "details": {
+        "title": "Työpäiväkirjan tiedot",
+        "name": " Nimi",
+        "code": "Kurssikoodi",
+        "description": "Kuvaus",
+        "requiredHours": "Vaaditut tunnit",
+        "startDate": "Aloituspäivä",
+        "endDate": "Päättymispäivä"
+      },
+      "data": {
+        "courseCode": "Kurssikoodi",
+        "startDate": "Aloituspäivämäärä",
+        "endDate": "Päättymispäivämäärä",
+        "requiredHours": "Vaaditut tunnit",
+        "description": "Kuvaus",
+        "courseEnded": "Kurssi on päättynyt",
+        "modifyCourse": "Muokkaa tätä kurssia",
+        "deleteCourse": "Poista tämä kurssi",
+        "viewCourse": "Näytä kurssi",
+        "courseCreatedAt": "Kurssi luotu",
+        "studentCount": "Opiskelijamäärä",
+        "instructors": "Opettajat",
+        "noInstructors": "Ei määritettyjä opettajia",
+        "additionalInfo": "Lisätiedot",
+        "deleteSuccess": "Työpäiväkirjakurssi poistettu onnistuneesti",
+        "createdAt": "Luotu"
+      },
+      "modify": {
+        "title": "Muokkaa työpäiväkirjakurssia",
+        "loading": "Ladataan...",
+        "backToWorklog": "Takaisin työpäiväkirjaan",
+        "instructors": "Muokkaa opettajia",
+        "save": "Tallenna muutokset",
+        "success": "Työpäiväkirjakurssi muokattu onnistuneesti"
       }
     }
   },
