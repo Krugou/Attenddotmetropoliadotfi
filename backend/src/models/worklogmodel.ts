@@ -46,6 +46,8 @@ export interface WorkLogCourseGroup extends RowDataPacket {
   group_name: string;
 }
 
+type WorkLogCourseUpdateValue = string | number | Date;
+
 const workLogModel = {
   async createWorkLogCourse(
     name: string,
@@ -307,7 +309,7 @@ const workLogModel = {
     try {
       // Build the update query dynamically based on provided fields
       const updateFields: string[] = [];
-      const values: any[] = [];
+      const values: WorkLogCourseUpdateValue[] = [];
 
       if (updates.name) {
         updateFields.push('name = ?');

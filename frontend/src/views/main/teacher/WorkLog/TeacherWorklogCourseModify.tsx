@@ -74,19 +74,28 @@ const TeacherWorklogCourseModify: React.FC = () => {
 
   useEffect(() => {
     if (worklogData) {
-      setName(worklogData.name);
-      setCode(worklogData.code);
-      setDescription(worklogData.description);
-      setRequiredHours(worklogData.required_hours);
-      setStartDate(formatDate(worklogData.start_date));
-      setEndDate(formatDate(worklogData.end_date));
+      setName(worklogData.name || '');
+      setCode(worklogData.code || '');
+      setDescription(worklogData.description || '');
+      setRequiredHours(worklogData.required_hours || 0);
+      // Add null checks for dates
+      if (worklogData.start_date) {
+        setStartDate(formatDate(worklogData.start_date));
+      }
+      if (worklogData.end_date) {
+        setEndDate(formatDate(worklogData.end_date));
+      }
     }
   }, [worklogData]);
 
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return '';
+    // Validate the date is valid before formatting
+    if (isNaN(date.getTime())) {
+      console.warn('Invalid date string:', dateString);
+      return '';
+    }
     return date.toISOString().split('T')[0];
   };
 
