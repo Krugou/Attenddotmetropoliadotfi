@@ -9,7 +9,7 @@ import StudentMainView from '../views/main/student/StudentMainView.tsx';
 import StudentProfile from '../views/main/student/StudentProfile.tsx';
 import StudentQrScanner from '../views/main/student/StudentQrScanner.tsx';
 import StudentQrSelectScanner from '../views/main/student/StudentQrSelectScanner.tsx';
-import StudentWorkLog from '../views/main/student/StudentWorkLog.tsx';
+import StudentWorkLogLogger from '../views/main/student/StudentWorkLogLogger.tsx';
 import StudentWorklogs from '../views/main/student/StudentWorklogs.tsx';
 
 /**
@@ -35,7 +35,7 @@ const StudentRoutes = () => {
         element={<StudentCourseAttendance />}
       />
       <Route path='team' element={<Team />} />
-      <Route path='worklog' element={<StudentWorkLog />} />
+      <Route path='worklog' element={<StudentWorkLogLogger />} />
       <Route path='worklogs' element={<StudentWorklogs />} />
       <Route path='feedback' element={<Feedback />} />
       <Route path='*' element={<StudentMainView />} />

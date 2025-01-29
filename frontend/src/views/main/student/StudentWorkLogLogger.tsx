@@ -38,7 +38,7 @@ interface ActiveEntry {
   };
 }
 
-const StudentWorkLog: React.FC = () => {
+const StudentWorkLogLogger: React.FC = () => {
   const {t} = useTranslation();
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
@@ -302,4 +302,4 @@ const StudentWorkLog: React.FC = () => {
   );
 };
 
-export default StudentWorkLog;
+export default StudentWorkLogLogger;
