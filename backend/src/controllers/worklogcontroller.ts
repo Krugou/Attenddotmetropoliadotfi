@@ -38,6 +38,7 @@ export interface WorkLogEntryCreate {
   startTime: Date;
   endTime: Date;
   description: string;
+  status: 0 | 1 | 2 | 3;
 }
 
 export interface CreateGroupData {
@@ -77,6 +78,13 @@ export interface WorkLogCourseUpdate {
   end_date?: string;
   required_hours?: number;
   instructors?: string[];
+}
+
+export interface WorkLogGroupDetails {
+  group: WorkLogCourseGroup;
+  course: WorkLogCourse;
+  students: RowDataPacket[];
+  entries: WorkLogEntry[];
 }
 
 /**
@@ -132,10 +140,7 @@ export interface WorkLogController {
    */
   checkWorklogCodeExists: (code: string) => Promise<boolean>;
 
-  createWorkLogGroup: (
-    courseId: number,
-    groupName: string,
-  ) => Promise<ResultSetHeader>;
+  createWorkLogGroup: (courseId: number, groupName: string) => Promise<number>;
   assignStudentToGroup: (
     groupId: number,
     userId: number,
@@ -187,6 +192,13 @@ export interface WorkLogController {
   getWorkLogGroupsByCourse: (
     courseId: string,
   ) => Promise<{groups: WorkLogCourseGroup[]}>;
+
+  getWorkLogGroupDetails: (
+    courseId: number,
+    groupId: number,
+  ) => Promise<WorkLogGroupDetails>;
+
+  closeWorkLogEntry: (entryId: number) => Promise<ResultSetHeader>;
 }
 
 const workLogController: WorkLogController = {
@@ -283,6 +295,7 @@ const workLogController: WorkLogController = {
         entryData.startTime,
         entryData.endTime,
         entryData.description,
+        entryData.status,
       );
       return result;
     } catch (error) {
@@ -384,7 +397,8 @@ const workLogController: WorkLogController = {
   async createWorkLogGroup(courseId, groupName) {
     try {
       const result = await workLogModel.createWorkLogGroup(courseId, groupName);
-      return result;
+
+      return result.insertId;
     } catch (error) {
       console.error('Error in createWorkLogGroup:', error);
       throw error;
@@ -399,6 +413,7 @@ const workLogController: WorkLogController = {
   async assignStudentToGroup(groupId, userId) {
     try {
       const result = await workLogModel.assignStudentToGroup(groupId, userId);
+      console.log('🚀 ~ assignStudentToGroup ~ result:', result);
       return result;
     } catch (error) {
       console.error('Error in assignStudentToGroup:', error);
@@ -552,6 +567,77 @@ const workLogController: WorkLogController = {
       };
     } catch (error) {
       console.error('Error getting worklog course groups:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogGroupDetails(
+    courseId: number,
+    groupId: number,
+  ): Promise<WorkLogGroupDetails> {
+    try {
+      // Input validation
+      if (!courseId || !groupId) {
+        throw new Error('Invalid courseId or groupId');
+      }
+
+      // Get group details and validate against work_log_course_groups schema
+      const groups = await workLogModel.getWorkLogGroupsByCourse(courseId);
+      const group = groups.find((g) => g.group_id === groupId);
+
+      if (!group) {
+        throw new Error(`Group ${groupId} not found in course ${courseId}`);
+      }
+
+      // Verify course exists in work_log_courses
+      const course = await workLogModel.getWorkLogCourseById(courseId);
+
+      if (!course?.length) {
+        throw new Error(`Course ${courseId} not found`);
+      }
+
+      // Get students from student_group_assignments join with users
+      const students = await workLogModel.checkStudentsInWorklogGroup(groupId);
+      console.log('🚀 ~ students:', students);
+      console.log('Students in group:', {
+        groupId,
+        studentCount: students?.length,
+        studentIds: students?.map((s) => s.userid),
+      });
+
+      // Get entries from work_log_entries for these students
+      const studentIds = students.map((s) => s.userid);
+      const entries = await workLogModel.getWorkLogEntriesByGroupStudents(
+        courseId,
+        studentIds,
+      );
+
+      // Validate response shape matches tables
+      const response = {
+        group: {
+          group_id: group.group_id,
+          work_log_course_id: group.work_log_course_id,
+          group_name: group.group_name,
+        },
+        course: course[0],
+        students: students || [],
+        entries: entries || [],
+      };
+
+      return response;
+    } catch (error) {
+      console.error('Error in getWorkLogGroupDetails:', error);
+      throw error;
+    }
+  },
+
+  async closeWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
+    try {
+      // Validate entry exists and is active
+      const result = await workLogModel.closeWorkLogEntry(entryId);
+      return result;
+    } catch (error) {
+      console.error('Error in closeWorkLogEntry:', error);
       throw error;
     }
   },
