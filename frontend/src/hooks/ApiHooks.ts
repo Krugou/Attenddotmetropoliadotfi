@@ -1043,9 +1043,10 @@ interface WorkLogCourseFormData {
   instructorEmail: string;
 }
 
-
-const createWorkLogCourse = async (worklog: WorkLogCourseFormData, token: string) => {
-
+const createWorkLogCourse = async (
+  worklog: WorkLogCourseFormData,
+  token: string,
+) => {
   const options: RequestInit = {
     method: 'POST',
     headers: {
@@ -1057,26 +1058,34 @@ const createWorkLogCourse = async (worklog: WorkLogCourseFormData, token: string
   return await doFetch(`${baseUrl}worklog`, options);
 };
 
-const updateUserLanguage = async (email: string, language: string, token: string) => {
+const updateUserLanguage = async (
+  email: string,
+  language: string,
+  token: string,
+) => {
   const options = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ email, language }),
+    body: JSON.stringify({email, language}),
   };
   return await doFetch(`${baseUrl}secure/update-language`, options);
 };
 
-const updateUserDarkMode = async (email: string, darkMode: number, token: string) => {
+const updateUserDarkMode = async (
+  email: string,
+  darkMode: number,
+  token: string,
+) => {
   const options = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ email, darkMode }),
+    body: JSON.stringify({email, darkMode}),
   };
   return await doFetch(`${baseUrl}secure/update-darkmode`, options);
 };
@@ -1157,7 +1166,11 @@ interface ModifyWorkLogData {
   instructors: string[];
 }
 
-const modifyWorkLog = async (token: string, worklogId: string | undefined, modifiedData: ModifyWorkLogData) => {
+const modifyWorkLog = async (
+  token: string,
+  worklogId: string | undefined,
+  modifiedData: ModifyWorkLogData,
+) => {
   const options = {
     method: 'PUT',
     headers: {
@@ -1171,27 +1184,31 @@ const modifyWorkLog = async (token: string, worklogId: string | undefined, modif
   return await doFetch(`${baseUrl}worklog/${worklogId}`, options);
 };
 
-const getWorkLogGroupsByCourse = async (courseId: string  , token: string) => {
+const getWorkLogGroupsByCourse = async (courseId: string, token: string) => {
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
-    }
+    },
   };
 
   const result = await doFetch(`${baseUrl}worklog/${courseId}/groups`, options);
   return result.groups;
 };
 
-const createWorkLogGroup = async (courseId: string, name: string, token: string) => {
+const createWorkLogGroup = async (
+  courseId: string,
+  name: string,
+  token: string,
+) => {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({name}),
   };
   return await doFetch(`${baseUrl}worklog/${courseId}/groups`, options);
 };
@@ -1202,21 +1219,24 @@ const getWorkLogStudentsByCourse = async (courseId: string, token: string) => {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
-    }
+    },
   };
 
-return await doFetch(`${baseUrl}worklog/${courseId}/students`, options);
-
+  return await doFetch(`${baseUrl}worklog/${courseId}/students`, options);
 };
 
-const addStudentsToWorkLogGroup = async (groupId: number, studentIds: number[], token: string) => {
+const addStudentsToWorkLogGroup = async (
+  groupId: number,
+  studentIds: number[],
+  token: string,
+) => {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ studentIds }),
+    body: JSON.stringify({studentIds}),
   };
   return await doFetch(`${baseUrl}worklog/group/${groupId}/students`, options);
 };
@@ -1227,14 +1247,110 @@ const getWorkLogGroupStudents = async (groupId: number, token: string) => {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
-    }
+    },
   };
 
-  const result = await doFetch(`${baseUrl}worklog/groups/${groupId}/students`, options);
+  const result = await doFetch(
+    `${baseUrl}worklog/group/${groupId}/students`,
+    options,
+  );
   return result.students;
 };
 
+const getWorkLogGroupDetails = async (
+  courseId: number,
+  groupId: number,
+  token: string,
+) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(
+    `${baseUrl}worklog/group/${courseId}/${groupId}`,
+    options,
+  );
+};
+interface CreateWorkLogEntryParams {
+  userId: number;
+  courseId: number;
+  startTime: Date;
+  endTime: Date;
+  description: string;
+  status?: number; // Add status as an optional parameter
+}
+
+const createWorkLogEntry = async (
+  params: CreateWorkLogEntryParams,
+  token: string,
+) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(params),
+  };
+  return await doFetch(`${baseUrl}worklog/entries/create`, options);
+};
+
+const getActiveCoursesByStudentEmail = async (email: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+
+  return await doFetch(`${baseUrl}worklog/student/active/${email}`, options);
+};
+const getActiveWorkLogEntries = async (userid: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+
+  return await doFetch(`${baseUrl}worklog/active/${userid}`, options);
+};
+const closeWorkLogEntry = async (
+  worklogId: number,
+  token: string,
+  description?: string,
+) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(description ? {description} : {}),
+  };
+  return await doFetch(`${baseUrl}worklog/entries/close/${worklogId}`, options);
+};
+
+const getAllWorkLogEntries = async (userId: number, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/entries/all/${userId}`, options);
+};
+
 const apiHooks = {
+  closeWorkLogEntry,
+  getActiveWorkLogEntries,
+  createWorkLogEntry,
   modifyWorkLog,
   getWorkLogCourseDetail,
   getWorkLogDetail,
@@ -1319,5 +1435,8 @@ const apiHooks = {
   getWorkLogStudentsByCourse,
   addStudentsToWorkLogGroup,
   getWorkLogGroupStudents,
+  getWorkLogGroupDetails,
+  getActiveCoursesByStudentEmail,
+  getAllWorkLogEntries,
 };
 export default apiHooks;

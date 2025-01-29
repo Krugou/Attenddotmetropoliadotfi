@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../../../hooks/ApiHooks';
 
 interface WorkLogGroup {
   group_id: number;
   group_name: string;
+  work_log_course_id?: number;
 }
 
 interface WorkLogStudent {
@@ -41,6 +42,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           apiHooks.getWorkLogGroupsByCourse(courseid, token),
           apiHooks.getWorkLogStudentsByCourse(courseid, token),
         ]);
+        console.log('🚀 ~ fetchData ~ groupsResponse:', groupsResponse);
 
         setGroups(groupsResponse || []);
         setStudents(studentsResponse.students || []);
@@ -65,15 +67,16 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       if (!token || !courseid) {
         throw new Error('No token or course id found');
       }
-      const newGroup = await apiHooks.createWorkLogGroup(
+      const newGroupId = await apiHooks.createWorkLogGroup(
         courseid,
         newGroupName,
         token,
       );
 
-      if (newGroup && newGroup.group_id && selectedStudents.length > 0) {
+
+      if (newGroupId && selectedStudents.length > 0) {
         await apiHooks.addStudentsToWorkLogGroup(
-          newGroup.group_id,
+          newGroupId,
           selectedStudents,
           token,
         );
@@ -223,6 +226,13 @@ const TeacherWorklogCourseGroups: React.FC = () => {
               key={group.group_id}
               className='p-6 bg-white rounded-lg shadow'>
               <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
+              <div className='flex justify-end mt-4'>
+                <Link
+                  to={`/teacher/worklog/group/${courseid}/${group.group_id}`}
+                  className='px-4 py-2 text-white rounded bg-metropoliaMainOrange hover:bg-opacity-90 font-body'>
+                  {t('common.view')}
+                </Link>
+              </div>
             </div>
           ))}
         </div>

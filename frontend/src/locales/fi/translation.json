@@ -839,6 +839,12 @@
         "groupsTitle": "Olemassa olevat ryhmät",
         "noGroups": "Ryhmiä ei ole vielä luotu.",
         "createSuccess": "Ryhmä luotu onnistuneesti"
+      },
+      "entries": {
+        "date": "Päivämäärä",
+        "hours": "Tunnit",
+        "description": "Kuvaus",
+        "status": "Tila"
       }
     }
   },
@@ -865,7 +871,8 @@
     "errors": {
       "emailTaken": "Sähköposti varattu",
       "studentNumberTaken": "Opiskelijan numero varattu",
-      "noToken": "Ei tokenia saatavilla"
+      "noToken": "Ei tokenia saatavilla",
+      "groupNotFound": "Ryhmää ei löytynyt"
     },
     "email": "Sähköposti",
     "firstName": "Etunimi",

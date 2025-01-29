@@ -820,7 +820,8 @@
         "courseCreated": "Work log course created successfully"
       },
       "errors": {
-        "createFailed": "Failed to create work log course"
+        "createFailed": "Failed to create work log course",
+        "groupNotFound": "Group not found"
       },
       "groups": {
         "students": {
@@ -837,7 +838,14 @@
         "selectStudents": "Select Students",
         "groupsTitle": "Existing Groups",
         "noGroups": "No groups have been created yet.",
-        "createSuccess": "Group created successfully"
+        "createSuccess": "Group created successfully",
+        "entries": "Group Entries"
+      },
+      "entries": {
+        "date": "Date",
+        "hours": "Hours",
+        "description": "Description",
+        "status": "Status"
       }
     }
   },

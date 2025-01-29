@@ -854,7 +854,8 @@
     "errors": {
       "emailTaken": "E-post upptagen",
       "studentNumberTaken": "Studentnummer upptaget",
-      "noToken": "Ingen token tillgänglig"
+      "noToken": "Ingen token tillgänglig",
+      "groupNotFound": "Gruppen hittades inte"
     },
     "email": "E-post",
     "firstName": "Förnamn",
