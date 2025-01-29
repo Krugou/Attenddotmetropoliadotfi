@@ -118,8 +118,9 @@ const workLogModel = {
     startTime: Date,
     endTime: Date,
     description: string,
-    status: 0 | 1 | 2 | 3 = 0,
+    status: 0 | 1 | 2 | 3,
   ): Promise<ResultSetHeader> {
+    console.log('🚀 ~ status:', status);
     try {
       const [result] = await pool
         .promise()
@@ -145,6 +146,47 @@ const workLogModel = {
       return rows;
     } catch (error) {
       console.error('Error getting work log entries:', error);
+      throw error;
+    }
+  },
+
+  async getActiveEntriesByUserId(userId: number): Promise<WorkLogEntry[]> {
+    try {
+      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+        `SELECT * FROM work_log_entries
+         WHERE userid = ?
+         AND status = '1'
+         ORDER BY start_time DESC`,
+        [userId],
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error getting active work log entries:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogEntriesByGroupStudents(
+    courseId: number,
+    studentIds: number[],
+  ): Promise<WorkLogEntry[]> {
+    try {
+      if (!studentIds.length) return [];
+
+      console.log('Fetching entries with params:', {courseId, studentIds});
+
+      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+        `SELECT wle.*
+         FROM work_log_entries wle
+         WHERE wle.work_log_course_id = ?
+         AND wle.userid IN (?)
+         ORDER BY wle.start_time DESC`,
+        [courseId, studentIds],
+      );
+
+      return rows;
+    } catch (error) {
+      console.error('Error getting work log entries by group students:', error);
       throw error;
     }
   },
@@ -237,15 +279,42 @@ const workLogModel = {
 
   async checkStudentsInWorklogGroup(groupId: number): Promise<RowDataPacket[]> {
     try {
+      console.log('Checking students in group:', groupId);
+
+      // First verify the group exists
+      const [groupCheck] = await pool
+        .promise()
+        .query<RowDataPacket[]>(
+          'SELECT * FROM work_log_course_groups WHERE group_id = ?',
+          [groupId],
+        );
+
+      if (!groupCheck.length) {
+        console.log('Group not found:', groupId);
+        return [];
+      }
+
+      // Get students with role check
       const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT u.userid, u.email, u.first_name, u.last_name
+        `SELECT DISTINCT u.userid, u.email, u.first_name, u.last_name
          FROM users u
-         JOIN student_group_assignments sga ON u.userid = sga.userid
-         JOIN roles r ON u.roleid = r.roleid
-         WHERE sga.group_id = ? AND r.role_name = 'student'
+         INNER JOIN student_group_assignments sga ON u.userid = sga.userid
+         INNER JOIN roles r ON u.roleid = r.roleid
+         WHERE sga.group_id = ?
          ORDER BY u.last_name, u.first_name`,
         [groupId],
       );
+
+      console.log('Query results:', {
+        groupId,
+        studentCount: rows.length,
+        students: rows.map((r) => ({
+          id: r.userid,
+          email: r.email,
+          name: `${r.first_name} ${r.last_name}`,
+        })),
+      });
+
       return rows;
     } catch (error) {
       console.error('Error checking students in worklog group:', error);
@@ -446,6 +515,26 @@ const workLogModel = {
       return result;
     } catch (error) {
       console.error('Error updating work log entry status:', error);
+      throw error;
+    }
+  },
+
+  async closeWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
+    try {
+      const [result] = await pool.promise().query<ResultSetHeader>(
+        `UPDATE work_log_entries
+         SET status = '2', end_time = CURRENT_TIMESTAMP
+         WHERE entry_id = ? `,
+        [entryId],
+      );
+
+      if (result.affectedRows === 0) {
+        throw new Error('Entry not found or already closed');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error closing work log entry:', error);
       throw error;
     }
   },
@@ -740,6 +829,26 @@ const workLogModel = {
         );
     } catch (error) {
       console.error('Error removing course instructors:', error);
+      throw error;
+    }
+  },
+
+  async getActiveCoursesByStudentEmail(
+    email: string,
+  ): Promise<WorkLogCourse[]> {
+    try {
+      const [rows] = await pool.promise().query<WorkLogCourse[]>(
+        `SELECT wlc.*
+         FROM work_log_courses wlc
+         JOIN work_log_course_users wlcu ON wlc.work_log_course_id = wlcu.work_log_course_id
+         JOIN users u ON wlcu.userid = u.userid
+         WHERE u.email = ? AND wlc.end_date >= CURDATE()
+         ORDER BY wlc.start_date DESC`,
+        [email],
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error getting active courses by student email:', error);
       throw error;
     }
   },
