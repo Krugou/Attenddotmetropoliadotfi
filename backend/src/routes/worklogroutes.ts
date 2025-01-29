@@ -430,4 +430,53 @@ router.get(
   },
 );
 
+router.delete(
+  '/entries/:entryId',
+  checkUserRole(['admin', 'teacher', 'student']),
+  [param('entryId').isInt().withMessage('Invalid entryId')],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const entryId = Number(req.params.entryId);
+      const result = await workLogController.deleteWorkLogEntry(entryId);
+      res.json({
+        success: true,
+        message: 'Entry deleted successfully',
+        result,
+      });
+    } catch (error) {
+      logger.error('Error deleting worklog entry:', error);
+      res.status(500).json({error: 'Failed to delete worklog entry'});
+    }
+  },
+);
+
+router.put(
+  '/entries/:entryId',
+  checkUserRole(['admin', 'teacher', 'student']),
+  [
+    param('entryId').isInt().withMessage('Invalid entryId'),
+    body('description').optional().isString().trim(),
+    body('startTime').optional().isISO8601().toDate(),
+    body('endTime').optional().isISO8601().toDate(),
+    body('status').optional().isIn([0, 1, 2, 3]),
+  ],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const entryId = Number(req.params.entryId);
+      const updatedData = req.body;
+      const result = await workLogController.updateWorkLogEntry(entryId, updatedData);
+      res.json({
+        success: true,
+        message: 'Entry updated successfully',
+        result,
+      });
+    } catch (error) {
+      logger.error('Error updating worklog entry:', error);
+      res.status(500).json({error: 'Failed to update worklog entry'});
+    }
+  },
+);
+
 export default router;
