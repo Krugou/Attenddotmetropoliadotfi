@@ -67,11 +67,11 @@ const StudentWorklogs: React.FC = () => {
       await apiHooks.updateWorkLogStatus(entryId, newStatus, token);
 
       // Update local state
-      setEntries(entries.map(entry =>
-        entry.entry_id === entryId
-          ? {...entry, status: newStatus}
-          : entry
-      ));
+      setEntries(
+        entries.map((entry) =>
+          entry.entry_id === entryId ? {...entry, status: newStatus} : entry,
+        ),
+      );
 
       toast.success(t('worklog.status.updateSuccess'));
     } catch (error) {
@@ -90,16 +90,13 @@ const StudentWorklogs: React.FC = () => {
     return `${Math.floor(duration.asHours())}h ${duration.minutes()}min`;
   };
 
-  const tableHeaderClass = `
-    px-4 py-2 text-left text-sm font-semibold
-    text-metropoliaMainGrey bg-metropoliaSupportWhite
-    border-b border-metropoliaMainGrey/20
-  `;
-
-  const tableCellClass = `
-    px-4 py-2 text-sm text-metropoliaMainGrey
-    border-b border-metropoliaMainGrey/10
-  `;
+  const statusClass = (status: number) => {
+    return `inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+      status === 1
+        ? 'bg-yellow-100 text-yellow-800'
+        : 'bg-green-100 text-green-800'
+    }`;
+  };
 
   if (loading) {
     return (
@@ -115,80 +112,76 @@ const StudentWorklogs: React.FC = () => {
         {t('worklog.entries.title')}
       </h1>
 
-      <div className='overflow-hidden bg-white rounded-lg shadow-lg'>
-        <div className='overflow-x-auto'>
-          <table className='min-w-full'>
-            <thead>
-              <tr>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.date')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.startTime')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.endTime')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.duration')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.course')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.description')}
-                </th>
-                <th className={tableHeaderClass}>
-                  {t('worklog.entries.status')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry) => (
-                <tr
-                  key={entry.entry_id}
-                  className='transition-colors hover:bg-metropoliaMainGrey/5'>
-                  <td className={tableCellClass}>
-                    {dayjs(entry.start_time).format('YYYY-MM-DD')}
-                  </td>
-                  <td className={tableCellClass}>
-                    {dayjs(entry.start_time).format('HH:mm')}
-                  </td>
-                  <td className={tableCellClass}>
-                    {dayjs(entry.end_time).format('HH:mm')}
-                  </td>
-                  <td className={tableCellClass}>
-                    {calculateDuration(entry.start_time, entry.end_time)}
-                  </td>
-                  <td className={tableCellClass}>{entry.course?.name}</td>
-                  <td className={tableCellClass}>{entry.description}</td>
-                  <td className={tableCellClass}>
-                    {updatingStatus === entry.entry_id ? (
-                      <CircularProgress size={20} />
-                    ) : (
-                      <Select
-                        value={entry.status}
-                        onChange={(e) => handleStatusChange(entry.entry_id, Number(e.target.value))}
-                        size="small"
-                        className="min-w-[120px]"
-                      >
-                        <MenuItem value={1}>{t('worklog.status.1')}</MenuItem>
-                        <MenuItem value={2}>{t('worklog.status.2')}</MenuItem>
-                      </Select>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        {entries.map((entry) => (
+          <div
+            key={entry.entry_id}
+            className='overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl'>
+            <div className='p-4'>
+              <div className='flex items-center justify-between mb-4'>
+                <div className='text-lg font-semibold text-metropoliaMainGrey'>
+                  {entry.course?.name}
+                </div>
+                <div className='text-sm text-metropoliaMainGrey'>
+                  {dayjs(entry.start_time).format('YYYY-MM-DD')}
+                </div>
+              </div>
 
-        <div className='p-4 border-t border-metropoliaMainGrey/10'>
-          <p className='text-sm text-metropoliaMainGrey'>
-            {t('worklog.entries.total')}: {entries.length}{' '}
-            {t('worklog.entries.entries')}
-          </p>
-        </div>
+              <div className='space-y-2'>
+                <div className='flex justify-between'>
+                  <span className='text-sm text-metropoliaMainGrey'>Time:</span>
+                  <span className='text-sm font-medium'>
+                    {dayjs(entry.start_time).format('HH:mm')} -{' '}
+                    {dayjs(entry.end_time).format('HH:mm')}
+                  </span>
+                </div>
+
+                <div className='flex justify-between'>
+                  <span className='text-sm text-metropoliaMainGrey'>
+                    Duration:
+                  </span>
+                  <span className='text-sm font-medium'>
+                    {calculateDuration(entry.start_time, entry.end_time)}
+                  </span>
+                </div>
+
+                <div className='pt-2 mt-2 border-t'>
+                  <p className='text-sm text-metropoliaMainGrey line-clamp-2'>
+                    {entry.description}
+                  </p>
+                </div>
+
+                <div className='flex items-center justify-between pt-2 mt-2 border-t'>
+                  <span className='text-sm text-metropoliaMainGrey'>
+                    Status:
+                  </span>
+                  {updatingStatus === entry.entry_id ? (
+                    <CircularProgress size={20} />
+                  ) : (
+                    <Select
+                      value={entry.status}
+                      onChange={(e) =>
+                        handleStatusChange(
+                          entry.entry_id,
+                          Number(e.target.value),
+                        )
+                      }
+                      size='small'
+                      className='min-w-[120px]'>
+                      <MenuItem value={1}>{t('worklog.status.1')}</MenuItem>
+                      <MenuItem value={2}>{t('worklog.status.2')}</MenuItem>
+                    </Select>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className='mt-4 text-sm text-metropoliaMainGrey'>
+        {t('worklog.entries.total')}: {entries.length}{' '}
+        {t('worklog.entries.entries')}
       </div>
     </div>
   );
