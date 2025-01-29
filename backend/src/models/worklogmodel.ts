@@ -65,7 +65,14 @@ const workLogModel = {
         .promise()
         .query<ResultSetHeader>(
           'INSERT INTO work_log_courses (name, start_date, end_date, code, description, required_hours) VALUES (?, ?, ?, ?, ?, ?)',
-          [name, formattedStartDate, formattedEndDate, code, description, required_hours],
+          [
+            name,
+            formattedStartDate,
+            formattedEndDate,
+            code,
+            description,
+            required_hours,
+          ],
         );
       return result;
     } catch (error) {
@@ -74,15 +81,27 @@ const workLogModel = {
     }
   },
 
-  async getWorkLogCourseById(courseId: number): Promise<WorkLogCourse[]> {
+  async getWorkLogCourseById(courseId: number): Promise<{course: WorkLogCourse; userCount: number}> {
     try {
-      const [rows] = await pool
-        .promise()
-        .query<WorkLogCourse[]>(
-          'SELECT * FROM work_log_courses WHERE work_log_course_id = ?',
-          [courseId],
-        );
-      return rows;
+      // Get course details
+      const [courseRows] = await pool.promise().query<WorkLogCourse[]>(
+        `SELECT * FROM work_log_courses
+         WHERE work_log_course_id = ?`,
+        [courseId]
+      );
+
+      // Get user count separately
+      const [countRows] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT COUNT(DISTINCT userid) as count
+         FROM work_log_course_users
+         WHERE work_log_course_id = ?`,
+        [courseId]
+      );
+
+      return {
+        course: courseRows[0],
+        userCount: countRows[0]?.count || 0
+      };
     } catch (error) {
       console.error('Error getting work log course:', error);
       throw error;
@@ -222,7 +241,7 @@ const workLogModel = {
          JOIN roles r ON u.roleid = r.roleid
          WHERE sga.group_id = ? AND r.role_name = 'student'
          ORDER BY u.last_name, u.first_name`,
-        [groupId]
+        [groupId],
       );
       return rows;
     } catch (error) {
@@ -322,7 +341,7 @@ const workLogModel = {
       start_date?: string;
       end_date?: string;
       required_hours?: number;
-    }
+    },
   ): Promise<ResultSetHeader> {
     try {
       // Build the update query dynamically based on provided fields
@@ -357,10 +376,14 @@ const workLogModel = {
       // Add the courseId to values array
       values.push(courseId);
 
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        `UPDATE work_log_courses SET ${updateFields.join(', ')} WHERE work_log_course_id = ?`,
-        values
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          `UPDATE work_log_courses SET ${updateFields.join(
+            ', ',
+          )} WHERE work_log_course_id = ?`,
+          values,
+        );
 
       return result;
     } catch (error) {
@@ -441,7 +464,6 @@ const workLogModel = {
       throw error;
     }
   },
-
 
   async getAllWorkLogCourses(): Promise<WorkLogCourse[]> {
     try {
@@ -575,22 +597,26 @@ const workLogModel = {
     }
   },
 
-
-  async addInstructorsToCourse(instructors: { email: string }[], courseId: number): Promise<void> {
+  async addInstructorsToCourse(
+    instructors: {email: string}[],
+    courseId: number,
+  ): Promise<void> {
     try {
       for (const instructor of instructors) {
-
-        const [userRows] = await pool.promise().query<RowDataPacket[]>(
-          'SELECT userid FROM users WHERE email = ?',
-          [instructor.email]
-        );
+        const [userRows] = await pool
+          .promise()
+          .query<RowDataPacket[]>('SELECT userid FROM users WHERE email = ?', [
+            instructor.email,
+          ]);
 
         if (userRows.length > 0) {
           const userId = userRows[0].userid;
-          await pool.promise().query(
-            'INSERT INTO work_log_course_instructors (userid, work_log_course_id) VALUES (?, ?)',
-            [userId, courseId]
-          );
+          await pool
+            .promise()
+            .query(
+              'INSERT INTO work_log_course_instructors (userid, work_log_course_id) VALUES (?, ?)',
+              [userId, courseId],
+            );
         } else {
           console.warn(`Instructor with email ${instructor.email} not found`);
         }
@@ -601,24 +627,31 @@ const workLogModel = {
     }
   },
 
-  async addStudentsToCourse(students: ({ email: string } | string)[], courseId: number): Promise<void> {
+  async addStudentsToCourse(
+    students: ({email: string} | string)[],
+    courseId: number,
+  ): Promise<void> {
     try {
       for (const studentEmail of students) {
-        const email = typeof studentEmail === 'string' ?
-          studentEmail :
-          (studentEmail as { email: string }).email || studentEmail;
+        const email =
+          typeof studentEmail === 'string'
+            ? studentEmail
+            : (studentEmail as {email: string}).email || studentEmail;
 
-        const [userRows] = await pool.promise().query<RowDataPacket[]>(
-          'SELECT userid FROM users WHERE email = ?',
-          [email]
-        );
+        const [userRows] = await pool
+          .promise()
+          .query<RowDataPacket[]>('SELECT userid FROM users WHERE email = ?', [
+            email,
+          ]);
 
         if (userRows.length > 0) {
           const userId = userRows[0].userid;
-          await pool.promise().query(
-            'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
-            [userId, courseId]
-          );
+          await pool
+            .promise()
+            .query(
+              'INSERT INTO work_log_course_users (userid, work_log_course_id) VALUES (?, ?)',
+              [userId, courseId],
+            );
         } else {
           console.warn(`Student with email ${email} not found`);
         }
@@ -636,7 +669,7 @@ const workLogModel = {
          FROM users u
          JOIN work_log_course_instructors wci ON u.userid = wci.userid
          WHERE wci.work_log_course_id = ?`,
-        [courseId]
+        [courseId],
       );
       return rows;
     } catch (error) {
@@ -652,7 +685,7 @@ const workLogModel = {
          FROM users u
          JOIN work_log_course_users wcu ON u.userid = wcu.userid
          WHERE wcu.work_log_course_id = ?`,
-        [courseId]
+        [courseId],
       );
       return rows;
     } catch (error) {
@@ -663,10 +696,12 @@ const workLogModel = {
 
   async checkWorklogCodeExists(code: string): Promise<RowDataPacket[]> {
     try {
-      const [rows] = await pool.promise().query<RowDataPacket[]>(
-        'SELECT 1 FROM work_log_courses WHERE code = ?',
-        [code]
-      );
+      const [rows] = await pool
+        .promise()
+        .query<RowDataPacket[]>(
+          'SELECT 1 FROM work_log_courses WHERE code = ?',
+          [code],
+        );
       return rows;
     } catch (error) {
       console.error('Error checking worklog code:', error);
@@ -683,7 +718,7 @@ const workLogModel = {
          JOIN users u ON u.userid = wci.userid
          WHERE u.email = ?
          ORDER BY wlc.start_date DESC`,
-        [email]
+        [email],
       );
       return rows;
     } catch (error) {
@@ -694,10 +729,12 @@ const workLogModel = {
 
   async removeAllInstructors(courseId: number): Promise<void> {
     try {
-      await pool.promise().query(
-        'DELETE FROM work_log_course_instructors WHERE work_log_course_id = ?',
-        [courseId]
-      );
+      await pool
+        .promise()
+        .query(
+          'DELETE FROM work_log_course_instructors WHERE work_log_course_id = ?',
+          [courseId],
+        );
     } catch (error) {
       console.error('Error removing course instructors:', error);
       throw error;
