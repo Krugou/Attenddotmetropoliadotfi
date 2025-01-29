@@ -81,27 +81,30 @@ const workLogModel = {
     }
   },
 
-  async getWorkLogCourseById(courseId: number): Promise<{course: WorkLogCourse; userCount: number}> {
+  async getUserCountByCourse(courseId: number): Promise<number> {
     try {
-      // Get course details
-      const [courseRows] = await pool.promise().query<WorkLogCourse[]>(
-        `SELECT * FROM work_log_courses
-         WHERE work_log_course_id = ?`,
-        [courseId]
-      );
-
-      // Get user count separately
       const [countRows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT COUNT(DISTINCT userid) as count
          FROM work_log_course_users
          WHERE work_log_course_id = ?`,
-        [courseId]
+        [courseId],
       );
+      return countRows[0]?.count || 0;
+    } catch (error) {
+      console.error('Error getting user count:', error);
+      throw error;
+    }
+  },
 
-      return {
-        course: courseRows[0],
-        userCount: countRows[0]?.count || 0
-      };
+  async getWorkLogCourseById(courseId: number): Promise<WorkLogCourse[]> {
+    try {
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE work_log_course_id = ?',
+          [courseId],
+        );
+      return rows;
     } catch (error) {
       console.error('Error getting work log course:', error);
       throw error;
