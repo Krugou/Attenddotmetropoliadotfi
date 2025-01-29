@@ -51,7 +51,7 @@ const TeacherWorklogCourseDetail: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <h2 className='p-3 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
+      <h2 className='p-3 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
         {worklogData?.name} - {worklogData?.code}
       </h2>
       <div className='w-full mx-auto mt-4 bg-white rounded-lg shadow-lg sm:w-3/4 md:w-2/4 lg:w-2/5 2xl:w-1/5'>
