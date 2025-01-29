@@ -121,7 +121,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                         fontSize='large'
                         className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
                         onClick={() =>
-                          navigate(`/teacher/worklog/${worklog.work_log_course_id}/modify`)  // Change this
+                          navigate(`/teacher/worklog/${worklog.work_log_course_id}/modify`)
                         }
                       />
                     </Tooltip>
@@ -195,9 +195,13 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                       </div>
                     </>
                   ) : (
-                    <div className='flex justify-end mt-4'>
+                    <div className='flex justify-end gap-2 mt-4'>
                       <GeneralLinkButton
-                        path={`/teacher/worklog/${worklog.work_log_course_id}`}  // Change this
+                        path={`/teacher/worklog/group/${worklog.work_log_course_id}`}
+                        text={t('teacher.worklog.data.viewGroups')}
+                      />
+                      <GeneralLinkButton
+                        path={`/teacher/worklog/${worklog.work_log_course_id}`}
                         text={t('teacher.worklog.data.viewCourse')}
                       />
                     </div>

@@ -7,9 +7,11 @@ interface InputFieldProps {
   type: string;
   name: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   disabled?: boolean;
   placeholder?: string;
+  rows?: number;
+  className?: string;
 }
 /**
  * InputField is a functional component that renders an input field with a label.
@@ -25,23 +27,40 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   disabled = false,
   placeholder = '',
+  rows = 4,
+  className = 'w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
 }) => (
   <>
     <label className='mb-2 font-heading text-gray-900' htmlFor={name}>
       {label}
     </label>
-    <input
-      className='w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange '
-      type={type}
-      name={name}
-      id={name}
-      value={value}
-      onChange={onChange}
-      aria-label={label}
-      required
-      disabled={disabled}
-      placeholder={placeholder}
-    />
+    {type === 'textarea' ? (
+      <textarea
+        className={className}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        aria-label={label}
+        required
+        disabled={disabled}
+        placeholder={placeholder}
+        rows={rows}
+      />
+    ) : (
+      <input
+        className={className}
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        aria-label={label}
+        required
+        disabled={disabled}
+        placeholder={placeholder}
+      />
+    )}
   </>
 );
 

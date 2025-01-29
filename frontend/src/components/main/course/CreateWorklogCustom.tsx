@@ -163,9 +163,9 @@ const CreateWorklogCustom: React.FC = () => {
       if (!token) throw new Error('No token available');
 
       const response = await apiHooks.createWorkLogCourse(worklogCourse, token);
-      if (response && response.insertId) { // Check for insertId
+      if (response && response.insertId) {
         toast.success('Worklog course created');
-        navigate(`/teacher/worklog/${response.insertId}`); // Use insertId
+        navigate(`/teacher/worklog/${response.insertId}`); //
       } else {
         toast.error('Worklog course creation failed - no ID returned');
       }

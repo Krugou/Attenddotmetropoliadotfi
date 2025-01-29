@@ -779,7 +779,8 @@
         "noInstructors": "No instructors assigned",
         "additionalInfo": "Additional Info",
         "deleteSuccess": "Worklog course deleted successfully",
-        "createdAt": "Created at"
+        "createdAt": "Created at",
+        "viewGroups": "View Groups"
       },
       "modify": {
         "title": "Modify Worklog Course",
@@ -810,13 +811,33 @@
         "endDate": "End Date",
         "description": "Course Description",
         "submit": "Create Course",
-        "requiredHours": "Required Hours"
+        "requiredHours": "Required Hours",
+        "errors": {
+          "codeExists": "A worklog course with this code already exists"
+        }
       },
       "success": {
         "courseCreated": "Work log course created successfully"
       },
       "errors": {
         "createFailed": "Failed to create work log course"
+      },
+      "groups": {
+        "students": {
+          "title": "Course Students",
+          "select": "Select students to add to groups"
+        },
+        "addStudents": "Add Selected Students",
+        "studentsAdded": "Students added to group successfully",
+        "studentCount": "{{count}} students",
+        "title": "Course Groups",
+        "createGroup": "Create Group",
+        "createNew": "Create New Group",
+        "groupName": "Group Name",
+        "selectStudents": "Select Students",
+        "groupsTitle": "Existing Groups",
+        "noGroups": "No groups have been created yet.",
+        "createSuccess": "Group created successfully"
       }
     }
   },
@@ -851,7 +872,10 @@
     "hideEndedCourses": "Hide ended courses",
     "yes": "Yes",
     "no": "No",
-    "required": "required"
+    "required": "required",
+    "cancel": "Cancel",
+    "create": "Create",
+    "creating": "Creating..."
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",

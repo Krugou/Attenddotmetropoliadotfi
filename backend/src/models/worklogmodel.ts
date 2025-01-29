@@ -213,6 +213,24 @@ const workLogModel = {
     }
   },
 
+  async checkStudentsInWorklogGroup(groupId: number): Promise<RowDataPacket[]> {
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT u.userid, u.email, u.first_name, u.last_name
+         FROM users u
+         JOIN student_group_assignments sga ON u.userid = sga.userid
+         JOIN roles r ON u.roleid = r.roleid
+         WHERE sga.group_id = ? AND r.role_name = 'student'
+         ORDER BY u.last_name, u.first_name`,
+        [groupId]
+      );
+      return rows;
+    } catch (error) {
+      console.error('Error checking students in worklog group:', error);
+      throw error;
+    }
+  },
+
   // Delete operations
   async deleteWorkLogCourse(courseId: number): Promise<ResultSetHeader> {
     try {

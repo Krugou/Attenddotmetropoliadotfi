@@ -18,7 +18,7 @@ interface WorklogDetailsProps {
   setEndDate: (value: string) => void;
   modify?: boolean;
   codeExists?: boolean;
-  setCourseExists: (value: boolean) => void;  // Add this prop
+  setCourseExists: (value: boolean) => void;
 }
 
 const WorklogDetails: React.FC<WorklogDetailsProps> = ({
@@ -109,10 +109,12 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
 
       <InputField
         label={t('teacher.worklog.details.description')}
-        type="text"
+        type="textarea"
         name="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        rows={4}
+        className="p-2 border rounded-lg w-full"
       />
 
       <InputField

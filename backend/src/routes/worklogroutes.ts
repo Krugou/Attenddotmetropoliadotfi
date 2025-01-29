@@ -1,6 +1,7 @@
 import express, {Router} from 'express';
 import workLogController from '../controllers/worklogcontroller.js';
 import logger from '../utils/logger.js';
+import checkUserRole from '../utils/checkRole.js';
 const router: Router = express.Router();
 
 // Update routes to remove /worklog prefix since it's now handled by app.use
@@ -14,7 +15,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/:courseId', async (req, res) => {
+router.get('/:courseId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const courseId = Number(req.params.courseId);
     const result = await workLogController.getWorkLogCourseDetails(courseId);
@@ -24,39 +27,38 @@ router.get('/:courseId', async (req, res) => {
   }
 });
 
-router.put('/:worklogId', async (req, res) => {
+router.put('/:worklogId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const worklogId = Number(req.params.worklogId);
-    // Extract modifiedData from request body
     const { modifiedData } = req.body;
-
     if (!modifiedData) {
       return res.status(400).json({ error: 'No modified data provided' });
     }
-
     const result = await workLogController.updateWorkLogCourse(worklogId, modifiedData);
     res.json(result);
   } catch (error) {
     logger.error('Error updating worklog course:', error);
-    res.status(500).json({error: 'Failed to update worklog course'});
   }
 });
 
-router.delete('/:worklogId', async (req, res) => {
+router.delete('/:worklogId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const worklogId = Number(req.params.worklogId);
-
-    if (isNaN(worklogId)) {
-      return res.status(400).json({ error: 'Invalid worklog ID' });
-    }
-
     const result = await workLogController.deleteWorkLog(worklogId);
+    // Previous code was sending two responses:
+    // res.json(result);
+    // res.json({ message: 'Worklog deleted successfully' });
 
-    if (!result) {
-      return res.status(404).json({ error: 'Worklog not found' });
-    }
-
-    res.json({ message: 'Worklog deleted successfully' });
+    // Fixed version - send only one response:
+    res.json({
+      success: true,
+      message: 'Worklog deleted successfully',
+      result
+    });
   } catch (error) {
     logger.error('Error deleting worklog:', error);
     res.status(500).json({ error: 'Failed to delete worklog' });
@@ -64,7 +66,9 @@ router.delete('/:worklogId', async (req, res) => {
 });
 
 // Update other routes to remove /worklog prefix
-router.post('/entries', async (req, res) => {
+router.post('/entries',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const result = await workLogController.createWorkLogEntry(req.body);
     res.json(result);
@@ -73,7 +77,9 @@ router.post('/entries', async (req, res) => {
   }
 });
 
-router.get('/entries/user/:userId', async (req, res) => {
+router.get('/entries/user/:userId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const userId = Number(req.params.userId);
     const entries = await workLogController.getWorkLogEntriesByUser(userId);
@@ -83,7 +89,9 @@ router.get('/entries/user/:userId', async (req, res) => {
   }
 });
 
-router.put('/entries/:entryId/status', async (req, res) => {
+router.put('/entries/:entryId/status',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const entryId = Number(req.params.entryId);
     const status = req.body.status as 0 | 1 | 2 | 3;
@@ -98,20 +106,25 @@ router.put('/entries/:entryId/status', async (req, res) => {
 });
 
 // Group Management Routes
-router.post('/groups', async (req, res) => {
+router.post('/:courseId/groups',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
-    const {courseId, groupName} = req.body;
-    const result = await workLogController.createWorkLogGroup(
-      courseId,
-      groupName,
-    );
+    const courseId = Number(req.params.courseId);
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).json({ error: 'Group name is required' });
+    }
+    const result = await workLogController.createWorkLogGroup(courseId, name);
     res.json(result);
   } catch (error) {
-    logger.error(error);
+    logger.error('Error creating worklog group:', error);
   }
 });
 
-router.post('/groups/:groupId/students', async (req, res) => {
+router.post('/groups/:groupId/students',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const groupId = Number(req.params.groupId);
     const {userId} = req.body;
@@ -125,8 +138,21 @@ router.post('/groups/:groupId/students', async (req, res) => {
   }
 });
 
-// User Course Assignment Route
-router.post('/courses/:courseId/users', async (req, res) => {
+router.get('/groups/:groupId/students',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
+    try {
+      const groupId = Number(req.params.groupId);
+       const result = await workLogController.getWorkLogGroupStudents(groupId);
+      res.json(result);
+    } catch (error) {
+      logger.error('Error getting worklog group students:', error);
+    }
+});
+
+router.post('/courses/:courseId/users',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const courseId = Number(req.params.courseId);
     const {userId} = req.body;
@@ -138,7 +164,9 @@ router.post('/courses/:courseId/users', async (req, res) => {
 });
 
 // Statistics Route
-router.get('/stats/:userId', async (req, res) => {
+router.get('/stats/:userId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const userId = Number(req.params.userId);
     const stats = await workLogController.getWorkLogStats(userId);
@@ -148,7 +176,9 @@ router.get('/stats/:userId', async (req, res) => {
   }
 });
 
-router.get('/checkcode/:code', async (req, res) => {
+router.get('/checkcode/:code',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const code = req.params.code;
     const exists = await workLogController.checkWorklogCodeExists(code);
@@ -159,7 +189,9 @@ router.get('/checkcode/:code', async (req, res) => {
   }
 });
 
-router.get('/instructor/:email', async (req, res) => {
+router.get('/instructor/:email',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
   try {
     const email = req.params.email;
     const courses = await workLogController.getWorkLogCoursesByInstructor(email);
@@ -168,6 +200,34 @@ router.get('/instructor/:email', async (req, res) => {
     logger.error('Error getting worklog courses by instructor:', error);
     res.status(500).json({error: 'Failed to get worklog courses'});
   }
+});
+
+
+router.get('/:courseId/students', async (req, res) => {
+  try {
+    const {courseId} = req.params;
+    const result = await workLogController.getWorkLogStudentsByCourse(courseId);
+    res.json(result);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({error: error.message});
+    } else {
+      res.status(500).json({error: 'Internal server error'});
+    }
+  }
+});
+
+
+router.get('/:courseId/groups',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req, res) => {
+    try {
+      const { courseId } = req.params;
+      const result = await workLogController.getWorkLogGroupsByCourse(courseId);
+      res.json(result);
+    } catch (error) {
+      logger.error('Error getting worklog course groups:', error);
+    }
 });
 
 export default router;

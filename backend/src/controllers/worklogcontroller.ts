@@ -141,7 +141,29 @@ export interface WorkLogController {
    */
   updateWorkLogCourse: (worklogId: number, updates: WorkLogCourseUpdate) => Promise<ResultSetHeader>;
 
-  // ... other methods remain the same
+  /**
+   * Gets all students enrolled in a worklog course
+   * @param courseId The ID of the course
+   * @returns Promise with student data including email and names
+   * @throws Error if course not found or database error
+   */
+  getWorkLogStudentsByCourse: (courseId: string) => Promise<{students: RowDataPacket[]}>;
+
+  /**
+   * Gets all students assigned to a specific worklog group
+   * @param groupId The ID of the worklog group
+   * @returns Promise with array of student data
+   * @throws Error if group not found
+   */
+  getWorkLogGroupStudents: (groupId: number) => Promise<{students: RowDataPacket[]}>;
+
+  /**
+   * Gets all worklog groups for a specific course
+   * @param courseId The ID of the course to get groups for
+   * @returns Promise with array of worklog groups
+   * @throws Error if course not found or database error occurs
+   */
+  getWorkLogGroupsByCourse: (courseId: string) => Promise<{groups: WorkLogCourseGroup[]}>;
 }
 
 const workLogController: WorkLogController = {
@@ -432,9 +454,55 @@ const workLogController: WorkLogController = {
   },
   getWorkLogStats: function (userId: number): Promise<ResultSetHeader> {
     throw new Error('Function not implemented.');
+  },
+
+  async getWorkLogStudentsByCourse(courseId: string): Promise<{students: RowDataPacket[]}> {
+    try {
+      const course = await workLogModel.getWorkLogCourseById(Number(courseId));
+      if (!course?.length) {
+        throw new Error('Worklog course not found');
+      }
+
+      const students = await workLogModel.getStudentsByCourse(Number(courseId));
+      return {
+        students: students || []
+      };
+    } catch (error) {
+      console.error('Error getting worklog course students:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogGroupStudents(groupId: number): Promise<{students: RowDataPacket[]}> {
+    try {
+      const students = await workLogModel.checkStudentsInWorklogGroup(groupId);
+      return {
+        students: students || []
+      };
+    } catch (error) {
+      console.error('Error getting worklog group students:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogGroupsByCourse(courseId: string): Promise<{groups: WorkLogCourseGroup[]}> {
+    try {
+      // First validate the course exists
+      const course = await workLogModel.getWorkLogCourseById(Number(courseId));
+      if (!course?.length) {
+        throw new Error('Worklog course not found');
+      }
+
+      // Get groups for the course
+      const groups = await workLogModel.getWorkLogGroupsByCourse(Number(courseId));
+      return {
+        groups: groups || []
+      };
+    } catch (error) {
+      console.error('Error getting worklog course groups:', error);
+      throw error;
+    }
   }
 };
-
-
 
 export default workLogController;

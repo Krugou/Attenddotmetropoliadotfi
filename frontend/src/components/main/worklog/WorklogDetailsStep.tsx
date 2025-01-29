@@ -100,7 +100,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
 
       <div className='flex flex-col'>
         <label htmlFor='description' className='mb-2 text-sm font-medium text-gray-700'>
-          {t('teacher.worklog.form.description')}
+          {t('teacher.worklog.form.description')} *
         </label>
         <textarea
           id='description'

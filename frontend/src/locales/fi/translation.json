@@ -49,7 +49,7 @@
       "counselorDashboard": "Opinto-ohjaajan hallintapaneeli",
       "counselorDashboardDesc": "Ota käyttöön ja hallinnoi opiskelijaohjausta",
       "courseManagement": "Kurssien hallinta",
-      "courseManagementDesc": "Luo, päivitä ja poista kursseja",
+      "courseManagementDesc": "Luo, päivätä ja poista kursseja",
       "userManagement": "Käyttäjien hallinta",
       "userManagementDesc": "Hallitse käyttäjätilit ja oikeudet",
       "userRegistration": "Käyttäjän rekisteröinti",
@@ -772,7 +772,11 @@
         "endDate": "Päättymispäivä",
         "description": "Kurssin kuvaus",
         "submit": "Luo kurssi",
-        "requiredHours": "Vaadittu tuntimäärä"
+        "requiredHours": "Vaadittu tuntimäärä",
+        "errors": {
+          "codeExists": "Työpäiväkirjakurssi tällä koodilla on jo olemassa"
+        },
+        "checking": "Tarkistetaan..."
       },
       "success": {
         "courseCreated": "Työpäiväkirjakurssi luotu onnistuneesti"
@@ -808,7 +812,8 @@
         "noInstructors": "Ei määritettyjä opettajia",
         "additionalInfo": "Lisätiedot",
         "deleteSuccess": "Työpäiväkirjakurssi poistettu onnistuneesti",
-        "createdAt": "Luotu"
+        "createdAt": "Luotu",
+        "viewGroups": "Näytä ryhmät"
       },
       "modify": {
         "title": "Muokkaa työpäiväkirjakurssia",
@@ -817,6 +822,23 @@
         "instructors": "Muokkaa opettajia",
         "save": "Tallenna muutokset",
         "success": "Työpäiväkirjakurssi muokattu onnistuneesti"
+      },
+      "groups": {
+        "students": {
+          "title": "Kurssin opiskelijat",
+          "select": "Valitse opiskelijat lisättäväksi ryhmiin"
+        },
+        "addStudents": "Lisää valitut opiskelijat",
+        "studentsAdded": "Opiskelijat lisätty ryhmään onnistuneesti",
+        "studentCount": "{{count}} opiskelijaa",
+        "title": "Kurssin ryhmät",
+        "createGroup": "Luo ryhmä",
+        "createNew": "Luo uusi ryhmä",
+        "groupName": "Ryhmän nimi",
+        "selectStudents": "Valitse opiskelijat",
+        "groupsTitle": "Olemassa olevat ryhmät",
+        "noGroups": "Ryhmiä ei ole vielä luotu.",
+        "createSuccess": "Ryhmä luotu onnistuneesti"
       }
     }
   },
@@ -851,7 +873,9 @@
     "studentNumber": "Opiskelijan numero",
     "showEndedCourses": "Näytä päättyneet kurssit",
     "hideEndedCourses": "Piilota päättyneet kurssit",
-    "required": "pakollinen"
+    "required": "pakollinen",
+    "create": "Luo",
+    "creating": "Luodaan..."
   },
   "editTopics": {
     "title": "Muokkaa aiheita kurssille {{courseName}}",

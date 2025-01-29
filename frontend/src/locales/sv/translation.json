@@ -761,7 +761,11 @@
         "endDate": "Slutdatum",
         "description": "Kursbeskrivning",
         "submit": "Skapa kurs",
-        "requiredHours": "Obligatoriska timmar"
+        "requiredHours": "Obligatoriska timmar",
+        "errors": {
+          "codeExists": "En arbetsdagbokskurs med denna kod finns redan"
+        },
+        "checking": "Kontrollerar..."
       },
       "success": {
         "courseCreated": "Arbetsloggskurs skapades framgångsrikt"
@@ -797,7 +801,8 @@
         "noInstructors": "Inga lärare tilldelade",
         "additionalInfo": "Ytterligare information",
         "deleteSuccess": "Arbetsloggskurs raderades framgångsrikt",
-        "createdAt": "Skapad"
+        "createdAt": "Skapad",
+        "viewGroups": "Visa grupper"
       },
       "modify": {
         "title": "Ändra arbetsloggskurs",
@@ -806,6 +811,23 @@
         "instructors": "Ändra lärare",
         "save": "Spara ändringar",
         "success": "Arbetsloggskurs ändrades framgångsrikt"
+      },
+      "groups": {
+        "students": {
+          "title": "Kursens studenter",
+          "select": "Välj studenter att lägga till i grupper"
+        },
+        "addStudents": "Lägg till valda studenter",
+        "studentsAdded": "Studenter har lagts till i gruppen",
+        "studentCount": "{{count}} studenter",
+        "title": "Kursgrupper",
+        "createGroup": "Skapa grupp",
+        "createNew": "Skapa ny grupp",
+        "groupName": "Gruppnamn",
+        "selectStudents": "Välj studenter",
+        "groupsTitle": "Befintliga grupper",
+        "noGroups": "Inga grupper har skapats ännu.",
+        "createSuccess": "Gruppen skapades framgångsrikt"
       }
     }
   },
@@ -840,7 +862,10 @@
     "studentNumber": "Studentnummer",
     "showEndedCourses": "Visa avslutade kurser",
     "hideEndedCourses": "Dölj avslutade kurser",
-    "required": "obligatoriskt"
+    "required": "obligatoriskt",
+    "cancel": "Avbryt",
+    "create": "Skapa",
+    "creating": "Skapar..."
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
@@ -1044,6 +1069,7 @@
     "appName": "Metropolia Närvaroapp",
     "developedBy": "Utvecklad av",
     "metropolia": "Metropolia",
+    "about": "Om:",
     "navigation": "Navigation"
   },
   "team": {
