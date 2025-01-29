@@ -199,6 +199,14 @@ export interface WorkLogController {
   ) => Promise<WorkLogGroupDetails>;
 
   closeWorkLogEntry: (entryId: number) => Promise<ResultSetHeader>;
+
+  /**
+   * Deletes a worklog entry
+   * @param entryId The ID of the entry to delete
+   * @returns Promise with delete result
+   * @throws Error if entry not found or deletion fails
+   */
+  deleteWorkLogEntry: (entryId: number) => Promise<ResultSetHeader>;
 }
 
 const workLogController: WorkLogController = {
@@ -638,6 +646,29 @@ const workLogController: WorkLogController = {
       return result;
     } catch (error) {
       console.error('Error in closeWorkLogEntry:', error);
+      throw error;
+    }
+  },
+
+  async deleteWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
+    try {
+      // First verify the entry exists
+      const entries = await workLogModel.getWorkLogEntriesByUserId(entryId);
+      const entryExists = entries.some(entry => entry.entry_id === entryId);
+
+      if (!entryExists) {
+        throw new Error('Worklog entry not found');
+      }
+
+      const result = await workLogModel.deleteWorkLogEntry(entryId);
+
+      if (result.affectedRows === 0) {
+        throw new Error('Failed to delete worklog entry');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error in deleteWorkLogEntry:', error);
       throw error;
     }
   },
