@@ -28,10 +28,7 @@ router.get(
   async (_req: Request, res: Response) => {
     try {
       const serverSettings = await adminController.getServerSettings();
-      // console.log(
-      // 	'🚀 ~ file: adminroutes.ts:15 ~ serverSettings:',
-      // 	serverSettings,
-      // );
+
       res.status(200).send(serverSettings[0][0]);
     } catch (error) {
       console.error(error);

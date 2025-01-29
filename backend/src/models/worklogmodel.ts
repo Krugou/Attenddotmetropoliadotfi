@@ -120,7 +120,6 @@ const workLogModel = {
     description: string,
     status: 0 | 1 | 2 | 3,
   ): Promise<ResultSetHeader> {
-    console.log('🚀 ~ status:', status);
     try {
       const [result] = await pool
         .promise()
@@ -172,8 +171,6 @@ const workLogModel = {
   ): Promise<WorkLogEntry[]> {
     try {
       if (!studentIds.length) return [];
-
-      console.log('Fetching entries with params:', {courseId, studentIds});
 
       const [rows] = await pool.promise().query<WorkLogEntry[]>(
         `SELECT wle.*
@@ -279,8 +276,6 @@ const workLogModel = {
 
   async checkStudentsInWorklogGroup(groupId: number): Promise<RowDataPacket[]> {
     try {
-      console.log('Checking students in group:', groupId);
-
       // First verify the group exists
       const [groupCheck] = await pool
         .promise()
@@ -304,16 +299,6 @@ const workLogModel = {
          ORDER BY u.last_name, u.first_name`,
         [groupId],
       );
-
-      console.log('Query results:', {
-        groupId,
-        studentCount: rows.length,
-        students: rows.map((r) => ({
-          id: r.userid,
-          email: r.email,
-          name: `${r.first_name} ${r.last_name}`,
-        })),
-      });
 
       return rows;
     } catch (error) {
