@@ -6,6 +6,8 @@ import apiHooks from '../../../hooks/ApiHooks';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {CircularProgress, Select, MenuItem} from '@mui/material';
+import {Edit, Delete} from '@mui/icons-material';
+import EditWorklogModal from '../../../components/modals/EditWorklogModal';
 
 dayjs.extend(duration);
 
@@ -27,6 +29,8 @@ const StudentWorklogs: React.FC = () => {
   const [entries, setEntries] = useState<WorkLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingStatus, setUpdatingStatus] = useState<number | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<WorkLogEntry | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -82,6 +86,55 @@ const StudentWorklogs: React.FC = () => {
     }
   };
 
+  const handleEdit = (entry: WorkLogEntry) => {
+    setSelectedEntry(entry);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (entryId: number) => {
+    if (!window.confirm(t('worklog.delete.confirm'))) return;
+
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token) throw new Error('No token found');
+
+      await apiHooks.deleteWorkLogEntry(entryId, token);
+      setEntries(entries.filter((entry) => entry.entry_id !== entryId));
+      toast.success(t('worklog.delete.success'));
+    } catch (error) {
+      console.error('Error deleting entry:', error);
+      toast.error(t('worklog.delete.error'));
+    }
+  };
+
+  const handleSaveEdit = async (updatedData: Partial<WorkLogEntry>) => {
+    if (!selectedEntry) return;
+
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token) throw new Error('No token found');
+
+      await apiHooks.updateWorkLogEntry(
+        selectedEntry.entry_id,
+        updatedData,
+        token,
+      );
+
+      setEntries(
+        entries.map((entry) =>
+          entry.entry_id === selectedEntry.entry_id
+            ? {...entry, ...updatedData}
+            : entry,
+        ),
+      );
+
+      toast.success(t('worklog.edit.success'));
+    } catch (error) {
+      console.error('Error updating entry:', error);
+      toast.error(t('worklog.edit.error'));
+    }
+  };
+
   const calculateDuration = (start: string, end: string) => {
     const startTime = dayjs(start);
     const endTime = dayjs(end);
@@ -116,8 +169,21 @@ const StudentWorklogs: React.FC = () => {
         {entries.map((entry) => (
           <div
             key={entry.entry_id}
-            className='overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl'>
-            <div className='p-4'>
+            className='relative overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl'>
+            <div className='absolute space-x-2 top-2 right-2'>
+              <button
+                onClick={() => handleEdit(entry)}
+                className='p-1 text-gray-600 rounded hover:bg-gray-100'>
+                <Edit fontSize='small' />
+              </button>
+              <button
+                onClick={() => handleDelete(entry.entry_id)}
+                className='p-1 text-red-600 rounded hover:bg-gray-100'>
+                <Delete fontSize='small' />
+              </button>
+            </div>
+
+            <div className='p-4 pt-10'>
               <div className='flex items-center justify-between mb-4'>
                 <div className='text-lg font-semibold text-metropoliaMainGrey'>
                   {entry.course?.name}
@@ -155,29 +221,25 @@ const StudentWorklogs: React.FC = () => {
                   <span className='text-sm text-metropoliaMainGrey'>
                     Status:
                   </span>
-                  {updatingStatus === entry.entry_id ? (
-                    <CircularProgress size={20} />
-                  ) : (
-                    <Select
-                      value={entry.status}
-                      onChange={(e) =>
-                        handleStatusChange(
-                          entry.entry_id,
-                          Number(e.target.value),
-                        )
-                      }
-                      size='small'
-                      className='min-w-[120px]'>
-                      <MenuItem value={1}>{t('worklog.status.1')}</MenuItem>
-                      <MenuItem value={2}>{t('worklog.status.2')}</MenuItem>
-                    </Select>
-                  )}
+                  <span className={statusClass(entry.status)}>
+                    {t(`worklog.status.${entry.status}`)}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      <EditWorklogModal
+        open={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedEntry(null);
+        }}
+        entry={selectedEntry}
+        onSave={handleSaveEdit}
+      />
 
       <div className='mt-4 text-sm text-metropoliaMainGrey'>
         {t('worklog.entries.total')}: {entries.length}{' '}
