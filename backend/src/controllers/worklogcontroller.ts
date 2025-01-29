@@ -303,14 +303,15 @@ const workLogController: WorkLogController = {
    */
   async getWorkLogCourseDetails(courseId: number): Promise<WorkLogCourseDetails> {
     try {
-      const course = await workLogModel.getWorkLogCourseById(courseId);
+      const {course, userCount} = await workLogModel.getWorkLogCourseById(courseId);
       const entries = await workLogModel.getWorkLogEntriesByCourse(courseId);
       const groups = await workLogModel.getWorkLogGroupsByCourse(courseId);
       const instructors = await workLogModel.getInstructorsByCourse(courseId);
 
       return {
         course: {
-          ...course[0],
+          ...course,
+          user_count: userCount,
           instructor_name: instructors.map(i => i.email).join(',')
         },
         entries,
