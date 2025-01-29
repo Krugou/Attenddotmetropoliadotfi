@@ -92,13 +92,17 @@ const StudentWorkLog: React.FC = () => {
         console.log('🚀 ~ fetchCourses ~ fetchedCourses:', fetchedCourses);
 
         setCourses(fetchedCourses);
+        // Auto-select the first course if there are courses and no active entry
+        if (fetchedCourses.length > 0 && !hasActiveEntry && !selectedCourse) {
+          setSelectedCourse(fetchedCourses[0].work_log_course_id);
+        }
       } catch (error) {
         toast.error('Failed to fetch courses');
       }
     };
 
     fetchCourses();
-  }, [user]);
+  }, [user, hasActiveEntry, selectedCourse]);
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(Number(event.target.value));
