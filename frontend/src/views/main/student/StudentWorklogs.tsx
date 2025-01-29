@@ -5,7 +5,7 @@ import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import {CircularProgress, Select, MenuItem} from '@mui/material';
+import {CircularProgress} from '@mui/material';
 import {Edit, Delete} from '@mui/icons-material';
 import EditWorklogModal from '../../../components/modals/EditWorklogModal';
 
@@ -28,7 +28,6 @@ const StudentWorklogs: React.FC = () => {
   const {user} = useContext(UserContext);
   const [entries, setEntries] = useState<WorkLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [updatingStatus, setUpdatingStatus] = useState<number | null>(null);
   const [selectedEntry, setSelectedEntry] = useState<WorkLogEntry | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -44,7 +43,6 @@ const StudentWorklogs: React.FC = () => {
           user.userid,
           token,
         );
-        console.log('🚀 ~ fetchEntries ~ response:', response);
 
         if (response.entries) {
           setEntries(response.entries);
@@ -59,32 +57,6 @@ const StudentWorklogs: React.FC = () => {
 
     fetchEntries();
   }, [user?.userid, t]);
-
-  const handleStatusChange = async (entryId: number, newStatus: number) => {
-    try {
-      setUpdatingStatus(entryId);
-      const token = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token found');
-      }
-
-      await apiHooks.updateWorkLogStatus(entryId, newStatus, token);
-
-      // Update local state
-      setEntries(
-        entries.map((entry) =>
-          entry.entry_id === entryId ? {...entry, status: newStatus} : entry,
-        ),
-      );
-
-      toast.success(t('worklog.status.updateSuccess'));
-    } catch (error) {
-      console.error('Error updating status:', error);
-      toast.error(t('worklog.status.updateError'));
-    } finally {
-      setUpdatingStatus(null);
-    }
-  };
 
   const handleEdit = (entry: WorkLogEntry) => {
     setSelectedEntry(entry);
