@@ -1347,6 +1347,38 @@ const getAllWorkLogEntries = async (userId: number, token: string) => {
   return await doFetch(`${baseUrl}worklog/entries/all/${userId}`, options);
 };
 
+const deleteWorkLogEntry = async (entryId: number, token: string) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/entries/${entryId}`, options);
+};
+
+const updateWorkLogEntry = async (
+  entryId: number,
+  updatedData: Partial<{
+    description: string;
+    startTime: Date;
+    endTime: Date;
+    status: number;
+  }>,
+  token: string,
+) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(updatedData),
+  };
+  return await doFetch(`${baseUrl}worklog/entries/${entryId}`, options);
+};
+
 const apiHooks = {
   closeWorkLogEntry,
   getActiveWorkLogEntries,
@@ -1438,5 +1470,7 @@ const apiHooks = {
   getWorkLogGroupDetails,
   getActiveCoursesByStudentEmail,
   getAllWorkLogEntries,
+  deleteWorkLogEntry,
+  updateWorkLogEntry,
 };
 export default apiHooks;
