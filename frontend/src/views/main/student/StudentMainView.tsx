@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
-import {QrCode, Person, School, Help, PhotoCamera} from '@mui/icons-material';
+import {
+  QrCode,
+  Person,
+  School,
+  Help,
+  PhotoCamera,
+  Work,
+} from '@mui/icons-material';
+import {UserContext} from '../../../contexts/UserContext';
+import apiHooks from '../../../hooks/ApiHooks';
 
 /**
  * MainView component.
@@ -22,6 +31,35 @@ import {QrCode, Person, School, Help, PhotoCamera} from '@mui/icons-material';
  */
 const MainView: React.FC = () => {
   const {t} = useTranslation();
+  const {user} = useContext(UserContext);
+  const [hasWorkLogCourses, setHasWorkLogCourses] = useState<boolean>(false);
+  const isAdmin = user?.roleid === 1;
+
+  useEffect(() => {
+    const checkWorkLogCourses = async () => {
+      try {
+        // Skip check if user is admin
+        if (isAdmin) {
+          setHasWorkLogCourses(true);
+          return;
+        }
+
+        const token = localStorage.getItem('userToken');
+        if (!token || !user?.email) return;
+
+        const courses = await apiHooks.getActiveCoursesByStudentEmail(
+          user.email,
+          token,
+        );
+        setHasWorkLogCourses(courses.length > 0);
+      } catch (error) {
+        console.error('Error checking worklog courses:', error);
+        setHasWorkLogCourses(false);
+      }
+    };
+
+    checkWorkLogCourses();
+  }, [user?.email, isAdmin]);
 
   return (
     <div className='w-full'>
@@ -57,19 +95,21 @@ const MainView: React.FC = () => {
           description={t('student.mainView.qrScannerCamera.description')}
           icon={PhotoCamera}
         />
-        {import.meta.env.MODE === 'development' && (
+        {(import.meta.env.MODE === 'development' ||
+          hasWorkLogCourses ||
+          isAdmin) && (
           <>
             <Card
               path='/student/worklog'
               title={t('student.mainView.workLog.title')}
               description={t('student.mainView.workLog.description')}
-              icon={PhotoCamera}
+              icon={Work}
             />
             <Card
               path='/student/worklogs'
               title={t('student.mainView.workLogs.title')}
               description={t('student.mainView.workLogs.description')}
-              icon={PhotoCamera}
+              icon={Work}
             />
           </>
         )}
