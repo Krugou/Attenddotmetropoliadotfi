@@ -147,7 +147,16 @@
       "courseStatistics": "Kursstatistik",
       "courseCount": "Antal kurser",
       "courseCounts": "Kursantal",
-      "totalCourses": "Totala kurser"
+      "totalCourses": "Totala kurser",
+      "regularCourses": "Vanliga kurser",
+      "worklogCourses": "Arbetsdagbokskurser",
+      "pendingEntries": "Väntande poster",
+      "approvedEntries": "Godkända poster",
+      "delayedEntries": "Försenade poster",
+      "totalEntries": "Totalt antal poster",
+      "entryCount": "Antal poster",
+      "worklogEntries": "Arbetsdagboksposter",
+      "worklogStatistics": "Arbetsdagboksstatistik"
     },
     "dashboard": {
       "title": "Serverpanel"

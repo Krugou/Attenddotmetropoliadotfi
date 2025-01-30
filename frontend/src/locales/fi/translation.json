@@ -147,7 +147,16 @@
       "courseStatistics": "Kurssitilastot",
       "courseCount": "Kurssimäärä",
       "courseCounts": "Kurssimäärät",
-      "totalCourses": "Kursseja yhteensä"
+      "totalCourses": "Kursseja yhteensä",
+      "regularCourses": "Tavalliset kurssit",
+      "worklogCourses": "Työpäiväkirjakurssit",
+      "pendingEntries": "Odottavat merkinnät",
+      "approvedEntries": "Hyväksytyt merkinnät",
+      "delayedEntries": "Myöhästyneet merkinnät",
+      "totalEntries": "Merkintöjä yhteensä",
+      "entryCount": "Merkintöjen määrä",
+      "worklogEntries": "Työpäiväkirjamerkinnät",
+      "worklogStatistics": "Työpäiväkirjatilastot"
     },
     "dashboard": {
       "title": "Palvelimen hallintapaneeli"

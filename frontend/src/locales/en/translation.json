@@ -147,7 +147,16 @@
       "courseStatistics": "Course Statistics",
       "courseCount": "Course Count",
       "courseCounts": "Course Counts",
-      "totalCourses": "Total Courses"
+      "totalCourses": "Total Courses",
+      "regularCourses": "Regular Courses",
+      "worklogCourses": "Worklog Courses",
+      "pendingEntries": "Pending Entries",
+      "approvedEntries": "Approved Entries",
+      "delayedEntries": "Delayed Entries",
+      "totalEntries": "Total Entries",
+      "entryCount": "Entry Count",
+      "worklogEntries": "Worklog Entries",
+      "worklogStatistics": "Worklog Statistics"
     },
     "dashboard": {
       "title": "Server Dashboard"
