@@ -166,7 +166,6 @@
       "noFeedbackAvailable": "Ingen feedback har ännu lämnats. Håll utkik!",
       "confirmDelete": "Är du säker på att du vill radera denna feedback?"
     },
-
     "guide": {
       "title": "Guide",
       "guideText": "Detta är guiden för administratörer. Den ger instruktioner och information om hur man navigerar och använder de olika funktionerna i administratörspanelen.",
@@ -223,6 +222,23 @@
       "errors": {
         "emailTaken": "Student-e-posten upptagen",
         "studentNumberTaken": "Studentnumret är upptaget"
+      }
+    },
+    "logs": {
+      "title": "Adminloggar",
+      "errorTitle": "Admin felloggar",
+      "showOlder": "Visa äldre",
+      "showOlderLogs": "Visa äldre loggar",
+      "showOlderErrors": "Visa äldre felloggar",
+      "resetReload": "Återställ/Ladda om",
+      "noLogs": "inga loggar hittades.",
+      "noErrorLogs": "inga felloggar hittades.",
+      "logsLabel": "Loggar:",
+      "errorLogsLabel": "Felloggar:",
+      "details": {
+        "userEmail": "Användarens e-post",
+        "time": "Tid",
+        "message": "Meddelande"
       }
     }
   },

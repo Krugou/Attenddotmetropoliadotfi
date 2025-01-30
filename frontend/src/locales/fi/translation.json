@@ -224,6 +224,23 @@
         "emailTaken": "Opiskelijan sähköposti varattu",
         "studentNumberTaken": "Opiskelijan numero varattu"
       }
+    },
+    "logs": {
+      "title": "Järjestelmälokit",
+      "errorTitle": "Järjestelmän virhelokit",
+      "showOlder": "Näytä vanhemmat",
+      "showOlderLogs": "Näytä vanhemmat lokit",
+      "showOlderErrors": "Näytä vanhemmat virhelokit",
+      "resetReload": "Nollaa/Lataa uudelleen",
+      "noLogs": "lokeja ei löytynyt.",
+      "noErrorLogs": "virhelokeja ei löytynyt.",
+      "logsLabel": "Lokit:",
+      "errorLogsLabel": "Virhelokit:",
+      "details": {
+        "userEmail": "Käyttäjän sähköposti",
+        "time": "Aika",
+        "message": "Viesti"
+      }
     }
   },
   "counselor": {

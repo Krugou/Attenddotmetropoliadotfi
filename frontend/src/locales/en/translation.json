@@ -223,6 +223,23 @@
         "emailTaken": "Student email taken",
         "studentNumberTaken": "Student number taken"
       }
+    },
+    "logs": {
+      "title": "Admin Logs",
+      "errorTitle": "Admin Error Logs",
+      "showOlder": "Show older",
+      "showOlderLogs": "Show older Logs",
+      "showOlderErrors": "Show older Error Logs",
+      "resetReload": "Reset/Reload",
+      "noLogs": "no Logs found.",
+      "noErrorLogs": "no Error Logs found.",
+      "logsLabel": "Logs:",
+      "errorLogsLabel": "Error Logs:",
+      "details": {
+        "userEmail": "User Email",
+        "time": "Time",
+        "message": "Message"
+      }
     }
   },
   "counselor": {
