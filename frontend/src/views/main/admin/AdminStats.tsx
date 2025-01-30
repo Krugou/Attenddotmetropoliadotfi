@@ -40,6 +40,17 @@ interface Lecture {
   actualStudentCount: number;
 }
 
+interface CourseCount {
+  regularCourses: {
+    total: number;
+    active: number;
+  };
+  worklogCourses: {
+    total: number;
+    active: number;
+  };
+}
+
 const AdminStats = () => {
   const {t} = useTranslation();
   const [userStatistics, setUserStatistics] = useState<Array<{
@@ -50,6 +61,10 @@ const AdminStats = () => {
     number[] | null
   >(null);
   const [lectureStatistics, setLectureStatistics] = useState<Array<{
+    name: string;
+    count: number;
+  }> | null>(null);
+  const [courseStatistics, setCourseStatistics] = useState<Array<{
     name: string;
     count: number;
   }> | null>(null);
@@ -134,6 +149,37 @@ const AdminStats = () => {
     setLectureStatistics(formattedData);
   };
 
+  const fetchCourseStatistics = async (token: string) => {
+    const courseCounts: CourseCount = await apiHooks.getCourseCounts(token);
+    const formattedData = [
+      {
+        name: `${t('admin.adminStats.regularCourses')} (${t(
+          'admin.adminStats.total',
+        )})`,
+        count: courseCounts.regularCourses.total,
+      },
+      {
+        name: `${t('admin.adminStats.regularCourses')} (${t(
+          'admin.adminStats.active',
+        )})`,
+        count: courseCounts.regularCourses.active,
+      },
+      {
+        name: `${t('admin.adminStats.worklogCourses')} (${t(
+          'admin.adminStats.total',
+        )})`,
+        count: courseCounts.worklogCourses.total,
+      },
+      {
+        name: `${t('admin.adminStats.worklogCourses')} (${t(
+          'admin.adminStats.active',
+        )})`,
+        count: courseCounts.worklogCourses.active,
+      },
+    ];
+    setCourseStatistics(formattedData);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const token: string | null = localStorage.getItem('userToken');
@@ -145,6 +191,7 @@ const AdminStats = () => {
       try {
         await fetchUserStatistics(token);
         await fetchLectureStatistics(token);
+        await fetchCourseStatistics(token);
       } catch (error) {
         setError('Failed to fetch data');
       }
@@ -252,6 +299,48 @@ const AdminStats = () => {
               dataKey='count'
               fill='#FF1902'
               name={t('admin.adminStats.attendanceCounts')}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Course Statistics Chart */}
+      <div className='justify-start w-full mx-4'>
+        <h2 className='mb-4 text-xl md:text-2xl font-heading'>
+          {t('admin.adminStats.courseStatistics')}
+        </h2>
+        {courseStatistics && (
+          <p className='text-sm md:text-base font-body'>
+            {`${t('admin.adminStats.totalCourses')}: ${
+              courseStatistics[0].count + courseStatistics[2].count
+            } (${t('admin.adminStats.active')}: ${
+              courseStatistics[1].count + courseStatistics[3].count
+            })`}
+          </p>
+        )}
+        <ResponsiveContainer {...chartConfig}>
+          <BarChart data={courseStatistics}>
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis
+              dataKey='name'
+              angle={-45}
+              textAnchor='end'
+              height={60}
+              interval={0}
+            />
+            <YAxis>
+              <Label
+                value={t('admin.adminStats.courseCount')}
+                angle={-90}
+                position='insideLeft'
+              />
+            </YAxis>
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey='count'
+              fill='#82ca9d'
+              name={t('admin.adminStats.courseCounts')}
             />
           </BarChart>
         </ResponsiveContainer>
