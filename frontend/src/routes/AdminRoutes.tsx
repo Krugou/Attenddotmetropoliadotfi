@@ -11,6 +11,7 @@ import AdminCoursesRoutes from './admin/AdminCourseRoutes';
 import AdminLecturesRoutes from './admin/AdminLectureRoutes.tsx';
 import AdminSettingsRoutes from './admin/AdminSettingsRoutes.tsx';
 import AdminUserRoutes from './admin/AdminUserRoutes';
+import AdminWorkLogRoutes from './admin/AdminWorkLogRoutes.tsx';
 /**
  * AdminRoutes component.
  * This component is responsible for defining the routes for the admin section of the application.
@@ -22,7 +23,7 @@ import AdminUserRoutes from './admin/AdminUserRoutes';
  */
 const AdminRoutes = () => {
   const {user} = useContext(UserContext);
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -30,7 +31,7 @@ const AdminRoutes = () => {
         navigate('/student', {replace: true});
       } else if (user?.role === 'teacher') {
         navigate('/teacher', {replace: true});
-      }else if (user?.role === 'counselor') {
+      } else if (user?.role === 'counselor') {
         navigate('/counselor', {replace: true});
       }
     } catch (error) {
@@ -39,7 +40,11 @@ const AdminRoutes = () => {
   }, [user, navigate]);
 
   // Guard clause for student role
-  if (user?.role === 'student' || user?.role === 'teacher' || user?.role === 'counselor') { 
+  if (
+    user?.role === 'student' ||
+    user?.role === 'teacher' ||
+    user?.role === 'counselor'
+  ) {
     return null; // Prevent rendering of admin routes for students
   }
 
@@ -47,6 +52,7 @@ const AdminRoutes = () => {
     <Routes>
       <Route path='mainview' element={<AdminMainView />} />
       <Route path='courses/*' element={<AdminCoursesRoutes />} />
+      <Route path='worklog/*' element={<AdminWorkLogRoutes />} />
       <Route path='users/*' element={<AdminUserRoutes />} />
       <Route path='profile' element={<AdminProfile />} />
       <Route path='settings/*' element={<AdminSettingsRoutes />} />
