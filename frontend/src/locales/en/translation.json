@@ -141,7 +141,13 @@
       "attendanceCounts": "Attendance Counts",
       "totalLectures": "Total lectures",
       "attendanceRatio": "Attendance ratio",
-      "distribution": "Weekly Distribution of Saved Lectures Count by Day"
+      "distribution": "Weekly Distribution of Saved Lectures Count by Day",
+      "total": "Total",
+      "active": "Active",
+      "courseStatistics": "Course Statistics",
+      "courseCount": "Course Count",
+      "courseCounts": "Course Counts",
+      "totalCourses": "Total Courses"
     },
     "dashboard": {
       "title": "Server Dashboard"
@@ -157,6 +163,11 @@
         "saturday": "Saturday"
       },
       "label": "Number of Lectures"
+    },
+    "lecturesByDay": {
+      "lectureCount": "Lecture Count",
+      "numberOfLectures": "Number of Lectures",
+      "dayOfWeek": "Day of Week"
     },
     "feedback": {
       "title": "Feedback",
