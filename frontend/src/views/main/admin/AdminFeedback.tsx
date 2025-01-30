@@ -44,6 +44,7 @@ const AdminFeedback = () => {
       .getUserFeedback(token)
       .then((response) => {
         setFeedback(response);
+        console.log('🚀 ~ .then ~ response:', response);
         setLoading(false);
       })
       .catch((error) => {
@@ -84,19 +85,24 @@ const AdminFeedback = () => {
     }
   };
 
+  const formatDateTime = (timestamp: string) => {
+    return new Date(timestamp).toLocaleString();
+  };
+
   return (
-    <div className='w-full bg-white'>
-      <h1 className='p-3 m-auto mb-10 text-3xl font-heading text-center rounded-lg w-fit'>
+    <div className='w-full min-h-screen px-4 py-8 bg-white sm:px-6 lg:px-8'>
+      <h1 className='mb-8 text-2xl text-center sm:text-3xl font-heading'>
         {t('admin.feedback.title')}
       </h1>
-      <div className='flex flex-col justify-center p-4 m-auto bg-white rounded-lg 2xl:w-1/3 md:w-2/3 w-fit'>
-        <div className='flex flex-col items-center justify-center m-2'>
-          <p className='mb-2 text-xl text-center'>
+
+      <div className='max-w-4xl p-4 mx-auto bg-white rounded-lg shadow-sm sm:p-6'>
+        <div className='flex flex-col items-center mb-6 space-y-4'>
+          <p className='text-lg text-center sm:text-xl font-body'>
             {t('admin.feedback.filterFeedback')}:
           </p>
           <select
             title={t('admin.feedback.topic')}
-            className='w-2/3 p-2 my-2 text-xl font-heading text-white rounded cursor-pointer bg-metropoliaTrendGreen focus:outline-none focus:shadow-outline'
+            className='w-full p-2 text-base text-white transition-colors duration-200 rounded-lg sm:w-2/3 sm:text-lg font-heading bg-metropoliaTrendGreen hover:bg-metropoliaTrendGreen/90 focus:outline-none focus:ring-2 focus:ring-metropoliaTrendGreen focus:ring-offset-2'
             onChange={(e) => handleTopicChange(e.target.value)}>
             <option value=''>All</option>
             {feedback &&
@@ -107,74 +113,92 @@ const AdminFeedback = () => {
               ))}
           </select>
         </div>
-        <div className='max-h-[25em] pl-5 pr-5 pb-5 overflow-y-scroll'>
+
+        <div className='max-h-[calc(100vh-20rem)] overflow-y-auto px-2 sm:px-4'>
           {loading ? (
-            <CircularProgress />
+            <div className='flex justify-center py-8'>
+              <CircularProgress />
+            </div>
           ) : feedback.length > 0 ? (
-            feedback
-              .filter(
-                (item) =>
-                  selectedTopic === null || item.topic === selectedTopic,
-              )
-              .map((item: FeedbackItem) => (
-                <Accordion
-                  key={item.feedbackId}
-                  style={{backgroundColor: '#ff5000', color: '#F5F5F5'}}
-                  className='w-full mb-5'>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls='panel1a-content'
-                    id='panel1a-header'
-                    className='border border-white'>
-                    <Typography>
-                      {item.topic} - {item.email}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails className='text-black bg-white'>
-                    <Typography className='break-words'>{item.text}</Typography>
-                    <div className='flex justify-end'>
-                      <button
-                        className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
-                        onClick={() => handleClickOpen(item.feedbackId)}>
-                        {t('admin.common.delete')}
-                      </button>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-              ))
+            <div className='space-y-4'>
+              {feedback
+                .filter(
+                  (item) =>
+                    selectedTopic === null || item.topic === selectedTopic,
+                )
+                .map((item: FeedbackItem) => (
+                  <Accordion
+                    key={item.feedbackId}
+                    className='overflow-hidden border rounded-lg border-metropoliaMainOrange/20'
+                    style={{backgroundColor: '#ff5000'}}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon className='text-white' />}
+                      className='hover:bg-metropoliaMainOrange/90'>
+                      <div className='flex flex-col w-full gap-1 pr-4'>
+                        <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>
+                          <Typography className='text-sm text-white sm:text-base font-body'>
+                            {item.topic}
+                          </Typography>
+                          <Typography className='text-xs text-white sm:text-sm font-body'>
+                            {item.email}
+                          </Typography>
+                        </div>
+                        <Typography className='text-xs text-white/80 font-body'>
+                          {formatDateTime(item.timestamp)}
+                        </Typography>
+                      </div>
+                    </AccordionSummary>
+                    <AccordionDetails className='p-4 bg-white'>
+                      <Typography className='mb-4 text-sm break-words sm:text-base font-body'>
+                        {item.text}
+                      </Typography>
+                      <div className='flex justify-end'>
+                        <button
+                          className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaSupportRed hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:ring-2 focus:ring-metropoliaSupportRed focus:ring-offset-2'
+                          onClick={() => handleClickOpen(item.feedbackId)}>
+                          {t('admin.common.delete')}
+                        </button>
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+            </div>
           ) : (
-            <p className='text-center'>
+            <p className='py-8 text-center text-gray-600 font-body'>
               {t('admin.feedback.noFeedbackAvailable')}
             </p>
           )}
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby='alert-dialog-title'
-            aria-describedby='alert-dialog-description'>
-            <DialogTitle id='alert-dialog-title'>
-              {'Confirm Delete'}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id='alert-dialog-description'>
-                {t('admin.feedback.confirmDelete')}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <button
-                className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
-                onClick={handleClose}>
-                {t('admin.common.cancel')}
-              </button>
-              <button
-                className='p-2 m-2 font-heading text-white transition rounded bg-metropoliaSupportRed hover:hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:shadow-outline'
-                onClick={handleConfirmDelete}
-                autoFocus>
-                {t('admin.common.delete')}
-              </button>
-            </DialogActions>
-          </Dialog>
         </div>
+
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          className='rounded-lg'
+          PaperProps={{
+            className: 'rounded-lg p-4',
+          }}>
+          <DialogTitle className='text-lg sm:text-xl font-heading'>
+            {t('admin.common.confirmDelete')}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText className='font-body'>
+              {t('admin.feedback.confirmDelete')}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions className='p-4'>
+            <button
+              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:ring-offset-2'
+              onClick={handleClose}>
+              {t('admin.common.cancel')}
+            </button>
+            <button
+              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaSupportRed hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:ring-2 focus:ring-metropoliaSupportRed focus:ring-offset-2'
+              onClick={handleConfirmDelete}
+              autoFocus>
+              {t('admin.common.delete')}
+            </button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );
