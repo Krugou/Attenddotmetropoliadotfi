@@ -1,38 +1,20 @@
 import CircularProgress from '@mui/material/CircularProgress';
-import {
-  BarElement,
-  CategoryScale,
-  ChartDataset,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from 'chart.js';
 import React, {useEffect, useState} from 'react';
-import {Bar} from 'react-chartjs-2';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Label,
+} from 'recharts';
 import {toast} from 'react-toastify';
 import LecturesByDayChart from '../../../components/main/admin/LecturesByDayChart';
 import apiHooks from '../../../hooks/ApiHooks';
 import {useTranslation} from 'react-i18next';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
-
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-  },
-};
 
 interface RoleCount {
   role_name: string;
@@ -57,19 +39,20 @@ interface Lecture {
   courseid: string;
   actualStudentCount: number;
 }
+
 const AdminStats = () => {
   const {t} = useTranslation();
-  const [userStatistics, setUserStatistics] = useState<{
-    labels: string[];
-    datasets: ChartDataset<'bar', number[]>[];
-  } | null>(null);
+  const [userStatistics, setUserStatistics] = useState<Array<{
+    name: string;
+    count: number;
+  }> | null>(null);
   const [attendanceStatistics, setAttendanceStatistics] = useState<
     number[] | null
   >(null);
-  const [lectureStatistics, setLectureStatistics] = useState<{
-    labels: string[];
-    datasets: ChartDataset<'bar', number[]>[];
-  } | null>(null);
+  const [lectureStatistics, setLectureStatistics] = useState<Array<{
+    name: string;
+    count: number;
+  }> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userStatisticsPercentage, setUserStatisticsPercentage] =
     useState<number>(0);
@@ -87,11 +70,14 @@ const AdminStats = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   const fetchUserStatistics = async (token: string) => {
     const roleCounts: RoleCount[] = await apiHooks.getRoleCounts(token);
-    console.log('🚀 ~ fetchUserStatistics ~ roleCounts:', roleCounts);
-    const roleNames = roleCounts.map((row) => row.role_name);
-    const userCounts = roleCounts.map((row) => row.user_count);
+    const formattedData = roleCounts.map((row) => ({
+      name: row.role_name,
+      count: row.user_count,
+    }));
+
     const studentCount =
       roleCounts.find((row) => row.role_name === 'student')?.user_count || 0;
     const studentsLoggedCount =
@@ -99,18 +85,9 @@ const AdminStats = () => {
         ?.user_count || 0;
     const studentsLoggedPercentage = (studentsLoggedCount / studentCount) * 100;
     setUserStatisticsPercentage(studentsLoggedPercentage);
-    setUserStatistics({
-      labels: roleNames,
-      datasets: [
-        {
-          label: 'User Counts',
-          data: userCounts,
-          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-          hidden: false,
-        },
-      ],
-    });
+    setUserStatistics(formattedData);
   };
+
   const [lectures, setLectures] = useState<Lecture[] | null>(null);
 
   const getLectures = async () => {
@@ -138,28 +115,23 @@ const AdminStats = () => {
   useEffect(() => {
     getLectures();
   }, []);
+
   const fetchLectureStatistics = async (token: string) => {
-    const lectureAttendanceCounts: LectureAttendanceCount =
-      await apiHooks.getLectureAndAttendanceCount(token);
-    const labels = Object.keys(lectureAttendanceCounts).map((label) => {
-      if (label === 'notattended') {
-        return 'Not Attended';
-      }
-      return label.charAt(0).toUpperCase() + label.slice(1);
-    });
-    const data = Object.values(lectureAttendanceCounts) as number[];
-    setAttendanceStatistics(data);
-    setLectureStatistics({
-      labels: labels,
-      datasets: [
-        {
-          label: 'Attendance Counts',
-          data: data,
-          backgroundColor: 'rgba(255, 25, 2, 0.6)',
-          hidden: false,
-        },
-      ],
-    });
+    const lectureAttendanceCounts = await apiHooks.getLectureAndAttendanceCount(
+      token,
+    );
+    const formattedData = Object.entries(lectureAttendanceCounts).map(
+      ([key, value]) => ({
+        name:
+          key === 'notattended'
+            ? 'Not Attended'
+            : key.charAt(0).toUpperCase() + key.slice(1),
+        count: value as number,
+      }),
+    );
+
+    setAttendanceStatistics(Object.values(lectureAttendanceCounts) as number[]);
+    setLectureStatistics(formattedData);
   };
 
   useEffect(() => {
@@ -189,40 +161,106 @@ const AdminStats = () => {
     return <CircularProgress />;
   }
 
+  const chartConfig = {
+    width: '100%',
+    height: 400,
+    margin: {top: 20, right: 30, left: 20, bottom: 5},
+  };
+
   return (
     <div
       className='grid w-full grid-cols-1 gap-4 p-5 bg-white xl:grid-cols-2'
       key={windowWidth}>
-      <h2 className='mb-4 text-2xl md:text-3xl col-span-full'>
+      <h2 className='mb-4 text-2xl md:text-3xl col-span-full font-heading'>
         {t('admin.adminStats.administratorStatistics')}
       </h2>
+
+      {/* User Statistics Chart */}
       <div className='justify-start w-full mx-4'>
-        <h2 className='mb-4 text-xl md:text-2xl'>{t('admin.adminStats.userStatistics')}</h2>
-        <p className='text-sm md:text-base'>{`Percentage of students who have logged in at least once: ${userStatisticsPercentage.toFixed(
-          2,
-        )}%`}</p>
-        <div className='w-full'>
-          <Bar options={options} data={userStatistics} />
-        </div>
+        <h2 className='mb-4 text-xl md:text-2xl font-heading'>
+          {t('admin.adminStats.userStatistics')}
+        </h2>
+        <p className='text-sm md:text-base font-body'>
+          {`${t(
+            'admin.adminStats.loggedInPercentage',
+          )}: ${userStatisticsPercentage.toFixed(2)}%`}
+        </p>
+        <ResponsiveContainer {...chartConfig}>
+          <BarChart data={userStatistics}>
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis
+              dataKey='name'
+              angle={-45}
+              textAnchor='end'
+              height={60}
+              interval={0}
+            />
+            <YAxis>
+              <Label
+                value={t('admin.adminStats.userCount')}
+                angle={-90}
+                position='insideLeft'
+              />
+            </YAxis>
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey='count'
+              fill='#8884d8'
+              name={t('admin.adminStats.userCounts')}
+            />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
+
+      {/* Attendance Statistics Chart */}
       <div className='justify-start w-full mx-4'>
-        <h2 className='mb-4 text-xl md:text-2xl'>{t('admin.adminStats.attendanceStatistics')}</h2>
+        <h2 className='mb-4 text-xl md:text-2xl font-heading'>
+          {t('admin.adminStats.attendanceStatistics')}
+        </h2>
         {attendanceStatistics && (
-          <p className='text-sm md:text-base'>
-            {`Total lectures: ${attendanceStatistics[0]}. Attendance ratio: ${(
+          <p className='text-sm md:text-base font-body'>
+            {`${t('admin.adminStats.totalLectures')}: ${
+              attendanceStatistics[0]
+            }. ${t('admin.adminStats.attendanceRatio')}: ${(
               (attendanceStatistics[2] /
                 (attendanceStatistics[2] + attendanceStatistics[1])) *
               100
             ).toFixed(2)}%`}
           </p>
         )}
-        <div className='w-full'>
-          <Bar options={options} data={lectureStatistics} />
-        </div>
+        <ResponsiveContainer {...chartConfig}>
+          <BarChart data={lectureStatistics}>
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis
+              dataKey='name'
+              angle={-45}
+              textAnchor='end'
+              height={60}
+              interval={0}
+            />
+            <YAxis>
+              <Label
+                value={t('admin.adminStats.attendanceCount')}
+                angle={-90}
+                position='insideLeft'
+              />
+            </YAxis>
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey='count'
+              fill='#FF1902'
+              name={t('admin.adminStats.attendanceCounts')}
+            />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
-      <div className='justify-start w-full mx-4'>
-        <h2 className='mb-4 text-xl md:text-2xl'>
-        {t('admin.adminStats.distributtion')}
+
+      {/* Distribution Chart */}
+      <div className='justify-start w-full mx-4 col-span-full'>
+        <h2 className='mb-4 text-xl md:text-2xl font-heading'>
+          {t('admin.adminStats.distribution')}
         </h2>
         <div className='w-full'>
           <LecturesByDayChart lectures={lectures} />
