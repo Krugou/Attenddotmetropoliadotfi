@@ -44,6 +44,7 @@ const StudentWorklogs: React.FC = () => {
           user.userid,
           token,
         );
+        console.log('🚀 ~ fetchEntries ~ response:', response);
 
         if (response.entries) {
           setEntries(response.entries);
@@ -163,7 +164,7 @@ const StudentWorklogs: React.FC = () => {
             <div className='p-4 pt-10 mt-6'>
               <div className='flex items-center justify-between mb-4'>
                 <div className='text-lg font-semibold text-metropoliaMainGrey'>
-                  {entry.course?.name}
+                  {entry.course?.name} - {entry.course?.code}
                 </div>
                 <div className='text-sm text-metropoliaMainGrey'>
                   {dayjs(entry.start_time).format('YYYY-MM-DD')}
@@ -199,7 +200,7 @@ const StudentWorklogs: React.FC = () => {
                     Status:
                   </span>
                   <span className={statusClass(entry.status)}>
-                    {t(`worklog.status.${entry.status}`)}
+                    {t(`teacher.worklog.status.${entry.status}`)}
                   </span>
                 </div>
               </div>
