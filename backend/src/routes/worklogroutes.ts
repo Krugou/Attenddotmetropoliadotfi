@@ -1,4 +1,4 @@
-import express, {Response} from 'express';
+import express, {Response, Router} from 'express';
 import workLogController from '../controllers/worklogcontroller.js';
 import logger from '../utils/logger.js';
 import checkUserRole from '../utils/checkRole.js';
