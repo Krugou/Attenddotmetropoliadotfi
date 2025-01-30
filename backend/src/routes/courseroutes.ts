@@ -14,7 +14,6 @@ import openData from '../utils/opendata.js';
 import validate from '../utils/validate.js';
 import attendanceRoutes from './course/attendanceRoutes.js';
 import topicRoutes from './course/topicRoutes.js';
-import worklogRoutes from './course/worklogRoutes.js';
 
 config();
 const upload = multer();
@@ -25,7 +24,6 @@ const router: Router = express.Router();
 
 router.use('/attendance', attendanceRoutes);
 router.use('/topics', topicRoutes);
-router.use('/worklog', worklogRoutes);
 
 /**
  * Route that checks if a course exists in the database.
