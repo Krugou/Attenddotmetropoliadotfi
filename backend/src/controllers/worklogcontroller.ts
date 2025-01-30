@@ -221,6 +221,18 @@ export interface WorkLogController {
       };
     })[];
   }>;
+
+  /**
+   * Updates a worklog entry
+   * @param entryId The ID of the entry to update
+   * @param updatedData The updated data
+   * @returns Promise with update result
+   * @throws Error if entry not found or update fails
+   */
+  updateWorkLogEntry: (
+    entryId: number,
+    updatedData: any,
+  ) => Promise<ResultSetHeader>;
 }
 
 const workLogController: WorkLogController = {
@@ -717,6 +729,36 @@ const workLogController: WorkLogController = {
       throw error;
     }
   },
+
+  async updateWorkLogEntry(entryId: number, updatedData: any) {
+    try {
+      // First verify the entry exists
+      const entry = await workLogModel.getWorkLogEntryById(entryId);
+      if (!entry) {
+        throw new Error('Worklog entry not found');
+      }
+
+      // Format the update data
+      const updates = {
+        description: updatedData.description,
+        start_time: updatedData.startTime || updatedData.start_time,
+        end_time: updatedData.endTime || updatedData.end_time,
+        status: updatedData.status
+      };
+
+      // Perform the update
+      const result = await workLogModel.updateWorkLogEntry(entryId, updates);
+
+      if (result.affectedRows === 0) {
+        throw new Error('Failed to update worklog entry');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error in updateWorkLogEntry:', error);
+      throw error;
+    }
+  }
 };
 
 export default workLogController;
