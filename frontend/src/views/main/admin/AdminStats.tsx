@@ -68,6 +68,10 @@ const AdminStats = () => {
     name: string;
     count: number;
   }> | null>(null);
+  const [worklogStatistics, setWorklogStatistics] = useState<Array<{
+    name: string;
+    count: number;
+  }> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userStatisticsPercentage, setUserStatisticsPercentage] =
     useState<number>(0);
@@ -180,6 +184,26 @@ const AdminStats = () => {
     setCourseStatistics(formattedData);
   };
 
+  const fetchWorklogStatistics = async (token: string) => {
+    const worklogCounts = await apiHooks.getWorklogCounts(token);
+    console.log('🚀 ~ fetchWorklogStatistics ~ worklogCounts:', worklogCounts);
+    const formattedData = [
+      {
+        name: t('admin.adminStats.pendingEntries'),
+        count: worklogCounts.pending,
+      },
+      {
+        name: t('admin.adminStats.approvedEntries'),
+        count: worklogCounts.approved,
+      },
+      {
+        name: t('admin.adminStats.delayedEntries'),
+        count: worklogCounts.delayed,
+      },
+    ];
+    setWorklogStatistics(formattedData);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const token: string | null = localStorage.getItem('userToken');
@@ -192,6 +216,7 @@ const AdminStats = () => {
         await fetchUserStatistics(token);
         await fetchLectureStatistics(token);
         await fetchCourseStatistics(token);
+        await fetchWorklogStatistics(token);
       } catch (error) {
         setError('Failed to fetch data');
       }
@@ -341,6 +366,47 @@ const AdminStats = () => {
               dataKey='count'
               fill='#82ca9d'
               name={t('admin.adminStats.courseCounts')}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Worklog Statistics Chart */}
+      <div className='justify-start w-full mx-4'>
+        <h2 className='mb-4 text-xl md:text-2xl font-heading'>
+          {t('admin.adminStats.worklogStatistics')}
+        </h2>
+        {worklogStatistics && (
+          <p className='text-sm md:text-base font-body'>
+            {`${t('admin.adminStats.totalEntries')}: ${worklogStatistics.reduce(
+              (sum, stat) => sum + stat.count,
+              0,
+            )}`}
+          </p>
+        )}
+        <ResponsiveContainer {...chartConfig}>
+          <BarChart data={worklogStatistics}>
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis
+              dataKey='name'
+              angle={-45}
+              textAnchor='end'
+              height={60}
+              interval={0}
+            />
+            <YAxis>
+              <Label
+                value={t('admin.adminStats.entryCount')}
+                angle={-90}
+                position='insideLeft'
+              />
+            </YAxis>
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey='count'
+              fill='#ffa726'
+              name={t('admin.adminStats.worklogEntries')}
             />
           </BarChart>
         </ResponsiveContainer>
