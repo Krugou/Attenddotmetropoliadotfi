@@ -41,7 +41,10 @@
           "cancel": "AVBRYT",
           "delete": "RADERA"
         }
-      }
+      },
+      "search": "Sök",
+      "searchPlaceholder": "Sök i alla fält",
+      "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga"
     },
     "mainView": {
       "teacherDashboard": "Lärarpanel",
@@ -260,6 +263,14 @@
         "time": "Tid",
         "message": "Meddelande"
       }
+    },
+    "worklog": {
+      "name": "Namn",
+      "code": "Kod",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum",
+      "requiredHours": "Obligatoriska timmar",
+      "description": "Beskrivning"
     }
   },
   "counselor": {

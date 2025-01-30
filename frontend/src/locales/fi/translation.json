@@ -41,7 +41,10 @@
           "cancel": "PERUUTA",
           "delete": "POISTA"
         }
-      }
+      },
+      "search": "Hae",
+      "searchPlaceholder": "Hae mistä tahansa kentästä",
+      "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla"
     },
     "mainView": {
       "teacherDashboard": "Opettajan hallintapaneeli",
@@ -261,6 +264,14 @@
         "time": "Aika",
         "message": "Viesti"
       }
+    },
+    "worklog": {
+      "name": "Nimi",
+      "code": "Koodi",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä",
+      "requiredHours": "Vaaditut tunnit",
+      "description": "Kuvaus"
     }
   },
   "counselor": {

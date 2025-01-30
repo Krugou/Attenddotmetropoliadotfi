@@ -41,7 +41,10 @@
           "cancel": "CANCEL",
           "delete": "DELETE"
         }
-      }
+      },
+      "search": "Search",
+      "searchPlaceholder": "Search by any field",
+      "noWorkLogsAvailable": "No worklog courses available"
     },
     "mainView": {
       "teacherDashboard": "Teacher Dashboard",
@@ -260,6 +263,14 @@
         "time": "Time",
         "message": "Message"
       }
+    },
+    "worklog": {
+      "name": "Name",
+      "code": "Code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "requiredHours": "Required Hours",
+      "description": "Description"
     }
   },
   "counselor": {
