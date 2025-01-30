@@ -828,6 +828,12 @@
         "groupsTitle": "Befintliga grupper",
         "noGroups": "Inga grupper har skapats ännu.",
         "createSuccess": "Gruppen skapades framgångsrikt"
+      },
+      "status": {
+        "0": "Fel",
+        "1": "Aktiv Session",
+        "2": "Session Avslutad",
+        "3": "Kontrollerad"
       }
     }
   },
@@ -976,6 +982,12 @@
       "clockIn": "Stämpla in-knapp",
       "clockOut": "Stämpla ut-knapp",
       "edit": "Redigera poster-knapp"
+    },
+    "status": {
+      "0": "Fel",
+      "1": "Aktiv Session",
+      "2": "Session Avslutad",
+      "3": "Kontrollerad"
     }
   },
   "languages": {

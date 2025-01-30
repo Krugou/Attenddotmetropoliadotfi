@@ -845,6 +845,12 @@
         "hours": "Tunnit",
         "description": "Kuvaus",
         "status": "Tila"
+      },
+      "status": {
+        "0": "Virhe",
+        "1": "Istunto Käynnissä",
+        "2": "Istunto Päättynyt",
+        "3": "Tarkistettu"
       }
     }
   },
@@ -992,6 +998,12 @@
       "clockIn": "Sisäänleimaus-painike",
       "clockOut": "Ulosleimaus-painike",
       "edit": "Muokkaa merkintöjä -painike"
+    },
+    "status": {
+      "0": "Virhe",
+      "1": "Istunto Käynnissä",
+      "2": "Istunto Päättynyt",
+      "3": "Tarkistettu"
     }
   },
   "languages": {

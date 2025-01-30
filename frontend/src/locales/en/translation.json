@@ -846,6 +846,12 @@
         "hours": "Hours",
         "description": "Description",
         "status": "Status"
+      },
+      "status": {
+        "0": "Error",
+        "1": "Active Session",
+        "2": "Session Complete",
+        "3": "Checked"
       }
     }
   },
