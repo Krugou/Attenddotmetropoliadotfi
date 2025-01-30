@@ -150,9 +150,9 @@
       "totalCourses": "Kursseja yhteensä",
       "regularCourses": "Tavalliset kurssit",
       "worklogCourses": "Työpäiväkirjakurssit",
-      "pendingEntries": "Odottavat merkinnät",
-      "approvedEntries": "Hyväksytyt merkinnät",
-      "delayedEntries": "Myöhästyneet merkinnät",
+      "pendingEntries": "Sisäänkirjautuneet käyttäjät",
+      "approvedEntries": "Uloskirjautuneet käyttäjät",
+      "delayedEntries": "Mahdolliset sisäänkirjautumisvirheet",
       "totalEntries": "Merkintöjä yhteensä",
       "entryCount": "Merkintöjen määrä",
       "worklogEntries": "Työpäiväkirjamerkinnät",
@@ -893,8 +893,8 @@
       },
       "status": {
         "0": "Virhe",
-        "1": "Istunto Käynnissä",
-        "2": "Istunto Päättynyt",
+        "1": "Sisäänkirjautunut",
+        "2": "Uloskirjautunut",
         "3": "Tarkistettu"
       }
     }
@@ -1046,8 +1046,8 @@
     },
     "status": {
       "0": "Virhe",
-      "1": "Istunto Käynnissä",
-      "2": "Istunto Päättynyt",
+      "1": "Sisäänkirjautunut",
+      "2": "Uloskirjautunut",
       "3": "Tarkistettu"
     }
   },

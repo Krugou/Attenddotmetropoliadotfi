@@ -150,9 +150,9 @@
       "totalCourses": "Totala kurser",
       "regularCourses": "Vanliga kurser",
       "worklogCourses": "Arbetsdagbokskurser",
-      "pendingEntries": "Väntande poster",
-      "approvedEntries": "Godkända poster",
-      "delayedEntries": "Försenade poster",
+      "pendingEntries": "Inloggade användare",
+      "approvedEntries": "Utloggade användare",
+      "delayedEntries": "Möjliga inloggningsfel",
       "totalEntries": "Totalt antal poster",
       "entryCount": "Antal poster",
       "worklogEntries": "Arbetsdagboksposter",
@@ -875,8 +875,8 @@
       },
       "status": {
         "0": "Fel",
-        "1": "Aktiv Session",
-        "2": "Session Avslutad",
+        "1": "Inloggad",
+        "2": "Utloggad",
         "3": "Kontrollerad"
       }
     }
@@ -1029,8 +1029,8 @@
     },
     "status": {
       "0": "Fel",
-      "1": "Aktiv Session",
-      "2": "Session Avslutad",
+      "1": "Inloggad",
+      "2": "Utloggad",
       "3": "Kontrollerad"
     }
   },

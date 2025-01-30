@@ -150,9 +150,9 @@
       "totalCourses": "Total Courses",
       "regularCourses": "Regular Courses",
       "worklogCourses": "Worklog Courses",
-      "pendingEntries": "Pending Entries",
-      "approvedEntries": "Approved Entries",
-      "delayedEntries": "Delayed Entries",
+      "pendingEntries": "Users Clocked In",
+      "approvedEntries": "Users Clocked Out",
+      "delayedEntries": "Possible Clock-in Mistakes",
       "totalEntries": "Total Entries",
       "entryCount": "Entry Count",
       "worklogEntries": "Worklog Entries",
@@ -894,8 +894,8 @@
       },
       "status": {
         "0": "Error",
-        "1": "Active Session",
-        "2": "Session Complete",
+        "1": "Clocked In",
+        "2": "Clocked Out",
         "3": "Checked"
       }
     }
