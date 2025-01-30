@@ -6,7 +6,8 @@ import apiHooks from '../../../hooks/ApiHooks';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {CircularProgress} from '@mui/material';
-import {Edit, Delete} from '@mui/icons-material';
+import {Edit as EditIcon, Delete as DeleteIcon} from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 import EditWorklogModal from '../../../components/modals/EditWorklogModal';
 
 dayjs.extend(duration);
@@ -142,20 +143,24 @@ const StudentWorklogs: React.FC = () => {
           <div
             key={entry.entry_id}
             className='relative overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl'>
-            <div className='absolute space-x-2 top-2 right-2'>
-              <button
-                onClick={() => handleEdit(entry)}
-                className='p-1 text-gray-600 rounded hover:bg-gray-100'>
-                <Edit fontSize='small' />
-              </button>
-              <button
-                onClick={() => handleDelete(entry.entry_id)}
-                className='p-1 text-red-600 rounded hover:bg-gray-100'>
-                <Delete fontSize='small' />
-              </button>
+            <div className='absolute flex gap-5 m-2 top-2 right-2'>
+              <Tooltip title={t('worklog.tooltips.modify')}>
+                <EditIcon
+                  fontSize='large'
+                  className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
+                  onClick={() => handleEdit(entry)}
+                />
+              </Tooltip>
+              <Tooltip title={t('worklog.tooltips.delete')}>
+                <DeleteIcon
+                  fontSize='large'
+                  className='p-1 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
+                  onClick={() => handleDelete(entry.entry_id)}
+                />
+              </Tooltip>
             </div>
 
-            <div className='p-4 pt-10'>
+            <div className='p-4 pt-10 mt-6'>
               <div className='flex items-center justify-between mb-4'>
                 <div className='text-lg font-semibold text-metropoliaMainGrey'>
                   {entry.course?.name}
