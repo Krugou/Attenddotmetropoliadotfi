@@ -207,6 +207,20 @@ export interface WorkLogController {
    * @throws Error if entry not found or deletion fails
    */
   deleteWorkLogEntry: (entryId: number) => Promise<ResultSetHeader>;
+
+  /**
+   * Gets work log entries with course details for a student user
+   * @param userId The ID of the student user
+   * @returns Promise with entries and their associated course details
+   */
+  getWorkLogEntriesByStudentUser: (userId: number) => Promise<{
+    entries: (WorkLogEntry & {
+      course: {
+        name: string;
+        code: string;
+      };
+    })[];
+  }>;
 }
 
 const workLogController: WorkLogController = {
@@ -653,10 +667,10 @@ const workLogController: WorkLogController = {
   async deleteWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
     try {
       // First verify the entry exists
-      const entries = await workLogModel.getWorkLogEntriesByUserId(entryId);
-      const entryExists = entries.some(entry => entry.entry_id === entryId);
+      const entry = await workLogModel.getWorkLogEntryById(entryId);
+      console.log('🚀 ~ deleteWorkLogEntry ~ entry:', entry);
 
-      if (!entryExists) {
+      if (!entry) {
         throw new Error('Worklog entry not found');
       }
 
@@ -669,6 +683,37 @@ const workLogController: WorkLogController = {
       return result;
     } catch (error) {
       console.error('Error in deleteWorkLogEntry:', error);
+      throw error;
+    }
+  },
+
+  async getWorkLogEntriesByStudentUser(userId: number) {
+    try {
+      // Get all entries for the user
+      const entries = await workLogModel.getWorkLogEntriesByUserId(userId);
+
+      // Get course details for each entry
+      const entriesWithCourses = await Promise.all(
+        entries.map(async (entry) => {
+          const courseDetails = await workLogModel.getWorkLogCourseById(
+            entry.work_log_course_id,
+          );
+
+          return {
+            ...entry,
+            course: {
+              name: courseDetails[0]?.name || '',
+              code: courseDetails[0]?.code || '',
+            },
+          };
+        }),
+      );
+
+      return {
+        entries: entriesWithCourses,
+      };
+    } catch (error) {
+      console.error('Error in getWorkLogEntriesByStudentUser:', error);
       throw error;
     }
   },
