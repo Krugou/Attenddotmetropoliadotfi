@@ -2,6 +2,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import {CircularProgress} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../hooks/ApiHooks';
@@ -84,6 +85,10 @@ const AdminWorkLogs: React.FC = () => {
         </div>
       ) : (
         <>
+          <GeneralLinkButton
+            text={t('admin.worklog.createNewWorkLog')}
+            path='/teacher/worklog/create'
+          />
           <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
             <InputField
               type='text'
