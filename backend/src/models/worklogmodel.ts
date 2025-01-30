@@ -470,22 +470,52 @@ const workLogModel = {
 
   async updateWorkLogEntry(
     entryId: number,
-    updates: Partial<
-      Pick<WorkLogEntry, 'start_time' | 'end_time' | 'description'>
-    >,
+    updates: Partial<{
+      description: string;
+      start_time: string | Date;
+      end_time: string | Date;
+      status: 0 | 1 | 2 | 3;
+    }>,
   ): Promise<ResultSetHeader> {
     try {
-      const updateFields = Object.entries(updates)
-        .map(([key]) => `${key} = ?`)
-        .join(', ');
-      const values = [...Object.values(updates), entryId];
+      // Validate entry exists first
+      const [entry] = await pool.promise().query<WorkLogEntry[]>(
+        'SELECT * FROM work_log_entries WHERE entry_id = ?',
+        [entryId]
+      );
 
-      const [result] = await pool
-        .promise()
-        .query<ResultSetHeader>(
-          `UPDATE work_log_entries SET ${updateFields} WHERE entry_id = ?`,
-          values,
-        );
+      if (!entry || !entry[0]) {
+        throw new Error('Work log entry not found');
+      }
+
+      const updateFields: string[] = [];
+      const values: any[] = [];
+
+      if (updates.description !== undefined) {
+        updateFields.push('description = ?');
+        values.push(updates.description);
+      }
+      if (updates.start_time !== undefined) {
+        updateFields.push('start_time = ?');
+        values.push(new Date(updates.start_time));
+      }
+      if (updates.end_time !== undefined) {
+        updateFields.push('end_time = ?');
+        values.push(new Date(updates.end_time));
+      }
+      if (updates.status !== undefined) {
+        updateFields.push('status = ?');
+        values.push(updates.status);
+      }
+
+      // Add entry ID as last parameter
+      values.push(entryId);
+
+      const [result] = await pool.promise().query<ResultSetHeader>(
+        `UPDATE work_log_entries SET ${updateFields.join(', ')} WHERE entry_id = ?`,
+        values
+      );
+
       return result;
     } catch (error) {
       console.error('Error updating work log entry:', error);
