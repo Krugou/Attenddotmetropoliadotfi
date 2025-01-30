@@ -714,4 +714,49 @@ router.get(
     }
   },
 );
+
+router.get(
+  '/coursecounts',
+  checkUserRole(['admin']),
+  async (req: Request, res: Response) => {
+    if (req.user) {
+      logger.info({useremail: req.user.email}, 'admin / coursecounts / ');
+    }
+    try {
+      const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+
+      // Get counts for regular courses
+      const [regularCourses] = await pool
+        .promise()
+        .query(
+          'SELECT COUNT(*) as total, SUM(CASE WHEN end_date >= ? THEN 1 ELSE 0 END) as active FROM courses',
+          [currentDate],
+        );
+
+      // Get counts for worklog courses
+      const [worklogCourses] = await pool
+        .promise()
+        .query(
+          'SELECT COUNT(*) as total, SUM(CASE WHEN end_date >= ? THEN 1 ELSE 0 END) as active FROM work_log_courses',
+          [currentDate],
+        );
+
+      res.json({
+        regularCourses: {
+          total: regularCourses[0].total,
+          active: regularCourses[0].active || 0, // Use 0 if null
+        },
+        worklogCourses: {
+          total: worklogCourses[0].total,
+          active: worklogCourses[0].active || 0, // Use 0 if null
+        },
+      });
+    } catch (error) {
+      logger.error(error);
+      console.error(error);
+      res.status(500).json({message: 'Internal server error'});
+    }
+  },
+);
+
 export default router;
