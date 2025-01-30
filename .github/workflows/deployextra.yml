@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: install dependencies for extra folder
         run: npm i
         working-directory: extra
@@ -40,25 +40,25 @@ jobs:
         env:
           GITHUBTOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: extra
-      # - name: Install frontend dependencies
-      #   run: npm i
-      #   working-directory: frontend
+      - name: Install frontend dependencies
+        run: npm i
+        working-directory: frontend
 
-      # - name: Generate frontend docs
-      #   run: npm run docs
-      #   continue-on-error: true
-      #   working-directory: frontend
+      - name: Generate frontend docs
+        run: npm run docs
+        continue-on-error: true
+        working-directory: frontend
 
-      # - name: Install backend dependencies
-      #   run: npm i
-      #   working-directory: backend
+      - name: Install backend dependencies
+        run: npm i
+        working-directory: backend
 
-      # - name: Generate backend docs
-      #   run: npm run docs
-      #   continue-on-error: true
-      #   working-directory: backend
+      - name: Generate backend docs
+        run: npm run docs
+        continue-on-error: true
+        working-directory: backend
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
