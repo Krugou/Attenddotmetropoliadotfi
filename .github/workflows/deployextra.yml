@@ -58,9 +58,9 @@ jobs:
         continue-on-error: true
         working-directory: backend
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           # Upload entire repository
           path: './extra'
