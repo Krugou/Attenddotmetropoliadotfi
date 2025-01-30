@@ -31,39 +31,64 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: install dependencies for extra folder
-        run: npm i
-        working-directory: extra
-      - name: get scores for github repository stats
-        run: |
-          npm run start
-        env:
-          GITHUBTOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: extra
+
+      # Frontend documentation
       - name: Install frontend dependencies
         run: npm i
         working-directory: frontend
 
       - name: Generate frontend docs
-        run: npm run docs
-        continue-on-error: true
+        run: |
+          npm run docs
+          mkdir -p ../extra/docs/frontend
+          cp -r docs/* ../extra/docs/frontend/ || true
         working-directory: frontend
 
+      # Backend documentation
       - name: Install backend dependencies
         run: npm i
         working-directory: backend
 
       - name: Generate backend docs
-        run: npm run docs
-        continue-on-error: true
+        run: |
+          npm run docs
+          mkdir -p ../extra/docs/backend
+          cp -r docs/* ../extra/docs/backend/ || true
         working-directory: backend
+
+      # Extra folder setup
+      - name: Install extra folder dependencies
+        run: npm i
+        working-directory: extra
+
+      - name: Generate repository stats
+        run: npm run start
+        env:
+          GITHUBTOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: extra
+
+      # Verify content exists
+      - name: Verify content
+        run: |
+          if [ ! -d "extra" ]; then
+            echo "Extra directory is missing"
+            exit 1
+          fi
+          ls -la extra
+
+      # Deploy to Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: './extra'
+          retention-days: 1
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          artifact_name: github-pages
+          timeout: 600000
