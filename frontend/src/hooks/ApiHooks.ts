@@ -1379,6 +1379,16 @@ const updateWorkLogEntry = async (
   return await doFetch(`${baseUrl}worklog/entries/${entryId}`, options);
 };
 
+const getCourseCounts = async (token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(baseUrl + 'admin/coursecounts', options);
+};
+
 const apiHooks = {
   closeWorkLogEntry,
   getActiveWorkLogEntries,
@@ -1472,5 +1482,6 @@ const apiHooks = {
   getAllWorkLogEntries,
   deleteWorkLogEntry,
   updateWorkLogEntry,
+  getCourseCounts,
 };
 export default apiHooks;
