@@ -6,7 +6,7 @@ const router: Router = express.Router();
 import {param, body} from 'express-validator';
 import validate from '../utils/validate.js';
 import workLogModel from '../models/worklogmodel.js';
-// Update routes to remove /worklog prefix since it's now handled by app.use
+
 router.post('/', async (req, res) => {
   try {
     const result = await workLogController.createWorkLogCourse(req.body);
