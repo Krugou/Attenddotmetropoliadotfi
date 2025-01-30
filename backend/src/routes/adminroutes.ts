@@ -759,4 +759,49 @@ router.get(
   },
 );
 
+router.get(
+  '/worklogcounts',
+  checkUserRole(['admin']),
+  async (req: Request, res: Response) => {
+    if (req.user) {
+      logger.info({useremail: req.user.email}, 'admin / worklogcounts / ');
+    }
+    try {
+      const threeDaysAgo = new Date();
+      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+      const formattedDate = threeDaysAgo
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
+
+      // Get counts for worklog entries
+      // Status: 0=draft, 1=pending, 2=approved, 3=rejected
+      const [worklogStats] = await pool.promise().query(
+        `
+        SELECT
+          COUNT(CASE WHEN status = '1' THEN 1 END) as pendingCount,
+          COUNT(CASE WHEN status = '2' THEN 1 END) as approvedCount,
+          COUNT(CASE
+            WHEN status = '1'
+            AND end_time < ?
+            THEN 1 END) as delayedCount
+        FROM work_log_entries
+        WHERE status IN ('1', '2')
+      `,
+        [formattedDate],
+      );
+
+      res.json({
+        pending: worklogStats[0]?.pendingCount || 0,
+        approved: worklogStats[0]?.approvedCount || 0,
+        delayed: worklogStats[0]?.delayedCount || 0,
+      });
+    } catch (error) {
+      logger.error(error);
+      console.error(error);
+      res.status(500).json({message: 'Internal server error'});
+    }
+  },
+);
+
 export default router;
