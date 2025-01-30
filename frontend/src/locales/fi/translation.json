@@ -141,7 +141,13 @@
       "attendanceCounts": "Läsnäolomäärät",
       "totalLectures": "Luennot yhteensä",
       "attendanceRatio": "Läsnäoloprosentti",
-      "distribution": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin"
+      "distribution": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin",
+      "total": "Yhteensä",
+      "active": "Aktiiviset",
+      "courseStatistics": "Kurssitilastot",
+      "courseCount": "Kurssimäärä",
+      "courseCounts": "Kurssimäärät",
+      "totalCourses": "Kursseja yhteensä"
     },
     "dashboard": {
       "title": "Palvelimen hallintapaneeli"
@@ -157,6 +163,11 @@
         "saturday": "Lauantai"
       },
       "label": "Luentojen määrä"
+    },
+    "lecturesByDay": {
+      "lectureCount": "Luentojen määrä",
+      "numberOfLectures": "Luentojen määrä",
+      "dayOfWeek": "Viikonpäivä"
     },
     "feedback": {
       "title": "Palaute",

@@ -141,7 +141,13 @@
       "attendanceCounts": "Närvaroantal",
       "totalLectures": "Totala föreläsningar",
       "attendanceRatio": "Närvaroförhållande",
-      "distribution": "Veckofördelning av sparade föreläsningar efter dag"
+      "distribution": "Veckofördelning av sparade föreläsningar efter dag",
+      "total": "Totalt",
+      "active": "Aktiva",
+      "courseStatistics": "Kursstatistik",
+      "courseCount": "Antal kurser",
+      "courseCounts": "Kursantal",
+      "totalCourses": "Totala kurser"
     },
     "dashboard": {
       "title": "Serverpanel"
@@ -157,6 +163,11 @@
         "saturday": "Lördag"
       },
       "label": "Antal föreläsningar"
+    },
+    "lecturesByDay": {
+      "lectureCount": "Antal föreläsningar",
+      "numberOfLectures": "Antal föreläsningar",
+      "dayOfWeek": "Veckodag"
     },
     "feedback": {
       "title": "Feedback",
