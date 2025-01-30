@@ -775,16 +775,16 @@ router.get(
         .replace('T', ' ');
 
       // Get counts for worklog entries
-      // Status: 0=draft, 1=pending, 2=approved, 3=rejected
+      // Status: 0=draft, 1=in, 2=out, 3=rejected
       const [worklogStats] = await pool.promise().query(
         `
         SELECT
-          COUNT(CASE WHEN status = '1' THEN 1 END) as pendingCount,
-          COUNT(CASE WHEN status = '2' THEN 1 END) as approvedCount,
+          COUNT(CASE WHEN status = '1' THEN 1 END) as inCount,
+          COUNT(CASE WHEN status = '2' THEN 1 END) as outCount,
           COUNT(CASE
             WHEN status = '1'
             AND end_time < ?
-            THEN 1 END) as delayedCount
+            THEN 1 END) as possibleMistakeIn
         FROM work_log_entries
         WHERE status IN ('1', '2')
       `,
@@ -792,9 +792,9 @@ router.get(
       );
 
       res.json({
-        pending: worklogStats[0]?.pendingCount || 0,
-        approved: worklogStats[0]?.approvedCount || 0,
-        delayed: worklogStats[0]?.delayedCount || 0,
+        pending: worklogStats[0]?.inCount || 0,
+        approved: worklogStats[0]?.outCount || 0,
+        delayed: worklogStats[0]?.possibleMistakeIn || 0,
       });
     } catch (error) {
       logger.error(error);
