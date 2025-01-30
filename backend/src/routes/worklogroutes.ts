@@ -421,7 +421,9 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
-      const entries = await workLogController.getWorkLogEntriesByUser(userId);
+      const entries = await workLogController.getWorkLogEntriesByStudentUser(
+        userId,
+      );
       res.json(entries);
     } catch (error) {
       logger.error('Error fetching all worklog entries:', error);
@@ -466,7 +468,10 @@ router.put(
     try {
       const entryId = Number(req.params.entryId);
       const updatedData = req.body;
-      const result = await workLogController.updateWorkLogEntry(entryId, updatedData);
+      const result = await workLogController.updateWorkLogEntry(
+        entryId,
+        updatedData,
+      );
       res.json({
         success: true,
         message: 'Entry updated successfully',
