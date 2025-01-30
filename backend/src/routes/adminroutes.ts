@@ -804,4 +804,35 @@ router.get(
   },
 );
 
+router.get(
+  '/worklogcourses',
+  checkUserRole(['admin']),
+  async (req: Request, res: Response) => {
+    if (req.user) {
+      logger.info({useremail: req.user.email}, 'admin / worklogcourses / ');
+    }
+    try {
+      const [courses] = await pool.promise().query(`
+        SELECT
+          work_log_course_id,
+          name,
+          start_date,
+          end_date,
+          code,
+          description,
+          required_hours,
+          created_at
+        FROM work_log_courses
+        ORDER BY created_at DESC
+      `);
+
+      res.json(courses);
+    } catch (error) {
+      logger.error(error);
+      console.error(error);
+      res.status(500).json({message: 'Internal server error'});
+    }
+  },
+);
+
 export default router;
