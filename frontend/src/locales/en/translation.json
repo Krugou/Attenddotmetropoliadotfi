@@ -133,7 +133,15 @@
       "userStatistics": "User Statistics",
       "attendanceStatistics": "Attendance Statistics",
       "administratorStatistics": "Administrator Statistics",
-      "distributtion": "Weekly Distribution of Saved Lectures Count by Day"
+      "distributtion": "Weekly Distribution of Saved Lectures Count by Day",
+      "loggedInPercentage": "Percentage of students who have logged in at least once",
+      "userCount": "User Count",
+      "userCounts": "User Counts",
+      "attendanceCount": "Attendance Count",
+      "attendanceCounts": "Attendance Counts",
+      "totalLectures": "Total lectures",
+      "attendanceRatio": "Attendance ratio",
+      "distribution": "Weekly Distribution of Saved Lectures Count by Day"
     },
     "dashboard": {
       "title": "Server Dashboard"

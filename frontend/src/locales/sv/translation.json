@@ -133,7 +133,15 @@
       "userStatistics": "Användarstatistik",
       "attendanceStatistics": "Närvarostatistik",
       "administratorStatistics": "Administratörsstatistik",
-      "distributtion": "Veckofördelning av sparade föreläsningar efter dag"
+      "distributtion": "Veckofördelning av sparade föreläsningar efter dag",
+      "loggedInPercentage": "Procentandel studenter som har loggat in minst en gång",
+      "userCount": "Antal användare",
+      "userCounts": "Användarantal",
+      "attendanceCount": "Närvaroantal",
+      "attendanceCounts": "Närvaroantal",
+      "totalLectures": "Totala föreläsningar",
+      "attendanceRatio": "Närvaroförhållande",
+      "distribution": "Veckofördelning av sparade föreläsningar efter dag"
     },
     "dashboard": {
       "title": "Serverpanel"

@@ -133,7 +133,15 @@
       "userStatistics": "Käyttäjätilastot",
       "attendanceStatistics": "Läsnäolotilastot",
       "administratorStatistics": "Järjestelmänvalvojan tilastot",
-      "distributtion": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin"
+      "distributtion": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin",
+      "loggedInPercentage": "Prosenttiosuus opiskelijoista, jotka ovat kirjautuneet sisään vähintään kerran",
+      "userCount": "Käyttäjämäärä",
+      "userCounts": "Käyttäjämäärät",
+      "attendanceCount": "Läsnäolomäärä",
+      "attendanceCounts": "Läsnäolomäärät",
+      "totalLectures": "Luennot yhteensä",
+      "attendanceRatio": "Läsnäoloprosentti",
+      "distribution": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin"
     },
     "dashboard": {
       "title": "Palvelimen hallintapaneeli"
