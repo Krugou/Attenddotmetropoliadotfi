@@ -188,6 +188,25 @@ const workLogModel = {
     }
   },
 
+  /**
+   * Gets a work log entry by its ID
+   * @param entryId The ID of the entry to retrieve
+   * @returns Promise<WorkLogEntry | null> The entry if found, null otherwise
+   * @throws Error if database query fails
+   */
+  async getWorkLogEntryById(entryId: number): Promise<WorkLogEntry | null> {
+    try {
+      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+        'SELECT * FROM work_log_entries WHERE entry_id = ?',
+        [entryId]
+      );
+      return rows[0] || null;
+    } catch (error) {
+      console.error('Error getting work log entry by ID:', error);
+      throw error;
+    }
+  },
+
   // Course user operations
   async addUserToCourse(
     userId: number,
