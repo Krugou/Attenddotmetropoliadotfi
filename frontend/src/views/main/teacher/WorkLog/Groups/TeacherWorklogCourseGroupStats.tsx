@@ -45,6 +45,36 @@ const StudentPieChart = memo(({ completed, remaining }: { completed: number; rem
   );
 });
 
+const SummaryPieChart = memo(({ students }: { students: StudentStats[] }) => {
+  const data = students.map(student => ({
+    name: student.name,
+    value: student.completedHours
+  }));
+
+  return (
+    <div className="h-[200px]">
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie
+            data={data}
+            innerRadius={50}
+            outerRadius={80}
+            paddingAngle={5}
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={`hsl(${(360 / data.length) * index}, 70%, 50%)`} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number) => `${value.toFixed(1)}h`} />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+});
+
+
+
 const TeacherWorklogCourseGroupStats = () => {
   const { t } = useTranslation();
   const { courseid, groupid } = useParams<{ courseid: string; groupid: string }>();
@@ -138,28 +168,7 @@ const TeacherWorklogCourseGroupStats = () => {
             <div className="flex flex-col lg:flex-row gap-6">
               {/*this is for the piechart */}
               <div className="w-full lg:w-1/2">
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={students}
-                      dataKey="completedHours"
-                      nameKey="name"
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={5}
-                    >
-                      {students.map((student, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={`hsl(${(360 / students.length) * index}, 70%, 50%)`}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value: number, name: string) => [`${value.toFixed(1)}h`, name]}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+                <SummaryPieChart students={students} />
               </div>
 
               {/*this is for the user stats  */}
