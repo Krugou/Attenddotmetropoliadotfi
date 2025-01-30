@@ -62,7 +62,7 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     // Count lectures per day
-    lectures.forEach(lecture => {
+    lectures.forEach((lecture) => {
       const date = new Date(lecture.start_date);
       const dayOfWeek = date.getDay();
       dayCount[dayOfWeek]++;
@@ -80,30 +80,24 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width='100%' height={400}>
       <BarChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="day"
-          interval={0}
-        >
-          <Label
-            value={t('admin.lecturesByDay.dayOfWeek')}
-            position="bottom"
-          />
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='day' interval={0}>
+          <Label value={t('admin.lecturesByDay.dayOfWeek')} position='bottom' />
         </XAxis>
         <YAxis>
           <Label
             value={t('admin.lecturesByDay.lectureCount')}
             angle={-90}
-            position="insideLeft"
+            position='insideLeft'
           />
         </YAxis>
         <Tooltip />
         <Legend />
         <Bar
-          dataKey="lectures"
-          fill="#8884d8"
+          dataKey='lectures'
+          fill='#8884d8'
           name={t('admin.lecturesByDay.numberOfLectures')}
         />
       </BarChart>
