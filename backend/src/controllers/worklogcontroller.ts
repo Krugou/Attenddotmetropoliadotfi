@@ -149,7 +149,7 @@ export interface WorkLogController {
     userId: number,
     courseId: number,
   ) => Promise<ResultSetHeader>;
-  getWorkLogStats: (userId: number) => Promise<ResultSetHeader>;
+  getWorkLogStats: (userId: number) => Promise<RowDataPacket[]>;
   getWorkLogCoursesByInstructor: (email: string) => Promise<WorkLogCourse[]>;
   deleteWorkLog: (worklogId: number) => Promise<ResultSetHeader>;
 
@@ -459,7 +459,7 @@ const workLogController: WorkLogController = {
    * Gets work log statistics for a user
    * @param userId The user ID to get stats for
    */
-  /*   async getWorkLogStats(userId: number) {
+  async getWorkLogStats(userId: number) {
       try {
         const stats = await workLogModel.getWorkLogStatsByUser(userId);
         return stats;
@@ -467,7 +467,7 @@ const workLogController: WorkLogController = {
         console.error('Error in getWorkLogStats:', error);
         throw error;
       }
-    }, */
+    },
   /**
    * Checks if a worklog course with the given code already exists
    * @param code The code to check
@@ -545,9 +545,7 @@ const workLogController: WorkLogController = {
       throw error;
     }
   },
-  getWorkLogStats: function (userId: number): Promise<ResultSetHeader> {
-    throw new Error('Function not implemented.');
-  },
+
 
   async getWorkLogStudentsByCourse(
     courseId: string,

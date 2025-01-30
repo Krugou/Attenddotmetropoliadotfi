@@ -895,7 +895,8 @@
         "groupsTitle": "Existing Groups",
         "noGroups": "No groups have been created yet.",
         "createSuccess": "Group created successfully",
-        "entries": "Group Entries"
+        "entries": "Group Entries",
+        "stats": "View statistics"
       },
       "entries": {
         "date": "Date",
@@ -908,6 +909,16 @@
         "1": "Clocked In",
         "2": "Clocked Out",
         "3": "Checked"
+      },
+      "stats": {
+        "title": "Worklog Statistics",
+        "courseProgress": "Course Progress",
+        "studentProgress": "Student Progress",
+        "totalProgress": "Total Progress",
+        "completed": "Completed",
+        "remaining": "Remaining",
+        "required": "Required",
+        "totalCompleted": "Total Completed"
       }
     }
   },
@@ -945,7 +956,8 @@
     "required": "required",
     "cancel": "Cancel",
     "create": "Create",
-    "creating": "Creating..."
+    "creating": "Creating...",
+    "back": "Back"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../../../hooks/ApiHooks';
+import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
 
 interface WorkLogGroup {
   group_id: number;
@@ -227,11 +228,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
               className='p-6 bg-white rounded-lg shadow'>
               <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
               <div className='flex justify-end mt-4'>
-                <Link
-                  to={`/teacher/worklog/group/${courseid}/${group.group_id}`}
-                  className='px-4 py-2 text-white rounded bg-metropoliaMainOrange hover:bg-opacity-90 font-body'>
-                  {t('common.view')}
-                </Link>
+                <GeneralLinkButton path={`/teacher/worklog/group/${courseid}/${group.group_id}`} text={t('common.view')} />
               </div>
             </div>
           ))}

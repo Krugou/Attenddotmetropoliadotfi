@@ -1410,6 +1410,22 @@ const getWorkLogCourses = async (token: string) => {
   return await doFetch(`${baseUrl}admin/worklogcourses`, options);
 };
 
+const getWorkLogStats = async (userId: number, token: string) => {
+  try {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      },
+    };
+      return await doFetch(`${baseUrl}worklog/stats/${userId}`, options);
+  } catch (error) {
+    console.error('Error fetching worklog stats:', error);
+    return [];
+  }
+};
+
 const apiHooks = {
   closeWorkLogEntry,
   getActiveWorkLogEntries,
@@ -1506,5 +1522,6 @@ const apiHooks = {
   getCourseCounts,
   getWorklogCounts,
   getWorkLogCourses,
+  getWorkLogStats,
 };
 export default apiHooks;

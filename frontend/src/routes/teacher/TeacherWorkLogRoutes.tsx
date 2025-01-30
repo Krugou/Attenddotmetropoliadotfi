@@ -42,7 +42,7 @@ const TeacherWorkLogRoutes: React.FC = () => {
         element={<TeacherWorklogCourseGroup />}
       />
       <Route
-        path='group/:groupid/stats'
+        path='group/:courseid/:groupid/stats'
         element={<TeacherWorklogCourseGroupStats />}
       />
       <Route

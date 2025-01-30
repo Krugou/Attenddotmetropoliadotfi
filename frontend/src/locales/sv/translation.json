@@ -882,13 +882,24 @@
         "selectStudents": "Välj studenter",
         "groupsTitle": "Befintliga grupper",
         "noGroups": "Inga grupper har skapats ännu.",
-        "createSuccess": "Gruppen skapades framgångsrikt"
+        "createSuccess": "Gruppen skapades framgångsrikt",
+        "stats": "Visa statistik"
       },
       "status": {
         "0": "Fel",
         "1": "Inloggad",
         "2": "Utloggad",
         "3": "Kontrollerad"
+      },
+      "stats": {
+        "title": "Arbetsloggstatistik",
+        "courseProgress": "Kursframsteg",
+        "studentProgress": "Studentframsteg",
+        "totalProgress": "Totalt framsteg",
+        "completed": "Slutfört",
+        "remaining": "Återstående",
+        "required": "Krävt",
+        "totalCompleted": "Totalt slutfört"
       }
     }
   },
@@ -927,7 +938,8 @@
     "required": "obligatoriskt",
     "cancel": "Avbryt",
     "create": "Skapa",
-    "creating": "Skapar..."
+    "creating": "Skapar...",
+    "back": "Tillbaka"
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
