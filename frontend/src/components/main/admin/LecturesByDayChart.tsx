@@ -1,7 +1,17 @@
-import {ChartDataset} from 'chart.js';
-import React, {useEffect, useState} from 'react';
-import {Bar} from 'react-chartjs-2';
+import React, {useMemo} from 'react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Label,
+} from 'recharts';
 import {useTranslation} from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const getDayOfWeek = (date: string, t: (key: string) => string) => {
   const dayNames = [
@@ -31,65 +41,73 @@ interface Lecture {
   actualStudentCount: number;
 }
 
-const LecturesByDayChart = ({lectures}: {lectures: Lecture[] | null}) => {
+interface LecturesByDayChartProps {
+  lectures: Lecture[] | null;
+}
+
+/**
+ * LecturesByDayChart component displays lecture distribution by day of week
+ *
+ * @param {LecturesByDayChartProps} props - Component props
+ * @returns {JSX.Element} Rendered chart or loading state
+ */
+const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
   const {t} = useTranslation();
-  const [chartData, setChartData] = useState<ChartDataset<
-    'bar',
-    number[]
-  > | null>(null);
 
-  useEffect(() => {
-    const dayCounts: {[key: string]: number} = {
-      [t('admin.lectureChart.days.monday')]: 0,
-      [t('admin.lectureChart.days.tuesday')]: 0,
-      [t('admin.lectureChart.days.wednesday')]: 0,
-      [t('admin.lectureChart.days.thursday')]: 0,
-      [t('admin.lectureChart.days.friday')]: 0,
-    };
+  const chartData = useMemo(() => {
+    if (!lectures) return [];
 
-    if (!lectures) {
-      return;
-    }
+    // Initialize counters for each day
+    const dayCount = new Array(7).fill(0);
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    lectures.forEach((lecture) => {
-      const day = getDayOfWeek(lecture.start_date, t);
-      if (day in dayCounts) {
-        dayCounts[day]++;
-      }
+    // Count lectures per day
+    lectures.forEach(lecture => {
+      const date = new Date(lecture.start_date);
+      const dayOfWeek = date.getDay();
+      dayCount[dayOfWeek]++;
     });
 
-    setChartData({
-      label: t('admin.lectureChart.label'),
-      data: Object.values(dayCounts),
-      backgroundColor: 'rgba(75, 192, 192, 0.6)',
-    });
-  }, [lectures, t]);
+    // Format data for Recharts
+    return dayCount.map((count, index) => ({
+      day: daysOfWeek[index],
+      lectures: count,
+    }));
+  }, [lectures]);
 
-  if (!chartData) {
-    return null;
+  if (!lectures) {
+    return <CircularProgress />;
   }
 
   return (
-    <Bar
-      data={{
-        labels: [
-          t('admin.lectureChart.days.monday'),
-          t('admin.lectureChart.days.tuesday'),
-          t('admin.lectureChart.days.wednesday'),
-          t('admin.lectureChart.days.thursday'),
-          t('admin.lectureChart.days.friday'),
-        ],
-        datasets: [chartData],
-      }}
-      options={{
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-        },
-      }}
-    />
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={chartData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="day"
+          interval={0}
+        >
+          <Label
+            value={t('admin.lecturesByDay.dayOfWeek')}
+            position="bottom"
+          />
+        </XAxis>
+        <YAxis>
+          <Label
+            value={t('admin.lecturesByDay.lectureCount')}
+            angle={-90}
+            position="insideLeft"
+          />
+        </YAxis>
+        <Tooltip />
+        <Legend />
+        <Bar
+          dataKey="lectures"
+          fill="#8884d8"
+          name={t('admin.lecturesByDay.numberOfLectures')}
+        />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 
