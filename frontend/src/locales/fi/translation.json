@@ -808,7 +808,7 @@
     },
     "worklog": {
       "create": {
-        "title": "Luo työpäiväkirjakurssi",
+       "title": "Lisää uusi työaikakirjauskurssi",
         "subtitle": "Valitse tilojen väliltä",
         "modes": {
           "easy": {
@@ -895,7 +895,9 @@
         "groupsTitle": "Olemassa olevat ryhmät",
         "noGroups": "Ryhmiä ei ole vielä luotu.",
         "createSuccess": "Ryhmä luotu onnistuneesti",
-        "stats": "Katso tilastot"
+        "stats": "Katso tilastot",
+        "addToGroup": "lisää opiskelijat ryhmään",
+        "back": "takaisin"
       },
       "entries": {
         "date": "Päivämäärä",

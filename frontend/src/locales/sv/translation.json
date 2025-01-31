@@ -807,7 +807,7 @@
     },
     "worklog": {
       "create": {
-        "title": "Skapa arbetsloggskurs"
+       "title": "Lägg till ny arbetsdagbokskurs"
       },
       "form": {
         "name": "Kursnamn",

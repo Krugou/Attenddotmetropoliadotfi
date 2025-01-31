@@ -1426,6 +1426,18 @@ const getWorkLogStats = async (userId: number, token: string) => {
   }
 };
 
+const insertStudentToGroup = async ( userId: number, groupId: number, token: string) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({userId, groupId}),
+  };
+  return await doFetch(`${baseUrl}worklog/group/${groupId}/students`, options);
+}
+
 const apiHooks = {
   closeWorkLogEntry,
   getActiveWorkLogEntries,
@@ -1523,5 +1535,6 @@ const apiHooks = {
   getWorklogCounts,
   getWorkLogCourses,
   getWorkLogStats,
+  insertStudentToGroup
 };
 export default apiHooks;

@@ -847,7 +847,7 @@
         "success": "Worklog course modified successfully"
       },
       "create": {
-        "title": "Create Work Log Course",
+        "title": "Add new Work Log Course",
         "subtitle": "Choose between modes",
         "modes": {
           "easy": {
@@ -896,7 +896,9 @@
         "noGroups": "No groups have been created yet.",
         "createSuccess": "Group created successfully",
         "entries": "Group Entries",
-        "stats": "View statistics"
+        "stats": "View statistics",
+        "addToGroup": "add students to group",
+        "back": "back"
       },
       "entries": {
         "date": "Date",

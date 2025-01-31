@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {use, useEffect, useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
@@ -8,6 +8,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import apiHooks from '../../../../../hooks/ApiHooks';
 import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
 
 interface GroupDetails {
   group: {
@@ -39,37 +44,58 @@ interface GroupDetails {
   }[];
 }
 
+interface Student {
+  userid: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 const TeacherWorklogCourseGroup: React.FC = () => {
   const {t} = useTranslation();
   const {courseid, groupid} = useParams<{courseid: string; groupid: string}>();
   const [groupDetails, setGroupDetails] = useState<GroupDetails | null>(null);
+  const [studentList, setStudentList] = useState<Student[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchGroupDetails = async () => {
-      try {
-        const token = localStorage.getItem('userToken');
-        if (!token || !courseid || !groupid) {
-          throw new Error('Missing required parameters');
-        }
 
-        const details = await apiHooks.getWorkLogGroupDetails(
-          Number(courseid),
-          Number(groupid),
-          token,
-        );
-        console.log('🚀 ~ fetchGroupDetails ~ details:', details.entries);
-
-        setGroupDetails(details);
-      } catch (error) {
-        console.error('Error fetching group details:', error);
-        if (error instanceof Error) {
-          toast.error(error.message);
-        }
-      } finally {
-        setLoading(false);
+  const fetchGroupDetails = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token || !courseid || !groupid) {
+        throw new Error('Missing required parameters');
       }
-    };
 
+      // Get all students in the course
+      const list = await apiHooks.getWorkLogStudentsByCourse(courseid, token);
+
+      // Get group details
+      const details = await apiHooks.getWorkLogGroupDetails(
+        Number(courseid),
+        Number(groupid),
+        token,
+      );
+
+      // Filter out students who are already in the group
+      const existingStudentIds = details.students.map((s) => s.userid);
+      const availableStudents = list.students.filter(
+        (student) => !existingStudentIds.includes(student.userid),
+      );
+
+      setStudentList(availableStudents);
+      setGroupDetails(details);
+    } catch (error) {
+      console.error('Error fetching group details:', error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchGroupDetails();
   }, [courseid, groupid]);
 
@@ -91,7 +117,6 @@ const TeacherWorklogCourseGroup: React.FC = () => {
     );
   }
 
-
   const totalHours = groupDetails.entries.reduce((acc, entry) => {
     const hours =
       (new Date(entry.end_time).getTime() -
@@ -99,6 +124,9 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       (1000 * 60 * 60);
     return acc + hours;
   }, 0);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
     <div className='container max-w-6xl px-4 py-8 mx-auto'>
@@ -156,7 +184,6 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         />
       </div>
 
-
       <Accordion className='mb-4'>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -168,7 +195,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           </h2>
         </AccordionSummary>
         <AccordionDetails className='bg-white rounded-b-lg'>
-          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr'>
             {groupDetails.students.map((student) => (
               <div
                 key={student.userid}
@@ -179,8 +206,31 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                 <p className='text-sm text-gray-600'>{student.email}</p>
               </div>
             ))}
+            {studentList.length > 0 && (
+              <div
+                className='relative flex items-center justify-center p-5 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 h-full'
+                onClick={handleOpenModal}>
+                <button className='flex flex-col items-center'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                    className='w-8 h-8 mb-2'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M12 6v6m0 0v6m0-6h6m-6 0H6'
+                    />
+                  </svg>
+                  <span className='text-sm text-gray-600 mt-1'>
+                    {t('teacher.worklog.groups.addToGroup')}
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
-
         </AccordionDetails>
       </Accordion>
 
@@ -241,6 +291,85 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           </AccordionDetails>
         </Accordion>
       )}
+      <Dialog
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        maxWidth='sm'
+        fullWidth>
+        <DialogTitle className='font-heading flex justify-center items-center text-center'>
+          add students to group
+        </DialogTitle>
+        <DialogContent className='flex flex-col items-center text-center'>
+          <div className='w-full max-w-md mx-auto max-h-[400px] overflow-y-auto space-y-2 p-4'>
+            {studentList.map((student) => (
+              <div
+                key={student.userid}
+                className={`relative p-3 border rounded-lg cursor-pointer transition-all duration-200 ${
+                  selectedStudents.includes(student.userid)
+                    ? 'border-metropoliaMainOrange bg-orange-50'
+                    : 'border-gray-200 hover:border-metropoliaMainOrange/50'
+                }`}
+                onClick={() => {
+                  if (selectedStudents.includes(student.userid)) {
+                    setSelectedStudents(
+                      selectedStudents.filter((id) => id !== student.userid),
+                    );
+                  } else {
+                    setSelectedStudents([...selectedStudents, student.userid]);
+                  }
+                }}>
+                <div className='flex justify-center items-center'>
+                  <div className='font-medium font-body text-center'>
+                    {`${student.first_name} ${student.last_name}`}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+        <DialogActions sx={{justifyContent: 'center'}} className='w-full p-4'>
+          <div className='flex justify-center items-center gap-4'>
+            <Button
+              onClick={handleCloseModal}
+              variant='outlined'
+              className='font-body'
+              sx={{margin: 0}}>
+              {t('teacher.worklog.groups.back')}
+            </Button>
+            <button
+              onClick={() => {
+                const token = localStorage.getItem('userToken');
+                if (token) {
+                  apiHooks
+                    .addStudentsToWorkLogGroup(
+                      Number(groupid),
+                      selectedStudents,
+                      token,
+                    )
+                    .then(() => {
+                      toast.success(t('teacher.worklog.groups.studentsAdded'));
+                      fetchGroupDetails();
+                    })
+                    .catch((error) => {
+                      toast.error('Failed to add students');
+                      console.error(error);
+                    });
+                } else {
+                  toast.error('User token is missing');
+                }
+                handleCloseModal();
+              }}
+              disabled={selectedStudents.length === 0}
+              className={`px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline ${
+                selectedStudents.length === 0
+                  ? 'opacity-50 cursor-not-allowed'
+                  : ''
+              }`}>
+              {t('teacher.worklog.groups.addStudents')}
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
