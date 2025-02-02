@@ -233,6 +233,11 @@ export interface WorkLogController {
     entryId: number,
     updatedData: any,
   ) => Promise<ResultSetHeader>;
+
+  checkStudentExistingGroup: (
+    userId: number,
+    courseId: number
+  ) => Promise<{group_id: number; group_name: string} | null>;
 }
 
 const workLogController: WorkLogController = {
@@ -699,10 +704,10 @@ const workLogController: WorkLogController = {
 
   async getWorkLogEntriesByStudentUser(userId: number) {
     try {
-      // Get all entries for the user
+
       const entries = await workLogModel.getWorkLogEntriesByUserId(userId);
 
-      // Get course details for each entry
+
       const entriesWithCourses = await Promise.all(
         entries.map(async (entry) => {
           const courseDetails = await workLogModel.getWorkLogCourseById(
@@ -730,13 +735,13 @@ const workLogController: WorkLogController = {
 
   async updateWorkLogEntry(entryId: number, updatedData: any) {
     try {
-      // First verify the entry exists
+
       const entry = await workLogModel.getWorkLogEntryById(entryId);
       if (!entry) {
         throw new Error('Worklog entry not found');
       }
 
-      // Format the update data
+
       const updates = {
         description: updatedData.description,
         start_time: updatedData.startTime || updatedData.start_time,
@@ -744,7 +749,7 @@ const workLogController: WorkLogController = {
         status: updatedData.status
       };
 
-      // Perform the update
+
       const result = await workLogModel.updateWorkLogEntry(entryId, updates);
 
       if (result.affectedRows === 0) {
@@ -756,7 +761,19 @@ const workLogController: WorkLogController = {
       console.error('Error in updateWorkLogEntry:', error);
       throw error;
     }
-  }
+  },
+
+  async checkStudentExistingGroup(
+    userId: number,
+    courseId: number
+  ): Promise<{group_id: number; group_name: string} | null> {
+    try {
+      return await workLogModel.checkStudentExistingGroup(userId, courseId);
+    } catch (error) {
+      console.error('Error checking student existing group:', error);
+      throw error;
+    }
+  },
 };
 
 export default workLogController;

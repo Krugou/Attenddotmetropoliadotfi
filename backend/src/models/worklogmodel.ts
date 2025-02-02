@@ -326,6 +326,31 @@ const workLogModel = {
     }
   },
 
+  async checkStudentExistingGroup(
+    userId: number,
+    courseId: number,
+  ): Promise<{group_id: number; group_name: string} | null> {
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(
+        `SELECT wlcg.group_id, wlcg.group_name
+         FROM work_log_course_users wlcu
+         JOIN work_log_course_groups wlcg
+           ON wlcu.work_log_course_id = wlcg.work_log_course_id
+         JOIN student_group_assignments sga
+           ON sga.group_id = wlcg.group_id
+         WHERE wlcu.userid = ?
+         AND wlcu.work_log_course_id = ?
+         AND sga.userid = ?
+         LIMIT 1`,
+        [userId, courseId, userId]
+      );
+      return rows[0] as {group_id: number; group_name: string} | null;
+    } catch (error) {
+      console.error('Error checking student existing group:', error);
+      throw error;
+    }
+  },
+
   // Delete operations
   async deleteWorkLogCourse(courseId: number): Promise<ResultSetHeader> {
     try {

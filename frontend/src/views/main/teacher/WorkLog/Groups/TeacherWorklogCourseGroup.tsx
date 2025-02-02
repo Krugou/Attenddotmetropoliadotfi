@@ -1,4 +1,4 @@
-import React, {use, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
@@ -67,20 +67,31 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         throw new Error('Missing required parameters');
       }
 
-      // Get all students in the course
+
       const list = await apiHooks.getWorkLogStudentsByCourse(courseid, token);
 
-      // Get group details
+
       const details = await apiHooks.getWorkLogGroupDetails(
         Number(courseid),
         Number(groupid),
         token,
       );
 
-      // Filter out students who are already in the group
-      const existingStudentIds = details.students.map((s) => s.userid);
-      const availableStudents = list.students.filter(
-        (student) => !existingStudentIds.includes(student.userid),
+
+      const studentsWithGroupCheck = await Promise.all(
+        list.students.map(async (student) => {
+          const existingGroup = await apiHooks.checkStudentExistingGroup(
+            student.userid,
+            Number(courseid),
+            token
+          );
+          return { ...student, existingGroup };
+        })
+      );
+
+      // Filter out students who are already in any group
+      const availableStudents = studentsWithGroupCheck.filter(
+        (student) => !student.existingGroup
       );
 
       setStudentList(availableStudents);

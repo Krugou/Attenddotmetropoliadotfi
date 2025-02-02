@@ -17,6 +17,7 @@ interface WorkLogStudent {
   first_name: string;
   last_name: string;
   studentnumber: string;
+  existingGroup?: { group_id: number; group_name: string } | null;
 }
 
 const TeacherWorklogCourseGroups: React.FC = () => {
@@ -43,10 +44,26 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           apiHooks.getWorkLogGroupsByCourse(courseid, token),
           apiHooks.getWorkLogStudentsByCourse(courseid, token),
         ]);
-        console.log('🚀 ~ fetchData ~ groupsResponse:', groupsResponse);
+
+
+        const studentsWithGroupCheck = await Promise.all(
+          studentsResponse.students.map(async (student) => {
+            const existingGroup = await apiHooks.checkStudentExistingGroup(
+              student.userid,
+              Number(courseid),
+              token
+            );
+            return { ...student, existingGroup };
+          })
+        );
+
+
+        const availableStudents = studentsWithGroupCheck.filter(
+          (student) => !student.existingGroup
+        );
 
         setGroups(groupsResponse || []);
-        setStudents(studentsResponse.students || []);
+        setStudents(availableStudents);
       } catch (error) {
         if (error instanceof Error) {
           toast.error(error.message);
@@ -83,12 +100,29 @@ const TeacherWorklogCourseGroups: React.FC = () => {
         );
       }
 
-      const updatedGroups = await apiHooks.getWorkLogGroupsByCourse(
-        courseid,
-        token,
-      );
-      setGroups(updatedGroups || []);
+      const [updatedGroups, studentsResponse] = await Promise.all([
+        apiHooks.getWorkLogGroupsByCourse(courseid, token),
+        apiHooks.getWorkLogStudentsByCourse(courseid, token),
+      ]);
 
+      const studentsWithGroupCheck = await Promise.all(
+        studentsResponse.students.map(async (student) => {
+          const existingGroup = await apiHooks.checkStudentExistingGroup(
+            student.userid,
+            Number(courseid),
+            token
+          );
+          return { ...student, existingGroup };
+        })
+      );
+
+      const availableStudents = studentsWithGroupCheck.filter(
+        (student) => !student.existingGroup
+      );
+
+      // Update state
+      setGroups(updatedGroups || []);
+      setStudents(availableStudents);
       setNewGroupName('');
       setSelectedStudents([]);
       setShowCreateForm(false);

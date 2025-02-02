@@ -484,4 +484,28 @@ router.put(
   },
 );
 
+router.get(
+  '/student/group/:userId/:courseId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  [
+    param('userId').isInt().withMessage('Invalid userId'),
+    param('courseId').isInt().withMessage('Invalid courseId'),
+  ],
+  validate,
+  async (req, res) => {
+    try {
+      const userId = Number(req.params.userId);
+      const courseId = Number(req.params.courseId);
+      const existingGroup = await workLogController.checkStudentExistingGroup(
+        userId,
+        courseId
+      );
+      res.json({ existingGroup });
+    } catch (error) {
+      logger.error('Error checking student group:', error);
+      res.status(500).json({ error: 'Failed to check student group' });
+    }
+  }
+);
+
 export default router;
