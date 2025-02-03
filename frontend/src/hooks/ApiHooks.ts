@@ -1,7 +1,7 @@
 ('use strict');
 import {API_CONFIG} from '../config';
 import {doFetch} from '../utils/doFetch';
-const baseUrl = API_CONFIG.baseUrl;
+export const baseUrl = API_CONFIG.baseUrl;
 
 console.log(baseUrl);
 console.log(`Current mode: ${import.meta.env.MODE}`);
