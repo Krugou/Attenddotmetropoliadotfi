@@ -1,10 +1,10 @@
-const doFetch = async (url: string, options: RequestInit) => {
+export const doFetch = async (url: string, options: RequestInit) => {
   // Log request details
-  console.log(`🚀 API Request: ${options.method || 'GET'} ${url}`);
-  console.log('Request options:', {
-    headers: options.headers,
-    body: options.body ? JSON.parse(options.body as string) : undefined,
-  });
+  // console.log(`🚀 API Request: ${options.method || 'GET'} ${url}`);
+  // console.log('Request options:', {
+  //   headers: options.headers,
+  //   body: options.body ? JSON.parse(options.body as string) : undefined,
+  // });
 
   try {
     const startTime = performance.now();
@@ -12,7 +12,7 @@ const doFetch = async (url: string, options: RequestInit) => {
     const endTime = performance.now();
 
     // Log response timing
-    console.log(`⏱️ Request took ${Math.round(endTime - startTime)}ms`);
+    // console.log(`⏱️ Request took ${Math.round(endTime - startTime)}ms`);
 
     const json = await response.json();
 
