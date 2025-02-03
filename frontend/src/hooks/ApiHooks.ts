@@ -1,26 +1,11 @@
 ('use strict');
-// real backend
-export const baseUrl =
-  import.meta.env.MODE === 'development'
-    ? 'http://localhost:3002/'
-    : 'https://attend.metropolia.fi/api/';
+import {API_CONFIG} from '../config';
+import {doFetch} from '../utils/doFetch';
+const baseUrl = API_CONFIG.baseUrl;
 
-// for local testing
-// export const baseUrl =
-// 	import.meta.env.MODE === 'development'
-// 		? 'http://localhost:3002/'
-// 		: 'http://localhost:3002/';
+console.log(baseUrl);
 console.log(`Current mode: ${import.meta.env.MODE}`);
-const doFetch = async (url: string, options: RequestInit) => {
-  const response = await fetch(url, options);
-  const json = await response.json();
 
-  if (!response.ok) {
-    const message = json.error ? `${json.error}` : json.message;
-    throw new Error(message || response.statusText);
-  }
-  return json;
-};
 interface LoginInputs {
   username: string;
   password: string;
@@ -47,8 +32,8 @@ interface CreateCourseInputs {
   endDate: string;
   instructors: {email: string}[];
   studentList: string[];
-  topicGroup: string; // Replace 'any' with the actual type if known
-  topics: string; // Replace 'any' with the actual type if known
+  topicGroup: string;
+  topics: string;
   instructorEmail: string;
 }
 interface CreateCourseFile {
@@ -1419,14 +1404,18 @@ const getWorkLogStats = async (userId: number, token: string) => {
         'Authorization': 'Bearer ' + token,
       },
     };
-      return await doFetch(`${baseUrl}worklog/stats/${userId}`, options);
+    return await doFetch(`${baseUrl}worklog/stats/${userId}`, options);
   } catch (error) {
     console.error('Error fetching worklog stats:', error);
     return [];
   }
 };
 
-const insertStudentToGroup = async ( userId: number, groupId: number, token: string) => {
+const insertStudentToGroup = async (
+  userId: number,
+  groupId: number,
+  token: string,
+) => {
   const options = {
     method: 'POST',
     headers: {
@@ -1436,12 +1425,12 @@ const insertStudentToGroup = async ( userId: number, groupId: number, token: str
     body: JSON.stringify({userId, groupId}),
   };
   return await doFetch(`${baseUrl}worklog/group/${groupId}/students`, options);
-}
+};
 
 const checkStudentExistingGroup = async (
   userId: number,
   courseId: number,
-  token: string
+  token: string,
 ) => {
   const options = {
     method: 'GET',
@@ -1452,8 +1441,8 @@ const checkStudentExistingGroup = async (
   };
   return await doFetch(
     `${baseUrl}worklog/student/group/${userId}/${courseId}`,
-    options
-  ).then(response => response.existingGroup);
+    options,
+  ).then((response) => response.existingGroup);
 };
 
 const apiHooks = {
@@ -1554,6 +1543,6 @@ const apiHooks = {
   getWorkLogCourses,
   getWorkLogStats,
   insertStudentToGroup,
-  checkStudentExistingGroup
+  checkStudentExistingGroup,
 };
 export default apiHooks;
