@@ -6,7 +6,7 @@ interface ApiConfig {
 }
 
 const developmentConfig: ApiConfig = {
-  baseUrl: 'http://localhost:3002/api/',
+  baseUrl: 'http://localhost:3002/',
   timeout: 5000,
 };
 
@@ -16,7 +16,7 @@ const productionConfig: ApiConfig = {
 };
 
 const testConfig: ApiConfig = {
-  baseUrl: 'http://localhost:3002/api/',
+  baseUrl: 'http://localhost:3002/',
   timeout: 1000,
 };
 
