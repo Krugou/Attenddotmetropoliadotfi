@@ -1,11 +1,11 @@
 import SortIcon from '@mui/icons-material/Sort';
 import {CircularProgress} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 
 interface WorkLogCourse {
@@ -21,7 +21,7 @@ interface WorkLogCourse {
 
 const AdminWorkLogs: React.FC = () => {
   const {t} = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const [workLogs, setWorkLogs] = useState<WorkLogCourse[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
