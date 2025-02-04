@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import apiHooks from './ApiHooks';
+import apiHooks from '../api';
 /**
  * useCourses hook.
  * This hook is responsible for fetching and managing the state of courses and attendance threshold.
