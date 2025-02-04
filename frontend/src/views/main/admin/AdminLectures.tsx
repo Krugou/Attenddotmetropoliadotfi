@@ -334,6 +334,7 @@ const AdminAllLectures: React.FC = () => {
           type='text'
           name='search'
           value={searchTerm}
+          /* @ts-ignore */
           onChange={handleSearchChange}
           placeholder='Search by any field..'
           label='Search'
