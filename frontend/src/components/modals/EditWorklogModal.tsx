@@ -3,6 +3,13 @@ import {Dialog} from '@mui/material';
 import {useTranslation} from 'react-i18next';
 import dayjs from 'dayjs';
 
+interface WorkLogEntry {
+  description: string;
+  start_time: string;
+  end_time: string;
+  status: number;
+}
+
 interface EditWorklogModalProps {
   open: boolean;
   onClose: () => void;
