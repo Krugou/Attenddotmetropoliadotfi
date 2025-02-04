@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
 import {UserContext} from '../../../../contexts/UserContext';
-import apihooks from '../../../../hooks/ApiHooks';
+import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import WorklogData from '../../../../components/main/worklog/WorklogData';
 
@@ -57,7 +57,7 @@ const TeacherWorkLogs: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <h2 className='p-3 ml-auto mr-auto text-3xl font-heading text-center bg-white rounded-lg w-fit xl:text-4xl'>
+      <h2 className='p-3 ml-auto mr-auto text-3xl text-center bg-white rounded-lg font-heading w-fit xl:text-4xl'>
         {t('teacher.worklog.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
