@@ -130,6 +130,12 @@
       },
       "dialog": {
         "dialogText": "This action cannot be undone."
+      },
+      "noData": {
+        "noOpenLectures": "No open lectures available",
+        "noLecturesFound": "No lectures found",
+        "tryShowingAll": "Try showing all lectures instead of only open ones",
+        "tryDifferentSearch": "Try adjusting your search criteria"
       }
     },
     "adminStats": {

@@ -130,6 +130,12 @@
       },
       "dialog": {
         "dialogText": "Tätä toimintoa ei voi peruuttaa."
+      },
+      "noData": {
+        "noOpenLectures": "Ei avoimia luentoja saatavilla",
+        "noLecturesFound": "Luentoja ei löytynyt",
+        "tryShowingAll": "Kokeile näyttää kaikki luennot, ei vain avoimia",
+        "tryDifferentSearch": "Kokeile muuttaa hakukriteerejä"
       }
     },
     "adminStats": {

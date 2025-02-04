@@ -130,6 +130,12 @@
       },
       "dialog": {
         "dialogText": "Denna åtgärd kan inte ångras."
+      },
+      "noData": {
+        "noOpenLectures": "Inga öppna föreläsningar tillgängliga",
+        "noLecturesFound": "Inga föreläsningar hittades",
+        "tryShowingAll": "Prova att visa alla föreläsningar istället för bara öppna",
+        "tryDifferentSearch": "Prova att justera dina sökkriterier"
       }
     },
     "adminStats": {
