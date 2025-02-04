@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import DeleteModal from '../../../../components/main/modals/DeleteModal';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 
 /**
@@ -120,7 +120,7 @@ const AdminCourseDetail: React.FC = () => {
 
   return (
     <>
-      <h2 className='p-3 text-lg font-heading bg-white rounded-lg'>
+      <h2 className='p-3 text-lg bg-white rounded-lg font-heading'>
         {t('admin.common.courseId')} {id}
       </h2>
       <div className='w-full m-4 mx-auto bg-white rounded-lg shadow-lg sm:w-3/4 md:w-2/4 lg:w-2/5 2xl:w-1/5'>
@@ -200,7 +200,7 @@ const AdminCourseDetail: React.FC = () => {
                   </div>
                   <div className='w-full mt-4 mb-4 border-t-4 border-metropoliaMainOrange'></div>
                   <div className='mt-4'>
-                    <h2 className='text-lg font-heading text-gray-700'>
+                    <h2 className='text-lg text-gray-700 font-heading'>
                       {t('admin.common.instructors')}
                     </h2>
                     <ul>
