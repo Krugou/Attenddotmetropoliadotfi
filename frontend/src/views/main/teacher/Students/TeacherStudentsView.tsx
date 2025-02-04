@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
 /**
@@ -162,7 +162,7 @@ const TeacherStudentsView: React.FC = () => {
   return (
     <div className='w-full mx-auto 2xl:w-9/12'>
       <div className='flex flex-col items-center gap-5 sm:gap-0 sm:flex-row'>
-        <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
+        <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
           {t('teacher.studentsView.title')}
         </h1>
       </div>
@@ -231,7 +231,7 @@ const TeacherStudentsView: React.FC = () => {
               }
               className='max-w-full mx-1 mb-4 transition duration-300 bg-white rounded shadow-lg lg:mx-2 xl:mx-4 w-12/12 hover:bg-gray-200'>
               <div className='flex flex-col px-4 py-2 text-sm lg:px-4 lg:py-4 md:text-base'>
-                <div className='mb-2 text-lg font-heading underline underline-offset-8 decoration-metropoliaMainOrange'>
+                <div className='mb-2 text-lg underline font-heading underline-offset-8 decoration-metropoliaMainOrange'>
                   {student.first_name} {student.last_name}
                 </div>
                 {student.email && (
