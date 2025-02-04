@@ -57,7 +57,8 @@ const AdminUserModify: React.FC = () => {
       // Get token from local storage
       const token: string | null = localStorage.getItem('userToken');
       if (!token) {
-        throw new Error('No token available');
+        toast.error(t('notifications.error'));
+        return;
       }
 
       // Create an async function inside the effect
@@ -70,15 +71,14 @@ const AdminUserModify: React.FC = () => {
           setModifyUser(modifyUser[0]);
           console.log(modifyUser[0]);
         } catch (error) {
-          console.error('Failed to fetch user data:', error);
-          // handle the error appropriately, e.g., show a message to the user
+          toast.error(t('notifications.loadingError'));
         }
       };
 
       // Call the async function
       ModifyUserData();
     }
-  }, [user, userid]);
+  }, [user, userid, t]);
   /**
    * Handle save.
    * This function saves the edited user data.
@@ -89,15 +89,16 @@ const AdminUserModify: React.FC = () => {
     // Get token from local storage
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
-      throw new Error('No token available');
+      toast.error(t('notifications.sessionExpired'));
+      return;
     }
 
     try {
+      toast.info(t('notifications.savingChanges'));
       const response = await apiHooks.updateUser(token, editedUser);
-      toast.success(response.message);
+      toast.success(t('notifications.saveSuccess'));
     } catch (error) {
-      toast.error('Failed to update user: ' + (error as Error).toString());
-      // handle the error appropriately, e.g., show a message to the user
+      toast.error(t('notifications.saveError'));
     }
   };
   /**
