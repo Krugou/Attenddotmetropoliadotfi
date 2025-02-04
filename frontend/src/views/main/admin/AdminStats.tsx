@@ -340,6 +340,7 @@ const AdminStats = () => {
           </p>
         )}
         <ResponsiveContainer {...chartConfig}>
+          {/* @ts-ignore */}
           <BarChart data={courseStatistics}>
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis
