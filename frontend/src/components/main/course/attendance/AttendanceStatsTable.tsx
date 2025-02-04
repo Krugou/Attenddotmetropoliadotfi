@@ -10,7 +10,7 @@ import {
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 
 import InfoIcon from '@mui/icons-material/Info';
 /**
