@@ -57,9 +57,13 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
   // State for the original student number and timeout ID
   const [originalStudentEmail] = useState(user.email);
   const [originalStudentNumber] = useState(user.studentnumber);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [timeoutId, setTimeoutId] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const [isSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
-  const [timeoutId2, setTimeoutId2] = useState<NodeJS.Timeout | null>(null);
+  const [timeoutId2, setTimeoutId2] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
   /**
    * Handles changes to the input fields.
