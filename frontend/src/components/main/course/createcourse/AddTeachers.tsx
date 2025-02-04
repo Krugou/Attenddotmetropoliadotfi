@@ -90,6 +90,7 @@ const AddTeachers = ({
               name='email'
               label={t('teacher.addTeachers.emailLabel')}
               value={instructor.email}
+              /* @ts-ignore */
               onChange={(event) => handleInputChange(index, event)}
             />
             {errorMessages[index] && (
