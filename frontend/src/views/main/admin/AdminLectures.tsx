@@ -5,14 +5,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Menu,
 } from '@mui/material';
-
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -21,6 +15,15 @@ import InputField from '../../../components/main/course/createcourse/coursedetai
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
+import SortIcon from '@mui/icons-material/Sort';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+// Add missing imports
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 interface Lecture {
   lectureid: number;
   start_date: string;
@@ -36,9 +39,17 @@ interface Lecture {
   actualStudentCount: number;
 }
 
+// Add column configuration type
+interface ColumnConfig {
+  key: keyof Lecture;
+  label: string;
+  align: string;
+  defaultVisible: boolean;
+}
+
 const ITEMS_PER_PAGE = 50;
 
-const AdminAllLectures: React.FC = () => {
+const AdminLectures: React.FC = () => {
   const {t} = useTranslation();
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +64,102 @@ const AdminAllLectures: React.FC = () => {
   const [extraStats, setExtraStats] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortKey, setSortKey] = useState<keyof Lecture>('lectureid');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [visibleColumns, setVisibleColumns] = useState<Set<string>>(new Set());
+
+  // Column configurations
+  const columns: ColumnConfig[] = [
+    {
+      key: 'lectureid',
+      label: t('admin.common.lectureId'),
+      align: 'text-center',
+      defaultVisible: true,
+    },
+    {
+      key: 'teacheremail',
+      label: t('admin.lectures.tableContent.teacherEmail'),
+      align: 'text-left',
+      defaultVisible: true,
+    },
+    {
+      key: 'coursename',
+      label: t('admin.lectures.tableContent.courseName'),
+      align: 'text-left',
+      defaultVisible: true,
+    },
+    {
+      key: 'coursecode',
+      label: t('admin.lectures.tableContent.courseCode'),
+      align: 'text-left',
+      defaultVisible: false,
+    },
+    {
+      key: 'topicname',
+      label: t('admin.lectures.tableContent.topicName'),
+      align: 'text-left',
+      defaultVisible: true,
+    },
+    {
+      key: 'start_date',
+      label: t('admin.lectures.tableContent.date'),
+      align: 'center',
+      defaultVisible: true,
+    },
+    {
+      key: 'timeofday',
+      label: t('admin.lectures.tableContent.dayTime'),
+      align: 'center',
+      defaultVisible: false,
+    },
+    {
+      key: 'attended',
+      label: t('admin.lectures.tableContent.attendance'),
+      align: 'center',
+      defaultVisible: true,
+    },
+    {
+      key: 'actualStudentCount',
+      label: t('admin.lectures.tableContent.currentTopicStudentCount'),
+      align: 'center',
+      defaultVisible: false,
+    },
+    {
+      key: 'state',
+      label: t('admin.lectures.tableContent.state'),
+      align: 'center',
+      defaultVisible: true,
+    },
+  ];
+
+  // Initialize visible columns on mount
+  useEffect(() => {
+    const defaultVisible = new Set(
+      columns.filter((col) => col.defaultVisible).map((col) => col.key),
+    );
+    setVisibleColumns(defaultVisible);
+  }, []);
+
+  const handleColumnToggle = (columnKey: string) => {
+    setVisibleColumns((prev) => {
+      const next = new Set(prev);
+      if (next.has(columnKey)) {
+        next.delete(columnKey);
+      } else {
+        next.add(columnKey);
+      }
+      return next;
+    });
+  };
+
+  // Add these functions for column menu
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const getLectures = async () => {
     const token: string | null = localStorage.getItem('userToken');
@@ -243,41 +350,111 @@ const AdminAllLectures: React.FC = () => {
     </div>
   );
 
+  const sortLectures = (key: keyof Lecture) => {
+    if (key === sortKey) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortOrder('asc');
+    }
+  };
+
+  const sortedLectures = [...lectures].sort((a, b) => {
+    let valA = a[sortKey];
+    let valB = b[sortKey];
+
+    // Handle date comparison
+    if (sortKey === 'start_date') {
+      return sortOrder === 'asc'
+        ? new Date(valA).getTime() - new Date(valB).getTime()
+        : new Date(valB).getTime() - new Date(valA).getTime();
+    }
+
+    // Handle numeric comparison
+    if (typeof valA === 'number' && typeof valB === 'number') {
+      return sortOrder === 'asc' ? valA - valB : valB - valA;
+    }
+
+    // Handle string comparison
+    valA = String(valA).toLowerCase();
+    valB = String(valB).toLowerCase();
+    return sortOrder === 'asc'
+      ? valA.localeCompare(valB)
+      : valB.localeCompare(valA);
+  });
+
+  const openLectures = lectures.filter((lecture) => lecture.state === 'open');
+
   return (
     <div className='relative w-full p-5 bg-white rounded-lg'>
-      <div className='mt-4 mb-4 space-x-2'>
-        <button
-          onClick={() => setFilterOpen(!filterOpen)}
-          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {filterOpen
-            ? t('admin.lectures.alternative.showAllLectures')
-            : t('admin.lectures.alternative.showOpenLecture')}
-        </button>
-        <button
-          onClick={toggleSortOrder}
-          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {sortOrder === 'asc'
-            ? t('admin.lectures.alternative.sortByNewest')
-            : t('admin.lectures.alternative.sortByOldest')}
-        </button>
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-          {isExpanded
-            ? t('admin.lectures.alternative.shrinkTable')
-            : t('admin.lectures.alternative.expandTable')}
-        </button>
-        {!filterOpen && (
+      {/* Render control buttons */}
+      <div className='flex justify-between mt-4 mb-4 space-x-2'>
+        {/* Only show toggle button if not filtering with no open lectures */}
+        <div className='flex justify-between gap-3'>
           <button
-            onClick={() => setExtraStats(!extraStats)}
+            onClick={() => setFilterOpen(!filterOpen)}
             className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-            {extraStats
-              ? t('admin.lectures.alternative.hideStats')
-              : t('admin.lectures.alternative.showStats')}
+            {filterOpen
+              ? t('admin.lectures.alternative.showAllLectures')
+              : t('admin.lectures.alternative.showOpenLecture')}
           </button>
+          {!(filterOpen && openLectures.length === 0) && (
+            <button
+              onClick={handleMenuOpen}
+              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+              <ViewColumnIcon className='w-5 h-5 mr-1' />
+              {t('admin.lectures.alternative.columns')}
+            </button>
+          )}
+
+          {!filterOpen && (
+            <button
+              onClick={() => setExtraStats(!extraStats)}
+              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+              {extraStats
+                ? t('admin.lectures.alternative.hideStats')
+                : t('admin.lectures.alternative.showStats')}
+            </button>
+          )}
+        </div>
+        {!(filterOpen && openLectures.length === 0) && (
+          <div className='flex gap-2 group'>
+            <button
+              onClick={toggleSortOrder}
+              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'
+              aria-label={
+                sortOrder === 'asc'
+                  ? t('admin.lectures.alternative.sortByNewest')
+                  : t('admin.lectures.alternative.sortByOldest')
+              }
+              title={
+                sortOrder === 'asc'
+                  ? t('admin.lectures.alternative.sortByNewest')
+                  : t('admin.lectures.alternative.sortByOldest')
+              }>
+              <SortIcon className='w-5 h-5' />
+            </button>
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className='p-2 text-white transition-colors rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrange/90'
+              aria-label={
+                isExpanded
+                  ? t('admin.lectures.alternative.shrinkTable')
+                  : t('admin.lectures.alternative.expandTable')
+              }
+              title={
+                isExpanded
+                  ? t('admin.lectures.alternative.shrinkTable')
+                  : t('admin.lectures.alternative.expandTable')
+              }>
+              {isExpanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
+            </button>
+          </div>
         )}
       </div>
-      {extraStats && !filterOpen && (
+
+      {/* Render stats */}
+      {lectures.length > 0 && extraStats && !filterOpen && (
         <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2'>
           <div className='p-2 bg-blue-100 rounded col-span-full'>
             <h2 className='mb-2 text-lg'>
@@ -329,184 +506,163 @@ const AdminAllLectures: React.FC = () => {
           </div>
         </div>
       )}
-      <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
-        <InputField
-          type='text'
-          name='search'
-          value={searchTerm}
-          /* @ts-ignore */
-          onChange={handleSearchChange}
-          placeholder='Search by any field..'
-          label='Search'
-        />
-      </div>
 
-      {/* <PaginationControls /> */}
+      {/* Render search input only when not filtering open lectures with none available */}
+      {lectures.length > 0 && !(filterOpen && openLectures.length === 0) && (
+        <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
+          <InputField
+            type='text'
+            name='search'
+            value={searchTerm}
+            /* @ts-ignore */
+            onChange={handleSearchChange}
+            placeholder='Search by any field..'
+            label='Search'
+          />
+        </div>
+      )}
 
+      {/* Only show open lectures count if there are filtered lectures */}
       {filterOpen && filteredLectures.length > 0 && (
         <h2 className='mb-2 text-lg'>{`Open lectures: ${filteredLectures.length}`}</h2>
       )}
 
-      <TableContainer
-        className={`relative bg-gray-100 overflow-auto ${
-          isExpanded ? 'h-screen' : 'h-[384px]'
-        }`}>
-        <Table className='table-auto'>
-          <TableHead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
-            <TableRow>
-              <TableCell>{t('admin.common.lectureId')}</TableCell>
-
-              <TableCell>
-                {t('admin.lectures.tableContent.teacherEmail')}
-              </TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.courseName')}
-              </TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.courseCode')}
-              </TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.topicName')}
-              </TableCell>
-              <TableCell>{t('admin.lectures.tableContent.date')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.dayTime')}</TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.attendance')}
-              </TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.totalAttendance')}
-              </TableCell>
-              <TableCell>
-                {t('admin.lectures.tableContent.currentTopicStudentCount')}
-              </TableCell>
-              <TableCell>{t('admin.lectures.tableContent.ratio')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.state')}</TableCell>
-              <TableCell>{t('admin.lectures.tableContent.actions')}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedLectures.length > 0 ? (
-              paginatedLectures.map((lecture) => (
-                <TableRow
-                  key={lecture.lectureid}
-                  className={`hover:bg-gray-200 ${
-                    lecture.attended === 0 ? 'bg-red-200' : ''
-                  }`}>
-                  <TableCell>{lecture.lectureid}</TableCell>
-
-                  <TableCell>{lecture.teacheremail}</TableCell>
-                  <TableCell>{lecture.coursename}</TableCell>
-                  <TableCell>{lecture.coursecode}</TableCell>
-                  <TableCell>{lecture.topicname}</TableCell>
-                  <TableCell>
-                    {new Date(lecture.start_date).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{lecture.timeofday}</TableCell>
-
-                  <TableCell
-                    title={`Total attendance gathered: ${
-                      lecture.attended + lecture.notattended
+      <div className='relative'>
+        <div
+          className={`relative bg-gray-100 overflow-auto ${
+            isExpanded ? 'h-screen' : 'h-[384px]'
+          }`}>
+          {paginatedLectures.length > 0 ? (
+            <table className='w-full text-sm bg-white border-collapse table-auto'>
+              <thead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
+                <tr>
+                  {columns
+                    .filter((column) => visibleColumns.has(column.key))
+                    .map(({key, label, align}) => (
+                      <th
+                        key={key}
+                        className={`p-3 border-b border-gray-200 bg-gray-50 ${align} whitespace-nowrap font-heading`}>
+                        <div className='flex items-center justify-center gap-2'>
+                          {label}
+                          <button
+                            onClick={() => sortLectures(key as keyof Lecture)}
+                            className='p-1.5 text-white rounded-xl bg-metropoliaSecondaryOrange hover:bg-metropoliaMainOrange'>
+                            <SortIcon className='w-4 h-4' />
+                          </button>
+                        </div>
+                      </th>
+                    ))}
+                  <th className='p-3 text-center border-b border-gray-200 bg-gray-50 whitespace-nowrap font-heading'>
+                    {t('admin.lectures.tableContent.actions')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedLectures.map((lecture) => (
+                  <tr
+                    key={lecture.lectureid}
+                    className={`hover:bg-gray-100 transition-colors ${
+                      lecture.attended === 0 ? 'bg-red-100' : ''
                     }`}>
-                    <span className='text-metropoliaTrendGreen'>
-                      {lecture.attended}
-                    </span>
-                    /
-                    <span className='text-metropoliaSupportRed'>
-                      {lecture.notattended}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {lecture.attended + lecture.notattended}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={
-                        lecture.attended + lecture.notattended !==
-                        lecture.actualStudentCount
-                          ? 'text-red-500'
-                          : ''
-                      }>
-                      {lecture.actualStudentCount}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {Math.round(
-                      (lecture.attended /
-                        (lecture.attended + lecture.notattended)) *
-                        100,
-                    )}{' '}
-                    %
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={
-                        lecture.state === 'open' &&
-                        new Date(lecture.start_date).getTime() <
-                          Date.now() - 24 * 60 * 60 * 1000
-                          ? 'text-metropoliaSupportRed'
-                          : 'text-metropoliaTrendGreen'
-                      }>
-                      {lecture.state}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <div className='flex gap-1'>
-                      <button
-                        color='primary'
-                        onClick={() =>
-                          handleRowClick(
-                            lecture.courseid,
-                            lecture.lectureid.toString(),
-                          )
-                        }
-                        className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                        {t('admin.common.details')}
-                      </button>
-                      {lecture.state === 'open' && (
+                    {columns
+                      .filter((column) => visibleColumns.has(column.key))
+                      .map(({key, align}) => (
+                        <td
+                          key={key}
+                          className={`p-3 ${align} border-b border-gray-200`}>
+                          {lecture[key]}
+                        </td>
+                      ))}
+                    <td className='p-3 text-center border-b border-gray-200 whitespace-nowrap'>
+                      <div className='flex gap-1'>
                         <button
-                          color='success'
+                          color='primary'
                           onClick={() =>
-                            handleDialogOpen(
+                            handleRowClick(
+                              lecture.courseid,
                               lecture.lectureid.toString(),
-                              'close',
                             )
                           }
-                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                          {t('admin.common.close')}
+                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          {t('admin.common.details')}
                         </button>
-                      )}
-                      {(lecture.state === 'open' ||
-                        lecture.state === 'closed') && (
-                        <button
-                          color='error'
-                          onClick={() =>
-                            handleDialogOpen(
-                              lecture.lectureid.toString(),
-                              'delete',
-                            )
-                          }
-                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
-                          {t('admin.common.delete')}
-                        </button>
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={10} align='center'>
+                        {lecture.state === 'open' && (
+                          <button
+                            color='success'
+                            onClick={() =>
+                              handleDialogOpen(
+                                lecture.lectureid.toString(),
+                                'close',
+                              )
+                            }
+                            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                            {t('admin.common.close')}
+                          </button>
+                        )}
+                        {(lecture.state === 'open' ||
+                          lecture.state === 'closed') && (
+                          <button
+                            color='error'
+                            onClick={() =>
+                              handleDialogOpen(
+                                lecture.lectureid.toString(),
+                                'delete',
+                              )
+                            }
+                            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                            {t('admin.common.delete')}
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className='flex items-center justify-center h-full'>
+              <div className='p-8 text-center bg-white rounded-lg shadow-sm'>
+                <h3 className='mb-2 text-xl font-semibold text-gray-700 font-heading'>
                   {filterOpen
-                    ? 'No data available in open state'
-                    : 'No data available'}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    ? t('admin.lectures.noData.noOpenLectures')
+                    : t('admin.lectures.noData.noLecturesFound')}
+                </h3>
+                <p className='text-gray-500 font-body'>
+                  {filterOpen
+                    ? t('admin.lectures.noData.tryShowingAll')
+                    : t('admin.lectures.noData.tryDifferentSearch')}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
-      <PaginationControls />
+      {/* Render pagination controls only when not filtering open lectures with none available */}
+      {!(filterOpen && openLectures.length === 0) && <PaginationControls />}
+
+      {/* Add Menu component for column visibility */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+        transformOrigin={{vertical: 'top', horizontal: 'right'}}>
+        {columns.map((column) => (
+          <MenuItem key={column.key} onClick={(e) => e.stopPropagation()}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={visibleColumns.has(column.key)}
+                  onChange={() => handleColumnToggle(column.key)}
+                  color='primary'
+                />
+              }
+              label={column.label}
+            />
+          </MenuItem>
+        ))}
+      </Menu>
 
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>{`Are you sure you want to ${action} the lecture?`}</DialogTitle>
@@ -528,4 +684,4 @@ const AdminAllLectures: React.FC = () => {
   );
 };
 
-export default AdminAllLectures;
+export default AdminLectures;
