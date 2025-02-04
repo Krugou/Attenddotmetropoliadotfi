@@ -18,7 +18,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 
 const AdminLectureDetail = () => {
@@ -160,7 +160,7 @@ const AdminLectureDetail = () => {
                   </TableCell>
                   <TableCell style={{color: 'white'}}>
                     <button
-                      className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'
+                      className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'
                       onClick={() => handleOpenDialog(item.attendanceid)}>
                       {t('admin.common.delete')}
                     </button>
@@ -183,12 +183,12 @@ const AdminLectureDetail = () => {
             </DialogContent>
             <DialogActions>
               <button
-                className='px-4 py-2 font-heading text-white bg-gray-500 rounded hover:bg-gray-700'
+                className='px-4 py-2 text-white bg-gray-500 rounded font-heading hover:bg-gray-700'
                 onClick={handleCloseDialog}>
                 {t('admin.common.cancel')}
               </button>
               <button
-                className='px-4 py-2 ml-2 font-heading text-white rounded bg-metropoliaSupportRed hover:bg-red-600'
+                className='px-4 py-2 ml-2 text-white rounded font-heading bg-metropoliaSupportRed hover:bg-red-600'
                 onClick={handleConfirmDelete}
                 autoFocus>
                 {t('admin.common.confirm')}
