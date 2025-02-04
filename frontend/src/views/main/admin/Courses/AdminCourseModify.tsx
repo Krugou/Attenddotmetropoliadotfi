@@ -8,7 +8,7 @@ import {toast} from 'react-toastify';
 import AddTeachers from '../../../../components/main/course/createcourse/AddTeachers';
 import CourseDetails from '../../../../components/main/course/createcourse/CourseDetails';
 import EditTopicsModal from '../../../../components/main/modals/EditTopicsModal';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 /**
  * CourseDetail interface.
@@ -218,7 +218,7 @@ const AdminCourseModify: React.FC = () => {
         />
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 font-heading text-white  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 text-white font-heading bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('admin.courses.finnish.finnish')}
