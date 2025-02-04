@@ -5,7 +5,7 @@ import ErrorAlert from '../components/main/ErrorAlert';
 import FirstTimeHereGuide from '../components/main/FirstTimeHereGuide';
 import NavigationButton from '../components/main/buttons/NavigationButton';
 import {UserContext} from '../contexts/UserContext';
-import apiHooks from '../hooks/ApiHooks';
+import apiHooks from '../api';
 import {useTranslation} from 'react-i18next';
 /**
  * Define the props for the Header component.
