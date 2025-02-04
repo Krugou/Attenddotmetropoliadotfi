@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {CircularProgress} from '@mui/material';
