@@ -25,12 +25,12 @@ const AdminNewUser: React.FC = () => {
   const [studentNumber, setStudentNumber] = useState('');
   const [studentGroupId, setStudentGroupId] = useState<number | null>(null);
   const [isStudentNumberTaken, setIsStudentNumberTaken] = useState(false);
-  const [timeoutIdNumber, setTimeoutIdNumber] = useState<NodeJS.Timeout | null>(
-    null,
-  );
-  const [timeoutIdEmail, setTimeoutIdEmail] = useState<NodeJS.Timeout | null>(
-    null,
-  );
+  const [timeoutIdNumber, setTimeoutIdNumber] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+  const [timeoutIdEmail, setTimeoutIdEmail] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const [isEmailTaken, setIsEmailTaken] = useState(false);
   const [userType, setUserType] = useState<'staff' | 'student'>('student');
   const [roles, setRoles] = useState<
