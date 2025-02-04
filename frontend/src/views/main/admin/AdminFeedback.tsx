@@ -13,7 +13,7 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 interface FeedbackItem {
   feedbackId: number;
