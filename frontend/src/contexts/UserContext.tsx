@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types';
-import React, {Dispatch, SetStateAction, createContext, use, useEffect, useState} from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 import i18n from '../utils/i18n';
 /**
  * User interface represents the structure of a user object.
@@ -61,11 +67,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
   const [update, setUpdate] = useState<boolean>(true);
 
   useEffect(() => {
-    if (user){
-    i18n.changeLanguage(user.language )
+    if (user) {
+      i18n.changeLanguage(user.language);
     }
   }, [user]);
- 
 
   return (
     <UserContext.Provider value={{user, setUser, update, setUpdate}}>
