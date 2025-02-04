@@ -48,12 +48,12 @@ const NewStudentUser: React.FC = () => {
   const {user} = useContext(UserContext);
 
   // Check if the student number exists when it changes
-  const [timeoutIdNumber, setTimeoutIdNumber] = useState<NodeJS.Timeout | null>(
-    null,
-  );
-  const [timeoutIdEmail, setTimeoutIdEmail] = useState<NodeJS.Timeout | null>(
-    null,
-  );
+  const [timeoutIdNumber, setTimeoutIdNumber] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+  const [timeoutIdEmail, setTimeoutIdEmail] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const [isEmailTaken, setIsEmailTaken] = useState(false);
 
   useEffect(() => {
