@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 /**
  * Course interface.
@@ -140,7 +140,7 @@ const AdminCourses: React.FC = () => {
                         {key}
                         <button
                           aria-label={`Sort by ${key}`} // Add this line
-                          className='p-1 ml-2 text-sm font-heading text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark'
+                          className='p-1 ml-2 text-sm text-white rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark'
                           onClick={() => sortCourses(key)}>
                           <SortIcon />
                         </button>
