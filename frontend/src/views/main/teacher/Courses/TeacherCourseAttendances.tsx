@@ -8,7 +8,7 @@ import Calendar from 'react-calendar';
 import {useNavigate, useParams} from 'react-router-dom';
 import AttendanceTable from '../../../../components/main/course/attendance/AttendanceTable';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {exportToExcel, exportToPDF} from '../../../../utils/exportData';
 import {useTranslation} from 'react-i18next';
 
@@ -103,7 +103,7 @@ const TeacherCourseAttendances: React.FC = () => {
 
   return (
     <div className='w-full p-4 bg-gray-100 rounded-lg lg:w-fit'>
-      <h1 className='mb-5 text-3xl font-heading text-center'>
+      <h1 className='mb-5 text-3xl text-center font-heading'>
         {t('teacher.courseAttendances.title')}
       </h1>
       <div className='flex justify-center m-4 '>
