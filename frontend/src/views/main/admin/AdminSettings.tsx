@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import {z} from 'zod';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 
 // Zod schema for server settings validation
