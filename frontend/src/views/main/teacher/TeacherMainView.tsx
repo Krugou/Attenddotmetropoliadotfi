@@ -6,7 +6,7 @@ import CheckOpenLectures from '../../../components/main/course/attendance/CheckO
 import WelcomeModal from '../../../components/main/modals/WelcomeModal';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
 import {UserContext} from '../../../contexts/UserContext';
-import apihooks from '../../../hooks/ApiHooks';
+import apihooks from '../../../api';
 import {
   Add,
   Help,
