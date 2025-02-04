@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
 import WorklogData from '../../../../components/main/worklog/WorklogData';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 
 interface WorkLogDetail {
