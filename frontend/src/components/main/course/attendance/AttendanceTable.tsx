@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
-import ApiHooks from '../../../../hooks/ApiHooks';
+import ApiHooks from '../../../../api';
 
 /**
  * Represents the attendance of a student for a specific class.
