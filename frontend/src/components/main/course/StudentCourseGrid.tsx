@@ -9,7 +9,7 @@ import React, {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useCourses} from '../../../hooks/courseHooks';
 import DeleteModal from '../modals/DeleteModal';
 import EditTopicsModal from '../modals/EditTopicsModal';
@@ -238,7 +238,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     <ReportIcon style={{color: 'red'}} />
                   </div>
                 )}
-                <h2 className='mb-2 text-lg font-heading text-black underline sm:text-2xl underline-offset-8 decoration-metropoliaMainOrange'>
+                <h2 className='mb-2 text-lg text-black underline font-heading sm:text-2xl underline-offset-8 decoration-metropoliaMainOrange'>
                   {course.course_name + ' ' + course.code}
                 </h2>
                 <p className='mb-1'>
@@ -263,7 +263,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                   <strong>{t('teacher.studentCourse.labels.endDate')}</strong>{' '}
                   {endDateString}
                 </p>
-                <h2 className='mt-2 text-lg font-heading text-gray-700'>
+                <h2 className='mt-2 text-lg text-gray-700 font-heading'>
                   {t('teacher.studentCourse.labels.instructors')}
                 </h2>
                 <ul>
@@ -444,7 +444,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     </div>
                   )}
                   <button
-                    className='px-4 py-2 mt-4 font-heading text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                    className='px-4 py-2 mt-4 text-white transition rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
                     onClick={() => {
                       handleAddStudentToCourse &&
                         handleAddStudentToCourse(selectedCourse?.courseid);
