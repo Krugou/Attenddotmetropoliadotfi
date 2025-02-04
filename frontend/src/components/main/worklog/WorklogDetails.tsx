@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import InputField from '../course/createcourse/coursedetails/InputField';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 
 interface WorklogDetailsProps {
   name: string;
