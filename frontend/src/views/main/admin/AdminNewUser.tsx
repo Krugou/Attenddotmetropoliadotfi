@@ -5,7 +5,7 @@ import FormInput from '../../../components/main/newUser/FormInput';
 import StudentGroupSelect from '../../../components/main/newUser/StudentGroupSelect';
 import SubmitButton from '../../../components/main/newUser/SubmitButton';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 /**
  * AdminNewUser component.
@@ -188,7 +188,7 @@ const AdminNewUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
+      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
         {t('admin.newUser.addNew')}
         {userType === 'student' ? 'Student' : 'Staff'} {t('admin.common.user')}
       </h1>
@@ -196,14 +196,14 @@ const AdminNewUser: React.FC = () => {
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4'>
             <div className='flex flex-col'>
-              <h2 className='mb-5 text-xl font-heading text-center'>
+              <h2 className='mb-5 text-xl text-center font-heading'>
                 {t('admin.newUser.userDetails')}
               </h2>
 
               <div className='flex flex-col items-start justify-center mt-4'>
                 <label
                   htmlFor='userType'
-                  className='mb-1 mr-2 font-heading text-gray-700'>
+                  className='mb-1 mr-2 text-gray-700 font-heading'>
                   {t('admin.newUser.userType')}
                 </label>
                 <select
@@ -225,7 +225,7 @@ const AdminNewUser: React.FC = () => {
                 <div className='flex flex-col items-start justify-center mt-4'>
                   <label
                     htmlFor='staffRole'
-                    className='mb-1 mr-2 font-heading text-gray-700'>
+                    className='mb-1 mr-2 text-gray-700 font-heading'>
                     {t('admin.newUser.staffRole')}
                   </label>
                   <select
