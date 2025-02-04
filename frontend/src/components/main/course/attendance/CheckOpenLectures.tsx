@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Card from '../../../../components/main/cards/Card';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 
 interface Lecture {
   lectureid: number;
