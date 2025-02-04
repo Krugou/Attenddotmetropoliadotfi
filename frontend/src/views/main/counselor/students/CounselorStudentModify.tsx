@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import EditUserView from '../../../../components/main/admin/EditUserView';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 /**
  * User interface.
  * This interface defines the structure of a user object.
