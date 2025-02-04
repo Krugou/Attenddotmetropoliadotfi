@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import ApiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 
 interface WorkLogCourseFormData {
   name: string;
@@ -57,12 +57,12 @@ const WorkLogCreate = () => {
     }
 
     try {
-      // Call your API here using ApiHooks
+      // Call your API here using apiHooks
       const token: string | null = localStorage.getItem('userToken');
       if (!token) {
         throw new Error('No token available');
       }
-      const result = await ApiHooks.createWorkLogCourse(token, formData);
+      const result = await apiHooks.createWorkLogCourse(formData, token);
       setSuccess(t('teacher.worklog.success.courseCreated'));
       // Reset form
       setFormData({
@@ -95,7 +95,7 @@ const WorkLogCreate = () => {
 
   return (
     <div className='flex flex-col max-w-2xl p-6 mx-auto bg-white'>
-      <h1 className='mb-6 text-2xl font-heading text-gray-800'>
+      <h1 className='mb-6 text-2xl text-gray-800 font-heading'>
         {t('teacher.worklog.create.title')}
       </h1>
 
