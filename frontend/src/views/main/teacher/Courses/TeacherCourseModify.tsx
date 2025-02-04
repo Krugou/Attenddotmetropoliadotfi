@@ -9,7 +9,7 @@ import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkBu
 import AddTeachers from '../../../../components/main/course/createcourse/AddTeachers';
 import CourseDetails from '../../../../components/main/course/createcourse/CourseDetails';
 import EditTopicsModal from '../../../../components/main/modals/EditTopicsModal';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 
 /**
@@ -177,7 +177,7 @@ const TeacherCourseModify: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <h2 className='p-3 m-auto mb-6 font-heading text-center text-gray-800 bg-white rounded-lg w-fit text-md sm:text-2xl'>
+      <h2 className='p-3 m-auto mb-6 text-center text-gray-800 bg-white rounded-lg font-heading w-fit text-md sm:text-2xl'>
         {t('teacher.courseModify.title')}
       </h2>
 
@@ -245,7 +245,7 @@ const TeacherCourseModify: React.FC = () => {
         />
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 font-heading text-white transition  bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('teacher.courseModify.buttons.finish')}
