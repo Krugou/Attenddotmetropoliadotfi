@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import apihooks from '../../../hooks/ApiHooks';
+import apihooks from '../../../api';
+
 /**
  * Represents a user in the system.
  */
@@ -186,13 +187,13 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
    */
   return (
     <div className='flex flex-col items-center justify-center w-fit'>
-      <h1 className='p-3 mb-4 text-2xl font-heading bg-white rounded-lg'>
+      <h1 className='p-3 mb-4 text-2xl bg-white rounded-lg font-heading'>
         {t('admin.editUser.title')} {editedUser.userid}
       </h1>
       <div className='w-full p-5 bg-white rounded-lg'>
         {editedUser.created_at && (
           <div>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.createdAt')}
             </span>
             <p className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
@@ -202,7 +203,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {editedUser.last_name && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.lastName')}
             </span>
             <input
@@ -217,7 +218,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {editedUser.first_name && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.firstName')}
             </span>
             <input
@@ -233,7 +234,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
 
         {editedUser.email !== undefined && editedUser.email !== null && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.email')}
             </span>
             <input
@@ -253,7 +254,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {editedUser.username && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.username')}
             </span>
             <input
@@ -268,7 +269,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         )}
         {roles.length > 0 && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>
+            <span className='text-gray-700 font-heading'>
               {t('admin.editUser.role')}
             </span>
             <select
@@ -288,7 +289,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
 
         {editedUser.GDPR !== undefined && (
           <label className='block mt-4'>
-            <span className='font-heading text-gray-700'>GDPR</span>
+            <span className='text-gray-700 font-heading'>GDPR</span>
             <select
               required={editedUser.GDPR !== undefined}
               name='GDPR'
@@ -308,7 +309,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.studentnumber !== undefined &&
           editedUser.studentnumber !== null && (
             <label className='block mt-4'>
-              <span className='font-heading text-gray-700'>
+              <span className='text-gray-700 font-heading'>
                 {t('admin.editUser.studentNumber')}
               </span>
               <input
@@ -329,7 +330,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.studentgroupid !== undefined &&
           editedUser.studentgroupid !== null && (
             <label className='block mt-4'>
-              <span className='font-heading text-gray-700'>
+              <span className='text-gray-700 font-heading'>
                 {t('admin.editUser.studentGroup')}
               </span>
               <select
