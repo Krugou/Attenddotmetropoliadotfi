@@ -7,7 +7,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext';
-import apiHooks from '../../hooks/ApiHooks';
+import apiHooks from '../../api';
 import CourseSelect from './newUser/CourseSelect';
 import FormInput from './newUser/FormInput';
 import StudentGroupSelect from './newUser/StudentGroupSelect';
@@ -192,14 +192,14 @@ const NewStudentUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
+      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
         {t('newStudent.title')}
       </h1>
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
             <div className='flex flex-col'>
-              <h2 className='m-2 text-xl font-heading text-center'>
+              <h2 className='m-2 text-xl text-center font-heading'>
                 {t('newStudent.studentDetails')}
               </h2>
               <FormInput
