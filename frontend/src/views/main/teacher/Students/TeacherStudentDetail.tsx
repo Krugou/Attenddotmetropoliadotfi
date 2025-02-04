@@ -175,6 +175,7 @@ const TeacherStudentDetail: React.FC = () => {
         <h2 className='mt-5 mb-5 text-2xl font-heading'>
           {student.first_name + ' ' + student.last_name}'s Info
         </h2>
+        {/* @ts-ignore */}
         <ProfileInfo user={student} />
 
         <div className='w-full h-1 mt-5 rounded-md bg-metropoliaMainOrange'></div>
