@@ -13,18 +13,18 @@ import {
 import {useTranslation} from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const getDayOfWeek = (date: string, t: (key: string) => string) => {
-  const dayNames = [
-    t('admin.lectureChart.days.sunday'),
-    t('admin.lectureChart.days.monday'),
-    t('admin.lectureChart.days.tuesday'),
-    t('admin.lectureChart.days.wednesday'),
-    t('admin.lectureChart.days.thursday'),
-    t('admin.lectureChart.days.friday'),
-    t('admin.lectureChart.days.saturday'),
-  ];
-  return dayNames[new Date(date).getDay()];
-};
+// const getDayOfWeek = (date: string, t: (key: string) => string) => {
+//   const dayNames = [
+//     t('admin.lectureChart.days.sunday'),
+//     t('admin.lectureChart.days.monday'),
+//     t('admin.lectureChart.days.tuesday'),
+//     t('admin.lectureChart.days.wednesday'),
+//     t('admin.lectureChart.days.thursday'),
+//     t('admin.lectureChart.days.friday'),
+//     t('admin.lectureChart.days.saturday'),
+//   ];
+//   return dayNames[new Date(date).getDay()];
+// };
 
 interface Lecture {
   lectureid: number;
