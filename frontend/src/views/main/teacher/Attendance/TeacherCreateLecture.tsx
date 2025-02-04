@@ -12,7 +12,7 @@ import {toast} from 'react-toastify';
 import CheckOpenLectures from '../../../../components/main/course/attendance/CheckOpenLectures';
 import DeleteLectureModal from '../../../../components/main/modals/DeleteLectureModal';
 import {UserContext} from '../../../../contexts/UserContext';
-import apihooks from '../../../../hooks/ApiHooks';
+import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 /**
  * CreateLecture component.
@@ -585,7 +585,7 @@ const CreateLecture: React.FC = () => {
               title={`${t('teacher.createLecture.buttons.open')} ${
                 selectedCourse?.name
               } - ${selectedCourse?.code} - ${selectedTopic}`}
-              className='w-2/4 px-4 py-2 m-4 font-heading text-white transition rounded bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
+              className='w-2/4 px-4 py-2 m-4 text-white transition rounded font-heading bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
               onClick={handleOpenAttendance}>
               {t('teacher.createLecture.buttons.open')}
             </button>
