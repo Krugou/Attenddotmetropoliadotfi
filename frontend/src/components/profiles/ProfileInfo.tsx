@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import apiHooks from '../../hooks/ApiHooks'; // Replace with the correct path to your ApiHooks file
+import apiHooks from '../../api';
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../contexts/UserContext';
 import {FI, GB, SE} from 'country-flag-icons/react/3x2';
