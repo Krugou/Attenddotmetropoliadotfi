@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import apiHooks from '../../../../api';
+import {UserContext} from '../../../../contexts/UserContext';
 
 interface WorkLogCourseFormData {
   name: string;
@@ -10,10 +11,15 @@ interface WorkLogCourseFormData {
   title: string;
   description: string;
   requiredHours: number;
+  instructors: {email: string}[];
+  studentList: string[];
+  instructorEmail: string;
 }
 
 const WorkLogCreate = () => {
   const {t} = useTranslation();
+  const {user} = useContext(UserContext);
+
   const [formData, setFormData] = useState<WorkLogCourseFormData>({
     name: '',
     startDate: null,
@@ -22,6 +28,9 @@ const WorkLogCreate = () => {
     title: '',
     description: '',
     requiredHours: 0,
+    instructors: [],
+    studentList: [],
+    instructorEmail: user?.email || '',
   });
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
@@ -62,7 +71,17 @@ const WorkLogCreate = () => {
       if (!token) {
         throw new Error('No token available');
       }
-      const result = await apiHooks.createWorkLogCourse(formData, token);
+
+      // Transform the data to match API requirements
+      const apiData = {
+        ...formData,
+        startDate: formData.startDate?.toISOString().split('T')[0] || '',
+        endDate: formData.endDate?.toISOString().split('T')[0] || '',
+        instructors: [{email: formData.instructorEmail}],
+        studentList: [], // Empty array for initial creation
+      };
+
+      const result = await apiHooks.createWorkLogCourse(apiData, token);
       setSuccess(t('teacher.worklog.success.courseCreated'));
       // Reset form
       setFormData({
@@ -73,6 +92,9 @@ const WorkLogCreate = () => {
         title: '',
         description: '',
         requiredHours: 0,
+        instructors: [],
+        studentList: [],
+        instructorEmail: user?.email || '',
       });
       if (result) {
         setSuccess(t('teacher.worklog.success.courseCreated'));
@@ -239,6 +261,9 @@ const WorkLogCreate = () => {
                 title: '',
                 description: '',
                 requiredHours: 0,
+                instructors: [],
+                studentList: [],
+                instructorEmail: user?.email || '',
               })
             }
             className='px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300'>
