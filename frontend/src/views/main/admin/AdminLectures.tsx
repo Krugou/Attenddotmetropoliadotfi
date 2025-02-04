@@ -19,7 +19,6 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 import SortIcon from '@mui/icons-material/Sort';
 import ViewColumnIcon from '@mui/icons-material/ViewColumn';
-// Add missing imports
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -39,7 +38,6 @@ interface Lecture {
   actualStudentCount: number;
 }
 
-// Add column configuration type
 interface ColumnConfig {
   key: keyof Lecture;
   label: string;
@@ -132,7 +130,6 @@ const AdminLectures: React.FC = () => {
     },
   ];
 
-  // Initialize visible columns on mount
   useEffect(() => {
     const defaultVisible = new Set(
       columns.filter((col) => col.defaultVisible).map((col) => col.key),
@@ -152,7 +149,6 @@ const AdminLectures: React.FC = () => {
     });
   };
 
-  // Add these functions for column menu
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -358,30 +354,6 @@ const AdminLectures: React.FC = () => {
       setSortOrder('asc');
     }
   };
-
-  const sortedLectures = [...lectures].sort((a, b) => {
-    let valA = a[sortKey];
-    let valB = b[sortKey];
-
-    // Handle date comparison
-    if (sortKey === 'start_date') {
-      return sortOrder === 'asc'
-        ? new Date(valA).getTime() - new Date(valB).getTime()
-        : new Date(valB).getTime() - new Date(valA).getTime();
-    }
-
-    // Handle numeric comparison
-    if (typeof valA === 'number' && typeof valB === 'number') {
-      return sortOrder === 'asc' ? valA - valB : valB - valA;
-    }
-
-    // Handle string comparison
-    valA = String(valA).toLowerCase();
-    valB = String(valB).toLowerCase();
-    return sortOrder === 'asc'
-      ? valA.localeCompare(valB)
-      : valB.localeCompare(valA);
-  });
 
   const openLectures = lectures.filter((lecture) => lecture.state === 'open');
 
