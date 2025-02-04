@@ -104,7 +104,8 @@
         "shrinkTable": "Kutista taulukko",
         "expandTable": "Laajenna täysikokoiseksi",
         "hideStats": "Piilota tilastot",
-        "showStats": "Näytä tilastot"
+        "showStats": "Näytä tilastot",
+        "columns": "Sarakkeet"
       },
       "stats": {
         "totalLectures": "Luennot yhteensä",
