@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import apihooks from '../../../../hooks/ApiHooks';
+import apihooks from '../../../../api';
 import InputField from './coursedetails/InputField';
 /**
  * CourseDetails component properties
