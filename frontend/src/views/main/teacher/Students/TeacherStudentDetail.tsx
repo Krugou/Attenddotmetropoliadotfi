@@ -7,7 +7,7 @@ import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkBu
 import StudentCourseGrid from '../../../../components/main/course/StudentCourseGrid';
 import ProfileInfo from '../../../../components/profiles/ProfileInfo';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 
 /**
  * StudentInfo interface.
