@@ -1,13 +1,14 @@
-import express, {Response, Router} from 'express';
+import express, {Request, Response, Router} from 'express';
 import workLogController from '../controllers/worklogcontroller.js';
 import logger from '../utils/logger.js';
 import checkUserRole from '../utils/checkRole.js';
 const router: Router = express.Router();
 import {param, body} from 'express-validator';
 import validate from '../utils/validate.js';
-import workLogModel from '../models/worklogmodel.js';
+import work_log_courses from '../models/work_log_coursemodel.js';
+import work_log_entries from '../models/work_log_entrymodel.js';
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await workLogController.createWorkLogCourse(req.body);
     res.json(result);
@@ -20,7 +21,7 @@ router.post('/', async (req, res) => {
 router.get(
   '/:courseId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const courseId = Number(req.params.courseId);
       const result = await workLogController.getWorkLogCourseDetails(courseId);
@@ -34,12 +35,13 @@ router.get(
 router.put(
   '/:worklogId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const worklogId = Number(req.params.worklogId);
       const {modifiedData} = req.body;
       if (!modifiedData) {
-        return res.status(400).json({error: 'No modified data provided'});
+        res.status(400).json({error: 'No modified data provided'});
+        return;
       }
       const result = await workLogController.updateWorkLogCourse(
         worklogId,
@@ -55,7 +57,7 @@ router.put(
 router.delete(
   '/:worklogId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const worklogId = Number(req.params.worklogId);
       const result = await workLogController.deleteWorkLog(worklogId);
@@ -80,7 +82,7 @@ router.delete(
 router.post(
   '/entries',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const result = await workLogController.createWorkLogEntry(req.body);
       res.json(result);
@@ -93,7 +95,7 @@ router.post(
 router.get(
   '/entries/user/:userId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
       const entries = await workLogController.getWorkLogEntriesByUser(userId);
@@ -107,7 +109,7 @@ router.get(
 router.put(
   '/entries/:entryId/status',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const entryId = Number(req.params.entryId);
       const status = req.body.status as 0 | 1 | 2 | 3;
@@ -126,12 +128,13 @@ router.put(
 router.post(
   '/:courseId/groups',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const courseId = Number(req.params.courseId);
       const {name} = req.body;
       if (!name) {
-        return res.status(400).json({error: 'Group name is required'});
+        res.status(400).json({error: 'Group name is required'});
+        return;
       }
       const result = await workLogController.createWorkLogGroup(courseId, name);
       res.json(result);
@@ -144,13 +147,14 @@ router.post(
 router.post(
   '/group/:groupId/students',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const groupId = Number(req.params.groupId);
       const {studentIds} = req.body;
 
       if (!Array.isArray(studentIds)) {
-        return res.status(400).json({error: 'studentIds must be an array'});
+        res.status(400).json({error: 'studentIds must be an array'});
+        return;
       }
 
       const results = await Promise.all(
@@ -185,7 +189,7 @@ router.post(
 router.get(
   '/group/:groupId/students',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const groupId = Number(req.params.groupId);
       const result = await workLogController.getWorkLogGroupStudents(groupId);
@@ -199,7 +203,7 @@ router.get(
 router.post(
   '/courses/:courseId/users',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const courseId = Number(req.params.courseId);
       const {userId} = req.body;
@@ -218,7 +222,7 @@ router.post(
 router.get(
   '/stats/:userId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
       const stats = await workLogController.getWorkLogStats(userId);
@@ -232,7 +236,7 @@ router.get(
 router.get(
   '/checkcode/:code',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const code = req.params.code;
       const exists = await workLogController.checkWorklogCodeExists(code);
@@ -247,12 +251,11 @@ router.get(
 router.get(
   '/instructor/:email',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const email = req.params.email;
-      const courses = await workLogController.getWorkLogCoursesByInstructor(
-        email,
-      );
+      const courses =
+        await workLogController.getWorkLogCoursesByInstructor(email);
       res.json(courses);
     } catch (error) {
       logger.error('Error getting worklog courses by instructor:', error);
@@ -261,24 +264,29 @@ router.get(
   },
 );
 
-router.get('/:courseId/students', async (req, res) => {
-  try {
-    const {courseId} = req.params;
-    const result = await workLogController.getWorkLogStudentsByCourse(courseId);
-    res.json(result);
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(400).json({error: error.message});
-    } else {
-      res.status(500).json({error: 'Internal server error'});
+router.get(
+  '/:courseId/students',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (req: Request, res: Response) => {
+    try {
+      const {courseId} = req.params;
+      const result =
+        await workLogController.getWorkLogStudentsByCourse(courseId);
+      res.json(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({error: error.message});
+      } else {
+        res.status(500).json({error: 'Internal server error'});
+      }
     }
-  }
-});
+  },
+);
 
 router.get(
   '/:courseId/groups',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const {courseId} = req.params;
       const result = await workLogController.getWorkLogGroupsByCourse(courseId);
@@ -292,7 +300,7 @@ router.get(
 router.get(
   '/group/:courseId/:groupId',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const courseId = Number(req.params.courseId);
       const groupId = Number(req.params.groupId);
@@ -315,7 +323,7 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const {email} = req.params;
-      const courses = await workLogModel.getActiveCoursesByStudentEmail(email);
+      const courses = await work_log_courses.getActiveCoursesByStudentEmail(email);
       res.json(courses);
     } catch (error) {
       res.status(500).json({error: 'Failed to fetch active courses'});
@@ -323,37 +331,26 @@ router.get(
   },
 );
 
-interface ActiveEntryWithCourse extends WorkLogEntry {
-  course: {
-    work_log_course_id: number;
-    name: string;
-    code: string;
-    description: string;
-    start_date: Date;
-    end_date: Date;
-    required_hours: number;
-  };
-}
-
 router.get(
   '/active/:userId',
   checkUserRole(['admin', 'teacher', 'student']),
   [param('userId').isInt()],
   validate,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = Number(req.params.userId);
-      const activeEntries = await workLogModel.getActiveEntriesByUserId(userId);
+      const activeEntries = await work_log_entries.getActiveEntriesByUserId(userId);
       console.log('🚀 ~ activeEntries:', activeEntries);
 
       if (activeEntries.length === 0) {
-        return res.json([]);
+        res.json([]);
+        return;
       }
 
       // Get course details for each active entry
       const entriesWithCourses = await Promise.all(
         activeEntries.map(async (entry) => {
-          const courseDetails = await workLogModel.getWorkLogCourseById(
+          const courseDetails = await work_log_courses.getWorkLogCourseById(
             entry.work_log_course_id,
           );
 
@@ -387,7 +384,7 @@ router.post(
     body('status').optional().isIn([0, 1, 2, 3]).withMessage('Invalid status'),
   ],
   validate,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const result = await workLogController.createWorkLogEntry(req.body);
       res.json(result);
@@ -401,7 +398,7 @@ router.post(
 router.put(
   '/entries/close/:entryId',
   checkUserRole(['admin', 'teacher', 'student']),
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const entryId = Number(req.params.entryId);
       const result = await workLogController.closeWorkLogEntry(entryId);
@@ -421,9 +418,8 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
-      const entries = await workLogController.getWorkLogEntriesByStudentUser(
-        userId,
-      );
+      const entries =
+        await workLogController.getWorkLogEntriesByStudentUser(userId);
       res.json(entries);
     } catch (error) {
       logger.error('Error fetching all worklog entries:', error);
@@ -492,20 +488,20 @@ router.get(
     param('courseId').isInt().withMessage('Invalid courseId'),
   ],
   validate,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
       const courseId = Number(req.params.courseId);
       const existingGroup = await workLogController.checkStudentExistingGroup(
         userId,
-        courseId
+        courseId,
       );
-      res.json({ existingGroup });
+      res.json({existingGroup});
     } catch (error) {
       logger.error('Error checking student group:', error);
-      res.status(500).json({ error: 'Failed to check student group' });
+      res.status(500).json({error: 'Failed to check student group'});
     }
-  }
+  },
 );
 
 export default router;
