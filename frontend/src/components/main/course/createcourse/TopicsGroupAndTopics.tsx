@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import React, {useContext, useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import ConfirmDialog from '../../modals/ConfirmDialog';
 import {useTranslation} from 'react-i18next';
 
@@ -286,7 +286,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
 							onClick={() => setIsCustomGroup(!isCustomGroup)}
 							className="mb-3 w-fit text-sm p-2 bg-metropoliaMainOrange transition text-white rounded-3xl hover:bg-metropoliaSecondaryOrange mr-2"
 						>
-							{isCustomGroup 
+							{isCustomGroup
 								? t('teacher.topicsGroup.buttons.selectExisting')
 								: t('teacher.topicsGroup.buttons.createCustom')}
 						</button>
