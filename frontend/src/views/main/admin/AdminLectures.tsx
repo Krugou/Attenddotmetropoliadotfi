@@ -19,7 +19,7 @@ import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 interface Lecture {
   lectureid: number;
@@ -248,21 +248,21 @@ const AdminAllLectures: React.FC = () => {
       <div className='mt-4 mb-4 space-x-2'>
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
           {filterOpen
             ? t('admin.lectures.alternative.showAllLectures')
             : t('admin.lectures.alternative.showOpenLecture')}
         </button>
         <button
           onClick={toggleSortOrder}
-          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
           {sortOrder === 'asc'
             ? t('admin.lectures.alternative.sortByNewest')
             : t('admin.lectures.alternative.sortByOldest')}
         </button>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
           {isExpanded
             ? t('admin.lectures.alternative.shrinkTable')
             : t('admin.lectures.alternative.expandTable')}
@@ -270,7 +270,7 @@ const AdminAllLectures: React.FC = () => {
         {!filterOpen && (
           <button
             onClick={() => setExtraStats(!extraStats)}
-            className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
             {extraStats
               ? t('admin.lectures.alternative.hideStats')
               : t('admin.lectures.alternative.showStats')}
@@ -458,7 +458,7 @@ const AdminAllLectures: React.FC = () => {
                             lecture.lectureid.toString(),
                           )
                         }
-                        className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                        className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
                         {t('admin.common.details')}
                       </button>
                       {lecture.state === 'open' && (
@@ -470,7 +470,7 @@ const AdminAllLectures: React.FC = () => {
                               'close',
                             )
                           }
-                          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
                           {t('admin.common.close')}
                         </button>
                       )}
@@ -484,7 +484,7 @@ const AdminAllLectures: React.FC = () => {
                               'delete',
                             )
                           }
-                          className='px-2 py-1 font-heading text-white transition rounded bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
                           {t('admin.common.delete')}
                         </button>
                       )}
