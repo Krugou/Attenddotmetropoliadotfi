@@ -7,9 +7,9 @@ export const doFetch = async (url: string, options: RequestInit) => {
   // });
 
   try {
-    const startTime = performance.now();
+    // const startTime = performance.now();
     const response = await fetch(url, options);
-    const endTime = performance.now();
+    // const endTime = performance.now();
 
     // Log response timing
     // console.log(`⏱️ Request took ${Math.round(endTime - startTime)}ms`);
