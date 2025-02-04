@@ -6,7 +6,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import apiHooks from '../../../../../hooks/ApiHooks';
+import apiHooks from '../../../../../api';
 import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -144,7 +144,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       <div className='mb-6'>
         <Link
           to={`/teacher/worklog/course/${courseid}`}
-          className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 bg-metropoliaMainOrange rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-metropoliaMainOrange font-body'>
+          className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 rounded-lg bg-metropoliaMainOrange hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-metropoliaMainOrange font-body'>
           {t('teacher.worklog.detail.backToWorklog')}
         </Link>
       </div>
@@ -219,7 +219,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
             ))}
             {studentList.length > 0 && (
               <div
-                className='relative flex items-center justify-center p-5 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 h-full'
+                className='relative flex items-center justify-center h-full p-5 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300'
                 onClick={handleOpenModal}>
                 <button className='flex flex-col items-center'>
                   <svg
@@ -235,7 +235,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                     />
                   </svg>
-                  <span className='text-sm text-gray-600 mt-1'>
+                  <span className='mt-1 text-sm text-gray-600'>
                     {t('teacher.worklog.groups.addToGroup')}
                   </span>
                 </button>
@@ -307,7 +307,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         onClose={handleCloseModal}
         maxWidth='sm'
         fullWidth>
-        <DialogTitle className='font-heading flex justify-center items-center text-center'>
+        <DialogTitle className='flex items-center justify-center text-center font-heading'>
           add students to group
         </DialogTitle>
         <DialogContent className='flex flex-col items-center text-center'>
@@ -329,8 +329,8 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                     setSelectedStudents([...selectedStudents, student.userid]);
                   }
                 }}>
-                <div className='flex justify-center items-center'>
-                  <div className='font-medium font-body text-center'>
+                <div className='flex items-center justify-center'>
+                  <div className='font-medium text-center font-body'>
                     {`${student.first_name} ${student.last_name}`}
                   </div>
                 </div>
@@ -339,7 +339,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           </div>
         </DialogContent>
         <DialogActions sx={{justifyContent: 'center'}} className='w-full p-4'>
-          <div className='flex justify-center items-center gap-4'>
+          <div className='flex items-center justify-center gap-4'>
             <Button
               onClick={handleCloseModal}
               variant='outlined'
