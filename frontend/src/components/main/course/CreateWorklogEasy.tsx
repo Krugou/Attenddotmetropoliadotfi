@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext.tsx';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import AddTeachers from './createcourse/AddTeachers';
 import CreateWorklogProgress from './createcourse/CreateWorklogProgress.tsx';
 import WorklogDetailsStep from '../worklog/WorklogDetailsStep';
@@ -268,7 +268,7 @@ const CreateCourseEasy: React.FC = () => {
             <div className='flex justify-end'>
               <button
                 type='button'
-                className='w-40 p-2 mt-2 font-heading text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+                className='w-40 p-2 mt-2 text-white rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
                 onClick={handleExcelInput}>
                 {t('teacher.createCourseEasy.buttons.next')}
               </button>
