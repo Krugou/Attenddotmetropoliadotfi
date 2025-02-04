@@ -6,7 +6,7 @@ import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import AttendanceTable from '../../../../components/main/course/attendance/AttendanceTable';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import {exportToExcel, exportToPDF} from '../../../../utils/exportData';
 import {useTranslation} from 'react-i18next';
 /**
@@ -143,7 +143,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
   if (attendanceData.length > 0) {
     return (
       <div className='flex flex-col w-full p-5 bg-gray-100 rounded-lg lg:w-fit'>
-        <h1 className='mt-2 mb-8 text-xl font-heading text-center sm:text-3xl'>
+        <h1 className='mt-2 mb-8 text-xl text-center font-heading sm:text-3xl'>
           {student?.first_name + ' ' + student?.last_name}'s attendance in
           course: {attendanceData[0].name}
         </h1>
@@ -209,7 +209,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
   }
 
   return (
-    <div className='p-3 m-10 text-3xl font-heading text-center bg-white rounded-lg'>
+    <div className='p-3 m-10 text-3xl text-center bg-white rounded-lg font-heading'>
       {t('teacher.studentAttendances.noData')}
     </div>
   );
