@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import InputField from './coursedetails/InputField';
 
 /**
@@ -76,7 +76,7 @@ const AddTeachers = ({
   return (
     <fieldset className='mb-5'>
       {!modify ? (
-        <legend className='text-xl mb-3'>
+        <legend className='mb-3 text-xl'>
           {t('teacher.addTeachers.title')}
         </legend>
       ) : (
@@ -98,7 +98,7 @@ const AddTeachers = ({
           </div>
           {instructors.length > 1 && instructor.email !== instructorEmail && (
             <button
-              className='ml-2 w-8 p-2 mt-5 bg-red-500 text-white transition font-heading rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500'
+              className='w-8 p-2 mt-5 ml-2 text-white transition bg-red-500 rounded font-heading hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500'
               onClick={() => deleteInstructor(index)}>
               x
             </button>
@@ -106,7 +106,7 @@ const AddTeachers = ({
         </div>
       ))}
       <button
-        className='w-48 p-1 mt-2 bg-metropoliaMainOrange text-white transition font-heading rounded hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+        className='w-48 p-1 mt-2 text-white transition rounded bg-metropoliaMainOrange font-heading hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
         onClick={addInstructor}>
         {t('teacher.addTeachers.addAnother')}
       </button>
