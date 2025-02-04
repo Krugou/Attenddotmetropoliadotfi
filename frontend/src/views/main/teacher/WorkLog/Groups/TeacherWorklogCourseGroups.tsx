@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import apiHooks from '../../../../../hooks/ApiHooks';
+import apiHooks from '../../../../../api';
 import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
 
 interface WorkLogGroup {
