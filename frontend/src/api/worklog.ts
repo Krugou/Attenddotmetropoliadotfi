@@ -247,12 +247,12 @@ export const getWorkLogGroupDetails = async (
 
 export const createWorkLogEntry = async (
   params: {
-    userId: number;
+    userId: number | string;
     courseId: number;
     startTime: Date;
     endTime: Date;
     description: string;
-    status?: number;
+    status?: number | string;
   },
   token: string,
 ) => {
@@ -283,7 +283,7 @@ export const getActiveCoursesByStudentEmail = async (
 };
 
 export const getActiveWorkLogEntries = async (
-  userid: string,
+  userid: string | number,
   token: string,
 ) => {
   const options = {
