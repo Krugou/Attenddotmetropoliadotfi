@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext.tsx';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import AddTeachers from './createcourse/AddTeachers';
 import CreateWorklogProgress from './createcourse/CreateWorklogProgress.tsx';
 import StepButtons from './createcourse/StepButtons';
