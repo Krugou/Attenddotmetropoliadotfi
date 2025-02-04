@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteModal from '../modals/DeleteModal';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import GeneralLinkButton from '../buttons/GeneralLinkButton';
 
 interface WorkLogCourse {
