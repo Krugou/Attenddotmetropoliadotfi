@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import ErrorAlert from '../../components/main/ErrorAlert.tsx';
 import ServerStatus from '../../components/main/ServerStatus.tsx';
 import {UserContext} from '../../contexts/UserContext.tsx';
-import apiHooks from '../../hooks/ApiHooks.ts';
+import apiHooks from '../../api';
 import {IconButton} from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {z} from 'zod';
