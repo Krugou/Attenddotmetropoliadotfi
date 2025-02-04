@@ -9,8 +9,10 @@ import CourseStudents from '../../../../components/main/course/attendance/Course
 import AttendanceInstructions from '../../../../components/main/modals/AttendanceInstructions';
 import ConfirmDialog from '../../../../components/main/modals/ConfirmDialog';
 import {UserContext} from '../../../../contexts/UserContext';
-import apiHooks, {baseUrl} from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
+import {API_CONFIG} from '../../../../config';
 
+const baseUrl = API_CONFIG.baseUrl;
 /**
  * AttendanceRoom component.
  * This component is responsible for managing the attendance room for a lecture.
@@ -414,14 +416,14 @@ const AttendanceRoom: React.FC = () => {
           </div>
           <div className='flex flex-col items-center justify-end gap-5 sm:flex-row-reverse'>
             <button
-              className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-red-500'
+              className='w-full p-2 mt-4 text-sm text-white transition rounded font-heading bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-red-500'
               onClick={() => setConfirmOpen(true)}
               title='Delete this lecture'>
               Cancel Lecture
             </button>
             <button
               onClick={handleLectureFinished}
-              className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
+              className='w-full p-2 mt-4 text-sm text-white transition rounded font-heading bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
               title='Finish Lecture and set rest of bottom list of students to not attended'>
               Finish Lecture
             </button>
