@@ -104,7 +104,8 @@
         "shrinkTable": "Shrink Table",
         "expandTable": "Expand to full",
         "hideStats": "Hide Stats",
-        "showStats": "Show Stats"
+        "showStats": "Show Stats",
+        "columns": "Columns"
       },
       "stats": {
         "totalLectures": "Total Lectures",
