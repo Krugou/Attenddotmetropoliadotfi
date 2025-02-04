@@ -2,8 +2,10 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
-import {baseUrl} from '../../hooks/ApiHooks';
-import { useTranslation } from 'react-i18next';
+import {API_CONFIG} from '../../config';
+
+const baseUrl = API_CONFIG.baseUrl;
+import {useTranslation} from 'react-i18next';
 
 interface ServerResponse {
   builddate: string;
@@ -16,7 +18,7 @@ interface ServerResponse {
  * @returns {JSX.Element} The rendered ServerStatus component.
  */
 const ServerStatus: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   // Define the URL for the VPN test page
   // const vpnTestUrl =
   // 	import.meta.env.MODE === 'development'
@@ -93,15 +95,17 @@ const ServerStatus: React.FC = () => {
       <div className='p-2 m-2 rounded-xl'>
         {isServerOnline && (
           <p className='p-2 m-2'>
-            {t('serverStatus.version')}: {newestVersion ? <DoneIcon /> : <DangerousIcon />}
+            {t('serverStatus.version')}:{' '}
+            {newestVersion ? <DoneIcon /> : <DangerousIcon />}
           </p>
         )}
         <p className='p-2 m-2'>
-          {t('serverStatus.connection')}: {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
+          {t('serverStatus.connection')}:{' '}
+          {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
         </p>
       </div>
       {!newestVersion && isServerOnline && (
-        <p className='p-2 m-2  rounded-xl'>
+        <p className='p-2 m-2 rounded-xl'>
           <strong>{t('serverStatus.reloadNeeded')}</strong>
         </p>
       )}
