@@ -104,7 +104,8 @@
         "shrinkTable": "Krymp tabell",
         "expandTable": "Expandera till full",
         "hideStats": "Dölj statistik",
-        "showStats": "Visa statistik"
+        "showStats": "Visa statistik",
+        "columns": "Kolumner"
       },
       "stats": {
         "totalLectures": "Totala föreläsningar",
