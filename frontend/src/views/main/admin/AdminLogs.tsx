@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import AdminLogsTable from '../../../components/main/admin/AdminLogsTable';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 
 
 const AdminLogs = () => {
