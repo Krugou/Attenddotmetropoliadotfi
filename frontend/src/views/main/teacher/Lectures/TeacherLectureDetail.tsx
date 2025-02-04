@@ -3,7 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../../../contexts/UserContext';
 import {toast} from 'react-toastify';
-import apiHooks from '../../../../hooks/ApiHooks';
+import apiHooks from '../../../../api';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
   Dialog,
