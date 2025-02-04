@@ -1174,5 +1174,17 @@
     "description": "Metropolia Attendance är ett omfattande närvarohanteringssystem särskilt utformat för Metropolia yrkeshögskola. Denna plattform representerar ett betydande steg framåt i moderniseringen av hur vi hanterar och registrerar studenternas deltagande i akademiska aktiviteter.",
     "modernization": "Vårt system effektiviserar den traditionella närvarohanteringsprocessen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder realtidsspårning, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
     "benefits": "För studenter erbjuder plattformen ett enkelt sätt att markera sin närvaro och följa sin deltagandehistorik. Lärare drar nytta av automatiserad närvarohantering, vilket låter dem fokusera mer på undervisning och mindre på administrativa uppgifter."
+  },
+  "notifications": {
+    "success": "Operationen slutfördes framgångsrikt",
+    "error": "Ett fel uppstod vid behandling av din begäran",
+    "savingChanges": "Sparar ändringar...",
+    "saveSuccess": "Ändringar sparades framgångsrikt",
+    "saveError": "Det gick inte att spara ändringarna",
+    "deletingItem": "Raderar objekt...",
+    "deleteSuccess": "Objektet raderades framgångsrikt",
+    "deleteError": "Det gick inte att radera objektet",
+    "loadingError": "Fel vid laddning av data",
+    "sessionExpired": "Din session har gått ut, logga in igen"
   }
 }

@@ -1192,5 +1192,17 @@
     "description": "Metropolia Attendance on kattava läsnäolon seurantajärjestelmä, joka on suunniteltu erityisesti Metropolia Ammattikorkeakoululle. Tämä alusta edustaa merkittävää edistysaskelta opiskelijoiden osallistumisen hallinnan ja kirjaamisen modernisoinnissa.",
     "modernization": "Järjestelmämme tehostaa perinteistä läsnäolon kirjaamisprosessia korvaamalla manuaaliset paperimenetelmät tehokkaalla digitaalisella ratkaisulla. Se tarjoaa reaaliaikaisen seurannan, automaattisen raportoinnin ja saumattoman integraation Metropolian olemassa olevaan digitaaliseen infrastruktuuriin.",
     "benefits": "Opiskelijoille alusta tarjoaa helpon tavan merkitä läsnäolonsa ja seurata osallistumishistoriaansa. Opettajat hyötyvät automaattisesta läsnäolon hallinnasta, mikä mahdollistaa keskittymisen enemmän opettamiseen ja vähemmän hallinnollisiin tehtäviin."
+  },
+  "notifications": {
+    "success": "Toiminto suoritettu onnistuneesti",
+    "error": "Tapahtui virhe pyynnön käsittelyssä",
+    "savingChanges": "Tallennetaan muutoksia...",
+    "saveSuccess": "Muutokset tallennettu onnistuneesti",
+    "saveError": "Muutosten tallentaminen epäonnistui",
+    "deletingItem": "Poistetaan kohdetta...",
+    "deleteSuccess": "Kohde poistettu onnistuneesti",
+    "deleteError": "Kohteen poistaminen epäonnistui",
+    "loadingError": "Virhe tietojen lataamisessa",
+    "sessionExpired": "Istuntosi on vanhentunut, kirjaudu sisään uudelleen"
   }
 }

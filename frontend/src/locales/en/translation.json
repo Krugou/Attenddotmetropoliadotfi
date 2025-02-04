@@ -1183,10 +1183,23 @@
       "additionalDev": "Additional Developer"
     },
     "viewGithub": "View GitHub Profile"
-  },"about": {
+  },
+  "about": {
     "title": "About Metropolia Attendance app",
     "description": "Metropolia Attendance is a comprehensive attendance tracking system specifically designed for Metropolia University of Applied Sciences. This platform represents a significant step forward in modernizing how we manage and record student participation in academic activities.",
     "modernization": "Our system streamlines the traditional attendance-taking process, replacing manual paper-based methods with an efficient digital solution. It provides real-time tracking, automated reporting, and seamless integration with Metropolia's existing digital infrastructure.",
     "benefits": "For students, the platform offers an easy way to mark their attendance and track their participation history. Teachers benefit from automated attendance management, allowing them to focus more on teaching and less on administrative tasks."
+  },
+  "notifications": {
+    "success": "Operation completed successfully",
+    "error": "An error occurred while processing your request",
+    "savingChanges": "Saving changes...",
+    "saveSuccess": "Changes saved successfully",
+    "saveError": "Failed to save changes",
+    "deletingItem": "Deleting item...",
+    "deleteSuccess": "Item deleted successfully",
+    "deleteError": "Failed to delete item",
+    "loadingError": "Error loading data",
+    "sessionExpired": "Your session has expired, please log in again"
   }
 }
