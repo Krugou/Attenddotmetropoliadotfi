@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import GeneralLinkButton from '../buttons/GeneralLinkButton';
 import DeleteModal from '../modals/DeleteModal';
 import {useTranslation} from 'react-i18next';
@@ -219,7 +219,7 @@ const CourseData: React.FC<CourseDataProps> = ({
                       </div>
                       <div className='w-full border-t-4 border-metropoliaMainOrange'></div>
                       <div className='mt-4 mb-5'>
-                        <h2 className='text-lg font-heading text-gray-700'>
+                        <h2 className='text-lg text-gray-700 font-heading'>
                           {t('teacher.courseData.labels.instructors')}
                         </h2>
                         <ul>
