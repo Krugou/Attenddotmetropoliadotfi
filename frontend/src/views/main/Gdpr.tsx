@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext.tsx';
-import apiHooks from '../../hooks/ApiHooks.ts';
+import apiHooks from '../../api';
 /**
  * Gdpr component.
  * This component is responsible for rendering the GDPR acceptance form and handling the user's response.
