@@ -12,7 +12,7 @@ import {
   Work,
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 
 /**
  * MainView component.
@@ -33,17 +33,10 @@ const MainView: React.FC = () => {
   const {t} = useTranslation();
   const {user} = useContext(UserContext);
   const [hasWorkLogCourses, setHasWorkLogCourses] = useState<boolean>(false);
-  const isAdmin = user?.roleid === 1;
 
   useEffect(() => {
     const checkWorkLogCourses = async () => {
       try {
-        // Skip check if user is admin
-        if (isAdmin) {
-          setHasWorkLogCourses(true);
-          return;
-        }
-
         const token = localStorage.getItem('userToken');
         if (!token || !user?.email) return;
 
@@ -59,7 +52,7 @@ const MainView: React.FC = () => {
     };
 
     checkWorkLogCourses();
-  }, [user?.email, isAdmin]);
+  }, [user?.email]);
 
   return (
     <div className='w-full'>
@@ -95,9 +88,7 @@ const MainView: React.FC = () => {
           description={t('student.mainView.qrScannerCamera.description')}
           icon={PhotoCamera}
         />
-        {(import.meta.env.MODE === 'development' ||
-          hasWorkLogCourses ||
-          isAdmin) && (
+        {(import.meta.env.MODE === 'development' || hasWorkLogCourses) && (
           <>
             <Card
               path='/student/worklog'
