@@ -13,16 +13,12 @@ import {
 } from 'recharts';
 import {toast} from 'react-toastify';
 import LecturesByDayChart from '../../../components/main/admin/LecturesByDayChart';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 
 interface RoleCount {
   role_name: string;
   user_count: number;
-}
-
-interface LectureAttendanceCount {
-  [key: string]: number;
 }
 
 interface Lecture {
@@ -385,6 +381,7 @@ const AdminStats = () => {
           </p>
         )}
         <ResponsiveContainer {...chartConfig}>
+          {/* @ts-ignore */}
           <BarChart data={worklogStatistics}>
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis
