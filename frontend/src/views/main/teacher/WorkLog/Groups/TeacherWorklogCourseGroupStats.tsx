@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
 import {PieChart, Pie, Cell, ResponsiveContainer, Tooltip} from 'recharts';
-import apiHooks from '../../../../../hooks/ApiHooks';
+import apiHooks from '../../../../../api';
 import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -29,7 +29,7 @@ const SummaryPieChart = memo(({students}: {students: StudentStats[]}) => {
           outerRadius={80}
           paddingAngle={5}
           isAnimationActive={true}>
-          {students.map((student, index) => (
+          {students.map((_student, index) => (
             <Cell
               key={`cell-${index}`}
               fill={`hsl(${(360 / students.length) * index}, 70%, 50%)`}
@@ -146,10 +146,10 @@ const TeacherWorklogCourseGroupStats = () => {
     fetchStats();
   }, [fetchStats]);
 
-  if (loading) return <div className='text-center p-4'>Loading...</div>;
-  if (error) return <div className='text-center text-red-500 p-4'>{error}</div>;
+  if (loading) return <div className='p-4 text-center'>Loading...</div>;
+  if (error) return <div className='p-4 text-center text-red-500'>{error}</div>;
   if (!students.length)
-    return <div className='text-center p-4'>No students available</div>;
+    return <div className='p-4 text-center'>No students available</div>;
 
   const totalCompletedHours = students.reduce(
     (sum, student) => sum + student.completedHours,
@@ -157,8 +157,8 @@ const TeacherWorklogCourseGroupStats = () => {
   );
 
   return (
-    <div className='container max-w-6xl mx-auto px-4 py-8'>
-      <div className='flex justify-between items-center mb-6'>
+    <div className='container max-w-6xl px-4 py-8 mx-auto'>
+      <div className='flex items-center justify-between mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}
           text={t('common.back')}
@@ -170,7 +170,7 @@ const TeacherWorklogCourseGroupStats = () => {
       </div>
 
       {/* Here strats the groups stats summary  */}
-      <div className='bg-white rounded-lg shadow mb-8'>
+      <div className='mb-8 bg-white rounded-lg shadow'>
         <Accordion >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -181,40 +181,40 @@ const TeacherWorklogCourseGroupStats = () => {
             </h2>
           </AccordionSummary>
           <AccordionDetails className='bg-white rounded-b-lg'>
-            <div className='flex flex-col lg:flex-row gap-6'>
+            <div className='flex flex-col gap-6 lg:flex-row'>
               {/*this is for the where is the summary piechart */}
               <div className='w-full lg:w-1/2'>
                 <SummaryPieChart students={students} />
               </div>
 
               {/*this shows the users stast in numbers, easier to read*/}
-              <div className='w-full lg:w-1/2 flex flex-col justify-center font-body'>
+              <div className='flex flex-col justify-center w-full lg:w-1/2 font-body'>
                 <table className='w-full mb-4'>
                   <thead>
                     <tr className='border-b'>
-                      <th className='text-left p-2'>Student</th>
-                      <th className='text-right p-2'>Hours</th>
-                      <th className='text-right p-2'>Progress</th>
+                      <th className='p-2 text-left'>Student</th>
+                      <th className='p-2 text-right'>Hours</th>
+                      <th className='p-2 text-right'>Progress</th>
                     </tr>
                   </thead>
                   <tbody>
                     {students.map((student, index) => (
                       <tr key={index} className='border-b'>
                         <td className='p-2'>{student.name}</td>
-                        <td className='text-right p-2'>
+                        <td className='p-2 text-right'>
                           {student.completedHours}h
                         </td>
-                        <td className='text-right p-2'>
+                        <td className='p-2 text-right'>
                           {student.percentageCompleted}%
                         </td>
                       </tr>
                     ))}
                     <tr className='font-semibold bg-gray-50'>
                       <td className='p-2'>Total</td>
-                      <td className='text-right p-2'>
+                      <td className='p-2 text-right'>
                         {totalCompletedHours.toFixed(1)}h
                       </td>
-                      <td className='text-right p-2'>
+                      <td className='p-2 text-right'>
                         {(
                           (totalCompletedHours /
                             (requiredHours * students.length)) *
@@ -243,10 +243,10 @@ const TeacherWorklogCourseGroupStats = () => {
       </div>
 
       {/* here is the users own hour stats in piechart and numbers */}
-      <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {students.map((student, index) => (
-          <div key={index} className='bg-white rounded-lg shadow p-6'>
-            <h3 className='text-lg font-heading mb-4 text-center'>
+          <div key={index} className='p-6 bg-white rounded-lg shadow'>
+            <h3 className='mb-4 text-lg text-center font-heading'>
               {student.name}
             </h3>
             <StudentPieChart
@@ -266,9 +266,9 @@ const TeacherWorklogCourseGroupStats = () => {
                 </div>
               </div>
               {/* Progress bar */}
-              <div className='mt-2 w-full bg-gray-200 rounded-full h-2'>
+              <div className='w-full h-2 mt-2 bg-gray-200 rounded-full'>
                 <div
-                  className='bg-orange-500 h-2 rounded-full transition-all duration-300'
+                  className='h-2 transition-all duration-300 bg-orange-500 rounded-full'
                   style={{width: `${student.percentageCompleted}%`}}
                 />
               </div>
