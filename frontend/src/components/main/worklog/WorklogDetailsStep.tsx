@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import apiHooks from '../../../hooks/ApiHooks';
+import apiHooks from '../../../api';
 
 interface WorklogDetailsStepProps {
   name: string;
