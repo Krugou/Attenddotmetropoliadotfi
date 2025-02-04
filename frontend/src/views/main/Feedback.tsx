@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {toast} from 'react-toastify';
 import ServerStatus from '../../components/main/ServerStatus';
 import {UserContext} from '../../contexts/UserContext';
-import apiHooks from '../../hooks/ApiHooks';
+import apiHooks from '../../api';
 import {useTranslation} from 'react-i18next';
 
 /**
@@ -35,7 +35,7 @@ const Feedback: React.FC = () => {
   const {user} = useContext(UserContext);
   const [feedback, setFeedback] = useState('');
   const [topic, setTopic] = useState('');
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
 
   /**
    * Handles the submission of feedback
