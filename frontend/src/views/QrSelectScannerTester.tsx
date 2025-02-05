@@ -19,6 +19,10 @@ const QrSelectScannerTester: React.FC = () => {
     secureHash?: string;
     lectureId?: string;
   }>({});
+  const [initError, setInitError] = useState<string | null>(null);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const MAX_RETRIES = 3;
 
   // Handle available video devices
   type Device = {
@@ -27,6 +31,70 @@ const QrSelectScannerTester: React.FC = () => {
   };
   const [devices, setDevices] = useState<Device[]>([]);
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
+
+  const initializeCamera = async (deviceId: string) => {
+    setLoading(true);
+    setInitError(null);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { deviceId: deviceId ? { exact: deviceId } : undefined }
+      });
+
+      // Test if we can actually get video
+      const videoTrack = stream.getVideoTracks()[0];
+      if (!videoTrack) {
+        throw new Error('No video track available');
+      }
+
+      // Check if the track is actually active
+      if (!videoTrack.enabled) {
+        throw new Error('Video track is not enabled');
+      }
+
+      // Cleanup test stream
+      stream.getTracks().forEach(track => track.stop());
+
+      setSelectedDevice(deviceId);
+      setInitError(null);
+      toast.success('Camera initialized successfully');
+    } catch (error) {
+      console.error('Camera initialization error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      setInitError(errorMessage);
+
+      toast.error(
+        <div>
+          <h4 className="font-bold">Camera Error</h4>
+          <p>{errorMessage}</p>
+          {retryCount < MAX_RETRIES && (
+            <button
+              className="mt-2 text-blue-500 underline"
+              onClick={() => handleRetry(deviceId)}
+            >
+              Retry
+            </button>
+          )}
+        </div>,
+        {
+          autoClose: false,
+          position: 'top-center',
+        }
+      );
+
+      if (retryCount >= MAX_RETRIES) {
+        toast.error('Maximum retry attempts reached. Please check your camera settings.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRetry = async (deviceId: string) => {
+    setIsRetrying(true);
+    setRetryCount(prev => prev + 1);
+    await initializeCamera(deviceId);
+    setIsRetrying(false);
+  };
 
   useEffect(() => {
     const detectCameras = async () => {
@@ -96,13 +164,15 @@ const QrSelectScannerTester: React.FC = () => {
     };
   }, []);
 
-  const handleDeviceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDevice(event.target.value);
+  const handleDeviceChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newDeviceId = event.target.value;
+    await initializeCamera(newDeviceId);
   };
 
   const onNewScanResult = useCallback(
     (detectedCodes: IDetectedBarcode[]) => {
       if (!detectedCodes.length || !detectedCodes[0].rawValue) {
+        toast.warning('No QR code detected, please try again');
         return;
       }
       const decodedText = detectedCodes[0].rawValue;
@@ -119,7 +189,11 @@ const QrSelectScannerTester: React.FC = () => {
       const [baseUrl, secureHash, lectureId] = decodedText.split('#');
 
       if (!secureHash || !lectureId || !baseUrl) {
-        toast.error('Invalid QR code format');
+        toast.error('Invalid QR code format', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+        });
         setDecodedData({});
       } else {
         setDecodedData({
@@ -127,7 +201,20 @@ const QrSelectScannerTester: React.FC = () => {
           secureHash,
           lectureId,
         });
-        toast.success('QR code scanned successfully!');
+        toast.success(
+          <div>
+            <h4 className='font-bold'>QR Code Scanned!</h4>
+            <p>Lecture ID: {lectureId}</p>
+            <p className='text-xs truncate'>
+              Hash: {secureHash.slice(0, 10)}...
+            </p>
+          </div>,
+          {
+            autoClose: 5000,
+            position: 'top-center',
+            hideProgressBar: false,
+          },
+        );
       }
 
       setLoading(false);
@@ -137,7 +224,11 @@ const QrSelectScannerTester: React.FC = () => {
 
   const handleError = (error: any) => {
     console.error('Scanner error:', error);
-    toast.error('Error scanning QR code');
+    toast.error(`Scanner error: ${error.message || 'Unknown error'}`, {
+      autoClose: false,
+      position: 'top-center',
+      closeButton: true,
+    });
   };
 
   // Scanner components configuration
@@ -156,6 +247,23 @@ const QrSelectScannerTester: React.FC = () => {
         <p>Protocol: {window.location.protocol}</p>
         <p>Environment: {import.meta.env.MODE}</p>
       </div>
+
+      {/* Error Status */}
+      {initError && (
+        <div className='p-4 mb-4 text-red-700 bg-red-100 border-l-4 border-red-500'>
+          <h3 className='font-bold'>Camera Error</h3>
+          <p>{initError}</p>
+          {retryCount < MAX_RETRIES && !isRetrying && (
+            <button
+              onClick={() => handleRetry(selectedDevice || '')}
+              className='mt-2 text-red-600 underline hover:text-red-800'
+              disabled={isRetrying}
+            >
+              {isRetrying ? 'Retrying...' : 'Retry Camera'}
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Camera selection */}
       <div className='p-2 mb-4 border rounded'>
@@ -177,20 +285,22 @@ const QrSelectScannerTester: React.FC = () => {
 
       {/* Scanner */}
       {loading ? (
-        <div className='p-4 text-center'>Loading...</div>
-      ) : (
-        selectedDevice && (
-          <div className='mb-4'>
-            <Scanner
-              onScan={onNewScanResult}
-              onError={handleError}
-              components={scannerComponents}
-              scanDelay={200}
-              constraints={{deviceId: selectedDevice}}
-            />
-          </div>
-        )
-      )}
+        <div className='p-4 text-center'>Initializing camera...</div>
+      ) : !initError && selectedDevice ? (
+        <div className='mb-4'>
+          <Scanner
+            onScan={onNewScanResult}
+            onError={handleError}
+            components={scannerComponents}
+            scanDelay={200}
+            constraints={{
+              deviceId: selectedDevice,
+              aspectRatio: 1,
+              focusMode: 'continuous'
+            }}
+          />
+        </div>
+      ) : null}
 
       {/* Display decoded data */}
       {Object.keys(decodedData).length > 0 && (
