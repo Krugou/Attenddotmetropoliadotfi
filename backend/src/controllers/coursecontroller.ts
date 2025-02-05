@@ -13,6 +13,9 @@ import topicModel from '../models/topicmodel.js';
 import usercourse_topicsModel from '../models/usercourse_topicsmodel.js';
 import userCourseModel from '../models/usercoursemodel.js';
 import userModel from '../models/usermodel.js';
+import lectureModel from '../models/lecturemodel.js';
+import attendanceController from './attendancecontroller.js';
+
 /**
  * Interface for Student
  */
@@ -75,6 +78,10 @@ export interface CourseController {
   getStudentAndSelectedTopicsByUsercourseId: (
     usercourseid: number,
   ) => Promise<any>;
+  addLateEnrollingStudentToPreviousLectures: (
+    studentnumber: string,
+    courseid: number,
+  ) => Promise<void>;
 }
 /**
  * `courseController` is an object that implements the CourseController interface.
@@ -313,6 +320,10 @@ const courseController: CourseController = {
 							console.error(error);
 						}
 						*/
+            await courseController.addLateEnrollingStudentToPreviousLectures(
+              student.studentnumber,
+              courseId,
+            );
           } catch (error) {
             console.error(error);
           }
@@ -467,6 +478,31 @@ const courseController: CourseController = {
         ...{topics: topicNames},
       };
       return studentAndSelectedParts;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+  /**
+   * Adds a late enrolling student to previous lectures as not present.
+   *
+   * @param {string} studentnumber - The student number.
+   * @param {number} courseid - The ID of the course.
+   */
+  async addLateEnrollingStudentToPreviousLectures(
+    studentnumber: string,
+    courseid: number,
+  ) {
+    try {
+      const pastLectures = await lectureModel.getPastLecturesByCourseId(
+        courseid,
+      );
+      for (const lecture of pastLectures) {
+        await attendanceController.markStudentAsNotPresentInPastLectures(
+          studentnumber,
+          lecture.lectureid,
+        );
+      }
     } catch (error) {
       console.error(error);
       throw error;

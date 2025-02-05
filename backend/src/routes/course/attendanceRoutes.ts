@@ -1,4 +1,3 @@
-// attendanceRoutes.ts
 import express, {Request, Response, Router} from 'express';
 import {body, param} from 'express-validator';
 import attendanceController from '../../controllers/attendancecontroller.js';
@@ -541,6 +540,39 @@ router.get(
         if (students) lecture.actualStudentCount = students.length;
       }
       res.json(lectures);
+    } catch (err) {
+      logger.error(err);
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  },
+);
+
+/**
+ * Route that adds a late enrolling student to previous lectures as not present.
+ *
+ * @param {string} studentnumber - The student number.
+ * @param {number} courseid - The ID of the course.
+ * @returns {Promise<void>} A promise that resolves when the operation is complete.
+ */
+router.post(
+  '/addLateEnrollingStudentToPreviousLectures',
+  checkUserRole(['admin', 'teacher', 'counselor']),
+  [
+    body('studentnumber')
+      .isString()
+      .withMessage('Student number must be a string'),
+    body('courseid').isNumeric().withMessage('Course ID must be a number'),
+  ],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const {studentnumber, courseid} = req.body;
+      await attendanceController.markStudentAsNotPresentInPastLectures(
+        studentnumber,
+        courseid,
+      );
+      res.status(200).send('Student added to previous lectures as not present');
     } catch (err) {
       logger.error(err);
       console.error(err);

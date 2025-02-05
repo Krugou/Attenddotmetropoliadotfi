@@ -138,6 +138,12 @@ export interface LectureModel {
    * @returns A promise that resolves to an array of lectures.
    */
   fetchLecturesByTeacherId(teacherId: number): Promise<RowDataPacket[]>;
+  /**
+   * Gets past lectures by course ID.
+   * @param courseid - The ID of the course.
+   * @returns A promise that resolves to an array of past lectures for the course, if found.
+   */
+  getPastLecturesByCourseId(courseid: number): Promise<RowDataPacket[]>;
 }
 
 /**
@@ -501,6 +507,26 @@ const lectureModel: LectureModel = {
       WHERE lecture.teacherid = ?`,
         [teacherId],
       );
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  },
+  /**
+   * Gets past lectures by course ID.
+   * @param courseid - The ID of the course.
+   * @returns A promise that resolves to an array of past lectures for the course, if found.
+   */
+  async getPastLecturesByCourseId(courseid: number) {
+    try {
+      const [rows] = await pool
+        .promise()
+        .query<RowDataPacket[]>(
+          'SELECT * FROM lecture WHERE courseid = ? AND end_date < NOW()',
+          [courseid],
+        );
+
       return rows;
     } catch (error) {
       console.error(error);
