@@ -356,8 +356,6 @@ const attendanceController: AttendanceController = {
           if (!attendanceResultCheck || attendanceResultCheck.length > 0) {
             continue;
           }
-          // convert start date to ISO string body('date').isISO8601().withMessage('Date must be in ISO 8601 format'),
-          const date = lecture.start_date;
           await attendanceModel.insertAttendance(
             0,
             lecture.start_date,
