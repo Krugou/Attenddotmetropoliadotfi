@@ -76,13 +76,13 @@ export interface AttendanceController {
   /**
    * Marks late enrolling students as not present in past lectures.
    *
-   * @param {string} studentnumber - The student number.
-   * @param {number} lectureid - The lecture ID.
+   * @param {string | number} studentnumber - The student number.
+   * @param {number} courseid - The course ID.
    * @returns {Promise<void>} A promise that resolves when the student is marked as not present in past lectures.
    */
   markStudentAsNotPresentInPastLectures: (
-    studentnumber: string,
-    lectureid: number,
+    studentnumber: string | number,
+    courseid: number,
   ) => Promise<void>;
 }
 
@@ -311,27 +311,33 @@ const attendanceController: AttendanceController = {
   /**
    * Marks late enrolling students as not present in past lectures.
    *
-   * @param {string} studentnumber - The student number.
-   * @param {number} lectureid - The lecture ID.
+   * @param {string | number} studentnumber - The student number.
+   * @param {number} courseid - The course ID.
    * @returns {Promise<void>} A promise that resolves when the student is marked as not present in past lectures.
    */
   async markStudentAsNotPresentInPastLectures(
-    studentnumber: string,
-    lectureid: number,
+    studentnumber: string | number,
+    courseid: number,
   ): Promise<void> {
     try {
-      const courseId = await lectureModel.getCourseIDByLectureID(lectureid);
+      const studentNumberString = studentnumber.toString();
+
+      if (courseid === null) {
+        throw new Error('Course ID is null');
+      }
+
+      const courseId = courseid;
       if (courseId === null) {
         throw new Error('Course ID is null');
       }
       const usercourseResult = await usercoursesModel.getUserCourseId(
-        studentnumber,
+        studentNumberString,
         courseId,
       );
 
       if (!Array.isArray(usercourseResult) || usercourseResult.length === 0) {
         throw new Error(
-          `Usercourse not found for the studentnumber: ${studentnumber}`,
+          `Usercourse not found for the studentnumber: ${studentNumberString}`,
         );
       }
 
@@ -350,10 +356,11 @@ const attendanceController: AttendanceController = {
           if (!attendanceResultCheck || attendanceResultCheck.length > 0) {
             continue;
           }
-
+          // convert start date to ISO string body('date').isISO8601().withMessage('Date must be in ISO 8601 format'),
+          const date = lecture.start_date;
           await attendanceModel.insertAttendance(
             0,
-            lecture.start_date.toISOString(),
+            lecture.start_date,
             usercourseid,
             lecture.lectureid.toString(),
           );
