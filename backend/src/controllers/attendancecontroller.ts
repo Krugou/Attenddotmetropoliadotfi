@@ -12,6 +12,7 @@ import usercoursesModel from '../models/usercoursemodel.js';
  * @method getLecturesAndAttendancesByCourseId - Gets lectures and attendances by course ID.
  * @method updateAttendanceStatus - Updates the attendance status.
  * @method deleteAttendance - Deletes an attendance record.
+ * @method markStudentAsNotPresentInPastLectures - Marks late enrolling students as not present in past lectures.
  */
 export interface AttendanceController {
   /**
@@ -72,6 +73,17 @@ export interface AttendanceController {
     studentnumber: string,
     lectureid: string,
   ) => Promise<unknown>;
+  /**
+   * Marks late enrolling students as not present in past lectures.
+   *
+   * @param {string | number} studentnumber - The student number.
+   * @param {number} courseid - The course ID.
+   * @returns {Promise<void>} A promise that resolves when the student is marked as not present in past lectures.
+   */
+  markStudentAsNotPresentInPastLectures: (
+    studentnumber: string | number,
+    courseid: number,
+  ) => Promise<void>;
 }
 
 /**
@@ -294,6 +306,71 @@ const attendanceController: AttendanceController = {
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
+    }
+  },
+  /**
+   * Marks late enrolling students as not present in past lectures.
+   *
+   * @param {string | number} studentnumber - The student number.
+   * @param {number} courseid - The course ID.
+   * @returns {Promise<void>} A promise that resolves when the student is marked as not present in past lectures.
+   */
+  async markStudentAsNotPresentInPastLectures(
+    studentnumber: string | number,
+    courseid: number,
+  ): Promise<void> {
+    try {
+      const studentNumberString = studentnumber.toString();
+
+      if (courseid === null) {
+        throw new Error('Course ID is null');
+      }
+
+      const courseId = courseid;
+      if (courseId === null) {
+        throw new Error('Course ID is null');
+      }
+      const usercourseResult = await usercoursesModel.getUserCourseId(
+        studentNumberString,
+        courseId,
+      );
+
+      if (!Array.isArray(usercourseResult) || usercourseResult.length === 0) {
+        throw new Error(
+          `Usercourse not found for the studentnumber: ${studentNumberString}`,
+        );
+      }
+
+      if ('usercourseid' in usercourseResult[0]) {
+        const usercourseid = usercourseResult[0].usercourseid;
+        const pastLectures = await lectureModel.getPastLecturesByCourseId(
+          courseId,
+        );
+
+        for (const lecture of pastLectures) {
+          const attendanceResultCheck = await attendanceModel.checkAttendance(
+            usercourseid,
+            lecture.lectureid,
+          );
+
+          if (!attendanceResultCheck || attendanceResultCheck.length > 0) {
+            continue;
+          }
+          // convert start date to ISO string body('date').isISO8601().withMessage('Date must be in ISO 8601 format'),
+          const date = lecture.start_date;
+          await attendanceModel.insertAttendance(
+            0,
+            lecture.start_date,
+            usercourseid,
+            lecture.lectureid.toString(),
+          );
+        }
+      } else {
+        throw new Error('Invalid result: usercourseid property not found');
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   },
 };

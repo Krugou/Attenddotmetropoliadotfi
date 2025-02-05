@@ -9,6 +9,7 @@ import checkUserRole from '../utils/checkRole.js';
 import logger from '../utils/logger.js';
 import validate from '../utils/validate.js';
 import UserModel from '../models/usermodel.js';
+import attendanceController from '../controllers/attendancecontroller.js';
 const pool = createPool('ADMIN');
 /**
  * Router for secure routes.
@@ -177,6 +178,16 @@ router.post(
       if (existingUserCourse.length === 0) {
         // If course connection does not exist, add it
         await usercoursesModel.insertUserCourse(userResult.insertId, courseId);
+      }
+
+      // Automatically mark the student as "not present" for past lectures
+      try {
+        await attendanceController.markStudentAsNotPresentInPastLectures(
+          studentnumber, // Now works with both string and number
+          courseId,
+        );
+      } catch (error) {
+        logger.error('Error adding student to previous lectures:', error);
       }
 
       res
