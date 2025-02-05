@@ -159,10 +159,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const {date, studentnumbers, lectureid} = req.body;
-      // console.log(
-      // 	'🚀 ~ file: attendanceRoutes.ts:75 ~ router.post ~ req.body:',
-      // 	req.body,
-      // );
+
       await attendanceController.checkAndInsertStatusNotPresentAttendance(
         date,
         studentnumbers,
