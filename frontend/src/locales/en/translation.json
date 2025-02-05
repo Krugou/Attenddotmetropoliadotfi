@@ -966,7 +966,9 @@
     "cancel": "Cancel",
     "create": "Create",
     "creating": "Creating...",
-    "back": "Back"
+    "back": "Back",
+    "close": "Close",
+    "save":"Save Changes"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",

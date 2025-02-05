@@ -904,7 +904,9 @@
         "createSuccess": "Ryhmä luotu onnistuneesti",
         "stats": "Katso tilastot",
         "addToGroup": "lisää opiskelijat ryhmään",
-        "back": "takaisin"
+        "back": "takaisin",
+        "close": "Sulje",
+        "save": "Tallenna"
       },
       "entries": {
         "date": "Päivämäärä",

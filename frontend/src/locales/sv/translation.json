@@ -946,7 +946,9 @@
     "cancel": "Avbryt",
     "create": "Skapa",
     "creating": "Skapar...",
-    "back": "Tillbaka"
+    "back": "Tillbaka",
+    "close":"Stäng detta fönster",
+    "save":"Spara ändringar"
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
