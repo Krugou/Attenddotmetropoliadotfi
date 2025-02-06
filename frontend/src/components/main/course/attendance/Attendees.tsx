@@ -11,6 +11,7 @@ interface AttendeesProps {
   }[];
   socket: any;
   lectureid: string;
+  widerNamesToggle: boolean;
 }
 
 /**
@@ -20,6 +21,7 @@ const Attendees: React.FC<AttendeesProps> = ({
   arrayOfStudents,
   socket,
   lectureid,
+  widerNamesToggle,
 }) => {
   return (
     <div className='text-md max-w-full w-full 2xl:w-3/4 2xl:min-h-[20em] xl:max-h-[20em] max-h-[17em] sm:w-1/2 lg:w-full min-h-[15em] lg:min-h-[20em] overflow-y-scroll m-2 p-2 sm:text-xl mb-4  border-2 border-metropoliaTrendGreen'>
@@ -28,9 +30,9 @@ const Attendees: React.FC<AttendeesProps> = ({
           /**
            * The formatted name of the student, which includes the first name and the first character of the last name.
            */
-          const formattedName = `${
-            student.first_name
-          } ${student.last_name.charAt(0)}.`;
+          const formattedName = widerNamesToggle
+            ? `${student.first_name} ${student.last_name}`
+            : `${student.first_name} ${student.last_name.charAt(0)}.`;
           return (
             <p
               key={index}
