@@ -13,6 +13,8 @@ interface Props {
   isAnimationStopped: boolean;
   setLectureSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
+  scrollTabToggle: boolean;
+  widerNamesToggle: boolean;
 }
 /**
  * CourseStudents component.
@@ -30,6 +32,8 @@ const CourseStudents: React.FC<Props> = ({
   isAnimationStopped,
   setLectureSuccess,
   loading,
+  scrollTabToggle,
+  widerNamesToggle,
 }) => {
   // Define state and refs const
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -205,7 +209,9 @@ const CourseStudents: React.FC<Props> = ({
         }
         setBounceGroup(null);
       }}
-      className={`noSelect hideScrollbar flex  border-2 border-metropoliaSupportRed ${
+      className={`noSelect ${
+        scrollTabToggle ? '' : 'hideScrollbar'
+      }  flex  border-2 border-metropoliaSupportRed ${
         coursestudents.length > 10 ? 'justify-start' : 'justify-center'
       } bg-white p-3 rounded-lg shadow-md w-full mt-4 overflow-hidden overflow-x-auto`}>
       {coursestudents.length === 0 ? (
@@ -217,9 +223,10 @@ const CourseStudents: React.FC<Props> = ({
       ) : (
         <div className={`   whitespace-nowrap `}>
           {coursestudents.map((student, index) => {
-            const formattedName = `${
-              student.first_name
-            } ${student.last_name.charAt(0)}.`;
+            const formattedName = widerNamesToggle
+              ? `${student.first_name} ${student.last_name}`
+              : `${student.first_name} ${student.last_name.charAt(0)}.`;
+
             const isBouncing = !isAnimationStopped && index % 2 === bounceGroup;
             const isFirst = index === 0;
             const isLast = index === coursestudents.length - 1;
