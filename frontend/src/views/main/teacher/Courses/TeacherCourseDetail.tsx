@@ -33,7 +33,6 @@ const TeacherCourseDetail: React.FC = () => {
   const {user} = useContext(UserContext);
   const {t} = useTranslation();
   useEffect(() => {
-    console.log(id);
     const fetchCourses = async () => {
       if (id) {
         const token: string | null = localStorage.getItem('userToken');

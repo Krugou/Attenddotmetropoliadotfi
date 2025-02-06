@@ -5,6 +5,7 @@ import CounselorStudentAttendances from '../../views/main/counselor/students/Cou
 import CounselorStudentDetail from '../../views/main/counselor/students/CounselorStudentDetail';
 import CounselorStudentModify from '../../views/main/counselor/students/CounselorStudentModify';
 import CounselorStudentsView from '../../views/main/counselor/students/CounselorStudentsView';
+import CounselorCourseDetails from '../../views/main/counselor/CounselorCourseDetails';
 /**
  * CounselorStudentRoutes component.
  * This component is responsible for defining the routes for the counselor's students section of the application.
@@ -25,6 +26,7 @@ const CounselorStudentRoutes: React.FC = () => {
         path='attendance/:usercourseid'
         element={<CounselorStudentAttendances />}
       />
+      <Route path='courses/:id' element={<CounselorCourseDetails />} />
     </Routes>
   );
 };

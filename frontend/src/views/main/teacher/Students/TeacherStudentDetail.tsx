@@ -1,7 +1,7 @@
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import React, {useContext, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
 import StudentCourseGrid from '../../../../components/main/course/StudentCourseGrid';
@@ -65,6 +65,9 @@ const TeacherStudentDetail: React.FC = () => {
   const {user, update, setUpdate} = useContext(UserContext);
   const token = localStorage.getItem('userToken');
   const [showEndedCourses, setShowEndedCourses] = useState(false);
+  const location = useLocation();
+  const { fromCourseId, fromStats } = location.state || {};
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -169,6 +172,13 @@ const TeacherStudentDetail: React.FC = () => {
             <GeneralLinkButton
               path={`/counselor/students/${id}/modify`}
               text={`Edit ${student.first_name} ${student.last_name} details`}
+            />
+          )}
+          {/* Add back to course button only if we came from stats */}
+          {fromStats && fromCourseId && (
+            <GeneralLinkButton
+              path={`/counselor/students/courses/${fromCourseId}`}
+              text='Back to Course'
             />
           )}
         </div>

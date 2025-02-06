@@ -49,6 +49,7 @@ interface AttendanceStatsTableProps {
   threshold: number | null; // The attendance threshold
   attendanceStudentData?: AttendanceStudentData; // The attendance data for a specific student
   usercourseid?: number; // The ID of the user course
+  currentCourseId?: string;
 }
 
 /**
@@ -68,6 +69,7 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
   threshold,
   attendanceStudentData,
   usercourseid,
+  currentCourseId
 }) => {
   // State to keep track of the fetched data
   const [fetchedData, setFetchedData] = useState<FetchedDataItem | null>(null);
@@ -107,6 +109,20 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
+  const handleStudentClick = (studentId: number) => {
+    const targetPath = user?.role === 'admin'
+      ? `/counselor/students/${studentId}`
+      : `/${user?.role}/students/${studentId}`;
+
+    navigate(targetPath, {
+      state: {
+        fromCourseId: currentCourseId,
+        fromStats: true
+      }
+    });
+  };
+
+
   return (
     <TableContainer className='overflow-x-auto sm:max-h-[30em] h-fit overflow-y-scroll border-gray-300 border-x border-t mt-5 mb-5 rounded-lg shadow'>
       <Table className='min-w-full divide-y divide-gray-200'>
@@ -133,13 +149,8 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
               <TableRow key={i} className='border-b hover:bg-gray-50'>
                 <TableCell
                   className='px-6 py-4 cursor-pointer whitespace-nowrap hover:bg-gray-200'
-                  onClick={() => {
-                    const targetPath =
-                      user?.role === 'admin'
-                        ? `/counselor/students/${student.userid}`
-                        : `/${user?.role}/students/${student.userid}`;
-                    navigate(targetPath);
-                  }}>
+                  onClick={() => handleStudentClick(student.userid)}
+                >
                   {student.name}
                 </TableCell>
                 <TableCell className='px-6 py-4 whitespace-nowrap'>

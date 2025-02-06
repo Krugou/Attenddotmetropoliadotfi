@@ -267,6 +267,7 @@ const TeacherCourseStats = () => {
           <AttendanceStatsTable
             allAttendanceCounts={allAttendanceCounts}
             threshold={threshold}
+            currentCourseId={courseid}
           />
         )}
       </div>
