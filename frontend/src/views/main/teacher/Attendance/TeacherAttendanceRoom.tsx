@@ -1,4 +1,5 @@
 import {CircularProgress} from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import QRCode from 'react-qr-code';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -6,7 +7,7 @@ import {toast} from 'react-toastify';
 import io, {Socket} from 'socket.io-client';
 import Attendees from '../../../../components/main/course/attendance/Attendees';
 import CourseStudents from '../../../../components/main/course/attendance/CourseStudents';
-import AttendanceInstructions from '../../../../components/main/modals/AttendanceInstructions';
+import AttendanceSettings from '../../../../components/main/modals/AttendanceSettings';
 import ConfirmDialog from '../../../../components/main/modals/ConfirmDialog';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
@@ -48,6 +49,9 @@ const AttendanceRoom: React.FC = () => {
   const [latency, setLatency] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lectureSuccess, setLectureSuccess] = useState(false);
+  const [scrollTabToggle, setScrollTabToggle] = useState(false);
+  const [widerNamesToggle, setWiderNamesToggle] = useState(false);
+  const [hideQR, setHideQR] = useState(false);
   /**
    * useEffect hook for fetching lecture info.
    * This hook is run when the component mounts and whenever the lectureid changes.
@@ -345,28 +349,6 @@ const AttendanceRoom: React.FC = () => {
             </h1>
             <div className='flex flex-row justify-end'>
               <button
-                className='bg-metropoliaMainOrange sm:w-fit h-[4em] transition p-2 m-2 text-md w-full hover:bg-metropoliaSecondaryOrange text-white rounded'
-                onClick={() => setIsAnimationStopped(!isAnimationStopped)}
-                title={`${
-                  isAnimationStopped ? 'Start' : 'Stop'
-                } animation of CourseStudents list`}>
-                {isAnimationStopped ? 'Start Animation' : 'Stop Animation'}
-              </button>
-              {latency !== null && latency !== undefined && (
-                <div className='flex items-center justify-center'>
-                  <button
-                    className='bg-metropoliaTrendGreen h-[4em] hover:bg-green-500 transition text-white p-2 m-2 rounded-md'
-                    title={
-                      latency !== null && latency !== undefined
-                        ? `Click to open instructions. current latency ${latency} ms`
-                        : ''
-                    }
-                    onClick={() => setDialogOpen(true)}>
-                    {latency} ms
-                  </button>
-                </div>
-              )}
-              <button
                 className='bg-metropoliaSupportRed sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded'
                 onClick={() => {
                   navigate(`/teacher/attendance/reload/${lectureid}`);
@@ -374,32 +356,50 @@ const AttendanceRoom: React.FC = () => {
                 title={'Reset timer'}>
                 Reset timer
               </button>
+              {latency !== null && latency !== undefined && (
+                <button
+                  className={`flex items-center justify-center p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
+                    latency < 100
+                      ? 'bg-metropoliaTrendGreen hover:bg-green-600'
+                      : latency < 300
+                      ? 'bg-yellow-500 hover:bg-yellow-600'
+                      : 'bg-metropoliaSupportRed hover:bg-red-600'
+                  }`}
+                  title={`Connection latency: ${latency}ms`}
+                  onClick={() => setDialogOpen(true)}>
+                  <SettingsIcon />
+                </button>
+              )}
             </div>
           </div>
           <div className='flex flex-col-reverse items-start justify-between sm:flex-row'>
-            <div className='flex flex-col-reverse items-center w-full sm:flex-row '>
-              {!hashDataReceived ? (
-                <div className='flex items-center justify-center w-full h-full'>
-                  <CircularProgress />
+            <div className='flex flex-col-reverse items-center w-full sm:flex-row'>
+              {!hideQR && (
+                <div className='relative w-full'>
+                  {!hashDataReceived ? (
+                    <div className='flex items-center justify-center w-full h-full'>
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    <QRCode
+                      size={256}
+                      value={hashValue}
+                      viewBox={`0 0 256 256`}
+                      className='w-full 2xl:w-[50em] sm:w-[20em] lg:w-full border-8 border-white h-full'
+                      level='L'
+                    />
+                  )}
                 </div>
-              ) : (
-                <QRCode
-                  size={256}
-                  value={hashValue}
-                  viewBox={`0 0 256 256`}
-                  className='w-full 2xl:w-[50em] sm:w-[20em] lg:w-full border-8 border-white h-full'
-                  level='L'
-                />
               )}
-
               <Attendees
                 arrayOfStudents={arrayOfStudents}
                 socket={socket}
                 lectureid={lectureid || ''}
+                widerNamesToggle={widerNamesToggle}
               />
             </div>
             <h2
-              className='ml-2 text-2xl'
+              className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropoliaMainOrange rounded-xl'
               title={`${arrayOfStudents.length} Attended, ${
                 courseStudents.length
               } Not attended, Total: ${
@@ -443,12 +443,19 @@ const AttendanceRoom: React.FC = () => {
                 isAnimationStopped={isAnimationStopped}
                 setLectureSuccess={setLectureSuccess}
                 loading={loading}
+                scrollTabToggle={scrollTabToggle}
+                widerNamesToggle={widerNamesToggle}
               />
             )}
             {dialogOpen && (
-              <AttendanceInstructions
+              <AttendanceSettings
                 dialogOpen={dialogOpen}
                 setDialogOpen={setDialogOpen}
+                setIsAnimationStopped={setIsAnimationStopped}
+                setScrollTabToggle={setScrollTabToggle}
+                setWiderNamesToggle={setWiderNamesToggle}
+                setHideQR={setHideQR}
+                latency={latency}
               />
             )}
           </div>
