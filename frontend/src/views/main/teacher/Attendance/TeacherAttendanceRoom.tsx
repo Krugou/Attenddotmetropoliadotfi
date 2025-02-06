@@ -456,6 +456,10 @@ const AttendanceRoom: React.FC = () => {
                 setWiderNamesToggle={setWiderNamesToggle}
                 setHideQR={setHideQR}
                 latency={latency}
+                stopAnimation={isAnimationStopped}
+                enableScroll={scrollTabToggle}
+                widerNames={widerNamesToggle}
+                hideQR={hideQR}
               />
             )}
           </div>

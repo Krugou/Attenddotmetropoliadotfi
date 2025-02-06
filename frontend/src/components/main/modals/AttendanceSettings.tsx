@@ -10,6 +10,10 @@ interface AttendanceInstructionsProps {
   setWiderNamesToggle: (widerNamesToggle: boolean) => void;
   latency: number | null;
   setHideQR: (hideQR: boolean) => void;
+  stopAnimation: boolean;
+  enableScroll: boolean;
+  widerNames: boolean;
+  hideQR: boolean;
 }
 
 const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
@@ -20,15 +24,13 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
   setWiderNamesToggle,
   latency,
   setHideQR,
+  stopAnimation,
+  enableScroll,
+  widerNames,
+  hideQR,
 }) => {
   const {t} = useTranslation();
   const [showGuide, setShowGuide] = useState(false);
-  const [settings, setSettings] = useState({
-    stopAnimation: true,
-    enableScroll: false,
-    widerNames: false,
-    hideQR: false,
-  });
 
   const GuideContent = () => (
     <div className='space-y-4'>
@@ -82,41 +84,29 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
       <div className='flex items-center justify-between'>
         <label className='font-body'>Stop Animation</label>
         <Switch
-          checked={settings.stopAnimation}
-          onChange={(e) => {
-            setSettings({...settings, stopAnimation: e.target.checked});
-            setIsAnimationStopped(e.target.checked);
-          }}
+          checked={stopAnimation}
+          onChange={(e) => setIsAnimationStopped(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
         <label className='font-body'>Enable Scroll</label>
         <Switch
-          checked={settings.enableScroll}
-          onChange={(e) => {
-            setSettings({...settings, enableScroll: e.target.checked});
-            setScrollTabToggle(e.target.checked);
-          }}
+          checked={enableScroll}
+          onChange={(e) => setScrollTabToggle(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
         <label className='font-body'>Wider Names</label>
         <Switch
-          checked={settings.widerNames}
-          onChange={(e) => {
-            setSettings({...settings, widerNames: e.target.checked});
-            setWiderNamesToggle(e.target.checked);
-          }}
+          checked={widerNames}
+          onChange={(e) => setWiderNamesToggle(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
         <label className='font-body'>Hide QR Code</label>
         <Switch
-          checked={settings.hideQR}
-          onChange={(e) => {
-            setSettings({...settings, hideQR: e.target.checked});
-            setHideQR(e.target.checked);
-          }}
+          checked={hideQR}
+          onChange={(e) => setHideQR(e.target.checked)}
         />
       </div>
     </div>
@@ -136,16 +126,16 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
         <button
           onClick={() => setShowGuide(false)}
           className={`flex-1 p-4 font-heading ${
-            !showGuide ? 'bg-gray-100' : ''
+            !showGuide ? 'bg-metropoliaTrendGreen text-white' : ''
           }`}>
-          Settings
+          Show Settings
         </button>
         <button
           onClick={() => setShowGuide(true)}
           className={`flex-1 p-4 font-heading ${
-            showGuide ? 'bg-gray-100' : ''
+            showGuide ? 'bg-metropoliaTrendGreen text-white' : ''
           }`}>
-          Guide
+          Show Guide
         </button>
       </div>
 
