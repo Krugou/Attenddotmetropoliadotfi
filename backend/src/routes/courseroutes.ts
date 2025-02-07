@@ -34,7 +34,7 @@ router.use('/topics', topicRoutes);
 router.post(
   '/check',
   checkUserRole(['admin', 'counselor', 'teacher']),
-  express.send(),
+  express.json(),
   async (req: Request, res: Response): Promise<void> => {
     const {codes} = req.body;
 

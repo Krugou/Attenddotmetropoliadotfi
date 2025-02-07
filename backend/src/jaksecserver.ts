@@ -79,13 +79,13 @@ const startTime = new Date();
  * Middleware Configuration
  * @description Sets up essential middleware for the application
  *
- * @middleware express.send() - Parses incoming JSON payloads
+ * @middleware express.json() - Parses incoming JSON payloads
  * @middleware cors() - Handles Cross-Origin Resource Sharing
  * @middleware passport.initialize() - Initializes authentication
  *
  * @security Implements proper request parsing and security headers
  */
-app.use(express.send());
+app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
 
