@@ -24,7 +24,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -48,7 +48,7 @@ router.post(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error: ' + err);
+      res.status(500).json('Server error: ' + err);
     }
   },
 );
@@ -77,7 +77,7 @@ router.post(
       const {topicGroup, topics, email} = req.body;
 
       if (!topicGroup) {
-        res.status(400).send({message: 'Topic group is required'});
+        res.status(400).json({message: 'Topic group is required'});
         return;
       }
       if (
@@ -85,7 +85,7 @@ router.post(
         topics.length === 0 ||
         topics.every((topic: string) => topic.trim() === '')
       ) {
-        res.status(400).send({message: 'Topics are required'});
+        res.status(400).json({message: 'Topics are required'});
         return;
       }
       const topicGroupData = await TopicGroupController.updateTopicGroup(
@@ -93,11 +93,11 @@ router.post(
         topics,
         email,
       );
-      res.status(200).send(topicGroupData);
+      res.status(200).json(topicGroupData);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error: ' + err);
+      res.status(500).json('Server error: ' + err);
     }
   },
 );
@@ -131,7 +131,7 @@ router.post(
       const usercourseid = parseInt(req.params.usercourseid);
       const {modifiedTopics} = req.body;
       if (!modifiedTopics) {
-        res.status(400).send({message: 'Topics are required'});
+        res.status(400).json({message: 'Topics are required'});
         return;
       }
 
@@ -139,11 +139,11 @@ router.post(
         usercourseid,
         modifiedTopics,
       );
-      res.status(200).send(topicResponse);
+      res.status(200).json(topicResponse);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error: ' + err);
+      res.status(500).json('Server error: ' + err);
     }
   },
 );
@@ -170,7 +170,7 @@ router.post(
       const {topicGroup, email} = req.body;
 
       if (!topicGroup) {
-        res.status(400).send({message: 'Topic group is required'});
+        res.status(400).json({message: 'Topic group is required'});
         return;
       }
       const topicGroupResult =
@@ -179,11 +179,11 @@ router.post(
           email as string,
         );
 
-      res.status(200).send(topicGroupResult);
+      res.status(200).json(topicGroupResult);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error: ' + err);
+      res.status(500).json('Server error: ' + err);
     }
   },
 );
@@ -209,7 +209,7 @@ router.delete(
     try {
       const topicgroupname = req.params.topicgroupname;
       if (!topicgroupname) {
-        res.status(400).send({message: 'Topic group is required'});
+        res.status(400).json({message: 'Topic group is required'});
         return;
       }
       const userid = req.user?.userid;
@@ -221,11 +221,11 @@ router.delete(
           userid,
         );
 
-      res.status(200).send(topicGroupResult);
+      res.status(200).json(topicGroupResult);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send({message: 'Server error: ' + err});
+      res.status(500).json({message: 'Server error: ' + err});
     }
   },
 );

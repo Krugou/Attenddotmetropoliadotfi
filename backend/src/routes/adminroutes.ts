@@ -29,11 +29,11 @@ router.get(
     try {
       const serverSettings = await adminController.getServerSettings();
 
-      res.status(200).send(serverSettings[0][0]);
+      res.status(200).json(serverSettings[0][0]);
     } catch (error) {
       console.error(error);
       logger.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -77,11 +77,11 @@ router.post(
         timeouttime,
         attendancethreshold,
       );
-      res.status(200).send({message: 'Server settings updated successfully'});
+      res.status(200).json({message: 'Server settings updated successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -101,7 +101,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -120,7 +120,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -150,7 +150,7 @@ router.post(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -169,7 +169,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -192,7 +192,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -243,7 +243,7 @@ router.post(
         email,
       );
       if (existingUserByEmail.length > 0) {
-        res.status(400).send({message: 'User with this email already exists'});
+        res.status(400).json({message: 'User with this email already exists'});
         return;
       }
       const userResult = await usermodel.insertStudentUser(
@@ -262,7 +262,7 @@ router.post(
     } catch (error) {
       console.error(error);
       logger.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -289,7 +289,7 @@ router.post(
         email,
       );
       if (existingUserByEmail.length > 0) {
-        res.status(400).send({message: 'User with this email already exists'});
+        res.status(400).json({message: 'User with this email already exists'});
         return;
       }
       const userResult = await usermodel.insertStaffUser(
@@ -306,7 +306,7 @@ router.post(
     } catch (error) {
       console.error(error);
       logger.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -339,7 +339,7 @@ router.get(
     } catch (err) {
       console.error(err);
       logger.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -387,7 +387,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -443,7 +443,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -464,7 +464,7 @@ router.get(
       res.send(courses);
     } catch (error) {
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -488,7 +488,7 @@ router.put(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -522,7 +522,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -544,7 +544,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -579,7 +579,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -596,7 +596,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -613,18 +613,18 @@ router.delete(
         Number(feedbackId),
       );
       if (result === null) {
-        res.status(500).send({
+        res.status(500).json({
           message: 'Internal server error',
         });
         return;
       }
-      res.status(200).send({
+      res.status(200).json({
         message: 'Feedback deleted successfully',
       });
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -642,18 +642,18 @@ router.delete(
         Number(attendanceid),
       );
       if (result.affectedRows === 0) {
-        res.status(500).send({
+        res.status(500).json({
           message: 'Internal server error',
         });
         return;
       }
-      res.status(200).send({
+      res.status(200).json({
         message: 'Attendance deleted successfully',
       });
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -671,17 +671,17 @@ router.get(
 
     // Validate lineLimit
     if (isNaN(lineLimit) || lineLimit <= 0) {
-      res.status(400).send({message: 'Invalid line limit'});
+      res.status(400).json({message: 'Invalid line limit'});
       return;
     }
 
     try {
       const errorLog = await readLogFile(errorLogFilePath, lineLimit);
-      res.status(200).send(errorLog);
+      res.status(200).json(errorLog);
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -700,17 +700,17 @@ router.get(
 
     // Validate lineLimit
     if (isNaN(lineLimit) || lineLimit <= 0) {
-      res.status(400).send({message: 'Invalid line limit'});
+      res.status(400).json({message: 'Invalid line limit'});
       return;
     }
 
     try {
       const logData = await readLogFile(outLogFilePath, lineLimit);
-      res.status(200).send(logData);
+      res.status(200).json(logData);
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -754,7 +754,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -799,7 +799,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -830,7 +830,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );

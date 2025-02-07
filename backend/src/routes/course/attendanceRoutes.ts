@@ -23,7 +23,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -45,12 +45,12 @@ router.get(
       if (attendanceData) {
         res.send(attendanceData);
       } else {
-        res.status(404).send('Attendance not found');
+        res.status(404).json('Attendance not found');
       }
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -87,9 +87,9 @@ router.get(
       logger.error(err);
       console.error(err);
       if (err instanceof Error) {
-        res.status(500).send(`Server error: ${err.message}`);
+        res.status(500).json(`Server error: ${err.message}`);
       } else {
-        res.status(500).send('Server error');
+        res.status(500).json('Server error');
       }
     }
   },
@@ -125,14 +125,14 @@ router.post(
         studentnumber,
         lectureid,
       );
-      res.status(200).send(insertedData);
+      res.status(200).json(insertedData);
     } catch (err) {
       logger.error(err);
       console.error(err);
       if (err instanceof Error) {
-        res.status(500).send(`Server error: ${err.message}`);
+        res.status(500).json(`Server error: ${err.message}`);
       } else {
-        res.status(500).send('Server error');
+        res.status(500).json('Server error');
       }
     }
   },
@@ -172,7 +172,7 @@ router.post(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -192,11 +192,11 @@ router.post(
       const allStudentsInLecture = await lectureController.getStudentsInLecture(
         lectureid,
       );
-      res.status(201).send(allStudentsInLecture);
+      res.status(201).json(allStudentsInLecture);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -220,11 +220,11 @@ router.post(
       const {studentnumber} = req.body;
       const lectureid = req.body.lectureid;
       await attendanceController.deleteAttendance(studentnumber, lectureid);
-      res.status(201).send(true);
+      res.status(201).json(true);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send(false);
+      res.status(500).json(false);
     }
   },
 );
@@ -248,11 +248,11 @@ router.post(
     try {
       const {lectureid} = req.body;
       await lectureModel.deleteByLectureId(lectureid);
-      res.status(201).send({message: 'Lecture deleted'});
+      res.status(201).json({message: 'Lecture deleted'});
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -306,7 +306,7 @@ router.post(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -329,11 +329,11 @@ router.get(
         lectureid,
       );
 
-      res.status(200).send(lectureInfo);
+      res.status(200).json(lectureInfo);
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -347,7 +347,7 @@ router.get(
 // 		res.send(attendanceData);
 // 	} catch (err) {
 // 		console.error(err);
-// 		res.status(500).send('Server error');
+// 		res.status(500).json('Server error');
 // 	}
 // });
 /**
@@ -373,11 +373,11 @@ router.put(
 
       await attendanceController.updateAttendanceStatus(attendanceid, status);
 
-      res.status(200).send({message: 'Attendance status updated successfully'});
+      res.status(200).json({message: 'Attendance status updated successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -405,7 +405,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -433,11 +433,11 @@ router.delete(
 
       await lectureModel.deleteByLectureId(lectureid);
       // console.log('Lecture deleted successfully');
-      res.status(200).send({message: 'Lecture deleted successfully'});
+      res.status(200).json({message: 'Lecture deleted successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -464,11 +464,11 @@ router.put(
 
       await lectureController.closeLecture(lectureid);
       // console.log('Lecture closed successfully');
-      res.status(200).send({message: 'Lecture closed successfully'});
+      res.status(200).json({message: 'Lecture closed successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -491,11 +491,11 @@ router.get(
         Number(courseid),
       );
 
-      res.status(200).send(openLectures);
+      res.status(200).json(openLectures);
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -508,11 +508,11 @@ router.post(
       const openLectures = await lectureModel.findOpenLecturesByTeacherid(
         Number(teacherid),
       );
-      res.status(200).send(openLectures);
+      res.status(200).json(openLectures);
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -540,7 +540,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -569,11 +569,11 @@ router.post(
         studentnumber,
         courseid,
       );
-      res.status(200).send('Student added to previous lectures as not present');
+      res.status(200).json('Student added to previous lectures as not present');
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );

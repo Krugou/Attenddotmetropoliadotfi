@@ -14,7 +14,7 @@ router.post('/', async (req: Request, res: Response) => {
     res.send(result);
   } catch (error) {
     logger.error('Error creating worklog course:', error);
-    res.status(500).send({error: 'Failed to create worklog course'});
+    res.status(500).json({error: 'Failed to create worklog course'});
   }
 });
 
@@ -40,7 +40,7 @@ router.put(
       const worklogId = Number(req.params.worklogId);
       const {modifiedData} = req.body;
       if (!modifiedData) {
-        res.status(400).send({error: 'No modified data provided'});
+        res.status(400).json({error: 'No modified data provided'});
         return;
       }
       const result = await workLogController.updateWorkLogCourse(
@@ -73,7 +73,7 @@ router.delete(
       });
     } catch (error) {
       logger.error('Error deleting worklog:', error);
-      res.status(500).send({error: 'Failed to delete worklog'});
+      res.status(500).json({error: 'Failed to delete worklog'});
     }
   },
 );
@@ -133,7 +133,7 @@ router.post(
       const courseId = Number(req.params.courseId);
       const {name} = req.body;
       if (!name) {
-        res.status(400).send({error: 'Group name is required'});
+        res.status(400).json({error: 'Group name is required'});
         return;
       }
       const result = await workLogController.createWorkLogGroup(courseId, name);
@@ -153,7 +153,7 @@ router.post(
       const {studentIds} = req.body;
 
       if (!Array.isArray(studentIds)) {
-        res.status(400).send({error: 'studentIds must be an array'});
+        res.status(400).json({error: 'studentIds must be an array'});
         return;
       }
 
@@ -181,7 +181,7 @@ router.post(
       });
     } catch (error) {
       logger.error('Error in group student assignment:', error);
-      res.status(500).send({error: 'Failed to assign students to group'});
+      res.status(500).json({error: 'Failed to assign students to group'});
     }
   },
 );
@@ -243,7 +243,7 @@ router.get(
       res.send({exists});
     } catch (error) {
       logger.error('Error checking worklog code:', error);
-      res.status(500).send({error: 'Failed to check worklog code'});
+      res.status(500).json({error: 'Failed to check worklog code'});
     }
   },
 );
@@ -260,7 +260,7 @@ router.get(
       res.send(courses);
     } catch (error) {
       logger.error('Error getting worklog courses by instructor:', error);
-      res.status(500).send({error: 'Failed to get worklog courses'});
+      res.status(500).json({error: 'Failed to get worklog courses'});
     }
   },
 );
@@ -277,9 +277,9 @@ router.get(
       res.send(result);
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send({error: error.message});
+        res.status(400).json({error: error.message});
       } else {
-        res.status(500).send({error: 'Internal server error'});
+        res.status(500).json({error: 'Internal server error'});
       }
     }
   },
@@ -313,7 +313,7 @@ router.get(
       res.send(result);
     } catch (error) {
       logger.error('Error getting worklog group details:', error);
-      res.status(500).send({error: 'Failed to get worklog group details'});
+      res.status(500).json({error: 'Failed to get worklog group details'});
     }
   },
 );
@@ -330,7 +330,7 @@ router.get(
       );
       res.send(courses);
     } catch (error) {
-      res.status(500).send({error: 'Failed to fetch active courses'});
+      res.status(500).json({error: 'Failed to fetch active courses'});
     }
   },
 );
@@ -370,7 +370,7 @@ router.get(
       res.send(entriesWithCourses);
     } catch (error) {
       logger.error('Error fetching active entries with courses:', error);
-      res.status(500).send({error: 'Failed to fetch active entries'});
+      res.status(500).json({error: 'Failed to fetch active entries'});
     }
   },
 );
@@ -396,7 +396,7 @@ router.post(
       res.send(result);
     } catch (error) {
       logger.error('Error creating worklog entry:', error);
-      res.status(500).send({error: 'Failed to create worklog entry'});
+      res.status(500).json({error: 'Failed to create worklog entry'});
     }
   },
 );
@@ -411,7 +411,7 @@ router.put(
       res.send(result);
     } catch (error) {
       logger.error('Error closing worklog entry:', error);
-      res.status(500).send({error: 'Failed to close worklog entry'});
+      res.status(500).json({error: 'Failed to close worklog entry'});
     }
   },
 );
@@ -430,7 +430,7 @@ router.get(
       res.send(entries);
     } catch (error) {
       logger.error('Error fetching all worklog entries:', error);
-      res.status(500).send({error: 'Failed to fetch worklog entries'});
+      res.status(500).json({error: 'Failed to fetch worklog entries'});
     }
   },
 );
@@ -451,7 +451,7 @@ router.delete(
       });
     } catch (error) {
       logger.error('Error deleting worklog entry:', error);
-      res.status(500).send({error: 'Failed to delete worklog entry'});
+      res.status(500).json({error: 'Failed to delete worklog entry'});
     }
   },
 );
@@ -482,7 +482,7 @@ router.put(
       });
     } catch (error) {
       logger.error('Error updating worklog entry:', error);
-      res.status(500).send({error: 'Failed to update worklog entry'});
+      res.status(500).json({error: 'Failed to update worklog entry'});
     }
   },
 );
@@ -506,7 +506,7 @@ router.get(
       res.send({existingGroup});
     } catch (error) {
       logger.error('Error checking student group:', error);
-      res.status(500).send({error: 'Failed to check student group'});
+      res.status(500).json({error: 'Failed to check student group'});
     }
   },
 );

@@ -43,19 +43,19 @@ router.post(
 
       // Check if message is "No results"
       if ((data as {message?: string}).message === 'No results') {
-        res.status(404).send({
+        res.status(404).json({
           exists: false,
         });
         return;
       }
 
-      res.status(200).send({
+      res.status(200).json({
         exists: true,
       }); // send the data as the response
     } catch (error) {
       logger.error(error);
       console.error('Error:', error);
-      res.status(500).send('Internal server error');
+      res.status(500).json('Internal server error');
     }
   },
 );
@@ -75,17 +75,17 @@ router.post(
   async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).send({errors: errors.array()});
+      res.status(400).json({errors: errors.array()});
       return;
     }
     try {
       const {code} = req.params;
       const exists = await course.findByCode(code);
-      res.status(200).send({exists});
+      res.status(200).json({exists});
     } catch (error) {
       logger.error(error);
       console.error('Error:', error);
-      res.status(500).send('Internal server error');
+      res.status(500).json('Internal server error');
     }
   },
 );
@@ -111,7 +111,7 @@ router.post(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -199,7 +199,7 @@ router.post(
         topicGroup,
       );
 
-      res.status(200).send({
+      res.status(200).json({
         message: 'File uploaded and data logged successfully',
         courseId: response,
       });
@@ -207,11 +207,11 @@ router.post(
       logger.error(error);
       console.error(error);
       if (error instanceof Error) {
-        res.status(500).send({
+        res.status(500).json({
           message: error.message,
         });
       } else {
-        res.status(500).send({
+        res.status(500).json({
           message: 'An unknown error occurred',
         });
       }
@@ -236,7 +236,7 @@ router.post(
       if (!req.file) {
         logger.error('No file uploaded');
         console.error('No file uploaded');
-        res.status(400).send('No file uploaded');
+        res.status(400).json('No file uploaded');
         return;
       }
       const {checkCourseDetails, instructorEmail} = req.body;
@@ -250,7 +250,7 @@ router.post(
 
       if (!worksheet) {
         console.error('Worksheet not found');
-        res.status(500).send('Internal server error');
+        res.status(500).json('Internal server error');
         return;
       }
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
@@ -317,7 +317,7 @@ router.post(
       res.send(courseDetails);
     } catch (error) {
       console.error(error);
-      res.status(500).send('Internal server error');
+      res.status(500).json('Internal server error');
     }
   },
 );
@@ -343,7 +343,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -362,7 +362,7 @@ router.get(
     try {
       const courseId = Number(req.params.id);
       if (isNaN(courseId)) {
-        res.status(400).send('Invalid course ID');
+        res.status(400).json('Invalid course ID');
         return;
       }
       const courses = await course.getCoursesByCourseId(courseId);
@@ -371,7 +371,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -393,7 +393,7 @@ router.get(
     try {
       // Validate that the user is logged in
       if (!req.user) {
-        res.status(403).send('User Info Unavailable');
+        res.status(403).json('User Info Unavailable');
         return;
       }
 
@@ -402,7 +402,7 @@ router.get(
 
       // Check if the user is an admin or the user is requesting their own info
       if (req.user.userrole !== 0 && req.user.email !== email) {
-        res.status(403).send({error: 'Access denied'});
+        res.status(403).json({error: 'Access denied'});
         return;
       }
       // Get the courses for the user
@@ -411,7 +411,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -432,7 +432,7 @@ router.delete(
     try {
       const courseId = Number(req.params.id);
       if (isNaN(courseId)) {
-        res.status(400).send('Invalid course ID');
+        res.status(400).json('Invalid course ID');
         return;
       }
       const result = await course.deleteCourse(courseId);
@@ -440,7 +440,7 @@ router.delete(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -458,7 +458,7 @@ router.get(
     const userid = Number(req.params.userid);
 
     if (isNaN(userid)) {
-      res.status(400).send('Invalid user ID');
+      res.status(400).json('Invalid user ID');
       return;
     }
 
@@ -468,7 +468,7 @@ router.get(
       res.send(students);
     } catch (err) {
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -526,7 +526,7 @@ router.put(
         req.user.role !== 'admin'
       ) {
         // If not, return an error
-        res.status(403).send({error: 'Unauthorized'});
+        res.status(403).json({error: 'Unauthorized'});
         return;
       }
     } catch (error) {
@@ -538,7 +538,7 @@ router.put(
     const courseId = Number(req.params.courseid);
 
     if (isNaN(courseId)) {
-      res.status(400).send('Invalid course ID');
+      res.status(400).json('Invalid course ID');
       return;
     }
 
@@ -570,7 +570,7 @@ router.put(
       if (err instanceof Error) {
         logger.error(err);
         console.error(err);
-        res.status(500).send({message: err.message});
+        res.status(500).json({message: err.message});
       }
     }
   },
@@ -594,7 +594,7 @@ router.get(
         );
         res.send(courses);
       } else {
-        res.status(403).send({error: 'Unauthorized'});
+        res.status(403).json({error: 'Unauthorized'});
       }
     } catch (error) {
       logger.error(error);
@@ -603,7 +603,7 @@ router.get(
       if (error instanceof Error) {
         errorMessage = error.message;
       }
-      res.status(500).send({message: errorMessage});
+      res.status(500).json({message: errorMessage});
     }
   },
 );
@@ -626,7 +626,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -654,7 +654,7 @@ router.post(
       const courseidNumber = parseInt(courseid, 10);
       await courseController.updateStudentCourses(useridNumber, courseidNumber);
 
-      res.status(200).send({message: 'Successfully updated student courses'});
+      res.status(200).json({message: 'Successfully updated student courses'});
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -662,7 +662,7 @@ router.post(
       if (error instanceof Error) {
         errorMessage = error.message;
       }
-      res.status(500).send({message: errorMessage});
+      res.status(500).json({message: errorMessage});
     }
   },
 );
@@ -686,14 +686,14 @@ router.delete(
     const usercourseid = Number(req.params.usercourseid);
     try {
       await courseController.removeStudentCourses(usercourseid);
-      res.status(200).send({message: 'Successfully deleted student courses'});
+      res.status(200).json({message: 'Successfully deleted student courses'});
     } catch (error: unknown) {
       logger.error(error);
       console.error(error);
       if (error instanceof Error) {
-        res.status(500).send({message: error.message});
+        res.status(500).json({message: error.message});
       } else {
-        res.status(500).send({message: 'Internal server error'});
+        res.status(500).json({message: 'Internal server error'});
       }
     }
   },
@@ -721,7 +721,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -744,7 +744,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );
@@ -771,7 +771,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({message: 'Internal server error'});
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 );
@@ -788,19 +788,19 @@ router.get(
       const offset = (page - 1) * limit;
 
       if (isNaN(userid)) {
-        res.status(400).send('Invalid user ID');
+        res.status(400).json('Invalid user ID');
         return;
       }
       // Input validation
       if (limit < 1 || limit > 100) {
-        res.status(400).send({
+        res.status(400).json({
           message: 'Limit must be between 1 and 100',
         });
         return;
       }
 
       if (page < 1) {
-        res.status(400).send({
+        res.status(400).json({
           message: 'Page must be greater than 0',
         });
         return;
@@ -822,7 +822,7 @@ router.get(
     } catch (err) {
       logger.error(err);
       console.error(err);
-      res.status(500).send('Server error');
+      res.status(500).json('Server error');
     }
   },
 );

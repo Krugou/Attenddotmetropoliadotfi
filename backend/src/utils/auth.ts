@@ -23,7 +23,7 @@ export const authenticate = (
     if (err || !user) {
       logger.info('User is not assigned to any courses');
       logger.error('User not found in database', {error: err});
-      return res.status(403).send({
+      return res.status(403).json({
         message:
           'You are currently not assigned to any courses. Please contact your teacher to be assigned to a course.',
       });
@@ -32,7 +32,7 @@ export const authenticate = (
       if (err) {
         logger.info('User is not assigned to any courses', {email: user.email});
         logger.error('User found in database but login failed', {error: err});
-        return res.status(403).send({
+        return res.status(403).json({
           message:
             'You are registered in the system but not assigned to any courses. Please contact your teacher to be assigned to a course.',
         });

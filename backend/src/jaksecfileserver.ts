@@ -80,7 +80,7 @@ app.get('*', (_req: Request, res: Response) => {
     res.sendFile('index.html', {root: 'jaksec'});
   } catch (error) {
     logger.error('Error serving index.html:', error);
-    res.status(500).send('Error serving application');
+    res.status(500).json('Error serving application');
   }
 });
 
