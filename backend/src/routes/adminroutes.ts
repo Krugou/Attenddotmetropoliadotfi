@@ -741,7 +741,7 @@ router.get(
           [currentDate],
         );
 
-      res.json({
+      res.send({
         regularCourses: {
           total: regularCourses[0].total,
           active: regularCourses[0].active || 0, // Use 0 if null
@@ -791,7 +791,7 @@ router.get(
         [formattedDate],
       );
 
-      res.json({
+      res.send({
         pending: worklogStats[0]?.inCount || 0,
         approved: worklogStats[0]?.outCount || 0,
         delayed: worklogStats[0]?.possibleMistakeIn || 0,
@@ -826,7 +826,7 @@ router.get(
         ORDER BY created_at DESC
       `);
 
-      res.json(courses);
+      res.send(courses);
     } catch (error) {
       logger.error(error);
       console.error(error);
