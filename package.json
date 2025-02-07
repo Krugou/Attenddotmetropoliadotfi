@@ -6,7 +6,7 @@
     "alldev": "npm i && cd backend && npm run alldev",
     "aleksi": "concurrently \"powershell -File gitpull.ps1\" \" npm i && npm run alldev\"",
     "build": " cd frontend && npm run build",
-    "newVersion": "git pull && npm run build && cd backend && npm i && npm run tsc && pm2 delete all && pm2 start ecosystem.config.cjs && pm2 save",
+    "newVersion": "git pull && npm run build && cd backend && npm i --force && npm run tsc && pm2 delete all && pm2 start ecosystem.config.cjs && pm2 save",
     "start": "npm i && node runTranslationChecks.js && concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "test:chrome": "cd browsertesting && npm run test:chrome",
     "test:firefox": "cd browsertesting && npm run test:firefox",

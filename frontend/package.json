@@ -9,7 +9,7 @@
     "dev2": " npm i & vite --port 8080 --open",
     "devBrutal": "npm i & vite --port 8080 --open -d --force --host",
     "devDebug": "npm i & vite --port 8080 --open -d --host",
-    "build": "npm i & tsc && vite build --outDir ../backend/jaksec --emptyOutDir --base /",
+    "build": "npm i --force & tsc && vite build --outDir ../backend/jaksec --emptyOutDir --base /",
     "buildWatch": "npm i & tsc --watch & vite build --outDir ../backend/jaksec --emptyOutDir --base / --watch",
     "lint": "npm i & eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "npm i & vite preview",
