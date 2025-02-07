@@ -134,7 +134,7 @@ router.post(
       metropoliaData = await doFetch(loginUrl, options);
 
       if (metropoliaData.message === 'invalid username or password') {
-        res.status(403).send({
+        res.status(403).json({
           message: 'Invalid username or password',
         });
         return;
@@ -206,7 +206,7 @@ router.post(
           }
         } catch (error) {
           console.error(error);
-          res.status(500).send({error: 'Internal server error'});
+          res.status(500).json({error: 'Internal server error'});
         }
       }
 
@@ -225,7 +225,7 @@ router.post(
       console.log('Error in user login: ');
       logger.error(error);
       console.error(error);
-      res.status(500).send({error: 'Internal server error'});
+      res.status(500).json({error: 'Internal server error'});
     }
   },
 );
@@ -240,7 +240,7 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        res.status(400).send({errors: errors.array()});
+        res.status(400).json({errors: errors.array()});
         return;
       }
       const {topic, text, userId} = req.body;
@@ -251,18 +251,18 @@ router.post(
         text,
       );
       if (result === null) {
-        res.status(500).send({
+        res.status(500).json({
           message: 'Internal server error',
         });
         return;
       }
-      res.status(200).send({
+      res.status(200).json({
         message: 'Success',
       });
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).send({
+      res.status(500).json({
         message: 'An unexpected error occurred',
       });
     }
