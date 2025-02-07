@@ -60,6 +60,8 @@ export default defineConfig(({mode}) => {
           clientsClaim: true,
           // Clean up outdated caches
           cleanupOutdatedCaches: true,
+          // Set the maximum file size to cache in bytes
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MiB
         },
       }),
     ],
