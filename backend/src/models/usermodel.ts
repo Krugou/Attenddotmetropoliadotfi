@@ -516,11 +516,14 @@ get students by instructor id with pagination
     roleid: number,
     GDPR: number,
   ) => {
+    const language = 'en';
+    const darkMode = 0;
+    const activeStatus = 1;
     try {
       const [userResult] = await pool
         .promise()
         .query<ResultSetHeader>(
-          'INSERT INTO users (username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO users (username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, language, darkMode, activeStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [
             username,
             email,
@@ -531,6 +534,9 @@ get students by instructor id with pagination
             studentgroupid,
             roleid,
             GDPR,
+            language,
+            darkMode,
+            activeStatus,
           ],
         );
 
