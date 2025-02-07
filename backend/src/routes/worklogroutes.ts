@@ -11,7 +11,7 @@ import work_log_entries from '../models/work_log_entrymodel.js';
 router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await workLogController.createWorkLogCourse(req.body);
-    res.json(result);
+    res.send(result);
   } catch (error) {
     logger.error('Error creating worklog course:', error);
     res.status(500).json({error: 'Failed to create worklog course'});
@@ -25,7 +25,7 @@ router.get(
     try {
       const courseId = Number(req.params.courseId);
       const result = await workLogController.getWorkLogCourseDetails(courseId);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error(error);
     }
@@ -47,7 +47,7 @@ router.put(
         worklogId,
         modifiedData,
       );
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error updating worklog course:', error);
     }
@@ -62,11 +62,11 @@ router.delete(
       const worklogId = Number(req.params.worklogId);
       const result = await workLogController.deleteWorkLog(worklogId);
       // Previous code was sending two responses:
-      // res.json(result);
-      // res.json({ message: 'Worklog deleted successfully' });
+      // res.send(result);
+      // res.send({ message: 'Worklog deleted successfully' });
 
       // Fixed version - send only one response:
-      res.json({
+      res.send({
         success: true,
         message: 'Worklog deleted successfully',
         result,
@@ -85,7 +85,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const result = await workLogController.createWorkLogEntry(req.body);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error(error);
     }
@@ -99,7 +99,7 @@ router.get(
     try {
       const userId = Number(req.params.userId);
       const entries = await workLogController.getWorkLogEntriesByUser(userId);
-      res.json(entries);
+      res.send(entries);
     } catch (error) {
       logger.error(error);
     }
@@ -117,7 +117,7 @@ router.put(
         entryId,
         status,
       );
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error(error);
     }
@@ -137,7 +137,7 @@ router.post(
         return;
       }
       const result = await workLogController.createWorkLogGroup(courseId, name);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error creating worklog group:', error);
     }
@@ -174,7 +174,7 @@ router.post(
         }),
       );
 
-      res.json({
+      res.send({
         success: true,
         results,
         message: 'Students assigned to group successfully',
@@ -193,7 +193,7 @@ router.get(
     try {
       const groupId = Number(req.params.groupId);
       const result = await workLogController.getWorkLogGroupStudents(groupId);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error getting worklog group students:', error);
     }
@@ -211,7 +211,7 @@ router.post(
         userId,
         courseId,
       );
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error(error);
     }
@@ -226,7 +226,7 @@ router.get(
     try {
       const userId = Number(req.params.userId);
       const stats = await workLogController.getWorkLogStats(userId);
-      res.json(stats);
+      res.send(stats);
     } catch (error) {
       logger.error(error);
     }
@@ -240,7 +240,7 @@ router.get(
     try {
       const code = req.params.code;
       const exists = await workLogController.checkWorklogCodeExists(code);
-      res.json({exists});
+      res.send({exists});
     } catch (error) {
       logger.error('Error checking worklog code:', error);
       res.status(500).json({error: 'Failed to check worklog code'});
@@ -256,7 +256,7 @@ router.get(
       const email = req.params.email;
       const courses =
         await workLogController.getWorkLogCoursesByInstructor(email);
-      res.json(courses);
+      res.send(courses);
     } catch (error) {
       logger.error('Error getting worklog courses by instructor:', error);
       res.status(500).json({error: 'Failed to get worklog courses'});
@@ -272,7 +272,7 @@ router.get(
       const {courseId} = req.params;
       const result =
         await workLogController.getWorkLogStudentsByCourse(courseId);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({error: error.message});
@@ -290,7 +290,7 @@ router.get(
     try {
       const {courseId} = req.params;
       const result = await workLogController.getWorkLogGroupsByCourse(courseId);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error getting worklog course groups:', error);
     }
@@ -308,7 +308,7 @@ router.get(
         courseId,
         groupId,
       );
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error getting worklog group details:', error);
       res.status(500).json({error: 'Failed to get worklog group details'});
@@ -324,7 +324,7 @@ router.get(
     try {
       const {email} = req.params;
       const courses = await work_log_courses.getActiveCoursesByStudentEmail(email);
-      res.json(courses);
+      res.send(courses);
     } catch (error) {
       res.status(500).json({error: 'Failed to fetch active courses'});
     }
@@ -343,7 +343,7 @@ router.get(
       console.log('🚀 ~ activeEntries:', activeEntries);
 
       if (activeEntries.length === 0) {
-        res.json([]);
+        res.send([]);
         return;
       }
 
@@ -361,7 +361,7 @@ router.get(
         }),
       );
 
-      res.json(entriesWithCourses);
+      res.send(entriesWithCourses);
     } catch (error) {
       logger.error('Error fetching active entries with courses:', error);
       res.status(500).json({error: 'Failed to fetch active entries'});
@@ -387,7 +387,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const result = await workLogController.createWorkLogEntry(req.body);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error creating worklog entry:', error);
       res.status(500).json({error: 'Failed to create worklog entry'});
@@ -402,7 +402,7 @@ router.put(
     try {
       const entryId = Number(req.params.entryId);
       const result = await workLogController.closeWorkLogEntry(entryId);
-      res.json(result);
+      res.send(result);
     } catch (error) {
       logger.error('Error closing worklog entry:', error);
       res.status(500).json({error: 'Failed to close worklog entry'});
@@ -420,7 +420,7 @@ router.get(
       const userId = Number(req.params.userId);
       const entries =
         await workLogController.getWorkLogEntriesByStudentUser(userId);
-      res.json(entries);
+      res.send(entries);
     } catch (error) {
       logger.error('Error fetching all worklog entries:', error);
       res.status(500).json({error: 'Failed to fetch worklog entries'});
@@ -437,7 +437,7 @@ router.delete(
     try {
       const entryId = Number(req.params.entryId);
       const result = await workLogController.deleteWorkLogEntry(entryId);
-      res.json({
+      res.send({
         success: true,
         message: 'Entry deleted successfully',
         result,
@@ -468,7 +468,7 @@ router.put(
         entryId,
         updatedData,
       );
-      res.json({
+      res.send({
         success: true,
         message: 'Entry updated successfully',
         result,
@@ -496,7 +496,7 @@ router.get(
         userId,
         courseId,
       );
-      res.json({existingGroup});
+      res.send({existingGroup});
     } catch (error) {
       logger.error('Error checking student group:', error);
       res.status(500).json({error: 'Failed to check student group'});

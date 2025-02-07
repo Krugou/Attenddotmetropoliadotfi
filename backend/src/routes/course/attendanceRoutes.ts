@@ -19,7 +19,7 @@ router.get(
   async (res: Response) => {
     try {
       const attendanceData = await attendanceModel.fetchAllAttendances();
-      res.json(attendanceData);
+      res.send(attendanceData);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -43,7 +43,7 @@ router.get(
       const id = Number(req.params.id);
       const attendanceData = await attendanceModel.findByAttendanceId(id);
       if (attendanceData) {
-        res.json(attendanceData);
+        res.send(attendanceData);
       } else {
         res.status(404).send('Attendance not found');
       }
@@ -82,7 +82,7 @@ router.get(
       attendanceData[0] && userinfo
         ? (attendanceData[0].userinfo = userinfo)
         : null;
-      res.json(attendanceData);
+      res.send(attendanceData);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -344,7 +344,7 @@ router.get(
 // 		const attendanceData = await attendanceModel.findAllAttendancesByUserCourseId(
 // 			id,
 // 		);
-// 		res.json(attendanceData);
+// 		res.send(attendanceData);
 // 	} catch (err) {
 // 		console.error(err);
 // 		res.status(500).send('Server error');
@@ -401,7 +401,7 @@ router.get(
           courseid,
         );
 
-      res.json(lecturesAndAttendancesData);
+      res.send(lecturesAndAttendancesData);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -536,7 +536,7 @@ router.get(
         );
         if (students) lecture.actualStudentCount = students.length;
       }
-      res.json(lectures);
+      res.send(lectures);
     } catch (err) {
       logger.error(err);
       console.error(err);

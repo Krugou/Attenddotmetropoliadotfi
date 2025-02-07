@@ -123,7 +123,7 @@ app.use('/users', userRoutes);
  */
 
 app.get('/metrostation/', (_req: Request, res: Response) => {
-  res.json({
+  res.send({
     message: 'API is working',
     builddate: process.env.VITE_REACT_APP_BUILD_DATE,
   });

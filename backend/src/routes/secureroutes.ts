@@ -21,7 +21,7 @@ const router: Router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
   if (req.user) {
     const user = await UserModel.getAllUserInfo(req.user.email);
-    res.json(user);
+    res.send(user);
   }
 });
 /**
@@ -67,7 +67,7 @@ router.put(
     try {
       const userId: number | undefined = req.user?.userid;
       await usermodel.updateUserGDPRStatus(userId);
-      res.json({success: true});
+      res.send({success: true});
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -88,9 +88,9 @@ router.get(
     try {
       const user = await usermodel.checkIfUserExistsByEmailAndisStaff(email);
       if (user.length > 0) {
-        res.json({exists: true, user: user[0]});
+        res.send({exists: true, user: user[0]});
       } else {
-        res.json({exists: false});
+        res.send({exists: false});
       }
     } catch (error) {
       logger.error(error);
@@ -268,7 +268,7 @@ router.get(
 
       const result = await usermodel.fetchNumberOfStudents(limit, offset);
 
-      res.json({
+      res.send({
         students: result.students,
         total: result.total,
         currentPage: page,
@@ -299,7 +299,7 @@ router.put(
 
       await usermodel.updateUserLanguage(email, language);
 
-      res.json({
+      res.send({
         ok: true,
         message: 'Language updated successfully',
       } as const);
@@ -322,7 +322,7 @@ router.get(
       //@ts-expect-error
       const result = await usermodel.getUserLanguage(email);
       if (result && result[0]) {
-        res.json({
+        res.send({
           ok: true,
           language: result[0].language,
         });

@@ -335,7 +335,7 @@ router.get(
           lecture.actualStudentCount = students.length;
         }
       }
-      res.json(lectures);
+      res.send(lectures);
     } catch (err) {
       console.error(err);
       logger.error(err);
@@ -383,7 +383,7 @@ router.get(
         counts.attended += attendanceCount1[0].count;
       }
 
-      res.json(counts);
+      res.send(counts);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -439,7 +439,7 @@ router.get(
         [courseid, lectureid],
       );
 
-      res.json(attendanceResult);
+      res.send(attendanceResult);
     } catch (err) {
       logger.error(err);
       console.error(err);

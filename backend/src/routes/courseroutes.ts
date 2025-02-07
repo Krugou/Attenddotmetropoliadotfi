@@ -107,7 +107,7 @@ router.post(
         code,
         studentGroup,
       );
-      res.json(reservations);
+      res.send(reservations);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -367,7 +367,7 @@ router.get(
       }
       const courses = await course.getCoursesByCourseId(courseId);
       // console.log('🚀 ~ file: courseroutes.ts:292 ~ courses:', courses);
-      res.json(courses);
+      res.send(courses);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -407,7 +407,7 @@ router.get(
       }
       // Get the courses for the user
       const courses = await course.getStudentsCourses(email);
-      res.json(courses);
+      res.send(courses);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -436,7 +436,7 @@ router.delete(
         return;
       }
       const result = await course.deleteCourse(courseId);
-      res.json(result);
+      res.send(result);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -465,7 +465,7 @@ router.get(
     try {
       // Get the students for the instructor
       const students = await usermodel.getStudentsByInstructorId(userid);
-      res.json(students);
+      res.send(students);
     } catch (err) {
       console.error(err);
       res.status(500).send('Server error');
@@ -565,7 +565,7 @@ router.put(
         instructors,
         topic_names,
       );
-      res.json(result);
+      res.send(result);
     } catch (err) {
       if (err instanceof Error) {
         logger.error(err);
@@ -622,7 +622,7 @@ router.get(
     try {
       const courseId = req.params.courseId;
       const details = await courseController.getDetailsByCourseId(courseId);
-      res.json(details);
+      res.send(details);
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -717,7 +717,7 @@ router.get(
         await courseController.getStudentAndSelectedTopicsByUsercourseId(
           usercourseid,
         );
-      res.json(courses);
+      res.send(courses);
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -740,7 +740,7 @@ router.get(
     try {
       const courseid = Number(req.params.courseid);
       const students = await course.getAllStudentsOnCourse(courseid.toString());
-      res.json(students);
+      res.send(students);
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -812,7 +812,7 @@ router.get(
         limit,
         offset,
       );
-      res.json({
+      res.send({
         students: students.students,
         total: students.total,
         currentPage: page,
