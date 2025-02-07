@@ -191,7 +191,7 @@ router.post(
             if (addStaffUserResponse === null) {
               throw new Error('Failed to add staff user');
             }
-            res.send({user: addStaffUserResponse, token});
+            res.json({user: addStaffUserResponse, token});
           } else {
             if (username !== 'admin') {
               logger.info(
