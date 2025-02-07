@@ -166,21 +166,43 @@ const UserModel = {
    */
   addStaffUser: async (user: User): Promise<User | null> => {
     try {
-      const {username, email, staff, first_name, last_name, roleid} = user;
+      const { username, email, staff, first_name, last_name, roleid } = user;
+      const language = 'en';
+      const darkMode = 0;
+      const activeStatus = 1;
       const result = await pool
         .promise()
         .query(
-          'INSERT INTO users (username, email, staff, first_name, last_name, roleid) VALUES (?, ?, ?, ?, ?, ?)',
-          [username, email, staff, first_name, last_name, roleid],
+          `INSERT INTO users (
+        username, email, staff, first_name, last_name, roleid,
+        language, darkMode, activeStatus
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        username, email, staff, first_name, last_name, roleid,
+        language, darkMode, activeStatus
+      ]
         );
 
       const insertId = (result[0] as mysql.OkPacket).insertId;
-      const [rows] = await pool
-        .promise()
-        .query(
-          `SELECT users.userid, users.username, users.email, users.first_name, users.last_name, users.created_at, users.studentnumber, users.gdpr AS gdpr, roles.name AS role FROM users JOIN roles ON users.roleid = roles.roleid WHERE users.userid = ?;`,
-          [insertId],
-        );
+      const [rows] = await pool.promise().query(
+        `SELECT
+        users.userid,
+        users.username,
+        users.email,
+        users.first_name,
+        users.last_name,
+        users.created_at,
+        users.studentnumber,
+        users.gdpr,
+        users.darkMode,
+        users.language,
+        users.activeStatus,
+        roles.name AS role
+      FROM users
+      JOIN roles ON users.roleid = roles.roleid
+      WHERE users.userid = ?`,
+        [insertId],
+      );
       if ((rows as mysql.RowDataPacket[]).length > 0) {
         return (rows as mysql.RowDataPacket[])[0] as User;
       } else {
@@ -750,10 +772,10 @@ get students by instructor id with pagination
     try {
       const [result] = await pool
         .promise()
-        .query<RowDataPacket[]>(`UPDATE users SET language = ? WHERE email = ?`, [
-          language,
-          email,
-        ]);
+        .query<RowDataPacket[]>(
+          `UPDATE users SET language = ? WHERE email = ?`,
+          [language, email],
+        );
       return result;
     } catch (error) {
       console.error('Error updating user language:', error);
