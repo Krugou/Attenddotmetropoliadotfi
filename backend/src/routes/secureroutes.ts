@@ -38,7 +38,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -53,7 +53,7 @@ router.get('/getattendancethreshold', async (_req: Request, res: Response) => {
   } catch (error) {
     logger.error(error);
     console.error(error);
-    res.status(500).json({message: 'Internal server error'});
+    res.status(500).send({message: 'Internal server error'});
   }
 });
 /**
@@ -95,7 +95,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -114,7 +114,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -150,7 +150,7 @@ router.post(
       if (existingUserByNumber.length > 0) {
         res
           .status(400)
-          .json({message: 'User with this student number already exists'});
+          .send({message: 'User with this student number already exists'});
         return;
       }
 
@@ -158,7 +158,7 @@ router.post(
         email,
       );
       if (existingUserByEmail.length > 0) {
-        res.status(400).json({message: 'User with this email already exists'});
+        res.status(400).send({message: 'User with this email already exists'});
         return;
       }
 
@@ -199,7 +199,7 @@ router.post(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -214,7 +214,7 @@ router.put(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -237,7 +237,7 @@ router.get(
     } catch (error) {
       logger.error(error);
       console.error(error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -253,14 +253,14 @@ router.get(
 
       // Input validation
       if (limit < 1 || limit > 100) {
-        res.status(400).json({
+        res.status(400).send({
           message: 'Limit must be between 1 and 100',
         });
         return;
       }
 
       if (page < 1) {
-        res.status(400).json({
+        res.status(400).send({
           message: 'Page must be greater than 0',
         });
         return;
@@ -277,7 +277,7 @@ router.get(
       });
     } catch (error) {
       logger.error('Error fetching paginated students:', error);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).send({message: 'Internal server error'});
     }
   },
 );
@@ -290,7 +290,7 @@ router.put(
       const {email, language} = req.body;
 
       if (!['en', 'fi', 'sv'].includes(language)) {
-        res.status(400).json({
+        res.status(400).send({
           ok: false,
           error: 'Invalid language code',
         } as const);
@@ -305,7 +305,7 @@ router.put(
       } as const);
     } catch (error) {
       logger.error('Error updating language:', error);
-      res.status(500).json({
+      res.status(500).send({
         ok: false,
         error: 'Internal server error',
       } as const);
@@ -327,14 +327,14 @@ router.get(
           language: result[0].language,
         });
       } else {
-        res.status(404).json({
+        res.status(404).send({
           ok: false,
           error: 'User language not found',
         });
       }
     } catch (error) {
       logger.error('Error fetching user language:', error);
-      res.status(500).json({
+      res.status(500).send({
         ok: false,
         error: 'Internal server error',
       });

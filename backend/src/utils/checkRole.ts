@@ -14,7 +14,7 @@ const checkUserRole = (allowedRoles: string[]) => {
         path: req.path,
         method: req.method,
       });
-      res.status(403).json({error: 'No user logged in'});
+      res.status(403).send({error: 'No user logged in'});
       return;
     }
 
@@ -26,7 +26,7 @@ const checkUserRole = (allowedRoles: string[]) => {
         requiredRoles: allowedRoles,
         email: req.user.email,
       });
-      res.status(403).json({error: 'Access denied'});
+      res.status(403).send({error: 'Access denied'});
       return;
     }
 

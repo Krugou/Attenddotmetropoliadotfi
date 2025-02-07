@@ -192,7 +192,7 @@ router.post(
       const allStudentsInLecture = await lectureController.getStudentsInLecture(
         lectureid,
       );
-      res.status(201).json(allStudentsInLecture);
+      res.status(201).send(allStudentsInLecture);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -302,7 +302,7 @@ router.post(
       );
       res
         .status(201)
-        .json({message: 'lecture created', lectureInfo: lectureid});
+        .send({message: 'lecture created', lectureInfo: lectureid});
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -329,7 +329,7 @@ router.get(
         lectureid,
       );
 
-      res.status(200).json(lectureInfo);
+      res.status(200).send(lectureInfo);
     } catch (err) {
       logger.error(err);
       console.error(err);
@@ -373,7 +373,7 @@ router.put(
 
       await attendanceController.updateAttendanceStatus(attendanceid, status);
 
-      res.status(200).json({message: 'Attendance status updated successfully'});
+      res.status(200).send({message: 'Attendance status updated successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -433,7 +433,7 @@ router.delete(
 
       await lectureModel.deleteByLectureId(lectureid);
       // console.log('Lecture deleted successfully');
-      res.status(200).json({message: 'Lecture deleted successfully'});
+      res.status(200).send({message: 'Lecture deleted successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -464,7 +464,7 @@ router.put(
 
       await lectureController.closeLecture(lectureid);
       // console.log('Lecture closed successfully');
-      res.status(200).json({message: 'Lecture closed successfully'});
+      res.status(200).send({message: 'Lecture closed successfully'});
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -491,7 +491,7 @@ router.get(
         Number(courseid),
       );
 
-      res.status(200).json(openLectures);
+      res.status(200).send(openLectures);
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -508,7 +508,7 @@ router.post(
       const openLectures = await lectureModel.findOpenLecturesByTeacherid(
         Number(teacherid),
       );
-      res.status(200).json(openLectures);
+      res.status(200).send(openLectures);
     } catch (error) {
       logger.error(error);
       console.error(error);
