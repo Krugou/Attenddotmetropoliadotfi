@@ -11,7 +11,7 @@ const developmentConfig: ApiConfig = {
 };
 
 const productionConfig: ApiConfig = {
-  baseUrl: 'http://localhost:3002/',
+  baseUrl: 'https://attend.metropolia.fi/api/',
   timeout: 10000,
 };
 
