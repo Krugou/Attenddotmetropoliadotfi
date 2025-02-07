@@ -18,6 +18,18 @@ interface StudentStats {
 }
 
 const SummaryPieChart = memo(({students}: {students: StudentStats[]}) => {
+
+  const hasCompletedHours = students.some(student => student.completedHours > 0);
+  if (!hasCompletedHours) {
+    return (
+      <div className="h-[300px] flex items-center justify-center">
+        <p className="text-gray-500 font-body">
+          No students have completed any hours
+        </p>
+      </div>
+    );
+  }
+
   return (
     <ResponsiveContainer width='100%' height={300}>
       <PieChart>
@@ -157,7 +169,7 @@ const TeacherWorklogCourseGroupStats = () => {
   );
 
   return (
-    <div className='container max-w-6xl px-4 py-8 mx-auto'>
+    <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
       <div className='flex items-center justify-between mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}

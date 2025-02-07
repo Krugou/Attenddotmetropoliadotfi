@@ -140,7 +140,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className='container max-w-6xl px-4 py-8 mx-auto'>
+    <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
       <div className='mb-6'>
         <Link
           to={`/teacher/worklog/course/${courseid}`}

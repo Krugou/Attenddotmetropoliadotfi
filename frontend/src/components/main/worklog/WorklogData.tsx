@@ -182,7 +182,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                         <h2 className='text-lg font-heading text-gray-700 mb-2'>
                           {t('teacher.worklog.data.instructors')}
                         </h2>
-                        <ul className='list-disc pl-5'>
+                        <ul className='list-none pl-5'>
                           {worklog.instructor_name?.split(',')
                             ?.map((instructor) => (
                               <li
