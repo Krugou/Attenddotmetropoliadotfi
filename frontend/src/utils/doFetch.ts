@@ -10,6 +10,7 @@ export const doFetch = async (url: string, options: RequestInit) => {
   try {
     // const startTime = performance.now();
     const response = await fetch(url, options);
+    console.log(url, '🚀 ~ doFetch ~ json:', response);
     // const endTime = performance.now();
 
     // Log response timing
