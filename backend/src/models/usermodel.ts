@@ -166,22 +166,27 @@ const UserModel = {
    */
   addStaffUser: async (user: User): Promise<User | null> => {
     try {
-      const { username, email, staff, first_name, last_name, roleid } = user;
+      const {username, email, staff, first_name, last_name, roleid} = user;
       const language = 'en';
       const darkMode = 0;
       const activeStatus = 1;
-      const result = await pool
-        .promise()
-        .query(
-          `INSERT INTO users (
+      const result = await pool.promise().query(
+        `INSERT INTO users (
         username, email, staff, first_name, last_name, roleid,
         language, darkMode, activeStatus
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        username, email, staff, first_name, last_name, roleid,
-        language, darkMode, activeStatus
-      ]
-        );
+        [
+          username,
+          email,
+          staff,
+          first_name,
+          last_name,
+          roleid,
+          language,
+          darkMode,
+          activeStatus,
+        ],
+      );
 
       const insertId = (result[0] as mysql.OkPacket).insertId;
       const [rows] = await pool.promise().query(
@@ -355,11 +360,23 @@ const UserModel = {
     studentnumber: string,
     studentGroupId: number,
   ) {
+    const language = 'en';
+    const darkMode = 0;
+    const activeStatus = 1;
     const [userResult] = await this.pool
       .promise()
       .query<ResultSetHeader>(
-        'INSERT INTO users (email, first_name, last_name, studentnumber, studentgroupid) VALUES (?, ?, ?, ?, ?)',
-        [email, first_name, last_name, studentnumber, studentGroupId],
+        'INSERT INTO users (email, first_name, last_name, studentnumber, studentgroupid,  language, darkMode, activeStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          email,
+          first_name,
+          last_name,
+          studentnumber,
+          studentGroupId,
+          language,
+          darkMode,
+          activeStatus,
+        ],
       );
 
     return userResult;
@@ -372,11 +389,23 @@ const UserModel = {
     roleid: number,
     staff: number,
   ) {
+    const language = 'en';
+    const darkMode = 0;
+    const activeStatus = 1;
     const [userResult] = await this.pool
       .promise()
       .query<ResultSetHeader>(
-        'INSERT INTO users (email, first_name, last_name, staff, roleid) VALUES (?, ?, ?, ?, ?)',
-        [email, first_name, last_name, staff, roleid],
+        'INSERT INTO users (email, first_name, last_name, staff, roleid, language, darkMode, activeStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          email,
+          first_name,
+          last_name,
+          staff,
+          roleid,
+          language,
+          darkMode,
+          activeStatus,
+        ],
       );
 
     return userResult;
