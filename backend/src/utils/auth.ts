@@ -55,7 +55,7 @@ export const authenticate = (
       const token = jwt.sign(user as User, process.env.JWT_SECRET as string, {
         expiresIn: '2h',
       });
-      res.send({user, token});
+      res.json({user, token});
     });
   })(req, res, next);
 };
