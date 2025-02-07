@@ -10,8 +10,9 @@ interface StepButtonsProps {
 	onSubmitClick: () => void;
 	extrastep?: boolean;
 	isCustomGroup?: boolean;
-	customNextLabel?: string; 
+	customNextLabel?: string;
 	isWorklog?: boolean;
+	setIsCustomGroup?: (value: boolean) => void; // Add this line
 }
 /**
  * StepButtons is a functional component that renders a set of buttons for navigation in a multi-step process.
@@ -30,7 +31,8 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 	extrastep = false,
 	isCustomGroup = false,
 	customNextLabel,
-	isWorklog = false
+	isWorklog = false,
+	setIsCustomGroup,
 }) => {
 	return (
 		<div
@@ -44,29 +46,33 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 			{isWorklog ? (
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 3 : 2) && (
-						<StepButton 
-							text={customNextLabel || "Next"} 
-							type="button" 
-							onClick={onNextClick} 
+						<StepButton
+							text={customNextLabel || "Next"}
+							type="button"
+							onClick={() => {
+								if (setIsCustomGroup && currentStep === 1) {
+									setIsCustomGroup(true);
+								}
+								onNextClick();
+							}}
 						/>
 					)}
-					{currentStep === (extrastep ? 4 : 3) && !isCustomGroup && (
+					{currentStep === (extrastep ? 4 : 3) && (
 						<StepButton
 							text="Create Worklog"
 							type="submit"
 							onClick={onSubmitClick}
 							marginTop="mt-2"
-							disabled={isCustomGroup}
 						/>
 					)}
 				</>
 			) : (
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 4 : 3) && (
-						<StepButton 
-							text={"Next"} 
-							type="button" 
-							onClick={onNextClick} 
+						<StepButton
+							text={"Next"}
+							type="button"
+							onClick={onNextClick}
 						/>
 					)}
 					{currentStep === (extrastep ? 5 : 4) && !isCustomGroup && (

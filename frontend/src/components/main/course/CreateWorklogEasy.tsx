@@ -36,7 +36,6 @@ const CreateCourseEasy: React.FC = () => {
   const [courseName, setCourseName] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [courseCode, setCourseCode] = useState('');
-/*   const [studentGroup, setStudentGroup] = useState(''); */
   const [startDate, setStartDate] = useState('');
   const [selectedFile, setSelectedFile] = useState<string>('No file selected');
   const [uploadFile, setUploadFile] = useState<string>(
@@ -54,7 +53,6 @@ const CreateCourseEasy: React.FC = () => {
   };
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
-  const [studentGroup, setStudentGroup] = useState('');
   const [studentList, setStudentList] = useState<string[]>([]);
   const [endDate, setEndDate] = useState('');
   const [courseExists, setCourseExists] = useState(false);
@@ -122,7 +120,7 @@ const CreateCourseEasy: React.FC = () => {
       }
     }
   };
-
+console.log(courseExists);
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -289,6 +287,8 @@ const CreateCourseEasy: React.FC = () => {
             setDescription={setDescription}
             requiredHours={requiredHours}
             setRequiredHours={setRequiredHours}
+            courseExists={courseExists}
+            setCourseExists={setCourseExists}
           />
         )}
 
@@ -313,6 +313,7 @@ const CreateCourseEasy: React.FC = () => {
             onSubmitClick={handleSubmitWrapper} // Use the wrapper function here
             extrastep={true}
             isCustomGroup={isCustomGroup}
+            setIsCustomGroup={setIsCustomGroup} // Add this line
             isWorklog={true}
           />
         )}

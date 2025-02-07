@@ -231,6 +231,8 @@ const CreateWorklogCustom: React.FC = () => {
               setDescription={setDescription}
               requiredHours={requiredHours}
               setRequiredHours={setRequiredHours}
+              courseExists={courseExists}
+              setCourseExists={setCourseExists}
             />
           </>
         )}
@@ -254,7 +256,8 @@ const CreateWorklogCustom: React.FC = () => {
           onSubmitClick={handleSubmitWrapper}
           extrastep={false}
           isCustomGroup={isCustomGroup}
-          isWorklog={true} // Add this prop
+          setIsCustomGroup={setIsCustomGroup} // Add this line
+          isWorklog={true}
         />
       </form>
     </div>

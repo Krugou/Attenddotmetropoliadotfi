@@ -15,6 +15,8 @@ interface WorklogDetailsStepProps {
   setDescription: (value: string) => void;
   requiredHours: number;
   setRequiredHours: (value: number) => void;
+  courseExists?: boolean;
+  setCourseExists?: (exists: boolean) => void;
 }
 
 const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
@@ -29,38 +31,46 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
   description,
   setDescription,
   requiredHours,
-  setRequiredHours
+  setRequiredHours,
+  courseExists,
+  setCourseExists,
 }) => {
   const { t } = useTranslation();
-  const [codeError, setCodeError] = useState('');
   const [isCheckingCode, setIsCheckingCode] = useState(false);
+  const [firstCode] = useState(code);
+  const [codeChanged, setCodeChanged] = useState(false);
 
   useEffect(() => {
+    const token: string | null = localStorage.getItem('userToken');
+    if (!token) {
+      return;
+    }
+    const delay = 250;
+
     const checkCode = async () => {
-      if (!code) {
-        setCodeError('');
-        return;
-      }
       setIsCheckingCode(true);
       try {
-        const token = localStorage.getItem('userToken');
-        if (!token) return;
         const response = await apiHooks.checkWorklogCode(code, token);
-        console.log('response:', response);
-        if (response?.exists) {
-          setCodeError(t('teacher.worklog.form.errors.codeExists'));
-        } else {
-          setCodeError('');
-        }
+        setCourseExists?.(response.exists);
       } catch (error) {
         console.error('Error checking worklog code:', error);
+        setCourseExists?.(false);
       } finally {
         setIsCheckingCode(false);
       }
     };
-    const timeoutId = setTimeout(checkCode, 500);
-    return () => clearTimeout(timeoutId);
-  }, [code, t]);
+
+    if (code) {
+      const timeoutId = setTimeout(checkCode, delay);
+      return () => clearTimeout(timeoutId);
+    } else {
+      setCourseExists?.(false);
+    }
+
+    return () => {
+      setIsCheckingCode(false);
+    };
+  }, [code, setCourseExists]);
 
   return (
     <div className='space-y-4'>
@@ -86,15 +96,30 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           type='text'
           id='code'
           value={code}
-          onChange={(e) => setCode(e.target.value)}
-          className={`p-2 border rounded-lg ${codeError ? 'border-red-500' : ''}`}
+          onChange={(e) => {
+            setCode(e.target.value);
+            setCourseExists?.(false);
+            if (e.target.value !== firstCode) {
+              setCodeChanged(true);
+            }
+          }}
+          className={`p-2 border rounded-lg ${courseExists ? 'border-red-500' : ''}`}
           required
         />
         {isCheckingCode && (
-          <span className='mt-1 text-sm text-gray-500'>{t('teacher.worklog.form.checking')}...</span>
+          <span className='mt-1 text-sm text-gray-500'>
+            {t('teacher.worklog.form.checking')}...
+          </span>
         )}
-        {codeError && (
-          <span className='mt-1 text-sm text-red-500'>{codeError}</span>
+        {courseExists && (
+          <p className="text-red-400">
+            {t('teacher.worklog.form.errors.codeExists')}
+          </p>
+        )}
+        {code === firstCode && codeChanged && (
+          <p className="text-green-400">
+            {t('teacher.worklog.form.success.codeRestored')}
+          </p>
         )}
       </div>
 
