@@ -37,7 +37,7 @@ const QrSelectScannerTester: React.FC = () => {
     setInitError(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { deviceId: deviceId ? { exact: deviceId } : undefined }
+        video: {deviceId: deviceId ? {exact: deviceId} : undefined},
       });
 
       // Test if we can actually get video
@@ -52,25 +52,25 @@ const QrSelectScannerTester: React.FC = () => {
       }
 
       // Cleanup test stream
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach((track) => track.stop());
 
       setSelectedDevice(deviceId);
       setInitError(null);
       toast.success('Camera initialized successfully');
     } catch (error) {
       console.error('Camera initialization error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       setInitError(errorMessage);
 
       toast.error(
         <div>
-          <h4 className="font-bold">Camera Error</h4>
+          <h4 className='font-bold'>Camera Error</h4>
           <p>{errorMessage}</p>
           {retryCount < MAX_RETRIES && (
             <button
-              className="mt-2 text-blue-500 underline"
-              onClick={() => handleRetry(deviceId)}
-            >
+              className='mt-2 text-blue-500 underline'
+              onClick={() => handleRetry(deviceId)}>
               Retry
             </button>
           )}
@@ -78,11 +78,13 @@ const QrSelectScannerTester: React.FC = () => {
         {
           autoClose: false,
           position: 'top-center',
-        }
+        },
       );
 
       if (retryCount >= MAX_RETRIES) {
-        toast.error('Maximum retry attempts reached. Please check your camera settings.');
+        toast.error(
+          'Maximum retry attempts reached. Please check your camera settings.',
+        );
       }
     } finally {
       setLoading(false);
@@ -91,7 +93,7 @@ const QrSelectScannerTester: React.FC = () => {
 
   const handleRetry = async (deviceId: string) => {
     setIsRetrying(true);
-    setRetryCount(prev => prev + 1);
+    setRetryCount((prev) => prev + 1);
     await initializeCamera(deviceId);
     setIsRetrying(false);
   };
@@ -164,7 +166,9 @@ const QrSelectScannerTester: React.FC = () => {
     };
   }, []);
 
-  const handleDeviceChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDeviceChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const newDeviceId = event.target.value;
     await initializeCamera(newDeviceId);
   };
@@ -257,8 +261,7 @@ const QrSelectScannerTester: React.FC = () => {
             <button
               onClick={() => handleRetry(selectedDevice || '')}
               className='mt-2 text-red-600 underline hover:text-red-800'
-              disabled={isRetrying}
-            >
+              disabled={isRetrying}>
               {isRetrying ? 'Retrying...' : 'Retry Camera'}
             </button>
           )}
@@ -296,7 +299,8 @@ const QrSelectScannerTester: React.FC = () => {
             constraints={{
               deviceId: selectedDevice,
               aspectRatio: 1,
-              focusMode: 'continuous'
+              //@ts-expect-error - Not in the types yet
+              focusMode: 'continuous',
             }}
           />
         </div>
