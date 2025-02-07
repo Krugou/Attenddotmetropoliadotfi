@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {UserContext} from '../contexts/UserContext';
 import {useTranslation} from 'react-i18next';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 /**
  * Footer link configuration
@@ -59,6 +60,7 @@ const diffHours: number = Math.floor((diffTime / (1000 * 60 * 60)) % 24);
 const Footer: React.FC = () => {
   const {user} = React.useContext(UserContext);
   const {t} = useTranslation();
+  const isMobile = useIsMobile();
 
   const buildInfo = `Build date: ${buildDate.toLocaleDateString()}${
     diffDays > 0 ? ` Time since build date: ${diffDays} days` : ''
@@ -90,20 +92,20 @@ const Footer: React.FC = () => {
 
   return (
     <footer className='px-8 py-4 text-white bg-metropoliaMainOrange'>
-      {user ? (
-        // Logged in view
+      {(user || isMobile) ? (
+        // Logged in view or mobile view
         <div className='text-center'>
           <p className='mb-2 font-bold font-heading'>
             © {new Date().getFullYear()} {t('footer.appName')}
           </p>
           <p title={buildInfo}>
             {t('footer.developedBy')}{' '}
-            <Link to={`/${user?.role}/team`}>JAK</Link>
+            <Link to={`/${user?.role || ''}/team`}>JAK</Link>
           </p>
         </div>
       ) : (
-        // Not logged in view
-        <div className='flex justify-between mx-auto '>
+        // Desktop view for non-logged in users
+        <div className='flex justify-between mx-auto'>
           <div>
             <h3 className='mb-4 text-lg font-bold font-heading'>
               {t('footer.metropolia')}

@@ -26,6 +26,16 @@ Each component in the frontend is documented to provide a clear understanding of
 ## State Management
 The frontend uses a state management solution to handle the application's state. This ensures that the state is managed in a predictable and efficient manner, allowing for a smooth user experience. The state management solution is documented to provide insights into how the state is structured and how it can be manipulated.
 
+## Custom Hooks
+
+The application uses several custom React hooks to handle common functionality:
+
+### Responsive Design
+
+- `useIsMobile`: Detects mobile viewport sizes for responsive layouts
+  - Located in `src/hooks/useIsMobile.ts`
+  - See [Hooks Documentation](./src/hooks/HOOKS.md) for detailed usage
+
 ## Testing
 The frontend includes a comprehensive suite of tests to ensure the reliability and stability of the application. These tests cover various aspects of the frontend, including unit tests for individual components, integration tests for interactions between components, and end-to-end tests for the overall user experience. The testing strategy and tools used are documented to guide developers in writing and running tests effectively.
 
