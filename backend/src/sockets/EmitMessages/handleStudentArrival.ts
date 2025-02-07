@@ -82,14 +82,15 @@ export const handleStudentArrival = async (
     // Basic input validation
     if (
       !secureHash ||
-      typeof secureHash !== 'string' ||
       !studentId ||
-      typeof studentId !== 'string' ||
       !lectureid ||
       !unixtime ||
       !lectureData[lectureid]
     ) {
       io.to(socket.id).emit('NoCorrectInputDetails', lectureid);
+      logger.error(
+        `Missing or invalid input details for student ${studentId} in lecture ${lectureid}`,
+      );
       throw new StudentArrivalError('Missing or invalid input details.');
     }
 

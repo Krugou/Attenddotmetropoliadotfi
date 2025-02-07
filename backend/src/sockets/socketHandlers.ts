@@ -43,7 +43,7 @@ const lectureTimeoutIds = new Map();
 const SocketHandlers = (io: Server) => {
   io.use(authenticateSocket);
   io.on('connection', (socket: AuthenticatedSocket) => {
-    logger.info(`Authenticated user ${socket.user?.id} connected`);
+    logger.info(`Authenticated user ${socket.user?.username} connected`);
     socket.on('disconnect', () => {});
     socket.on('createAttendanceCollection', async (lectureid: string) => {
       try {
