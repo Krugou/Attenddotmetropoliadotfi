@@ -96,6 +96,10 @@ const AdminUserModify: React.FC = () => {
     try {
       toast.info(t('notifications.savingChanges'));
       const response = await apiHooks.updateUser(token, editedUser);
+      if (!response) {
+        throw new Error('Failed to save the user data');
+      }
+
       toast.success(t('notifications.saveSuccess'));
     } catch (error) {
       toast.error(t('notifications.saveError'));
