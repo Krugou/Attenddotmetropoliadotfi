@@ -5,6 +5,7 @@ export const doFetch = async (url: string, options: RequestInit) => {
   //   headers: options.headers,
   //   body: options.body ? JSON.parse(options.body as string) : undefined,
   // });
+  console.log(url);
 
   try {
     // const startTime = performance.now();
