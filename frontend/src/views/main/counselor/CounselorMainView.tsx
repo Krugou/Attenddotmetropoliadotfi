@@ -2,13 +2,9 @@ import React from 'react';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
-import {
-  People,
-  Help,
-  Assessment,
-  PersonAdd,
-} from '@mui/icons-material';
+import {People, Help, Assessment, PersonAdd} from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
+import WelcomeModal from '../../../components/main/modals/WelcomeModal';
 
 /**
  * CounselorMainView component.
@@ -51,6 +47,7 @@ const CounselorMainView: React.FC = () => {
         />
         <FeedbackCard role='counselor' />
       </div>
+      <WelcomeModal storageKey='welcomeModal.v1' />
     </>
   );
 };
