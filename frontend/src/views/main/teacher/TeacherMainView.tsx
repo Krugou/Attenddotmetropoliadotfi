@@ -151,7 +151,7 @@ const MainView: React.FC = () => {
               description={t('teacher.mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
-            {import.meta.env.MODE === 'development' && (
+            {user?.role === 'admin' && (
               <>
                 <Card
                   path='/teacher/worklog/create'
