@@ -79,24 +79,16 @@
   }
 }
 
-@utility profileStat {
-  @apply bg-metropolia-main-orange p-1.5 rounded-sm text-white;
-}
-
-@utility react-calendar__tile--now {
-  @apply bg-transparent;
-}
-
-@utility react-calendar__tile {
-  &.highlight {
-    @apply bg-metropolia-main-orange;
-  }
-}
-
-@utility highlight {
-  &.react-calendar__tile {
-    @apply bg-metropolia-main-orange;
-  }
+@layer components {
+	.profileStat {
+		@apply bg-metropolia-main-orange p-1.5 rounded text-white;
+	}
+	.react-calendar__tile--now {
+		@apply bg-transparent;
+	}
+	.react-calendar__tile.highlight {
+		@apply bg-metropolia-main-orange;
+	}
 }
 
 @layer base {
