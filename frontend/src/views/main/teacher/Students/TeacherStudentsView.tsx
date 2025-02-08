@@ -229,9 +229,9 @@ const TeacherStudentsView: React.FC = () => {
                   ? `/counselor/students/${student.userid}`
                   : `/${user?.role}/students/${student.userid}`
               }
-              className='max-w-full mx-1 mb-4 transition duration-300 bg-white rounded shadow-lg lg:mx-2 xl:mx-4 w-12/12 hover:bg-gray-200'>
+              className='max-w-full mx-1 mb-4 transition duration-300 bg-white rounded-sm shadow-lg lg:mx-2 xl:mx-4 w-12/12 hover:bg-gray-200'>
               <div className='flex flex-col px-4 py-2 text-sm lg:px-4 lg:py-4 md:text-base'>
-                <div className='mb-2 text-lg underline font-heading underline-offset-8 decoration-metropoliaMainOrange'>
+                <div className='mb-2 text-lg underline font-heading underline-offset-8 decoration-metropolia-main-orange'>
                   {student.first_name} {student.last_name}
                 </div>
                 {student.email && (
@@ -279,7 +279,7 @@ const TeacherStudentsView: React.FC = () => {
             page={page}
             onChange={handlePageChange}
             variant='outlined'
-            shape='rounded'
+            shape='rounded-sm'
           />
         </div>
       </div>

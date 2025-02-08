@@ -51,6 +51,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.4",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
@@ -58,12 +59,11 @@
     "@typescript-eslint/parser": "^8.23.0",
     "@vitejs/plugin-basic-ssl": "^1.2.0",
     "@vitejs/plugin-react-swc": "^3.7.2",
-    "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
     "eslint": "^9.20.0",
     "eslint-plugin-import": "^2.31.0",
     "postcss": "^8.5.1",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.4",
     "terser": "^5.38.1",
     "typedoc": "^0.27.6",
     "typescript": "^5.7.3",

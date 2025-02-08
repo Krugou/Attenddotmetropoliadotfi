@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {UserContext} from '../contexts/UserContext';
 import {useTranslation} from 'react-i18next';
-import { useIsMobile } from '../hooks/useIsMobile';
+import {useIsMobile} from '../hooks/useIsMobile';
 
 /**
  * Footer link configuration
@@ -91,8 +91,8 @@ const Footer: React.FC = () => {
   );
 
   return (
-    <footer className='px-8 py-4 text-white bg-metropoliaMainOrange'>
-      {(user || isMobile) ? (
+    <footer className='px-8 py-4 text-white bg-metropolia-main-orange'>
+      {user || isMobile ? (
         // Logged in view or mobile view
         <div className='text-center'>
           <p className='mb-2 font-bold font-heading'>

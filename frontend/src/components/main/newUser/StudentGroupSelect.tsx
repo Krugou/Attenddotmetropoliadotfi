@@ -27,7 +27,7 @@ const StudentGroupSelect: React.FC<StudentGroupSelectProps> = ({
         required
         value={selectedGroup || ''}
         onChange={(e) => onChange(Number(e.target.value))}
-        className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'>
+        className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'>
         <option value='null'>{t('studentGroupSelect.notInSystem')}</option>
         {studentGroups.map((studentGroup) => (
           <option

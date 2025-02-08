@@ -212,7 +212,7 @@ const AdminNewUser: React.FC = () => {
                   onChange={(e) =>
                     setUserType(e.target.value as 'staff' | 'student')
                   }
-                  className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'>
+                  className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'>
                   <option value='student'>
                     {t('admin.newUser.optionStudent')}
                   </option>
@@ -230,7 +230,7 @@ const AdminNewUser: React.FC = () => {
                   </label>
                   <select
                     title={t('admin.newUser.staffRolTitle')}
-                    className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none cursor-pointer rounded-3xl focus:outline-none focus:shadow-outline'
+                    className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'
                     id='role'
                     value={roleid}
                     onChange={(e) => {

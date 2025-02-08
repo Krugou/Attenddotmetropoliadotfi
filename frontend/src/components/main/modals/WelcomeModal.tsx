@@ -31,7 +31,7 @@ const WelcomeModal = () => {
           <h2 className='mb-2 text-2xl font-heading'>{t('welcome.title')}</h2>
           <p className='mb-4'>{t('welcome.description')}</p>
           <button
-            className='px-4 py-2 text-white bg-blue-500 rounded'
+            className='px-4 py-2 text-white bg-blue-500 rounded-sm'
             onClick={() => setShowModal(false)}>
             {t('common.close')}
           </button>

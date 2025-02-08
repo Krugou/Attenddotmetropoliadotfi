@@ -118,7 +118,7 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
       onClose={() => setDialogOpen(false)}
       maxWidth='sm'
       fullWidth>
-      <DialogTitle className='p-4 text-white bg-metropoliaMainOrange font-heading'>
+      <DialogTitle className='p-4 text-white bg-metropolia-main-orange font-heading'>
         {showGuide ? 'Guide' : 'Settings'}
       </DialogTitle>
 
@@ -126,14 +126,14 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
         <button
           onClick={() => setShowGuide(false)}
           className={`flex-1 p-4 font-heading ${
-            !showGuide ? 'bg-metropoliaTrendGreen text-white' : ''
+            !showGuide ? 'bg-metropolia-trend-green text-white' : ''
           }`}>
           Show Settings
         </button>
         <button
           onClick={() => setShowGuide(true)}
           className={`flex-1 p-4 font-heading ${
-            showGuide ? 'bg-metropoliaTrendGreen text-white' : ''
+            showGuide ? 'bg-metropolia-trend-green text-white' : ''
           }`}>
           Show Guide
         </button>
@@ -145,7 +145,7 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
 
       <div className='p-4 border-t'>
         <button
-          className='w-full p-2 text-white transition rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+          className='w-full p-2 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
           onClick={() => setDialogOpen(false)}>
           Close
         </button>

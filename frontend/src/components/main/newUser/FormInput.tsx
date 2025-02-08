@@ -19,7 +19,7 @@ const FormInput: React.FC<FormInputProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+      className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
     />
   </label>
 );

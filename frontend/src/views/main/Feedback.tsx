@@ -146,7 +146,7 @@ const Feedback: React.FC = () => {
             id='feedback-topic'
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            className='p-2 m-2 border rounded'
+            className='p-2 m-2 border rounded-sm'
             required>
             <option value=''>
               {t('feedback.selectTopic', 'Select a topic')}
@@ -164,7 +164,7 @@ const Feedback: React.FC = () => {
             id='feedback-text'
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            className='p-2 m-2 border rounded'
+            className='p-2 m-2 border rounded-sm'
             rows={8}
             placeholder={t(
               'feedback.placeholder',
@@ -174,7 +174,7 @@ const Feedback: React.FC = () => {
           />
           <button
             type='submit'
-            className='px-4 py-2 m-4 text-white transition rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'>
+            className='px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'>
             {t('feedback.submit', 'Submit')}
           </button>
         </form>

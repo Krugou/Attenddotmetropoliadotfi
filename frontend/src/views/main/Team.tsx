@@ -52,7 +52,7 @@ const Team: React.FC = () => {
   return (
     <div className='container max-w-6xl px-4 py-8 mx-auto'>
       <div className='p-8 bg-white shadow-lg rounded-xl'>
-        <h1 className='mb-8 text-4xl text-center font-heading text-metropoliaMainOrange'>
+        <h1 className='mb-8 text-4xl text-center font-heading text-metropolia-main-orange'>
           {t('team.title')}
         </h1>
 
@@ -67,7 +67,7 @@ const Team: React.FC = () => {
                 className='p-6 transition-all duration-300 border-2 rounded-lg hover:shadow-xl hover:scale-105'>
                 <div className='text-2xl text-center text-gray-700 font-body'>
                   {member.highlight && (
-                    <span className='font-bold text-metropoliaMainOrange'>
+                    <span className='font-bold text-metropolia-main-orange'>
                       {member.highlight}
                     </span>
                   )}
@@ -80,7 +80,7 @@ const Team: React.FC = () => {
                   href={member.github}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='block mt-2 text-sm text-center transition-colors duration-200 text-metropoliaMainOrange hover:text-metropoliaMainGrey'>
+                  className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
                   {t('team.viewGithub')}
                 </a>
               </div>
@@ -110,7 +110,7 @@ const Team: React.FC = () => {
                   href={member.github}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='block mt-2 text-sm text-center transition-colors duration-200 text-metropoliaMainOrange hover:text-metropoliaMainGrey'>
+                  className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
                   {t('team.viewGithub')}
                 </a>
               </div>

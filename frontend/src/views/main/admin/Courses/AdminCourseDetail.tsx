@@ -181,7 +181,7 @@ const AdminCourseDetail: React.FC = () => {
                     </h2>
                     <p>{course.topic_names?.replace(/,/g, ', ')}</p>
                   </div>
-                  <div className='w-full border-t-4 border-metropoliaMainOrange'></div>
+                  <div className='w-full border-t-4 border-metropolia-main-orange'></div>
                   <h2 className='mt-4 mb-2 text-lg font-heading'>
                     {' '}
                     {t('admin.common.additionalInfo')}
@@ -198,7 +198,7 @@ const AdminCourseDetail: React.FC = () => {
                     </p>
                     <p>{course.user_count}</p>
                   </div>
-                  <div className='w-full mt-4 mb-4 border-t-4 border-metropoliaMainOrange'></div>
+                  <div className='w-full mt-4 mb-4 border-t-4 border-metropolia-main-orange'></div>
                   <div className='mt-4'>
                     <h2 className='text-lg text-gray-700 font-heading'>
                       {t('admin.common.instructors')}

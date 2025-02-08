@@ -116,7 +116,7 @@ const AdminWorkLogs: React.FC = () => {
                         {t(`admin.worklog.${label}`)}
                         <button
                           aria-label={`Sort by ${label}`}
-                          className='p-1 ml-2 text-sm text-white rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark'
+                          className='p-1 ml-2 text-sm text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-main-orangeDark focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orangeDark'
                           onClick={() =>
                             sortWorkLogs(key as keyof WorkLogCourse)
                           }>

@@ -99,7 +99,7 @@ const AddTeachers = ({
           </div>
           {instructors.length > 1 && instructor.email !== instructorEmail && (
             <button
-              className='w-8 p-2 mt-5 ml-2 text-white transition bg-red-500 rounded font-heading hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500'
+              className='w-8 p-2 mt-5 ml-2 text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-red-500'
               onClick={() => deleteInstructor(index)}>
               x
             </button>
@@ -107,7 +107,7 @@ const AddTeachers = ({
         </div>
       ))}
       <button
-        className='w-48 p-1 mt-2 text-white transition rounded bg-metropoliaMainOrange font-heading hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+        className='w-48 p-1 mt-2 text-white transition rounded-sm bg-metropolia-main-orange font-heading hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
         onClick={addInstructor}>
         {t('teacher.addTeachers.addAnother')}
       </button>

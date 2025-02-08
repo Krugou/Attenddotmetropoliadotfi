@@ -116,7 +116,7 @@ const AdminLectureDetail = () => {
   }
 
   return (
-    <div className='p-4 m-4 bg-metropoliaSupportWhite'>
+    <div className='p-4 m-4 bg-metropolia-support-white'>
       <Typography variant='h6' component='h2' gutterBottom>
         {t('admin.common.lectureId')}: {lectureId} - {data && data[0].code} -{' '}
         {data && data[0].teacher} - {data && data[0].topicname} -{' '}
@@ -142,8 +142,8 @@ const AdminLectureDetail = () => {
                   key={index}
                   className={
                     item.status === 1
-                      ? 'bg-metropoliaTrendGreen '
-                      : 'bg-metropoliaSupportRed '
+                      ? 'bg-metropolia-trend-green '
+                      : 'bg-metropolia-support-red '
                   }>
                   <TableCell style={{color: 'white'}}>
                     {item.attendanceid}
@@ -160,7 +160,7 @@ const AdminLectureDetail = () => {
                   </TableCell>
                   <TableCell style={{color: 'white'}}>
                     <button
-                      className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'
+                      className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-support-red h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
                       onClick={() => handleOpenDialog(item.attendanceid)}>
                       {t('admin.common.delete')}
                     </button>
@@ -183,12 +183,12 @@ const AdminLectureDetail = () => {
             </DialogContent>
             <DialogActions>
               <button
-                className='px-4 py-2 text-white bg-gray-500 rounded font-heading hover:bg-gray-700'
+                className='px-4 py-2 text-white bg-gray-500 rounded-sm font-heading hover:bg-gray-700'
                 onClick={handleCloseDialog}>
                 {t('admin.common.cancel')}
               </button>
               <button
-                className='px-4 py-2 ml-2 text-white rounded font-heading bg-metropoliaSupportRed hover:bg-red-600'
+                className='px-4 py-2 ml-2 text-white rounded-sm font-heading bg-metropolia-support-red hover:bg-red-600'
                 onClick={handleConfirmDelete}
                 autoFocus>
                 {t('admin.common.confirm')}

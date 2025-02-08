@@ -120,7 +120,7 @@ const Login: React.FC = () => {
             <span className='sr-only'>({t('common.required')})</span>
           </label>
           <input
-            className={`w-full px-3 py-2 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline ${
+            className={`w-full px-3 py-2 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline ${
               validationErrors.username ? 'border-red-500' : ''
             }`}
             id='username'
@@ -159,7 +159,7 @@ const Login: React.FC = () => {
             role='group'
             aria-labelledby='password-label'>
             <input
-              className={`w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline ${
+              className={`w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline ${
                 validationErrors.password ? 'border-red-500' : ''
               }`}
               id='password'
@@ -199,7 +199,7 @@ const Login: React.FC = () => {
         </div>
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 text-white font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:ring-2 focus:ring-offset-2 focus:ring-metropoliaMainOrange rounded-xl focus:outline-none'
+            className='w-1/2 px-4 py-2 text-white font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange rounded-xl focus:outline-hidden'
             type='submit'
             aria-label={t('login.signIn', 'Sign In')}>
             {t('login.signIn', 'Sign In')}

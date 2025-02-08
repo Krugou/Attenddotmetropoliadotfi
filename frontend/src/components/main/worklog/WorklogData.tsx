@@ -10,7 +10,7 @@ import apiHooks from '../../../api';
 import GeneralLinkButton from '../buttons/GeneralLinkButton';
 
 interface WorkLogCourse {
-  work_log_course_id: number;  // Change this to match backend's property name
+  work_log_course_id: number; // Change this to match backend's property name
   name: string;
   description: string;
   start_date: string;
@@ -106,7 +106,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
             endDate.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0);
           return (
             <Tooltip
-              key={worklog.work_log_course_id}  // Change this
+              key={worklog.work_log_course_id} // Change this
               title={isCourseEnded ? t('teacher.worklog.data.courseEnded') : ''}
               placement='top'>
               <div
@@ -121,7 +121,9 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                         fontSize='large'
                         className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
                         onClick={() =>
-                          navigate(`/teacher/worklog/${worklog.work_log_course_id}/modify`)
+                          navigate(
+                            `/teacher/worklog/${worklog.work_log_course_id}/modify`,
+                          )
                         }
                       />
                     </Tooltip>
@@ -129,22 +131,30 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                       <DeleteIcon
                         fontSize='large'
                         className='p-1 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
-                        onClick={() => openDeleteModal(worklog.work_log_course_id)}
+                        onClick={() =>
+                          openDeleteModal(worklog.work_log_course_id)
+                        }
                       />
                     </Tooltip>
                   </div>
                 </div>
                 <div className='mt-2'>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.worklog.data.courseCode')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.worklog.data.courseCode')}
+                    </p>
                     <div>{worklog.code}</div>
                   </div>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.worklog.data.startDate')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.worklog.data.startDate')}
+                    </p>
                     <p>{new Date(worklog.start_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
-                    <p className='text-gray-700'>{t('teacher.worklog.data.endDate')}</p>
+                    <p className='text-gray-700'>
+                      {t('teacher.worklog.data.endDate')}
+                    </p>
                     <p>{new Date(worklog.end_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
@@ -155,13 +165,13 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                     <p className='text-sm font-heading mt-2'>
                       {t('teacher.worklog.data.description')}
                     </p>
-                    <p className='text-sm text-metropoliaMainGrey mb-2'>
+                    <p className='text-sm text-metropolia-main-grey mb-2'>
                       {worklog.description}
                     </p>
                   </div>
                   {!allCourses ? (
                     <>
-                      <div className='w-full border-t-4 border-metropoliaMainOrange mt-4'></div>
+                      <div className='w-full border-t-4 border-metropolia-main-orange mt-4'></div>
                       <h2 className='text-lg font-heading mb-3'>
                         {t('teacher.worklog.data.additionalInfo')}
                       </h2>
@@ -177,20 +187,25 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                         </p>
                         <p>{worklog.user_count || 0}</p>
                       </div>
-                      <div className='w-full border-t-4 border-metropoliaMainOrange mt-4'></div>
+                      <div className='w-full border-t-4 border-metropolia-main-orange mt-4'></div>
                       <div className='mt-4 mb-4'>
                         <h2 className='text-lg font-heading text-gray-700 mb-2'>
                           {t('teacher.worklog.data.instructors')}
                         </h2>
                         <ul className='list-none pl-5'>
-                          {worklog.instructor_name?.split(',')
+                          {worklog.instructor_name
+                            ?.split(',')
                             ?.map((instructor) => (
                               <li
                                 key={instructor.trim()}
                                 className='text-gray-700'>
                                 {instructor.trim()}
                               </li>
-                            )) || <li className='text-gray-700'>{t('teacher.worklog.noInstructors')}</li>}
+                            )) || (
+                            <li className='text-gray-700'>
+                              {t('teacher.worklog.noInstructors')}
+                            </li>
+                          )}
                         </ul>
                       </div>
                     </>

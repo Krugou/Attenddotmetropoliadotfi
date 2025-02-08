@@ -17,7 +17,7 @@ interface WorkLogStudent {
   first_name: string;
   last_name: string;
   studentnumber: string;
-  existingGroup?: { group_id: number; group_name: string } | null;
+  existingGroup?: {group_id: number; group_name: string} | null;
 }
 
 const TeacherWorklogCourseGroups: React.FC = () => {
@@ -45,21 +45,19 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           apiHooks.getWorkLogStudentsByCourse(courseid, token),
         ]);
 
-
         const studentsWithGroupCheck = await Promise.all(
           studentsResponse.students.map(async (student) => {
             const existingGroup = await apiHooks.checkStudentExistingGroup(
               student.userid,
               Number(courseid),
-              token
+              token,
             );
-            return { ...student, existingGroup };
-          })
+            return {...student, existingGroup};
+          }),
         );
 
-
         const availableStudents = studentsWithGroupCheck.filter(
-          (student) => !student.existingGroup
+          (student) => !student.existingGroup,
         );
 
         setGroups(groupsResponse || []);
@@ -91,7 +89,6 @@ const TeacherWorklogCourseGroups: React.FC = () => {
         token,
       );
 
-
       if (newGroupId && selectedStudents.length > 0) {
         await apiHooks.addStudentsToWorkLogGroup(
           newGroupId,
@@ -110,14 +107,14 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           const existingGroup = await apiHooks.checkStudentExistingGroup(
             student.userid,
             Number(courseid),
-            token
+            token,
           );
-          return { ...student, existingGroup };
-        })
+          return {...student, existingGroup};
+        }),
       );
 
       const availableStudents = studentsWithGroupCheck.filter(
-        (student) => !student.existingGroup
+        (student) => !student.existingGroup,
       );
 
       // Update state
@@ -155,7 +152,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
         </h1>
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className='px-4 py-2 text-white rounded bg-metropoliaMainOrange hover:bg-opacity-90 font-body'>
+          className='px-4 py-2 text-white rounded-sm bg-metropolia-main-orange hover:bg-opacity-90 font-body'>
           {showCreateForm
             ? t('common.cancel')
             : t('teacher.worklog.groups.createGroup')}
@@ -163,7 +160,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       </div>
 
       {showCreateForm && (
-        <div className='p-6 mb-8 bg-white rounded-lg shadow'>
+        <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
           <h2 className='mb-4 text-2xl font-heading'>
             {t('teacher.worklog.groups.createNew')}
           </h2>
@@ -179,7 +176,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                 type='text'
                 value={newGroupName}
                 onChange={(e) => setNewGroupName(e.target.value)}
-                className='w-full p-2 border rounded font-body'
+                className='w-full p-2 border rounded-sm font-body'
                 required
               />
             </div>
@@ -188,15 +185,15 @@ const TeacherWorklogCourseGroups: React.FC = () => {
               <h3 className='mb-2 text-lg font-heading'>
                 {t('teacher.worklog.groups.selectStudents')}
               </h3>
-              <div className='p-4 overflow-y-auto border rounded max-h-96'>
+              <div className='p-4 overflow-y-auto border rounded-sm max-h-96'>
                 <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
                   {students.map((student) => (
                     <div
                       key={student.userid}
                       className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                         selectedStudents.includes(student.userid)
-                          ? 'border-metropoliaMainOrange bg-orange-50'
-                          : 'border-gray-200 hover:border-metropoliaMainOrange/50'
+                          ? 'border-metropolia-main-orange bg-orange-50'
+                          : 'border-gray-200 hover:border-metropolia-main-orange/50'
                       }`}
                       onClick={() => {
                         if (selectedStudents.includes(student.userid)) {
@@ -227,7 +224,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
               <button
                 type='button'
                 onClick={() => setShowCreateForm(false)}
-                className='px-4 py-2 border rounded font-body hover:bg-gray-50'>
+                className='px-4 py-2 border rounded-sm font-body hover:bg-gray-50'>
                 {t('common.cancel')}
               </button>
               <button
@@ -236,7 +233,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                 className={`px-4 py-2 rounded font-body ${
                   isCreatingGroup || !newGroupName.trim()
                     ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-metropoliaMainOrange text-white hover:bg-opacity-90'
+                    : 'bg-metropolia-main-orange text-white hover:bg-opacity-90'
                 }`}>
                 {isCreatingGroup ? t('common.creating') : t('common.create')}
               </button>
@@ -249,7 +246,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
         {t('teacher.worklog.groups.groupsTitle')}
       </h2>
       {groups?.length === 0 ? (
-        <div className='p-6 bg-white rounded-lg shadow'>
+        <div className='p-6 bg-white rounded-lg shadow-sm'>
           <p className='text-center text-gray-600 font-body'>
             {t('teacher.worklog.groups.noGroups')}
           </p>
@@ -259,10 +256,13 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           {groups?.map((group) => (
             <div
               key={group.group_id}
-              className='p-6 bg-white rounded-lg shadow'>
+              className='p-6 bg-white rounded-lg shadow-sm'>
               <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
               <div className='flex justify-end mt-4'>
-                <GeneralLinkButton path={`/teacher/worklog/group/${courseid}/${group.group_id}`} text={t('common.view')} />
+                <GeneralLinkButton
+                  path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
+                  text={t('common.view')}
+                />
               </div>
             </div>
           ))}

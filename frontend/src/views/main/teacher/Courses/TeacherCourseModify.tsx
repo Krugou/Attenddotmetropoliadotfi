@@ -226,7 +226,7 @@ const TeacherCourseModify: React.FC = () => {
         </Accordion>
 
         <button
-          className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow focus:outline-none focus:shadow-outline'
+          className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow-sm focus:outline-hidden focus:shadow-outline'
           onClick={() => setOpen(true)}>
           {t('teacher.courseModify.sections.topics.title')}
         </button>
@@ -245,7 +245,7 @@ const TeacherCourseModify: React.FC = () => {
         />
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('teacher.courseModify.buttons.finish')}

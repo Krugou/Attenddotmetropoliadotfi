@@ -9,7 +9,7 @@ const About: React.FC = () => {
 
   return (
     <div className='container max-w-3xl px-4 py-8 mx-auto bg-white shadow-lg rounded-xl'>
-      <h1 className='mb-8 text-3xl font-bold font-heading text-metropoliaMainOrange'>
+      <h1 className='mb-8 text-3xl font-bold font-heading text-metropolia-main-orange'>
         {t('about.title')}
       </h1>
 

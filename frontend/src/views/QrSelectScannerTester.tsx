@@ -246,7 +246,7 @@ const QrSelectScannerTester: React.FC = () => {
       <h1 className='mb-4 text-2xl font-heading'>QR Scanner Tester</h1>
 
       {/* Add security context status */}
-      <div className='p-2 mb-4 text-sm bg-gray-100 rounded'>
+      <div className='p-2 mb-4 text-sm bg-gray-100 rounded-sm'>
         <p>Secure Context: {window.isSecureContext ? 'Yes ✅' : 'No ❌'}</p>
         <p>Protocol: {window.location.protocol}</p>
         <p>Environment: {import.meta.env.MODE}</p>
@@ -269,12 +269,12 @@ const QrSelectScannerTester: React.FC = () => {
       )}
 
       {/* Camera selection */}
-      <div className='p-2 mb-4 border rounded'>
+      <div className='p-2 mb-4 border rounded-sm'>
         <label className='block mb-2' htmlFor='cameraSelect'>
           Select Camera:
         </label>
         <select
-          className='w-full p-2 border rounded'
+          className='w-full p-2 border rounded-sm'
           id='cameraSelect'
           onChange={handleDeviceChange}
           value={selectedDevice || ''}>
@@ -308,9 +308,9 @@ const QrSelectScannerTester: React.FC = () => {
 
       {/* Display decoded data */}
       {Object.keys(decodedData).length > 0 && (
-        <div className='p-4 mt-4 border rounded'>
+        <div className='p-4 mt-4 border rounded-sm'>
           <h2 className='mb-2 text-xl font-heading'>Last Scanned Data:</h2>
-          <pre className='p-2 bg-gray-100 rounded'>
+          <pre className='p-2 bg-gray-100 rounded-sm'>
             {JSON.stringify(decodedData, null, 2)}
           </pre>
         </div>

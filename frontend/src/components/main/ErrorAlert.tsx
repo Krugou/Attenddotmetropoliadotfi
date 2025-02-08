@@ -45,13 +45,13 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
                 navigate('/login');
                 onClose();
               }}
-              className='px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600'>
+              className='px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded-sm hover:bg-blue-600'>
               {t('errorAlert.backToLogin')}
             </button>
           )}
           <button
             onClick={onClose}
-            className='px-4 py-2 font-semibold text-white bg-red-500 rounded hover:bg-red-600'>
+            className='px-4 py-2 font-semibold text-white bg-red-500 rounded-sm hover:bg-red-600'>
             {t('errorAlert.close')}
           </button>
         </div>

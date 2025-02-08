@@ -133,7 +133,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   return (
     <div className='space-y-5'>
       {/* Personal Information Section */}
-      <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
+      <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
           {t('profileInfo.sections.personal')}:
         </h3>
@@ -154,7 +154,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       </div>
 
       {/* Account Information Section */}
-      <div className='p-4 space-y-4 border-b-2 border-metropoliaMainOrange'>
+      <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
           {t('profileInfo.sections.account')}:
         </h3>
@@ -170,7 +170,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
             <span className='profileStat'>{user.role}</span>
             {['counselor', 'teacher'].includes(user.role) && (
               <button
-                className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainGrey hover:bg-metropoliaTrendLightBlue focus:outline-none focus:shadow-outline'
+                className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-grey hover:bg-metropolia-trend-light-blue focus:outline-hidden focus:shadow-outline'
                 onClick={handleOpen}>
                 {t('profileInfo.buttons.change')}
               </button>
@@ -191,8 +191,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               onClick={() => handleLanguageChange('en')}
               className={`p-1 rounded ${
                 user.language === 'en'
-                  ? 'bg-metropoliaMainOrange'
-                  : 'bg-metropoliaMainGrey'
+                  ? 'bg-metropolia-main-orange'
+                  : 'bg-metropolia-main-grey'
               }`}
               title={t('languages.flags.en')}
               aria-label={t('languages.flags.en')}>
@@ -202,8 +202,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               onClick={() => handleLanguageChange('fi')}
               className={`p-1 rounded ${
                 user.language === 'fi'
-                  ? 'bg-metropoliaMainOrange'
-                  : 'bg-metropoliaMainGrey'
+                  ? 'bg-metropolia-main-orange'
+                  : 'bg-metropolia-main-grey'
               }`}
               title={t('languages.flags.fi')}
               aria-label={t('languages.flags.fi')}>
@@ -213,8 +213,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               onClick={() => handleLanguageChange('sv')}
               className={`p-1 rounded ${
                 user.language === 'sv'
-                  ? 'bg-metropoliaMainOrange'
-                  : 'bg-metropoliaMainGrey'
+                  ? 'bg-metropolia-main-orange'
+                  : 'bg-metropolia-main-grey'
               }`}
               title={t('languages.flags.sv')}
               aria-label={t('languages.flags.sv')}>
@@ -238,13 +238,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
 
       {/* Role Change Modal */}
       {open && ['counselor', 'teacher'].includes(user.role) && (
-        <div className='pb-10 mt-5 border-y-4 border-metropoliaMainOrange pt-7'>
+        <div className='pb-10 mt-5 border-y-4 border-metropolia-main-orange pt-7'>
           <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
             {t('profileInfo.roleChange.title')}
           </h2>
           <select
             title={t('profileInfo.roleChange.selectTitle')}
-            className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded appearance-none cursor-pointer focus:outline-none focus:bg-white focus:border-gray-500'
+            className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded-sm appearance-none cursor-pointer focus:outline-hidden focus:bg-white focus:border-gray-500'
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}>
             {roles.map((role) => (
@@ -256,13 +256,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
           <div className='flex justify-between gap-10 mt-5'>
             <button
               type='button'
-              className='px-2 py-1 text-sm text-white transition bg-red-500 rounded font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
               {t('common.cancel')}
             </button>
             <button
               type='button'
-              className='px-2 py-1 text-sm text-white transition bg-green-500 rounded font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
+              className='px-2 py-1 text-sm text-white transition bg-green-500 rounded-sm font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
               {t('profileInfo.buttons.changeRole')}
             </button>

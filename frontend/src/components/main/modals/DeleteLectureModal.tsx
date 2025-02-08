@@ -53,7 +53,7 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'>
       <DialogTitle
-        className='p-4 text-white bg-metropoliaMainOrange'
+        className='p-4 text-white bg-metropolia-main-orange'
         id='alert-dialog-title'>
         {t('teacher.deleteLecture.title')}
       </DialogTitle>
@@ -93,18 +93,18 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       </DialogContent>
       <DialogActions>
         <button
-          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
           onClick={onClose}>
           {t('teacher.deleteLecture.buttons.close')}
         </button>
         <button
-          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-metropoliaSupportSecondaryRed'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-support-red sm:w-fit h-fit hover:bg-metropolia-support-secondary-red'
           onClick={onDelete}
           autoFocus>
           {t('teacher.deleteLecture.buttons.delete')}
         </button>
         <button
-          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded bg-metropoliaTrendGreen sm:w-fit h-fit hover:bg-metropoliaMainGrey'
+          className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-trend-green sm:w-fit h-fit hover:bg-metropolia-main-grey'
           onClick={onCloseLecture}
           autoFocus>
           {t('teacher.deleteLecture.buttons.finish')}

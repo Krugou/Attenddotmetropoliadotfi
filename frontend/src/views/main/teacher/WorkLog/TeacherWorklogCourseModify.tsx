@@ -20,7 +20,7 @@ interface WorkLogDetail {
   code: string;
   required_hours: number;
   instructor_name: string;
-  instructors?: { email: string }[];  // Add this property
+  instructors?: {email: string}[]; // Add this property
 }
 
 const TeacherWorklogCourseModify: React.FC = () => {
@@ -48,14 +48,17 @@ const TeacherWorklogCourseModify: React.FC = () => {
         if (!token) throw new Error('No token available');
 
         try {
-          const worklogData = await apiHooks.getWorkLogCourseDetail(courseid, token);
+          const worklogData = await apiHooks.getWorkLogCourseDetail(
+            courseid,
+            token,
+          );
           setWorklogData(worklogData.course);
 
           // Set instructor data from the response
           if (worklogData.course.instructor_name) {
             const instructorEmails = worklogData.course.instructor_name
               .split(',')
-              .map(email => ({ email: email.trim() }));
+              .map((email) => ({email: email.trim()}));
             setInstructors(instructorEmails);
             setInstructorEmail(instructorEmails[0]?.email || '');
           }
@@ -122,7 +125,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
         required_hours: requiredHours,
         start_date: startDate,
         end_date: endDate,
-        instructors: instructors.map(i => i.email),
+        instructors: instructors.map((i) => i.email),
       };
       await apiHooks.modifyWorkLog(token, courseid, modifiedData);
       toast.success(t('teacher.worklog.modifySuccess'));
@@ -188,7 +191,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
 
         <div className='flex justify-center w-full'>
           <button
-            className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropoliaTrendGreen hover:bg-green-600 rounded-xl focus:outline-none focus:shadow-outline'
+            className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
             {t('teacher.worklog.modify.save')}

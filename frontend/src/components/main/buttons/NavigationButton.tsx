@@ -22,7 +22,7 @@ const NavigationButton: FC<NavigationButtonProps> = ({path, label}) => {
   return (
     <button
       type='button'
-      className='px-4 py-2 mx-2 text-white transition border border-white rounded font-heading sm:w-full w-fit bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+      className='px-4 py-2 mx-2 text-white transition border border-white rounded-sm font-heading sm:w-full w-fit bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
       onClick={handleClick}>
       {label}
     </button>

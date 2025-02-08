@@ -211,7 +211,7 @@ const CourseStudents: React.FC<Props> = ({
       }}
       className={`noSelect ${
         scrollTabToggle ? '' : 'hideScrollbar'
-      }  flex  border-2 border-metropoliaSupportRed ${
+      }  flex  border-2 border-metropolia-support-red ${
         coursestudents.length > 10 ? 'justify-start' : 'justify-center'
       } bg-white p-3 rounded-lg shadow-md w-full mt-4 overflow-hidden overflow-x-auto`}>
       {coursestudents.length === 0 ? (
@@ -231,12 +231,12 @@ const CourseStudents: React.FC<Props> = ({
             const isFirst = index === 0;
             const isLast = index === coursestudents.length - 1;
             const bgColorClass = isFirst
-              ? 'bg-metropoliaSupportRed'
+              ? 'bg-metropolia-support-red'
               : isLast
-              ? 'bg-metropoliaTrendGreen'
+              ? 'bg-metropolia-trend-green'
               : index % 2 === 0
-              ? 'bg-metropoliaMainOrange'
-              : 'bg-metropoliaMainGrey';
+              ? 'bg-metropolia-main-orange'
+              : 'bg-metropolia-main-grey';
             const shapeClass = isFirst
               ? 'rounded-l-lg rounded-r-none'
               : isLast

@@ -3,8 +3,8 @@ import React from 'react';
  * CreateCourseProgress component properties
  */
 interface ProgressProps {
-	currentStep: number;
-	createCourseMode: string;
+  currentStep: number;
+  createCourseMode: string;
 }
 /**
  * CreateCourseProgress is a functional component that renders a progress bar for course creation.
@@ -15,36 +15,34 @@ interface ProgressProps {
  * @returns A JSX element.
  */
 const CreateCourseProgress: React.FC<ProgressProps> = ({
-	currentStep,
-	createCourseMode,
+  currentStep,
+  createCourseMode,
 }) => {
-	const totalSteps = createCourseMode === 'easy' ? 5 : 4;
+  const totalSteps = createCourseMode === 'easy' ? 5 : 4;
 
-	return (
-		<>
-			<div className="relative w-full h-4 mb-6  bg-gray-200 rounded-full">
-				{[...Array(totalSteps)].map((_, step) => (
-					<div
-						key={step}
-						className={`absolute top-0 h-4 ${
-							createCourseMode === 'easy' ? 'w-1/5' : 'w-1/4'
-						}  rounded-full ${
-							step < currentStep ? 'bg-metropoliaMainOrange' : 'bg-gray-200'
-						}`}
-						style={{left: `${(step / totalSteps) * 100}%`}}
-					>
-						<div
-							className={`absolute top-0  transform -translate-x-1/2 -translate-y-1/2 bg-white text-black rounded border border-black text-xs leading-none px-2 py-1 sm:px-3 sm:py-1.5 left-2/4	 ${
-								step === currentStep - 1 ? 'block' : 'hidden'
-							}`}
-						>
-							{step + 1}
-						</div>
-					</div>
-				))}
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className='relative w-full h-4 mb-6  bg-gray-200 rounded-full'>
+        {[...Array(totalSteps)].map((_, step) => (
+          <div
+            key={step}
+            className={`absolute top-0 h-4 ${
+              createCourseMode === 'easy' ? 'w-1/5' : 'w-1/4'
+            }  rounded-full ${
+              step < currentStep ? 'bg-metropolia-main-orange' : 'bg-gray-200'
+            }`}
+            style={{left: `${(step / totalSteps) * 100}%`}}>
+            <div
+              className={`absolute top-0  transform -translate-x-1/2 -translate-y-1/2 bg-white text-black rounded border border-black text-xs leading-none px-2 py-1 sm:px-3 sm:py-1.5 left-2/4	 ${
+                step === currentStep - 1 ? 'block' : 'hidden'
+              }`}>
+              {step + 1}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default CreateCourseProgress;

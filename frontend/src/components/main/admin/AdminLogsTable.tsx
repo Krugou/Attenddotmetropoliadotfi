@@ -18,7 +18,7 @@ const AdminLogsTable = ({
           : t('admin.logs.title')}
       </h1>
 
-      <div className='flex flex-col items-center justify-center w-full p-3 mb-4 rounded-lg shadow-sm sm:p-4 bg-metropoliaSupportWhite'>
+      <div className='flex flex-col items-center justify-center w-full p-3 mb-4 rounded-lg shadow-xs sm:p-4 bg-metropolia-support-white'>
         <div className='flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4'>
           <button
             onClick={handleShowMore}
@@ -41,7 +41,7 @@ const AdminLogsTable = ({
         </div>
       </div>
 
-      <div className='flex-grow'>
+      <div className='grow'>
         {logs.length === 0 ? (
           <p className='py-8 text-center text-gray-600'>
             {logType === 'error'
@@ -50,7 +50,7 @@ const AdminLogsTable = ({
           </p>
         ) : (
           <>
-            <h2 className='p-3 mb-4 text-base text-white rounded-lg shadow-sm sm:p-4 bg-slate-500 sm:text-lg'>
+            <h2 className='p-3 mb-4 text-base text-white rounded-lg shadow-xs sm:p-4 bg-slate-500 sm:text-lg'>
               {logType === 'error'
                 ? t('admin.logs.errorLogsLabel')
                 : t('admin.logs.logsLabel')}
@@ -63,7 +63,7 @@ const AdminLogsTable = ({
                   return (
                     <div
                       key={index}
-                      className='flex flex-col justify-between p-3 text-black transition-colors duration-200 bg-white border rounded-lg shadow-sm sm:p-4 hover:bg-gray-50'>
+                      className='flex flex-col justify-between p-3 text-black transition-colors duration-200 bg-white border rounded-lg shadow-xs sm:p-4 hover:bg-gray-50'>
                       <div
                         className={`flex flex-col sm:flex-row ${
                           parsedLog.useremail

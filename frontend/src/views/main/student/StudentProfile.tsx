@@ -40,7 +40,7 @@ const StudentProfile: React.FC = () => {
         </p>
       </div>
       <button
-        className='px-4 py-2 mt-4 text-white transition rounded bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+        className='px-4 py-2 mt-4 text-white transition rounded-sm bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
         onClick={() => navigate('/student/courses')}>
         {t('student.profile.myCourses')}
       </button>

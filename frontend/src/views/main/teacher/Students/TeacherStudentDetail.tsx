@@ -66,7 +66,7 @@ const TeacherStudentDetail: React.FC = () => {
   const token = localStorage.getItem('userToken');
   const [showEndedCourses, setShowEndedCourses] = useState(false);
   const location = useLocation();
-  const { fromCourseId, fromStats } = location.state || {};
+  const {fromCourseId, fromStats} = location.state || {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -188,7 +188,7 @@ const TeacherStudentDetail: React.FC = () => {
         {/* @ts-ignore */}
         <ProfileInfo user={student} />
 
-        <div className='w-full h-1 mt-5 rounded-md bg-metropoliaMainOrange'></div>
+        <div className='w-full h-1 mt-5 rounded-md bg-metropolia-main-orange'></div>
         <h2 className='mt-5 mb-5 text-2xl font-heading'>
           {student.first_name + ' ' + student.last_name}'s Courses
         </h2>

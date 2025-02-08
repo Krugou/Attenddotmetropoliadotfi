@@ -9,7 +9,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({disabled}) => (
     <button
       type='submit'
       disabled={disabled}
-      className={`mt-5 mb-2 p-2 w-fit bg-metropoliaTrendGreen hover:bg-green-600 transition text-white rounded-md ${
+      className={`mt-5 mb-2 p-2 w-fit bg-metropolia-trend-green hover:bg-green-600 transition text-white rounded-md ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}>
       Add New User

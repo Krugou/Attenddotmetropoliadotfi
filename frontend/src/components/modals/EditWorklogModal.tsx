@@ -54,51 +54,51 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
   return (
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
       <div className='p-6'>
-        <h2 className='mb-4 text-xl font-heading text-metropoliaMainOrange'>
+        <h2 className='mb-4 text-xl font-heading text-metropolia-main-orange'>
           {t('worklog.edit.title')}
         </h2>
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div>
-            <label className='block mb-1 text-sm text-metropoliaMainGrey'>
+            <label className='block mb-1 text-sm text-metropolia-main-grey'>
               {t('worklog.entries.startTime')}
             </label>
             <input
               type='datetime-local'
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
-              className='w-full p-2 border rounded'
+              className='w-full p-2 border rounded-sm'
             />
           </div>
           <div>
-            <label className='block mb-1 text-sm text-metropoliaMainGrey'>
+            <label className='block mb-1 text-sm text-metropolia-main-grey'>
               {t('worklog.entries.endTime')}
             </label>
             <input
               type='datetime-local'
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              className='w-full p-2 border rounded'
+              className='w-full p-2 border rounded-sm'
             />
           </div>
           <div>
-            <label className='block mb-1 text-sm text-metropoliaMainGrey'>
+            <label className='block mb-1 text-sm text-metropolia-main-grey'>
               {t('worklog.entries.description')}
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className='w-full p-2 border rounded'
+              className='w-full p-2 border rounded-sm'
               rows={3}
             />
           </div>
           <div>
-            <label className='block mb-1 text-sm text-metropoliaMainGrey'>
+            <label className='block mb-1 text-sm text-metropolia-main-grey'>
               {t('teacher.worklog.entries.status')}
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(Number(e.target.value))}
-              className='w-full p-2 border rounded'>
+              className='w-full p-2 border rounded-sm'>
               <option value={1}>{t('teacher.worklog.status.1')}</option>
               <option value={2}>{t('teacher.worklog.status.2')}</option>
             </select>
@@ -107,12 +107,12 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
             <button
               type='button'
               onClick={onClose}
-              className='px-4 py-2 text-sm text-gray-600 border rounded hover:bg-gray-50'>
+              className='px-4 py-2 text-sm text-gray-600 border rounded-sm hover:bg-gray-50'>
               {t('common.cancel')}
             </button>
             <button
               type='submit'
-              className='px-4 py-2 text-sm text-white rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrange/90'>
+              className='px-4 py-2 text-sm text-white rounded-sm bg-metropolia-main-orange hover:bg-metropolia-main-orange/90'>
               {t('common.save')}
             </button>
           </div>

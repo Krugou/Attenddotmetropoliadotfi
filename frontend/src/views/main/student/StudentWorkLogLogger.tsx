@@ -185,15 +185,15 @@ const StudentWorkLogLogger: React.FC = () => {
     px-6 py-2 rounded-lg text-lg m-3
     font-body font-medium text-white
     transition-all duration-200
-    focus:outline-none focus:ring-2 focus:ring-offset-2
+    focus:outline-hidden focus:ring-2 focus:ring-offset-2
   `;
 
   return (
     <div className='flex items-center justify-center min-h-[50vh] bg-white rounded-xl'>
-      <div className='flex flex-col gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm'>
+      <div className='flex flex-col gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-xs'>
         <div className='flex flex-col gap-2'>
           {activeCourse ? (
-            <div className='p-2 border rounded font-body'>
+            <div className='p-2 border rounded-sm font-body'>
               <div className='font-medium'>{activeCourse.course.name}</div>
               <div className='text-sm text-gray-500'>
                 {activeCourse.course.code}
@@ -203,7 +203,7 @@ const StudentWorkLogLogger: React.FC = () => {
             <select
               value={selectedCourse || ''}
               onChange={handleCourseChange}
-              className='p-2 border rounded font-body'>
+              className='p-2 border rounded-sm font-body'>
               <option value='' disabled>
                 {t('worklog.selectCourse')}
               </option>
@@ -224,9 +224,9 @@ const StudentWorkLogLogger: React.FC = () => {
             ${
               hasActiveEntry
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
             }
-            focus:ring-metropoliaMainOrange`}
+            focus:ring-metropolia-main-orange`}
           aria-label={t('worklog.clockIn')}>
           <LoginIcon />
           <span>{t('worklog.actions.in')}</span>
@@ -239,9 +239,9 @@ const StudentWorkLogLogger: React.FC = () => {
             ${
               !hasActiveEntry
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-metropoliaSupportRed hover:bg-metropoliaSupportSecondaryRed'
+                : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
             }
-            focus:ring-metropoliaSupportRed`}
+            focus:ring-metropolia-support-red`}
           aria-label={t('worklog.clockOut')}>
           <LogoutIcon />
           <span>{t('worklog.actions.out')}</span>
@@ -250,8 +250,8 @@ const StudentWorkLogLogger: React.FC = () => {
         <button
           onClick={handleEdit}
           className={`${buttonBaseStyle}
-            bg-metropoliaTrendGreen hover:bg-metropoliaTrendGreen/80
-            focus:ring-metropoliaTrendGreen`}
+            bg-metropolia-trend-green hover:bg-metropolia-trend-green/80
+            focus:ring-metropolia-trend-green`}
           aria-label={t('worklog.edit')}>
           <EditIcon />
           <span>{t('worklog.actions.edit')}</span>
@@ -292,7 +292,7 @@ const StudentWorkLogLogger: React.FC = () => {
             </button>
             <button
               onClick={handleCloseModal}
-              className='px-4 py-2 bg-gray-300 rounded hover:bg-gray-400'>
+              className='px-4 py-2 bg-gray-300 rounded-sm hover:bg-gray-400'>
               {t('common.cancel')}
             </button>
           </div>

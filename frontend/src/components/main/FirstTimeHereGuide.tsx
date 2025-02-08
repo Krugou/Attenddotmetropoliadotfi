@@ -61,15 +61,15 @@ const FirstTimeHereGuide: React.FC<FirstTimeHereGuideProps> = ({
       role='alert'
       aria-live='polite'
       className={`${getPositionClasses()} max-w-md w-40`}>
-      <div className='p-4 rounded-lg shadow-lg bg-metropoliaSupportWhite dark:bg-metropoliaMainGrey'>
+      <div className='p-4 rounded-lg shadow-lg bg-metropolia-support-white dark:bg-metropolia-main-grey'>
         <button
           onClick={handleClose}
           aria-label={t('common.close', 'Close')}
-          className='absolute p-2 rounded-full text-metropoliaMainGrey dark:text-metropoliaSupportWhite top-2 right-2 hover:bg-metropoliaMainGrey/10 dark:hover:bg-metropoliaSupportWhite/10'>
+          className='absolute p-2 rounded-full text-metropolia-main-grey dark:text-metropolia-support-white top-2 right-2 hover:bg-metropolia-main-grey/10 dark:hover:bg-metropolia-support-white/10'>
           <span aria-hidden='true'>&times;</span>
         </button>
         <div className='w-full p-2'>
-          <p className='break-words text-metropoliaMainGrey dark:text-metropoliaSupportWhite font-body'>
+          <p className='break-words text-metropolia-main-grey dark:text-metropolia-support-white font-body'>
             {message}
           </p>
         </div>

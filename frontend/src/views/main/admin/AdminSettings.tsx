@@ -92,7 +92,7 @@ const AdminSettings = () => {
   if (!settings) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <div className='w-12 h-12 border-4 border-t-4 rounded-full border-metropoliaMainOrange animate-spin'></div>
+        <div className='w-12 h-12 border-4 border-t-4 rounded-full border-metropolia-main-orange animate-spin'></div>
       </div>
     );
   }
@@ -101,7 +101,7 @@ const AdminSettings = () => {
     <div className='container max-w-4xl p-4 mx-auto my-8 bg-white rounded-lg shadow-lg md:p-8'>
       <div className='grid gap-6'>
         <div>
-          <h1 className='mb-4 text-2xl font-heading text-metropoliaMainOrange md:text-3xl'>
+          <h1 className='mb-4 text-2xl font-heading text-metropolia-main-orange md:text-3xl'>
             {t('admin.settings.serverSettings')}
           </h1>
           <p className='mb-6 text-gray-600 font-body'>
@@ -120,7 +120,7 @@ const AdminSettings = () => {
         )}
 
         <div>
-          <h2 className='mb-4 text-xl font-heading text-metropoliaMainGrey'>
+          <h2 className='mb-4 text-xl font-heading text-metropolia-main-grey'>
             {t('admin.settings.currentSettings')}:
           </h2>
           <div className='space-y-3 text-gray-700 font-body'>
@@ -172,7 +172,7 @@ const AdminSettings = () => {
               value={speedofhash}
               onChange={(e) => setSpeedofhash(Number(e.target.value))}
               step='100'
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:border-transparent'
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:border-transparent'
             />
           </div>
 
@@ -184,7 +184,7 @@ const AdminSettings = () => {
               type='number'
               value={leewayspeed}
               onChange={(e) => setLeewayspeed(Number(e.target.value))}
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:border-transparent'
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:border-transparent'
             />
           </div>
 
@@ -197,7 +197,7 @@ const AdminSettings = () => {
               value={timeouttime}
               onChange={(e) => setTimeouttime(Number(e.target.value))}
               step='60000'
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:border-transparent'
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:border-transparent'
             />
           </div>
 
@@ -209,7 +209,7 @@ const AdminSettings = () => {
               type='number'
               value={attendancethreshold}
               onChange={(e) => setAttendancethreshold(Number(e.target.value))}
-              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:border-transparent'
+              className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:border-transparent'
             />
           </div>
         </div>
@@ -221,7 +221,7 @@ const AdminSettings = () => {
             ${
               validationErrors.length > 0
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-metropoliaMainOrange hover:bg-metropoliaMainOrange/90 focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:ring-offset-2'
+                : 'bg-metropolia-main-orange hover:bg-metropolia-main-orange/90 focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:ring-offset-2'
             }`}>
           {t('admin.settings.updateSettings')}
         </button>

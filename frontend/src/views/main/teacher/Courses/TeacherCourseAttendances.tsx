@@ -109,7 +109,7 @@ const TeacherCourseAttendances: React.FC = () => {
       <div className='flex justify-center m-4 '>
         <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4'>
           <div className='w-full sm:w-1/2 lg:w-1/3'>
-            <h2 className='p-2 text-center text-white bg-metropoliaSecondaryOrange'>
+            <h2 className='p-2 text-center text-white bg-metropolia-secondary-orange'>
               {t('teacher.courseAttendances.search.heading')}
             </h2>
             <Calendar
@@ -147,7 +147,7 @@ const TeacherCourseAttendances: React.FC = () => {
                   title={t('teacher.courseAttendances.buttons.printPdf')}>
                   <button
                     onClick={handlePrintToPdf}
-                    className='p-2 text-white rounded bg-metropoliaMainOrange'
+                    className='p-2 text-white rounded-sm bg-metropolia-main-orange'
                     title={t('teacher.courseAttendances.buttons.printPdf')}>
                     <PrintIcon fontSize='large' />
                   </button>
@@ -160,7 +160,7 @@ const TeacherCourseAttendances: React.FC = () => {
                   </h2>
                   {user?.role !== 'student' && (
                     <button
-                      className='p-2 m-2 text-white rounded bg-metropoliaMainOrange'
+                      className='p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
                       onClick={handleToggleOwnAttendances}>
                       {t(
                         `teacher.courseAttendances.buttons.toggleView.${
@@ -174,7 +174,7 @@ const TeacherCourseAttendances: React.FC = () => {
                   title={t('teacher.courseAttendances.buttons.exportExcel')}>
                   <button
                     onClick={handleExportToExcel}
-                    className='p-2 text-white rounded bg-metropoliaMainOrange'
+                    className='p-2 text-white rounded-sm bg-metropolia-main-orange'
                     title={t('teacher.courseAttendances.buttons.exportExcel')}>
                     <GetAppIcon fontSize='large' />
                   </button>
@@ -191,7 +191,7 @@ const TeacherCourseAttendances: React.FC = () => {
             <div className='flex flex-col items-center justify-center'>
               {user?.role !== 'student' && (
                 <button
-                  className='w-1/2 p-2 m-2 text-white rounded bg-metropoliaMainOrange'
+                  className='w-1/2 p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
                   onClick={handleToggleOwnAttendances}>
                   {t(
                     `teacher.courseAttendances.buttons.toggleView.${

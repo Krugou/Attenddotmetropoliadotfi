@@ -42,7 +42,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
                   : 'bg-white hover:bg-gray-50'
               }`}>
             {lecture.attended === 0 && (
-              <div className="mb-4 text-sm text-metropoliaSupportRed font-heading">
+              <div className='mb-4 text-sm text-metropolia-support-red font-heading'>
                 Warning: This lecture might have failed as it has 0 attendees
               </div>
             )}
@@ -81,11 +81,11 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
                   {t('teacher.lectures.table.headers.attendance')}
                 </span>
                 <div>
-                  <span className='font-bold text-metropoliaTrendGreen'>
+                  <span className='font-bold text-metropolia-trend-green'>
                     {lecture.attended}
                   </span>
                   <span className='mx-1 text-gray-400'>/</span>
-                  <span className='font-bold text-metropoliaSupportRed'>
+                  <span className='font-bold text-metropolia-support-red'>
                     {lecture.notattended}
                   </span>
                 </div>
@@ -116,8 +116,8 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
                   lecture.state === 'open' &&
                   new Date(lecture.start_date).getTime() <
                     Date.now() - 24 * 60 * 60 * 1000
-                    ? 'bg-red-100 text-metropoliaSupportRed'
-                    : 'bg-green-100 text-metropoliaTrendGreen'
+                    ? 'bg-red-100 text-metropolia-support-red'
+                    : 'bg-green-100 text-metropolia-trend-green'
                 }`}>
                 {lecture.state}
               </span>

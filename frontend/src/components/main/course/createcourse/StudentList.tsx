@@ -136,7 +136,7 @@ const StudentList = ({studentList, setStudentList}) => {
               ? t('teacher.studentList.buttons.showAllColumns')
               : t('teacher.studentList.buttons.hideExtraColumns')
           }
-          className='p-1 bg-metropoliaMainOrange text-sm text-white transition font-heading rounded-xl hover:bg-metropoliaSecondaryOrange focus:outline-none mb-4 sticky top-0 left-0'
+          className='p-1 bg-metropolia-main-orange text-sm text-white transition font-heading rounded-xl hover:bg-metropolia-secondary-orange focus:outline-hidden mb-4 sticky top-0 left-0'
           onClick={(event) => {
             event.preventDefault();
             toggleExtraColumns();
@@ -160,7 +160,7 @@ const StudentList = ({studentList, setStudentList}) => {
                               aria-label={t(
                                 'teacher.studentList.aria.sortColumn',
                               )}
-                              className='ml-2 bg-metropoliaMainOrange text-sm text-white font-heading transition rounded hover:bg-metropoliaMainOrangeDark focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrangeDark p-1'
+                              className='ml-2 bg-metropolia-main-orange text-sm text-white font-heading transition rounded-sm hover:bg-metropolia-main-orangeDark focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orangeDark p-1'
                               onClick={sortStudents}>
                               <SortIcon />
                             </button>
@@ -181,7 +181,7 @@ const StudentList = ({studentList, setStudentList}) => {
                     className={`border ${
                       lockedFields[index]
                         ? ''
-                        : 'bg-metropoliaMainGrey bg-opacity-50  '
+                        : 'bg-metropolia-main-grey bg-opacity-50  '
                     }`}>
                     {Object.entries(student).map(
                       ([key, value], innerIndex) =>
@@ -252,7 +252,7 @@ const StudentList = ({studentList, setStudentList}) => {
           </table>
         </div>
         <button
-          className='p-1 mt-2 text-sm sticky top-0 left-0 bg-metropoliaMainOrange text-white font-heading rounded-xl hover:bg-metropoliaSecondaryOrange focus:outline-none mb-4'
+          className='p-1 mt-2 text-sm sticky top-0 left-0 bg-metropolia-main-orange text-white font-heading rounded-xl hover:bg-metropolia-secondary-orange focus:outline-hidden mb-4'
           onClick={(event) => addStudent(event)}>
           {t('teacher.studentList.buttons.addStudent')}
         </button>

@@ -182,7 +182,7 @@ const TeacherWorklogCourseGroupStats = () => {
       </div>
 
       {/* Here strats the groups stats summary  */}
-      <div className='mb-8 bg-white rounded-lg shadow'>
+      <div className='mb-8 bg-white rounded-lg shadow-sm'>
         <Accordion >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -257,7 +257,7 @@ const TeacherWorklogCourseGroupStats = () => {
       {/* here is the users own hour stats in piechart and numbers */}
       <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {students.map((student, index) => (
-          <div key={index} className='p-6 bg-white rounded-lg shadow'>
+          <div key={index} className='p-6 bg-white rounded-lg shadow-sm'>
             <h3 className='mb-4 text-lg text-center font-heading'>
               {student.name}
             </h3>

@@ -7,7 +7,9 @@ interface InputFieldProps {
   type: string;
   name: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   disabled?: boolean;
   placeholder?: string;
   rows?: number;
@@ -28,7 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({
   disabled = false,
   placeholder = '',
   rows = 4,
-  className = 'w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+  className = 'w-full p-2 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange',
 }) => (
   <>
     <label className='mb-2 font-heading text-gray-900' htmlFor={name}>

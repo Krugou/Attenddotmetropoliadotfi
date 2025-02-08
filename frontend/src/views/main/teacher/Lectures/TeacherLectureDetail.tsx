@@ -131,7 +131,7 @@ const TeacherLectureDetail = () => {
           {lecture?.state === 'open' && (
             <button
               onClick={handleClose}
-              className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropoliaTrendGreen hover:bg-green-700'>
+              className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-trend-green hover:bg-green-700'>
               {t('teacher.lectures.details.closeLecture')}
             </button>
           )}
@@ -145,7 +145,7 @@ const TeacherLectureDetail = () => {
 
       <div className='p-6 '>
         {lecture.attended === 0 && (
-          <div className='mb-4 text-sm text-metropoliaSupportRed font-heading'>
+          <div className='mb-4 text-sm text-metropolia-support-red font-heading'>
             {t('teacher.lectures.details.warning')}
           </div>
         )}
@@ -183,11 +183,11 @@ const TeacherLectureDetail = () => {
                 {t('teacher.lectures.details.attendance')}
               </span>
               <div>
-                <span className='font-bold text-metropoliaTrendGreen'>
+                <span className='font-bold text-metropolia-trend-green'>
                   {lecture.attended}
                 </span>
                 <span className='mx-1 text-gray-400'>/</span>
-                <span className='font-bold text-metropoliaSupportRed'>
+                <span className='font-bold text-metropolia-support-red'>
                   {lecture.notattended}
                 </span>
               </div>
@@ -217,8 +217,8 @@ const TeacherLectureDetail = () => {
                 lecture.state === 'open' &&
                 new Date(lecture.start_date).getTime() <
                   Date.now() - 24 * 60 * 60 * 1000
-                  ? 'bg-red-100 text-metropoliaSupportRed'
-                  : 'bg-green-100 text-metropoliaTrendGreen'
+                  ? 'bg-red-100 text-metropolia-support-red'
+                  : 'bg-green-100 text-metropolia-trend-green'
               }`}>
               {lecture.state}
             </span>

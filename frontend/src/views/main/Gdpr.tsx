@@ -51,7 +51,7 @@ const Gdpr = () => {
     <div>
       <div className='flex flex-col items-center justify-center w-full'>
         {user?.gdpr === 0 ? (
-          <div className='p-6 m-4 bg-white rounded max-h-[30em] overflow-y-scroll shadow-md w-full flex flex-col gap-5 sm:w-3/4 md:w-1/2 2xl:w-1/4 xl:w-1/3'>
+          <div className='p-6 m-4 bg-white rounded-sm max-h-[30em] overflow-y-scroll shadow-md w-full flex flex-col gap-5 sm:w-3/4 md:w-1/2 2xl:w-1/4 xl:w-1/3'>
             <h2 className='mb-5 text-xl font-semibold'>
               Metropolia Attendance App - GDPR Privacy Policy
             </h2>
@@ -184,13 +184,13 @@ const Gdpr = () => {
               <button
                 onClick={handleDecline}
                 type='button'
-                className='px-4 py-2 text-white bg-red-500 rounded hover:bg-red-700'>
+                className='px-4 py-2 text-white bg-red-500 rounded-sm hover:bg-red-700'>
                 Decline
               </button>
               <button
                 type='button'
                 onClick={handleAccept}
-                className='px-4 py-2 text-white rounded bg-metropoliaTrendGreen hover:bg-green-700'>
+                className='px-4 py-2 text-white rounded-sm bg-metropolia-trend-green hover:bg-green-700'>
                 Accept
               </button>
             </div>

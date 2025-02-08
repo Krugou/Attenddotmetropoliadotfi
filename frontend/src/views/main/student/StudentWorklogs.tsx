@@ -135,7 +135,7 @@ const StudentWorklogs: React.FC = () => {
 
   return (
     <div className='container px-4 py-8 mx-auto'>
-      <h1 className='mb-6 text-2xl font-heading text-metropoliaMainOrange'>
+      <h1 className='mb-6 text-2xl font-heading text-metropolia-main-orange'>
         {t('worklog.entries.title')}
       </h1>
 
@@ -163,17 +163,19 @@ const StudentWorklogs: React.FC = () => {
 
             <div className='p-4 pt-10 mt-6'>
               <div className='flex items-center justify-between mb-4'>
-                <div className='text-lg font-semibold text-metropoliaMainGrey'>
+                <div className='text-lg font-semibold text-metropolia-main-grey'>
                   {entry.course?.name} - {entry.course?.code}
                 </div>
-                <div className='text-sm text-metropoliaMainGrey'>
+                <div className='text-sm text-metropolia-main-grey'>
                   {dayjs(entry.start_time).format('YYYY-MM-DD')}
                 </div>
               </div>
 
               <div className='space-y-2'>
                 <div className='flex justify-between'>
-                  <span className='text-sm text-metropoliaMainGrey'>Time:</span>
+                  <span className='text-sm text-metropolia-main-grey'>
+                    Time:
+                  </span>
                   <span className='text-sm font-medium'>
                     {dayjs(entry.start_time).format('HH:mm')} -{' '}
                     {dayjs(entry.end_time).format('HH:mm')}
@@ -181,7 +183,7 @@ const StudentWorklogs: React.FC = () => {
                 </div>
 
                 <div className='flex justify-between'>
-                  <span className='text-sm text-metropoliaMainGrey'>
+                  <span className='text-sm text-metropolia-main-grey'>
                     Duration:
                   </span>
                   <span className='text-sm font-medium'>
@@ -190,13 +192,13 @@ const StudentWorklogs: React.FC = () => {
                 </div>
 
                 <div className='pt-2 mt-2 border-t'>
-                  <p className='text-sm text-metropoliaMainGrey line-clamp-2'>
+                  <p className='text-sm text-metropolia-main-grey line-clamp-2'>
                     {entry.description}
                   </p>
                 </div>
 
                 <div className='flex items-center justify-between pt-2 mt-2 border-t'>
-                  <span className='text-sm text-metropoliaMainGrey'>
+                  <span className='text-sm text-metropolia-main-grey'>
                     Status:
                   </span>
                   <span className={statusClass(entry.status)}>
@@ -219,7 +221,7 @@ const StudentWorklogs: React.FC = () => {
         onSave={handleSaveEdit}
       />
 
-      <div className='mt-4 text-sm text-metropoliaMainGrey'>
+      <div className='mt-4 text-sm text-metropolia-main-grey'>
         {t('worklog.entries.total')}: {entries.length}{' '}
         {t('worklog.entries.entries')}
       </div>

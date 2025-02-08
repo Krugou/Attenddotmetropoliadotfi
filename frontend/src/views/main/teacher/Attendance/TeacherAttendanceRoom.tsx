@@ -334,7 +334,7 @@ const AttendanceRoom: React.FC = () => {
       ) : (
         <div
           className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 bg-gray-100 ${
-            lectureSuccess ? 'border-metropoliaTrendGreen border-2' : ''
+            lectureSuccess ? 'border-metropolia-trend-green border-2' : ''
           }`}>
           <div className='flex flex-col items-center justify-between sm:flex-row'>
             <h1 className='text-2xl font-heading'>
@@ -349,7 +349,7 @@ const AttendanceRoom: React.FC = () => {
             </h1>
             <div className='flex flex-row justify-end'>
               <button
-                className='bg-metropoliaSupportRed sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded'
+                className='bg-metropolia-support-red sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
                 onClick={() => {
                   navigate(`/teacher/attendance/reload/${lectureid}`);
                 }}
@@ -360,10 +360,10 @@ const AttendanceRoom: React.FC = () => {
                 <button
                   className={`flex items-center justify-center p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
                     latency < 100
-                      ? 'bg-metropoliaTrendGreen hover:bg-green-600'
+                      ? 'bg-metropolia-trend-green hover:bg-green-600'
                       : latency < 300
                       ? 'bg-yellow-500 hover:bg-yellow-600'
-                      : 'bg-metropoliaSupportRed hover:bg-red-600'
+                      : 'bg-metropolia-support-red hover:bg-red-600'
                   }`}
                   title={`Connection latency: ${latency}ms`}
                   onClick={() => setDialogOpen(true)}>
@@ -399,31 +399,31 @@ const AttendanceRoom: React.FC = () => {
               />
             </div>
             <h2
-              className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropoliaMainOrange rounded-xl'
+              className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropolia-main-orange rounded-xl'
               title={`${arrayOfStudents.length} Attended, ${
                 courseStudents.length
               } Not attended, Total: ${
                 arrayOfStudents.length + courseStudents.length
               }`}>
-              <label className='text-metropoliaTrendGreen'>
+              <label className='text-metropolia-trend-green'>
                 {arrayOfStudents.length}
               </label>
               /
-              <label className='text-metropoliaSupportRed'>
+              <label className='text-metropolia-support-red'>
                 {courseStudents.length}
               </label>{' '}
             </h2>
           </div>
           <div className='flex flex-col items-center justify-end gap-5 sm:flex-row-reverse'>
             <button
-              className='w-full p-2 mt-4 text-sm text-white transition rounded font-heading bg-metropoliaSupportRed sm:w-fit h-fit hover:bg-red-500'
+              className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-support-red sm:w-fit h-fit hover:bg-red-500'
               onClick={() => setConfirmOpen(true)}
               title='Delete this lecture'>
               Cancel Lecture
             </button>
             <button
               onClick={handleLectureFinished}
-              className='w-full p-2 mt-4 text-sm text-white transition rounded font-heading bg-metropoliaMainOrange sm:w-fit h-fit hover:bg-metropoliaSecondaryOrange'
+              className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
               title='Finish Lecture and set rest of bottom list of students to not attended'>
               Finish Lecture
             </button>

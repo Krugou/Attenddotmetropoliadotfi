@@ -329,7 +329,7 @@ const AdminLectures: React.FC = () => {
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className='px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50'>
+            className='px-3 py-1 text-white rounded-sm bg-metropolia-main-orange disabled:opacity-50'>
             Previous
           </button>
         )}
@@ -339,7 +339,7 @@ const AdminLectures: React.FC = () => {
         <button
           onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           disabled={currentPage === totalPages}
-          className='px-3 py-1 text-white rounded bg-metropoliaMainOrange disabled:opacity-50'>
+          className='px-3 py-1 text-white rounded-sm bg-metropolia-main-orange disabled:opacity-50'>
           Next
         </button>
       </div>
@@ -365,7 +365,7 @@ const AdminLectures: React.FC = () => {
         <div className='flex justify-between gap-3'>
           <button
             onClick={() => setFilterOpen(!filterOpen)}
-            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+            className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
             {filterOpen
               ? t('admin.lectures.alternative.showAllLectures')
               : t('admin.lectures.alternative.showOpenLecture')}
@@ -373,7 +373,7 @@ const AdminLectures: React.FC = () => {
           {!(filterOpen && openLectures.length === 0) && (
             <button
               onClick={handleMenuOpen}
-              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
               <ViewColumnIcon className='w-5 h-5 mr-1' />
               {t('admin.lectures.alternative.columns')}
             </button>
@@ -382,7 +382,7 @@ const AdminLectures: React.FC = () => {
           {!filterOpen && (
             <button
               onClick={() => setExtraStats(!extraStats)}
-              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
               {extraStats
                 ? t('admin.lectures.alternative.hideStats')
                 : t('admin.lectures.alternative.showStats')}
@@ -393,7 +393,7 @@ const AdminLectures: React.FC = () => {
           <div className='flex gap-2 group'>
             <button
               onClick={toggleSortOrder}
-              className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
               aria-label={
                 sortOrder === 'asc'
                   ? t('admin.lectures.alternative.sortByNewest')
@@ -408,7 +408,7 @@ const AdminLectures: React.FC = () => {
             </button>
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className='p-2 text-white transition-colors rounded bg-metropoliaMainOrange hover:bg-metropoliaMainOrange/90'
+              className='p-2 text-white transition-colors rounded-sm bg-metropolia-main-orange hover:bg-metropolia-main-orange/90'
               aria-label={
                 isExpanded
                   ? t('admin.lectures.alternative.shrinkTable')
@@ -428,14 +428,14 @@ const AdminLectures: React.FC = () => {
       {/* Render stats */}
       {lectures.length > 0 && extraStats && !filterOpen && (
         <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2'>
-          <div className='p-2 bg-blue-100 rounded col-span-full'>
+          <div className='p-2 bg-blue-100 rounded-sm col-span-full'>
             <h2 className='mb-2 text-lg'>
               {t('admin.lectures.stats.totalLectures')}: {totalLectures} |{' '}
               {t('admin.lectures.stats.attendanceRatio')}:{' '}
               {attendanceRatio.toFixed(2)}%
             </h2>
           </div>
-          <div className='p-2 bg-green-100 rounded'>
+          <div className='p-2 bg-green-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
               {t('admin.lectures.stats.highestAttendance')}:
               {highestAttendedLectures.map((lecture) => (
@@ -445,7 +445,7 @@ const AdminLectures: React.FC = () => {
               ))}
             </h2>
           </div>
-          <div className='p-2 bg-red-100 rounded'>
+          <div className='p-2 bg-red-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
               {t('admin.lectures.stats.lowestAttendance')}:
               {lowestAttendedLectures.map((lecture) => (
@@ -455,7 +455,7 @@ const AdminLectures: React.FC = () => {
               ))}
             </h2>
           </div>
-          <div className='p-2 bg-yellow-100 rounded'>
+          <div className='p-2 bg-yellow-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
               {' '}
               {t('admin.lectures.stats.highestNotAttended')}
@@ -466,7 +466,7 @@ const AdminLectures: React.FC = () => {
               ))}
             </h2>
           </div>
-          <div className='p-2 bg-purple-100 rounded'>
+          <div className='p-2 bg-purple-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
               {t('admin.lectures.stats.lowestNotAttended')}:
               {lowestNotAttendedLectures.map((lecture) => (
@@ -518,7 +518,7 @@ const AdminLectures: React.FC = () => {
                           {label}
                           <button
                             onClick={() => sortLectures(key as keyof Lecture)}
-                            className='p-1.5 text-white rounded-xl bg-metropoliaSecondaryOrange hover:bg-metropoliaMainOrange'>
+                            className='p-1.5 text-white rounded-xl bg-metropolia-secondary-orange hover:bg-metropolia-main-orange'>
                             <SortIcon className='w-4 h-4' />
                           </button>
                         </div>
@@ -555,7 +555,7 @@ const AdminLectures: React.FC = () => {
                               lecture.lectureid.toString(),
                             )
                           }
-                          className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaMainOrange h-fit hover:hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                          className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
                           {t('admin.common.details')}
                         </button>
                         {lecture.state === 'open' && (
@@ -567,7 +567,7 @@ const AdminLectures: React.FC = () => {
                                 'close',
                               )
                             }
-                            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaTrendGreen h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                            className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-trend-green h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
                             {t('admin.common.close')}
                           </button>
                         )}
@@ -581,7 +581,7 @@ const AdminLectures: React.FC = () => {
                                 'delete',
                               )
                             }
-                            className='px-2 py-1 text-white transition rounded font-heading bg-metropoliaSupportRed h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline'>
+                            className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-support-red h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
                             {t('admin.common.delete')}
                           </button>
                         )}
@@ -593,7 +593,7 @@ const AdminLectures: React.FC = () => {
             </table>
           ) : (
             <div className='flex items-center justify-center h-full'>
-              <div className='p-8 text-center bg-white rounded-lg shadow-sm'>
+              <div className='p-8 text-center bg-white rounded-lg shadow-xs'>
                 <h3 className='mb-2 text-xl font-semibold text-gray-700 font-heading'>
                   {filterOpen
                     ? t('admin.lectures.noData.noOpenLectures')

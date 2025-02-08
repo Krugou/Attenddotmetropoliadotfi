@@ -67,9 +67,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         throw new Error('Missing required parameters');
       }
 
-
       const list = await apiHooks.getWorkLogStudentsByCourse(courseid, token);
-
 
       const details = await apiHooks.getWorkLogGroupDetails(
         Number(courseid),
@@ -77,21 +75,20 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         token,
       );
 
-
       const studentsWithGroupCheck = await Promise.all(
         list.students.map(async (student) => {
           const existingGroup = await apiHooks.checkStudentExistingGroup(
             student.userid,
             Number(courseid),
-            token
+            token,
           );
-          return { ...student, existingGroup };
-        })
+          return {...student, existingGroup};
+        }),
       );
 
       // Filter out students who are already in any group
       const availableStudents = studentsWithGroupCheck.filter(
-        (student) => !student.existingGroup
+        (student) => !student.existingGroup,
       );
 
       setStudentList(availableStudents);
@@ -144,12 +141,12 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       <div className='mb-6'>
         <Link
           to={`/teacher/worklog/course/${courseid}`}
-          className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 rounded-lg bg-metropoliaMainOrange hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-metropoliaMainOrange font-body'>
+          className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 rounded-lg bg-metropolia-main-orange hover:bg-opacity-90 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange font-body'>
           {t('teacher.worklog.detail.backToWorklog')}
         </Link>
       </div>
 
-      <div className='p-6 mb-8 bg-white rounded-lg shadow'>
+      <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
         <h1 className='mb-4 text-3xl font-heading'>
           {groupDetails.group.group_name}
         </h1>
@@ -172,19 +169,19 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       </div>
 
       <div className='grid gap-4 mb-8 md:grid-cols-3'>
-        <div className='p-6 bg-white rounded-lg shadow'>
+        <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
             {t('teacher.worklog.groups.studentCount', {
               count: groupDetails.students.length,
             })}
           </h3>
         </div>
-        <div className='p-6 bg-white rounded-lg shadow'>
+        <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
             {t('worklog.entries.total')}: {totalHours.toFixed(1)}h
           </h3>
         </div>
-        <div className='p-6 bg-white rounded-lg shadow'>
+        <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
             {t('worklog.entries.entries')}: {groupDetails.entries.length}
           </h3>
@@ -317,8 +314,8 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                 key={student.userid}
                 className={`relative p-3 border rounded-lg cursor-pointer transition-all duration-200 ${
                   selectedStudents.includes(student.userid)
-                    ? 'border-metropoliaMainOrange bg-orange-50'
-                    : 'border-gray-200 hover:border-metropoliaMainOrange/50'
+                    ? 'border-metropolia-main-orange bg-orange-50'
+                    : 'border-gray-200 hover:border-metropolia-main-orange/50'
                 }`}
                 onClick={() => {
                   if (selectedStudents.includes(student.userid)) {
@@ -371,7 +368,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                 handleCloseModal();
               }}
               disabled={selectedStudents.length === 0}
-              className={`px-2 py-1 font-heading text-white transition rounded bg-metropoliaMainOrange h-fit hover:bg-metropoliaSecondaryOrange sm:py-2 sm:px-4 focus:outline-none focus:shadow-outline ${
+              className={`px-2 py-1 font-heading text-white transition rounded bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline ${
                 selectedStudents.length === 0
                   ? 'opacity-50 cursor-not-allowed'
                   : ''

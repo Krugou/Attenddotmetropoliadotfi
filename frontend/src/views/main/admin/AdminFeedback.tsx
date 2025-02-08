@@ -95,14 +95,14 @@ const AdminFeedback = () => {
         {t('admin.feedback.title')}
       </h1>
 
-      <div className='max-w-4xl p-4 mx-auto bg-white rounded-lg shadow-sm sm:p-6'>
+      <div className='max-w-4xl p-4 mx-auto bg-white rounded-lg shadow-xs sm:p-6'>
         <div className='flex flex-col items-center mb-6 space-y-4'>
           <p className='text-lg text-center sm:text-xl font-body'>
             {t('admin.feedback.filterFeedback')}:
           </p>
           <select
             title={t('admin.feedback.topic')}
-            className='w-full p-2 text-base text-white transition-colors duration-200 rounded-lg sm:w-2/3 sm:text-lg font-heading bg-metropoliaTrendGreen hover:bg-metropoliaTrendGreen/90 focus:outline-none focus:ring-2 focus:ring-metropoliaTrendGreen focus:ring-offset-2'
+            className='w-full p-2 text-base text-white transition-colors duration-200 rounded-lg sm:w-2/3 sm:text-lg font-heading bg-metropolia-trend-green hover:bg-metropolia-trend-green/90 focus:outline-hidden focus:ring-2 focus:ring-metropolia-trend-green focus:ring-offset-2'
             onChange={(e) => handleTopicChange(e.target.value)}>
             <option value=''>All</option>
             {feedback &&
@@ -129,11 +129,11 @@ const AdminFeedback = () => {
                 .map((item: FeedbackItem) => (
                   <Accordion
                     key={item.feedbackId}
-                    className='overflow-hidden border rounded-lg border-metropoliaMainOrange/20'
+                    className='overflow-hidden border rounded-lg border-metropolia-main-orange/20'
                     style={{backgroundColor: '#ff5000'}}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon className='text-white' />}
-                      className='hover:bg-metropoliaMainOrange/90'>
+                      className='hover:bg-metropolia-main-orange/90'>
                       <div className='flex flex-col w-full gap-1 pr-4'>
                         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>
                           <Typography className='text-sm text-white sm:text-base font-body'>
@@ -154,7 +154,7 @@ const AdminFeedback = () => {
                       </Typography>
                       <div className='flex justify-end'>
                         <button
-                          className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaSupportRed hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:ring-2 focus:ring-metropoliaSupportRed focus:ring-offset-2'
+                          className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-support-red hover:bg-metropolia-support-secondary-red focus:outline-hidden focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2'
                           onClick={() => handleClickOpen(item.feedbackId)}>
                           {t('admin.common.delete')}
                         </button>
@@ -187,12 +187,12 @@ const AdminFeedback = () => {
           </DialogContent>
           <DialogActions className='p-4'>
             <button
-              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange focus:ring-offset-2'
+              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:ring-offset-2'
               onClick={handleClose}>
               {t('admin.common.cancel')}
             </button>
             <button
-              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropoliaSupportRed hover:bg-metropoliaSupportSecondaryRed focus:outline-none focus:ring-2 focus:ring-metropoliaSupportRed focus:ring-offset-2'
+              className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-support-red hover:bg-metropolia-support-secondary-red focus:outline-hidden focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2'
               onClick={handleConfirmDelete}
               autoFocus>
               {t('admin.common.delete')}

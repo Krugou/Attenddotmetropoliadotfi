@@ -72,7 +72,7 @@ const MainView: React.FC = () => {
             } p-5 justify-center items-center gap-4`}>
             {courses.length === 0 && (
               <div>
-                <div className='flex flex-col items-center gap-1 p-2 rounded-md animate-bounce bg-metropoliaMainOrange md:flex-row'>
+                <div className='flex flex-col items-center gap-1 p-2 rounded-md animate-bounce bg-metropolia-main-orange md:flex-row'>
                   <p className='text-lg text-center text-white'>
                     {t('teacher.mainView.startHere')}
                   </p>

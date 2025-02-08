@@ -153,13 +153,13 @@ const TeacherStudentCourseAttendance: React.FC = () => {
             placeholder={t('teacher.studentAttendances.search.placeholder')}
             value={searchTerm}
             onChange={handleSearchChange}
-            className='md:w-[10em] p-4 m-2 border border-black rounded'
+            className='md:w-[10em] p-4 m-2 border border-black rounded-sm'
           />
           <div className='flex gap-10 md:gap-2'>
             <Tooltip title={t('teacher.studentAttendances.buttons.printPdf')}>
               <button
                 onClick={handleExportToPDF}
-                className='p-2 text-white rounded bg-metropoliaMainOrange'>
+                className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
                 <PrintIcon fontSize='large' />
               </button>
             </Tooltip>
@@ -167,7 +167,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
               title={t('teacher.studentAttendances.buttons.exportExcel')}>
               <button
                 onClick={handleExportToExcel}
-                className='p-2 text-white rounded bg-metropoliaMainOrange'>
+                className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
                 <GetAppIcon fontSize='large' />
               </button>
             </Tooltip>

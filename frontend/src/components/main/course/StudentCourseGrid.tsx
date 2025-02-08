@@ -238,7 +238,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     <ReportIcon style={{color: 'red'}} />
                   </div>
                 )}
-                <h2 className='mb-2 text-lg text-black underline font-heading sm:text-2xl underline-offset-8 decoration-metropoliaMainOrange'>
+                <h2 className='mb-2 text-lg text-black underline font-heading sm:text-2xl underline-offset-8 decoration-metropolia-main-orange'>
                   {course.course_name + ' ' + course.code}
                 </h2>
                 <p className='mb-1'>
@@ -277,8 +277,8 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                   <button
                     className={`mt-4 mr-4 transition font-heading md:text-base text-sm py-2 px-4 rounded ${
                       isCourseEnded
-                        ? 'bg-metropoliaSupportRed hover:bg-red-900'
-                        : 'bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                        ? 'bg-metropolia-support-red hover:bg-red-900'
+                        : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
                     } text-white`}
                     onClick={() =>
                       user?.role === 'student'
@@ -298,8 +298,8 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                       <button
                         className={`mt-4 mr-2 transition md:text-base text-sm md:mr-4 font-heading py-2 px-4 rounded ${
                           isCourseEnded
-                            ? 'bg-metropoliaSupportRed hover:bg-red-900'
-                            : 'bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                            ? 'bg-metropolia-support-red hover:bg-red-900'
+                            : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
                         } text-white`}
                         onClick={() =>
                           handleOpen(
@@ -444,7 +444,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     </div>
                   )}
                   <button
-                    className='px-4 py-2 mt-4 text-white transition rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange'
+                    className='px-4 py-2 mt-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
                     onClick={() => {
                       handleAddStudentToCourse &&
                         handleAddStudentToCourse(selectedCourse?.courseid);

@@ -69,7 +69,7 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
   threshold,
   attendanceStudentData,
   usercourseid,
-  currentCourseId
+  currentCourseId,
 }) => {
   // State to keep track of the fetched data
   const [fetchedData, setFetchedData] = useState<FetchedDataItem | null>(null);
@@ -110,21 +110,21 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
   const navigate = useNavigate();
 
   const handleStudentClick = (studentId: number) => {
-    const targetPath = user?.role === 'admin'
-      ? `/counselor/students/${studentId}`
-      : `/${user?.role}/students/${studentId}`;
+    const targetPath =
+      user?.role === 'admin'
+        ? `/counselor/students/${studentId}`
+        : `/${user?.role}/students/${studentId}`;
 
     navigate(targetPath, {
       state: {
         fromCourseId: currentCourseId,
-        fromStats: true
-      }
+        fromStats: true,
+      },
     });
   };
 
-
   return (
-    <TableContainer className='overflow-x-auto sm:max-h-[30em] h-fit overflow-y-scroll border-gray-300 border-x border-t mt-5 mb-5 rounded-lg shadow'>
+    <TableContainer className='overflow-x-auto sm:max-h-[30em] h-fit overflow-y-scroll border-gray-300 border-x border-t mt-5 mb-5 rounded-lg shadow-sm'>
       <Table className='min-w-full divide-y divide-gray-200'>
         <TableHead className='sticky top-0 z-10 bg-gray-50'>
           <TableRow>
@@ -149,8 +149,7 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
               <TableRow key={i} className='border-b hover:bg-gray-50'>
                 <TableCell
                   className='px-6 py-4 cursor-pointer whitespace-nowrap hover:bg-gray-200'
-                  onClick={() => handleStudentClick(student.userid)}
-                >
+                  onClick={() => handleStudentClick(student.userid)}>
                   {student.name}
                 </TableCell>
                 <TableCell className='px-6 py-4 whitespace-nowrap'>
@@ -169,20 +168,20 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
                         <InfoIcon />
                       </Tooltip>
                     ) : (
-                      <div className='w-[10em] h-4 rounded bg-gray-200 relative'>
+                      <div className='w-[10em] h-4 rounded-sm bg-gray-200 relative'>
                         <div
                           className={`h-full rounded ${
                             item.attendanceCounts[i]?.percentage === 0
-                              ? 'bg-metropoliaSupportRed'
+                              ? 'bg-metropolia-support-red'
                               : threshold !== null
                               ? Number(item.attendanceCounts[i]?.percentage) <=
                                 threshold
                                 ? 'bg-red-200'
-                                : 'bg-metropoliaSupportBlue'
+                                : 'bg-metropolia-support-blue'
                               : Number(item.attendanceCounts[i]?.percentage) <
                                 80
                               ? 'bg-red-200'
-                              : 'bg-metropoliaSupportBlue'
+                              : 'bg-metropolia-support-blue'
                           }`}
                           style={{
                             width:
@@ -217,19 +216,19 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
                     attendanceStudentData.attendance[topic] === undefined ? (
                       'N/A'
                     ) : (
-                      <div className='w-[10em] h-4 rounded bg-gray-200 relative'>
+                      <div className='w-[10em] h-4 rounded-sm bg-gray-200 relative'>
                         <div
                           className={`h-full rounded ${
                             attendanceStudentData.attendance[topic] === 0
-                              ? 'bg-metropoliaSupportRed'
+                              ? 'bg-metropolia-support-red'
                               : threshold !== null
                               ? attendanceStudentData.attendance[topic] <=
                                 threshold
                                 ? 'bg-red-200'
-                                : 'bg-metropoliaSupportBlue'
+                                : 'bg-metropolia-support-blue'
                               : attendanceStudentData.attendance[topic] < 80
                               ? 'bg-red-200'
-                              : 'bg-metropoliaSupportBlue'
+                              : 'bg-metropolia-support-blue'
                           }`}
                           style={{
                             width:

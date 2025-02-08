@@ -198,17 +198,17 @@ const CreateCourseEasy: React.FC = () => {
   const getFormClassName = () => {
     switch (currentStep) {
       case 1:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/5 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/5 mx-auto bg-white p-4 rounded-sm shadow-md';
       case 2:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
       case 3:
-        return 'w-full 2xl:w-2/3 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full 2xl:w-2/3 mx-auto bg-white p-4 rounded-sm shadow-md';
       case 4:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
       case 5:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
       default:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded shadow-md';
+        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
     }
   };
 
@@ -278,7 +278,7 @@ const CreateCourseEasy: React.FC = () => {
             <div className='flex justify-end'>
               <button
                 type='button'
-                className='w-40 p-2 mt-2 text-white rounded font-heading bg-metropoliaMainOrange hover:bg-metropoliaSecondaryOrange focus:outline-none focus:ring-2 focus:ring-metropoliaMainOrange'
+                className='w-40 p-2 mt-2 text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
                 onClick={handleExcelInput}>
                 {t('teacher.createCourseEasy.buttons.next')}
               </button>

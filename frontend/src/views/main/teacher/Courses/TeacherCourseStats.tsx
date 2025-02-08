@@ -230,7 +230,7 @@ const TeacherCourseStats = () => {
           <Tooltip title={t('teacher.courseStats.buttons.printPdf')}>
             <button
               onClick={handlePdfExport}
-              className='p-2 text-white rounded bg-metropoliaMainOrange'>
+              className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
               <PrintIcon fontSize='large' />
             </button>
           </Tooltip>
@@ -258,7 +258,7 @@ const TeacherCourseStats = () => {
           <Tooltip title={t('teacher.courseStats.buttons.exportExcel')}>
             <button
               onClick={handleExcelExport}
-              className='p-2 text-white rounded bg-metropoliaMainOrange'>
+              className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
               <GetAppIcon fontSize='large' />
             </button>
           </Tooltip>

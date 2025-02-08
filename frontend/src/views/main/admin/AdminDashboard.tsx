@@ -46,7 +46,7 @@ const AdminDashboard = () => {
         {t('admin.dashboard.title')}
       </h2>
       <div className='flex flex-col gap-4 md:flex-row'>
-        <nav className='w-full p-4 bg-white border shadow-md md:w-60 rounded-xl border-metropoliaMainGrey/10'>
+        <nav className='w-full p-4 bg-white border shadow-md md:w-60 rounded-xl border-metropolia-main-grey/10'>
           <ul className='space-y-2'>
             {navItems.map((item) => (
               <li key={item.path} className='overflow-hidden rounded-lg'>
@@ -55,8 +55,8 @@ const AdminDashboard = () => {
                   className={` py-3 px-6 transition-all duration-200 ease-in-out flex items-center gap-3
                     ${
                       isActivePath(item.path)
-                        ? 'bg-metropoliaMainGrey text-white shadow-md transform scale-102'
-                        : 'text-metropoliaMainGrey hover:bg-metropoliaMainGrey/10'
+                        ? 'bg-metropolia-main-grey text-white shadow-md transform scale-102'
+                        : 'text-metropolia-main-grey hover:bg-metropolia-main-grey/10'
                     }
                     hover:shadow-md hover:translate-x-1
                   `}>
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
             ))}
           </ul>
         </nav>
-        <main className='flex-grow p-6 transition-all duration-300 ease-in-out bg-white shadow-md rounded-xl hover:shadow-lg'>
+        <main className='grow p-6 transition-all duration-300 ease-in-out bg-white shadow-md rounded-xl hover:shadow-lg'>
           <Routes>
             <Route index element={<AdminGuide />} />
             <Route path='stats' element={<AdminStats />} />

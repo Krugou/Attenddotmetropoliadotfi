@@ -55,12 +55,12 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         <div className='mt-2 bg-white sm:px-6 sm:flex sm:flex-row-reverse'>
           <button
             onClick={onClose}
-            className='inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white transition bg-gray-500 border border-transparent rounded-md shadow-sm hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'>
+            className='inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white transition bg-gray-500 border border-transparent rounded-md shadow-xs hover:bg-white hover:text-black focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'>
             {t('common.deleteModal.buttons.cancel')}
           </button>
           <button
             onClick={onDelete}
-            className='inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-white transition bg-red-700 border border-gray-300 rounded-md shadow-sm hover:text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'>
+            className='inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-white transition bg-red-700 border border-gray-300 rounded-md shadow-xs hover:text-black hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'>
             {t('common.deleteModal.buttons.delete')}
           </button>
         </div>

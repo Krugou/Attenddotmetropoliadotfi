@@ -35,7 +35,7 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
       <div className='flex justify-end'>
         <button
           onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-          className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300'>
+          className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:ring-2 focus:ring-gray-300'>
           {showTechnicalDetails
             ? t('teacher.lectures.table.buttons.hideTechnical')
             : t('teacher.lectures.table.buttons.showTechnical')}
@@ -115,11 +115,11 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                   <td className='p-4 font-medium'>{lecture.timeofday}</td>
                   <td className='p-4'>
                     <div className='inline-flex px-4 py-2 rounded-lg bg-gray-50'>
-                      <span className='font-bold text-metropoliaTrendGreen'>
+                      <span className='font-bold text-metropolia-trend-green'>
                         {lecture.attended}
                       </span>
                       <span className='mx-1 text-gray-400'>/</span>
-                      <span className='font-bold text-metropoliaSupportRed'>
+                      <span className='font-bold text-metropolia-support-red'>
                         {lecture.notattended}
                       </span>
                     </div>
@@ -142,8 +142,8 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                         lecture.state === 'open' &&
                         new Date(lecture.start_date).getTime() <
                           Date.now() - 24 * 60 * 60 * 1000
-                          ? 'bg-red-100 text-metropoliaSupportRed'
-                          : 'bg-green-100 text-metropoliaTrendGreen'
+                          ? 'bg-red-100 text-metropolia-support-red'
+                          : 'bg-green-100 text-metropolia-trend-green'
                       }`}>
                       {lecture.state}
                     </span>

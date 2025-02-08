@@ -200,7 +200,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
             <span className='text-gray-700 font-heading'>
               {t('admin.editUser.createdAt')}
             </span>
-            <p className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
+            <p className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
               {new Date(editedUser.created_at).toISOString().substring(0, 16)}
             </p>
           </div>
@@ -216,7 +216,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='last_name'
               value={editedUser.last_name}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
             />
           </label>
         )}
@@ -231,7 +231,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='first_name'
               value={editedUser.first_name}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
             />
           </label>
         )}
@@ -247,7 +247,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='email'
               value={editedUser.email}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
             />
             {isStudentEmailTaken && (
               <span className='text-red-500'>
@@ -267,7 +267,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='username'
               value={editedUser.username}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
             />
           </label>
         )}
@@ -281,7 +281,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='roleid'
               value={editedUser.roleid}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
               {roles.map((role) => (
                 <option key={role.roleid} value={role.roleid}>
                   {role.name}
@@ -299,7 +299,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               name='GDPR'
               value={editedUser.GDPR}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
+              className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
               <option value={0}>
                 {t('admin.editUser.gdprOptions.notAccepted')}
               </option>
@@ -321,7 +321,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
                 name='studentnumber'
                 value={editedUser.studentnumber}
                 onChange={handleInputChange}
-                className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'
+                className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'
               />
               {isStudentNumberTaken && (
                 <span className='text-red-500'>
@@ -342,7 +342,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
                 name='studentgroupid'
                 value={editedUser.studentgroupid}
                 onChange={handleInputChange}
-                className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-none focus:shadow-outline'>
+                className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
                 {studentGroups.map((studentGroup) => (
                   <option
                     key={studentGroup.studentgroupid}
@@ -360,7 +360,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
             className={`mt-4 px-4 w-[10em] py-2 ${
               isSaveButtonDisabled
                 ? 'bg-gray-500'
-                : 'bg-metropoliaTrendGreen hover:bg-green-600 transition'
+                : 'bg-metropolia-trend-green hover:bg-green-600 transition'
             } text-white rounded-md`}>
             {t('admin.editUser.saveButton')}
           </button>

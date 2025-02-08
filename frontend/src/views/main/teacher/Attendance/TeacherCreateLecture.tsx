@@ -511,7 +511,7 @@ const CreateLecture: React.FC = () => {
               </div>
             </div>
 
-            <div className='w-4/5 h-1 mt-10 rounded-md bg-metropoliaMainOrange'></div>
+            <div className='w-4/5 h-1 mt-10 rounded-md bg-metropolia-main-orange'></div>
             <h2 className='p-4 mt-2 text-xl'>
               {t('teacher.createLecture.dateSection.heading')}
             </h2>
@@ -529,7 +529,7 @@ const CreateLecture: React.FC = () => {
                   ref={inputRef}
                   type='text'
                   aria-label='Date'
-                  className='py-2 pl-4 pr-4 text-center border cursor-pointer rounded-xl focus:ring focus:ring-metropoliaSecondaryOrange focus:outline-none'
+                  className='py-2 pl-4 pr-4 text-center border cursor-pointer rounded-xl focus:ring-3 focus:ring-metropolia-secondary-orange focus:outline-hidden'
                   value={
                     Array.isArray(date)
                       ? t(
@@ -567,7 +567,7 @@ const CreateLecture: React.FC = () => {
                   )}
                   value={selectedTimeOfDay}
                   onChange={(e) => setSelectedTimeOfDay(e.target.value)}
-                  className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white border border-gray-300 shadow appearance-none cursor-pointer hover:border-gray-400 focus:outline-none focus:shadow-outline'>
+                  className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white border border-gray-300 shadow-sm appearance-none cursor-pointer hover:border-gray-400 focus:outline-hidden focus:shadow-outline'>
                   {timeOfDay.map((option) => (
                     <option key={option} value={option}>
                       {option}
@@ -585,7 +585,7 @@ const CreateLecture: React.FC = () => {
               title={`${t('teacher.createLecture.buttons.open')} ${
                 selectedCourse?.name
               } - ${selectedCourse?.code} - ${selectedTopic}`}
-              className='w-2/4 px-4 py-2 m-4 text-white transition rounded font-heading bg-metropoliaMainOrange hover:hover:bg-metropoliaSecondaryOrange focus:outline-none focus:shadow-outline'
+              className='w-2/4 px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'
               onClick={handleOpenAttendance}>
               {t('teacher.createLecture.buttons.open')}
             </button>
