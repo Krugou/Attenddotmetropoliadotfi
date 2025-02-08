@@ -76,21 +76,19 @@ const AdminMainView: React.FC = () => {
           description={t('admin.mainView.serverDashboardDesc')}
           icon={Dashboard}
         />
+        <Card
+          path='/admin/worklog/'
+          title={t('admin.mainView.workLog')}
+          description={t('admin.mainView.workLogDesc')}
+          icon={Event}
+        />
         {import.meta.env.MODE === 'development' && (
-          <>
-            <Card
-              path='/admin/worklog/'
-              title={t('admin.mainView.workLog')}
-              description={t('admin.mainView.workLogDesc')}
-              icon={Event}
-            />
-            <Card
-              path='/student/'
-              title={t('admin.mainView.studentDashboard')}
-              description={t('admin.mainView.studentDashboardDesc')}
-              icon={People}
-            />
-          </>
+          <Card
+            path='/student/'
+            title={t('admin.mainView.studentDashboard')}
+            description={t('admin.mainView.studentDashboardDesc')}
+            icon={People}
+          />
         )}
         <FeedbackCard role='admin' />
       </div>
