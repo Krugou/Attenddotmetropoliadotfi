@@ -14,6 +14,7 @@ import {
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
+import WelcomeModal from '../../../components/main/modals/WelcomeModal';
 
 /**
  * MainView component.
@@ -107,6 +108,7 @@ const MainView: React.FC = () => {
         )}
         <FeedbackCard role='student' />
       </div>
+      <WelcomeModal storageKey='welcomeModal.v1' />
     </div>
   );
 };
