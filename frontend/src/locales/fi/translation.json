@@ -977,8 +977,8 @@
     "saveTopics": "Tallenna uudet aiheet"
   },
   "welcome": {
-    "title": "Tervetuloa JakSeciin! Ensimmäistä kertaa täällä",
-    "description": "Aloitetaan lyhyellä kierroksella alustaan."
+    "title": "Tervetuloa Metropolian Attendance-sovellukseen! Aloitetaan",
+    "description": "Tämä palvelu on aktiivisessa kehityksessä. Auta meitä kehittymään jättämällä palautetta palautevaihtoehdon kautta."
   },
   "courseSelect": {
     "label": "Kurssi",

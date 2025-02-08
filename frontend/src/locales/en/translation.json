@@ -989,8 +989,8 @@
     "forgotPasswordLink": "Forgot your password?"
   },
   "welcome": {
-    "title": "Welcome to JakSec! It's your first time here",
-    "description": "Let's get started with a quick tour of the platform."
+    "title": "Welcome to Metropolia Attendance App! Let's get started",
+    "description": "This service is being actively developed. Please help us improve by leaving a review via the feedback option."
   },
   "courseSelect": {
     "label": "Course",
