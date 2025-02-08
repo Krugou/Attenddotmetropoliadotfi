@@ -55,19 +55,30 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   // Define state variable for the selected role
   const [selectedRole, setSelectedRole] = useState('');
 
-  // Fetch the roles when the component is mounted
+  // Fetch the roles when the component is mounted, but only if user is counselor or teacher
   useEffect(() => {
-    const token: string | null = localStorage.getItem('userToken');
-    if (!token) {
-      throw new Error('No token available');
-    }
     const fetchRoles = async () => {
-      const roles = await apiHooks.fetchAllRolesSpecial(token);
-      setRoles(roles);
-      setSelectedRole(roles[0]?.roleid || '');
+      if (!['counselor', 'teacher'].includes(user.role)) {
+        return;
+      }
+
+      const token: string | null = localStorage.getItem('userToken');
+      if (!token) {
+        throw new Error('No token available');
+      }
+
+      try {
+        const roles = await apiHooks.fetchAllRolesSpecial(token);
+        setRoles(roles);
+        setSelectedRole(roles[0]?.roleid || '');
+      } catch (error) {
+        console.error('Failed to fetch roles:', error);
+        toast.error(t('profileInfo.errors.roleFetchFailed'));
+      }
     };
+
     fetchRoles();
-  }, []);
+  }, [user.role, t]); // Add user.role as dependency
 
   const handleOpen = () => {
     setOpen((prevOpen) => !prevOpen);
