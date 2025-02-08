@@ -10,6 +10,7 @@ import {
   Help,
   PhotoCamera,
   Work,
+  Add,
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
@@ -94,7 +95,7 @@ const MainView: React.FC = () => {
               path='/student/worklog'
               title={t('student.mainView.workLog.title')}
               description={t('student.mainView.workLog.description')}
-              icon={Work}
+              icon={Add}
             />
             <Card
               path='/student/worklogs'
