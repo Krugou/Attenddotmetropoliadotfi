@@ -221,7 +221,7 @@ const AdminCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 text-white font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            {t('admin.courses.finnish.finnish')}
+            {t('admin.courses.finish')}
           </button>
         </div>
       </form>
