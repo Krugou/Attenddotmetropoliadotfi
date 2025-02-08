@@ -279,7 +279,7 @@ const TeacherStudentsView: React.FC = () => {
             page={page}
             onChange={handlePageChange}
             variant='outlined'
-            shape='rounded-sm'
+            shape='rounded'
           />
         </div>
       </div>
