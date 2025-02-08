@@ -10,9 +10,9 @@ const NoUserHelp: React.FC = () => {
   const {t} = useTranslation();
 
   return (
-    <div className='max-w-4xl p-6 mx-auto space-y-8'>
+    <div className='max-w-4xl p-6 mx-auto space-y-8 rounded-sm bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
       {/* Main heading */}
-      <h1 className='mb-8 text-3xl font-heading text-metropolia-main-grey dark:text-metropolia-support-white'>
+      <h1 className='mb-8 text-3xl font-heading text-metropolia-main-grey dark:text-metropolia-support-black'>
         {t('help.title', 'Help Center')}
       </h1>
 
