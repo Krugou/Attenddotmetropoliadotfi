@@ -12,6 +12,7 @@ import {
   Dashboard,
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
+import WelcomeModal from '../../../components/main/modals/WelcomeModal';
 
 /**
  * AdminMainView component.
@@ -92,6 +93,7 @@ const AdminMainView: React.FC = () => {
         )}
         <FeedbackCard role='admin' />
       </div>
+      <WelcomeModal storageKey='welcomeModal.v1' />
     </>
   );
 };
