@@ -33,6 +33,7 @@ function MyComponent() {
 ### Return Value
 
 Returns a boolean that is:
+
 - `true` when viewport width is less than the breakpoint
 - `false` when viewport width is greater than or equal to the breakpoint
 
