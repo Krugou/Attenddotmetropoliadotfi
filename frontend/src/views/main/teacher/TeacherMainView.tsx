@@ -174,7 +174,7 @@ const MainView: React.FC = () => {
 
             <FeedbackCard role='teacher' />
           </div>
-          <WelcomeModal />
+          <WelcomeModal storageKey='welcomeModal.v1' />
         </>
       )}
     </>
