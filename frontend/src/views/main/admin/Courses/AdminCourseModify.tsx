@@ -124,20 +124,20 @@ const AdminCourseModify: React.FC = () => {
     try {
       const result = await apiHooks.modifyCourse(token, id, modifiedData);
       console.log(result);
-      toast.success(t('admin.courses.success.modifySuccess'));
+      toast.success(t('admin:courses.success.modifySuccess'));
       navigate('/admin/courses/' + id);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error(t('admin.courses.error.modifyError'));
+        toast.error(t('admin:courses.error.modifyError'));
       }
     }
     console.log(modifiedData);
   };
 
   const handleTopicChange = (topic) => {
-    toast.info(t('admin.courses.info.topicChange'));
+    toast.info(t('admin:courses.info.topicChange'));
     setModifiedTopics((prevTopics) =>
       prevTopics.includes(topic)
         ? prevTopics.filter((t) => t !== topic)

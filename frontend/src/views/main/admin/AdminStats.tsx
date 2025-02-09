@@ -154,25 +154,25 @@ const AdminStats = () => {
     const formattedData = [
       {
         name: `${t('admin:adminStats.regularCourses')} (${t(
-          'admin.adminStats.total',
+          'admin:adminStats.total',
         )})`,
         count: courseCounts.regularCourses.total,
       },
       {
         name: `${t('admin:adminStats.regularCourses')} (${t(
-          'admin.adminStats.active',
+          'admin:adminStats.active',
         )})`,
         count: courseCounts.regularCourses.active,
       },
       {
         name: `${t('admin:adminStats.worklogCourses')} (${t(
-          'admin.adminStats.total',
+          'admin:adminStats.total',
         )})`,
         count: courseCounts.worklogCourses.total,
       },
       {
         name: `${t('admin:adminStats.worklogCourses')} (${t(
-          'admin.adminStats.active',
+          'admin:adminStats.active',
         )})`,
         count: courseCounts.worklogCourses.active,
       },
@@ -185,15 +185,15 @@ const AdminStats = () => {
     console.log('🚀 ~ fetchWorklogStatistics ~ worklogCounts:', worklogCounts);
     const formattedData = [
       {
-        name: t('admin.adminStats.pendingEntries'),
+        name: t('admin:adminStats.pendingEntries'),
         count: worklogCounts.pending,
       },
       {
-        name: t('admin.adminStats.approvedEntries'),
+        name: t('admin:adminStats.approvedEntries'),
         count: worklogCounts.approved,
       },
       {
-        name: t('admin.adminStats.delayedEntries'),
+        name: t('admin:adminStats.delayedEntries'),
         count: worklogCounts.delayed,
       },
     ];
@@ -250,7 +250,7 @@ const AdminStats = () => {
         </h2>
         <p className='text-sm md:text-base font-body'>
           {`${t(
-            'admin.adminStats.loggedInPercentage',
+            'admin:adminStats.loggedInPercentage',
           )}: ${userStatisticsPercentage.toFixed(2)}%`}
         </p>
         <ResponsiveContainer {...chartConfig}>

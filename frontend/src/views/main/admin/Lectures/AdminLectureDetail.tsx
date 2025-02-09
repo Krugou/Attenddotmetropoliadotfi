@@ -80,7 +80,7 @@ const AdminLectureDetail = () => {
       // Refresh the data after deleting an attendance
       fetchData();
     } catch (error) {
-      toast.error(t('admin.lectures.error.deleteAttendance'));
+      toast.error(t('admin:lectures.error.deleteAttendance'));
     }
   };
   const isDuplicate = (usercourseid: number) => {

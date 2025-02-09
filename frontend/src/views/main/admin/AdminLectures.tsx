@@ -70,61 +70,61 @@ const AdminLectures: React.FC = () => {
   const columns: ColumnConfig[] = [
     {
       key: 'lectureid',
-      label: t('admin.common.lectureId'),
+      label: t('admin:common.lectureId'),
       align: 'text-center',
       defaultVisible: true,
     },
     {
       key: 'teacheremail',
-      label: t('admin.lectures.tableContent.teacherEmail'),
+      label: t('admin:lectures.tableContent.teacherEmail'),
       align: 'text-left',
       defaultVisible: true,
     },
     {
       key: 'coursename',
-      label: t('admin.lectures.tableContent.courseName'),
+      label: t('admin:lectures.tableContent.courseName'),
       align: 'text-left',
       defaultVisible: true,
     },
     {
       key: 'coursecode',
-      label: t('admin.lectures.tableContent.courseCode'),
+      label: t('admin:lectures.tableContent.courseCode'),
       align: 'text-left',
       defaultVisible: false,
     },
     {
       key: 'topicname',
-      label: t('admin.lectures.tableContent.topicName'),
+      label: t('admin:lectures.tableContent.topicName'),
       align: 'text-left',
       defaultVisible: true,
     },
     {
       key: 'start_date',
-      label: t('admin.lectures.tableContent.date'),
+      label: t('admin:lectures.tableContent.date'),
       align: 'center',
       defaultVisible: true,
     },
     {
       key: 'timeofday',
-      label: t('admin.lectures.tableContent.dayTime'),
+      label: t('admin:lectures.tableContent.dayTime'),
       align: 'center',
       defaultVisible: false,
     },
     {
       key: 'attended',
-      label: t('admin.lectures.tableContent.attendance'),
+      label: t('admin:lectures.tableContent.attendance'),
       align: 'center',
       defaultVisible: true,
     },
     {
       key: 'actualStudentCount',
-      label: t('admin.lectures.tableContent.currentTopicStudentCount'),
+      label: t('admin:lectures.tableContent.currentTopicStudentCount'),
       align: 'center',
       defaultVisible: false,
     },
     {
       key: 'state',
-      label: t('admin.lectures.tableContent.state'),
+      label: t('admin:lectures.tableContent.state'),
       align: 'center',
       defaultVisible: true,
     },
@@ -367,8 +367,8 @@ const AdminLectures: React.FC = () => {
             onClick={() => setFilterOpen(!filterOpen)}
             className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
             {filterOpen
-              ? t('admin.lectures.alternative.showAllLectures')
-              : t('admin.lectures.alternative.showOpenLecture')}
+              ? t('admin:lectures.alternative.showAllLectures')
+              : t('admin:lectures.alternative.showOpenLecture')}
           </button>
           {!(filterOpen && openLectures.length === 0) && (
             <button
@@ -384,8 +384,8 @@ const AdminLectures: React.FC = () => {
               onClick={() => setExtraStats(!extraStats)}
               className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
               {extraStats
-                ? t('admin.lectures.alternative.hideStats')
-                : t('admin.lectures.alternative.showStats')}
+                ? t('admin:lectures.alternative.hideStats')
+                : t('admin:lectures.alternative.showStats')}
             </button>
           )}
         </div>
@@ -396,13 +396,13 @@ const AdminLectures: React.FC = () => {
               className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
               aria-label={
                 sortOrder === 'asc'
-                  ? t('admin.lectures.alternative.sortByNewest')
-                  : t('admin.lectures.alternative.sortByOldest')
+                  ? t('admin:lectures.alternative.sortByNewest')
+                  : t('admin:lectures.alternative.sortByOldest')
               }
               title={
                 sortOrder === 'asc'
-                  ? t('admin.lectures.alternative.sortByNewest')
-                  : t('admin.lectures.alternative.sortByOldest')
+                  ? t('admin:lectures.alternative.sortByNewest')
+                  : t('admin:lectures.alternative.sortByOldest')
               }>
               <SortIcon className='w-5 h-5' />
             </button>
@@ -411,13 +411,13 @@ const AdminLectures: React.FC = () => {
               className='p-2 text-white transition-colors rounded-sm bg-metropolia-main-orange hover:bg-metropolia-main-orange/90'
               aria-label={
                 isExpanded
-                  ? t('admin.lectures.alternative.shrinkTable')
-                  : t('admin.lectures.alternative.expandTable')
+                  ? t('admin:lectures.alternative.shrinkTable')
+                  : t('admin:lectures.alternative.expandTable')
               }
               title={
                 isExpanded
-                  ? t('admin.lectures.alternative.shrinkTable')
-                  : t('admin.lectures.alternative.expandTable')
+                  ? t('admin:lectures.alternative.shrinkTable')
+                  : t('admin:lectures.alternative.expandTable')
               }>
               {isExpanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </button>
@@ -596,13 +596,13 @@ const AdminLectures: React.FC = () => {
               <div className='p-8 text-center bg-white rounded-lg shadow-xs'>
                 <h3 className='mb-2 text-xl font-semibold text-gray-700 font-heading'>
                   {filterOpen
-                    ? t('admin.lectures.noData.noOpenLectures')
-                    : t('admin.lectures.noData.noLecturesFound')}
+                    ? t('admin:lectures.noData.noOpenLectures')
+                    : t('admin:lectures.noData.noLecturesFound')}
                 </h3>
                 <p className='text-gray-500 font-body'>
                   {filterOpen
-                    ? t('admin.lectures.noData.tryShowingAll')
-                    : t('admin.lectures.noData.tryDifferentSearch')}
+                    ? t('admin:lectures.noData.tryShowingAll')
+                    : t('admin:lectures.noData.tryDifferentSearch')}
                 </p>
               </div>
             </div>

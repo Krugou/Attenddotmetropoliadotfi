@@ -69,7 +69,7 @@ const AdminCourseDetail: React.FC = () => {
     try {
       await apiHooks.deleteCourse(courseid, token);
 
-      toast.success(t('admin.courses.delete.success'));
+      toast.success(t('admin:courses.delete.success'));
 
       navigate('/admin/courses');
     } catch (error) {
