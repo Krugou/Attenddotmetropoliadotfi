@@ -116,13 +116,16 @@ const StudentWorkLogLogger: React.FC = () => {
     setSelectedCourse(Number(event.target.value));
   };
 
-  const handleOpenModal = useCallback((type: 'in' | 'out') => {
-    setActionType(type);
-    setDescription(
-      type === 'in' ? t('worklog.description') : '', // Using translation instead of hardcoded string
-    );
-    setIsModalOpen(true);
-  }, [t]);
+  const handleOpenModal = useCallback(
+    (type: 'in' | 'out') => {
+      setActionType(type);
+      setDescription(
+        type === 'in' ? t('worklog.description') : '', // Using translation instead of hardcoded string
+      );
+      setIsModalOpen(true);
+    },
+    [t],
+  );
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -152,7 +155,7 @@ const StudentWorkLogLogger: React.FC = () => {
           status: '1',
         };
         await apiHooks.createWorkLogEntry(params, token);
-        toast.success(t('worklog.messages.clockedIn', { time, description }));
+        toast.success(t('worklog.messages.clockedIn', {time, description}));
       } else {
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
@@ -161,8 +164,8 @@ const StudentWorkLogLogger: React.FC = () => {
         );
         toast.info(
           description
-            ? t('worklog.messages.clockedOutWithReason', { time, description })
-            : t('worklog.messages.clockedOut', { time })
+            ? t('worklog.messages.clockedOutWithReason', {time, description})
+            : t('worklog.messages.clockedOut', {time}),
         );
       }
 
@@ -172,11 +175,19 @@ const StudentWorkLogLogger: React.FC = () => {
     }
 
     setIsModalOpen(false);
-  }, [actionType, description, user, selectedCourse, checkActiveEntry, activeCourse, t]);
+  }, [
+    actionType,
+    description,
+    user,
+    selectedCourse,
+    checkActiveEntry,
+    activeCourse,
+    t,
+  ]);
 
   const handleEdit = useCallback(() => {
     const time = new Date().toLocaleTimeString();
-    toast.info(t('worklog.messages.editClicked', { time }));
+    toast.info(t('worklog.messages.editClicked', {time}));
     navigate('/student/worklogs');
   }, [navigate, t]);
 
@@ -219,11 +230,11 @@ const StudentWorkLogLogger: React.FC = () => {
               </p>
             </div>
           ) : (
-              <select
-                title={t('worklog.selectCourse')}
-                value={selectedCourse || ''}
-                onChange={handleCourseChange}
-                className='w-full p-3 border-2 border-gray-200 rounded-lg font-body
+            <select
+              title={t('worklog.selectCourse')}
+              value={selectedCourse || ''}
+              onChange={handleCourseChange}
+              className='w-full p-3 border-2 border-gray-200 rounded-lg font-body
                   focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
                   bg-white text-gray-700'>
               <option value='' disabled>
@@ -252,7 +263,7 @@ const StudentWorkLogLogger: React.FC = () => {
                   : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
               }`}
               aria-label={t('worklog.clockIn')}>
-              <LoginIcon className="w-6 h-6" />
+              <LoginIcon className='w-6 h-6' />
               <span>{t('worklog.actions.in')}</span>
             </button>
 
@@ -265,7 +276,7 @@ const StudentWorkLogLogger: React.FC = () => {
                   : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
               }`}
               aria-label={t('worklog.clockOut')}>
-              <LogoutIcon className="w-6 h-6" />
+              <LogoutIcon className='w-6 h-6' />
               <span>{t('worklog.actions.out')}</span>
             </button>
 
@@ -274,7 +285,7 @@ const StudentWorkLogLogger: React.FC = () => {
               className={`${buttonBaseStyle}
                 bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
               aria-label={t('worklog.edit')}>
-              <EditIcon className="w-6 h-6" />
+              <EditIcon className='w-6 h-6' />
               <span>{t('worklog.actions.edit')}</span>
             </button>
           </div>
@@ -287,38 +298,36 @@ const StudentWorkLogLogger: React.FC = () => {
           <div className='w-full max-w-md m-4 bg-white rounded-2xl shadow-2xl transform transition-all'>
             <div className='p-6 space-y-6'>
               <h3 className='text-xl font-heading font-bold text-gray-800'>
-                {actionType === 'in' ? t('worklog.clockIn') : t('worklog.clockOut')}
+                {actionType === 'in'
+                  ? t('worklog.clockIn')
+                  : t('worklog.clockOut')}
               </h3>
 
-              <label className='block space-y-2'>
-                <span className='font-body font-medium text-gray-700'>
-                  {actionType === 'in'
-                    ? t('worklog.description') + ' *'
-                    : t('worklog.optionalDescription')}
-                </span>
-                <input
-                  type='text'
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className='w-full p-3 border-2 rounded-lg font-body
-                    focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
-                    transition-colors duration-200'
-                  required={actionType === 'in'}
-                  placeholder={
-                    actionType === 'in'
-                      ? t('worklog.requiredDescription')
-                      : t('worklog.optionalDescription')
-                  }
-                />
-              </label>
+              {actionType === 'in' && (
+                <label className='block space-y-2'>
+                  <span className='font-body font-medium text-gray-700'>
+                    {t('worklog.description')} *
+                  </span>
+                  <input
+                    type='text'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className='w-full p-3 border-2 rounded-lg font-body
+                      focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
+                      transition-colors duration-200'
+                    required
+                    placeholder={t('worklog.requiredDescription')}
+                  />
+                </label>
+              )}
 
               <div className='flex gap-4 pt-4'>
                 <button
                   onClick={handleConfirmAction}
                   disabled={actionType === 'in' && !description.trim()}
-                  className='flex-1 px-6 py-3 font-body font-medium text-white rounded-lg
+                  className='flex-1 px-6 py-3 font-body  text-white rounded-lg
                     bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
-                    disabled:bg-gray-400 disabled:cursor-not-allowed
+                    disabled:bg-gray-400 font-bold disabled:cursor-not-allowed
                     transition-colors duration-200'>
                   {t('common.confirm')}
                 </button>
