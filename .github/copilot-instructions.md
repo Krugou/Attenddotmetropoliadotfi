@@ -59,14 +59,17 @@ using tailwind css
 use font-heading for headings
 use font-body for body text
 
-## translation
+## Translation
 
 - Include localization best practices
+- Use i18n for translations
+- Include translations in toast messages
 - Use appropriate libraries for translations
 - Document supported languages and fallback mechanisms
 - This project has Finnish, English, Swedish translations in src/locales/ folder
 - Ensure translations are up to date and reviewed regularly
 - Consider leveraging language-specific resources for accuracy
+- Validate translations for consistency across languages
 
 ## References
 
