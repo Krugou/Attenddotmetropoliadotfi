@@ -10,18 +10,21 @@ import enStudent from '../locales/en/student.json';
 import enTeacher from '../locales/en/teacher.json';
 import enCommon from '../locales/en/common.json';
 import enCounselor from '../locales/en/counselor.json';
+import enNoUser from '../locales/en/noUser.json';
 import enTranslation from '../locales/en/translation.json';
 import fiAdmin from '../locales/fi/admin.json';
 import fiStudent from '../locales/fi/student.json';
 import fiTeacher from '../locales/fi/teacher.json';
 import fiCommon from '../locales/fi/common.json';
 import fiCounselor from '../locales/fi/counselor.json';
+import fiNoUser from '../locales/fi/noUser.json';
 import fiTranslation from '../locales/fi/translation.json';
 import svAdmin from '../locales/sv/admin.json';
 import svStudent from '../locales/sv/student.json';
 import svTeacher from '../locales/sv/teacher.json';
 import svCommon from '../locales/sv/common.json';
 import svCounselor from '../locales/sv/counselor.json';
+import svNoUser from '../locales/sv/noUser.json';
 import svTranslation from '../locales/sv/translation.json';
 
 /**
@@ -37,6 +40,7 @@ i18n
         teacher: enTeacher,
         common: enCommon,
         counselor: enCounselor,
+        noUser: enNoUser,
         translation: enTranslation,
       },
       fi: {
@@ -45,6 +49,7 @@ i18n
         teacher: fiTeacher,
         common: fiCommon,
         counselor: fiCounselor,
+        noUser: fiNoUser,
         translation: fiTranslation,
       },
       sv: {
@@ -53,13 +58,22 @@ i18n
         teacher: svTeacher,
         common: svCommon,
         counselor: svCounselor,
+        noUser: svNoUser,
         translation: svTranslation,
       },
     },
     lng: 'en', // Default language is English.
     fallbackLng: 'en', // Fallback language is English.
-    ns: ['admin', 'student', 'teacher', 'common', 'counselor', 'translation'], // Namespaces to load
-    defaultNS: 'admin', // Default namespace
+    ns: [
+      'admin',
+      'student',
+      'teacher',
+      'common',
+      'counselor',
+      'noUser',
+      'translation',
+    ], // Namespaces to load
+    defaultNS: 'common', // Default namespace
     interpolation: {
       escapeValue: false, // Not escape value, so it allows to use HTML in translations.
     },
