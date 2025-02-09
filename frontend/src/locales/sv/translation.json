@@ -340,7 +340,6 @@
       "selectCourse": "Välj kurs",
       "clockIn": "Stämpla in",
       "clockOut": "Stämpla ut",
-      "edit": "Redigera",
       "optionalDescription": "Valfri beskrivning",
       "messages": {
         "clockedIn": "Stämplat in kl {time} med anledning: {description}",
@@ -1143,8 +1142,7 @@
       "description": "Beskrivning",
       "total": "Totalt",
       "entries": "poster",
-      "time": "Tid",
-      "duration": "Varaktighet"
+      "time": "Tid"
     },
     "actions": {
       "clockIn": "Stämpla in",
@@ -1213,6 +1211,9 @@
     },
     "success": {
       "changed": "Språket ändrades framgångsrikt"
+    },
+    "filter": {
+      "allCourses": "Alla kurser"
     }
   },
   "login": {

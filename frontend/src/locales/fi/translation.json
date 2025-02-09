@@ -354,7 +354,6 @@
       "selectCourse": "Valitse kurssi",
       "clockIn": "Kirjaudu sisään",
       "clockOut": "Kirjaudu ulos",
-      "edit": "Muokkaa",
       "optionalDescription": "Valinnainen kuvaus",
       "messages": {
         "clockedIn": "Kirjauduttu sisään klo {time}, syy: {description}",
@@ -1250,17 +1249,8 @@
       "success": "Merkintä poistettu onnistuneesti",
       "error": "Merkinnän poistaminen epäonnistui"
     },
-    "edit": {
-      "success": "Merkintä päivitetty onnistuneesti",
-      "error": "Merkinnän päivittäminen epäonnistui"
-    },
-    "entries": {
-      "date": "Päivämäärä",
-      "hours": "Tunnit",
-      "description": "Kuvaus",
-      "status": "Tila",
-      "time": "Aika",
-      "duration": "Kesto"
+    "filter": {
+      "allCourses": "Kaikki kurssit"
     }
   },
   "languages": {
