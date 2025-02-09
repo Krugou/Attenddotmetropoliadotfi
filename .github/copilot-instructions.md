@@ -59,6 +59,15 @@ using tailwind css
 use font-heading for headings
 use font-body for body text
 
+## translation
+
+- Include localization best practices
+- Use appropriate libraries for translations
+- Document supported languages and fallback mechanisms
+- This project has Finnish, English, Swedish translations in src/locales/ folder
+- Ensure translations are up to date and reviewed regularly
+- Consider leveraging language-specific resources for accuracy
+
 ## References
 
 - [Backend README](../backend/README.md)
