@@ -134,7 +134,7 @@ const StudentWorklogs: React.FC = () => {
   }
 
   return (
-    <div className='container px-4 py-8 mx-auto'>
+    <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
       <h1 className='mb-6 text-2xl font-heading text-metropolia-main-orange'>
         {t('worklog.entries.title')}
       </h1>
@@ -143,8 +143,8 @@ const StudentWorklogs: React.FC = () => {
         {entries.map((entry) => (
           <div
             key={entry.entry_id}
-            className='relative overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl'>
-            <div className='absolute flex gap-5 m-2 top-2 right-2'>
+            className='relative overflow-hidden transition-shadow duration-300 bg-metropolia-support-white rounded-lg shadow-lg hover:shadow-xl'>
+            {/* <div className='absolute flex gap-5 m-2 top-2 right-2'>
               <Tooltip title={t('worklog.tooltips.modify')}>
                 <EditIcon
                   fontSize='large'
@@ -159,9 +159,9 @@ const StudentWorklogs: React.FC = () => {
                   onClick={() => handleDelete(entry.entry_id)}
                 />
               </Tooltip>
-            </div>
+            </div> */}
 
-            <div className='p-4 pt-10 mt-6'>
+            <div className='p-4 pt-10 '>
               <div className='flex items-center justify-between mb-4'>
                 <div className='text-lg font-semibold text-metropolia-main-grey'>
                   {entry.course?.name} - {entry.course?.code}
@@ -174,7 +174,7 @@ const StudentWorklogs: React.FC = () => {
               <div className='space-y-2'>
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    Time:
+                    {t('worklog.entries.time')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {dayjs(entry.start_time).format('HH:mm')} -{' '}
@@ -184,7 +184,7 @@ const StudentWorklogs: React.FC = () => {
 
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    Duration:
+                    {t('worklog.entries.duration')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {calculateDuration(entry.start_time, entry.end_time)}
@@ -196,11 +196,7 @@ const StudentWorklogs: React.FC = () => {
                     {entry.description}
                   </p>
                 </div>
-
                 <div className='flex items-center justify-between pt-2 mt-2 border-t'>
-                  <span className='text-sm text-metropolia-main-grey'>
-                    Status:
-                  </span>
                   <span className={statusClass(entry.status)}>
                     {t(`teacher.worklog.status.${entry.status}`)}
                   </span>
