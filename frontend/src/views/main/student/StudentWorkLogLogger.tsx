@@ -92,6 +92,14 @@ const StudentWorkLogLogger: React.FC = () => {
         console.log('🚀 ~ fetchCourses ~ fetchedCourses:', fetchedCourses);
 
         setCourses(fetchedCourses);
+
+        // If no courses are available, show message and redirect
+        if (fetchedCourses.length === 0) {
+          toast.info(t('worklog.noCourses'));
+          setTimeout(() => navigate('/'), 3000); // Navigate to main view after 3 seconds
+          return;
+        }
+
         // Auto-select the first course if there are courses and no active entry
         if (fetchedCourses.length > 0 && !hasActiveEntry && !selectedCourse) {
           setSelectedCourse(fetchedCourses[0].work_log_course_id);
@@ -102,7 +110,7 @@ const StudentWorkLogLogger: React.FC = () => {
     };
 
     fetchCourses();
-  }, [user, hasActiveEntry, selectedCourse]);
+  }, [user, hasActiveEntry, selectedCourse, navigate, t]);
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(Number(event.target.value));
@@ -111,10 +119,10 @@ const StudentWorkLogLogger: React.FC = () => {
   const handleOpenModal = useCallback((type: 'in' | 'out') => {
     setActionType(type);
     setDescription(
-      type === 'in' ? 'Description for clocking in' : '', // Empty description for clock out by default
+      type === 'in' ? t('worklog.description') : '', // Using translation instead of hardcoded string
     );
     setIsModalOpen(true);
-  }, []);
+  }, [t]);
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -122,7 +130,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
   const handleConfirmAction = useCallback(async () => {
     if (!selectedCourse) {
-      toast.error('Please select a course');
+      toast.error(t('worklog.error.requiredFields'));
       return;
     }
 
@@ -144,41 +152,33 @@ const StudentWorkLogLogger: React.FC = () => {
           status: '1',
         };
         await apiHooks.createWorkLogEntry(params, token);
-        toast.success(`Clocked in at ${time} with reason: ${description}`);
+        toast.success(t('worklog.messages.clockedIn', { time, description }));
       } else {
-        // Handle clock out
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
           token,
           description,
         );
         toast.info(
-          `Clocked out at ${time}${
-            description ? ` with reason: ${description}` : ''
-          }`,
+          description
+            ? t('worklog.messages.clockedOutWithReason', { time, description })
+            : t('worklog.messages.clockedOut', { time })
         );
       }
 
-      await checkActiveEntry(); // Refresh active entry status
+      await checkActiveEntry();
     } catch (error) {
-      toast.error('Failed to log work entry');
+      toast.error(t('worklog.messages.failedToLog'));
     }
 
     setIsModalOpen(false);
-  }, [
-    actionType,
-    description,
-    user,
-    selectedCourse,
-    checkActiveEntry,
-    activeCourse,
-  ]);
+  }, [actionType, description, user, selectedCourse, checkActiveEntry, activeCourse, t]);
 
   const handleEdit = useCallback(() => {
     const time = new Date().toLocaleTimeString();
-    toast.info(`Edit clicked at ${time}`);
+    toast.info(t('worklog.messages.editClicked', { time }));
     navigate('/student/worklogs');
-  }, [navigate]);
+  }, [navigate, t]);
 
   const buttonBaseStyle = `
     flex items-center justify-center gap-3
@@ -200,7 +200,16 @@ const StudentWorkLogLogger: React.FC = () => {
             {t('worklog.logger.title')}
           </h2>
 
-          {activeCourse ? (
+          {courses.length === 0 ? (
+            <div className='p-4 text-center'>
+              <p className='text-lg font-body text-gray-600'>
+                {t('worklog.noCourses')}
+              </p>
+              <p className='text-sm font-body text-gray-500 mt-2'>
+                {t('worklog.redirecting')}
+              </p>
+            </div>
+          ) : activeCourse ? (
             <div className='p-4 border-2 border-metropolia-main-orange rounded-lg bg-white/50 shadow-sm'>
               <h3 className='font-heading font-semibold text-lg text-gray-800'>
                 {activeCourse.course.name}
@@ -232,42 +241,44 @@ const StudentWorkLogLogger: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className='space-y-4'>
-          <button
-            onClick={() => handleOpenModal('in')}
-            disabled={hasActiveEntry}
-            className={`${buttonBaseStyle} ${
-              hasActiveEntry
-                ? 'bg-gray-400'
-                : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
-            }`}
-            aria-label={t('worklog.clockIn')}>
-            <LoginIcon className="w-6 h-6" />
-            <span>{t('worklog.actions.in')}</span>
-          </button>
+        {courses.length > 0 && (
+          <div className='space-y-4'>
+            <button
+              onClick={() => handleOpenModal('in')}
+              disabled={hasActiveEntry}
+              className={`${buttonBaseStyle} ${
+                hasActiveEntry
+                  ? 'bg-gray-400'
+                  : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
+              }`}
+              aria-label={t('worklog.clockIn')}>
+              <LoginIcon className="w-6 h-6" />
+              <span>{t('worklog.actions.in')}</span>
+            </button>
 
-          <button
-            onClick={() => handleOpenModal('out')}
-            disabled={!hasActiveEntry}
-            className={`${buttonBaseStyle} ${
-              !hasActiveEntry
-                ? 'bg-gray-400'
-                : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
-            }`}
-            aria-label={t('worklog.clockOut')}>
-            <LogoutIcon className="w-6 h-6" />
-            <span>{t('worklog.actions.out')}</span>
-          </button>
+            <button
+              onClick={() => handleOpenModal('out')}
+              disabled={!hasActiveEntry}
+              className={`${buttonBaseStyle} ${
+                !hasActiveEntry
+                  ? 'bg-gray-400'
+                  : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
+              }`}
+              aria-label={t('worklog.clockOut')}>
+              <LogoutIcon className="w-6 h-6" />
+              <span>{t('worklog.actions.out')}</span>
+            </button>
 
-          <button
-            onClick={handleEdit}
-            className={`${buttonBaseStyle}
-              bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
-            aria-label={t('worklog.edit')}>
-            <EditIcon className="w-6 h-6" />
-            <span>{t('worklog.actions.edit')}</span>
-          </button>
-        </div>
+            <button
+              onClick={handleEdit}
+              className={`${buttonBaseStyle}
+                bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
+              aria-label={t('worklog.edit')}>
+              <EditIcon className="w-6 h-6" />
+              <span>{t('worklog.actions.edit')}</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Modal */}
