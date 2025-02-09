@@ -289,7 +289,65 @@
       "endDate": "End Date",
       "requiredHours": "Required Hours",
       "description": "Description",
-      "createNewWorkLog": "Create new worklog"
+      "createNewWorkLog": "Create new worklog",
+      "noCourses": "No courses available yet",
+      "redirecting": "Redirecting to main view...",
+      "logger": {
+        "title": "Work Log Entry"
+      },
+      "status": {
+        "0": "Status: Error",
+        "1": "Status: Clocked In",
+        "2": "Status: Clocked Out",
+        "3": "Status: Checked"
+      },
+      "dialog": {
+        "clockIn": "Clock in to course",
+        "clockOut": "Clock out from course",
+        "confirm": "Are you sure?",
+        "description": "Enter description",
+        "requiredDescription": "Description is required for clock in"
+      },
+      "error": {
+        "fetchFailed": "Failed to fetch data",
+        "requiredFields": "Please fill all required fields",
+        "codeExists": "Code already exists"
+      },
+      "actions": {
+        "clockIn": "Clock In",
+        "clockOut": "Clock Out",
+        "edit": "Edit Entries",
+        "in": "In",
+        "out": "Out"
+      },
+      "notifications": {
+        "clockedIn": "Clocked in at {{time}}",
+        "clockedOut": "Clocked out at {{time}}",
+        "editClicked": "Edit clicked at {{time}}"
+      },
+      "tooltips": {
+        "modify": "Modify entry",
+        "delete": "Delete entry"
+      },
+      "aria": {
+        "clockIn": "Clock in button",
+        "clockOut": "Clock out button",
+        "edit": "Edit entries button"
+      },
+      "selectCourse": "Select a course",
+      "clockIn": "Clock In",
+      "clockOut": "Clock Out",
+      "edit": "Edit",
+      "optionalDescription": "Optional description",
+      "messages": {
+        "clockedIn": "Clocked in at {time} with reason: {description}",
+        "clockedOut": "Clocked out at {time}",
+        "clockedOutWithReason": "Clocked out at {time} with reason: {description}",
+        "editClicked": "Edit clicked at {time}",
+        "failedToLog": "Failed to log work entry",
+        "failedToCheck": "Failed to check active work entries",
+        "failedToFetch": "Failed to fetch courses"
+      }
     }
   },
   "counselor": {
@@ -932,10 +990,10 @@
         "status": "Status"
       },
       "status": {
-        "0": "Error",
-        "1": "Clocked In",
-        "2": "Clocked Out",
-        "3": "Checked"
+        "0": "Status: Error",
+        "1": "Status: Clocked In",
+        "2": "Status: Clocked Out",
+        "3": "Status: Checked"
       },
       "stats": {
         "title": "Worklog Statistics",
@@ -1130,8 +1188,24 @@
     "optionalDescription": "Optional description",
     "requiredDescription": "Required description",
     "tooltips": {
-      "modify": "Modify",
-      "delete": "Delete"
+      "modify": "Modify entry",
+      "delete": "Delete entry"
+    },
+    "dialog": {
+      "clockIn": "Clock in to course",
+      "clockOut": "Clock out from course",
+      "confirm": "Are you sure?",
+      "description": "Enter description",
+      "requiredDescription": "Description is required for clock in"
+    },
+    "messages": {
+      "clockedIn": "Clocked in at {time} with reason: {description}",
+      "clockedOut": "Clocked out at {time}",
+      "clockedOutWithReason": "Clocked out at {time} with reason: {description}",
+      "editClicked": "Edit clicked at {time}",
+      "failedToLog": "Failed to log work entry",
+      "failedToCheck": "Failed to check active work entries",
+      "failedToFetch": "Failed to fetch courses"
     }
   },
   "languages": {

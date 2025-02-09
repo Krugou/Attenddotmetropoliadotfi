@@ -289,7 +289,62 @@
       "endDate": "Slutdatum",
       "requiredHours": "Obligatoriska timmar",
       "description": "Beskrivning",
-      "createNewWorkLog": "Skapa ny arbetslogg"
+      "createNewWorkLog": "Skapa ny arbetstidslogg",
+      "noCourses": "Inga kurser tillgängliga ännu",
+      "redirecting": "Omdirigerar till huvudvyn...",
+      "status": {
+        "0": "Status: Fel",
+        "1": "Status: Instämplad",
+        "2": "Status: Utstämplad",
+        "3": "Status: Kontrollerad"
+      },
+      "dialog": {
+        "clockIn": "Stämpla in på kurs",
+        "clockOut": "Stämpla ut från kurs",
+        "confirm": "Är du säker?",
+        "description": "Ange beskrivning",
+        "requiredDescription": "Beskrivning krävs för instämpling"
+      },
+      "error": {
+        "fetchFailed": "Kunde inte hämta data",
+        "requiredFields": "Vänligen fyll i alla obligatoriska fält",
+        "codeExists": "Koden finns redan"
+      },
+      "actions": {
+        "clockIn": "Stämpla in",
+        "clockOut": "Stämpla ut",
+        "edit": "Redigera poster",
+        "in": "In",
+        "out": "Ut"
+      },
+      "notifications": {
+        "clockedIn": "Stämplat in kl {{time}}",
+        "clockedOut": "Stämplat ut kl {{time}}",
+        "editClicked": "Redigering klickad kl {{time}}"
+      },
+      "tooltips": {
+        "modify": "Ändra post",
+        "delete": "Ta bort post"
+      },
+      "aria": {
+        "clockIn": "Knapp för instämpling",
+        "clockOut": "Knapp för utstämpling",
+        "edit": "Knapp för att redigera poster"
+      },
+      "selectCourse": "Välj kurs",
+      "clockIn": "Stämpla in",
+      "clockOut": "Stämpla ut",
+      "edit": "Redigera",
+      "optionalDescription": "Valfri beskrivning",
+      "messages": {
+        "clockedIn": "Stämplat in kl {time} med anledning: {description}",
+        "clockedOut": "Stämplat ut kl {time}",
+        "clockedOutWithReason": "Stämplat ut kl {time} med anledning: {description}",
+        "editClicked": "Redigering klickad kl {time}",
+        "failedToLog": "Misslyckades med att logga arbetstid",
+        "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
+        "failedToFetch": "Misslyckades med att hämta kurser"
+      }
     }
   },
   "counselor": {
@@ -927,8 +982,6 @@
         "hours": "Timmar",
         "description": "Beskrivning"
       }
-
-
     }
   },
   "common": {
@@ -1082,15 +1135,15 @@
       "editClicked": "Redigering klickad kl {{time}}"
     },
     "aria": {
-      "clockIn": "Stämpla in-knapp",
-      "clockOut": "Stämpla ut-knapp",
-      "edit": "Redigera poster-knapp"
+      "clockIn": "Knapp för instämpling",
+      "clockOut": "Knapp för utstämpling",
+      "edit": "Knapp för att redigera poster"
     },
     "status": {
-      "0": "Fel",
-      "1": "Inloggad",
-      "2": "Utloggad",
-      "3": "Kontrollerad"
+      "0": "Status: Fel",
+      "1": "Status: Instämplad",
+      "2": "Status: Utstämplad",
+      "3": "Status: Kontrollerad"
     },
     "edit": {
       "title": "Redigera arbetslogg"
@@ -1103,13 +1156,16 @@
     "selectCourse": "Välj kurs",
     "clockIn": "Stämpla in",
     "clockOut": "Stämpla ut",
-
-    "description": "Beskrivning",
+    "edit": "Redigera",
     "optionalDescription": "Valfri beskrivning",
-    "requiredDescription": "Obligatorisk beskrivning",
-    "tooltips": {
-      "modify": "Ändra",
-      "delete": "Radera"
+    "messages": {
+      "clockedIn": "Stämplat in kl {time} med anledning: {description}",
+      "clockedOut": "Stämplat ut kl {time}",
+      "clockedOutWithReason": "Stämplat ut kl {time} med anledning: {description}",
+      "editClicked": "Redigering klickad kl {time}",
+      "failedToLog": "Misslyckades med att logga arbetstid",
+      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
+      "failedToFetch": "Misslyckades med att hämta kurser"
     }
   },
   "languages": {
