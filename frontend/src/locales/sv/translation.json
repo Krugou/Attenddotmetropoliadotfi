@@ -1156,7 +1156,6 @@
     "selectCourse": "Välj kurs",
     "clockIn": "Stämpla in",
     "clockOut": "Stämpla ut",
-    "edit": "Redigera",
     "optionalDescription": "Valfri beskrivning",
     "messages": {
       "clockedIn": "Stämplat in kl {time} med anledning: {description}",

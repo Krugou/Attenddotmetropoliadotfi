@@ -885,17 +885,17 @@
     },
     "worklog": {
       "title": "your Worklog courses",
-      "detail":{
+      "detail": {
         "backToWorklog": "Back to Worklog"
       },
-      "details":{
+      "details": {
         "title": "Worklog Details",
         "name": " Course Name",
-        "code":"Course Code",
-        "description":"Description",
-        "requiredHours":"Required Hours",
-        "startDate":"Start Date",
-        "endDate":"End Date"
+        "code": "Course Code",
+        "description": "Description",
+        "requiredHours": "Required Hours",
+        "startDate": "Start Date",
+        "endDate": "End Date"
       },
       "data": {
         "courseCode": "Course Code",
@@ -1045,7 +1045,7 @@
     "creating": "Creating...",
     "back": "Back",
     "close": "Close",
-    "save":"Save Changes",
+    "save": "Save Changes",
     "confirm": "Confirm",
     "view": "View"
   },
@@ -1180,12 +1180,6 @@
       "requiredFields": "Please fill all required fields",
       "codeExists": "Code already exists"
     },
-    "selectCourse": "Select course",
-    "clockIn": "Clock in",
-    "clockOut": "Clock out",
-    "edit": "Edit",
-    "description": "Description",
-    "optionalDescription": "Optional description",
     "requiredDescription": "Required description",
     "tooltips": {
       "modify": "Modify entry",
@@ -1206,7 +1200,29 @@
       "failedToLog": "Failed to log work entry",
       "failedToCheck": "Failed to check active work entries",
       "failedToFetch": "Failed to fetch courses"
-    }
+    },
+    "name": "Name",
+    "code": "Code",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "requiredHours": "Required Hours",
+    "description": "Description",
+    "createNewWorkLog": "Create new worklog",
+    "noCourses": "No courses available yet",
+    "redirecting": "Redirecting to main view...",
+    "logger": {
+      "title": "Work Log Entry"
+    },
+    "status": {
+      "0": "Status: Error",
+      "1": "Status: Clocked In",
+      "2": "Status: Clocked Out",
+      "3": "Status: Checked"
+    },
+    "selectCourse": "Select a course",
+    "clockIn": "Clock In",
+    "clockOut": "Clock Out",
+    "optionalDescription": "Optional description"
   },
   "languages": {
     "en": "English",

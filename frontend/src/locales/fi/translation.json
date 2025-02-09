@@ -205,7 +205,6 @@
       "topic": "Valitse aihe",
       "noFeedbackAvailable": "Palautetta ei ole vielä annettu. Pysy kuulolla!",
       "confirmDelete": "Haluatko varmasti poistaa tämän palautteen?"
-
     },
     "guide": {
       "title": "Opas",
@@ -711,7 +710,7 @@
           "description": "Ilmoita opiskelijat kursseille"
         },
         "lectureStats": {
-          "title": "Luennotilastosi",
+          "title": "Luentotilastosi",
           "description": "Näytä luentojesi tilastot"
         },
         "createWorkLogCourse": {
@@ -886,7 +885,7 @@
     },
     "worklog": {
       "create": {
-       "title": "Lisää uusi työaikakirjauskurssi",
+        "title": "Lisää uusi työaikakirjauskurssi",
         "subtitle": "Valitse tilojen väliltä",
         "modes": {
           "easy": {
@@ -1198,7 +1197,15 @@
       "failedToLog": "Työajan kirjaaminen epäonnistui",
       "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
       "failedToFetch": "Kurssien haku epäonnistui"
-    }
+    },
+    "name": "Nimi",
+    "code": "Koodi",
+    "startDate": "Aloituspäivä",
+    "endDate": "Päättymispäivä",
+    "requiredHours": "Vaaditut tunnit",
+    "createNewWorkLog": "Luo uusi työaikakirjauskurssi",
+    "noCourses": "Ei saatavilla olevia kursseja",
+    "redirecting": "Ohjataan päänäkymään..."
   },
   "languages": {
     "en": "Englanti",
@@ -1264,25 +1271,25 @@
     "backToLogin": "Takaisin kirjautumiseen"
   },
   "feedback": {
-      "header": "Auta meitä kehittymään, {{username}}, antamalla palautetta.",
-      "topicLabel": "Palautteen aihe",
-      "textLabel": "Palautteen teksti",
-      "selectTopic": "Valitse aihe",
-      "placeholder": "Kirjoita palautteesi tähän...",
-      "submit": "Lähetä",
-      "submitSuccess": "Palautteesi on lähetetty onnistuneesti!",
-      "submitError": "Palautteen lähettämisessä tapahtui virhe.",
-      "topics": {
-        "Qr Code Scanning": "QR-koodin skannaus",
-        "User Interface / Accessibility": "Käyttöliittymä / Saavutettavuus",
-        "Attendance info": "Läsnäolotiedot",
-        "Course Creation": "Kurssin luominen",
-        "Lecture Creation": "Luennon luominen",
-        "Attendance gathering": "Läsnäolojen kerääminen",
-        "Course/Student info": "Kurssi-/Opiskelijatiedot",
-        "Other": "Muu"
-      }
-    },
+    "header": "Auta meitä kehittymään, {{username}}, antamalla palautetta.",
+    "topicLabel": "Palautteen aihe",
+    "textLabel": "Palautteen teksti",
+    "selectTopic": "Valitse aihe",
+    "placeholder": "Kirjoita palautteesi tähän...",
+    "submit": "Lähetä",
+    "submitSuccess": "Palautteesi on lähetetty onnistuneesti!",
+    "submitError": "Palautteen lähettämisessä tapahtui virhe.",
+    "topics": {
+      "Qr Code Scanning": "QR-koodin skannaus",
+      "User Interface / Accessibility": "Käyttöliittymä / Saavutettavuus",
+      "Attendance info": "Läsnäolotiedot",
+      "Course Creation": "Kurssin luominen",
+      "Lecture Creation": "Luennon luominen",
+      "Attendance gathering": "Läsnäolojen kerääminen",
+      "Course/Student info": "Kurssi-/Opiskelijatiedot",
+      "Other": "Muu"
+    }
+  },
   "header": {
     "developmentMode": "Kehitystilassa",
     "profile": "Profiili",
@@ -1304,7 +1311,8 @@
       "additionalDev": "Lisäkehittäjä"
     },
     "viewGithub": "Katso GitHub-profiili"
-  }, "about": {
+  },
+  "about": {
     "title": "Tietoa Metropolia Attendance -sovelluksesta",
     "description": "Metropolia Attendance on kattava läsnäolon seurantajärjestelmä, joka on suunniteltu erityisesti Metropolia Ammattikorkeakoululle. Tämä alusta edustaa merkittävää edistysaskelta opiskelijoiden osallistumisen hallinnan ja kirjaamisen modernisoinnissa.",
     "modernization": "Järjestelmämme tehostaa perinteistä läsnäolon kirjaamisprosessia korvaamalla manuaaliset paperimenetelmät tehokkaalla digitaalisella ratkaisulla. Se tarjoaa reaaliaikaisen seurannan, automaattisen raportoinnin ja saumattoman integraation Metropolian olemassa olevaan digitaaliseen infrastruktuuriin.",
