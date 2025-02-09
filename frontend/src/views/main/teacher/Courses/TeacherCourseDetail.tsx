@@ -31,7 +31,7 @@ const TeacherCourseDetail: React.FC = () => {
   const {id} = useParams<{id: string}>();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const {user} = useContext(UserContext);
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   useEffect(() => {
     const fetchCourses = async () => {
       if (id) {
@@ -65,7 +65,7 @@ const TeacherCourseDetail: React.FC = () => {
                 ? '/counselor/courses'
                 : `/${user?.role}/courses`
             }
-            text={t('teacher.courseDetail.buttons.backToCourses')}
+            text={t('translation:teacher.courseDetail.buttons.backToCourses')}
           />
         </div>
         {courseData && <CourseData courseData={courseData} />}

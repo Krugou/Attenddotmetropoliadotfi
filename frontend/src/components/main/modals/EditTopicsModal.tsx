@@ -56,7 +56,7 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
   handleSave,
   usercourseid,
 }) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   return (
     <Modal
@@ -64,12 +64,14 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
       onClose={() => setOpen(false)}
       onClick={(e) => e.stopPropagation()}>
       <div className='p-4 bg-white rounded-sm shadow-lg max-w-lg mx-auto mt-10'>
-        <h2 className='text-2xl mb-4'>{t('editTopics.title', {courseName})}</h2>
+        <h2 className='text-2xl mb-4'>
+          {t('translation:editTopics.title', {courseName})}
+        </h2>
         {!counselor && (
           <TextField
             value={newTopic}
             onChange={(e) => setNewTopic(e.target.value)}
-            label={t('editTopics.newTopicLabel')}
+            label={t('translation:editTopics.newTopicLabel')}
             variant='outlined'
             className='mb-6'
             fullWidth
@@ -108,24 +110,24 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
         ))}
         {counselor ? (
           <p className='text-sm text-gray-500 mb-4'>
-            {t('editTopics.counselorHelpText')}
+            {t('translation:editTopics.counselorHelpText')}
           </p>
         ) : (
           <p className='text-sm text-gray-500 mb-4'>
-            {t('editTopics.teacherHelpText')}
+            {t('translation:editTopics.teacherHelpText')}
           </p>
         )}
         <div className='flex justify-between mt-6'>
           <button
             onClick={resetData}
             className='p-2 text-white rounded-sm transition hover:bg-red-700 bg-metropolia-support-red'>
-            {t('common.reset')}
+            {t('translation:common.reset')}
           </button>
           {counselor && (
             <button
               onClick={() => handleSave && handleSave(usercourseid)}
               className='p-2 text-white rounded-sm transition hover:bg-green-600 bg-metropolia-trend-green'>
-              {t('editTopics.saveTopics')}
+              {t('translation:editTopics.saveTopics')}
             </button>
           )}
         </div>

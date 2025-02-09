@@ -35,7 +35,7 @@ const AdminLectureDetail = () => {
     status: number;
     // Add other properties as needed
   }[];
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [data, setData] = useState<DataType | null>(null);
   const [loading, setLoading] = useState(true);
   const {user} = useContext(UserContext);
@@ -118,8 +118,9 @@ const AdminLectureDetail = () => {
   return (
     <div className='p-4 m-4 bg-metropolia-support-white'>
       <Typography variant='h6' component='h2' gutterBottom>
-        {t('admin.common.lectureId')}: {lectureId} - {data && data[0].code} -{' '}
-        {data && data[0].teacher} - {data && data[0].topicname} -{' '}
+        {t('translation:admin.common.lectureId')}: {lectureId} -{' '}
+        {data && data[0].code} - {data && data[0].teacher} -{' '}
+        {data && data[0].topicname} -{' '}
         {data && new Date(data[0].start_date).toLocaleDateString()} -{' '}
         {data && data[0].timeofday}
       </Typography>
@@ -129,10 +130,14 @@ const AdminLectureDetail = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>{t('admin.common.attendanceId')}</TableCell>
-              <TableCell>{t('admin.common.userCourseId')}</TableCell>
-              <TableCell>{t('admin.common.name')}</TableCell>
-              <TableCell>{t('admin.common.status')}</TableCell>
+              <TableCell>
+                {t('translation:admin.common.attendanceId')}
+              </TableCell>
+              <TableCell>
+                {t('translation:admin.common.userCourseId')}
+              </TableCell>
+              <TableCell>{t('translation:admin.common.name')}</TableCell>
+              <TableCell>{t('translation:admin.common.status')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -162,7 +167,7 @@ const AdminLectureDetail = () => {
                     <button
                       className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-support-red h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
                       onClick={() => handleOpenDialog(item.attendanceid)}>
-                      {t('admin.common.delete')}
+                      {t('translation:admin.common.delete')}
                     </button>
                   </TableCell>
                 </TableRow>
@@ -178,20 +183,20 @@ const AdminLectureDetail = () => {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id='alert-dialog-description'>
-                {t('admin.lectures.delete.deleteAttendance')}
+                {t('translation:admin.lectures.delete.deleteAttendance')}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <button
                 className='px-4 py-2 text-white bg-gray-500 rounded-sm font-heading hover:bg-gray-700'
                 onClick={handleCloseDialog}>
-                {t('admin.common.cancel')}
+                {t('translation:admin.common.cancel')}
               </button>
               <button
                 className='px-4 py-2 ml-2 text-white rounded-sm font-heading bg-metropolia-support-red hover:bg-red-600'
                 onClick={handleConfirmDelete}
                 autoFocus>
-                {t('admin.common.confirm')}
+                {t('translation:admin.common.confirm')}
               </button>
             </DialogActions>
           </Dialog>

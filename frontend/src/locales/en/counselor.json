@@ -1,0 +1,19 @@
+{
+  "helpVideos": {
+    "counselorHelpVideos": "Counselor Help Videos"
+  },
+  "mainView": {
+    "students": "Students",
+    "studentsDesc": "Manage any student",
+    "instructions": "Instructions",
+    "instructionsDesc": "See instructions for all available tasks",
+    "attendanceStatistics": "Attendance Statistics",
+    "attendanceStatisticsDesc": "See attendance statistics for all courses",
+    "lateEnrollment": "Late Enrollment",
+    "lateEnrollmentDesc": "Enroll students in courses"
+  },
+  "profile": {
+    "noDataAvailable": "No user data available.",
+    "title": "Counselor Profile"
+  }
+}

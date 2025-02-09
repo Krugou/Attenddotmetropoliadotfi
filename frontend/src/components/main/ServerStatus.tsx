@@ -18,7 +18,7 @@ interface ServerResponse {
  * @returns {JSX.Element} The rendered ServerStatus component.
  */
 const ServerStatus: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   // Define the URL for the VPN test page
   // const vpnTestUrl =
   // 	import.meta.env.MODE === 'development'
@@ -87,7 +87,7 @@ const ServerStatus: React.FC = () => {
             href='https://wiki.metropolia.fi/display/itservices/VPN+Connection+via+GlobalProtect+Service'
             target='_blank'
             rel='noopener noreferrer'>
-            {t('serverStatus.vpnNotConnected')}
+            {t('translation:serverStatus.vpnNotConnected')}
           </a>
         )}
       </p>
@@ -95,18 +95,18 @@ const ServerStatus: React.FC = () => {
       <div className='p-2 m-2 rounded-xl'>
         {isServerOnline && (
           <p className='p-2 m-2'>
-            {t('serverStatus.version')}:{' '}
+            {t('translation:serverStatus.version')}:{' '}
             {newestVersion ? <DoneIcon /> : <DangerousIcon />}
           </p>
         )}
         <p className='p-2 m-2'>
-          {t('serverStatus.connection')}:{' '}
+          {t('translation:serverStatus.connection')}:{' '}
           {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
         </p>
       </div>
       {!newestVersion && isServerOnline && (
         <p className='p-2 m-2 rounded-xl'>
-          <strong>{t('serverStatus.reloadNeeded')}</strong>
+          <strong>{t('translation:serverStatus.reloadNeeded')}</strong>
         </p>
       )}
     </>

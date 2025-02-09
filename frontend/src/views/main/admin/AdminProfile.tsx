@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered AdminProfile component.
  */
 const AdminProfile: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   /**
    * User context.
    *
@@ -22,7 +22,7 @@ const AdminProfile: React.FC = () => {
 
   // Error handling
   if (!user) {
-    return <div>{t('admin.adminProfile.noData')}</div>;
+    return <div>{t('translation:admin.adminProfile.noData')}</div>;
   }
   /**
    * Render the component.
@@ -32,7 +32,7 @@ const AdminProfile: React.FC = () => {
   return (
     <div className='flex flex-col items-center justify-center p-5 bg-white rounded-lg 2xl:w-1/4 font-body h-fit sm:p-10'>
       <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
-        {t('admin.adminProfile.profile')}
+        {t('translation:admin.adminProfile.profile')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />

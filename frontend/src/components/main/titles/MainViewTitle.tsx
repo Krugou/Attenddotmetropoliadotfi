@@ -19,10 +19,10 @@ interface MainViewTitleProps {
  * @returns {JSX.Element} The rendered MainViewTitle component.
  */
 const MainViewTitle: React.FC<MainViewTitleProps> = ({role}) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   return (
     <h1 className='p-3 mt-5 mb-5 ml-auto mr-auto text-2xl font-heading text-center bg-white md:text-4xl rounded-xl w-fit text-metropolia-support-black'>
-      {role} {t('mainViewTitle.dashboard')}
+      {role} {t('translation:mainViewTitle.dashboard')}
     </h1>
   );
 };

@@ -24,7 +24,7 @@ interface WorkLogDetail {
 }
 
 const TeacherWorklogCourseModify: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [worklogData, setWorklogData] = useState<WorkLogDetail | null>(null);
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
@@ -138,19 +138,19 @@ const TeacherWorklogCourseModify: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div>{t('teacher.worklog.modify.loading')}</div>;
+    return <div>{t('translation:teacher.worklog.modify.loading')}</div>;
   }
 
   return (
     <div className='w-full'>
       <h2 className='p-3 m-auto mb-6 text-center text-gray-800 bg-white rounded-lg font-heading w-fit text-md sm:text-2xl'>
-        {t('teacher.worklog.modify.title')}
+        {t('translation:teacher.worklog.modify.title')}
       </h2>
       <form className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
         <div className='mt-2 mb-4'>
           <GeneralLinkButton
             path='/teacher/worklog'
-            text={t('teacher.worklog.modify.backToWorklog')}
+            text={t('translation:teacher.worklog.modify.backToWorklog')}
           />
         </div>
 
@@ -177,7 +177,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            {t('teacher.worklog.modify.instructors')}
+            {t('translation:teacher.worklog.modify.instructors')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -194,7 +194,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            {t('teacher.worklog.modify.save')}
+            {t('translation:teacher.worklog.modify.save')}
           </button>
         </div>
       </form>

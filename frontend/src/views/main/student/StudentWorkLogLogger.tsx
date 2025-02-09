@@ -39,7 +39,7 @@ interface ActiveEntry {
 }
 
 const StudentWorkLogLogger: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -208,16 +208,16 @@ const StudentWorkLogLogger: React.FC = () => {
         {/* Course Selection Section */}
         <div className='space-y-4'>
           <h2 className='text-2xl font-heading font-bold text-gray-800 mb-4'>
-            {t('worklog.logger.title')}
+            {t('translation:worklog.logger.title')}
           </h2>
 
           {courses.length === 0 ? (
             <div className='p-4 text-center'>
               <p className='text-lg font-body text-gray-600'>
-                {t('worklog.noCourses')}
+                {t('translation:worklog.noCourses')}
               </p>
               <p className='text-sm font-body text-gray-500 mt-2'>
-                {t('worklog.redirecting')}
+                {t('translation:worklog.redirecting')}
               </p>
             </div>
           ) : activeCourse ? (
@@ -231,14 +231,14 @@ const StudentWorkLogLogger: React.FC = () => {
             </div>
           ) : (
             <select
-              title={t('worklog.selectCourse')}
+              title={t('translation:worklog.selectCourse')}
               value={selectedCourse || ''}
               onChange={handleCourseChange}
               className='w-full p-3 border-2 border-gray-200 rounded-lg font-body
                   focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
                   bg-white text-gray-700'>
               <option value='' disabled>
-                {t('worklog.selectCourse')}
+                {t('translation:worklog.selectCourse')}
               </option>
               {courses.map((course) => (
                 <option
@@ -262,9 +262,9 @@ const StudentWorkLogLogger: React.FC = () => {
                   ? 'bg-gray-400'
                   : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
               }`}
-              aria-label={t('worklog.clockIn')}>
+              aria-label={t('translation:worklog.clockIn')}>
               <LoginIcon className='w-6 h-6' />
-              <span>{t('worklog.actions.in')}</span>
+              <span>{t('translation:worklog.actions.in')}</span>
             </button>
 
             <button
@@ -275,18 +275,18 @@ const StudentWorkLogLogger: React.FC = () => {
                   ? 'bg-gray-400'
                   : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
               }`}
-              aria-label={t('worklog.clockOut')}>
+              aria-label={t('translation:worklog.clockOut')}>
               <LogoutIcon className='w-6 h-6' />
-              <span>{t('worklog.actions.out')}</span>
+              <span>{t('translation:worklog.actions.out')}</span>
             </button>
 
             <button
               onClick={handleEdit}
               className={`${buttonBaseStyle}
                 bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
-              aria-label={t('worklog.edit.title')}>
+              aria-label={t('translation:worklog.edit.title')}>
               <EditIcon className='w-6 h-6' />
-              <span>{t('worklog.actions.edit')}</span>
+              <span>{t('translation:worklog.actions.edit')}</span>
             </button>
           </div>
         )}
@@ -306,7 +306,7 @@ const StudentWorkLogLogger: React.FC = () => {
               {actionType === 'in' && (
                 <label className='block space-y-2'>
                   <span className='font-body font-medium text-gray-700'>
-                    {t('worklog.description')} *
+                    {t('translation:worklog.description')} *
                   </span>
                   <input
                     type='text'
@@ -316,7 +316,7 @@ const StudentWorkLogLogger: React.FC = () => {
                       focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
                       transition-colors duration-200'
                     required
-                    placeholder={t('worklog.requiredDescription')}
+                    placeholder={t('translation:worklog.requiredDescription')}
                   />
                 </label>
               )}
@@ -329,14 +329,14 @@ const StudentWorkLogLogger: React.FC = () => {
                     bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
                     disabled:bg-gray-400 font-bold disabled:cursor-not-allowed
                     transition-colors duration-200'>
-                  {t('common.confirm')}
+                  {t('translation:common.confirm')}
                 </button>
                 <button
                   onClick={handleCloseModal}
                   className='flex-1 px-6 py-3 font-body font-medium text-gray-700 rounded-lg
                     bg-gray-100 hover:bg-gray-200
                     transition-colors duration-200'>
-                  {t('common.cancel')}
+                  {t('translation:common.cancel')}
                 </button>
               </div>
             </div>

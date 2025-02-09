@@ -1,0 +1,30 @@
+{
+  "login": "Login",
+  "dialog": {
+    "confirm": "Yes",
+    "cancel": "No"
+  },
+  "deleteModal": {
+    "title": "Confirmation",
+    "messages": {
+      "student": "Are you sure you want to delete student from this course? This will also delete all attendance data for this student on the course.",
+      "course": "Are you sure you want to delete this course?"
+    },
+    "buttons": {
+      "cancel": "CANCEL",
+      "delete": "DELETE"
+    }
+  },
+  "reset": "Reset",
+  "errors": {
+    "emailTaken": "Email taken",
+    "studentNumberTaken": "Student Number taken",
+    "noToken": "No token available",
+    "fillRequiredFields": "Please fill all required fields"
+  },
+  "email": "Email",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "studentNumber": "Student Number",
+  "showEndedCourses": "Show ended courses"
+}

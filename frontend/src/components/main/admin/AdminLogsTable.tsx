@@ -8,7 +8,7 @@ const AdminLogsTable = ({
   lineLimit,
   logType,
 }) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   return (
     <div className='flex flex-col justify-center w-full px-4 mx-auto max-w-7xl sm:px-6 lg:px-8'>
@@ -28,7 +28,7 @@ const AdminLogsTable = ({
                 : 'bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white'
             }`}
             disabled={lineLimit >= 5000}>
-            {t('admin.logs.showOlder')}{' '}
+            {t('translation:admin.logs.showOlder')}{' '}
             {logType === 'error'
               ? t('admin.logs.errorLogsLabel')
               : t('admin.logs.logsLabel')}
@@ -36,7 +36,7 @@ const AdminLogsTable = ({
           <button
             onClick={handleReset}
             className='w-full px-4 py-2 text-white transition-colors duration-200 bg-red-500 rounded-md sm:w-auto font-heading hover:bg-red-600 active:bg-red-700'>
-            {t('admin.logs.resetReload')}
+            {t('translation:admin.logs.resetReload')}
           </button>
         </div>
       </div>
@@ -73,21 +73,21 @@ const AdminLogsTable = ({
                         {parsedLog.useremail && (
                           <div className='text-sm break-all sm:text-base'>
                             <span className='font-medium'>
-                              {t('admin.logs.details.userEmail')}:
+                              {t('translation:admin.logs.details.userEmail')}:
                             </span>{' '}
                             {parsedLog.useremail}
                           </div>
                         )}
                         <div className='text-sm text-gray-600 sm:text-base whitespace-nowrap'>
                           <span className='font-medium'>
-                            {t('admin.logs.details.time')}:
+                            {t('translation:admin.logs.details.time')}:
                           </span>{' '}
                           {new Date(parsedLog.time).toLocaleString()}
                         </div>
                       </div>
                       <div className='mt-2 text-sm break-words sm:text-base'>
                         <span className='font-medium'>
-                          {t('admin.logs.details.message')}:
+                          {t('translation:admin.logs.details.message')}:
                         </span>{' '}
                         {parsedLog.msg}
                       </div>

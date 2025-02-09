@@ -18,31 +18,31 @@ import {useNavigate} from 'react-router-dom'; // Import useNavigate
  * @returns A JSX element representing the student profile component.
  */
 const StudentProfile: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const {user} = useContext(UserContext);
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Error handling
   if (!user) {
-    return <div>{t('student.profile.noData')}</div>;
+    return <div>{t('translation:student.profile.noData')}</div>;
   }
 
   return (
     <div className='flex flex-col items-center justify-center p-10 font-body bg-white rounded-lg h-fit'>
       <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
-        {t('student.profile.title')}
+        {t('translation:student.profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
         <p className='mt-5 mb-5'>
-          <strong>{t('student.profile.studentGroup')}:</strong>{' '}
+          <strong>{t('translation:student.profile.studentGroup')}:</strong>{' '}
           <span className='profileStat'>{user.group_name}</span>
         </p>
       </div>
       <button
         className='px-4 py-2 mt-4 text-white transition rounded-sm bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
         onClick={() => navigate('/student/courses')}>
-        {t('student.profile.myCourses')}
+        {t('translation:student.profile.myCourses')}
       </button>
     </div>
   );

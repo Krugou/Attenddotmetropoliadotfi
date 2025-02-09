@@ -1,0 +1,17 @@
+{
+  "student": {
+    "profile": {
+      "title": "Student Profile",
+      "studentGroup": "Student Group",
+      "noData": "No user data available.",
+      "myCourses": "My Courses"
+    },
+    "qrScanner": {
+      "loading": "Loading...",
+      "camera": {
+        "selectLabel": "Choose desired camera input:",
+        "noDevices": "No cameras available"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "teacher": {
+    "createLecture": {
+      "title": "Create new lecture",
+      "courseSection": {
+        "heading": "Choose your preferred course and topic.",
+        "courseLabel": "Course :",
+        "topicLabel": "Topic :",
+        "tooltips": {
+          "showEnded": "Show ended courses",
+          "hideEnded": "Hide ended courses",
+          "pickCourse": "Click to pick course",
+          "pickTopic": "Click to pick topic for the lecture"
+        },
+        "errors": {
+          "noCourses": "You have no courses or all your courses have ended"
+        }
+      }
+    }
+  }
+}

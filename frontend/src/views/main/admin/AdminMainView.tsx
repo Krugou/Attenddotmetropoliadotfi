@@ -23,7 +23,7 @@ import WelcomeModal from '../../../components/main/modals/WelcomeModal';
  * @returns {JSX.Element} The rendered AdminMainView component.
  */
 const AdminMainView: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   return (
     <>
       <MainViewTitle role={'Admin'} />
@@ -31,63 +31,63 @@ const AdminMainView: React.FC = () => {
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/teacher/mainview'
-          title={t('admin.mainView.teacherDashboard')}
-          description={t('admin.mainView.teacherDashboardDesc')}
+          title={t('translation:admin.mainView.teacherDashboard')}
+          description={t('translation:admin.mainView.teacherDashboardDesc')}
           icon={School}
         />
         <Card
           path='/counselor/mainview'
-          title={t('admin.mainView.counselorDashboard')}
-          description={t('admin.mainView.counselorDashboardDesc')}
+          title={t('translation:admin.mainView.counselorDashboard')}
+          description={t('translation:admin.mainView.counselorDashboardDesc')}
           icon={SupervisorAccount}
         />
         <Card
           path='/admin/courses/'
-          title={t('admin.mainView.courseManagement')}
-          description={t('admin.mainView.courseManagementDesc')}
+          title={t('translation:admin.mainView.courseManagement')}
+          description={t('translation:admin.mainView.courseManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/users/'
-          title={t('admin.mainView.userManagement')}
-          description={t('admin.mainView.userManagementDesc')}
+          title={t('translation:admin.mainView.userManagement')}
+          description={t('translation:admin.mainView.userManagementDesc')}
           icon={People}
         />
         <Card
           path='/admin/newuser/'
-          title={t('admin.mainView.userRegistration')}
-          description={t('admin.mainView.userRegistrationDesc')}
+          title={t('translation:admin.mainView.userRegistration')}
+          description={t('translation:admin.mainView.userRegistrationDesc')}
           icon={PersonAdd}
         />
         <Card
           path='/admin/lectures/'
-          title={t('admin.mainView.lectureManagement')}
-          description={t('admin.mainView.lectureManagementDesc')}
+          title={t('translation:admin.mainView.lectureManagement')}
+          description={t('translation:admin.mainView.lectureManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/settings/'
-          title={t('admin.mainView.serverConfiguration')}
-          description={t('admin.mainView.serverConfigurationDesc')}
+          title={t('translation:admin.mainView.serverConfiguration')}
+          description={t('translation:admin.mainView.serverConfigurationDesc')}
           icon={Settings}
         />
         <Card
           path='/admin/dashboard/'
-          title={t('admin.mainView.serverDashboard')}
-          description={t('admin.mainView.serverDashboardDesc')}
+          title={t('translation:admin.mainView.serverDashboard')}
+          description={t('translation:admin.mainView.serverDashboardDesc')}
           icon={Dashboard}
         />
         <Card
           path='/admin/worklog/'
-          title={t('admin.mainView.workLog')}
-          description={t('admin.mainView.workLogDesc')}
+          title={t('translation:admin.mainView.workLog')}
+          description={t('translation:admin.mainView.workLogDesc')}
           icon={Event}
         />
         {import.meta.env.MODE === 'development' && (
           <Card
             path='/student/'
-            title={t('admin.mainView.studentDashboard')}
-            description={t('admin.mainView.studentDashboardDesc')}
+            title={t('translation:admin.mainView.studentDashboard')}
+            description={t('translation:admin.mainView.studentDashboardDesc')}
             icon={People}
           />
         )}

@@ -48,7 +48,7 @@ interface ColumnConfig {
 const ITEMS_PER_PAGE = 50;
 
 const AdminLectures: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterOpen, setFilterOpen] = useState(true);
@@ -375,7 +375,7 @@ const AdminLectures: React.FC = () => {
               onClick={handleMenuOpen}
               className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
               <ViewColumnIcon className='w-5 h-5 mr-1' />
-              {t('admin.lectures.alternative.columns')}
+              {t('translation:admin.lectures.alternative.columns')}
             </button>
           )}
 
@@ -430,14 +430,15 @@ const AdminLectures: React.FC = () => {
         <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-2'>
           <div className='p-2 bg-blue-100 rounded-sm col-span-full'>
             <h2 className='mb-2 text-lg'>
-              {t('admin.lectures.stats.totalLectures')}: {totalLectures} |{' '}
-              {t('admin.lectures.stats.attendanceRatio')}:{' '}
+              {t('translation:admin.lectures.stats.totalLectures')}:{' '}
+              {totalLectures} |{' '}
+              {t('translation:admin.lectures.stats.attendanceRatio')}:{' '}
               {attendanceRatio.toFixed(2)}%
             </h2>
           </div>
           <div className='p-2 bg-green-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
-              {t('admin.lectures.stats.highestAttendance')}:
+              {t('translation:admin.lectures.stats.highestAttendance')}:
               {highestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -447,7 +448,7 @@ const AdminLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-red-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
-              {t('admin.lectures.stats.lowestAttendance')}:
+              {t('translation:admin.lectures.stats.lowestAttendance')}:
               {lowestAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.attended} (ID: {lecture.lectureid})
@@ -458,7 +459,7 @@ const AdminLectures: React.FC = () => {
           <div className='p-2 bg-yellow-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
               {' '}
-              {t('admin.lectures.stats.highestNotAttended')}
+              {t('translation:admin.lectures.stats.highestNotAttended')}
               {highestNotAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.notattended} (ID: {lecture.lectureid})
@@ -468,7 +469,7 @@ const AdminLectures: React.FC = () => {
           </div>
           <div className='p-2 bg-purple-100 rounded-sm'>
             <h2 className='mb-2 text-lg'>
-              {t('admin.lectures.stats.lowestNotAttended')}:
+              {t('translation:admin.lectures.stats.lowestNotAttended')}:
               {lowestNotAttendedLectures.map((lecture) => (
                 <p key={lecture.lectureid} className='m-1'>
                   {lecture.notattended} (ID: {lecture.lectureid})
@@ -525,7 +526,7 @@ const AdminLectures: React.FC = () => {
                       </th>
                     ))}
                   <th className='p-3 text-center border-b border-gray-200 bg-gray-50 whitespace-nowrap font-heading'>
-                    {t('admin.lectures.tableContent.actions')}
+                    {t('translation:admin.lectures.tableContent.actions')}
                   </th>
                 </tr>
               </thead>
@@ -556,7 +557,7 @@ const AdminLectures: React.FC = () => {
                             )
                           }
                           className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
-                          {t('admin.common.details')}
+                          {t('translation:admin.common.details')}
                         </button>
                         {lecture.state === 'open' && (
                           <button
@@ -568,7 +569,7 @@ const AdminLectures: React.FC = () => {
                               )
                             }
                             className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-trend-green h-fit hover:hover:bg-green-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
-                            {t('admin.common.close')}
+                            {t('translation:admin.common.close')}
                           </button>
                         )}
                         {(lecture.state === 'open' ||
@@ -582,7 +583,7 @@ const AdminLectures: React.FC = () => {
                               )
                             }
                             className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-support-red h-fit hover:hover:bg-red-600 sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'>
-                            {t('admin.common.delete')}
+                            {t('translation:admin.common.delete')}
                           </button>
                         )}
                       </div>
@@ -640,15 +641,15 @@ const AdminLectures: React.FC = () => {
         <DialogTitle>{`Are you sure you want to ${action} the lecture?`}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('admin.lectures.dialog.dialogText')}.
+            {t('translation:admin.lectures.dialog.dialogText')}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color='primary'>
-            {t('admin.common.cancel')}
+            {t('translation:admin.common.cancel')}
           </Button>
           <Button onClick={handleConfirm} color='primary' autoFocus>
-            {t('admin.common.confirm')}
+            {t('translation:admin.common.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

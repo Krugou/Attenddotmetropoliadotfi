@@ -1,0 +1,21 @@
+{
+  "teacher": {
+    "createLecture": {
+      "title": "Luo uusi luento",
+      "courseSection": {
+        "heading": "Valitse haluamasi kurssi ja aihe.",
+        "courseLabel": "Kurssi:",
+        "topicLabel": "Aihe:",
+        "tooltips": {
+          "showEnded": "Näytä päättyneet kurssit",
+          "hideEnded": "Piilota päättyneet kurssit",
+          "pickCourse": "Klikkaa valitaksesi kurssin",
+          "pickTopic": "Klikkaa valitaksesi aiheen luennolle"
+        },
+        "errors": {
+          "noCourses": "Sinulla ei ole kursseja tai kaikki kurssisi ovat päättyneet"
+        }
+      }
+    }
+  }
+}

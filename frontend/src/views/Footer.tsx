@@ -59,7 +59,7 @@ const diffHours: number = Math.floor((diffTime / (1000 * 60 * 60)) % 24);
  */
 const Footer: React.FC = () => {
   const {user} = React.useContext(UserContext);
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const isMobile = useIsMobile();
 
   const buildInfo = `Build date: ${buildDate.toLocaleDateString()}${
@@ -96,10 +96,10 @@ const Footer: React.FC = () => {
         // Logged in view or mobile view
         <div className='text-center'>
           <p className='mb-2 font-bold font-heading'>
-            © {new Date().getFullYear()} {t('footer.appName')}
+            © {new Date().getFullYear()} {t('translation:footer.appName')}
           </p>
           <p title={buildInfo}>
-            {t('footer.developedBy')}{' '}
+            {t('translation:footer.developedBy')}{' '}
             <Link to={`/${user?.role || ''}/team`}>JAK</Link>
           </p>
         </div>
@@ -108,19 +108,19 @@ const Footer: React.FC = () => {
         <div className='flex justify-between mx-auto'>
           <div>
             <h3 className='mb-4 text-lg font-bold font-heading'>
-              {t('footer.metropolia')}
+              {t('translation:footer.metropolia')}
             </h3>
             {renderLinks(footerLinks.metropolia)}
           </div>
           <div className='mb-4 text-center'>
             <p className='mb-2 font-bold font-heading'>
-              © {new Date().getFullYear()} {t('footer.appName')}
+              © {new Date().getFullYear()} {t('translation:footer.appName')}
             </p>
-            <p title={buildInfo}>{t('footer.developedBy')} JAK</p>
+            <p title={buildInfo}>{t('translation:footer.developedBy')} JAK</p>
           </div>
           <div>
             <h3 className='mb-4 text-lg font-bold font-heading'>
-              {t('footer.navigation')}
+              {t('translation:footer.navigation')}
             </h3>
             {renderLinks(footerLinks.navigation)}
           </div>

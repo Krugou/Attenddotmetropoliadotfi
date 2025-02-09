@@ -1,0 +1,32 @@
+{
+  "common": {
+    "login": "Logga in",
+    "dialog": {
+      "confirm": "Ja",
+      "cancel": "Nej"
+    },
+    "deleteModal": {
+      "title": "Bekräftelse",
+      "messages": {
+        "student": "Är du säker på att du vill ta bort student från denna kurs? Detta kommer också att ta bort all närvarodata för studenten på kursen.",
+        "course": "Är du säker på att du vill ta bort den här kursen?"
+      },
+      "buttons": {
+        "cancel": "AVBRYT",
+        "delete": "RADERA"
+      }
+    },
+    "reset": "Återställ",
+    "errors": {
+      "emailTaken": "E-post upptagen",
+      "studentNumberTaken": "Studentnummer upptaget",
+      "noToken": "Ingen token tillgänglig",
+      "fillRequiredFields": "Vänligen fyll i alla obligatoriska fält"
+    },
+    "email": "E-post",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "studentNumber": "Studentnummer",
+    "showEndedCourses": "Visa avslutade kurser"
+  }
+}

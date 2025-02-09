@@ -1,0 +1,17 @@
+{
+  "student": {
+    "profile": {
+      "title": "Studentprofil",
+      "studentGroup": "Studentgrupp",
+      "noData": "Inga användardata tillgängliga.",
+      "myCourses": "Mina kurser"
+    },
+    "qrScanner": {
+      "loading": "Laddar...",
+      "camera": {
+        "selectLabel": "Välj önskad kamerainmatning:",
+        "noDevices": "Inga kameror tillgängliga"
+      }
+    }
+  }
+}

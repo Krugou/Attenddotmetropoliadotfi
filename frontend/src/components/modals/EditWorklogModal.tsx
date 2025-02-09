@@ -23,7 +23,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
   entry,
   onSave,
 }) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [description, setDescription] = React.useState(
     entry?.description || '',
   );
@@ -55,12 +55,12 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
       <div className='p-6'>
         <h2 className='mb-4 text-xl font-heading text-metropolia-main-orange'>
-          {t('worklog.edit.title')}
+          {t('translation:worklog.edit.title')}
         </h2>
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('worklog.entries.startTime')}
+              {t('translation:worklog.entries.startTime')}
             </label>
             <input
               type='datetime-local'
@@ -71,7 +71,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
           </div>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('worklog.entries.endTime')}
+              {t('translation:worklog.entries.endTime')}
             </label>
             <input
               type='datetime-local'
@@ -82,7 +82,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
           </div>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('worklog.entries.description')}
+              {t('translation:worklog.entries.description')}
             </label>
             <textarea
               value={description}
@@ -93,14 +93,18 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
           </div>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('teacher.worklog.entries.status')}
+              {t('translation:teacher.worklog.entries.status')}
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(Number(e.target.value))}
               className='w-full p-2 border rounded-sm'>
-              <option value={1}>{t('teacher.worklog.status.1')}</option>
-              <option value={2}>{t('teacher.worklog.status.2')}</option>
+              <option value={1}>
+                {t('translation:teacher.worklog.status.1')}
+              </option>
+              <option value={2}>
+                {t('translation:teacher.worklog.status.2')}
+              </option>
             </select>
           </div>
           <div className='flex justify-end gap-2 pt-4'>
@@ -108,12 +112,12 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               type='button'
               onClick={onClose}
               className='px-4 py-2 text-sm text-gray-600 border rounded-sm hover:bg-gray-50'>
-              {t('common.cancel')}
+              {t('translation:common.cancel')}
             </button>
             <button
               type='submit'
               className='px-4 py-2 text-sm text-white rounded-sm bg-metropolia-main-orange hover:bg-metropolia-main-orange/90'>
-              {t('common.save')}
+              {t('translation:common.save')}
             </button>
           </div>
         </form>

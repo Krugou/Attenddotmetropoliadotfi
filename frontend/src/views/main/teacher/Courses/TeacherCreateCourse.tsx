@@ -10,28 +10,32 @@ import Card from '../../../../components/main/cards/Card';
  * In Custom mode, the teacher can create a course with their custom details.
  */
 const TeacherCreateCourse: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   return (
     <div>
       <div className='w-full pt-10 pb-10'>
         <h1 className='p-3 mb-8 ml-auto mr-auto text-4xl font-heading text-center bg-white rounded-lg w-fit'>
-          {t('teacher.createCourse.title')}
+          {t('translation:teacher.createCourse.title')}
         </h1>
         <p className='p-2 mb-4 ml-auto mr-auto text-center bg-white rounded-lg w-fit'>
-          {t('teacher.createCourse.subtitle')}
+          {t('translation:teacher.createCourse.subtitle')}
         </p>
         <div className='flex flex-wrap justify-center space-x-4'>
           <Card
             path='/teacher/courses/create/easy'
-            title={t('teacher.createCourse.modes.easy.title')}
-            description={t('teacher.createCourse.modes.easy.description')}
+            title={t('translation:teacher.createCourse.modes.easy.title')}
+            description={t(
+              'translation:teacher.createCourse.modes.easy.description',
+            )}
           />
 
           <Card
             path='/teacher/courses/create/custom'
-            title={t('teacher.createCourse.modes.custom.title')}
-            description={t('teacher.createCourse.modes.custom.description')}
+            title={t('translation:teacher.createCourse.modes.custom.title')}
+            description={t(
+              'translation:teacher.createCourse.modes.custom.description',
+            )}
           />
         </div>
       </div>

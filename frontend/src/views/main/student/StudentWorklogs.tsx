@@ -26,7 +26,7 @@ interface WorkLogEntry {
 }
 
 const StudentWorklogs: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const {user} = useContext(UserContext);
   const [entries, setEntries] = useState<WorkLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -152,7 +152,7 @@ const StudentWorklogs: React.FC = () => {
     <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
       <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
         <h1 className='text-2xl font-heading text-metropolia-main-orange'>
-          {t('worklog.entries.title')}
+          {t('translation:worklog.entries.title')}
         </h1>
         <div className='flex flex-col '>
           <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
@@ -162,7 +162,9 @@ const StudentWorklogs: React.FC = () => {
                 className='w-full md:w-auto p-2 border rounded-md bg-white text-metropolia-main-grey'
                 value={selectedCourse}
                 onChange={(e) => setSelectedCourse(e.target.value)}>
-                <option value='all'>{t('worklog.filter.allCourses')}</option>
+                <option value='all'>
+                  {t('translation:worklog.filter.allCourses')}
+                </option>
                 {uniqueCourses.map((course) => (
                   <option key={course.code} value={course.code}>
                     {course.name} - {course.code}
@@ -230,7 +232,7 @@ const StudentWorklogs: React.FC = () => {
               <div className='space-y-2'>
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    {t('worklog.entries.time')}:
+                    {t('translation:worklog.entries.time')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {dayjs(entry.start_time).format('HH:mm')} -{' '}
@@ -240,7 +242,7 @@ const StudentWorklogs: React.FC = () => {
 
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    {t('worklog.entries.duration')}:
+                    {t('translation:worklog.entries.duration')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {calculateDuration(entry.start_time, entry.end_time)}
@@ -274,8 +276,8 @@ const StudentWorklogs: React.FC = () => {
       />
 
       <div className='mt-4 text-sm text-metropolia-main-grey'>
-        {t('worklog.entries.total')}: {filteredEntries.length}{' '}
-        {t('worklog.entries.entries')}
+        {t('translation:worklog.entries.total')}: {filteredEntries.length}{' '}
+        {t('translation:worklog.entries.entries')}
       </div>
     </div>
   );

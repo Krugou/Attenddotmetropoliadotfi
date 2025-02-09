@@ -47,7 +47,7 @@ interface User {
  * @returns {JSX.Element} The rendered AdminUserModify component.
  */
 const AdminUserModify: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const {userid} = useParams<{userid: string}>();
   const {user} = useContext(UserContext);
   const [modifyUser, setModifyUser] = useState<User | null>(null);

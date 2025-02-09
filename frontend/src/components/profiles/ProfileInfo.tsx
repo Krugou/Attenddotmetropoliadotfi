@@ -44,7 +44,7 @@ interface Role {
  * @returns {JSX.Element} The rendered ProfileInfo component.
  */
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
-  const {t, i18n} = useTranslation();
+  const {t, i18n} = useTranslation(['translation']);
   const {setUser} = useContext(UserContext);
   // Define navigate
   const Navigate = useNavigate();
@@ -146,20 +146,20 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Personal Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('profileInfo.sections.personal')}:
+          {t('translation:profileInfo.sections.personal')}:
         </h3>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.name')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.name')}:</strong>{' '}
           <span className='profileStat'>
             {user.first_name + ' ' + user.last_name}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.username')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.username')}:</strong>{' '}
           <span className='profileStat'>{user.username}</span>
         </p>
         <p className='flex flex-wrap items-center justify-between gap-1 items-base'>
-          <strong>{t('profileInfo.labels.email')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.email')}:</strong>{' '}
           <span className='profileStat w-fit'>{user.email}</span>
         </p>
       </div>
@@ -167,23 +167,23 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Account Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('profileInfo.sections.account')}:
+          {t('translation:profileInfo.sections.account')}:
         </h3>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.accountCreated')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.accountCreated')}:</strong>{' '}
           <span className='profileStat'>
             {new Date(user.created_at).toLocaleDateString()}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.role')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.role')}:</strong>{' '}
           <div className='flex items-center gap-2'>
             <span className='profileStat'>{user.role}</span>
             {['counselor', 'teacher'].includes(user.role) && (
               <button
                 className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-grey hover:bg-metropolia-trend-light-blue focus:outline-hidden focus:shadow-outline'
                 onClick={handleOpen}>
-                {t('profileInfo.buttons.change')}
+                {t('translation:profileInfo.buttons.change')}
               </button>
             )}
           </div>
@@ -193,10 +193,10 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Preferences Section */}
       <div className='p-4 space-y-4'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('profileInfo.sections.preferences')}:
+          {t('translation:profileInfo.sections.preferences')}:
         </h3>
         <div className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.language')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.language')}:</strong>{' '}
           <div className='flex gap-2'>
             <button
               onClick={() => handleLanguageChange('en')}
@@ -205,8 +205,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
                   ? 'bg-metropolia-main-orange'
                   : 'bg-metropolia-main-grey'
               }`}
-              title={t('languages.flags.en')}
-              aria-label={t('languages.flags.en')}>
+              title={t('translation:languages.flags.en')}
+              aria-label={t('translation:languages.flags.en')}>
               <GB className='w-6 h-4' aria-hidden='true' />
             </button>
             <button
@@ -216,8 +216,8 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
                   ? 'bg-metropolia-main-orange'
                   : 'bg-metropolia-main-grey'
               }`}
-              title={t('languages.flags.fi')}
-              aria-label={t('languages.flags.fi')}>
+              title={t('translation:languages.flags.fi')}
+              aria-label={t('translation:languages.flags.fi')}>
               <FI className='w-6 h-4' aria-hidden='true' />
             </button>
             <button
@@ -227,20 +227,20 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
                   ? 'bg-metropolia-main-orange'
                   : 'bg-metropolia-main-grey'
               }`}
-              title={t('languages.flags.sv')}
-              aria-label={t('languages.flags.sv')}>
+              title={t('translation:languages.flags.sv')}
+              aria-label={t('translation:languages.flags.sv')}>
               <SE className='w-6 h-4' aria-hidden='true' />
             </button>
           </div>
         </div>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.activeStatus')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.activeStatus')}:</strong>{' '}
           <span className='profileStat'>
             {user.activeStatus === 1 ? t('common.yes') : t('common.no')}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('profileInfo.labels.darkMode')}:</strong>{' '}
+          <strong>{t('translation:profileInfo.labels.darkMode')}:</strong>{' '}
           <span className='profileStat'>
             {user.darkMode === 1 ? t('common.yes') : t('common.no')}
           </span>
@@ -251,10 +251,10 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropolia-main-orange pt-7'>
           <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
-            {t('profileInfo.roleChange.title')}
+            {t('translation:profileInfo.roleChange.title')}
           </h2>
           <select
-            title={t('profileInfo.roleChange.selectTitle')}
+            title={t('translation:profileInfo.roleChange.selectTitle')}
             className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded-sm appearance-none cursor-pointer focus:outline-hidden focus:bg-white focus:border-gray-500'
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}>
@@ -269,13 +269,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               type='button'
               className='px-2 py-1 text-sm text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
-              {t('common.cancel')}
+              {t('translation:common.cancel')}
             </button>
             <button
               type='button'
               className='px-2 py-1 text-sm text-white transition bg-green-500 rounded-sm font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
-              {t('profileInfo.buttons.changeRole')}
+              {t('translation:profileInfo.buttons.changeRole')}
             </button>
           </div>
         </div>

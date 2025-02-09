@@ -22,7 +22,7 @@ interface WorkLogCourse {
 }
 
 const TeacherWorkLogs: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const {user} = useContext(UserContext);
   const [worklogCourses, setWorklogCourses] = useState<WorkLogCourse[]>([]);
   const {update, setUpdate} = useContext(UserContext);
@@ -33,17 +33,17 @@ const TeacherWorkLogs: React.FC = () => {
   useEffect(() => {
     const fetchWorklogCourses = async () => {
       if (user) {
-      const token = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token available');
-      }
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+          throw new Error('No token available');
+        }
 
         const courses = await apihooks.getWorkLogCoursesByInstructor(
           user.email,
-          token
+          token,
         );
 
-          setWorklogCourses(courses);
+        setWorklogCourses(courses);
       }
     };
 
@@ -54,21 +54,20 @@ const TeacherWorkLogs: React.FC = () => {
     setUpdate(!update);
   };
 
-
   return (
     <div className='w-full'>
       <h2 className='p-3 ml-auto mr-auto text-3xl text-center bg-white rounded-lg font-heading w-fit xl:text-4xl'>
-        {t('teacher.worklog.title')}
+        {t('translation:teacher.worklog.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
           <GeneralLinkButton
-            path ={
+            path={
               user?.role === 'admin'
-              ?'/counselor/mainview'
-              :`${user?.role}/mainview`
+                ? '/counselor/mainview'
+                : `${user?.role}/mainview`
             }
-            text={t('teacher.courses.buttons.backToMainview')}
+            text={t('translation:teacher.courses.buttons.backToMainview')}
           />
           <FormControlLabel
             control={
@@ -79,7 +78,7 @@ const TeacherWorkLogs: React.FC = () => {
                 color='primary'
               />
             }
-            label={t('common.showEndedCourses')}
+            label={t('translation:common.showEndedCourses')}
           />
         </div>
         <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 m-auto'>
@@ -108,7 +107,7 @@ const TeacherWorkLogs: React.FC = () => {
                   d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                 />
               </svg>
-              {t('teacher.worklog.create.title')}
+              {t('translation:teacher.worklog.create.title')}
             </button>
           </div>
         </div>

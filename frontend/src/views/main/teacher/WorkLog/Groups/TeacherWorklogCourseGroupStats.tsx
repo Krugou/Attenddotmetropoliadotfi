@@ -18,12 +18,13 @@ interface StudentStats {
 }
 
 const SummaryPieChart = memo(({students}: {students: StudentStats[]}) => {
-
-  const hasCompletedHours = students.some(student => student.completedHours > 0);
+  const hasCompletedHours = students.some(
+    (student) => student.completedHours > 0,
+  );
   if (!hasCompletedHours) {
     return (
-      <div className="h-[300px] flex items-center justify-center">
-        <p className="text-gray-500 font-body">
+      <div className='h-[300px] flex items-center justify-center'>
+        <p className='text-gray-500 font-body'>
           No students have completed any hours
         </p>
       </div>
@@ -96,7 +97,7 @@ const StudentPieChart = memo(
 );
 
 const TeacherWorklogCourseGroupStats = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const {courseid, groupid} = useParams<{courseid: string; groupid: string}>();
   const [students, setStudents] = useState<StudentStats[]>([]);
   const [loading, setLoading] = useState(true);
@@ -173,23 +174,23 @@ const TeacherWorklogCourseGroupStats = () => {
       <div className='flex items-center justify-between mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}
-          text={t('common.back')}
+          text={t('translation:common.back')}
         />
         <h1 className='text-2xl font-heading'>
-          {t('teacher.worklog.stats.studentProgress')}
+          {t('translation:teacher.worklog.stats.studentProgress')}
         </h1>
         <div className='w-[100px]'></div>
       </div>
 
       {/* Here strats the groups stats summary  */}
       <div className='mb-8 bg-white rounded-lg shadow-sm'>
-        <Accordion >
+        <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls='summary-content'
             id='summary-header'>
             <h2 className='text-xl font-heading'>
-              {t('teacher.worklog.stats.totalProgress')}
+              {t('translation:teacher.worklog.stats.totalProgress')}
             </h2>
           </AccordionSummary>
           <AccordionDetails className='bg-white rounded-b-lg'>
@@ -240,11 +241,11 @@ const TeacherWorklogCourseGroupStats = () => {
 
                 <div className='mt-4 text-center'>
                   <p>
-                    {t('teacher.worklog.stats.required')}:{' '}
+                    {t('translation:teacher.worklog.stats.required')}:{' '}
                     {requiredHours * students.length}h
                   </p>
                   <p>
-                    {t('teacher.worklog.stats.totalCompleted')}:{' '}
+                    {t('translation:teacher.worklog.stats.totalCompleted')}:{' '}
                     {totalCompletedHours.toFixed(1)}h
                   </p>
                 </div>

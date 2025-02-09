@@ -1033,6 +1033,52 @@
         "required": "Required",
         "totalCompleted": "Total Completed"
       }
+    },
+    "attendance": {
+      "errors": {
+        "noUser": "No user information available",
+        "noLectureId": "No lecture ID provided",
+        "lectureClosed": "Lecture is already closed",
+        "getLectureInfo": "Error getting lecture info",
+        "socketNotConnected": "Socket is not connected",
+        "insertStudent": "Error inserting student",
+        "emptyStudentNumber": "Student number is empty",
+        "removeStudent": "Error removing student"
+      },
+      "success": {
+        "infoRetrieved": "Lecture info retrieved successfully",
+        "studentInserted": "Student inserted successfully",
+        "studentRemoved": "Student removed successfully",
+        "lectureCanceled": "Lecture canceled successfully",
+        "lectureFinished": "Lecture finished",
+        "socketConnected": "Connected to server"
+      },
+      "labels": {
+        "allStudentsPresent": "All students are here!",
+        "autoFinish": "Auto finishing in {{minutes}} minutes {{seconds}} seconds",
+        "connectionLatency": "Connection latency: {{latency}}ms"
+      },
+      "buttons": {
+        "resetTimer": "Reset timer",
+        "cancelLecture": "Cancel Lecture",
+        "finishLecture": "Finish Lecture"
+      },
+      "tooltips": {
+        "attendanceStats": "{{attended}} Attended, {{notAttended}} Not attended, Total: {{total}}",
+        "deleteLecture": "Delete this lecture",
+        "finishLecture": "Finish Lecture and set rest of bottom list of students to not attended"
+      },
+      "cards": {
+        "info": "Lecture Information",
+        "course": "Course",
+        "topic": "Topic"
+      },
+      "dialogs": {
+        "cancelConfirm": {
+          "title": "Cancel Lecture?",
+          "message": "Are you sure you want to cancel this lecture? This will delete the lecture from the database and cannot be undone."
+        }
+      }
     }
   },
   "common": {

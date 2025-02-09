@@ -1035,6 +1035,62 @@
       },
       "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
       "title": "Työaikakirjaukset"
+    },
+    "attendance": {
+      "errors": {
+        "noUser": "Käyttäjätietoja ei saatavilla",
+        "noLectureId": "Luennon tunnistetta ei annettu",
+        "lectureClosed": "Luento on jo suljettu",
+        "getLectureInfo": "Virhe luennon tietojen haussa",
+        "socketNotConnected": "Yhteyttä ei ole muodostettu",
+        "insertStudent": "Virhe lisätessä opiskelijaa",
+        "emptyStudentNumber": "Opiskelijanumero on tyhjä",
+        "removeStudent": "Virhe poistaessa opiskelijaa"
+      },
+      "success": {
+        "infoRetrieved": "Luennon tiedot haettu onnistuneesti",
+        "studentInserted": "Opiskelija lisätty onnistuneesti",
+        "studentRemoved": "Opiskelija poistettu onnistuneesti",
+        "lectureCanceled": "Luento peruutettu onnistuneesti",
+        "lectureFinished": "Luento päättynyt",
+        "socketConnected": "Yhdistetty palvelimeen"
+      },
+      "labels": {
+        "allStudentsPresent": "Kaikki opiskelijat ovat paikalla!",
+        "autoFinish": "Automaattinen lopetus {{minutes}} minuuttia {{seconds}} sekuntia",
+        "connectionLatency": "Yhteyden viive: {{latency}}ms",
+        "loadingComponent": "Ladataan läsnäolohuonetta...",
+        "socketConnected": "Yhdistetty palvelimeen",
+        "socketConnectionFailed": "Yhteys palvelimeen epäonnistui",
+        "socketReconnecting": "Yritetään muodostaa yhteyttä uudelleen..."
+      },
+      "buttons": {
+        "resetTimer": "Nollaa ajastin",
+        "cancelLecture": "Peruuta luento",
+        "finishLecture": "Lopeta luento",
+        "toggleScrollView": "Vaihda vieritystilaa",
+        "toggleWiderNames": "Vaihda leveämpiä nimiä",
+        "hideQRCode": "Piilota QR-koodi",
+        "showQRCode": "Näytä QR-koodi"
+      },
+      "dialogs": {
+        "cancelConfirm": "Haluatko varmasti peruuttaa luennon? Tämä poistaa luennon tietokannasta. Toimintoa ei voi kumota."
+      },
+      "tooltips": {
+        "attendanceStats": "{{attended}} Paikalla, {{notAttended}} Poissa, Yhteensä: {{total}}",
+        "deleteLecture": "Poista tämä luento",
+        "finishLecture": "Lopeta luento ja merkitse loput alalistalla olevat opiskelijat poissaoleviksi"
+      },
+      "cards": {
+        "info": "Luennon tiedot",
+        "course": "Kurssi",
+        "topic": "Aihe"
+      },
+      "instructions": {
+        "qrScanning": "Näytä tämä QR-koodi opiskelijoille skannattavaksi",
+        "manualInput": "Voit myös merkitä opiskelijat läsnä/poissa manuaalisesti",
+        "viewMode": "Vaihda näkymätiloja hallitaksesi läsnäoloa paremmin"
+      }
     }
   },
   "common": {

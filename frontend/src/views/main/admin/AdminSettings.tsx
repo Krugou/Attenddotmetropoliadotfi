@@ -21,7 +21,7 @@ const ServerSettingsSchema = z.object({
  * It fetches the server settings from the API, and allows the admin to update them.
  */
 const AdminSettings = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [settings, setSettings] = useState(null);
   const [speedofhash, setSpeedofhash] = useState(0);
   const [leewayspeed, setLeewayspeed] = useState(0);
@@ -102,10 +102,10 @@ const AdminSettings = () => {
       <div className='grid gap-6'>
         <div>
           <h1 className='mb-4 text-2xl font-heading text-metropolia-main-orange md:text-3xl'>
-            {t('admin.settings.serverSettings')}
+            {t('translation:admin.settings.serverSettings')}
           </h1>
           <p className='mb-6 text-gray-600 font-body'>
-            {t('admin.settings.serverSettingsDesc')}
+            {t('translation:admin.settings.serverSettingsDesc')}
           </p>
         </div>
 
@@ -121,18 +121,19 @@ const AdminSettings = () => {
 
         <div>
           <h2 className='mb-4 text-xl font-heading text-metropolia-main-grey'>
-            {t('admin.settings.currentSettings')}:
+            {t('translation:admin.settings.currentSettings')}:
           </h2>
           <div className='space-y-3 text-gray-700 font-body'>
             <p>
-              {t('admin.settings.speedOfHash')}:{' '}
+              {t('translation:admin.settings.speedOfHash')}:{' '}
               {(speedofhash / 1000).toFixed(2)} seconds
             </p>
             <p>
-              {t('admin.settings.hashSpeedMultiplier')}: {leewayspeed}
+              {t('translation:admin.settings.hashSpeedMultiplier')}:{' '}
+              {leewayspeed}
             </p>
             <p>
-              {t('admin.settings.leeway')}:
+              {t('translation:admin.settings.leeway')}:
               {Math.floor((speedofhash * leewayspeed) / 3600000) > 0 &&
                 `${Math.floor((speedofhash * leewayspeed) / 3600000)} hours `}
               {Math.floor(((speedofhash * leewayspeed) % 3600000) / 60000) >
@@ -148,7 +149,7 @@ const AdminSettings = () => {
                 )} seconds`}
             </p>
             <p>
-              {t('admin.settings.timeOut')}:
+              {t('translation:admin.settings.timeOut')}:
               {Math.floor(timeouttime / 3600000) > 0 &&
                 `${Math.floor(timeouttime / 3600000)} hours `}
               {Math.floor((timeouttime % 3600000) / 60000) > 0 &&
@@ -157,7 +158,8 @@ const AdminSettings = () => {
                 `${((timeouttime % 60000) / 1000).toFixed(2)} seconds`}
             </p>
             <p>
-              {t('admin.settings.attendanceThreshold')}: {attendancethreshold}%
+              {t('translation:admin.settings.attendanceThreshold')}:{' '}
+              {attendancethreshold}%
             </p>
           </div>
         </div>
@@ -223,7 +225,7 @@ const AdminSettings = () => {
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-metropolia-main-orange hover:bg-metropolia-main-orange/90 focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:ring-offset-2'
             }`}>
-          {t('admin.settings.updateSettings')}
+          {t('translation:admin.settings.updateSettings')}
         </button>
       </div>
     </div>

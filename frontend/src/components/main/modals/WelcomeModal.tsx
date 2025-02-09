@@ -20,7 +20,7 @@ interface WelcomeModalProps {
  */
 const WelcomeModal: React.FC<WelcomeModalProps> = ({storageKey}) => {
   const [showModal, setShowModal] = useState(false);
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   useEffect(() => {
     const hasVisited = localStorage.getItem(storageKey);
@@ -34,13 +34,15 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({storageKey}) => {
     showModal && (
       <div className='fixed bottom-2 right-0 z-50 max-w-xs p-6 m-6 bg-white rounded-lg shadow-lg sm:max-w-md md:max-w-lg lg:max-w-xl'>
         <div>
-          <h2 className='mb-2 text-2xl font-heading'>{t('welcome.title')}</h2>
-          <p className='mb-4'>{t('welcome.description')}</p>
+          <h2 className='mb-2 text-2xl font-heading'>
+            {t('translation:welcome.title')}
+          </h2>
+          <p className='mb-4'>{t('translation:welcome.description')}</p>
           <div className='flex justify-end'>
             <button
               className='px-4 py-2 text-white font-bold bg-metropolia-main-orange rounded-sm'
               onClick={() => setShowModal(false)}>
-              {t('common.close')}
+              {t('translation:common.close')}
             </button>
           </div>
         </div>

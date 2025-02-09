@@ -21,7 +21,7 @@ import apiHooks from '../../../api';
  * @returns A JSX element representing the student courses component.
  */
 const StudentCourses: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   /**
    * Interface for the course data.
    *
@@ -86,7 +86,7 @@ const StudentCourses: React.FC = () => {
   return (
     <div className='flex flex-col items-center justify-center p-5 bg-gray-100 rounded-lg h-fit'>
       <h1 className='mb-8 text-2xl text-center font-heading sm:text-4xl'>
-        {t('student.course.yourCourses')}
+        {t('translation:student.course.yourCourses')}
       </h1>
       <FormControlLabel
         control={
@@ -97,7 +97,7 @@ const StudentCourses: React.FC = () => {
             color='primary'
           />
         }
-        label={t('student.course.showEndedCourses')}
+        label={t('translation:student.course.showEndedCourses')}
       />
       <StudentCourseGrid
         courses={courses}

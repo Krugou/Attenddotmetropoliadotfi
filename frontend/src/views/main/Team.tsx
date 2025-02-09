@@ -13,7 +13,7 @@ interface TeamMember {
  * using a responsive and animated card layout
  */
 const Team: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   const originalTeam: TeamMember[] = [
     {
@@ -53,12 +53,12 @@ const Team: React.FC = () => {
     <div className='container max-w-6xl px-4 py-8 mx-auto'>
       <div className='p-8 bg-white shadow-lg rounded-xl'>
         <h1 className='mb-8 text-4xl text-center font-heading text-metropolia-main-orange'>
-          {t('team.title')}
+          {t('translation:team.title')}
         </h1>
 
         <div className='mb-12'>
           <h2 className='mb-6 text-2xl text-center text-gray-700 font-heading'>
-            {t('team.originalTeam')}
+            {t('translation:team.originalTeam')}
           </h2>
           <div className='grid gap-6 md:grid-cols-3'>
             {originalTeam.map((member, index) => (
@@ -81,19 +81,19 @@ const Team: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
-                  {t('team.viewGithub')}
+                  {t('translation:team.viewGithub')}
                 </a>
               </div>
             ))}
           </div>
           <p className='mt-4 text-center text-gray-500 font-body'>
-            {t('team.jakDescription')}
+            {t('translation:team.jakDescription')}
           </p>
         </div>
 
         <div className='mt-8'>
           <h2 className='mb-6 text-2xl text-center text-gray-700 font-heading'>
-            {t('team.additionalTeam')}
+            {t('translation:team.additionalTeam')}
           </h2>
           <div className='grid gap-6 mx-auto md:grid-cols-2'>
             {additionalTeam.map((member, index) => (
@@ -111,7 +111,7 @@ const Team: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
-                  {t('team.viewGithub')}
+                  {t('translation:team.viewGithub')}
                 </a>
               </div>
             ))}

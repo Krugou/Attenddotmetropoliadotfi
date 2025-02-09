@@ -1,0 +1,19 @@
+{
+  "helpVideos": {
+    "counselorHelpVideos": "Opinto-ohjaajan ohjevideot"
+  },
+  "mainView": {
+    "students": "Opiskelijat",
+    "studentsDesc": "Hallitse opiskelijoita",
+    "instructions": "Ohjeet",
+    "instructionsDesc": "Katso ohjeet kaikkiin tehtäviin",
+    "attendanceStatistics": "Läsnäolotilastot",
+    "attendanceStatisticsDesc": "Katso kaikkien kurssien läsnäolotilastot",
+    "lateEnrollment": "Myöhäinen ilmoittautuminen",
+    "lateEnrollmentDesc": "Ilmoita opiskelijat kursseille"
+  },
+  "profile": {
+    "noDataAvailable": "Ei käyttäjätietoja saatavilla.",
+    "title": "Opinto-ohjaajan profiili"
+  }
+}

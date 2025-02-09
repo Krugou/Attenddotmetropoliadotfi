@@ -41,7 +41,7 @@ interface Course {
  * @returns {JSX.Element} The rendered AdminCourses component.
  */
 const AdminCourses: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const navigate = useNavigate();
 
   const {user} = useContext(UserContext);
@@ -104,7 +104,7 @@ const AdminCourses: React.FC = () => {
         </div>
       ) : courses.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>{t('admin.common.noCoursesAvailable')}</p>
+          <p>{t('translation:admin.common.noCoursesAvailable')}</p>
         </div>
       ) : (
         <>

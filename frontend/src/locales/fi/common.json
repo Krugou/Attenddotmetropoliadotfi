@@ -1,0 +1,30 @@
+{
+  "login": "Kirjaudu",
+  "dialog": {
+    "confirm": "Kyllä",
+    "cancel": "Ei"
+  },
+  "deleteModal": {
+    "title": "Vahvistus",
+    "messages": {
+      "student": "Haluatko varmasti poistaa opiskelijan tältä kurssilta? Tämä poistaa myös kaikki opiskelijan läsnäolotiedot kurssilta.",
+      "course": "Haluatko varmasti poistaa tämän kurssin?"
+    },
+    "buttons": {
+      "cancel": "PERUUTA",
+      "delete": "POISTA"
+    }
+  },
+  "reset": "Nollaa",
+  "errors": {
+    "emailTaken": "Sähköposti on varattu",
+    "studentNumberTaken": "Opiskelijanumero on varattu",
+    "noToken": "Ei saatavilla olevaa tunnusta",
+    "fillRequiredFields": "Täytä kaikki vaaditut kentät"
+  },
+  "email": "Sähköposti",
+  "firstName": "Etunimi",
+  "lastName": "Sukunimi",
+  "studentNumber": "Opiskelijanumero",
+  "showEndedCourses": "Näytä päättyneet kurssit"
+}

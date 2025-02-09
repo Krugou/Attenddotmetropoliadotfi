@@ -20,7 +20,7 @@ interface WorkLogCourse {
 }
 
 const AdminWorkLogs: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   // const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const [workLogs, setWorkLogs] = useState<WorkLogCourse[]>([]);
@@ -81,12 +81,12 @@ const AdminWorkLogs: React.FC = () => {
         </div>
       ) : workLogs.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>{t('admin.common.noWorkLogsAvailable')}</p>
+          <p>{t('translation:admin.common.noWorkLogsAvailable')}</p>
         </div>
       ) : (
         <>
           <GeneralLinkButton
-            text={t('admin.worklog.createNewWorkLog')}
+            text={t('translation:admin.worklog.createNewWorkLog')}
             path='/teacher/worklog/create'
           />
           <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
@@ -95,8 +95,8 @@ const AdminWorkLogs: React.FC = () => {
               name='search'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder={t('admin.common.searchPlaceholder')}
-              label={t('admin.common.search')}
+              placeholder={t('translation:admin.common.searchPlaceholder')}
+              label={t('translation:admin.common.search')}
             />
           </div>
           <div className='relative bg-gray-100'>

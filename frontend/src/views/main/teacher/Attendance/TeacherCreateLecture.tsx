@@ -23,7 +23,7 @@ import {useTranslation} from 'react-i18next';
 const CreateLecture: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [courses, setCourses] = useState<Course[]>([]);
   const [allCourses, setAllCourses] = useState<Course[]>([]);
   const [date, setDate] = useState<Date | Date[]>(new Date());
@@ -375,10 +375,10 @@ const CreateLecture: React.FC = () => {
           <div className='flex flex-col items-center justify-center w-full p-1 m-auto bg-metropolia-support-white rounded-lg 2xl:w-3/6 lg:w-4/6 sm:p-5'>
             <CheckOpenLectures />
             <h1 className='p-2 mt-5 mb-8 text-lg font-heading sm:text-2xl'>
-              {t('teacher.createLecture.title')}
+              {t('translation:teacher.createLecture.title')}
             </h1>
             <h2 className='p-4 mt-2 text-xl'>
-              {t('teacher.createLecture.courseSection.heading')}
+              {t('translation:teacher.createLecture.courseSection.heading')}
             </h2>
 
             <div className='flex justify-center w-full'>
@@ -419,13 +419,17 @@ const CreateLecture: React.FC = () => {
                         )}
                       </IconButton>
                     </Tooltip>
-                    {t('teacher.createLecture.courseSection.courseLabel')}
+                    {t(
+                      'translation:teacher.createLecture.courseSection.courseLabel',
+                    )}
                   </div>
                 </label>
                 <label
                   className='flex justify-end sm:text-xl text-md'
                   htmlFor='topic'>
-                  {t('teacher.createLecture.courseSection.topicLabel')}
+                  {t(
+                    'translation:teacher.createLecture.courseSection.topicLabel',
+                  )}
                 </label>
               </div>
               <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12 '>
@@ -513,14 +517,16 @@ const CreateLecture: React.FC = () => {
 
             <div className='w-4/5 h-1 mt-10 rounded-xl bg-metropolia-main-orange'></div>
             <h2 className='p-4 mt-2 text-xl'>
-              {t('teacher.createLecture.dateSection.heading')}
+              {t('translation:teacher.createLecture.dateSection.heading')}
             </h2>
             <div className='mb-5 text-md sm:text-xl'>
               <div className='relative'>
                 <label
                   className='flex justify-center p-1 m-1 underline sm:text-xl text-md'
                   htmlFor='calendar'>
-                  {t('teacher.createLecture.dateSection.calendar.label')}
+                  {t(
+                    'translation:teacher.createLecture.dateSection.calendar.label',
+                  )}
                 </label>
                 <input
                   title={t(
@@ -556,7 +562,9 @@ const CreateLecture: React.FC = () => {
                 <label
                   className='flex justify-center p-1 m-1 underline sm:text-xl text-md'
                   htmlFor='timeofday'>
-                  {t('teacher.createLecture.dateSection.timeOfDay.label')}
+                  {t(
+                    'translation:teacher.createLecture.dateSection.timeOfDay.label',
+                  )}
                 </label>
                 <select
                   aria-label={t(
@@ -577,17 +585,17 @@ const CreateLecture: React.FC = () => {
               </div>
             </div>
             <h3 className=' text-md'>
-              {t('teacher.createLecture.doubleCheckMessage')}
+              {t('translation:teacher.createLecture.doubleCheckMessage')}
             </h3>
 
             <button
-              aria-label={t('teacher.createLecture.buttons.open')}
-              title={`${t('teacher.createLecture.buttons.open')} ${
+              aria-label={t('translation:teacher.createLecture.buttons.open')}
+              title={`${t('translation:teacher.createLecture.buttons.open')} ${
                 selectedCourse?.name
               } - ${selectedCourse?.code} - ${selectedTopic}`}
               className='w-2/4 px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'
               onClick={handleOpenAttendance}>
-              {t('teacher.createLecture.buttons.open')}
+              {t('translation:teacher.createLecture.buttons.open')}
             </button>
             {/* {openDataText ? (
 							<>

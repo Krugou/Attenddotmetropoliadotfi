@@ -24,7 +24,7 @@ interface Lecture {
 }
 
 const TeacherLectures: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const {user} = useContext(UserContext);
@@ -91,11 +91,12 @@ const TeacherLectures: React.FC = () => {
     <div className='relative w-full p-5 bg-white rounded-lg xl:w-fit'>
       <div className='flex flex-col justify-between md:flex-row'>
         <h1 className='mb-4 text-2xl font-heading'>
-          {t('teacher.lectures.title')}
+          {t('translation:teacher.lectures.title')}
         </h1>
         <h2 className='mb-2 text-xl'>
-          {t('teacher.lectures.stats.totalLectures')}: {totalLectures} |{' '}
-          {t('teacher.lectures.stats.attendanceRatio')}:{' '}
+          {t('translation:teacher.lectures.stats.totalLectures')}:{' '}
+          {totalLectures} |{' '}
+          {t('translation:teacher.lectures.stats.attendanceRatio')}:{' '}
           {attendanceRatio.toFixed(2)}%
         </h2>
       </div>

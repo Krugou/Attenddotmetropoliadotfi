@@ -33,7 +33,7 @@ import {useTranslation} from 'react-i18next';
 const StudentQrSelectScanner: React.FC = () => {
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [scanned, setScanned] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(false);
@@ -183,14 +183,14 @@ const StudentQrSelectScanner: React.FC = () => {
   return (
     <>
       {loading ? (
-        <p>{t('student.qrScanner.loading')}</p>
+        <p>{t('translation:student.qrScanner.loading')}</p>
       ) : (
         user &&
         user.studentnumber && (
           <>
             <div className='p-2 m-2'>
               <label className='m-1' htmlFor='cameraSelect'>
-                {t('student.qrScanner.camera.selectLabel')}
+                {t('translation:student.qrScanner.camera.selectLabel')}
               </label>
               <select
                 className='m-1'

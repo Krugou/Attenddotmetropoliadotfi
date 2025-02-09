@@ -1,0 +1,21 @@
+{
+  "teacher": {
+    "createLecture": {
+      "title": "Skapa ny föreläsning",
+      "courseSection": {
+        "heading": "Välj din föredragna kurs och ämne.",
+        "courseLabel": "Kurs :",
+        "topicLabel": "Ämne :",
+        "tooltips": {
+          "showEnded": "Visa avslutade kurser",
+          "hideEnded": "Dölj avslutade kurser",
+          "pickCourse": "Klicka för att välja kurs",
+          "pickTopic": "Klicka för att välja ämne för föreläsningen"
+        },
+        "errors": {
+          "noCourses": "Du har inga kurser eller alla dina kurser har avslutats"
+        }
+      }
+    }
+  }
+}

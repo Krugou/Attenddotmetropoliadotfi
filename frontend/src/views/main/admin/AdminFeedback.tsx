@@ -25,7 +25,7 @@ interface FeedbackItem {
 }
 
 const AdminFeedback = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [feedback, setFeedback] = useState<FeedbackItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -92,16 +92,16 @@ const AdminFeedback = () => {
   return (
     <div className='w-full min-h-screen px-4 py-8 bg-white sm:px-6 lg:px-8'>
       <h1 className='mb-8 text-2xl text-center sm:text-3xl font-heading'>
-        {t('admin.feedback.title')}
+        {t('translation:admin.feedback.title')}
       </h1>
 
       <div className='max-w-4xl p-4 mx-auto bg-white rounded-lg shadow-xs sm:p-6'>
         <div className='flex flex-col items-center mb-6 space-y-4'>
           <p className='text-lg text-center sm:text-xl font-body'>
-            {t('admin.feedback.filterFeedback')}:
+            {t('translation:admin.feedback.filterFeedback')}:
           </p>
           <select
-            title={t('admin.feedback.topic')}
+            title={t('translation:admin.feedback.topic')}
             className='w-full p-2 text-base text-white transition-colors duration-200 rounded-lg sm:w-2/3 sm:text-lg font-heading bg-metropolia-trend-green hover:bg-metropolia-trend-green/90 focus:outline-hidden focus:ring-2 focus:ring-metropolia-trend-green focus:ring-offset-2'
             onChange={(e) => handleTopicChange(e.target.value)}>
             <option value=''>All</option>
@@ -156,7 +156,7 @@ const AdminFeedback = () => {
                         <button
                           className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-support-red hover:bg-metropolia-support-secondary-red focus:outline-hidden focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2'
                           onClick={() => handleClickOpen(item.feedbackId)}>
-                          {t('admin.common.delete')}
+                          {t('translation:admin.common.delete')}
                         </button>
                       </div>
                     </AccordionDetails>
@@ -165,7 +165,7 @@ const AdminFeedback = () => {
             </div>
           ) : (
             <p className='py-8 text-center text-gray-600 font-body'>
-              {t('admin.feedback.noFeedbackAvailable')}
+              {t('translation:admin.feedback.noFeedbackAvailable')}
             </p>
           )}
         </div>
@@ -178,24 +178,24 @@ const AdminFeedback = () => {
             className: 'rounded-lg p-4',
           }}>
           <DialogTitle className='text-lg sm:text-xl font-heading'>
-            {t('admin.common.confirmDelete')}
+            {t('translation:admin.common.confirmDelete')}
           </DialogTitle>
           <DialogContent>
             <DialogContentText className='font-body'>
-              {t('admin.feedback.confirmDelete')}
+              {t('translation:admin.feedback.confirmDelete')}
             </DialogContentText>
           </DialogContent>
           <DialogActions className='p-4'>
             <button
               className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:ring-offset-2'
               onClick={handleClose}>
-              {t('admin.common.cancel')}
+              {t('translation:admin.common.cancel')}
             </button>
             <button
               className='px-4 py-2 text-sm text-white transition-colors duration-200 rounded-lg sm:text-base font-heading bg-metropolia-support-red hover:bg-metropolia-support-secondary-red focus:outline-hidden focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2'
               onClick={handleConfirmDelete}
               autoFocus>
-              {t('admin.common.delete')}
+              {t('translation:admin.common.delete')}
             </button>
           </DialogActions>
         </Dialog>

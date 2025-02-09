@@ -38,7 +38,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
   codeExists = false,
   setCourseExists,
 }) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
 
@@ -74,23 +74,23 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
   return (
     <fieldset>
       {!modify && (
-        <legend className="mb-5 ml-1 text-xl font-heading">
-          {t('teacher.worklog.details.title')}
+        <legend className='mb-5 ml-1 text-xl font-heading'>
+          {t('translation:teacher.worklog.details.title')}
         </legend>
       )}
 
       <InputField
-        label={t('teacher.worklog.details.name')}
-        type="text"
-        name="name"
+        label={t('translation:teacher.worklog.details.name')}
+        type='text'
+        name='name'
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
       <InputField
-        label={t('teacher.worklog.details.code')}
-        type="text"
-        name="code"
+        label={t('translation:teacher.worklog.details.code')}
+        type='text'
+        name='code'
         value={code}
         onChange={(e) => {
           setCode(e.target.value);
@@ -98,45 +98,51 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
         }}
       />
       {!modify && codeExists && (
-        <p className="text-red-400">{t('teacher.worklog.error.codeExists')}</p>
+        <p className='text-red-400'>
+          {t('translation:teacher.worklog.error.codeExists')}
+        </p>
       )}
       {modify && codeExists && code !== firstCode && (
-        <p className="text-red-400">{t('teacher.worklog.error.codeExists')}</p>
+        <p className='text-red-400'>
+          {t('translation:teacher.worklog.error.codeExists')}
+        </p>
       )}
       {modify && code === firstCode && codeChanged && (
-        <p className="text-green-400">{t('teacher.worklog.success.codeRestored')}</p>
+        <p className='text-green-400'>
+          {t('translation:teacher.worklog.success.codeRestored')}
+        </p>
       )}
 
       <InputField
-        label={t('teacher.worklog.details.description')}
-        type="textarea"
-        name="description"
+        label={t('translation:teacher.worklog.details.description')}
+        type='textarea'
+        name='description'
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         rows={4}
-        className="p-2 border rounded-lg w-full"
+        className='p-2 border rounded-lg w-full'
       />
 
       <InputField
-        label={t('teacher.worklog.details.requiredHours')}
-        type="number"
-        name="requiredHours"
+        label={t('translation:teacher.worklog.details.requiredHours')}
+        type='number'
+        name='requiredHours'
         value={requiredHours.toString()}
         onChange={(e) => setRequiredHours(Number(e.target.value))}
       />
 
       <InputField
-        label={t('teacher.worklog.details.startDate')}
-        type="date"
-        name="startDate"
+        label={t('translation:teacher.worklog.details.startDate')}
+        type='date'
+        name='startDate'
         value={startDate ? startDate.split('T')[0] : ''}
         onChange={(e) => setStartDate(e.target.value)}
       />
 
       <InputField
-        label={t('teacher.worklog.details.endDate')}
-        type="date"
-        name="endDate"
+        label={t('translation:teacher.worklog.details.endDate')}
+        type='date'
+        name='endDate'
         value={endDate ? endDate.split('T')[0] : ''}
         onChange={(e) => setEndDate(e.target.value)}
       />

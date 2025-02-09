@@ -1,0 +1,19 @@
+{
+  "helpVideos": {
+    "counselorHelpVideos": "Studievägledarens hjälpvideor"
+  },
+  "mainView": {
+    "students": "Studenter",
+    "studentsDesc": "Hantera studenter",
+    "instructions": "Instruktioner",
+    "instructionsDesc": "Se instruktioner för alla tillgängliga uppgifter",
+    "attendanceStatistics": "Närvarostatistik",
+    "attendanceStatisticsDesc": "Se närvarostatistik för alla kurser",
+    "lateEnrollment": "Sen anmälan",
+    "lateEnrollmentDesc": "Registrera studenter på kurser"
+  },
+  "profile": {
+    "noDataAvailable": "Ingen användardata tillgänglig.",
+    "title": "Studievägledarens profil"
+  }
+}

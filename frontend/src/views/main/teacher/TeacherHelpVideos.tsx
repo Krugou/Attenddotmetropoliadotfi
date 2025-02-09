@@ -16,44 +16,48 @@ import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // 
  * It uses the VideoDropdown component to display each video with a title.
  */
 const TeacherHelpVideos: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   return (
     <div className='w-full p-5'>
       <h1 className='p-3 m-auto mb-10 text-2xl font-heading text-center bg-white rounded-lg w-fit'>
-        {t('teacher.helpVideos.title')}
+        {t('translation:teacher.helpVideos.title')}
       </h1>
       <div className='flex flex-col space-y-6'>
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.createCourse')}
+          title={t('translation:teacher.helpVideos.videos.createCourse')}
           src={CreateCourse}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.createAttendance')}
+          title={t('translation:teacher.helpVideos.videos.createAttendance')}
           src={CreateLecture}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.accessAttendance')}
+          title={t('translation:teacher.helpVideos.videos.accessAttendance')}
           src={CourseAttendance}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.accessStudentDetails')}
+          title={t(
+            'translation:teacher.helpVideos.videos.accessStudentDetails',
+          )}
           src={StudentDetail}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.accessCourseDetails')}
+          title={t('translation:teacher.helpVideos.videos.accessCourseDetails')}
           src={CourseDetail}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.accessStudentAttendance')}
+          title={t(
+            'translation:teacher.helpVideos.videos.accessStudentAttendance',
+          )}
           src={TeacherAttendance}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.changeRole')}
+          title={t('translation:teacher.helpVideos.videos.changeRole')}
           src={RoleChange}
         />
         <VideoDropdown
-          title={t('teacher.helpVideos.videos.studentJoin')}
+          title={t('translation:teacher.helpVideos.videos.studentJoin')}
           src={StudentLecture}
         />
       </div>

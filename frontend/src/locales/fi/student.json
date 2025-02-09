@@ -1,0 +1,17 @@
+{
+  "student": {
+    "profile": {
+      "title": "Opiskelijan profiili",
+      "studentGroup": "Opiskelijaryhmä",
+      "noData": "Ei käyttäjätietoja saatavilla.",
+      "myCourses": "Omat kurssit"
+    },
+    "qrScanner": {
+      "loading": "Ladataan...",
+      "camera": {
+        "selectLabel": "Valitse haluamasi kamerainput:",
+        "noDevices": "Ei kameroita saatavilla"
+      }
+    }
+  }
+}

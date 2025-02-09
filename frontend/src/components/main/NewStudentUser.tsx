@@ -14,7 +14,7 @@ import StudentGroupSelect from './newUser/StudentGroupSelect';
 import SubmitButton from './newUser/SubmitButton';
 
 const NewStudentUser: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -193,47 +193,47 @@ const NewStudentUser: React.FC = () => {
   return (
     <>
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-        {t('newStudent.title')}
+        {t('translation:newStudent.title')}
       </h1>
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
             <div className='flex flex-col'>
               <h2 className='m-2 text-xl text-center font-heading'>
-                {t('newStudent.studentDetails')}
+                {t('translation:newStudent.studentDetails')}
               </h2>
               <FormInput
-                label={t('common.email')}
+                label={t('translation:common.email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
               />
               {isEmailTaken && (
                 <h2 className='text-red-500'>
-                  {t('common.errors.emailTaken')}
+                  {t('translation:common.errors.emailTaken')}
                 </h2>
               )}
               <FormInput
-                label={t('common.firstName')}
+                label={t('translation:common.firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label={t('common.lastName')}
+                label={t('translation:common.lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}
               />
               <FormInput
-                label={t('common.studentNumber')}
+                label={t('translation:common.studentNumber')}
                 placeholder='123456'
                 value={studentNumber}
                 onChange={setStudentNumber}
               />
               {isStudentNumberTaken && (
                 <h2 className='text-red-500'>
-                  {t('common.errors.studentNumberTaken')}
+                  {t('translation:common.errors.studentNumberTaken')}
                 </h2>
               )}
               <StudentGroupSelect
@@ -272,10 +272,14 @@ const NewStudentUser: React.FC = () => {
             </div>
             <div className='mt-4 w-fit'>
               <h2 className='text-lg font-heading'>
-                {t('newStudent.note.title')}
+                {t('translation:newStudent.note.title')}
               </h2>
-              <p className='mt-2'>{t('newStudent.note.checkDetails')}</p>
-              <p className='mt-4'>{t('newStudent.note.contactAdmin')}</p>
+              <p className='mt-2'>
+                {t('translation:newStudent.note.checkDetails')}
+              </p>
+              <p className='mt-4'>
+                {t('translation:newStudent.note.contactAdmin')}
+              </p>
             </div>
             <div className='flex justify-center pb-3'>
               <SubmitButton disabled={isEmailTaken || isStudentNumberTaken} />

@@ -22,7 +22,7 @@ interface DesktopLecturesProps {
 }
 
 const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const navigate = useNavigate();
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
 
@@ -49,40 +49,40 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
               {showTechnicalDetails && (
                 <>
                   <th className='p-4 text-left font-heading'>
-                    {t('teacher.lectures.table.headers.lectureId')}
+                    {t('translation:teacher.lectures.table.headers.lectureId')}
                   </th>
                   <th className='p-4 text-left font-heading'>
-                    {t('teacher.lectures.table.headers.courseCode')}
+                    {t('translation:teacher.lectures.table.headers.courseCode')}
                   </th>
                 </>
               )}
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.courseName')}
+                {t('translation:teacher.lectures.table.headers.courseName')}
               </th>
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.topicName')}
+                {t('translation:teacher.lectures.table.headers.topicName')}
               </th>
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.date')}
+                {t('translation:teacher.lectures.table.headers.date')}
               </th>
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.timeOfDay')}
+                {t('translation:teacher.lectures.table.headers.timeOfDay')}
               </th>
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.attendance')}
+                {t('translation:teacher.lectures.table.headers.attendance')}
               </th>
               {showTechnicalDetails && (
                 <>
                   <th className='p-4 text-left font-heading'>
-                    {t('teacher.lectures.table.headers.ratio')}
+                    {t('translation:teacher.lectures.table.headers.ratio')}
                   </th>
                 </>
               )}
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.state')}
+                {t('translation:teacher.lectures.table.headers.state')}
               </th>
               <th className='p-4 text-left font-heading'>
-                {t('teacher.lectures.table.headers.actions')}
+                {t('translation:teacher.lectures.table.headers.actions')}
               </th>
             </tr>
           </thead>
@@ -152,7 +152,7 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                     <button
                       onClick={() => handleEditLecture(lecture.lectureid)}
                       className='px-3 py-1 text-sm font-medium text-blue-600 transition-colors bg-blue-100 rounded-full hover:bg-blue-200'>
-                      {t('teacher.lectures.table.buttons.edit')}
+                      {t('translation:teacher.lectures.table.buttons.edit')}
                     </button>
                   </td>
                 </tr>
@@ -162,7 +162,7 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                 <td
                   colSpan={showTechnicalDetails ? 11 : 9}
                   className='p-8 text-center text-gray-500 bg-gray-50 font-heading'>
-                  {t('teacher.lectures.table.noData')}
+                  {t('translation:teacher.lectures.table.noData')}
                 </td>
               </tr>
             )}

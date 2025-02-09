@@ -53,7 +53,7 @@ interface TopicAttendance {
  * Additionally, it provides functionality for the teacher to export the attendance data to PDF or Excel.
  */
 const TeacherCourseStats = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [showTable, setShowTable] = useState(false);
   const {courseid} = useParams<{courseid: string}>();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -223,11 +223,12 @@ const TeacherCourseStats = () => {
   return (
     <>
       <h1 className='p-3 mb-2 text-2xl text-center bg-white rounded-md font-heading'>
-        {t('teacher.courseStats.title')}
+        {t('translation:teacher.courseStats.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
         <div className='flex justify-between sm:justify-around'>
-          <Tooltip title={t('teacher.courseStats.buttons.printPdf')}>
+          <Tooltip
+            title={t('translation:teacher.courseStats.buttons.printPdf')}>
             <button
               onClick={handlePdfExport}
               className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
@@ -249,13 +250,14 @@ const TeacherCourseStats = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={t('teacher.courseStats.search.label')}
+                label={t('translation:teacher.courseStats.search.label')}
                 margin='normal'
                 variant='outlined'
               />
             )}
           />
-          <Tooltip title={t('teacher.courseStats.buttons.exportExcel')}>
+          <Tooltip
+            title={t('translation:teacher.courseStats.buttons.exportExcel')}>
             <button
               onClick={handleExcelExport}
               className='p-2 text-white rounded-sm bg-metropolia-main-orange'>

@@ -18,7 +18,7 @@ import {useTranslation} from 'react-i18next';
  * It fetches the lectures and their attendances and provides functionality for the teacher to filter the attendances based on a selected date, print the attendances to a PDF, export the attendances to an Excel file, and navigate to the attendance statistics view.
  */
 const TeacherCourseAttendances: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [lecturesAndTheirAttendances, setLecturesAndTheirAttendances] =
     useState<any[]>([]); // [lecture, [attendances]
@@ -104,13 +104,13 @@ const TeacherCourseAttendances: React.FC = () => {
   return (
     <div className='w-full p-4 bg-gray-100 rounded-lg md:w-3/4'>
       <h1 className='mb-5 text-3xl text-center font-heading'>
-        {t('teacher.courseAttendances.title')}
+        {t('translation:teacher.courseAttendances.title')}
       </h1>
       <div className='flex justify-center m-4 '>
         <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4 w-full'>
           <div className='w-full sm:w-1/2 lg:w-1/3'>
             <h2 className='p-2 text-center text-white bg-metropolia-secondary-orange'>
-              {t('teacher.courseAttendances.search.heading')}
+              {t('translation:teacher.courseAttendances.search.heading')}
             </h2>
             <Calendar
               className='w-full md:w-3/4 mb-4 sm:mb-0'
@@ -133,7 +133,7 @@ const TeacherCourseAttendances: React.FC = () => {
               startIcon={<ShowChartIcon />}
               className='mt-4 h-fit sm:mt-0'
               onClick={() => navigate(`/teacher/courses/stats/${courseId}`)}>
-              {t('teacher.courseAttendances.buttons.statistics')}
+              {t('translation:teacher.courseAttendances.buttons.statistics')}
             </Button>
           </div>
         </div>
@@ -144,17 +144,21 @@ const TeacherCourseAttendances: React.FC = () => {
             <>
               <div className='flex justify-around mt-4 '>
                 <Tooltip
-                  title={t('teacher.courseAttendances.buttons.printPdf')}>
+                  title={t(
+                    'translation:teacher.courseAttendances.buttons.printPdf',
+                  )}>
                   <button
                     onClick={handlePrintToPdf}
                     className='p-2 text-white rounded-sm bg-metropolia-main-orange'
-                    title={t('teacher.courseAttendances.buttons.printPdf')}>
+                    title={t(
+                      'translation:teacher.courseAttendances.buttons.printPdf',
+                    )}>
                     <PrintIcon fontSize='large' />
                   </button>
                 </Tooltip>
                 <div className='flex flex-col'>
                   <h2 className='text-2xl text-center'>
-                    {t('teacher.courseAttendances.table.title', {
+                    {t('translation:teacher.courseAttendances.table.title', {
                       date: selectedDate.toLocaleDateString(),
                     })}
                   </h2>
@@ -171,11 +175,15 @@ const TeacherCourseAttendances: React.FC = () => {
                   )}
                 </div>
                 <Tooltip
-                  title={t('teacher.courseAttendances.buttons.exportExcel')}>
+                  title={t(
+                    'translation:teacher.courseAttendances.buttons.exportExcel',
+                  )}>
                   <button
                     onClick={handleExportToExcel}
                     className='p-2 text-white rounded-sm bg-metropolia-main-orange'
-                    title={t('teacher.courseAttendances.buttons.exportExcel')}>
+                    title={t(
+                      'translation:teacher.courseAttendances.buttons.exportExcel',
+                    )}>
                     <GetAppIcon fontSize='large' />
                   </button>
                 </Tooltip>

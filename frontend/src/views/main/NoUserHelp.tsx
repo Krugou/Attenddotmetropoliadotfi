@@ -7,19 +7,19 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered NoUserHelp component
  */
 const NoUserHelp: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   return (
     <div className='max-w-4xl p-6 mx-auto space-y-8 rounded-sm bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
       {/* Main heading */}
       <h1 className='mb-8 text-3xl font-heading text-metropolia-main-grey dark:text-metropolia-support-black'>
-        {t('help.title', 'Help Center')}
+        {t('translation:help.title', 'Help Center')}
       </h1>
 
       {/* Getting Started Section */}
       <section className='p-6 rounded-lg shadow-md bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
         <h2 className='mb-4 text-2xl font-heading text-metropolia-main-grey dark:text-metropolia-support-white'>
-          {t('help.gettingStarted.title', 'Getting Started')}
+          {t('translation:help.gettingStarted.title', 'Getting Started')}
         </h2>
         <div className='space-y-4 font-body'>
           <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
@@ -29,7 +29,12 @@ const NoUserHelp: React.FC = () => {
             )}
           </p>
           <ul className='ml-4 list-disc list-inside text-metropolia-main-grey dark:text-metropolia-support-white'>
-            <li>{t('help.gettingStarted.item1', 'Metropolia credentials')}</li>
+            <li>
+              {t(
+                'translation:help.gettingStarted.item1',
+                'Metropolia credentials',
+              )}
+            </li>
             <li>
               {t(
                 'help.gettingStarted.item2',
@@ -55,12 +60,12 @@ const NoUserHelp: React.FC = () => {
       {/* Common Issues Section */}
       <section className='p-6 rounded-lg shadow-md bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
         <h2 className='mb-4 text-2xl font-heading text-metropolia-main-grey dark:text-metropolia-support-white'>
-          {t('help.commonIssues.title', 'Common Issues')}
+          {t('translation:help.commonIssues.title', 'Common Issues')}
         </h2>
         <div className='space-y-4 font-body'>
           <div className='pb-4 border-b border-metropolia-main-grey/20 dark:border-metropolia-support-white/20'>
             <h3 className='font-semibold text-metropolia-main-grey dark:text-metropolia-support-white'>
-              {t('help.commonIssues.login.title', 'Cannot Log In?')}
+              {t('translation:help.commonIssues.login.title', 'Cannot Log In?')}
             </h3>
             <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
               {t(
@@ -71,7 +76,10 @@ const NoUserHelp: React.FC = () => {
           </div>
           <div className='pb-4 border-b border-metropolia-main-grey/20 dark:border-metropolia-support-white/20'>
             <h3 className='font-semibold text-metropolia-main-grey dark:text-metropolia-support-white'>
-              {t('help.commonIssues.connection.title', 'Connection Issues?')}
+              {t(
+                'translation:help.commonIssues.connection.title',
+                'Connection Issues?',
+              )}
             </h3>
             <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
               {t(
@@ -82,7 +90,10 @@ const NoUserHelp: React.FC = () => {
           </div>
           <div className='pb-4 border-b border-metropolia-main-grey/20 dark:border-metropolia-support-white/20'>
             <h3 className='font-semibold text-metropolia-main-grey dark:text-metropolia-support-white'>
-              {t('help.commonIssues.iphone.title', 'Issues with iPhone?')}
+              {t(
+                'translation:help.commonIssues.iphone.title',
+                'Issues with iPhone?',
+              )}
             </h3>
             <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
               {t(
@@ -97,7 +108,7 @@ const NoUserHelp: React.FC = () => {
       {/* Contact Support Section */}
       <section className='p-6 rounded-lg shadow-md bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
         <h2 className='mb-4 text-2xl font-heading text-metropolia-main-grey dark:text-metropolia-support-white'>
-          {t('help.contact.title', 'Need More Help?')}
+          {t('translation:help.contact.title', 'Need More Help?')}
         </h2>
         <div className='space-y-4 font-body'>
           <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
@@ -108,7 +119,10 @@ const NoUserHelp: React.FC = () => {
           </p>
           <div className='p-4 rounded-lg bg-metropolia-main-grey/5 dark:bg-metropolia-main-grey'>
             <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
-              {t('help.contact.email', 'Email: kimmo.sauren@metropolia.fi')}
+              {t(
+                'translation:help.contact.email',
+                'Email: kimmo.sauren@metropolia.fi',
+              )}
             </p>
           </div>
         </div>

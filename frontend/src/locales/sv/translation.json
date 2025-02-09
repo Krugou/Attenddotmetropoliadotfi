@@ -898,6 +898,70 @@
         "finish": "Avsluta tidigare föreläsning"
       }
     },
+    "attendance": {
+      "errors": {
+        "noUser": "Ingen användarinformation tillgänglig",
+        "noLectureId": "Inget föreläsnings-ID angivet",
+        "lectureClosed": "Föreläsningen är redan stängd",
+        "getLectureInfo": "Fel vid hämtning av föreläsningsinformation",
+        "socketNotConnected": "Socket är inte ansluten",
+        "insertStudent": "Fel vid insättning av student",
+        "emptyStudentNumber": "Studentnumret är tomt",
+        "removeStudent": "Fel vid borttagning av student"
+      },
+      "success": {
+        "infoRetrieved": "Föreläsningsinformation hämtad framgångsrikt",
+        "studentInserted": "Student tillagd framgångsrikt",
+        "studentRemoved": "Student borttagen framgångsrikt",
+        "lectureCanceled": "Föreläsning avbruten framgångsrikt",
+        "lectureFinished": "Föreläsningen avslutad",
+        "socketConnected": "Ansluten till servern"
+      },
+      "labels": {
+        "allStudentsPresent": "Alla studenter är här!",
+        "autoFinish": "Automatiskt avslut om {{minutes}} minuter {{seconds}} sekunder",
+        "connectionLatency": "Anslutningsfördröjning: {{latency}}ms",
+        "studentInserted": "Student tillagd framgångsrikt",
+        "studentRemoved": "Student borttagen framgångsrikt",
+        "studentNumberEmpty": "Studentnumret är tomt",
+        "lectureCanceled": "Föreläsning avbruten framgångsrikt",
+        "lectureFinished": "Föreläsning avslutad",
+        "loadingComponent": "Laddar närvarorum...",
+        "socketConnected": "Ansluten till servern",
+        "socketConnectionFailed": "Anslutning till servern misslyckades",
+        "socketReconnecting": "Försöker återansluta..."
+      },
+      "instructions": {
+        "qrScanning": "Visa denna QR-kod för studenter att skanna",
+        "manualInput": "Du kan också manuellt markera studenter som närvarande/frånvarande",
+        "viewMode": "Växla vylägen för att hantera närvaro bättre"
+      },
+      "buttons": {
+        "resetTimer": "Återställ timer",
+        "cancelLecture": "Avbryt föreläsning",
+        "finishLecture": "Avsluta föreläsning",
+        "toggleScrollView": "Växla rullningsvy",
+        "toggleWiderNames": "Växla bredare namn",
+        "hideQRCode": "Dölj QR-kod",
+        "showQRCode": "Visa QR-kod"
+      },
+      "tooltips": {
+        "attendanceStats": "{{attended}} Närvarande, {{notAttended}} Frånvarande, Totalt: {{total}}",
+        "deleteLecture": "Radera denna föreläsning",
+        "finishLecture": "Avsluta föreläsningen och markera resterande studenter i nedre listan som frånvarande"
+      },
+      "cards": {
+        "info": "Föreläsningsinformation",
+        "course": "Kurs",
+        "topic": "Ämne"
+      },
+      "dialogs": {
+        "cancelConfirm": {
+          "title": "Avbryta föreläsning?",
+          "message": "Är du säker på att du vill avbryta denna föreläsning? Detta kommer att radera föreläsningen från databasen och kan inte ångras."
+        }
+      }
+    },
     "worklog": {
       "create": {
         "title": "Lägg till ny arbetsdagbokskurs"

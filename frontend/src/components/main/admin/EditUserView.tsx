@@ -47,7 +47,7 @@ interface Role {
  * @param {EditUserViewProps} props - The props.
  */
 const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   // State for the edited user, roles, student groups, and whether the student number is taken
   const [editedUser, setEditedUser] = useState(user);
   const [roles, setRoles] = useState<Role[]>([]);
@@ -192,13 +192,13 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
   return (
     <div className='flex flex-col items-center justify-center w-fit'>
       <h1 className='p-3 mb-4 text-2xl bg-white rounded-lg font-heading'>
-        {t('admin.editUser.title')} {editedUser.userid}
+        {t('translation:admin.editUser.title')} {editedUser.userid}
       </h1>
       <div className='w-full p-5 bg-white rounded-lg'>
         {editedUser.created_at && (
           <div>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.createdAt')}
+              {t('translation:admin.editUser.createdAt')}
             </span>
             <p className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
               {new Date(editedUser.created_at).toISOString().substring(0, 16)}
@@ -208,7 +208,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.last_name && (
           <label className='block mt-4'>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.lastName')}
+              {t('translation:admin.editUser.lastName')}
             </span>
             <input
               required={!!editedUser.last_name}
@@ -223,7 +223,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.first_name && (
           <label className='block mt-4'>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.firstName')}
+              {t('translation:admin.editUser.firstName')}
             </span>
             <input
               required={!!editedUser.first_name}
@@ -239,7 +239,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.email !== undefined && editedUser.email !== null && (
           <label className='block mt-4'>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.email')}
+              {t('translation:admin.editUser.email')}
             </span>
             <input
               required={!!editedUser.email}
@@ -251,7 +251,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
             />
             {isStudentEmailTaken && (
               <span className='text-red-500'>
-                {t('admin.editUser.errors.studentEmailTaken')}
+                {t('translation:admin.editUser.errors.studentEmailTaken')}
               </span>
             )}
           </label>
@@ -259,7 +259,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {editedUser.username && (
           <label className='block mt-4'>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.username')}
+              {t('translation:admin.editUser.username')}
             </span>
             <input
               required={!!editedUser.username}
@@ -274,7 +274,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
         {roles.length > 0 && (
           <label className='block mt-4'>
             <span className='text-gray-700 font-heading'>
-              {t('admin.editUser.role')}
+              {t('translation:admin.editUser.role')}
             </span>
             <select
               required={!!editedUser.roleid}
@@ -301,10 +301,10 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               onChange={handleInputChange}
               className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline'>
               <option value={0}>
-                {t('admin.editUser.gdprOptions.notAccepted')}
+                {t('translation:admin.editUser.gdprOptions.notAccepted')}
               </option>
               <option value={1}>
-                {t('admin.editUser.gdprOptions.accepted')}
+                {t('translation:admin.editUser.gdprOptions.accepted')}
               </option>
             </select>
           </label>
@@ -314,7 +314,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
           editedUser.studentnumber !== null && (
             <label className='block mt-4'>
               <span className='text-gray-700 font-heading'>
-                {t('admin.editUser.studentNumber')}
+                {t('translation:admin.editUser.studentNumber')}
               </span>
               <input
                 type='number'
@@ -325,7 +325,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
               />
               {isStudentNumberTaken && (
                 <span className='text-red-500'>
-                  {t('admin.editUser.errors.studentNumberTaken')}
+                  {t('translation:admin.editUser.errors.studentNumberTaken')}
                 </span>
               )}
             </label>
@@ -335,7 +335,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
           editedUser.studentgroupid !== null && (
             <label className='block mt-4'>
               <span className='text-gray-700 font-heading'>
-                {t('admin.editUser.studentGroup')}
+                {t('translation:admin.editUser.studentGroup')}
               </span>
               <select
                 required={!!editedUser.studentgroupid}
@@ -362,7 +362,7 @@ const EditUserView: React.FC<EditUserViewProps> = ({user, onSave}) => {
                 ? 'bg-gray-500'
                 : 'bg-metropolia-trend-green hover:bg-green-600 transition'
             } text-white rounded-md`}>
-            {t('admin.editUser.saveButton')}
+            {t('translation:admin.editUser.saveButton')}
           </button>
         </div>
       </div>

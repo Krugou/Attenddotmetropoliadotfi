@@ -22,7 +22,7 @@ interface MobileLecturesProps {
 }
 
 const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const navigate = useNavigate();
 
   const handleEditLecture = (lectureId: number) => {
@@ -60,7 +60,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
             <div className='grid grid-cols-2 gap-4 mb-4'>
               <div className='col-span-2 sm:col-span-1'>
                 <div className='mb-1 text-sm text-gray-600 font-heading'>
-                  {t('teacher.lectures.table.headers.date')}
+                  {t('translation:teacher.lectures.table.headers.date')}
                 </div>
                 <div className='font-medium'>
                   {new Date(lecture.start_date).toLocaleDateString()}
@@ -68,7 +68,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
               </div>
               <div className='col-span-2 sm:col-span-1'>
                 <div className='mb-1 text-sm text-gray-600 font-heading'>
-                  {t('teacher.lectures.table.headers.timeOfDay')}
+                  {t('translation:teacher.lectures.table.headers.timeOfDay')}
                 </div>
                 <div className='font-medium'>{lecture.timeofday}</div>
               </div>
@@ -78,7 +78,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
             <div className='p-4 mb-4 rounded-lg bg-gray-50'>
               <div className='flex items-center justify-between mb-2'>
                 <span className='text-sm text-gray-600 font-heading'>
-                  {t('teacher.lectures.table.headers.attendance')}
+                  {t('translation:teacher.lectures.table.headers.attendance')}
                 </span>
                 <div>
                   <span className='font-bold text-metropolia-trend-green'>
@@ -93,7 +93,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
 
               <div className='flex items-center justify-between'>
                 <span className='text-sm text-gray-600 font-heading'>
-                  {t('teacher.lectures.table.headers.ratio')}
+                  {t('translation:teacher.lectures.table.headers.ratio')}
                 </span>
                 <span className='font-bold'>
                   {Math.round(
@@ -109,7 +109,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
             {/* Status Section */}
             <div className='flex items-center justify-between'>
               <div className='text-sm text-gray-600 font-heading'>
-                {t('teacher.lectures.table.headers.state')}
+                {t('translation:teacher.lectures.table.headers.state')}
               </div>
               <span
                 className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -134,7 +134,7 @@ const MobileLectures: React.FC<MobileLecturesProps> = ({lectures}) => {
         ))
       ) : (
         <div className='p-8 text-center text-gray-500 bg-gray-50 rounded-xl font-heading'>
-          {t('teacher.lectures.table.noData')}
+          {t('translation:teacher.lectures.table.noData')}
         </div>
       )}
     </div>

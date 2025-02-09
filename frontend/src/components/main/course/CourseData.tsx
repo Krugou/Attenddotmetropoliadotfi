@@ -58,7 +58,7 @@ const CourseData: React.FC<CourseDataProps> = ({
   allCourses,
   showEndedCourses,
 }) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
 
@@ -147,7 +147,9 @@ const CourseData: React.FC<CourseDataProps> = ({
                   </p>
                   <div className='flex gap-5'>
                     <Tooltip
-                      title={t('teacher.courseData.tooltips.modifyCourse')}>
+                      title={t(
+                        'translation:teacher.courseData.tooltips.modifyCourse',
+                      )}>
                       <EditIcon
                         fontSize='large'
                         className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
@@ -157,7 +159,9 @@ const CourseData: React.FC<CourseDataProps> = ({
                       />
                     </Tooltip>
                     <Tooltip
-                      title={t('teacher.courseData.tooltips.deleteCourse')}>
+                      title={t(
+                        'translation:teacher.courseData.tooltips.deleteCourse',
+                      )}>
                       <DeleteIcon
                         fontSize='large'
                         className='p-1 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
@@ -169,31 +173,31 @@ const CourseData: React.FC<CourseDataProps> = ({
                 <div className='mt-2'>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('teacher.courseData.labels.startDate')}
+                      {t('translation:teacher.courseData.labels.startDate')}
                     </p>
                     <p>{new Date(course.start_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('teacher.courseData.labels.endDate')}
+                      {t('translation:teacher.courseData.labels.endDate')}
                     </p>
                     <p>{new Date(course.end_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <div className='text-gray-700'>
-                      {t('teacher.courseData.labels.code')}
+                      {t('translation:teacher.courseData.labels.code')}
                     </div>
                     <div>{course.code}</div>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('teacher.courseData.labels.studentGroup')}
+                      {t('translation:teacher.courseData.labels.studentGroup')}
                     </p>
                     <p>{course.studentgroup_name}</p>
                   </div>
                   <div className='flex flex-col justify-between mb-4'>
                     <h2 className='mt-4 text-lg font-heading'>
-                      {t('teacher.courseData.labels.topics')}
+                      {t('translation:teacher.courseData.labels.topics')}
                     </h2>
                     <p>{course.topic_names?.replace(/,/g, ', ')}</p>
                   </div>
@@ -201,11 +205,15 @@ const CourseData: React.FC<CourseDataProps> = ({
                     <>
                       <div className='w-full border-t-4 border-metropolia-main-orange'></div>
                       <h2 className='mt-4 text-lg font-heading'>
-                        {t('teacher.courseData.labels.additionalInfo')}
+                        {t(
+                          'translation:teacher.courseData.labels.additionalInfo',
+                        )}
                       </h2>
                       <div className='flex justify-between'>
                         <p className='text-gray-700'>
-                          {t('teacher.courseData.labels.courseCreatedAt')}
+                          {t(
+                            'translation:teacher.courseData.labels.courseCreatedAt',
+                          )}
                         </p>
                         <p>
                           {new Date(course.created_at).toLocaleDateString()}
@@ -213,14 +221,18 @@ const CourseData: React.FC<CourseDataProps> = ({
                       </div>
                       <div className='flex justify-between mb-4'>
                         <p className='text-gray-700'>
-                          {t('teacher.courseData.labels.amountOfStudents')}
+                          {t(
+                            'translation:teacher.courseData.labels.amountOfStudents',
+                          )}
                         </p>
                         <p>{course.user_count}</p>
                       </div>
                       <div className='w-full border-t-4 border-metropolia-main-orange'></div>
                       <div className='mt-4 mb-5'>
                         <h2 className='text-lg text-gray-700 font-heading'>
-                          {t('teacher.courseData.labels.instructors')}
+                          {t(
+                            'translation:teacher.courseData.labels.instructors',
+                          )}
                         </h2>
                         <ul>
                           {course.instructor_name
@@ -234,19 +246,25 @@ const CourseData: React.FC<CourseDataProps> = ({
                       </div>
                       <GeneralLinkButton
                         path={`/teacher/courses/attendances/${course.courseid}`}
-                        text={t('teacher.courseData.buttons.viewAttendances')}
+                        text={t(
+                          'translation:teacher.courseData.buttons.viewAttendances',
+                        )}
                       />
                     </>
                   ) : (
                     <div className='flex justify-between'>
                       <GeneralLinkButton
                         path={`/teacher/courses/${course.courseid}`}
-                        text={t('teacher.courseData.buttons.viewDetails')}
+                        text={t(
+                          'translation:teacher.courseData.buttons.viewDetails',
+                        )}
                       />
                       <div className='ml-2'>
                         <GeneralLinkButton
                           path={`/teacher/courses/attendances/${course.courseid}`}
-                          text={t('teacher.courseData.buttons.viewAttendances')}
+                          text={t(
+                            'translation:teacher.courseData.buttons.viewAttendances',
+                          )}
                         />
                       </div>
                     </div>

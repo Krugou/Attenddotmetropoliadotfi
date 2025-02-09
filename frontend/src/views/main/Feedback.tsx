@@ -35,7 +35,7 @@ const Feedback: React.FC = () => {
   const {user} = useContext(UserContext);
   const [feedback, setFeedback] = useState('');
   const [topic, setTopic] = useState('');
-  const {t} = useTranslation();
+  const {t} = useTranslation(['translation']);
 
   /**
    * Handles the submission of feedback
@@ -140,7 +140,7 @@ const Feedback: React.FC = () => {
         </h2>
         <form onSubmit={handleSubmit} className='flex flex-col mb-4'>
           <label htmlFor='feedback-topic' className='sr-only'>
-            {t('feedback.topicLabel', 'Feedback Topic')}
+            {t('translation:feedback.topicLabel', 'Feedback Topic')}
           </label>
           <select
             id='feedback-topic'
@@ -149,7 +149,7 @@ const Feedback: React.FC = () => {
             className='p-2 m-2 border rounded-sm'
             required>
             <option value=''>
-              {t('feedback.selectTopic', 'Select a topic')}
+              {t('translation:feedback.selectTopic', 'Select a topic')}
             </option>
             {feedbackTopics.map((topic, index) => (
               <option key={index} value={topic}>
@@ -158,7 +158,7 @@ const Feedback: React.FC = () => {
             ))}
           </select>
           <label htmlFor='feedback-text' className='sr-only'>
-            {t('feedback.textLabel', 'Feedback Text')}
+            {t('translation:feedback.textLabel', 'Feedback Text')}
           </label>
           <textarea
             id='feedback-text'
@@ -175,7 +175,7 @@ const Feedback: React.FC = () => {
           <button
             type='submit'
             className='px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'>
-            {t('feedback.submit', 'Submit')}
+            {t('translation:feedback.submit', 'Submit')}
           </button>
         </form>
       </div>

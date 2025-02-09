@@ -18,7 +18,7 @@ import About from '../views/main/About';
 import Team from '../views/main/Team';
 
 const LanguageWrapper = ({children}: {children: React.ReactNode}) => {
-  const {i18n} = useTranslation();
+  const {i18n} = useTranslation(['translation']);
   const {lang} = useParams();
 
   useEffect(() => {
