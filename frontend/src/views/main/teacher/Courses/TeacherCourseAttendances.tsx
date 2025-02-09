@@ -107,7 +107,7 @@ const TeacherCourseAttendances: React.FC = () => {
         {t('teacher.courseAttendances.title')}
       </h1>
       <div className='flex justify-center m-4 '>
-        <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4'>
+        <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4 w-full'>
           <div className='w-full sm:w-1/2 lg:w-1/3'>
             <h2 className='p-2 text-center text-white bg-metropolia-secondary-orange'>
               {t('teacher.courseAttendances.search.heading')}
