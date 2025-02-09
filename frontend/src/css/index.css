@@ -102,6 +102,9 @@
     src: url(../assets/fonts/static/RobotoSlab-Bold.ttf);
   }
 }
+.react-calendar {
+  width: 100%;
+}
 .hideScrollbar::-webkit-scrollbar {
 	display: none; /* for Chrome, Safari, and Opera */
 }
