@@ -225,7 +225,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
               placement='top'
               title={
                 isCourseEnded
-                  ? t('teacher.studentCourse.tooltips.courseEnded')
+                  ? t('teacher:studentCourse.tooltips.courseEnded')
                   : ''
               }
               key={index}>
@@ -313,7 +313,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                       </button>
                       <Tooltip
                         title={t(
-                          'teacher.studentCourse.tooltips.removeStudent',
+                          'teacher:studentCourse.tooltips.removeStudent',
                         )}>
                         <div className='w-[2.5em] mt-5  right-5 bg-gray-100 rounded-lg'>
                           <IconButton

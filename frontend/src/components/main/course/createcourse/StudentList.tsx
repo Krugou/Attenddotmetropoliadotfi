@@ -133,8 +133,8 @@ const StudentList = ({studentList, setStudentList}) => {
         <button
           aria-label={
             hideExtraColumns
-              ? t('teacher.studentList.buttons.showAllColumns')
-              : t('teacher.studentList.buttons.hideExtraColumns')
+              ? t('teacher:studentList.buttons.showAllColumns')
+              : t('teacher:studentList.buttons.hideExtraColumns')
           }
           className='p-1 bg-metropolia-main-orange text-sm text-white transition font-heading rounded-xl hover:bg-metropolia-secondary-orange focus:outline-hidden mb-4 sticky top-0 left-0'
           onClick={(event) => {
@@ -142,8 +142,8 @@ const StudentList = ({studentList, setStudentList}) => {
             toggleExtraColumns();
           }}>
           {hideExtraColumns
-            ? t('teacher.studentList.buttons.showAllColumns')
-            : t('teacher.studentList.buttons.hideExtraColumns')}
+            ? t('teacher:studentList.buttons.showAllColumns')
+            : t('teacher:studentList.buttons.hideExtraColumns')}
         </button>
         <div className='max-h-96 h-96 overflow-y-scroll relative'>
           <table className='table-auto w-full'>
@@ -158,7 +158,7 @@ const StudentList = ({studentList, setStudentList}) => {
                           {key === 'last_name' && (
                             <button
                               aria-label={t(
-                                'teacher.studentList.aria.sortColumn',
+                                'teacher:studentList.aria.sortColumn',
                               )}
                               className='ml-2 bg-metropolia-main-orange text-sm text-white font-heading transition rounded-sm hover:bg-metropolia-main-orangeDark focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orangeDark p-1'
                               onClick={sortStudents}>
@@ -212,7 +212,7 @@ const StudentList = ({studentList, setStudentList}) => {
                         </IconButton>
                         <IconButton
                           aria-label={t(
-                            'teacher.studentList.aria.deleteStudent',
+                            'teacher:studentList.aria.deleteStudent',
                           )}
                           color='error'
                           onClick={() => handleClickOpen(index)}>

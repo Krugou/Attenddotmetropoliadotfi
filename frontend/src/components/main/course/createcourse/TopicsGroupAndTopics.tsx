@@ -291,8 +291,8 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
               onClick={() => setIsCustomGroup(!isCustomGroup)}
               className='mb-3 w-fit text-sm p-2 bg-metropolia-main-orange transition text-white rounded-3xl hover:bg-metropolia-secondary-orange mr-2'>
               {isCustomGroup
-                ? t('teacher.topicsGroup.buttons.selectExisting')
-                : t('teacher.topicsGroup.buttons.createCustom')}
+                ? t('teacher:topicsGroup.buttons.selectExisting')
+                : t('teacher:topicsGroup.buttons.createCustom')}
             </button>
           </>
         )}
@@ -312,7 +312,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                 id='customTopicGroup'
                 type='text'
                 placeholder={t(
-                  'teacher.topicsGroup.placeholders.customTopicGroup',
+                  'teacher:topicsGroup.placeholders.customTopicGroup',
                 )}
                 value={customTopicGroup}
                 onChange={(e) => setCustomTopicGroup(e.target.value)}
@@ -345,7 +345,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                       id={`customTopics-${index}`}
                       type='text'
                       placeholder={t(
-                        'teacher.topicsGroup.placeholders.customTopic',
+                        'teacher:topicsGroup.placeholders.customTopic',
                       )}
                       value={topic}
                       onChange={(e) =>
@@ -363,7 +363,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                           );
                         }}
                         className='p-2 bg-red-500 text-white rounded-sm hover:bg-red-600'
-                        title={t('teacher.topicsGroup.tooltips.removeTopic')}>
+                        title={t('teacher:topicsGroup.tooltips.removeTopic')}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           viewBox='0 0 20 20'

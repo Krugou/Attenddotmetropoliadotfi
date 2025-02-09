@@ -52,7 +52,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
 
     try {
       await apiHooks.deleteWorklog(worklogid, token);
-      toast.success(t('teacher.worklog.deleteSuccess'));
+      toast.success(t('teacher:worklog.deleteSuccess'));
 
       if (!allCourses) {
         navigate('/teacher/worklog');
@@ -107,7 +107,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
           return (
             <Tooltip
               key={worklog.work_log_course_id} // Change this
-              title={isCourseEnded ? t('teacher.worklog.data.courseEnded') : ''}
+              title={isCourseEnded ? t('teacher:worklog.data.courseEnded') : ''}
               placement='top'>
               <div
                 className={`p-5 rounded-lg mt-4 mb-4 relative ${

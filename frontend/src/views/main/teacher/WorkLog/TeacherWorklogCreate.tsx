@@ -61,7 +61,7 @@ const WorkLogCreate = () => {
       !formData.startDate ||
       !formData.endDate
     ) {
-      setError(t('common.errors.fillRequiredFields'));
+      setError(t('common:errors.fillRequiredFields'));
       return;
     }
 

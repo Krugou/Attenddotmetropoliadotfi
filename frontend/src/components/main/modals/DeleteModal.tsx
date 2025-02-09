@@ -48,8 +48,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           <p className='text-base text-gray-500'>
             {t(
               student
-                ? 'common.deleteModal.messages.student'
-                : 'common.deleteModal.messages.course',
+                ? 'common:deleteModal.messages.student'
+                : 'common:deleteModal.messages.course',
             )}
           </p>
         </div>

@@ -334,14 +334,14 @@ const StudentWorkLogLogger: React.FC = () => {
                     bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
                     disabled:bg-gray-400 font-bold disabled:cursor-not-allowed
                     transition-colors duration-200'>
-                  {t('common.confirm')}
+                  {t('common:confirm')}
                 </button>
                 <button
                   onClick={handleCloseModal}
                   className='flex-1 px-6 py-3 font-body font-medium text-gray-700 rounded-lg
                     bg-gray-100 hover:bg-gray-200
                     transition-colors duration-200'>
-                  {t('common.cancel')}
+                  {t('common:cancel')}
                 </button>
               </div>
             </div>

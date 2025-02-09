@@ -253,8 +253,8 @@ const NewStudentUser: React.FC = () => {
                   <Tooltip
                     title={t(
                       showEndedCourses
-                        ? 'common.hideEndedCourses'
-                        : 'common.showEndedCourses',
+                        ? 'common:hideEndedCourses'
+                        : 'common:showEndedCourses',
                     )}
                     placement='top'>
                     <IconButton

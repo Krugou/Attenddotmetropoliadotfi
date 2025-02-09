@@ -128,7 +128,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
         instructors: instructors.map((i) => i.email),
       };
       await apiHooks.modifyWorkLog(token, courseid, modifiedData);
-      toast.success(t('teacher.worklog.modifySuccess'));
+      toast.success(t('teacher:worklog.modifySuccess'));
       navigate(`/teacher/worklog/${courseid}`);
     } catch (error) {
       if (error instanceof Error) {

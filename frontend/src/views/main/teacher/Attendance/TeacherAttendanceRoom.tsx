@@ -82,7 +82,7 @@ const AttendanceRoom: React.FC = () => {
     // Check if the token is available
     if (!token) {
       // If not, display an error message and exit the function
-      toast.error(t('common.errors.noToken'));
+      toast.error(t('common:errors.noToken'));
       return;
     }
 

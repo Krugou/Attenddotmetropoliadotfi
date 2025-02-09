@@ -355,7 +355,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       token,
                     )
                     .then(() => {
-                      toast.success(t('teacher.worklog.groups.studentsAdded'));
+                      toast.success(t('teacher:worklog.groups.studentsAdded'));
                       fetchGroupDetails();
                     })
                     .catch((error) => {

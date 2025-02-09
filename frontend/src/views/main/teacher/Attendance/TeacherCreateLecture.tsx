@@ -431,7 +431,7 @@ const CreateLecture: React.FC = () => {
               <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12 '>
                 <select
                   title={t(
-                    'teacher.createLecture.courseSection.tooltips.pickCourse',
+                    'teacher:createLecture.courseSection.tooltips.pickCourse',
                   )}
                   id='course'
                   className='block h-8 mt-1 ml-1 mr-3 cursor-pointer sm:ml-5 border-1 border-black/20 rounded-xl p-1'
@@ -440,7 +440,7 @@ const CreateLecture: React.FC = () => {
                     if (courses.length === 0) {
                       toast.error(
                         t(
-                          'teacher.createLecture.courseSection.errors.noCourses',
+                          'teacher:createLecture.courseSection.errors.noCourses',
                         ),
                       );
                     }
@@ -488,7 +488,7 @@ const CreateLecture: React.FC = () => {
                 </select>
                 <select
                   title={t(
-                    'teacher.createLecture.courseSection.tooltips.pickTopic',
+                    'teacher:createLecture.courseSection.tooltips.pickTopic',
                   )}
                   id='topic'
                   className='block h-8 ml-1 mr-3 cursor-pointer sm:ml-5 sm:mt-2 mt-none border-1 border-black/20 rounded-xl p-1'
@@ -524,7 +524,7 @@ const CreateLecture: React.FC = () => {
                 </label>
                 <input
                   title={t(
-                    'teacher.createLecture.dateSection.calendar.tooltip',
+                    'teacher:createLecture.dateSection.calendar.tooltip',
                   )}
                   ref={inputRef}
                   type='text'
@@ -533,7 +533,7 @@ const CreateLecture: React.FC = () => {
                   value={
                     Array.isArray(date)
                       ? t(
-                          'teacher.createLecture.dateSection.calendar.multipleDates',
+                          'teacher:createLecture.dateSection.calendar.multipleDates',
                         )
                       : date.toDateString()
                   }
@@ -560,10 +560,10 @@ const CreateLecture: React.FC = () => {
                 </label>
                 <select
                   aria-label={t(
-                    'teacher.createLecture.dateSection.timeOfDay.label',
+                    'teacher:createLecture.dateSection.timeOfDay.label',
                   )}
                   title={t(
-                    'teacher.createLecture.dateSection.timeOfDay.tooltip',
+                    'teacher:createLecture.dateSection.timeOfDay.tooltip',
                   )}
                   value={selectedTimeOfDay}
                   onChange={(e) => setSelectedTimeOfDay(e.target.value)}

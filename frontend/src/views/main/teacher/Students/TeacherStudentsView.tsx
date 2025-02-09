@@ -59,7 +59,7 @@ const TeacherStudentsView: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [studentsPerPage] = useState(100);
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
 
   // Fetch all students on mount
   useEffect(() => {
@@ -214,7 +214,7 @@ const TeacherStudentsView: React.FC = () => {
           <WarningIcon fontSize='large' />
           <span className='ml-2'>
             {t(
-              `teacher.studentsView.info.${
+              `teacher:studentsView.info.${
                 selectedCourse ? 'searchingCourse' : 'searchingAll'
               }`,
             )}

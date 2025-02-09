@@ -123,7 +123,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       setNewGroupName('');
       setSelectedStudents([]);
       setShowCreateForm(false);
-      toast.success(t('teacher.worklog.groups.createSuccess'));
+      toast.success(t('teacher:worklog.groups.createSuccess'));
     } catch (error) {
       console.error('Error creating group:', error);
       if (error instanceof Error) {
@@ -154,8 +154,8 @@ const TeacherWorklogCourseGroups: React.FC = () => {
           onClick={() => setShowCreateForm(!showCreateForm)}
           className='px-4 py-2 text-white rounded-sm bg-metropolia-main-orange hover:bg-opacity-90 font-body'>
           {showCreateForm
-            ? t('common.cancel')
-            : t('teacher.worklog.groups.createGroup')}
+            ? t('common:cancel')
+            : t('teacher:worklog.groups.createGroup')}
         </button>
       </div>
 
@@ -235,7 +235,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                     ? 'bg-gray-300 cursor-not-allowed'
                     : 'bg-metropolia-main-orange text-white hover:bg-opacity-90'
                 }`}>
-                {isCreatingGroup ? t('common.creating') : t('common.create')}
+                {isCreatingGroup ? t('common:creating') : t('common:create')}
               </button>
             </div>
           </form>

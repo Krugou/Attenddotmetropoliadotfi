@@ -236,13 +236,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         <p className='flex items-center justify-between gap-2'>
           <strong>{t('common:profileInfo.labels.activeStatus')}:</strong>{' '}
           <span className='profileStat'>
-            {user.activeStatus === 1 ? t('common.yes') : t('common.no')}
+            {user.activeStatus === 1 ? t('common:yes') : t('common:no')}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
           <strong>{t('common:profileInfo.labels.darkMode')}:</strong>{' '}
           <span className='profileStat'>
-            {user.darkMode === 1 ? t('common.yes') : t('common.no')}
+            {user.darkMode === 1 ? t('common:yes') : t('common:no')}
           </span>
         </p>
       </div>

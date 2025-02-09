@@ -92,7 +92,7 @@ const MainView: React.FC = () => {
                 path='/teacher/helpvideos'
                 title={t('teacher:mainView.cards.instructions.title')}
                 description={t(
-                  'teacher.mainView.cards.instructions.description',
+                  'teacher:mainView.cards.instructions.description',
                 )}
                 icon={Help}
               />
@@ -104,7 +104,7 @@ const MainView: React.FC = () => {
                   path='/teacher/students'
                   title={t('teacher:mainView.cards.manageStudents.title')}
                   description={t(
-                    'teacher.mainView.cards.manageStudents.description',
+                    'teacher:mainView.cards.manageStudents.description',
                   )}
                   icon={People}
                 />
@@ -113,7 +113,7 @@ const MainView: React.FC = () => {
                   path='/teacher/courses/'
                   title={t('teacher:mainView.cards.yourCourses.title')}
                   description={t(
-                    'teacher.mainView.cards.yourCourses.description',
+                    'teacher:mainView.cards.yourCourses.description',
                   )}
                   icon={School}
                 />
@@ -123,7 +123,7 @@ const MainView: React.FC = () => {
                   path='/teacher/attendance/createlecture'
                   title={t('teacher:mainView.cards.createLecture.title')}
                   description={t(
-                    'teacher.mainView.cards.createLecture.description',
+                    'teacher:mainView.cards.createLecture.description',
                   )}
                   icon={QrCode}
                 />
@@ -131,7 +131,7 @@ const MainView: React.FC = () => {
                   path='/teacher/courses/stats'
                   title={t('teacher:mainView.cards.attendanceStats.title')}
                   description={t(
-                    'teacher.mainView.cards.attendanceStats.description',
+                    'teacher:mainView.cards.attendanceStats.description',
                   )}
                   icon={Assessment}
                 />
@@ -139,7 +139,7 @@ const MainView: React.FC = () => {
                   path='/teacher/lateenrollment'
                   title={t('teacher:mainView.cards.lateEnrollment.title')}
                   description={t(
-                    'teacher.mainView.cards.lateEnrollment.description',
+                    'teacher:mainView.cards.lateEnrollment.description',
                   )}
                   icon={PersonAdd}
                 />
@@ -157,7 +157,7 @@ const MainView: React.FC = () => {
                   path='/teacher/worklog/create'
                   title={t('teacher:mainView.cards.createWorkLogCourse.title')}
                   description={t(
-                    'teacher.mainView.cards.createWorkLogCourse.description',
+                    'teacher:mainView.cards.createWorkLogCourse.description',
                   )}
                   icon={Add}
                 />
@@ -165,7 +165,7 @@ const MainView: React.FC = () => {
                   path='/teacher/worklog'
                   title={t('teacher:mainView.cards.yourWorkLogCourses.title')}
                   description={t(
-                    'teacher.mainView.cards.yourWorkLogCourses.description',
+                    'teacher:mainView.cards.yourWorkLogCourses.description',
                   )}
                   icon={School}
                 />

@@ -131,7 +131,7 @@ const CourseData: React.FC<CourseDataProps> = ({
               key={course.courseid}
               title={
                 isCourseEnded
-                  ? t('teacher.courseData.tooltips.courseEnded')
+                  ? t('teacher:courseData.tooltips.courseEnded')
                   : ''
               }
               placement='top'>
