@@ -35,7 +35,7 @@ interface CourseDetail {
  * @returns {JSX.Element} The rendered AdminCourseModify component.
  */
 const AdminCourseModify: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [courseName, setCourseName] = useState(
     courseData ? courseData.name : '',
@@ -105,7 +105,7 @@ const AdminCourseModify: React.FC = () => {
     }
   }, [courseData]);
   if (isLoading) {
-    return <div>{t('translation:admin.common.loading')}</div>;
+    return <div>{t('admin:common.loading')}</div>;
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -157,7 +157,7 @@ const AdminCourseModify: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='mb-6 font-semibold text-center text-gray-800 text-md sm:text-2xl'>
-        {t('translation:admin.courses.modify.mainTitle')}
+        {t('admin:courses.modify.mainTitle')}
       </h2>
 
       <form
@@ -186,7 +186,7 @@ const AdminCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            {t('translation:admin.courses.modify.modifyTeachers')}
+            {t('admin:courses.modify.modifyTeachers')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -201,7 +201,7 @@ const AdminCourseModify: React.FC = () => {
         <button
           className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow-sm focus:outline-hidden focus:shadow-outline'
           onClick={() => setOpen(true)}>
-          {t('translation:admin.courses.modify.modifyTopics')}
+          {t('admin:courses.modify.modifyTopics')}
         </button>
         <EditTopicsModal
           open={open}
@@ -221,7 +221,7 @@ const AdminCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 text-white font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            {t('translation:admin.courses.finish')}
+            {t('admin:courses.finish')}
           </button>
         </div>
       </form>

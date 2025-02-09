@@ -1,10 +1,35 @@
 {
   "common": {
-    "login": "Kirjaudu sisään",
-    "dialog": {
-      "confirm": "Kyllä",
-      "cancel": "Ei"
-    },
+    "code": "Koodi",
+    "startDate": "Aloituspäivämäärä",
+    "endDate": "Päättymispäivämäärä",
+    "topics": "Aihealueet",
+    "additionalInfo": "Lisätiedot",
+    "courseCreatedAt": "Kurssi luotu",
+    "ammountOfStudents": "Opiskelijoiden määrä",
+    "instructors": "Opettajat",
+    "lectureId": "Luennon ID",
+    "courseId": "Kurssin ID",
+    "attendanceId": "Läsnäolon ID",
+    "userCourseId": "Käyttäjän kurssi-ID",
+    "name": "Nimi",
+    "status": "Tila",
+    "delete": "Poista",
+    "cancel": "Peruuta",
+    "close": "Sulje",
+    "details": "Tiedot",
+    "confirm": "Vahvista",
+    "noCoursesAvailable": "Ei kursseja saatavilla",
+    "noUsersAvailable": "Ei käyttäjiä saatavilla",
+    "noDataAvailable": "Ei tietoja saatavilla",
+    "loading": "Ladataan...",
+    "saving": "Tallennetaan muutoksia...",
+    "user": "Käyttäjä",
+    "firstName": "Etunimi",
+    "lastName": "Sukunimi",
+    "email": "Sähköposti",
+    "studentNumber": "Opiskelijan numero",
+    "searchByDate": "Hae päivämäärän mukaan",
     "deleteModal": {
       "title": "Vahvistus",
       "messages": {
@@ -16,17 +41,347 @@
         "delete": "POISTA"
       }
     },
-    "reset": "Nollaa",
-    "errors": {
-      "emailTaken": "Sähköposti varattu",
-      "studentNumberTaken": "Opiskelijan numero varattu",
-      "noToken": "Ei tokenia saatavilla",
-      "fillRequiredFields": "Täytä kaikki pakolliset kentät"
+    "search": "Hae",
+    "searchPlaceholder": "Hae mistä tahansa kentästä",
+    "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla",
+    "confirmDelete": "Vahvista poisto",
+    "studentGroup": "Opiskelijaryhmä"
+  },
+  "mainView": {
+    "teacherDashboard": "Opettajan hallintapaneeli",
+    "teacherDashboardDesc": "Ota käyttöön ja hallinnoi opetussisältöjäsi",
+    "counselorDashboard": "Opinto-ohjaajan hallintapaneeli",
+    "counselorDashboardDesc": "Ota käyttöön ja hallinnoi opiskelijaohjausta",
+    "courseManagement": "Kurssien hallinta",
+    "courseManagementDesc": "Luo, päivätä ja poista kursseja",
+    "userManagement": "Käyttäjien hallinta",
+    "userManagementDesc": "Hallitse käyttäjätilit ja oikeudet",
+    "userRegistration": "Käyttäjän rekisteröinti",
+    "userRegistrationDesc": "Rekisteröi uusi käyttäjä",
+    "lectureManagement": "Luennon hallinta",
+    "lectureManagementDesc": "Näytä ja hallinnoi kaikki luennot",
+    "serverConfiguration": "Palvelinasetukset",
+    "serverConfigurationDesc": "Hallitse palvelinasetuksia ja -konfiguraatioita",
+    "serverDashboard": "Palvelimen hallintapaneeli",
+    "serverDashboardDesc": "Näytä palvelimen tilastot ja käyttö",
+    "workLog": "Työpäiväkirjakurssien hallinta",
+    "workLogDesc": "Näytä ja hallitse työpäiväkirjoja",
+    "studentDashboard": " Opiskelijan hallintapaneeli",
+    "studentDashboardDesc": "Hallinnoi opiskelija moduuleja"
+  },
+  "courses": {
+    "modify": {
+      "mainTitle": "Muokkaa kurssia",
+      "modifyTeachers": "Muokkaa opettajia",
+      "modifyTopics": "Muokkaa aiheita",
+      "loading": "Ladataan kurssin tietoja..."
     },
-    "email": "Sähköposti",
-    "firstName": "Etunimi",
+    "delete": {
+      "deleteCourse": "Kurssi poistettu",
+      "confirmDelete": "Haluatko varmasti poistaa tämän kurssin?",
+      "success": "Kurssi poistettu onnistuneesti"
+    },
+    "success": {
+      "modifySuccess": "Kurssia muokattu onnistuneesti",
+      "saveSuccess": "Muutokset tallennettu onnistuneesti"
+    },
+    "errors": {
+      "unknown": "Tuntematon virhe tapahtui",
+      "loadFailed": "Kurssin tietojen lataaminen epäonnistui",
+      "saveFailed": "Muutosten tallentaminen epäonnistui",
+      "permissionDenied": "Sinulla ei ole oikeuksia muokata tätä kurssia",
+      "modifyError": "Virhe kurssin muokkaamisessa"
+    },
+    "info": {
+      "topicChange": "Aiheet on muutettu"
+    },
+    "finish": "Valmis"
+  },
+  "lectures": {
+    "error": {
+      "lectureOrCourseID": "Kurssin ID tai Luennon ID ei ole saatavilla",
+      "deleteAttendance": "Virhe poistaessa läsnäoloa"
+    },
+    "alternative": {
+      "showAllLectures": "Näytä kaikki luennot",
+      "showOpenLecture": "Näytä vain avoimet luennot",
+      "sortByNewest": "Järjestä uusimman mukaan",
+      "sortByOldest": "Järjestä vanhimman mukaan",
+      "shrinkTable": "Kutista taulukko",
+      "expandTable": "Laajenna täysikokoiseksi",
+      "hideStats": "Piilota tilastot",
+      "showStats": "Näytä tilastot",
+      "columns": "Sarakkeet"
+    },
+    "stats": {
+      "totalLectures": "Luennot yhteensä",
+      "attendanceRatio": "Läsnäoloprosentti",
+      "highestAttendance": "Suurin läsnäolo",
+      "lowestAttendance": "Pienin läsnäolo",
+      "highestNotAttended": "Suurin poissaolo",
+      "lowestNotAttended": "Pienin poissaolo"
+    },
+    "tableContent": {
+      "teacherEmail": "Opettajan sähköposti",
+      "courseName": "Kurssin nimi",
+      "courseCode": "Kurssin koodi",
+      "topicName": "Aiheen nimi",
+      "date": "Päivämäärä",
+      "dayTime": "am/pm",
+      "attendance": "Läsnäolo",
+      "totalAttendance": "Läsnäolo yhteensä",
+      "currentTopicStudentCount": "Nykyisen aiheen opiskelijamäärä",
+      "ratio": "Suhdeluku(%)",
+      "state": "Tila",
+      "actions": "Toimenpiteet"
+    },
+    "dialog": {
+      "dialogText": "Tätä toimintoa ei voi peruuttaa."
+    },
+    "noData": {
+      "noOpenLectures": "Ei avoimia luentoja saatavilla",
+      "noLecturesFound": "Luentoja ei löytynyt",
+      "tryShowingAll": "Kokeile näyttää kaikki luennot, ei vain avoimia",
+      "tryDifferentSearch": "Kokeile muuttaa hakukriteerejä"
+    },
+    "delete": {
+      "deleteAttendance": "Poista läsnäolo"
+    },
+    "table": {
+      "headers": {
+        "lectureId": "Luennon ID",
+        "courseName": "Kurssin nimi",
+        "courseCode": "Kurssin koodi",
+        "topicName": "Aiheen nimi",
+        "date": "Päivämäärä",
+        "timeOfDay": "ap/ip",
+        "attendance": "Läsnäolo",
+        "totalAttendance": "Läsnäolo yhteensä",
+        "studentsWithTopic": "Opiskelijat tämän aiheen kanssa",
+        "ratio": "Suhdeluku(%)",
+        "state": "Tila",
+        "actions": "Toiminnot",
+        "technicalDetails": "Tekniset tiedot"
+      }
+    }
+  },
+  "adminStats": {
+    "userStatistics": "Käyttäjätilastot",
+    "attendanceStatistics": "Läsnäolotilastot",
+    "administratorStatistics": "Järjestelmänvalvojan tilastot",
+    "distributtion": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin",
+    "loggedInPercentage": "Prosenttiosuus opiskelijoista, jotka ovat kirjautuneet sisään vähintään kerran",
+    "userCount": "Käyttäjämäärä",
+    "userCounts": "Käyttäjämäärät",
+    "attendanceCount": "Läsnäolomäärä",
+    "attendanceCounts": "Läsnäolomäärät",
+    "totalLectures": "Luennot yhteensä",
+    "attendanceRatio": "Läsnäoloprosentti",
+    "distribution": "Tallennettujen luentojen viikkokohtainen jakauma päivittäin",
+    "total": "Yhteensä",
+    "active": "Aktiiviset",
+    "courseStatistics": "Kurssitilastot",
+    "courseCount": "Kurssimäärä",
+    "courseCounts": "Kurssimäärät",
+    "totalCourses": "Kursseja yhteensä",
+    "regularCourses": "Tavalliset kurssit",
+    "worklogCourses": "Työpäiväkirjakurssit",
+    "pendingEntries": "Sisäänkirjautuneet käyttäjät",
+    "approvedEntries": "Uloskirjautuneet käyttäjät",
+    "delayedEntries": "Mahdolliset sisäänkirjautumisvirheet",
+    "totalEntries": "Merkintöjä yhteensä",
+    "entryCount": "Merkintöjen määrä",
+    "worklogEntries": "Työpäiväkirjamerkinnät",
+    "worklogStatistics": "Työpäiväkirjatilastot"
+  },
+  "dashboard": {
+    "title": "Palvelimen hallintapaneeli"
+  },
+  "lectureChart": {
+    "days": {
+      "sunday": "Sunnuntai",
+      "monday": "Maanantai",
+      "tuesday": "Tiistai",
+      "wednesday": "Keskiviikko",
+      "thursday": "Torstai",
+      "friday": "Perjantai",
+      "saturday": "Lauantai"
+    },
+    "label": "Luentojen määrä"
+  },
+  "lecturesByDay": {
+    "lectureCount": "Luentojen määrä",
+    "numberOfLectures": "Luentojen määrä",
+    "dayOfWeek": "Viikonpäivä"
+  },
+  "feedback": {
+    "title": "Palaute",
+    "description": "Anna palautetta kehittäjille",
+    "filterFeedback": "Suodata palaute aiheen mukaan alla",
+    "topic": "Valitse aihe",
+    "noFeedbackAvailable": "Palautetta ei ole vielä annettu. Pysy kuulolla!",
+    "confirmDelete": "Haluatko varmasti poistaa tämän palautteen?"
+  },
+  "guide": {
+    "title": "Opas",
+    "guideText": "Tämä on järjestelmänvalvojien opas. Se tarjoaa ohjeita ja tietoja hallintapaneelin eri ominaisuuksien käyttämiseen.",
+    "statistics": "Tilastot",
+    "statisticsText": "Tämä osio tarjoaa tilastotietoja ja analyysejä järjestelmän suorituskyvystä ja käyttäjätoimista.",
+    "logs": "Lokit",
+    "logsText": "Täällä järjestelmänvalvojat voivat tarkastella järjestelmän toimintoja, käyttäjätoimia, virheitä ja muita tärkeitä tapahtumia.",
+    "errorLogs": "Virhelokit",
+    "errorLogsText": "Tämä alue näyttää erityisesti järjestelmässä kohdattuja virheisiin liittyviä lokitietoja, jotka auttavat vianselvityksessä.",
+    "userFeedback": "Käyttäjäpalaute",
+    "userFeedbackText": "Järjestelmänvalvojat voivat tarkastella käyttäjien jättämää palautetta, mikä auttaa ymmärtämään käyttäjäkokemuksia ja käsittelemään mahdollisia ongelmia tai huolenaiheita."
+  },
+  "newUser": {
+    "addNew": "Lisää uusi",
+    "userDetails": "Käyttäjän tiedot",
+    "userType": "Käyttäjän tyyppi",
+    "optionStudent": "Opiskelija",
+    "optionTeacher": "Opettaja",
+    "staffRole": "Henkilöstön rooli",
+    "staffRolTitle": "Valitse henkilöstön rooli",
+    "emailTaken": "Sähköposti varattu",
+    "studentNumberTaken": "Opiskelijan numero varattu"
+  },
+  "adminProfile": {
+    "noData": "Ei käyttäjätietoja saatavilla.",
+    "profile": "Järjestelmänvalvojan profiili"
+  },
+  "settings": {
+    "serverSettings": "Palvelinasetukset",
+    "serverSettingsDesc": "Tervetuloa asetusten osioon. Täällä voit määrittää läsnäolon keräämisen sivun asetukset ja asettaa läsnäolovaatimuksen kynnyksen. Räätälöi nämä asetukset tarpeidesi mukaan.",
+    "currentSettings": "Nykyiset asetukset",
+    "speedOfHash": "Hashin nopeus",
+    "hashSpeedMultiplier": "Hash-nopeuden kerroin verkon varautumiseen",
+    "leeway": "Pelivara",
+    "timeOut": "Aikakatkaisuaika",
+    "attendanceThreshold": "Läsnäolokynnys",
+    "updateSettings": "Päivitä asetukset"
+  },
+  "editUser": {
+    "title": "Muokkaa käyttäjää",
+    "createdAt": "Luotu",
     "lastName": "Sukunimi",
+    "firstName": "Etunimi",
+    "email": "Sähköposti",
+    "username": "Käyttäjänimi",
+    "role": "Rooli",
+    "gdprOptions": {
+      "notAccepted": "Ei hyväksytty",
+      "accepted": "Hyväksytty"
+    },
     "studentNumber": "Opiskelijan numero",
-    "showEndedCourses": "Näytä päättyneet kurssit"
+    "studentGroup": "Opiskelijaryhmä",
+    "saveButton": "Tallenna",
+    "errors": {
+      "emailTaken": "Opiskelijan sähköposti varattu",
+      "studentNumberTaken": "Opiskelijan numero varattu",
+      "studentEmailTaken": "Sähköpostiosoite on jo käytössä"
+    }
+  },
+  "logs": {
+    "title": "Järjestelmälokit",
+    "errorTitle": "Järjestelmän virhelokit",
+    "showOlder": "Näytä vanhemmat",
+    "showOlderLogs": "Näytä vanhemmat lokit",
+    "showOlderErrors": "Näytä vanhemmat virhelokit",
+    "resetReload": "Nollaa/Lataa uudelleen",
+    "noLogs": "lokeja ei löytynyt.",
+    "noErrorLogs": "virhelokeja ei löytynyt.",
+    "logsLabel": "Lokit:",
+    "errorLogsLabel": "Virhelokit:",
+    "details": {
+      "userEmail": "Käyttäjän sähköposti",
+      "time": "Aika",
+      "message": "Viesti"
+    }
+  },
+  "worklog": {
+    "name": "Nimi",
+    "code": "Koodi",
+    "startDate": "Aloituspäivä",
+    "endDate": "Päättymispäivä",
+    "requiredHours": "Vaaditut tunnit",
+    "description": "Kuvaus",
+    "createNewWorkLog": "Luo uusi työaikakirjauskurssi",
+    "noCourses": "Ei saatavilla olevia kursseja",
+    "redirecting": "Ohjataan päänäkymään...",
+    "logger": {
+      "title": "Työaikakirjaus"
+    },
+    "status": {
+      "0": "Status: Virhe",
+      "1": "Status: Sisäänkirjautunut",
+      "2": "Status: Uloskirjautunut",
+      "3": "Status: Tarkistettu"
+    },
+    "dialog": {
+      "clockIn": "Kirjaudu sisään kurssille",
+      "clockOut": "Kirjaudu ulos kurssilta",
+      "confirm": "Oletko varma?",
+      "description": "Syötä kuvaus",
+      "requiredDescription": "Kuvaus vaaditaan sisäänkirjautumiseen"
+    },
+    "error": {
+      "fetchFailed": "Tietojen haku epäonnistui",
+      "requiredFields": "Täytä kaikki pakolliset kentät",
+      "codeExists": "Koodi on jo käytössä"
+    },
+    "actions": {
+      "clockIn": "Kirjaudu sisään",
+      "clockOut": "Kirjaudu ulos",
+      "edit": "Muokkaa merkintöjä",
+      "in": "Sisään",
+      "out": "Ulos"
+    },
+    "notifications": {
+      "clockedIn": "Kirjauduttu sisään klo {{time}}",
+      "clockedOut": "Kirjauduttu ulos klo {{time}}",
+      "editClicked": "Muokkaus klikattu klo {{time}}"
+    },
+    "tooltips": {
+      "modify": "Muokkaa merkintää",
+      "delete": "Poista merkintä"
+    },
+    "aria": {
+      "clockIn": "Sisäänkirjautumispainike",
+      "clockOut": "Uloskirjautumispainike",
+      "edit": "Muokkaa merkintöjä -painike"
+    },
+    "selectCourse": "Valitse kurssi",
+    "clockIn": "Kirjaudu sisään",
+    "clockOut": "Kirjaudu ulos",
+    "optionalDescription": "Valinnainen kuvaus",
+    "messages": {
+      "clockedIn": "Kirjauduttu sisään klo {time}, syy: {description}",
+      "clockedOut": "Kirjauduttu ulos klo {time}",
+      "clockedOutWithReason": "Kirjauduttu ulos klo {time}, syy: {description}",
+      "editClicked": "Muokkaus klikattu klo {time}",
+      "failedToLog": "Työajan kirjaaminen epäonnistui",
+      "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
+      "failedToFetch": "Kurssien haku epäonnistui"
+    },
+    "delete": {
+      "confirm": "Haluatko varmasti poistaa tämän merkinnän?",
+      "success": "Merkintä poistettu onnistuneesti",
+      "error": "Merkinnän poistaminen epäonnistui"
+    },
+    "edit": {
+      "success": "Merkintä päivitetty onnistuneesti",
+      "error": "Merkinnän päivittäminen epäonnistui"
+    },
+    "entries": {
+      "date": "Päivämäärä",
+      "hours": "Tunnit",
+      "description": "Kuvaus",
+      "status": "Tila",
+      "time": "Aika",
+      "duration": "Kesto"
+    }
+  },
+  "admin:logs": {
+    "errorTitle": ""
   }
 }

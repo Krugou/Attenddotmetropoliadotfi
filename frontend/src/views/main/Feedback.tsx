@@ -35,7 +35,7 @@ const Feedback: React.FC = () => {
   const {user} = useContext(UserContext);
   const [feedback, setFeedback] = useState('');
   const [topic, setTopic] = useState('');
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
 
   /**
    * Handles the submission of feedback
@@ -65,7 +65,7 @@ const Feedback: React.FC = () => {
 
         toast.success(
           t(
-            'feedback.submitSuccess',
+            'common:feedback.submitSuccess',
             'Your feedback has been submitted successfully!',
           ),
         );
@@ -73,7 +73,7 @@ const Feedback: React.FC = () => {
       } catch (error) {
         toast.error(
           t(
-            'feedback.submitError',
+            'common:feedback.submitError',
             'An error occurred while submitting your feedback.',
           ),
         );
@@ -131,7 +131,7 @@ const Feedback: React.FC = () => {
       <div className='p-4 bg-white rounded-lg shadow-md'>
         <h2 className='mb-4 text-xl font-heading'>
           {t(
-            'feedback.header',
+            'common:feedback.header',
             'Help us improve, {{username}} by sharing your feedback.',
             {
               username: user?.username,
@@ -140,7 +140,7 @@ const Feedback: React.FC = () => {
         </h2>
         <form onSubmit={handleSubmit} className='flex flex-col mb-4'>
           <label htmlFor='feedback-topic' className='sr-only'>
-            {t('translation:feedback.topicLabel', 'Feedback Topic')}
+            {t('common:feedback.topicLabel', 'Feedback Topic')}
           </label>
           <select
             id='feedback-topic'
@@ -149,7 +149,7 @@ const Feedback: React.FC = () => {
             className='p-2 m-2 border rounded-sm'
             required>
             <option value=''>
-              {t('translation:feedback.selectTopic', 'Select a topic')}
+              {t('common:feedback.selectTopic', 'Select a topic')}
             </option>
             {feedbackTopics.map((topic, index) => (
               <option key={index} value={topic}>
@@ -158,7 +158,7 @@ const Feedback: React.FC = () => {
             ))}
           </select>
           <label htmlFor='feedback-text' className='sr-only'>
-            {t('translation:feedback.textLabel', 'Feedback Text')}
+            {t('common:feedback.textLabel', 'Feedback Text')}
           </label>
           <textarea
             id='feedback-text'
@@ -167,7 +167,7 @@ const Feedback: React.FC = () => {
             className='p-2 m-2 border rounded-sm'
             rows={8}
             placeholder={t(
-              'feedback.placeholder',
+              'common:feedback.placeholder',
               'Enter your feedback here...',
             )}
             required
@@ -175,7 +175,7 @@ const Feedback: React.FC = () => {
           <button
             type='submit'
             className='px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'>
-            {t('translation:feedback.submit', 'Submit')}
+            {t('common:feedback.submit', 'Submit')}
           </button>
         </form>
       </div>

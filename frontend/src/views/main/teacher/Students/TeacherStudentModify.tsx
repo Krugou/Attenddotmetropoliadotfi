@@ -37,20 +37,20 @@ const TeacherStudentModify: React.FC = () => {
       <div className='w-full m-4 mx-auto bg-white rounded-sm shadow-lg sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/5'>
         <form onSubmit={handleSubmit} className='px-6 py-4'>
           <label className='mb-2 text-xl font-heading'>
-            {t('translation:teacher.studentModify.labels.name')}
+            {t('teacher:studentModify.labels.name')}
           </label>
           <input
-            aria-label={t('translation:teacher.studentModify.ariaLabels.name')}
+            aria-label={t('teacher:studentModify.ariaLabels.name')}
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
             className='w-full p-2 mb-3 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-blue-600'
           />
           <label className='mb-2 text-xl font-heading'>
-            {t('translation:teacher.studentModify.labels.email')}
+            {t('teacher:studentModify.labels.email')}
           </label>
           <input
-            aria-label={t('translation:teacher.studentModify.ariaLabels.email')}
+            aria-label={t('teacher:studentModify.ariaLabels.email')}
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +59,7 @@ const TeacherStudentModify: React.FC = () => {
           <button
             type='submit'
             className='w-full p-2 font-heading text-white transition rounded-sm bg-metropolia-main-orange hover:hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-blue-600'>
-            {t('translation:teacher.studentModify.buttons.submit')}
+            {t('teacher:studentModify.buttons.submit')}
           </button>
         </form>
       </div>

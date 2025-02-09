@@ -23,7 +23,7 @@ import WelcomeModal from '../../../components/main/modals/WelcomeModal';
  * @returns {JSX.Element} The rendered AdminMainView component.
  */
 const AdminMainView: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   return (
     <>
       <MainViewTitle role={'Admin'} />
@@ -31,63 +31,63 @@ const AdminMainView: React.FC = () => {
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/teacher/mainview'
-          title={t('translation:admin.mainView.teacherDashboard')}
-          description={t('translation:admin.mainView.teacherDashboardDesc')}
+          title={t('admin:mainView.teacherDashboard')}
+          description={t('admin:mainView.teacherDashboardDesc')}
           icon={School}
         />
         <Card
           path='/counselor/mainview'
-          title={t('translation:admin.mainView.counselorDashboard')}
-          description={t('translation:admin.mainView.counselorDashboardDesc')}
+          title={t('admin:mainView.counselorDashboard')}
+          description={t('admin:mainView.counselorDashboardDesc')}
           icon={SupervisorAccount}
         />
         <Card
           path='/admin/courses/'
-          title={t('translation:admin.mainView.courseManagement')}
-          description={t('translation:admin.mainView.courseManagementDesc')}
+          title={t('admin:mainView.courseManagement')}
+          description={t('admin:mainView.courseManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/users/'
-          title={t('translation:admin.mainView.userManagement')}
-          description={t('translation:admin.mainView.userManagementDesc')}
+          title={t('admin:mainView.userManagement')}
+          description={t('admin:mainView.userManagementDesc')}
           icon={People}
         />
         <Card
           path='/admin/newuser/'
-          title={t('translation:admin.mainView.userRegistration')}
-          description={t('translation:admin.mainView.userRegistrationDesc')}
+          title={t('admin:mainView.userRegistration')}
+          description={t('admin:mainView.userRegistrationDesc')}
           icon={PersonAdd}
         />
         <Card
           path='/admin/lectures/'
-          title={t('translation:admin.mainView.lectureManagement')}
-          description={t('translation:admin.mainView.lectureManagementDesc')}
+          title={t('admin:mainView.lectureManagement')}
+          description={t('admin:mainView.lectureManagementDesc')}
           icon={Event}
         />
         <Card
           path='/admin/settings/'
-          title={t('translation:admin.mainView.serverConfiguration')}
-          description={t('translation:admin.mainView.serverConfigurationDesc')}
+          title={t('admin:mainView.serverConfiguration')}
+          description={t('admin:mainView.serverConfigurationDesc')}
           icon={Settings}
         />
         <Card
           path='/admin/dashboard/'
-          title={t('translation:admin.mainView.serverDashboard')}
-          description={t('translation:admin.mainView.serverDashboardDesc')}
+          title={t('admin:mainView.serverDashboard')}
+          description={t('admin:mainView.serverDashboardDesc')}
           icon={Dashboard}
         />
         <Card
           path='/admin/worklog/'
-          title={t('translation:admin.mainView.workLog')}
-          description={t('translation:admin.mainView.workLogDesc')}
+          title={t('admin:mainView.workLog')}
+          description={t('admin:mainView.workLogDesc')}
           icon={Event}
         />
         {import.meta.env.MODE === 'development' && (
           <Card
             path='/student/'
-            title={t('translation:admin.mainView.studentDashboard')}
-            description={t('translation:admin.mainView.studentDashboardDesc')}
+            title={t('admin:mainView.studentDashboard')}
+            description={t('admin:mainView.studentDashboardDesc')}
             icon={People}
           />
         )}

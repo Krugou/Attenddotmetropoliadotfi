@@ -17,7 +17,7 @@ interface WorkLogCourseFormData {
 }
 
 const WorkLogCreate = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common', 'teacher']);
   const {user} = useContext(UserContext);
 
   const [formData, setFormData] = useState<WorkLogCourseFormData>({
@@ -82,7 +82,7 @@ const WorkLogCreate = () => {
       };
 
       const result = await apiHooks.createWorkLogCourse(apiData, token);
-      setSuccess(t('teacher.worklog.success.courseCreated'));
+      setSuccess(t('teacher:worklog.success.courseCreated'));
       // Reset form
       setFormData({
         name: '',
@@ -97,18 +97,18 @@ const WorkLogCreate = () => {
         instructorEmail: user?.email || '',
       });
       if (result) {
-        setSuccess(t('teacher.worklog.success.courseCreated'));
+        setSuccess(t('teacher:worklog.success.courseCreated'));
         setTimeout(() => {
           setSuccess('');
         }, 5000);
       } else {
-        setError(t('teacher.worklog.errors.createFailed'));
+        setError(t('teacher:worklog.errors.createFailed'));
         setTimeout(() => {
           setError('');
         }, 5000);
       }
     } catch (err) {
-      setError(t('teacher.worklog.errors.createFailed'));
+      setError(t('teacher:worklog.errors.createFailed'));
       setTimeout(() => {
         setError('');
       }, 5000);
@@ -118,7 +118,7 @@ const WorkLogCreate = () => {
   return (
     <div className='flex flex-col max-w-2xl p-6 mx-auto bg-white'>
       <h1 className='mb-6 text-2xl text-gray-800 font-heading'>
-        {t('translation:teacher.worklog.create.title')}
+        {t('teacher:worklog.create.title')}
       </h1>
 
       <form onSubmit={handleSubmit} className='space-y-6'>
@@ -138,7 +138,7 @@ const WorkLogCreate = () => {
             <label
               htmlFor='name'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('translation:teacher.worklog.form.name')} *
+              {t('teacher:worklog.form.name')} *
             </label>
             <input
               type='text'
@@ -155,7 +155,7 @@ const WorkLogCreate = () => {
             <label
               htmlFor='code'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('translation:teacher.worklog.form.code')} *
+              {t('teacher:worklog.form.code')} *
             </label>
             <input
               type='text'
@@ -172,7 +172,7 @@ const WorkLogCreate = () => {
             <label
               htmlFor='description'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('translation:teacher.worklog.form.description')}
+              {t('teacher:worklog.form.description')}
             </label>
             <textarea
               id='description'
@@ -188,7 +188,7 @@ const WorkLogCreate = () => {
               <label
                 htmlFor='startDate'
                 className='mb-2 text-sm font-medium text-gray-700'>
-                {t('translation:teacher.worklog.form.startDate')} *
+                {t('teacher:worklog.form.startDate')} *
               </label>
               <input
                 type='date'
@@ -210,7 +210,7 @@ const WorkLogCreate = () => {
               <label
                 htmlFor='endDate'
                 className='mb-2 text-sm font-medium text-gray-700'>
-                {t('translation:teacher.worklog.form.endDate')} *
+                {t('teacher:worklog.form.endDate')} *
               </label>
               <input
                 type='date'
@@ -234,7 +234,7 @@ const WorkLogCreate = () => {
             <label
               htmlFor='requiredHours'
               className='mb-2 text-sm font-medium text-gray-700'>
-              {t('translation:teacher.worklog.form.requiredHours')} *
+              {t('teacher:worklog.form.requiredHours')} *
             </label>
             <input
               type='number'
@@ -267,12 +267,12 @@ const WorkLogCreate = () => {
               })
             }
             className='px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300'>
-            {t('translation:common.reset')}
+            {t('common:reset')}
           </button>
           <button
             type='submit'
             className='px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700'>
-            {t('translation:teacher.worklog.form.submit')}
+            {t('teacher:worklog.form.submit')}
           </button>
         </div>
       </form>

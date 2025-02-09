@@ -47,7 +47,7 @@ interface User {
  * @returns {JSX.Element} The rendered AdminUserModify component.
  */
 const AdminUserModify: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
   const {userid} = useParams<{userid: string}>();
   const {user} = useContext(UserContext);
   const [modifyUser, setModifyUser] = useState<User | null>(null);
@@ -57,7 +57,7 @@ const AdminUserModify: React.FC = () => {
       // Get token from local storage
       const token: string | null = localStorage.getItem('userToken');
       if (!token) {
-        toast.error(t('notifications.error'));
+        toast.error(t('common:notifications.error'));
         return;
       }
 
@@ -71,7 +71,7 @@ const AdminUserModify: React.FC = () => {
           setModifyUser(modifyUser[0]);
           console.log(modifyUser[0]);
         } catch (error) {
-          toast.error(t('notifications.loadingError'));
+          toast.error(t('common:notifications.loadingError'));
         }
       };
 
@@ -89,20 +89,20 @@ const AdminUserModify: React.FC = () => {
     // Get token from local storage
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('notifications.sessionExpired'));
+      toast.error(t('common:notifications.sessionExpired'));
       return;
     }
 
     try {
-      toast.info(t('notifications.savingChanges'));
+      toast.info(t('common:notifications.savingChanges'));
       const response = await apiHooks.updateUser(token, editedUser);
       if (!response) {
         throw new Error('Failed to save the user data');
       }
 
-      toast.success(t('notifications.saveSuccess'));
+      toast.success(t('common:notifications.saveSuccess'));
     } catch (error) {
-      toast.error(t('notifications.saveError'));
+      toast.error(t('common:notifications.saveError'));
     }
   };
   /**

@@ -29,7 +29,7 @@ interface Student {
   userid: number;
 }
 const AttendanceRoom: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher', 'common', 'admin']);
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const {lectureid} = useParams<{lectureid: string}>();
@@ -64,7 +64,7 @@ const AttendanceRoom: React.FC = () => {
     // Check if user information is available
     if (!user) {
       // If not, display an error message and exit the function
-      toast.error(t('teacher.attendance.errors.noUser'));
+      toast.error(t('teacher:attendance.errors.noUser'));
       navigate('/');
       return;
     }
@@ -72,7 +72,7 @@ const AttendanceRoom: React.FC = () => {
     // Check if a lecture ID is provided
     if (!lectureid) {
       // If not, display an error message and exit the function
-      toast.error(t('teacher.attendance.errors.noLectureId'));
+      toast.error(t('teacher:attendance.errors.noLectureId'));
       return;
     }
 
@@ -94,7 +94,7 @@ const AttendanceRoom: React.FC = () => {
         // Check if the lecture is already closed
         if (info.state === 'closed') {
           // If so, display an error message, navigate to the main view, and exit the function
-          toast.error(t('teacher.attendance.errors.lectureClosed'));
+          toast.error(t('teacher:attendance.errors.lectureClosed'));
           navigate('/teacher/mainview');
           return;
         }
@@ -104,7 +104,7 @@ const AttendanceRoom: React.FC = () => {
         setTopicname(info.topicname);
         // Display a success message
         if (!toastDisplayed.current) {
-          toast.success(t('teacher.attendance.success.infoRetrieved'));
+          toast.success(t('teacher:attendance.success.infoRetrieved'));
           toastDisplayed.current = true;
         }
 
@@ -114,7 +114,7 @@ const AttendanceRoom: React.FC = () => {
       .catch((error) => {
         // Log the error and display an error message
         console.error('Error getting lecture info:', error);
-        toast.error(t('teacher.attendance.errors.getLectureInfo'));
+        toast.error(t('teacher:attendance.errors.getLectureInfo'));
 
         // Set loading to false even if there was an error
         setLoading(false);
@@ -181,34 +181,34 @@ const AttendanceRoom: React.FC = () => {
       // When a student is inserted manually, display a success message
       newSocket.on('manualStudentInsertSuccess', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.success(t('teacher.attendance.labels.studentInserted'));
+          toast.success(t('teacher:attendance.labels.studentInserted'));
         }
       });
       // When a student is inserted manually, display an error message
       newSocket.on('manualStudentInsertError', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher.attendance.errors.insertStudent'));
+          toast.error(t('teacher:attendance.errors.insertStudent'));
         }
       });
       // When a student is inserted manually, display an error message if the student number is empty
       newSocket.on('manualStudentInsertFailedEmpty', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher.attendance.errors.studentNumberEmpty'));
+          toast.error(t('teacher:attendance.errors.studentNumberEmpty'));
         }
       });
       newSocket.on('manualStudentRemoveFailedEmpty', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher.attendance.errors.studentNumberEmpty'));
+          toast.error(t('teacher:attendance.errors.studentNumberEmpty'));
         }
       });
       newSocket.on('manualStudentRemoveSuccess', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.success(t('teacher.attendance.labels.studentRemoved'));
+          toast.success(t('teacher:attendance.labels.studentRemoved'));
         }
       });
       newSocket.on('manualStudentRemoveError', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher.attendance.errors.removeStudent'));
+          toast.error(t('teacher:attendance.errors.removeStudent'));
         }
       });
       newSocket.on('pingEvent', (lectureid) => {
@@ -227,7 +227,7 @@ const AttendanceRoom: React.FC = () => {
       // When the lecture is canceled, display a success message and navigate to the main view
       newSocket.on('lectureCanceledSuccess', (receivedLectureId) => {
         if (lectureid === receivedLectureId) {
-          toast.success(t('teacher.attendance.labels.lectureCanceled'));
+          toast.success(t('teacher:attendance.labels.lectureCanceled'));
           navigate('/teacher/mainview');
         }
       });
@@ -258,7 +258,7 @@ const AttendanceRoom: React.FC = () => {
         socket.on('lectureFinished', (checklectureid) => {
           console.log('lectureFinished');
           if (checklectureid === lectureid) {
-            toast.success(t('teacher.attendance.labels.lectureFinished'));
+            toast.success(t('teacher:attendance.labels.lectureFinished'));
             if (courseId) {
               navigate(`/teacher/courses/attendances/${courseId}`);
             } else {
@@ -277,7 +277,7 @@ const AttendanceRoom: React.FC = () => {
     // Check if the socket is connected
     if (!socket) {
       // If the socket is not connected, display an error message and exit the function
-      toast.error(t('teacher.attendance.errors.socketNotConnected'));
+      toast.error(t('teacher:attendance.errors.socketNotConnected'));
       return;
     }
 
@@ -295,7 +295,7 @@ const AttendanceRoom: React.FC = () => {
 
     if (!socket) {
       // If the socket is not connected, display an error message and exit the function
-      toast.error(t('teacher.attendance.errors.socketNotConnected'));
+      toast.error(t('teacher:attendance.errors.socketNotConnected'));
       return;
     }
 
@@ -342,13 +342,13 @@ const AttendanceRoom: React.FC = () => {
             <h1 className='text-2xl font-heading'>
               {courseName} | {courseCode} | {topicname} |
               {lectureSuccess
-                ? t('teacher.attendance.labels.allStudentsPresent')
+                ? t('teacher:attendance.labels.allStudentsPresent')
                 : countdown !== null
-                ? t('teacher.attendance.labels.autoFinish', {
+                ? t('teacher:attendance.labels.autoFinish', {
                     minutes: Math.floor(countdown / 60),
                     seconds: countdown % 60,
                   })
-                : t('common.loading')}
+                : t('admin:common.loading')}
             </h1>
             <div className='flex flex-row justify-end'>
               <button
@@ -356,8 +356,8 @@ const AttendanceRoom: React.FC = () => {
                 onClick={() => {
                   navigate(`/teacher/attendance/reload/${lectureid}`);
                 }}
-                title={t('translation:teacher.attendance.buttons.resetTimer')}>
-                {t('translation:teacher.attendance.buttons.resetTimer')}
+                title={t('teacher:attendance.buttons.resetTimer')}>
+                {t('teacher:attendance.buttons.resetTimer')}
               </button>
               {latency !== null && latency !== undefined && (
                 <button
@@ -403,14 +403,11 @@ const AttendanceRoom: React.FC = () => {
             </div>
             <h2
               className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropolia-main-orange rounded-xl'
-              title={t(
-                'translation:teacher.attendance.tooltips.attendanceStats',
-                {
-                  attended: arrayOfStudents.length,
-                  notAttended: courseStudents.length,
-                  total: arrayOfStudents.length + courseStudents.length,
-                },
-              )}>
+              title={t('teacher:attendance.tooltips.attendanceStats', {
+                attended: arrayOfStudents.length,
+                notAttended: courseStudents.length,
+                total: arrayOfStudents.length + courseStudents.length,
+              })}>
               <label className='text-metropolia-trend-green'>
                 {arrayOfStudents.length}
               </label>
@@ -424,29 +421,21 @@ const AttendanceRoom: React.FC = () => {
             <button
               className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-support-red sm:w-fit h-fit hover:bg-red-500'
               onClick={() => setConfirmOpen(true)}
-              title={t(
-                'translation:teacher.attendance.tooltips.deleteLecture',
-              )}>
-              {t('translation:teacher.attendance.buttons.cancelLecture')}
+              title={t('teacher:attendance.tooltips.deleteLecture')}>
+              {t('teacher:attendance.buttons.cancelLecture')}
             </button>
             <button
               onClick={handleLectureFinished}
               className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
-              title={t(
-                'translation:teacher.attendance.tooltips.finishLecture',
-              )}>
-              {t('translation:teacher.attendance.buttons.finishLecture')}
+              title={t('teacher:attendance.tooltips.finishLecture')}>
+              {t('teacher:attendance.buttons.finishLecture')}
             </button>
             <ConfirmDialog
-              title={t(
-                'translation:teacher.attendance.dialogs.cancelLecture.title',
-              )}
+              title={t('teacher:attendance.dialogs.cancelLecture.title')}
               open={confirmOpen}
               setOpen={setConfirmOpen}
               onConfirm={handleLectureCanceled}>
-              {t(
-                'translation:teacher.attendance.dialogs.cancelLecture.message',
-              )}
+              {t('teacher:attendance.dialogs.cancelLecture.message')}
             </ConfirmDialog>
             {lectureid && (
               <CourseStudents

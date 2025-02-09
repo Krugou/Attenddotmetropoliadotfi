@@ -17,7 +17,7 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered AdminUsers component.
  */
 const AdminUsers: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const {user} = useContext(UserContext);
   const [users, setUsers] = useState<any[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -74,7 +74,7 @@ const AdminUsers: React.FC = () => {
         </div>
       ) : users.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>{t('translation:admin.common.noUsersAvailable')}</p>
+          <p>{t('admin:common.noUsersAvailable')}</p>
         </div>
       ) : (
         <>

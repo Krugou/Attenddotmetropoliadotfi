@@ -1,5 +1,39 @@
 {
-  "login": "Logga in",
+  "welcome": {
+    "title": "Välkommen till Metropolia Attendance! Låt oss börja",
+    "description": "Denna tjänst är under aktiv utveckling. Hjälp oss förbättra genom att lämna en recension via feedback-alternativet."
+  },
+  "languages": {
+    "en": "Engelska",
+    "fi": "Finska",
+    "sv": "Svenska",
+    "flags": {
+      "en": "Engelska",
+      "fi": "Finska",
+      "sv": "Svenska"
+    },
+    "errors": {
+      "noToken": "Ingen token tillgänglig",
+      "changeFailed": "Kunde inte ändra språk"
+    },
+    "success": {
+      "changed": "Språket ändrades framgångsrikt"
+    },
+    "filter": {
+      "allCourses": "Alla kurser"
+    }
+  },
+  "login": {
+    "title": "Logga in med ditt Metropolia-konto",
+    "username": "Användarnamn",
+    "password": "Lösenord",
+    "usernamePlaceholder": "Ange ditt Metropolia användarnamn",
+    "passwordPlaceholder": "Ange ditt Metropolia lösenord",
+    "signIn": "Logga in",
+    "togglePassword": "{{action}} lösenord",
+    "forgotPassword": "Återställ ditt lösenord (öppnas i ny flik)",
+    "forgotPasswordLink": "Glömt ditt lösenord?"
+  },
   "dialog": {
     "confirm": "Ja",
     "cancel": "Nej"
@@ -26,5 +60,226 @@
   "firstName": "Förnamn",
   "lastName": "Efternamn",
   "studentNumber": "Studentnummer",
-  "showEndedCourses": "Visa avslutade kurser"
+  "showEndedCourses": "Visa avslutade kurser",
+  "attendance": {
+    "status": {
+      "absent": "Frånvarande",
+      "present": "Närvarande",
+      "acceptedAbsence": "Godkänd frånvaro"
+    }
+  },
+  "notifications": {
+    "success": "Operationen slutfördes framgångsrikt",
+    "error": "Ett fel uppstod vid behandling av din begäran",
+    "savingChanges": "Sparar ändringar...",
+    "saveSuccess": "Ändringar sparades framgångsrikt",
+    "saveError": "Det gick inte att spara ändringarna",
+    "deletingItem": "Raderar objekt...",
+    "deleteSuccess": "Objektet raderades framgångsrikt",
+    "deleteError": "Det gick inte att radera objektet",
+    "loadingError": "Fel vid laddning av data",
+    "sessionExpired": "Din session har gått ut, logga in igen"
+  },
+  "yes": "Ja",
+  "no": "Nej",
+  "hideEndedCourses": "Dölj avslutade kurser",
+  "required": "obligatoriskt",
+  "cancel": "Avbryt",
+  "create": "Skapa",
+  "creating": "Skapar...",
+  "back": "Tillbaka",
+  "close": "Stäng detta fönster",
+  "save": "Spara ändringar",
+  "confirm": "Bekräfta",
+  "view": "Visa",
+  "user": "Användare",
+  "editTopics": {
+    "title": "Redigera ämnen för {{courseName}}",
+    "newTopicLabel": "Nytt ämne",
+    "counselorHelpText": "Endast markerade ämnen kommer att inkluderas i kursen",
+    "teacherHelpText": "Endast markerade ämnen kommer att inkluderas i kursen, att ta bort dem från vyn kommer också att utesluta dem.",
+    "saveTopics": "Spara nya ämnen"
+  },
+  "courseSelect": {
+    "label": "Kurs",
+    "placeholder": "Välj en kurs"
+  },
+  "studentGroupSelect": {
+    "label": "Studentgrupp",
+    "notInSystem": "Inte i systemet ännu"
+  },
+  "mainViewTitle": {
+    "dashboard": "Panel"
+  },
+  "errorAlert": {
+    "title": "Fel",
+    "backToLogin": "Tillbaka till inloggningen",
+    "close": "Stäng"
+  },
+  "newStudent": {
+    "title": "Sen anmälan",
+    "studentDetails": "Studentdetaljer",
+    "errors": {
+      "fillAllFields": "Vänligen fyll i alla fält",
+      "addFailed": "Lyckades inte lägga till ny studentanvändare",
+      "studentNumberTaken": "Studentnumret är redan upptaget"
+    },
+    "success": {
+      "userAdded": "Ny studentanvändare tillagd framgångsrikt"
+    },
+    "note": {
+      "title": "Notera!",
+      "checkDetails": "Vänligen se till att detaljerna stämmer innan du lägger till studenten.",
+      "contactAdmin": "Om du har lagt till en student med felaktiga detaljer, kontakta din administratör."
+    },
+    "addButton": "Lägg till ny användare"
+  },
+  "serverStatus": {
+    "vpnNotConnected": "Du är för närvarande inte ansluten till Metropolias interna nätverk. Klicka här för att få VPN-instruktioner",
+    "version": "Version",
+    "connection": "Serveranslutning",
+    "reloadNeeded": "Vänligen uppdatera sidan tills denna text försvinner"
+  },
+  "successAlert": {
+    "title": "Framgång"
+  },
+  "profileInfo": {
+    "labels": {
+      "name": "Namn",
+      "username": "Användarnamn",
+      "email": "E-post",
+      "accountCreated": "Konto skapat",
+      "role": "Roll",
+      "language": "Språk",
+      "activeStatus": "Aktiv status",
+      "darkMode": "Mörkt läge"
+    },
+    "buttons": {
+      "change": "Ändra",
+      "changeRole": "Ändra roll"
+    },
+    "roleChange": {
+      "title": "Ändra roll",
+      "selectTitle": "Rollval",
+      "success": "Rollen ändrades framgångsrikt, vänligen logga in igen",
+      "error": "Lyckades inte ändra roll"
+    },
+    "sections": {
+      "personal": "Personlig information",
+      "account": "Kontoinformation",
+      "preferences": "Inställningar"
+    },
+    "errors": {
+      "roleFetchFailed": "Kunde inte hämta rollinformation"
+    }
+  },
+  "worklog": {
+    "entries": {
+      "title": "Arbetsloggposter",
+      "date": "Datum",
+      "startTime": "Starttid",
+      "endTime": "Sluttid",
+      "duration": "Varaktighet",
+      "course": "Kurs",
+      "description": "Beskrivning",
+      "total": "Totalt",
+      "entries": "poster",
+      "time": "Tid"
+    },
+    "actions": {
+      "clockIn": "Stämpla in",
+      "clockOut": "Stämpla ut",
+      "edit": "Redigera poster",
+      "in": "In",
+      "out": "Ut"
+    },
+    "notifications": {
+      "clockedIn": "Stämplat in kl {{time}}",
+      "clockedOut": "Stämplat ut kl {{time}}",
+      "editClicked": "Redigering klickad kl {{time}}"
+    },
+    "aria": {
+      "clockIn": "Knapp för instämpling",
+      "clockOut": "Knapp för utstämpling",
+      "edit": "Knapp för att redigera poster"
+    },
+    "status": {
+      "0": "Status: Fel",
+      "1": "Status: Instämplad",
+      "2": "Status: Utstämplad",
+      "3": "Status: Kontrollerad"
+    },
+    "edit": {
+      "title": "Redigera arbetslogg",
+      "success": "Posten uppdaterades framgångsrikt",
+      "error": "Misslyckades med att uppdatera posten"
+    },
+    "error": {
+      "fetchFailed": "Kunde inte hämta data",
+      "requiredFields": "Vänligen fyll i alla obligatoriska fält",
+      "codeExists": "Koden finns redan"
+    },
+    "selectCourse": "Välj kurs",
+    "clockIn": "Stämpla in",
+    "clockOut": "Stämpla ut",
+    "optionalDescription": "Valfri beskrivning",
+    "messages": {
+      "clockedIn": "Stämplat in kl {time} med anledning: {description}",
+      "clockedOut": "Stämplat ut kl {time}",
+      "clockedOutWithReason": "Stämplat ut kl {time} med anledning: {description}",
+      "editClicked": "Redigering klickad kl {time}",
+      "failedToLog": "Misslyckades med att logga arbetstid",
+      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
+      "failedToFetch": "Misslyckades med att hämta kurser"
+    },
+    "delete": {
+      "confirm": "Är du säker på att du vill radera denna post?",
+      "success": "Posten raderades framgångsrikt",
+      "error": "Misslyckades med att radera posten"
+    }
+  },
+  "lectures": {
+    "table": {
+      "headers": {
+        "date": "Datum",
+        "timeOfDay": "Tid på dagen",
+        "topicName": "Ämnesnamn"
+      }
+    }
+  },
+  "feedback": {
+    "header": "Hjälp oss att utvecklas, {{username}}, genom att ge feedback.",
+    "topicLabel": "Feedback ämne",
+    "textLabel": "Feedback text",
+    "selectTopic": "Välj ämne",
+    "placeholder": "Skriv din feedback här...",
+    "submit": "Skicka",
+    "submitSuccess": "Din feedback har skickats framgångsrikt!",
+    "submitError": "Det uppstod ett fel när feedbacken skulle skickas.",
+    "topics": {
+      "Qr Code Scanning": "QR-kodskanning",
+      "User Interface / Accessibility": "Användargränssnitt / Tillgänglighet",
+      "Attendance info": "Närvaroinformation",
+      "Course Creation": "Kursskapande",
+      "Lecture Creation": "Föreläsningsskapande",
+      "Attendance gathering": "Närvaroregistrering",
+      "Course/Student info": "Kurs-/Studentinformation",
+      "Other": "Övrigt"
+    }
+  },
+  "header": {
+    "developmentMode": "I utvecklingsläge",
+    "profile": "Profil",
+    "logout": "Logga ut"
+  },
+  "footer": {
+    "appName": "Metropolia Närvaroapp",
+    "developedBy": "Utvecklad av",
+    "metropolia": "Metropolia",
+    "about": "Om:",
+    "navigation": "Navigation"
+  },
+  "loginStart": "Logga in",
+  "status": "Status",
+  "instructors": "Instruktörer"
 }

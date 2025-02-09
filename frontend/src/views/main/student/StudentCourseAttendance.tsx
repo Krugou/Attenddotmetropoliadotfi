@@ -46,7 +46,7 @@ interface Attendance {
  * @returns A JSX element representing the student course attendance component.
  */
 const StudentCourseAttendance: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin', 'student']);
   // Get the usercourseid from the url
   const {usercourseid} = useParams<{usercourseid}>();
 
@@ -93,7 +93,7 @@ const StudentCourseAttendance: React.FC = () => {
 
   // If the attendance data is not available, return a loading message
   if (!attendanceData) {
-    return <div>{t('translation:admin.common.loading')}</div>;
+    return <div>{t('admin:common.loading')}</div>;
   }
 
   // Function to handle sort option change
@@ -158,19 +158,18 @@ const StudentCourseAttendance: React.FC = () => {
     return (
       <div className='flex flex-col w-full p-5 overflow-x-auto bg-gray-100 border-t rounded-lg 2xl:w-3/4 border-x'>
         <h1 className='mt-2 mb-8 text-xl text-center font-heading sm:text-4xl'>
-          {t('translation:student.course.attendaceOfCourse')}{' '}
-          {attendanceData[0].name}
+          {t('student:course.attendaceOfCourse')} {attendanceData[0].name}
         </h1>
         <div className='flex flex-col flex-wrap items-center justify-around gap-5 mb-5 sm:flex-row'>
           <input
             type='text'
-            placeholder={t('translation:admin.common.searchByDate')}
+            placeholder={t('admin:common.searchByDate')}
             value={searchTerm}
             onChange={handleSearchChange}
             className='w-10/12 sm:w-[20em] mt-10 p-4 m-2 border border-black rounded-sm'
           />
           <FormControl className='mt-2 md:w-1/4 md:mt-0'>
-            <label>{t('translation:student.course.sortTopics')}:</label>
+            <label>{t('student:course.sortTopics')}:</label>
             <Select
               className='favorite-selector'
               value={sortOption}
@@ -179,7 +178,7 @@ const StudentCourseAttendance: React.FC = () => {
                 <div className='item-selector'>
                   <AutorenewIcon className='highest-star-selector-icon' />
                   <span className='selector-text'>
-                    {t('translation:student.course.all')}
+                    {t('student:course.all')}
                   </span>
                 </div>
               </MenuItem>
@@ -221,7 +220,7 @@ const StudentCourseAttendance: React.FC = () => {
   } else {
     return (
       <div className='p-3 m-10 text-3xl text-center bg-white rounded-lg font-heading'>
-        {t('translation:admin.common.noDataAvailable')}
+        {t('admin:common.noDataAvailable')}
       </div>
     );
   }

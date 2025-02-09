@@ -125,7 +125,7 @@ const TeacherCourseModify: React.FC = () => {
     }
   }, [courseData]);
   if (isLoading) {
-    return <div>{t('translation:teacher.courseModify.loading')}</div>;
+    return <div>{t('teacher:courseModify.loading')}</div>;
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -178,7 +178,7 @@ const TeacherCourseModify: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='p-3 m-auto mb-6 text-center text-gray-800 bg-white rounded-lg font-heading w-fit text-md sm:text-2xl'>
-        {t('translation:teacher.courseModify.title')}
+        {t('teacher:courseModify.title')}
       </h2>
 
       <form
@@ -189,7 +189,7 @@ const TeacherCourseModify: React.FC = () => {
         <div className='mt-2 mb-4'>
           <GeneralLinkButton
             path={`/teacher/courses`}
-            text={t('translation:teacher.courseModify.buttons.backToCourses')}
+            text={t('teacher:courseModify.buttons.backToCourses')}
           />
         </div>
         <CourseDetails
@@ -213,7 +213,7 @@ const TeacherCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            {t('translation:teacher.courseModify.sections.teachers.title')}
+            {t('teacher:courseModify.sections.teachers.title')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -228,7 +228,7 @@ const TeacherCourseModify: React.FC = () => {
         <button
           className='w-full p-4 mt-4 mb-4 text-left bg-white rounded-md shadow-sm focus:outline-hidden focus:shadow-outline'
           onClick={() => setOpen(true)}>
-          {t('translation:teacher.courseModify.sections.topics.title')}
+          {t('teacher:courseModify.sections.topics.title')}
         </button>
         <EditTopicsModal
           open={open}
@@ -248,7 +248,7 @@ const TeacherCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            {t('translation:teacher.courseModify.buttons.finish')}
+            {t('teacher:courseModify.buttons.finish')}
           </button>
         </div>
       </form>

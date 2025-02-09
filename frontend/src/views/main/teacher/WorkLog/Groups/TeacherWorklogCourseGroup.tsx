@@ -119,7 +119,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
     return (
       <div className='flex items-center justify-center min-h-screen'>
         <div className='text-xl text-red-500 font-body'>
-          {t('translation:errors.groupNotFound')}
+          {t('teacher:worklog.errors.groupNotFound')}
         </div>
       </div>
     );
@@ -142,7 +142,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         <Link
           to={`/teacher/worklog/course/${courseid}`}
           className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 rounded-lg bg-metropolia-main-orange hover:bg-opacity-90 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange font-body'>
-          {t('translation:teacher.worklog.detail.backToWorklog')}
+          {t('teacher:worklog.detail.backToWorklog')}
         </Link>
       </div>
 
@@ -152,20 +152,16 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         </h1>
         <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
           <div className='font-body'>
-            <p className='text-gray-600'>
-              {t('translation:teacher.worklog.details.name')}
-            </p>
+            <p className='text-gray-600'>{t('teacher:worklog.details.name')}</p>
             <p className='font-medium'>{groupDetails.course.name}</p>
           </div>
           <div className='font-body'>
-            <p className='text-gray-600'>
-              {t('translation:teacher.worklog.details.code')}
-            </p>
+            <p className='text-gray-600'>{t('teacher:worklog.details.code')}</p>
             <p className='font-medium'>{groupDetails.course.code}</p>
           </div>
           <div className='font-body'>
             <p className='text-gray-600'>
-              {t('translation:teacher.worklog.details.requiredHours')}
+              {t('teacher:worklog.details.requiredHours')}
             </p>
             <p className='font-medium'>{groupDetails.course.required_hours}h</p>
           </div>
@@ -175,25 +171,24 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       <div className='grid gap-4 mb-8 md:grid-cols-3'>
         <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
-            {t('translation:teacher.worklog.groups.studentCount', {
+            {t('teacher:worklog.groups.studentCount', {
               count: groupDetails.students.length,
             })}
           </h3>
         </div>
         <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
-            {t('translation:worklog.entries.total')}: {totalHours.toFixed(1)}h
+            {t('common:worklog.entries.total')}: {totalHours.toFixed(1)}h
           </h3>
         </div>
         <div className='p-6 bg-white rounded-lg shadow-sm'>
           <h3 className='mb-2 text-lg font-heading'>
-            {t('translation:worklog.entries.entries')}:{' '}
-            {groupDetails.entries.length}
+            {t('common:worklog.entries.entries')}: {groupDetails.entries.length}
           </h3>
         </div>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}/stats`}
-          text={t('translation:teacher.worklog.groups.stats')}
+          text={t('teacher:worklog.groups.stats')}
         />
       </div>
 
@@ -204,7 +199,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           id='students-header'
           className='bg-white rounded-t-lg'>
           <h2 className='text-2xl font-heading'>
-            {t('translation:teacher.worklog.groups.students.title')}
+            {t('teacher:worklog.groups.students.title')}
           </h2>
         </AccordionSummary>
         <AccordionDetails className='bg-white rounded-b-lg'>
@@ -238,7 +233,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                     />
                   </svg>
                   <span className='mt-1 text-sm text-gray-600'>
-                    {t('translation:teacher.worklog.groups.addToGroup')}
+                    {t('teacher:worklog.groups.addToGroup')}
                   </span>
                 </button>
               </div>
@@ -255,7 +250,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
             id='entries-header'
             className='bg-white rounded-t-lg'>
             <h2 className='text-2xl font-heading'>
-              {t('translation:teacher.worklog.groups.entries')}
+              {t('teacher:worklog.groups.entries')}
             </h2>
           </AccordionSummary>
           <AccordionDetails className='bg-white rounded-b-lg'>
@@ -264,16 +259,16 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                 <thead>
                   <tr className='text-gray-600 border-b font-body'>
                     <th className='p-3 text-left'>
-                      {t('translation:teacher.worklog.entries.date')}
+                      {t('teacher:worklog.entries.date')}
                     </th>
                     <th className='p-3 text-left'>
-                      {t('translation:teacher.worklog.entries.hours')}
+                      {t('teacher:worklog.entries.hours')}
                     </th>
                     <th className='p-3 text-left'>
-                      {t('translation:teacher.worklog.entries.description')}
+                      {t('teacher:worklog.entries.description')}
                     </th>
                     <th className='p-3 text-left'>
-                      {t('translation:teacher.worklog.entries.status')}
+                      {t('teacher:worklog.entries.status')}
                     </th>
                   </tr>
                 </thead>
@@ -347,7 +342,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
               variant='outlined'
               className='font-body'
               sx={{margin: 0}}>
-              {t('translation:teacher.worklog.groups.back')}
+              {t('teacher:worklog.groups.back')}
             </Button>
             <button
               onClick={() => {
@@ -378,7 +373,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                   ? 'opacity-50 cursor-not-allowed'
                   : ''
               }`}>
-              {t('translation:teacher.worklog.groups.addStudents')}
+              {t('teacher:worklog.groups.addStudents')}
             </button>
           </div>
         </DialogActions>

@@ -65,7 +65,7 @@ const TeacherCourseDetail: React.FC = () => {
                 ? '/counselor/courses'
                 : `/${user?.role}/courses`
             }
-            text={t('translation:teacher.courseDetail.buttons.backToCourses')}
+            text={t('teacher:courseDetail.buttons.backToCourses')}
           />
         </div>
         {courseData && <CourseData courseData={courseData} />}

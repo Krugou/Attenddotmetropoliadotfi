@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Card from '../../../../components/main/cards/Card';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
+import {useTranslation} from 'react-i18next'; // Import useTranslation
 
 interface Lecture {
   lectureid: number;
@@ -12,6 +13,7 @@ interface Lecture {
 
 const CheckOpenLectures: React.FC = () => {
   const {user} = useContext(UserContext);
+  const {t} = useTranslation(['common']); // Initialize useTranslation
   const [openLectures, setOpenLectures] = useState<Lecture[]>([]);
 
   useEffect(() => {
@@ -42,8 +44,11 @@ const CheckOpenLectures: React.FC = () => {
         <Card
           key={lecture.lectureid}
           path={`/teacher/attendance/${lecture.lectureid}`}
-          title={`Open lecture found, code: ${lecture.code} topic: ${lecture.topicname} !`}
-          description='Click to continue'
+          title={t('common:openLectureCard.title', {
+            code: lecture.code,
+            topic: lecture.topicname,
+          })}
+          description={t('common:openLectureCard.description')}
           className='animate-pulse'
         />
       ))

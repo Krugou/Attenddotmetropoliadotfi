@@ -1,5 +1,36 @@
 {
-  "login": "Login",
+  "welcome": {
+    "title": "Welcome to Metropolia Attendance App! Let's get started",
+    "description": "This service is being actively developed. Please help us improve by giving us feedback via the Feedback option."
+  },
+  "languages": {
+    "en": "English",
+    "fi": "Finnish",
+    "sv": "Swedish",
+    "flags": {
+      "en": "English",
+      "fi": "Finnish",
+      "sv": "Swedish"
+    },
+    "errors": {
+      "noToken": "No token available",
+      "changeFailed": "Failed to change language"
+    },
+    "success": {
+      "changed": "Language changed successfully"
+    }
+  },
+  "login": {
+    "title": "Sign in using your Metropolia Account",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter your Metropolia username",
+    "passwordPlaceholder": "Enter your Metropolia password",
+    "signIn": "Sign In",
+    "togglePassword": "{{action}} password",
+    "forgotPassword": "Reset your password (opens in new tab)",
+    "forgotPasswordLink": "Forgot your password?"
+  },
   "dialog": {
     "confirm": "Yes",
     "cancel": "No"
@@ -26,5 +57,253 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "studentNumber": "Student Number",
-  "showEndedCourses": "Show ended courses"
+  "showEndedCourses": "Show ended courses",
+  "hideEndedCourses": "Hide ended courses",
+  "yes": "Yes",
+  "no": "No",
+  "required": "required",
+  "cancel": "Cancel",
+  "create": "Create",
+  "creating": "Creating...",
+  "back": "Back",
+  "close": "Close",
+  "save": "Save Changes",
+  "confirm": "Confirm",
+  "view": "View",
+  "user": "User",
+  "attendance": {
+    "status": {
+      "absent": "Absent",
+      "present": "Present",
+      "acceptedAbsence": "Accepted absence"
+    }
+  },
+  "notifications": {
+    "success": "Operation completed successfully",
+    "error": "An error occurred while processing your request",
+    "savingChanges": "Saving changes...",
+    "saveSuccess": "Changes saved successfully",
+    "saveError": "Failed to save changes",
+    "deletingItem": "Deleting item...",
+    "deleteSuccess": "Item deleted successfully",
+    "deleteError": "Failed to delete item",
+    "loadingError": "Error loading data",
+    "sessionExpired": "Your session has expired, please log in again"
+  },
+  "editTopics": {
+    "title": "Edit Topics for {{courseName}}",
+    "newTopicLabel": "New Topic",
+    "counselorHelpText": "Only checked topics will be included in the course",
+    "teacherHelpText": "Only checked topics will be included in the course, deleting them from the view will also exclude them.",
+    "saveTopics": "Save new topics"
+  },
+  "courseSelect": {
+    "label": "Course",
+    "placeholder": "Select a course"
+  },
+  "studentGroupSelect": {
+    "label": "Student Group",
+    "notInSystem": "Not in system yet"
+  },
+  "mainViewTitle": {
+    "dashboard": "Dashboard"
+  },
+  "errorAlert": {
+    "title": "Error",
+    "backToLogin": "Back to Login",
+    "close": "Close"
+  },
+  "newStudent": {
+    "title": "Late enrollment",
+    "studentDetails": "Student Details",
+    "errors": {
+      "fillAllFields": "Please fill in all fields",
+      "addFailed": "Failed to add new student user",
+      "studentNumberTaken": "The student number is already taken"
+    },
+    "success": {
+      "userAdded": "New student user added successfully"
+    },
+    "note": {
+      "title": "Note!",
+      "checkDetails": "Please make sure the details are right before adding the student.",
+      "contactAdmin": "If you have added a student with incorrect details, contact your administrator."
+    },
+    "addButton": "Add New User"
+  },
+  "serverStatus": {
+    "vpnNotConnected": "You are presently not linked to the internal network of Metropolia. Click here to access the VPN instructions",
+    "version": "Version",
+    "connection": "Server Connection",
+    "reloadNeeded": "Please reload the page until this text disappears"
+  },
+  "successAlert": {
+    "title": "Success"
+  },
+  "profileInfo": {
+    "labels": {
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "accountCreated": "Account created",
+      "role": "Role",
+      "language": "Language",
+      "activeStatus": "Active status",
+      "darkMode": "Dark mode"
+    },
+    "buttons": {
+      "change": "Change",
+      "changeRole": "Change Role"
+    },
+    "roleChange": {
+      "title": "Change Role",
+      "selectTitle": "Role Selection",
+      "success": "Role changed successfully, please log in again",
+      "error": "Failed to change role"
+    },
+    "sections": {
+      "personal": "Personal Information",
+      "account": "Account Information",
+      "preferences": "Preferences"
+    },
+    "errors": {
+      "roleFetchFailed": "Failed to fetch role information"
+    }
+  },
+  "worklog": {
+    "entries": {
+      "title": "Work Log Entries",
+      "date": "Date",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "duration": "Duration",
+      "course": "Course",
+      "description": "Description",
+      "total": "Total",
+      "entries": "entries",
+      "time": "Time"
+    },
+    "actions": {
+      "clockIn": "Clock In",
+      "clockOut": "Clock Out",
+      "edit": "Edit Entries",
+      "in": "In",
+      "out": "Out"
+    },
+    "notifications": {
+      "clockedIn": "Clocked in at {{time}}",
+      "clockedOut": "Clocked out at {{time}}",
+      "editClicked": "Edit clicked at {{time}}"
+    },
+    "aria": {
+      "clockIn": "Clock in button",
+      "clockOut": "Clock out button",
+      "edit": "Edit entries button"
+    },
+    "edit": {
+      "title": "Edit worklog",
+      "success": "Entry updated successfully",
+      "error": "Failed to update entry"
+    },
+    "error": {
+      "fetchFailed": "Failed to fetch data",
+      "requiredFields": "Please fill all required fields",
+      "codeExists": "Code already exists"
+    },
+    "requiredDescription": "Required description",
+    "tooltips": {
+      "modify": "Modify entry",
+      "delete": "Delete entry"
+    },
+    "dialog": {
+      "clockIn": "Clock in to course",
+      "clockOut": "Clock out from course",
+      "confirm": "Are you sure?",
+      "description": "Enter description",
+      "requiredDescription": "Description is required for clock in"
+    },
+    "messages": {
+      "clockedIn": "Clocked in at {time} with reason: {description}",
+      "clockedOut": "Clocked out at {time}",
+      "clockedOutWithReason": "Clocked out at {time} with reason: {description}",
+      "editClicked": "Edit clicked at {time}",
+      "failedToLog": "Failed to log work entry",
+      "failedToCheck": "Failed to check active work entries",
+      "failedToFetch": "Failed to fetch courses"
+    },
+    "name": "Name",
+    "code": "Code",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "requiredHours": "Required Hours",
+    "description": "Description",
+    "createNewWorkLog": "Create new worklog",
+    "noCourses": "No courses available yet",
+    "redirecting": "Redirecting to main view...",
+    "logger": {
+      "title": "Work Log Entry"
+    },
+    "status": {
+      "0": "Status: Error",
+      "1": "Status: Clocked In",
+      "2": "Status: Clocked Out",
+      "3": "Status: Checked"
+    },
+    "selectCourse": "Select a course",
+    "clockIn": "Clock In",
+    "clockOut": "Clock Out",
+    "optionalDescription": "Optional description",
+    "delete": {
+      "confirm": "Are you sure you want to delete this entry?",
+      "success": "Entry deleted successfully",
+      "error": "Failed to delete entry"
+    },
+    "filter": {
+      "allCourses": "Alla kurser"
+    }
+  },
+  "lectures": {
+    "table": {
+      "headers": {
+        "date": "Date",
+        "timeOfDay": "Time of Day",
+        "topicName": "Topic Name"
+      }
+    }
+  },
+  "feedback": {
+    "header": "Help us improve, {{username}} by sharing your feedback.",
+    "topicLabel": "Feedback Topic",
+    "textLabel": "Feedback Text",
+    "selectTopic": "Select a topic",
+    "placeholder": "Enter your feedback here...",
+    "submit": "Submit",
+    "submitSuccess": "Your feedback has been submitted successfully!",
+    "submitError": "An error occurred while submitting your feedback.",
+    "topics": {
+      "Qr Code Scanning": "QR Code Scanning",
+      "User Interface / Accessibility": "User Interface / Accessibility",
+      "Attendance info": "Attendance Information",
+      "Course Creation": "Course Creation",
+      "Lecture Creation": "Lecture Creation",
+      "Attendance gathering": "Attendance Gathering",
+      "Course/Student info": "Course/Student Information",
+      "Other": "Other"
+    }
+  },
+  "header": {
+    "developmentMode": "In Development Mode",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "footer": {
+    "appName": "Metropolia Attendance App",
+    "developedBy": "Developed by",
+    "metropolia": "Metropolia",
+    "about": "About:",
+    "navigation": "Navigation"
+  },
+  "loginStart": "Login",
+  "status": "Status",
+  "instructors": "Instructors"
 }

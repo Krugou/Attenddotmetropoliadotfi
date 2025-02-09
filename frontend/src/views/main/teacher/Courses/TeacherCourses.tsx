@@ -63,7 +63,7 @@ const TeacherCourses: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='p-3 ml-auto mr-auto text-3xl text-center bg-white rounded-lg font-heading w-fit xl:text-4xl'>
-        {t('translation:teacher.courses.title')}
+        {t('teacher:courses.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
@@ -73,7 +73,7 @@ const TeacherCourses: React.FC = () => {
                 ? '/counselor/mainview'
                 : `/${user?.role}/mainview`
             }
-            text={t('translation:teacher.courses.buttons.backToMainview')}
+            text={t('teacher:courses.buttons.backToMainview')}
           />
           <FormControlLabel
             control={
@@ -84,7 +84,7 @@ const TeacherCourses: React.FC = () => {
                 color='primary'
               />
             }
-            label={t('translation:teacher.courses.toggles.showEndedCourses')}
+            label={t('teacher:courses.toggles.showEndedCourses')}
           />
         </div>
         <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 m-auto'>
@@ -113,7 +113,7 @@ const TeacherCourses: React.FC = () => {
                   d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                 />
               </svg>
-              {t('translation:teacher.courses.buttons.addNewCourse')}
+              {t('teacher:courses.buttons.addNewCourse')}
             </button>
           </div>
         </div>

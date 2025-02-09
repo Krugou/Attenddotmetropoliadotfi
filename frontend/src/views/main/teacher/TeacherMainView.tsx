@@ -27,7 +27,7 @@ import {useTranslation} from 'react-i18next';
  */
 const MainView: React.FC = () => {
   const {user} = useContext(UserContext);
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -74,7 +74,7 @@ const MainView: React.FC = () => {
               <div>
                 <div className='flex flex-col items-center gap-1 p-2 rounded-md animate-bounce bg-metropolia-main-orange md:flex-row'>
                   <p className='text-lg text-center text-white'>
-                    {t('translation:teacher.mainView.startHere')}
+                    {t('teacher:mainView.startHere')}
                   </p>
                   <div className='w-4 h-4 transform border-t-2 border-r-2 border-white md:rotate-45 rotate-135'></div>
                 </div>
@@ -82,19 +82,15 @@ const MainView: React.FC = () => {
             )}
             <Card
               path='/teacher/courses/create'
-              title={t('translation:teacher.mainView.cards.createCourse.title')}
-              description={t(
-                'translation:teacher.mainView.cards.createCourse.description',
-              )}
+              title={t('teacher:mainView.cards.createCourse.title')}
+              description={t('teacher:mainView.cards.createCourse.description')}
               icon={Add}
             />
 
             {courses.length >= 0 && (
               <Card
                 path='/teacher/helpvideos'
-                title={t(
-                  'translation:teacher.mainView.cards.instructions.title',
-                )}
+                title={t('teacher:mainView.cards.instructions.title')}
                 description={t(
                   'teacher.mainView.cards.instructions.description',
                 )}
@@ -106,9 +102,7 @@ const MainView: React.FC = () => {
               <>
                 <Card
                   path='/teacher/students'
-                  title={t(
-                    'translation:teacher.mainView.cards.manageStudents.title',
-                  )}
+                  title={t('teacher:mainView.cards.manageStudents.title')}
                   description={t(
                     'teacher.mainView.cards.manageStudents.description',
                   )}
@@ -117,9 +111,7 @@ const MainView: React.FC = () => {
 
                 <Card
                   path='/teacher/courses/'
-                  title={t(
-                    'translation:teacher.mainView.cards.yourCourses.title',
-                  )}
+                  title={t('teacher:mainView.cards.yourCourses.title')}
                   description={t(
                     'teacher.mainView.cards.yourCourses.description',
                   )}
@@ -129,9 +121,7 @@ const MainView: React.FC = () => {
 
                 <Card
                   path='/teacher/attendance/createlecture'
-                  title={t(
-                    'translation:teacher.mainView.cards.createLecture.title',
-                  )}
+                  title={t('teacher:mainView.cards.createLecture.title')}
                   description={t(
                     'teacher.mainView.cards.createLecture.description',
                   )}
@@ -139,9 +129,7 @@ const MainView: React.FC = () => {
                 />
                 <Card
                   path='/teacher/courses/stats'
-                  title={t(
-                    'translation:teacher.mainView.cards.attendanceStats.title',
-                  )}
+                  title={t('teacher:mainView.cards.attendanceStats.title')}
                   description={t(
                     'teacher.mainView.cards.attendanceStats.description',
                   )}
@@ -149,9 +137,7 @@ const MainView: React.FC = () => {
                 />
                 <Card
                   path='/teacher/lateenrollment'
-                  title={t(
-                    'translation:teacher.mainView.cards.lateEnrollment.title',
-                  )}
+                  title={t('teacher:mainView.cards.lateEnrollment.title')}
                   description={t(
                     'teacher.mainView.cards.lateEnrollment.description',
                   )}
@@ -161,19 +147,15 @@ const MainView: React.FC = () => {
             )}
             <Card
               path='/teacher/lectures'
-              title={t('translation:teacher.mainView.cards.lectureStats.title')}
-              description={t(
-                'translation:teacher.mainView.cards.lectureStats.description',
-              )}
+              title={t('teacher:mainView.cards.lectureStats.title')}
+              description={t('teacher:mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
             {user?.role === 'admin' && (
               <>
                 <Card
                   path='/teacher/worklog/create'
-                  title={t(
-                    'translation:teacher.mainView.cards.createWorkLogCourse.title',
-                  )}
+                  title={t('teacher:mainView.cards.createWorkLogCourse.title')}
                   description={t(
                     'teacher.mainView.cards.createWorkLogCourse.description',
                   )}
@@ -181,9 +163,7 @@ const MainView: React.FC = () => {
                 />
                 <Card
                   path='/teacher/worklog'
-                  title={t(
-                    'translation:teacher.mainView.cards.yourWorkLogCourses.title',
-                  )}
+                  title={t('teacher:mainView.cards.yourWorkLogCourses.title')}
                   description={t(
                     'teacher.mainView.cards.yourWorkLogCourses.description',
                   )}

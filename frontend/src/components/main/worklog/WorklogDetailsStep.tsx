@@ -35,7 +35,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
   courseExists,
   setCourseExists,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [isCheckingCode, setIsCheckingCode] = useState(false);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
@@ -78,7 +78,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         <label
           htmlFor='name'
           className='mb-2 text-sm font-medium text-gray-700'>
-          {t('translation:teacher.worklog.form.name')} *
+          {t('teacher:worklog.form.name')} *
         </label>
         <input
           type='text'
@@ -94,7 +94,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         <label
           htmlFor='code'
           className='mb-2 text-sm font-medium text-gray-700'>
-          {t('translation:teacher.worklog.form.code')} *
+          {t('teacher:worklog.form.code')} *
         </label>
         <input
           type='text'
@@ -114,17 +114,17 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         />
         {isCheckingCode && (
           <span className='mt-1 text-sm text-gray-500'>
-            {t('translation:teacher.worklog.form.checking')}...
+            {t('teacher:worklog.form.checking')}...
           </span>
         )}
         {courseExists && (
           <p className='text-red-400'>
-            {t('translation:teacher.worklog.form.errors.codeExists')}
+            {t('teacher:worklog.form.errors.codeExists')}
           </p>
         )}
         {code === firstCode && codeChanged && (
           <p className='text-green-400'>
-            {t('translation:teacher.worklog.form.success.codeRestored')}
+            {t('teacher:worklog.form.success.codeRestored')}
           </p>
         )}
       </div>
@@ -133,7 +133,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         <label
           htmlFor='description'
           className='mb-2 text-sm font-medium text-gray-700'>
-          {t('translation:teacher.worklog.form.description')} *
+          {t('teacher:worklog.form.description')} *
         </label>
         <textarea
           id='description'
@@ -149,7 +149,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           <label
             htmlFor='startDate'
             className='mb-2 text-sm font-medium text-gray-700'>
-            {t('translation:teacher.worklog.form.startDate')} *
+            {t('teacher:worklog.form.startDate')} *
           </label>
           <input
             type='date'
@@ -164,7 +164,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           <label
             htmlFor='endDate'
             className='mb-2 text-sm font-medium text-gray-700'>
-            {t('translation:teacher.worklog.form.endDate')} *
+            {t('teacher:worklog.form.endDate')} *
           </label>
           <input
             type='date'
@@ -181,7 +181,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         <label
           htmlFor='requiredHours'
           className='mb-2 text-sm font-medium text-gray-700'>
-          {t('translation:teacher.worklog.form.requiredHours')} *
+          {t('teacher:worklog.form.requiredHours')} *
         </label>
         <input
           type='number'

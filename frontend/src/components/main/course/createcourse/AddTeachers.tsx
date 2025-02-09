@@ -18,7 +18,7 @@ const AddTeachers = ({
   instructorEmail,
   modify = false,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const timeouts = useRef<(number | null)[]>([]);
 
@@ -77,7 +77,7 @@ const AddTeachers = ({
     <fieldset className='mb-5'>
       {!modify ? (
         <legend className='mb-3 text-xl'>
-          {t('translation:teacher.addTeachers.title')}
+          {t('teacher:addTeachers.title')}
         </legend>
       ) : (
         <></>
@@ -88,7 +88,7 @@ const AddTeachers = ({
             <InputField
               type='text'
               name='email'
-              label={t('translation:teacher.addTeachers.emailLabel')}
+              label={t('teacher:addTeachers.emailLabel')}
               value={instructor.email}
               /* @ts-ignore */
               onChange={(event) => handleInputChange(index, event)}
@@ -109,7 +109,7 @@ const AddTeachers = ({
       <button
         className='w-48 p-1 mt-2 text-white transition rounded-sm bg-metropolia-main-orange font-heading hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
         onClick={addInstructor}>
-        {t('translation:teacher.addTeachers.addAnother')}
+        {t('teacher:addTeachers.addAnother')}
       </button>
     </fieldset>
   );

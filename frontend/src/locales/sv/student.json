@@ -1,17 +1,60 @@
 {
-  "student": {
-    "profile": {
-      "title": "Studentprofil",
-      "studentGroup": "Studentgrupp",
-      "noData": "Inga användardata tillgängliga.",
-      "myCourses": "Mina kurser"
-    },
+  "course": {
+    "attendaceOfCourse": "Närvaro på kurs",
+    "sortTopics": "Sortera ämnen",
+    "showAttendanceStats": "Visa närvarostatistik",
+    "showAttendanceTable": "Visa närvarotabell",
+    "all": "Alla",
+    "yourCourses": "Dina kurser",
+    "showEndedCourses": "Visa avslutade kurser"
+  },
+  "helpVideos": {
+    "title": "Studentens hjälpvideor",
+    "courseAccess": "Hur får jag tillgång till min kurs och närvarodetaljer",
+    "joinLecture": "Hur går jag med i en föreläsning?"
+  },
+  "mainView": {
+    "title": "Student",
     "qrScanner": {
-      "loading": "Laddar...",
-      "camera": {
-        "selectLabel": "Välj önskad kamerainmatning:",
-        "noDevices": "Inga kameror tillgängliga"
-      }
+      "title": "Närvarosökare med QR",
+      "description": "Skanna QR för att markera närvaro"
+    },
+    "profile": {
+      "title": "Din profil",
+      "description": "Visa din egen profil"
+    },
+    "courses": {
+      "title": "Dina kurser",
+      "description": "Visa dina egna kurser"
+    },
+    "instructions": {
+      "title": "Instruktioner",
+      "description": "Se instruktioner för alla tillgängliga uppgifter"
+    },
+    "qrScannerCamera": {
+      "title": "Närvarosökare med QR och kameraval",
+      "description": "Skanna QR för att markera närvaro med kameraval"
+    },
+    "workLog": {
+      "title": "Arbetsloggsböcker",
+      "description": "Logga dina arbetsloggar"
+    },
+    "workLogs": {
+      "title": "Dina arbetsloggsböcker",
+      "description": "Visa och hantera dina arbetsloggar"
+    }
+  },
+  "profile": {
+    "title": "Studentprofil",
+    "studentGroup": "Studentgrupp",
+    "noData": "Inga användardata tillgängliga.",
+    "myCourses": "Mina kurser"
+  },
+  "qrScanner": {
+    "loading": "Laddar...",
+    "camera": {
+      "selectLabel": "Välj önskad kamerainmatning:",
+      "noDevices": "Inga kameror tillgängliga"
     }
   }
 }

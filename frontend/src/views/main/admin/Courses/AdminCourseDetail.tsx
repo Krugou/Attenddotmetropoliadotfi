@@ -53,7 +53,7 @@ interface Course {
  * @returns {JSX.Element} The rendered AdminCourseDetail component.
  */
 const AdminCourseDetail: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const {id} = useParams<{id: string}>();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -121,7 +121,7 @@ const AdminCourseDetail: React.FC = () => {
   return (
     <>
       <h2 className='p-3 text-lg bg-white rounded-lg font-heading'>
-        {t('translation:admin.common.courseId')} {id}
+        {t('admin:common.courseId')} {id}
       </h2>
       <div className='w-full m-4 mx-auto bg-white rounded-lg shadow-lg sm:w-3/4 md:w-2/4 lg:w-2/5 2xl:w-1/5'>
         <>
@@ -140,8 +140,7 @@ const AdminCourseDetail: React.FC = () => {
                     }
                   />
                 </Tooltip>
-                <Tooltip
-                  title={t('translation:admin.courses.delete.deleteCourse')}>
+                <Tooltip title={t('admin:courses.delete.deleteCourse')}>
                   <DeleteIcon
                     fontSize='large'
                     className='absolute top-0 right-0 p-1 m-4 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
@@ -154,55 +153,55 @@ const AdminCourseDetail: React.FC = () => {
                 <div className='mt-2'>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:admin.common.startDate')}:
+                      {t('admin:common.startDate')}:
                     </p>
                     <p>{new Date(course.start_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:admin.common.endDate')}:
+                      {t('admin:common.endDate')}:
                     </p>
                     <p>{new Date(course.end_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <div className='text-gray-700'>
-                      {t('translation:admin.common.code')}:
+                      {t('admin:common.code')}:
                     </div>
                     <div>{course.code}</div>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:admin.common.studentGroup')}:
+                      {t('admin:common.studentGroup')}:
                     </p>
                     <p>{course.studentgroup_name}</p>
                   </div>
                   <div className='flex flex-col justify-between mb-4'>
                     <h2 className='mt-4 text-lg font-heading'>
-                      {t('translation:admin.common.topics')}:
+                      {t('admin:common.topics')}:
                     </h2>
                     <p>{course.topic_names?.replace(/,/g, ', ')}</p>
                   </div>
                   <div className='w-full border-t-4 border-metropolia-main-orange'></div>
                   <h2 className='mt-4 mb-2 text-lg font-heading'>
                     {' '}
-                    {t('translation:admin.common.additionalInfo')}
+                    {t('admin:common.additionalInfo')}
                   </h2>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:admin.common.courseCreatedAt')}:
+                      {t('admin:common.courseCreatedAt')}:
                     </p>
                     <p>{new Date(course.created_at).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:admin.common.ammountOfStudents')}
+                      {t('admin:common.ammountOfStudents')}
                     </p>
                     <p>{course.user_count}</p>
                   </div>
                   <div className='w-full mt-4 mb-4 border-t-4 border-metropolia-main-orange'></div>
                   <div className='mt-4'>
                     <h2 className='text-lg text-gray-700 font-heading'>
-                      {t('translation:admin.common.instructors')}
+                      {t('admin:common.instructors')}
                     </h2>
                     <ul>
                       {course.instructor_name

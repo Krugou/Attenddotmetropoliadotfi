@@ -1,17 +1,60 @@
 {
-  "student": {
-    "profile": {
-      "title": "Opiskelijan profiili",
-      "studentGroup": "Opiskelijaryhmä",
-      "noData": "Ei käyttäjätietoja saatavilla.",
-      "myCourses": "Omat kurssit"
-    },
+  "course": {
+    "attendaceOfCourse": "Kurssin läsnäolo",
+    "sortTopics": "Lajittele aiheet",
+    "showAttendanceStats": "Näytä läsnäolotilastot",
+    "showAttendanceTable": "Näytä läsnäolotaulukko",
+    "all": "Kaikki",
+    "yourCourses": "Omat kurssisi",
+    "showEndedCourses": "Näytä päättyneet kurssit"
+  },
+  "helpVideos": {
+    "title": "Opiskelijan apuvideot",
+    "courseAccess": "Kuinka pääsen kurssilleni ja läsnäolotietoihini",
+    "joinLecture": "Kuinka liityn luentoon?"
+  },
+  "mainView": {
+    "title": "Opiskelija",
     "qrScanner": {
-      "loading": "Ladataan...",
-      "camera": {
-        "selectLabel": "Valitse haluamasi kamerainput:",
-        "noDevices": "Ei kameroita saatavilla"
-      }
+      "title": "Läsnäolon QR-skanneri",
+      "description": "Skannaa QR-merkitäksesi läsnäolon"
+    },
+    "profile": {
+      "title": "Oma profiilisi",
+      "description": "Näytä oma profiilisi"
+    },
+    "courses": {
+      "title": "Omat kurssisi",
+      "description": "Näytä omat kurssisi"
+    },
+    "instructions": {
+      "title": "Ohjeet",
+      "description": "Katso ohjeet kaikista saatavilla olevista tehtävistä"
+    },
+    "qrScannerCamera": {
+      "title": "Läsnäolon QR-skanneri kameravalinnalla",
+      "description": "Skannaa QR merkitäksesi läsnäolon kameravalinnalla"
+    },
+    "workLog": {
+      "title": "Työpäiväkirjakurssit",
+      "description": "Kirjaa työpäiväkirjasi"
+    },
+    "workLogs": {
+      "title": "Työpäiväkirjakurssisi",
+      "description": "Näytä ja hallitse työpäiväkirjojasi"
+    }
+  },
+  "profile": {
+    "title": "Opiskelijan profiili",
+    "studentGroup": "Opiskelijaryhmä",
+    "noData": "Ei käyttäjätietoja saatavilla.",
+    "myCourses": "Omat kurssini"
+  },
+  "qrScanner": {
+    "loading": "Ladataan...",
+    "camera": {
+      "selectLabel": "Valitse haluamasi kamerainput:",
+      "noDevices": "Ei kameroita saatavilla"
     }
   }
 }

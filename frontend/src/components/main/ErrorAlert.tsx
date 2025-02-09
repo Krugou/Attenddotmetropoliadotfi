@@ -24,7 +24,7 @@ interface ErrorAlertProps {
  */
 const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
   const navigate = useNavigate();
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
 
   return (
     <div
@@ -33,7 +33,7 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
       }`}>
       <div className='p-4 mx-auto mt-10 bg-red-100 rounded-lg shadow-lg modal-container w-96'>
         <h2 className='mb-4 text-xl font-heading text-red-600'>
-          {t('translation:errorAlert.title')}
+          {t('common:errorAlert.title')}
         </h2>
         <div className='mb-4'>
           {alert && <p className='text-red-700'>{alert}</p>}
@@ -46,13 +46,13 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
                 onClose();
               }}
               className='px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded-sm hover:bg-blue-600'>
-              {t('translation:errorAlert.backToLogin')}
+              {t('common:errorAlert.backToLogin')}
             </button>
           )}
           <button
             onClick={onClose}
             className='px-4 py-2 font-semibold text-white bg-red-500 rounded-sm hover:bg-red-600'>
-            {t('translation:errorAlert.close')}
+            {t('common:errorAlert.close')}
           </button>
         </div>
       </div>

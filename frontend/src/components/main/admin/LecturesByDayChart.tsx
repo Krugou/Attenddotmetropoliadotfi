@@ -15,13 +15,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 // const getDayOfWeek = (date: string, t: (key: string) => string) => {
 //   const dayNames = [
-//     t('admin.lectureChart.days.sunday'),
-//     t('admin.lectureChart.days.monday'),
-//     t('admin.lectureChart.days.tuesday'),
-//     t('admin.lectureChart.days.wednesday'),
-//     t('admin.lectureChart.days.thursday'),
-//     t('admin.lectureChart.days.friday'),
-//     t('admin.lectureChart.days.saturday'),
+//     t('admin:lectureChart.days.sunday'),
+//     t('admin:lectureChart.days.monday'),
+//     t('admin:lectureChart.days.tuesday'),
+//     t('admin:lectureChart.days.wednesday'),
+//     t('admin:lectureChart.days.thursday'),
+//     t('admin:lectureChart.days.friday'),
+//     t('admin:lectureChart.days.saturday'),
 //   ];
 //   return dayNames[new Date(date).getDay()];
 // };
@@ -52,7 +52,7 @@ interface LecturesByDayChartProps {
  * @returns {JSX.Element} Rendered chart or loading state
  */
 const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
 
   const chartData = useMemo(() => {
     if (!lectures) return [];
@@ -84,14 +84,11 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
       <BarChart data={chartData}>
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='day' interval={0}>
-          <Label
-            value={t('translation:admin.lecturesByDay.dayOfWeek')}
-            position='bottom'
-          />
+          <Label value={t('admin:lecturesByDay.dayOfWeek')} position='bottom' />
         </XAxis>
         <YAxis>
           <Label
-            value={t('translation:admin.lecturesByDay.lectureCount')}
+            value={t('admin:lecturesByDay.lectureCount')}
             angle={-90}
             position='insideLeft'
           />
@@ -101,7 +98,7 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
         <Bar
           dataKey='lectures'
           fill='#8884d8'
-          name={t('translation:admin.lecturesByDay.numberOfLectures')}
+          name={t('admin:lecturesByDay.numberOfLectures')}
         />
       </BarChart>
     </ResponsiveContainer>

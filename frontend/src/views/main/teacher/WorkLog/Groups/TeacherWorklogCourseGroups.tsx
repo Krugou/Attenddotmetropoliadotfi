@@ -148,7 +148,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
     <div className='container px-4 py-8 mx-auto'>
       <div className='flex items-center justify-between mb-6'>
         <h1 className='text-3xl font-heading'>
-          {t('translation:teacher.worklog.groups.title')}
+          {t('teacher:worklog.groups.title')}
         </h1>
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
@@ -162,14 +162,14 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       {showCreateForm && (
         <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
           <h2 className='mb-4 text-2xl font-heading'>
-            {t('translation:teacher.worklog.groups.createNew')}
+            {t('teacher:worklog.groups.createNew')}
           </h2>
           <form onSubmit={handleCreateGroup} className='space-y-6'>
             <div>
               <label
                 htmlFor='groupName'
                 className='block mb-1 text-sm text-gray-700 font-body'>
-                {t('translation:teacher.worklog.groups.groupName')}
+                {t('teacher:worklog.groups.groupName')}
               </label>
               <input
                 id='groupName'
@@ -183,7 +183,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
 
             <div>
               <h3 className='mb-2 text-lg font-heading'>
-                {t('translation:teacher.worklog.groups.selectStudents')}
+                {t('teacher:worklog.groups.selectStudents')}
               </h3>
               <div className='p-4 overflow-y-auto border rounded-sm max-h-96'>
                 <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
@@ -225,7 +225,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                 type='button'
                 onClick={() => setShowCreateForm(false)}
                 className='px-4 py-2 border rounded-sm font-body hover:bg-gray-50'>
-                {t('translation:common.cancel')}
+                {t('common:cancel')}
               </button>
               <button
                 type='submit'
@@ -243,12 +243,12 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       )}
 
       <h2 className='mb-6 text-2xl font-heading'>
-        {t('translation:teacher.worklog.groups.groupsTitle')}
+        {t('teacher:worklog.groups.groupsTitle')}
       </h2>
       {groups?.length === 0 ? (
         <div className='p-6 bg-white rounded-lg shadow-sm'>
           <p className='text-center text-gray-600 font-body'>
-            {t('translation:teacher.worklog.groups.noGroups')}
+            {t('teacher:worklog.groups.noGroups')}
           </p>
         </div>
       ) : (
@@ -261,7 +261,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
               <div className='flex justify-end mt-4'>
                 <GeneralLinkButton
                   path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
-                  text={t('translation:common.view')}
+                  text={t('common:view')}
                 />
               </div>
             </div>

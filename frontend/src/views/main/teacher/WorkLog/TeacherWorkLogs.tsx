@@ -22,7 +22,7 @@ interface WorkLogCourse {
 }
 
 const TeacherWorkLogs: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher', 'common']);
   const {user} = useContext(UserContext);
   const [worklogCourses, setWorklogCourses] = useState<WorkLogCourse[]>([]);
   const {update, setUpdate} = useContext(UserContext);
@@ -57,7 +57,7 @@ const TeacherWorkLogs: React.FC = () => {
   return (
     <div className='w-full'>
       <h2 className='p-3 ml-auto mr-auto text-3xl text-center bg-white rounded-lg font-heading w-fit xl:text-4xl'>
-        {t('translation:teacher.worklog.title')}
+        {t('teacher:worklog.title')}
       </h2>
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
@@ -67,7 +67,7 @@ const TeacherWorkLogs: React.FC = () => {
                 ? '/counselor/mainview'
                 : `${user?.role}/mainview`
             }
-            text={t('translation:teacher.courses.buttons.backToMainview')}
+            text={t('teacher:courses.buttons.backToMainview')}
           />
           <FormControlLabel
             control={
@@ -78,7 +78,7 @@ const TeacherWorkLogs: React.FC = () => {
                 color='primary'
               />
             }
-            label={t('translation:common.showEndedCourses')}
+            label={t('common:showEndedCourses')}
           />
         </div>
         <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 m-auto'>
@@ -107,7 +107,7 @@ const TeacherWorkLogs: React.FC = () => {
                   d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                 />
               </svg>
-              {t('translation:teacher.worklog.create.title')}
+              {t('teacher:worklog.create.title')}
             </button>
           </div>
         </div>

@@ -1,21 +1,631 @@
 {
-  "teacher": {
-    "createLecture": {
-      "title": "Create new lecture",
-      "courseSection": {
-        "heading": "Choose your preferred course and topic.",
-        "courseLabel": "Course :",
-        "topicLabel": "Topic :",
-        "tooltips": {
-          "showEnded": "Show ended courses",
-          "hideEnded": "Hide ended courses",
-          "pickCourse": "Click to pick course",
-          "pickTopic": "Click to pick topic for the lecture"
-        },
-        "errors": {
-          "noCourses": "You have no courses or all your courses have ended"
-        }
+  "createLecture": {
+    "title": "Create new lecture",
+    "courseSection": {
+      "heading": "Choose your preferred course and topic.",
+      "courseLabel": "Course :",
+      "topicLabel": "Topic :",
+      "tooltips": {
+        "showEnded": "Show ended courses",
+        "hideEnded": "Hide ended courses",
+        "pickCourse": "Click to pick course",
+        "pickTopic": "Click to pick topic for the lecture"
+      },
+      "errors": {
+        "noCourses": "You have no courses or all your courses have ended"
+      }
+    },
+    "dateSection": {
+      "heading": "Choose your preferred date and time.",
+      "calendar": {
+        "label": "Calendar",
+        "tooltip": "Click to open calendar",
+        "multipleDates": "Multiple Dates"
+      },
+      "timeOfDay": {
+        "label": "Time of Day",
+        "tooltip": "Select time of Day"
+      }
+    },
+    "doubleCheckMessage": "Double-check that you have selected the correct course and topic.",
+    "buttons": {
+      "open": "Open"
+    },
+    "errors": {
+      "noToken": "No token available",
+      "multipleDates": "Cannot create attendance for multiple dates",
+      "noTimeOfDay": "Time of day not selected",
+      "noTopicOrCourse": "Topic or course not selected",
+      "createLecture": "Error creating lecture"
+    },
+    "success": {
+      "lectureCreated": "Lecture created successfully with lectureid {{id}}",
+      "lectureDeleted": "Lecture deleted successfully",
+      "lectureClosed": "Lecture closed successfully"
+    },
+    "info": {
+      "clickToStart": "Click open again to start a new lecture"
+    }
+  },
+  "courseAttendances": {
+    "title": "Teacher Course Attendances",
+    "search": {
+      "heading": "Find attendances based on day",
+      "noAttendances": {
+        "own": "No own attendances found for {{date}}",
+        "all": "No attendances found for {{date}}"
+      }
+    },
+    "buttons": {
+      "statistics": "Attendance statistics",
+      "printPdf": "Print to pdf",
+      "exportExcel": "Export to Excel",
+      "toggleView": {
+        "showAll": "Show all lecture attendances for this course today",
+        "showOwn": "Show own lecture attendances for this course today"
+      }
+    },
+    "table": {
+      "title": "Attendances for {{date}}"
+    }
+  },
+  "courseDetail": {
+    "buttons": {
+      "backToCourses": "Back to courses"
+    }
+  },
+  "courseModify": {
+    "title": "Modify Course",
+    "buttons": {
+      "backToCourses": "Back to courses",
+      "finish": "Finish"
+    },
+    "sections": {
+      "teachers": {
+        "title": "Modify Teachers"
+      },
+      "topics": {
+        "title": "Modify Topics"
+      }
+    },
+    "loading": "Loading..."
+  },
+  "courses": {
+    "title": "My courses",
+    "buttons": {
+      "backToMainview": "Back to mainview",
+      "addNewCourse": "Add new course"
+    },
+    "toggles": {
+      "showEndedCourses": "Show ended courses"
+    }
+  },
+  "courseStats": {
+    "title": "Attendance Statistics per course",
+    "search": {
+      "label": "Search courses",
+      "noCourse": "No course selected"
+    },
+    "buttons": {
+      "printPdf": "Print to pdf",
+      "exportExcel": "Export to Excel"
+    }
+  },
+  "createCourse": {
+    "title": "Create Course",
+    "subtitle": "Choose between routes",
+    "modes": {
+      "easy": {
+        "title": "Easy mode",
+        "description": "Create a course easily with your own student data file"
+      },
+      "custom": {
+        "title": "Custom mode",
+        "description": "Create a course with your custom details"
       }
     }
+  },
+  "createCourseEasy": {
+    "title": "Insert course by Metropolia Excel file",
+    "fileUpload": {
+      "checkDetails": "Check course details from open data"
+    },
+    "buttons": {
+      "next": "Next"
+    }
+  },
+  "lectures": {
+    "title": "Your Saved Lectures",
+    "stats": {
+      "totalLectures": "Total Lectures",
+      "attendanceRatio": "Attendance Ratio"
+    },
+    "table": {
+      "headers": {
+        "lectureId": "Lecture ID",
+        "courseName": "Course name",
+        "courseCode": "Course code",
+        "topicName": "Topic name",
+        "date": "Date",
+        "timeOfDay": "am/pm",
+        "attendance": "Attendance",
+        "totalAttendance": "Total Attendance",
+        "studentsWithTopic": "Students with this topic",
+        "ratio": "Ratio(%)",
+        "state": "State",
+        "actions": "Actions",
+        "technicalDetails": "Technical Details"
+      },
+      "noData": "No data available",
+      "tooltips": {
+        "attendance": "Total attendance gathered: {{total}}"
+      },
+      "buttons": {
+        "showTechnical": "Show Technical Details",
+        "hideTechnical": "Hide Technical Details",
+        "edit": "Edit"
+      }
+    },
+    "details": {
+      "back": "Back to Lectures",
+      "warning": "Warning: This lecture might have failed as it has 0 attendees",
+      "date": "Date",
+      "time": "Time",
+      "attendance": "Attendance",
+      "ratio": "Ratio",
+      "status": "Status",
+      "closeLecture": "Close Lecture",
+      "deleteLecture": "Delete Lecture",
+      "confirmDialog": {
+        "title": "Are you sure you want to {{action}} the lecture?",
+        "message": "This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
+    }
+  },
+  "studentAttendances": {
+    "loading": "Loading...",
+    "noData": "No Data available",
+    "search": {
+      "placeholder": "Search by date"
+    },
+    "buttons": {
+      "printPdf": "Print to pdf",
+      "exportExcel": "Export to Excel"
+    },
+    "sort": {
+      "label": "Sort Topics:",
+      "allTopics": "All Topics"
+    }
+  },
+  "studentModify": {
+    "labels": {
+      "name": "Student Name",
+      "email": "Student Email"
+    },
+    "buttons": {
+      "submit": "Modify Student"
+    },
+    "ariaLabels": {
+      "name": "Student Name",
+      "email": "Student Email"
+    }
+  },
+  "studentsView": {
+    "title": "Your Students",
+    "buttons": {
+      "backToMainview": "Back to mainview"
+    },
+    "search": {
+      "byName": "Search by name",
+      "byCourse": "Search By course"
+    },
+    "info": {
+      "searchingCourse": "Searching only from students on the selected course.",
+      "searchingAll": "Searching from all students."
+    },
+    "studentCard": {
+      "email": "Email:",
+      "username": "Username:",
+      "studentNumber": "Student Number:",
+      "studentGroup": "Student Group:",
+      "accountCreated": "Account created:",
+      "clickDetails": "Click for details"
+    }
+  },
+  "helpVideos": {
+    "title": "Teacher Help Videos",
+    "videos": {
+      "createCourse": "How do I create a course?",
+      "createAttendance": "How do I create an attendance?",
+      "accessAttendance": "How do I access attendance data on my course?",
+      "accessStudentDetails": "How do I access my students details?",
+      "accessCourseDetails": "How do I access and modify my course details?",
+      "accessStudentAttendance": "How do I access my students attendance?",
+      "changeRole": "How do I change my role?",
+      "studentJoin": "How can my students join to my lecture?"
+    }
+  },
+  "mainView": {
+    "startHere": "Start Here!",
+    "cards": {
+      "createCourse": {
+        "title": "Create new Course",
+        "description": "Create a new course for your students"
+      },
+      "instructions": {
+        "title": "Instructions",
+        "description": "See instructions for all available tasks"
+      },
+      "manageStudents": {
+        "title": "Manage Students",
+        "description": "Manage your students details"
+      },
+      "yourCourses": {
+        "title": "Your Courses",
+        "description": "View all of your courses"
+      },
+      "createLecture": {
+        "title": "Create new Lecture",
+        "description": "Open attendance gathering"
+      },
+      "attendanceStats": {
+        "title": "Show Attendance stats",
+        "description": "Open attendance stats page"
+      },
+      "lateEnrollment": {
+        "title": "Late Enrollment",
+        "description": "Enroll students in courses"
+      },
+      "lectureStats": {
+        "title": "Your lectures stats",
+        "description": "View stats of your lectures"
+      },
+      "createWorkLogCourse": {
+        "title": "Create Worklog Course",
+        "description": "Create a new worklog course for your worklogs"
+      },
+      "yourWorkLogCourses": {
+        "title": "Your Worklog Courses",
+        "description": "View all of your worklog courses"
+      }
+    }
+  },
+  "profile": {
+    "title": "Teacher Profile",
+    "noData": "No user data available.",
+    "myCourses": "My Courses"
+  },
+  "addTeachers": {
+    "title": "Add teachers",
+    "addAnother": "Add another teacher",
+    "emailLabel": "Email"
+  },
+  "courseDetails": {
+    "title": "Please, fill in your course details",
+    "labels": {
+      "courseCode": "Course Code",
+      "courseName": "Course Name",
+      "studentGroup": "Student Group",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "errors": {
+      "codeExists": "A course with this code already exists."
+    },
+    "success": {
+      "codeRestored": "First course code has been restored."
+    }
+  },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Show All Columns",
+      "hideExtraColumns": "Hide Extra Columns",
+      "addStudent": "Add Student",
+      "sortColumn": "Sort Column",
+      "deleteStudent": "Delete Student",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "dialog": {
+      "title": "Delete Student",
+      "message": "Are you sure you want to delete this student?"
+    },
+    "aria": {
+      "sortColumn": "Sort Column",
+      "deleteStudent": "Delete Student"
+    }
+  },
+  "topicsGroup": {
+    "title": "Topic Details",
+    "buttons": {
+      "deleteGroup": "Delete selected group",
+      "createCustom": "Create Custom Group",
+      "selectExisting": "Select Existing Group",
+      "apply": "Apply",
+      "addNewTopic": "Add New Topic",
+      "removeTopic": "Remove custom topic"
+    },
+    "labels": {
+      "customTopicGroup": "Custom Topic Group",
+      "customTopics": "Custom Topics"
+    },
+    "placeholders": {
+      "customTopicGroup": "Custom Topic Group",
+      "customTopic": "Custom Topic"
+    },
+    "dialog": {
+      "title": "Delete Topic Group",
+      "message": "Are you sure you want to delete the topic group?"
+    },
+    "errors": {
+      "groupExists": "This topic group already exists.",
+      "emptyTopics": "Please fill all empty custom topics before applying."
+    },
+    "success": {
+      "groupSaved": "Topic group saved successfully for {{email}}"
+    },
+    "tooltips": {
+      "customGroup": "add custom topic group here example: \"customGroup\"",
+      "customTopic": "add custom topics here example: \"exam\"",
+      "removeTopic": "Remove custom topic",
+      "selectCourseGroup": "Select course group"
+    }
+  },
+  "courseData": {
+    "labels": {
+      "description": "Description",
+      "startDate": "Start date:",
+      "endDate": "End date:",
+      "code": "Code:",
+      "studentGroup": "Student group:",
+      "topics": "Topics:",
+      "additionalInfo": "Additional Info",
+      "courseCreated": "Course Created at:",
+      "studentAmount": "Amount of students",
+      "instructors": "Instructors",
+      "amountOfStudents": "Amount of students",
+      "courseCreatedAt": "Course Created at"
+    },
+    "buttons": {
+      "viewDetails": "View details",
+      "viewAttendances": "View attendances"
+    },
+    "tooltips": {
+      "courseEnded": "Course has ended",
+      "modifyCourse": "Modify this course",
+      "deleteCourse": "Delete this course"
+    }
+  },
+  "studentCourse": {
+    "labels": {
+      "assignedTopics": "Assigned Topics:",
+      "allTopics": "All Topics on course:",
+      "startDate": "Start Date:",
+      "endDate": "End Date:",
+      "instructors": "Instructors",
+      "searchCourses": "Search courses"
+    },
+    "buttons": {
+      "attendance": "Attendance",
+      "editTopics": "Edit Topics for Student",
+      "addStudent": "Add student to another course",
+      "addToCourse": "Add Student to course"
+    },
+    "tooltips": {
+      "courseEnded": "Course has ended",
+      "removeStudent": "Remove student from course"
+    },
+    "noTopics": "You have no assigned topics on this course"
+  },
+  "attendanceInstructions": {
+    "title": "Hey, you found the secret instructions on this page!",
+    "intro": "Please read the instructions stated in them thoroughly before executing any actions.",
+    "instructions": {
+      "timer": "To extend the overall auto-finish timer, refresh the timer by pressing the \"Reset Timer\" button, considering the auto-finish time set in the server settings. This will reload the page and internally update the timer through the server background service.",
+      "studentList": "To reposition the bottom list of students, click and hold on the names of the students using the mouse/touchpad button. Then, drag it sideways to reveal additional student names that may be hidden from view if necessary.",
+      "navigation": "Avoid navigating away from this page, except when refreshing as indicated in the first option, or closing your internet connection, as doing so may lead to QR updates failure or lost connection with the server. This is crucial to ensure everything works as intended.",
+      "manualAttendance": "Manual student attendance insertion can be performed by clicking on the student names on the page. Clicking on names in the bottom list marks students as 'Attended.' Clicking on names in the right-side list marks students as 'Not Attended,' and they will then return to the bottom list.",
+      "finishLecture": "Complete the lecture by clicking the \"Finish Lecture\" button. This action will mark the remaining students in the bottom list as \"not attended.\"",
+      "cancelLecture": "To cancel the lecture, simply press the \"Cancel Lecture\" button. This action will delete the lecture from the database."
+    },
+    "buttons": {
+      "close": "Close"
+    }
+  },
+  "deleteLecture": {
+    "title": "Deal with previous lecture first",
+    "subtitle": "There is already an open lecture for this course.",
+    "details": {
+      "date": "Date:",
+      "timeOfDay": "Time of day:",
+      "teacherEmail": "Teacher Email:",
+      "courseCode": "Course Code:",
+      "topicName": "Topic Name:"
+    },
+    "question": "Do you want to Delete it or Finish it?",
+    "explanation": "Finishing the lecture involves recording attendance for all remaining students who are not yet marked as attended by setting them as \"not attended.\" Deleting, on the other hand, means completely removing the lecture from the database.",
+    "buttons": {
+      "close": "Close this window",
+      "delete": "Delete previous lecture",
+      "finish": "Finish previous lecture"
+    }
+  },
+  "worklog": {
+    "title": "your Worklog courses",
+    "detail": {
+      "backToWorklog": "Back to Worklog"
+    },
+    "details": {
+      "title": "Worklog Details",
+      "name": " Course Name",
+      "code": "Course Code",
+      "description": "Description",
+      "requiredHours": "Required Hours",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "data": {
+      "courseCode": "Course Code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "requiredHours": "Required Hours",
+      "description": "Description",
+      "courseEnded": "Course has ended",
+      "modifyCourse": "Modify this course",
+      "deleteCourse": "Delete this course",
+      "viewCourse": "View course",
+      "courseCreatedAt": "Course Created at",
+      "studentCount": "Student Count",
+      "instructors": "Instructors",
+      "noInstructors": "No instructors assigned",
+      "additionalInfo": "Additional Info",
+      "deleteSuccess": "Worklog course deleted successfully",
+      "createdAt": "Created at",
+      "viewGroups": "View Groups"
+    },
+    "modify": {
+      "title": "Modify Worklog Course",
+      "loading": "Loading...",
+      "backToWorklog": "Back to Worklog",
+      "instructors": "Modify Instructors",
+      "save": "Save Changes",
+      "success": "Worklog course modified successfully"
+    },
+    "create": {
+      "title": "Add new Work Log Course",
+      "subtitle": "Choose between modes",
+      "modes": {
+        "easy": {
+          "title": "Easy mode",
+          "description": "Create a worklog course with Excel file"
+        },
+        "custom": {
+          "title": "Custom mode",
+          "description": "Create a worklog course manually"
+        }
+      }
+    },
+    "form": {
+      "name": "Course Name",
+      "code": "Course Code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "description": "Course Description",
+      "submit": "Create Course",
+      "requiredHours": "Required Hours",
+      "errors": {
+        "codeExists": "A worklog course with this code already exists"
+      },
+      "checking": "Checking...",
+      "success": {
+        "codeRestored": "Code has been restored"
+      }
+    },
+    "success": {
+      "courseCreated": "Work log course created successfully",
+      "codeRestored": "Code has been restored"
+    },
+    "errors": {
+      "createFailed": "Failed to create work log course",
+      "groupNotFound": "Group not found"
+    },
+    "groups": {
+      "students": {
+        "title": "Course Students",
+        "select": "Select students to add to groups"
+      },
+      "addStudents": "Add Selected Students",
+      "studentsAdded": "Students added to group successfully",
+      "studentCount": "{{count}} students",
+      "title": "Course Groups",
+      "createGroup": "Create Group",
+      "createNew": "Create New Group",
+      "groupName": "Group Name",
+      "selectStudents": "Select Students",
+      "groupsTitle": "Existing Groups",
+      "noGroups": "No groups have been created yet.",
+      "createSuccess": "Group created successfully",
+      "entries": "Group Entries",
+      "stats": "View statistics",
+      "addToGroup": "add students to group",
+      "back": "back"
+    },
+    "entries": {
+      "date": "Date",
+      "hours": "Hours",
+      "description": "Description",
+      "status": "Status",
+      "time": "Time",
+      "duration": "Duration"
+    },
+    "status": {
+      "0": "Status: Error",
+      "1": "Status: Clocked In",
+      "2": "Status: Clocked Out",
+      "3": "Status: Checked"
+    },
+    "stats": {
+      "title": "Worklog Statistics",
+      "courseProgress": "Course Progress",
+      "studentProgress": "Student Progress",
+      "totalProgress": "Total Progress",
+      "completed": "Completed",
+      "remaining": "Remaining",
+      "required": "Required",
+      "totalCompleted": "Total Completed"
+    }
+  },
+  "attendance": {
+    "errors": {
+      "noUser": "No user information available",
+      "noLectureId": "No lecture ID provided",
+      "lectureClosed": "Lecture is already closed",
+      "getLectureInfo": "Error getting lecture info",
+      "socketNotConnected": "Socket is not connected",
+      "insertStudent": "Error inserting student",
+      "emptyStudentNumber": "Student number is empty",
+      "removeStudent": "Error removing student"
+    },
+    "success": {
+      "infoRetrieved": "Lecture info retrieved successfully",
+      "studentInserted": "Student inserted successfully",
+      "studentRemoved": "Student removed successfully",
+      "lectureCanceled": "Lecture canceled successfully",
+      "lectureFinished": "Lecture finished",
+      "socketConnected": "Connected to server"
+    },
+    "labels": {
+      "allStudentsPresent": "All students are here!",
+      "autoFinish": "Auto finishing in {{minutes}} minutes {{seconds}} seconds",
+      "connectionLatency": "Connection latency: {{latency}}ms"
+    },
+    "buttons": {
+      "resetTimer": "Reset timer",
+      "cancelLecture": "Cancel Lecture",
+      "finishLecture": "Finish Lecture"
+    },
+    "tooltips": {
+      "attendanceStats": "{{attended}} Attended, {{notAttended}} Not attended, Total: {{total}}",
+      "deleteLecture": "Delete this lecture",
+      "finishLecture": "Finish Lecture and set rest of bottom list of students to not attended"
+    },
+    "cards": {
+      "info": "Lecture Information",
+      "course": "Course",
+      "topic": "Topic"
+    },
+    "dialogs": {
+      "cancelConfirm": {
+        "title": "Cancel Lecture?",
+        "message": "Are you sure you want to cancel this lecture? This will delete the lecture from the database and cannot be undone."
+      }
+    }
+  },
+  "courseStudents": {
+    "allStudentsHere": "All students are here. Auto finishing in {{seconds}} seconds",
+    "finishingLecture": "Finishing lecture...",
+    "manualInsert": "Manual student insertion"
   }
 }

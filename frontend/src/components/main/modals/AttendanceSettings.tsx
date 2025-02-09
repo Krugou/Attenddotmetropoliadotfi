@@ -29,42 +29,24 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
   widerNames,
   hideQR,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [showGuide, setShowGuide] = useState(false);
 
   const GuideContent = () => (
     <div className='space-y-4'>
-      <p className='font-body'>
-        {t('translation:teacher.attendanceInstructions.intro')}
-      </p>
+      <p className='font-body'>{t('teacher:attendanceInstructions.intro')}</p>
       <ol className='space-y-4 list-decimal list-inside font-body'>
+        <li>{t('teacher:attendanceInstructions.instructions.timer')}</li>
+        <li>{t('teacher:attendanceInstructions.instructions.studentList')}</li>
+        <li>{t('teacher:attendanceInstructions.instructions.navigation')}</li>
         <li>
-          {t('translation:teacher.attendanceInstructions.instructions.timer')}
+          {t('teacher:attendanceInstructions.instructions.manualAttendance')}
         </li>
         <li>
-          {t(
-            'translation:teacher.attendanceInstructions.instructions.studentList',
-          )}
+          {t('teacher:attendanceInstructions.instructions.finishLecture')}
         </li>
         <li>
-          {t(
-            'translation:teacher.attendanceInstructions.instructions.navigation',
-          )}
-        </li>
-        <li>
-          {t(
-            'translation:teacher.attendanceInstructions.instructions.manualAttendance',
-          )}
-        </li>
-        <li>
-          {t(
-            'translation:teacher.attendanceInstructions.instructions.finishLecture',
-          )}
-        </li>
-        <li>
-          {t(
-            'translation:teacher.attendanceInstructions.instructions.cancelLecture',
-          )}
+          {t('teacher:attendanceInstructions.instructions.cancelLecture')}
         </li>
       </ol>
     </div>

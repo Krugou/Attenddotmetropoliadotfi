@@ -16,26 +16,22 @@ const TeacherCreateCourse: React.FC = () => {
     <div>
       <div className='w-full pt-10 pb-10'>
         <h1 className='p-3 mb-8 ml-auto mr-auto text-4xl font-heading text-center bg-white rounded-lg w-fit'>
-          {t('translation:teacher.createCourse.title')}
+          {t('teacher:createCourse.title')}
         </h1>
         <p className='p-2 mb-4 ml-auto mr-auto text-center bg-white rounded-lg w-fit'>
-          {t('translation:teacher.createCourse.subtitle')}
+          {t('teacher:createCourse.subtitle')}
         </p>
         <div className='flex flex-wrap justify-center space-x-4'>
           <Card
             path='/teacher/courses/create/easy'
-            title={t('translation:teacher.createCourse.modes.easy.title')}
-            description={t(
-              'translation:teacher.createCourse.modes.easy.description',
-            )}
+            title={t('teacher:createCourse.modes.easy.title')}
+            description={t('teacher:createCourse.modes.easy.description')}
           />
 
           <Card
             path='/teacher/courses/create/custom'
-            title={t('translation:teacher.createCourse.modes.custom.title')}
-            description={t(
-              'translation:teacher.createCourse.modes.custom.description',
-            )}
+            title={t('teacher:createCourse.modes.custom.title')}
+            description={t('teacher:createCourse.modes.custom.description')}
           />
         </div>
       </div>

@@ -36,7 +36,7 @@ const BackgroundContainer: React.FC<BackgroundContainerProps> = ({
 
   return (
     <div className='flex flex-col h-screen'>
-      <Header title='Attendance App' />
+      <Header />
       <main
         className='flex flex-col items-center grow p-2 bg-center bg-cover sm:p-10'
         style={{backgroundImage: `url(${backgroundUrl})`}}>

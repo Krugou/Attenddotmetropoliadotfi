@@ -48,7 +48,7 @@ interface CourseCount {
 }
 
 const AdminStats = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const [userStatistics, setUserStatistics] = useState<Array<{
     name: string;
     count: number;
@@ -153,25 +153,25 @@ const AdminStats = () => {
     const courseCounts: CourseCount = await apiHooks.getCourseCounts(token);
     const formattedData = [
       {
-        name: `${t('translation:admin.adminStats.regularCourses')} (${t(
+        name: `${t('admin:adminStats.regularCourses')} (${t(
           'admin.adminStats.total',
         )})`,
         count: courseCounts.regularCourses.total,
       },
       {
-        name: `${t('translation:admin.adminStats.regularCourses')} (${t(
+        name: `${t('admin:adminStats.regularCourses')} (${t(
           'admin.adminStats.active',
         )})`,
         count: courseCounts.regularCourses.active,
       },
       {
-        name: `${t('translation:admin.adminStats.worklogCourses')} (${t(
+        name: `${t('admin:adminStats.worklogCourses')} (${t(
           'admin.adminStats.total',
         )})`,
         count: courseCounts.worklogCourses.total,
       },
       {
-        name: `${t('translation:admin.adminStats.worklogCourses')} (${t(
+        name: `${t('admin:adminStats.worklogCourses')} (${t(
           'admin.adminStats.active',
         )})`,
         count: courseCounts.worklogCourses.active,
@@ -240,13 +240,13 @@ const AdminStats = () => {
       className='grid w-full grid-cols-1 gap-4 p-5 bg-white xl:grid-cols-2'
       key={windowWidth}>
       <h2 className='mb-4 text-2xl md:text-3xl col-span-full font-heading'>
-        {t('translation:admin.adminStats.administratorStatistics')}
+        {t('admin:adminStats.administratorStatistics')}
       </h2>
 
       {/* User Statistics Chart */}
       <div className='justify-start w-full mx-4'>
         <h2 className='mb-4 text-xl md:text-2xl font-heading'>
-          {t('translation:admin.adminStats.userStatistics')}
+          {t('admin:adminStats.userStatistics')}
         </h2>
         <p className='text-sm md:text-base font-body'>
           {`${t(
@@ -265,7 +265,7 @@ const AdminStats = () => {
             />
             <YAxis>
               <Label
-                value={t('translation:admin.adminStats.userCount')}
+                value={t('admin:adminStats.userCount')}
                 angle={-90}
                 position='insideLeft'
               />
@@ -275,7 +275,7 @@ const AdminStats = () => {
             <Bar
               dataKey='count'
               fill='#8884d8'
-              name={t('translation:admin.adminStats.userCounts')}
+              name={t('admin:adminStats.userCounts')}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -284,13 +284,13 @@ const AdminStats = () => {
       {/* Attendance Statistics Chart */}
       <div className='justify-start w-full mx-4'>
         <h2 className='mb-4 text-xl md:text-2xl font-heading'>
-          {t('translation:admin.adminStats.attendanceStatistics')}
+          {t('admin:adminStats.attendanceStatistics')}
         </h2>
         {attendanceStatistics && (
           <p className='text-sm md:text-base font-body'>
-            {`${t('translation:admin.adminStats.totalLectures')}: ${
+            {`${t('admin:adminStats.totalLectures')}: ${
               attendanceStatistics[0]
-            }. ${t('translation:admin.adminStats.attendanceRatio')}: ${(
+            }. ${t('admin:adminStats.attendanceRatio')}: ${(
               (attendanceStatistics[2] /
                 (attendanceStatistics[2] + attendanceStatistics[1])) *
               100
@@ -309,7 +309,7 @@ const AdminStats = () => {
             />
             <YAxis>
               <Label
-                value={t('translation:admin.adminStats.attendanceCount')}
+                value={t('admin:adminStats.attendanceCount')}
                 angle={-90}
                 position='insideLeft'
               />
@@ -319,7 +319,7 @@ const AdminStats = () => {
             <Bar
               dataKey='count'
               fill='#FF1902'
-              name={t('translation:admin.adminStats.attendanceCounts')}
+              name={t('admin:adminStats.attendanceCounts')}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -328,13 +328,13 @@ const AdminStats = () => {
       {/* Course Statistics Chart */}
       <div className='justify-start w-full mx-4'>
         <h2 className='mb-4 text-xl md:text-2xl font-heading'>
-          {t('translation:admin.adminStats.courseStatistics')}
+          {t('admin:adminStats.courseStatistics')}
         </h2>
         {courseStatistics && (
           <p className='text-sm md:text-base font-body'>
-            {`${t('translation:admin.adminStats.totalCourses')}: ${
+            {`${t('admin:adminStats.totalCourses')}: ${
               courseStatistics[0].count + courseStatistics[2].count
-            } (${t('translation:admin.adminStats.active')}: ${
+            } (${t('admin:adminStats.active')}: ${
               courseStatistics[1].count + courseStatistics[3].count
             })`}
           </p>
@@ -352,7 +352,7 @@ const AdminStats = () => {
             />
             <YAxis>
               <Label
-                value={t('translation:admin.adminStats.courseCount')}
+                value={t('admin:adminStats.courseCount')}
                 angle={-90}
                 position='insideLeft'
               />
@@ -362,7 +362,7 @@ const AdminStats = () => {
             <Bar
               dataKey='count'
               fill='#82ca9d'
-              name={t('translation:admin.adminStats.courseCounts')}
+              name={t('admin:adminStats.courseCounts')}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -371,13 +371,11 @@ const AdminStats = () => {
       {/* Worklog Statistics Chart */}
       <div className='justify-start w-full mx-4'>
         <h2 className='mb-4 text-xl md:text-2xl font-heading'>
-          {t('translation:admin.adminStats.worklogStatistics')}
+          {t('admin:adminStats.worklogStatistics')}
         </h2>
         {worklogStatistics && (
           <p className='text-sm md:text-base font-body'>
-            {`${t(
-              'translation:admin.adminStats.totalEntries',
-            )}: ${worklogStatistics.reduce(
+            {`${t('admin:adminStats.totalEntries')}: ${worklogStatistics.reduce(
               (sum, stat) => sum + stat.count,
               0,
             )}`}
@@ -396,7 +394,7 @@ const AdminStats = () => {
             />
             <YAxis>
               <Label
-                value={t('translation:admin.adminStats.entryCount')}
+                value={t('admin:adminStats.entryCount')}
                 angle={-90}
                 position='insideLeft'
               />
@@ -406,7 +404,7 @@ const AdminStats = () => {
             <Bar
               dataKey='count'
               fill='#ffa726'
-              name={t('translation:admin.adminStats.worklogEntries')}
+              name={t('admin:adminStats.worklogEntries')}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -415,7 +413,7 @@ const AdminStats = () => {
       {/* Distribution Chart */}
       <div className='justify-start w-full mx-4 col-span-full'>
         <h2 className='mb-4 text-xl md:text-2xl font-heading'>
-          {t('translation:admin.adminStats.distribution')}
+          {t('admin:adminStats.distribution')}
         </h2>
         <div className='w-full'>
           <LecturesByDayChart lectures={lectures} />

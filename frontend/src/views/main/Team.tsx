@@ -13,25 +13,25 @@ interface TeamMember {
  * using a responsive and animated card layout
  */
 const Team: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['noUser']);
 
   const originalTeam: TeamMember[] = [
     {
       name: 'Joonas Lamminmäki',
       highlight: 'J',
-      role: t('team.roles.originalDev'),
+      role: t('noUser:team.roles.originalDev'),
       github: 'https://github.com/Jonsson-123',
     },
     {
       name: 'Aleksi Nokelainen',
       highlight: 'A',
-      role: t('team.roles.originalDev'),
+      role: t('noUser:team.roles.originalDev'),
       github: 'https://github.com/Krugou',
     },
     {
       name: 'Kaarle Häyhä',
       highlight: 'K',
-      role: t('team.roles.originalDev'),
+      role: t('noUser:team.roles.originalDev'),
       github: 'https://github.com/KaarleH',
     },
   ];
@@ -39,12 +39,12 @@ const Team: React.FC = () => {
   const additionalTeam: TeamMember[] = [
     {
       name: 'Nestori Laine',
-      role: t('team.roles.additionalDev'),
+      role: t('noUser:team.roles.additionalDev'),
       github: 'https://github.com/Aihki',
     },
     {
       name: 'Aleksi Nokelainen',
-      role: t('team.roles.additionalDev'),
+      role: t('noUser:team.roles.additionalDev'),
       github: 'https://github.com/Krugou',
     },
   ];
@@ -53,12 +53,12 @@ const Team: React.FC = () => {
     <div className='container max-w-6xl px-4 py-8 mx-auto'>
       <div className='p-8 bg-white shadow-lg rounded-xl'>
         <h1 className='mb-8 text-4xl text-center font-heading text-metropolia-main-orange'>
-          {t('translation:team.title')}
+          {t('noUser:team.title')}
         </h1>
 
         <div className='mb-12'>
           <h2 className='mb-6 text-2xl text-center text-gray-700 font-heading'>
-            {t('translation:team.originalTeam')}
+            {t('noUser:team.originalTeam')}
           </h2>
           <div className='grid gap-6 md:grid-cols-3'>
             {originalTeam.map((member, index) => (
@@ -81,19 +81,19 @@ const Team: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
-                  {t('translation:team.viewGithub')}
+                  {t('noUser:team.viewGithub')}
                 </a>
               </div>
             ))}
           </div>
           <p className='mt-4 text-center text-gray-500 font-body'>
-            {t('translation:team.jakDescription')}
+            {t('noUser:team.jakDescription')}
           </p>
         </div>
 
         <div className='mt-8'>
           <h2 className='mb-6 text-2xl text-center text-gray-700 font-heading'>
-            {t('translation:team.additionalTeam')}
+            {t('noUser:team.additionalTeam')}
           </h2>
           <div className='grid gap-6 mx-auto md:grid-cols-2'>
             {additionalTeam.map((member, index) => (
@@ -111,7 +111,7 @@ const Team: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className='block mt-2 text-sm text-center transition-colors duration-200 text-metropolia-main-orange hover:text-metropolia-main-grey'>
-                  {t('translation:team.viewGithub')}
+                  {t('noUser:team.viewGithub')}
                 </a>
               </div>
             ))}

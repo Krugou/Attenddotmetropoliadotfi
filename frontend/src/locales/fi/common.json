@@ -1,5 +1,36 @@
 {
-  "login": "Kirjaudu",
+  "welcome": {
+    "title": "Tervetuloa Metropolian Attendance-sovellukseen! Aloitetaan",
+    "description": "Tämä palvelu on aktiivisessa kehityksessä. Auta meitä kehittymään jättämällä palautetta palautevaihtoehdon kautta."
+  },
+  "languages": {
+    "en": "Englanti",
+    "fi": "Suomi",
+    "sv": "Ruotsi",
+    "flags": {
+      "en": "Englanti",
+      "fi": "Suomi",
+      "sv": "Ruotsi"
+    },
+    "errors": {
+      "noToken": "Ei käyttöoikeustunnistetta saatavilla",
+      "changeFailed": "Kielen vaihto epäonnistui"
+    },
+    "success": {
+      "changed": "Kieli vaihdettu onnistuneesti"
+    }
+  },
+  "login": {
+    "title": "Kirjaudu sisään Metropolian tunnuksilla",
+    "username": "Käyttäjätunnus",
+    "password": "Salasana",
+    "usernamePlaceholder": "Syötä Metropolian käyttäjätunnuksesi",
+    "passwordPlaceholder": "Syötä Metropolian salasanasi",
+    "signIn": "Kirjaudu sisään",
+    "togglePassword": "{{action}} salasana",
+    "forgotPassword": "Nollaa salasanasi (avautuu uuteen välilehteen)",
+    "forgotPasswordLink": "Unohditko salasanasi?"
+  },
   "dialog": {
     "confirm": "Kyllä",
     "cancel": "Ei"
@@ -26,5 +57,249 @@
   "firstName": "Etunimi",
   "lastName": "Sukunimi",
   "studentNumber": "Opiskelijanumero",
-  "showEndedCourses": "Näytä päättyneet kurssit"
+  "showEndedCourses": "Näytä päättyneet kurssit",
+  "attendance": {
+    "status": {
+      "absent": "Poissa",
+      "present": "Läsnä",
+      "acceptedAbsence": "Hyväksytty poissaolo"
+    }
+  },
+  "notifications": {
+    "success": "Toiminto suoritettu onnistuneesti",
+    "error": "Tapahtui virhe pyynnön käsittelyssä",
+    "savingChanges": "Tallennetaan muutoksia...",
+    "saveSuccess": "Muutokset tallennettu onnistuneesti",
+    "saveError": "Muutosten tallentaminen epäonnistui",
+    "deletingItem": "Poistetaan kohdetta...",
+    "deleteSuccess": "Kohde poistettu onnistuneesti",
+    "deleteError": "Kohteen poistaminen epäonnistui",
+    "loadingError": "Virhe tietojen lataamisessa",
+    "sessionExpired": "Istuntosi on vanhentunut, kirjaudu sisään uudelleen"
+  },
+  "yes": "Kyllä",
+  "no": "Ei",
+  "hideEndedCourses": "Piilota päättyneet kurssit",
+  "required": "pakollinen",
+  "create": "Luo",
+  "creating": "Luodaan...",
+  "back": "Takaisin",
+  "confirm": "Vahvista",
+  "view": "Näytä",
+  "close": "Sulje",
+  "user": "Käyttäjä",
+  "editTopics": {
+    "title": "Muokkaa aiheita kurssille {{courseName}}",
+    "newTopicLabel": "Uusi aihe",
+    "counselorHelpText": "Vain valitut aiheet sisällytetään kurssille",
+    "teacherHelpText": "Vain valitut aiheet sisällytetään kurssille, niiden poistaminen näkymästä poistaa ne myös kurssilta.",
+    "saveTopics": "Tallenna uudet aiheet"
+  },
+  "courseSelect": {
+    "label": "Kurssi",
+    "placeholder": "Valitse kurssi"
+  },
+  "studentGroupSelect": {
+    "label": "Opiskelijaryhmä",
+    "notInSystem": "Ei vielä järjestelmässä"
+  },
+  "mainViewTitle": {
+    "dashboard": "Hallintapaneeli"
+  },
+  "errorAlert": {
+    "title": "Virhe",
+    "backToLogin": "Takaisin kirjautumiseen",
+    "close": "Sulje"
+  },
+  "newStudent": {
+    "title": "Myöhäinen ilmoittautuminen",
+    "studentDetails": "Opiskelijan tiedot",
+    "errors": {
+      "fillAllFields": "Täytä kaikki kentät",
+      "addFailed": "Uuden opiskelijakäyttäjän lisääminen epäonnistui",
+      "studentNumberTaken": "Opiskelijan numero on jo varattu"
+    },
+    "success": {
+      "userAdded": "Uusi opiskelijakäyttäjä lisätty onnistuneesti"
+    },
+    "note": {
+      "title": "Huom!",
+      "checkDetails": "Varmista, että tiedot ovat oikein, ennen kuin lisäät opiskelijan.",
+      "contactAdmin": "Jos olet lisännyt opiskelijan väärillä tiedoilla, ota yhteyttä ylläpitäjään."
+    },
+    "addButton": "Lisää uusi käyttäjä"
+  },
+  "serverStatus": {
+    "vpnNotConnected": "Et ole tällä hetkellä kytketty Metropolian sisäiseen verkkoon. Klikkaa tästä saadaksesi VPN-ohjeet",
+    "version": "Versio",
+    "connection": "Palvelinyhteys",
+    "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa"
+  },
+  "successAlert": {
+    "title": "Onnistui"
+  },
+  "profileInfo": {
+    "labels": {
+      "name": "Nimi",
+      "username": "Käyttäjänimi",
+      "email": "Sähköposti",
+      "accountCreated": "Tili luotu",
+      "role": "Rooli",
+      "language": "Kieli",
+      "activeStatus": "Aktiivinen",
+      "darkMode": "Tumma tila"
+    },
+    "buttons": {
+      "change": "Vaihda",
+      "changeRole": "Vaihda rooli"
+    },
+    "roleChange": {
+      "title": "Vaihda rooli",
+      "selectTitle": "Roolin valinta",
+      "success": "Rooli vaihdettu onnistuneesti, kirjaudu sisään uudelleen",
+      "error": "Roolin vaihtaminen epäonnistui"
+    },
+    "sections": {
+      "personal": "Henkilökohtaiset tiedot",
+      "account": "Tilitiedot",
+      "preferences": "Asetukset"
+    },
+    "errors": {
+      "roleFetchFailed": "Roolitietojen hakeminen epäonnistui"
+    }
+  },
+  "worklog": {
+    "entries": {
+      "title": "Työaikakirjaukset",
+      "date": "Päivämäärä",
+      "startTime": "Aloitusaika",
+      "endTime": "Lopetusaika",
+      "duration": "Kesto",
+      "course": "Kurssi",
+      "description": "Kuvaus",
+      "total": "Yhteensä",
+      "entries": "merkintää"
+    },
+    "actions": {
+      "clockIn": "Kirjaudu sisään",
+      "clockOut": "Kirjaudu ulos",
+      "edit": "Muokkaa merkintöjä",
+      "in": "Sisään",
+      "out": "Ulos"
+    },
+    "notifications": {
+      "clockedIn": "Kirjauduttu sisään klo {{time}}",
+      "clockedOut": "Kirjauduttu ulos klo {{time}}",
+      "editClicked": "Muokkaus klikattu klo {{time}}"
+    },
+    "aria": {
+      "clockIn": "Sisäänkirjautumispainike",
+      "clockOut": "Uloskirjautumispainike",
+      "edit": "Muokkaa merkintöjä -painike"
+    },
+    "status": {
+      "0": "Status: Virhe",
+      "1": "Status: Sisäänkirjautunut",
+      "2": "Status: Uloskirjautunut",
+      "3": "Status: Tarkistettu"
+    },
+    "edit": {
+      "title": "Muokkaa työaikakirjausta",
+      "success": "Merkintä päivitetty onnistuneesti",
+      "error": "Merkinnän päivittäminen epäonnistui"
+    },
+    "error": {
+      "fetchFailed": "Tietojen haku epäonnistui",
+      "requiredFields": "Täytä kaikki pakolliset kentät",
+      "codeExists": "Koodi on jo käytössä"
+    },
+    "selectCourse": "Valitse kurssi",
+    "clockIn": "Kirjaudu sisään",
+    "clockOut": "Kirjaudu ulos",
+    "description": "Kuvaus",
+    "optionalDescription": "Valinnainen kuvaus",
+    "requiredDescription": "Pakollinen kuvaus",
+    "tooltips": {
+      "modify": "Muokkaa merkintää",
+      "delete": "Poista merkintä"
+    },
+    "logger": {
+      "title": "Työaikakirjaus"
+    },
+    "dialog": {
+      "clockIn": "Kirjaudu sisään kurssille",
+      "clockOut": "Kirjaudu ulos kurssilta",
+      "confirm": "Oletko varma?",
+      "description": "Syötä kuvaus",
+      "requiredDescription": "Kuvaus vaaditaan sisäänkirjautumiseen"
+    },
+    "messages": {
+      "clockedIn": "Kirjauduttu sisään klo {time}, syy: {description}",
+      "clockedOut": "Kirjauduttu ulos klo {time}",
+      "clockedOutWithReason": "Kirjauduttu ulos klo {time}, syy: {description}",
+      "editClicked": "Muokkaus klikattu klo {time}",
+      "failedToLog": "Työajan kirjaaminen epäonnistui",
+      "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
+      "failedToFetch": "Kurssien haku epäonnistui"
+    },
+    "name": "Nimi",
+    "code": "Koodi",
+    "startDate": "Aloituspäivä",
+    "endDate": "Päättymispäivä",
+    "requiredHours": "Vaaditut tunnit",
+    "createNewWorkLog": "Luo uusi työaikakirjauskurssi",
+    "noCourses": "Ei saatavilla olevia kursseja",
+    "redirecting": "Ohjataan päänäkymään...",
+    "delete": {
+      "confirm": "Haluatko varmasti poistaa tämän merkinnän?",
+      "success": "Merkintä poistettu onnistuneesti",
+      "error": "Merkinnän poistaminen epäonnistui"
+    },
+    "filter": {
+      "allCourses": "Kaikki kurssit"
+    }
+  },
+  "lectures": {
+    "table": {
+      "headers": {
+        "date": "Päivämäärä",
+        "timeOfDay": "Vuorokaudenaika",
+        "topicName": "Aiheen nimi"
+      }
+    }
+  },
+  "feedback": {
+    "header": "Auta meitä kehittymään, {{username}}, antamalla palautetta.",
+    "topicLabel": "Palautteen aihe",
+    "textLabel": "Palautteen teksti",
+    "selectTopic": "Valitse aihe",
+    "placeholder": "Kirjoita palautteesi tähän...",
+    "submit": "Lähetä",
+    "submitSuccess": "Palautteesi on lähetetty onnistuneesti!",
+    "submitError": "Palautteen lähettämisessä tapahtui virhe.",
+    "topics": {
+      "Qr Code Scanning": "QR-koodin skannaus",
+      "User Interface / Accessibility": "Käyttöliittymä / Saavutettavuus",
+      "Attendance info": "Läsnäolotiedot",
+      "Course Creation": "Kurssin luominen",
+      "Lecture Creation": "Luennon luominen",
+      "Attendance gathering": "Läsnäolojen kerääminen",
+      "Course/Student info": "Kurssi-/Opiskelijatiedot",
+      "Other": "Muu"
+    }
+  },
+  "header": {
+    "developmentMode": "Kehitystilassa",
+    "profile": "Profiili",
+    "logout": "Kirjaudu ulos"
+  },
+  "footer": {
+    "appName": "Metropolia Läsnäolosovellus",
+    "developedBy": "Kehittänyt",
+    "metropolia": "Metropolia",
+    "navigation": "Navigointi"
+  },
+  "loginStart":  "Kirjaudu",
+  "status": "Tila",
+  "instructors": "Ohjaajat"
 }

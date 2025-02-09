@@ -21,7 +21,7 @@ import InputField from './coursedetails/InputField';
  * @param {Function} props.setStudentList - Setter for the student list
  */
 const StudentList = ({studentList, setStudentList}) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   // State for various component features
   const [lastStudentNumber, setLastStudentNumber] = useState(777);
   const [lastEmailNumber, setLastEmailNumber] = useState(1);
@@ -224,28 +224,22 @@ const StudentList = ({studentList, setStudentList}) => {
                           aria-labelledby='alert-dialog-title'
                           aria-describedby='alert-dialog-description'>
                           <DialogTitle id='alert-dialog-title'>
-                            {t('translation:teacher.studentList.dialog.title')}
+                            {t('teacher:studentList.dialog.title')}
                           </DialogTitle>
                           <DialogContent>
                             <DialogContentText id='alert-dialog-description'>
-                              {t(
-                                'translation:teacher.studentList.dialog.message',
-                              )}
+                              {t('teacher:studentList.dialog.message')}
                             </DialogContentText>
                           </DialogContent>
                           <DialogActions>
                             <Button onClick={handleClose}>
-                              {t(
-                                'translation:teacher.studentList.buttons.cancel',
-                              )}
+                              {t('teacher:studentList.buttons.cancel')}
                             </Button>
                             <Button
                               onClick={handleDelete}
                               color='error'
                               autoFocus>
-                              {t(
-                                'translation:teacher.studentList.buttons.delete',
-                              )}
+                              {t('teacher:studentList.buttons.delete')}
                             </Button>
                           </DialogActions>
                         </Dialog>
@@ -260,7 +254,7 @@ const StudentList = ({studentList, setStudentList}) => {
         <button
           className='p-1 mt-2 text-sm sticky top-0 left-0 bg-metropolia-main-orange text-white font-heading rounded-xl hover:bg-metropolia-secondary-orange focus:outline-hidden mb-4'
           onClick={(event) => addStudent(event)}>
-          {t('translation:teacher.studentList.buttons.addStudent')}
+          {t('teacher:studentList.buttons.addStudent')}
         </button>
       </div>
     </div>

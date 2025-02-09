@@ -223,12 +223,11 @@ const TeacherCourseStats = () => {
   return (
     <>
       <h1 className='p-3 mb-2 text-2xl text-center bg-white rounded-md font-heading'>
-        {t('translation:teacher.courseStats.title')}
+        {t('teacher:courseStats.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
         <div className='flex justify-between sm:justify-around'>
-          <Tooltip
-            title={t('translation:teacher.courseStats.buttons.printPdf')}>
+          <Tooltip title={t('teacher:courseStats.buttons.printPdf')}>
             <button
               onClick={handlePdfExport}
               className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
@@ -250,14 +249,13 @@ const TeacherCourseStats = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={t('translation:teacher.courseStats.search.label')}
+                label={t('teacher:courseStats.search.label')}
                 margin='normal'
                 variant='outlined'
               />
             )}
           />
-          <Tooltip
-            title={t('translation:teacher.courseStats.buttons.exportExcel')}>
+          <Tooltip title={t('teacher:courseStats.buttons.exportExcel')}>
             <button
               onClick={handleExcelExport}
               className='p-2 text-white rounded-sm bg-metropolia-main-orange'>

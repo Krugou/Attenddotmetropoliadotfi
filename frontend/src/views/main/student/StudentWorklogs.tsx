@@ -26,7 +26,7 @@ interface WorkLogEntry {
 }
 
 const StudentWorklogs: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
   const {user} = useContext(UserContext);
   const [entries, setEntries] = useState<WorkLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,7 +69,7 @@ const StudentWorklogs: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching worklog entries:', error);
-        toast.error(t('worklog.error.fetchFailed'));
+        toast.error(t('common:worklog.error.fetchFailed'));
       } finally {
         setLoading(false);
       }
@@ -99,10 +99,10 @@ const StudentWorklogs: React.FC = () => {
         ),
       );
 
-      toast.success(t('worklog.edit.success'));
+      toast.success(t('common:worklog.edit.success'));
     } catch (error) {
       console.error('Error updating entry:', error);
-      toast.error(t('worklog.edit.error'));
+      toast.error(t('common:worklog.edit.error'));
     }
   };
 
@@ -152,7 +152,7 @@ const StudentWorklogs: React.FC = () => {
     <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
       <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
         <h1 className='text-2xl font-heading text-metropolia-main-orange'>
-          {t('translation:worklog.entries.title')}
+          {t('common:worklog.entries.title')}
         </h1>
         <div className='flex flex-col '>
           <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
@@ -163,7 +163,7 @@ const StudentWorklogs: React.FC = () => {
                 value={selectedCourse}
                 onChange={(e) => setSelectedCourse(e.target.value)}>
                 <option value='all'>
-                  {t('translation:worklog.filter.allCourses')}
+                  {t('common:worklog.filter.allCourses')}
                 </option>
                 {uniqueCourses.map((course) => (
                   <option key={course.code} value={course.code}>
@@ -179,8 +179,8 @@ const StudentWorklogs: React.FC = () => {
                   className='p-2 text-metropolia-main-orange hover:text-metropolia-secondary-orange rounded-full transition-colors duration-200 hover:bg-gray-100'
                   title={t(
                     showCalendar
-                      ? 'worklog.filter.hideCalendar'
-                      : 'worklog.filter.showCalendar',
+                      ? 'common:worklog.filter.hideCalendar'
+                      : 'common:worklog.filter.showCalendar',
                   )}>
                   <CalendarTodayIcon />
                 </button>
@@ -232,7 +232,7 @@ const StudentWorklogs: React.FC = () => {
               <div className='space-y-2'>
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    {t('translation:worklog.entries.time')}:
+                    {t('common:worklog.entries.time')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {dayjs(entry.start_time).format('HH:mm')} -{' '}
@@ -242,7 +242,7 @@ const StudentWorklogs: React.FC = () => {
 
                 <div className='flex justify-between'>
                   <span className='text-sm text-metropolia-main-grey'>
-                    {t('translation:worklog.entries.duration')}:
+                    {t('common:worklog.entries.duration')}:
                   </span>
                   <span className='text-sm font-medium'>
                     {calculateDuration(entry.start_time, entry.end_time)}
@@ -276,8 +276,8 @@ const StudentWorklogs: React.FC = () => {
       />
 
       <div className='mt-4 text-sm text-metropolia-main-grey'>
-        {t('translation:worklog.entries.total')}: {filteredEntries.length}{' '}
-        {t('translation:worklog.entries.entries')}
+        {t('common:worklog.entries.total')}: {filteredEntries.length}{' '}
+        {t('common:worklog.entries.entries')}
       </div>
     </div>
   );

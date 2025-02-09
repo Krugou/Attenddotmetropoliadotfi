@@ -7,19 +7,13 @@ import NavigationButton from '../components/main/buttons/NavigationButton';
 import {UserContext} from '../contexts/UserContext';
 import apiHooks from '../api';
 import {useTranslation} from 'react-i18next';
-/**
- * Define the props for the Header component.
- */
-interface HeaderProps {
-  title: string;
-}
 
 /**
  * Header component.
  * This component is responsible for rendering the header of the application.
  * It also handles user authentication based on the token stored in localStorage.
  */
-const Header: React.FC<HeaderProps> = () => {
+const Header = () => {
   // Get the current location and navigation function from react-router
   const location = useLocation();
   const navigate = useNavigate();
@@ -129,18 +123,18 @@ const Header: React.FC<HeaderProps> = () => {
       </Link>
       {import.meta.env.MODE === 'development' && (
         <h1 className='text-lg font-heading'>
-          {t('translation:header.developmentMode', 'In Development Mode')}
+          {t('common:header.developmentMode', 'In Development Mode')}
         </h1>
       )}
       {user && (
         <div className='flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
           <NavigationButton
             path={`/${user.role.toLowerCase()}/profile`}
-            label={t('translation:header.profile', 'Profile')}
+            label={t('common:header.profile', 'Profile')}
           />
           <NavigationButton
             path='/logout'
-            label={t('translation:header.logout', 'Logout')}
+            label={t('common:header.logout', 'Logout')}
           />
         </div>
       )}
@@ -149,18 +143,17 @@ const Header: React.FC<HeaderProps> = () => {
           {location.pathname.includes('/help') ? (
             <NavigationButton
               path={lang ? `/${lang}/login` : '/login'}
-              label={t('translation:navigation.backToLogin', 'Back to Login')}
+              label={t('noUser:navigation.backToLogin', 'Back to Login')}
             />
           ) : (
             <NavigationButton
               path={lang ? `/${lang}/help` : '/help'}
-              label={t('translation:navigation.help', 'Help')}
+              label={t('noUser:navigation.help', 'Help')}
             />
           )}
 
           <FirstTimeHereGuide
             message={t(
-              'guide.help',
               'Need help? Click the help button above to get started!',
             )}
             position='bottom'

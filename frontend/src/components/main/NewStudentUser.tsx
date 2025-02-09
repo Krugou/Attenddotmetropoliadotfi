@@ -14,7 +14,7 @@ import StudentGroupSelect from './newUser/StudentGroupSelect';
 import SubmitButton from './newUser/SubmitButton';
 
 const NewStudentUser: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -180,60 +180,60 @@ const NewStudentUser: React.FC = () => {
           studentGroupId,
           selectedCourseId,
         );
-        toast.success(t('newStudent.success.userAdded'));
+        toast.success(t('common:newStudent.success.userAdded'));
       } catch (error) {
         console.error('Failed to add new student user', error);
-        toast.error(t('newStudent.errors.addFailed', {error}));
+        toast.error(t('common:newStudent.errors.addFailed', {error}));
       }
     } else if (isStudentNumberTaken) {
-      toast.error(t('newStudent.errors.studentNumberTaken'));
+      toast.error(t('common:newStudent.errors.studentNumberTaken'));
     }
   };
 
   return (
     <>
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-        {t('translation:newStudent.title')}
+        {t('common:newStudent.title')}
       </h1>
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
             <div className='flex flex-col'>
               <h2 className='m-2 text-xl text-center font-heading'>
-                {t('translation:newStudent.studentDetails')}
+                {t('common:newStudent.studentDetails')}
               </h2>
               <FormInput
-                label={t('translation:common.email')}
+                label={t('common:email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
               />
               {isEmailTaken && (
                 <h2 className='text-red-500'>
-                  {t('translation:common.errors.emailTaken')}
+                  {t('common:errors.emailTaken')}
                 </h2>
               )}
               <FormInput
-                label={t('translation:common.firstName')}
+                label={t('common:firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label={t('translation:common.lastName')}
+                label={t('common:lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}
               />
               <FormInput
-                label={t('translation:common.studentNumber')}
+                label={t('common:studentNumber')}
                 placeholder='123456'
                 value={studentNumber}
                 onChange={setStudentNumber}
               />
               {isStudentNumberTaken && (
                 <h2 className='text-red-500'>
-                  {t('translation:common.errors.studentNumberTaken')}
+                  {t('common:errors.studentNumberTaken')}
                 </h2>
               )}
               <StudentGroupSelect
@@ -272,14 +272,10 @@ const NewStudentUser: React.FC = () => {
             </div>
             <div className='mt-4 w-fit'>
               <h2 className='text-lg font-heading'>
-                {t('translation:newStudent.note.title')}
+                {t('common:newStudent.note.title')}
               </h2>
-              <p className='mt-2'>
-                {t('translation:newStudent.note.checkDetails')}
-              </p>
-              <p className='mt-4'>
-                {t('translation:newStudent.note.contactAdmin')}
-              </p>
+              <p className='mt-2'>{t('common:newStudent.note.checkDetails')}</p>
+              <p className='mt-4'>{t('common:newStudent.note.contactAdmin')}</p>
             </div>
             <div className='flex justify-center pb-3'>
               <SubmitButton disabled={isEmailTaken || isStudentNumberTaken} />

@@ -28,7 +28,7 @@ const TeacherWorklogCourseDetail: React.FC = () => {
 
   const [worklogData, setWorklogData] = useState<WorkLogDetail | null>(null);
   const {user} = useContext(UserContext);
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
 
   useEffect(() => {
     const fetchWorklog = async () => {
@@ -62,7 +62,7 @@ const TeacherWorklogCourseDetail: React.FC = () => {
                 ? '/counselor/worklog'
                 : `/${user?.role}/worklog`
             }
-            text={t('translation:teacher.worklog.detail.backToWorklog')}
+            text={t('teacher:worklog.detail.backToWorklog')}
           />
         </div>
         {worklogData && (

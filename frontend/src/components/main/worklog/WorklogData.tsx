@@ -35,7 +35,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
   allCourses,
   showEndedCourses,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedWorklogId, setSelectedWorklogId] = useState<number | null>(
     null,
@@ -116,10 +116,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                 <div className='flex items-center justify-between'>
                   <p className='text-lg font-heading'>{worklog.name}</p>
                   <div className='flex gap-5'>
-                    <Tooltip
-                      title={t(
-                        'translation:teacher.worklog.data.modifyCourse',
-                      )}>
+                    <Tooltip title={t('teacher:worklog.data.modifyCourse')}>
                       <EditIcon
                         fontSize='large'
                         className='p-1 text-black bg-gray-300 rounded-full cursor-pointer hover:text-gray-700'
@@ -130,10 +127,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                         }
                       />
                     </Tooltip>
-                    <Tooltip
-                      title={t(
-                        'translation:teacher.worklog.data.deleteCourse',
-                      )}>
+                    <Tooltip title={t('teacher:worklog.data.deleteCourse')}>
                       <DeleteIcon
                         fontSize='large'
                         className='p-1 text-red-500 bg-gray-300 rounded-full cursor-pointer hover:text-red-700'
@@ -147,29 +141,29 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                 <div className='mt-2'>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:teacher.worklog.data.courseCode')}
+                      {t('teacher:worklog.data.courseCode')}
                     </p>
                     <div>{worklog.code}</div>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:teacher.worklog.data.startDate')}
+                      {t('teacher:worklog.data.startDate')}
                     </p>
                     <p>{new Date(worklog.start_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
                     <p className='text-gray-700'>
-                      {t('translation:teacher.worklog.data.endDate')}
+                      {t('teacher:worklog.data.endDate')}
                     </p>
                     <p>{new Date(worklog.end_date).toLocaleDateString()}</p>
                   </div>
                   <div className='flex justify-between'>
-                    <p>{t('translation:teacher.worklog.data.requiredHours')}</p>
+                    <p>{t('teacher:worklog.data.requiredHours')}</p>
                     <p>{worklog.required_hours}</p>
                   </div>
                   <div className=''>
                     <p className='text-sm font-heading mt-2'>
-                      {t('translation:teacher.worklog.data.description')}
+                      {t('teacher:worklog.data.description')}
                     </p>
                     <p className='text-sm text-metropolia-main-grey mb-2'>
                       {worklog.description}
@@ -179,24 +173,24 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                     <>
                       <div className='w-full border-t-4 border-metropolia-main-orange mt-4'></div>
                       <h2 className='text-lg font-heading mb-3'>
-                        {t('translation:teacher.worklog.data.additionalInfo')}
+                        {t('teacher:worklog.data.additionalInfo')}
                       </h2>
                       <div className='flex justify-between mb-2'>
                         <p className='text-gray-700'>
-                          {t('translation:teacher.worklog.data.createdAt')}
+                          {t('teacher:worklog.data.createdAt')}
                         </p>
                         <p>{formatDate(worklog.created_at || '')}</p>
                       </div>
                       <div className='flex justify-between mb-2'>
                         <p className='text-gray-700'>
-                          {t('translation:teacher.worklog.data.studentCount')}
+                          {t('teacher:worklog.data.studentCount')}
                         </p>
                         <p>{worklog.user_count || 0}</p>
                       </div>
                       <div className='w-full border-t-4 border-metropolia-main-orange mt-4'></div>
                       <div className='mt-4 mb-4'>
                         <h2 className='text-lg font-heading text-gray-700 mb-2'>
-                          {t('translation:teacher.worklog.data.instructors')}
+                          {t('teacher:worklog.data.instructors')}
                         </h2>
                         <ul className='list-none pl-5'>
                           {worklog.instructor_name
@@ -209,7 +203,7 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                               </li>
                             )) || (
                             <li className='text-gray-700'>
-                              {t('translation:teacher.worklog.noInstructors')}
+                              {t('teacher:worklog.noInstructors')}
                             </li>
                           )}
                         </ul>
@@ -219,11 +213,11 @@ const WorklogData: React.FC<WorklogDataProps> = ({
                     <div className='flex justify-end gap-2 mt-4'>
                       <GeneralLinkButton
                         path={`/teacher/worklog/group/${worklog.work_log_course_id}`}
-                        text={t('translation:teacher.worklog.data.viewGroups')}
+                        text={t('teacher:worklog.data.viewGroups')}
                       />
                       <GeneralLinkButton
                         path={`/teacher/worklog/${worklog.work_log_course_id}`}
-                        text={t('translation:teacher.worklog.data.viewCourse')}
+                        text={t('teacher:worklog.data.viewCourse')}
                       />
                     </div>
                   )}

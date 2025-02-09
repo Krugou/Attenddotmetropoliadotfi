@@ -1,17 +1,60 @@
 {
-  "student": {
-    "profile": {
-      "title": "Student Profile",
-      "studentGroup": "Student Group",
-      "noData": "No user data available.",
-      "myCourses": "My Courses"
-    },
+  "course": {
+    "attendaceOfCourse": "Attendance of Course",
+    "sortTopics": "Sort Topics",
+    "showAttendanceStats": "Show Attendance Stats",
+    "showAttendanceTable": "Show Attendance Table",
+    "all": "All",
+    "yourCourses": "Your Courses",
+    "showEndedCourses": "Show ended courses"
+  },
+  "helpVideos": {
+    "title": "Student Help Videos",
+    "courseAccess": "How do I access my course and attendance details",
+    "joinLecture": "How do I join a lecture?"
+  },
+  "mainView": {
+    "title": "Student",
     "qrScanner": {
-      "loading": "Loading...",
-      "camera": {
-        "selectLabel": "Choose desired camera input:",
-        "noDevices": "No cameras available"
-      }
+      "title": "Attendance QR Scanner",
+      "description": "Scan QR to mark attendance"
+    },
+    "profile": {
+      "title": "Your Profile",
+      "description": "View your own profile"
+    },
+    "courses": {
+      "title": "Your Courses",
+      "description": "View your own courses"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "description": "See instructions for all available tasks"
+    },
+    "qrScannerCamera": {
+      "title": "Attendance QR Scanner with Camera Selection",
+      "description": "Scan QR to mark attendance with camera selection"
+    },
+    "workLog": {
+      "title": "Worklog course logger",
+      "description": "Log your worklogs"
+    },
+    "workLogs": {
+      "title": "Your Worklog courses",
+      "description": "View and manage your worklogs"
+    }
+  },
+  "profile": {
+    "title": "Student Profile",
+    "studentGroup": "Student Group",
+    "noData": "No user data available.",
+    "myCourses": "My Courses"
+  },
+  "qrScanner": {
+    "loading": "Loading...",
+    "camera": {
+      "selectLabel": "Choose desired camera input:",
+      "noDevices": "No cameras available"
     }
   }
 }

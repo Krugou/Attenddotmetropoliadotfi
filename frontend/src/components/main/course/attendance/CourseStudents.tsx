@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Socket} from 'socket.io-client';
+import {useTranslation} from 'react-i18next';
 // Define the props for the CourseStudents component
 interface Props {
   coursestudents: {
@@ -47,6 +48,7 @@ const CourseStudents: React.FC<Props> = ({
   const [remainingTime, setRemainingTime] = useState<number>(60);
   const scrollInterval = useRef<number | null>(null);
   const scrollDirectionRef = useRef(1);
+  const {t} = useTranslation('teacher');
 
   // Use an effect hook to handle countdown and lecture finish
   useEffect(() => {
@@ -217,8 +219,10 @@ const CourseStudents: React.FC<Props> = ({
       {coursestudents.length === 0 ? (
         <p className=''>
           {remainingTime > 0
-            ? `All students are here. Auto finishing in ${remainingTime} seconds`
-            : 'Finishing lecture...'}
+            ? t('teacher:courseStudents.allStudentsHere', {
+                seconds: remainingTime,
+              })
+            : t('teacher:courseStudents.finishingLecture')}
         </p>
       ) : (
         <div className={`   whitespace-nowrap `}>

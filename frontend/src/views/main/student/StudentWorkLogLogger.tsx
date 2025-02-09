@@ -39,7 +39,7 @@ interface ActiveEntry {
 }
 
 const StudentWorkLogLogger: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,7 +95,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
         // If no courses are available, show message and redirect
         if (fetchedCourses.length === 0) {
-          toast.info(t('worklog.noCourses'));
+          toast.info(t('common:worklog.noCourses'));
           setTimeout(() => navigate('/'), 3000); // Navigate to main view after 3 seconds
           return;
         }
@@ -120,7 +120,7 @@ const StudentWorkLogLogger: React.FC = () => {
     (type: 'in' | 'out') => {
       setActionType(type);
       setDescription(
-        type === 'in' ? t('worklog.description') : '', // Using translation instead of hardcoded string
+        type === 'in' ? t('common:worklog.description') : '', // Using translation instead of hardcoded string
       );
       setIsModalOpen(true);
     },
@@ -133,7 +133,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
   const handleConfirmAction = useCallback(async () => {
     if (!selectedCourse) {
-      toast.error(t('worklog.error.requiredFields'));
+      toast.error(t('common:worklog.error.requiredFields'));
       return;
     }
 
@@ -155,7 +155,9 @@ const StudentWorkLogLogger: React.FC = () => {
           status: '1',
         };
         await apiHooks.createWorkLogEntry(params, token);
-        toast.success(t('worklog.messages.clockedIn', {time, description}));
+        toast.success(
+          t('common:worklog.messages.clockedIn', {time, description}),
+        );
       } else {
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
@@ -164,14 +166,17 @@ const StudentWorkLogLogger: React.FC = () => {
         );
         toast.info(
           description
-            ? t('worklog.messages.clockedOutWithReason', {time, description})
-            : t('worklog.messages.clockedOut', {time}),
+            ? t('common:worklog.messages.clockedOutWithReason', {
+                time,
+                description,
+              })
+            : t('common:worklog.messages.clockedOut', {time}),
         );
       }
 
       await checkActiveEntry();
     } catch (error) {
-      toast.error(t('worklog.messages.failedToLog'));
+      toast.error(t('common:worklog.messages.failedToLog'));
     }
 
     setIsModalOpen(false);
@@ -187,7 +192,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
   const handleEdit = useCallback(() => {
     const time = new Date().toLocaleTimeString();
-    toast.info(t('worklog.messages.editClicked', {time}));
+    toast.info(t('common:worklog.messages.editClicked', {time}));
     navigate('/student/worklogs');
   }, [navigate, t]);
 
@@ -208,16 +213,16 @@ const StudentWorkLogLogger: React.FC = () => {
         {/* Course Selection Section */}
         <div className='space-y-4'>
           <h2 className='text-2xl font-heading font-bold text-gray-800 mb-4'>
-            {t('translation:worklog.logger.title')}
+            {t('common:worklog.logger.title')}
           </h2>
 
           {courses.length === 0 ? (
             <div className='p-4 text-center'>
               <p className='text-lg font-body text-gray-600'>
-                {t('translation:worklog.noCourses')}
+                {t('common:worklog.noCourses')}
               </p>
               <p className='text-sm font-body text-gray-500 mt-2'>
-                {t('translation:worklog.redirecting')}
+                {t('common:worklog.redirecting')}
               </p>
             </div>
           ) : activeCourse ? (
@@ -231,14 +236,14 @@ const StudentWorkLogLogger: React.FC = () => {
             </div>
           ) : (
             <select
-              title={t('translation:worklog.selectCourse')}
+              title={t('common:worklog.selectCourse')}
               value={selectedCourse || ''}
               onChange={handleCourseChange}
               className='w-full p-3 border-2 border-gray-200 rounded-lg font-body
                   focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
                   bg-white text-gray-700'>
               <option value='' disabled>
-                {t('translation:worklog.selectCourse')}
+                {t('common:worklog.selectCourse')}
               </option>
               {courses.map((course) => (
                 <option
@@ -262,9 +267,9 @@ const StudentWorkLogLogger: React.FC = () => {
                   ? 'bg-gray-400'
                   : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
               }`}
-              aria-label={t('translation:worklog.clockIn')}>
+              aria-label={t('common:worklog.clockIn')}>
               <LoginIcon className='w-6 h-6' />
-              <span>{t('translation:worklog.actions.in')}</span>
+              <span>{t('common:worklog.actions.in')}</span>
             </button>
 
             <button
@@ -275,18 +280,18 @@ const StudentWorkLogLogger: React.FC = () => {
                   ? 'bg-gray-400'
                   : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
               }`}
-              aria-label={t('translation:worklog.clockOut')}>
+              aria-label={t('common:worklog.clockOut')}>
               <LogoutIcon className='w-6 h-6' />
-              <span>{t('translation:worklog.actions.out')}</span>
+              <span>{t('common:worklog.actions.out')}</span>
             </button>
 
             <button
               onClick={handleEdit}
               className={`${buttonBaseStyle}
                 bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
-              aria-label={t('translation:worklog.edit.title')}>
+              aria-label={t('common:worklog.edit.title')}>
               <EditIcon className='w-6 h-6' />
-              <span>{t('translation:worklog.actions.edit')}</span>
+              <span>{t('common:worklog.actions.edit')}</span>
             </button>
           </div>
         )}
@@ -299,14 +304,14 @@ const StudentWorkLogLogger: React.FC = () => {
             <div className='p-6 space-y-6'>
               <h3 className='text-xl font-heading font-bold text-gray-800'>
                 {actionType === 'in'
-                  ? t('worklog.clockIn')
-                  : t('worklog.clockOut')}
+                  ? t('common:worklog.clockIn')
+                  : t('common:worklog.clockOut')}
               </h3>
 
               {actionType === 'in' && (
                 <label className='block space-y-2'>
                   <span className='font-body font-medium text-gray-700'>
-                    {t('translation:worklog.description')} *
+                    {t('common:worklog.description')} *
                   </span>
                   <input
                     type='text'
@@ -316,7 +321,7 @@ const StudentWorkLogLogger: React.FC = () => {
                       focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
                       transition-colors duration-200'
                     required
-                    placeholder={t('translation:worklog.requiredDescription')}
+                    placeholder={t('common:worklog.requiredDescription')}
                   />
                 </label>
               )}
@@ -329,14 +334,14 @@ const StudentWorkLogLogger: React.FC = () => {
                     bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
                     disabled:bg-gray-400 font-bold disabled:cursor-not-allowed
                     transition-colors duration-200'>
-                  {t('translation:common.confirm')}
+                  {t('common.confirm')}
                 </button>
                 <button
                   onClick={handleCloseModal}
                   className='flex-1 px-6 py-3 font-body font-medium text-gray-700 rounded-lg
                     bg-gray-100 hover:bg-gray-200
                     transition-colors duration-200'>
-                  {t('translation:common.cancel')}
+                  {t('common.cancel')}
                 </button>
               </div>
             </div>

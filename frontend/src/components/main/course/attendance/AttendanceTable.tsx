@@ -76,7 +76,7 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
   updateView,
 }) => {
   const {user} = useContext(UserContext);
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin', 'common']);
   const handleStatusChange = async (newStatus: number, attendanceid?) => {
     try {
       const token: string | null = localStorage.getItem('userToken');
@@ -100,29 +100,29 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         <TableHead className='sticky top-0 z-10 bg-white'>
           <TableRow>
             <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('translation:lectures.table.headers.date')}
+              {t('common:lectures.table.headers.date')}
             </TableCell>
             {student && (
               <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-                {t('translation:common.user')}
+                {t('common:user')}
               </TableCell>
             )}
             {allAttendances && (
               <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-                {t('translation:common.user')}
+                {t('common:user')}
               </TableCell>
             )}
             <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('translation:admin.common.instructors')}
+              {t('common:instructors')}
             </TableCell>
             <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('translation:lectures.table.headers.timeOfDay')}
+              {t('common:lectures.table.headers.timeOfDay')}
             </TableCell>
             <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('translation:lectures.table.headers.topicName')}
+              {t('common:lectures.table.headers.topicName')}
             </TableCell>
             <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('translation:admin.common.status')}
+              {t('common:status')}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -170,23 +170,23 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
                       )
                     }>
                     <MenuItem value={0}>
-                      {t('translation:attendance.status.absent')}
+                      {t('common:attendance.status.absent')}
                     </MenuItem>
                     <MenuItem value={1}>
-                      {t('translation:attendance.status.present')}
+                      {t('common:attendance.status.present')}
                     </MenuItem>
                     <MenuItem value={2}>
-                      {t('translation:attendance.status.acceptedAbsence')}
+                      {t('common:attendance.status.acceptedAbsence')}
                     </MenuItem>
                   </Select>
                 )}
                 {user?.role === 'student' && (
                   <p>
                     {attendance.status === 0
-                      ? t('attendance.status.absent')
+                      ? t('common:attendance.status.absent')
                       : attendance.status === 1
-                      ? t('attendance.status.present')
-                      : t('attendance.status.acceptedAbsence')}
+                      ? t('common:attendance.status.present')
+                      : t('common:attendance.status.acceptedAbsence')}
                   </p>
                 )}
               </TableCell>

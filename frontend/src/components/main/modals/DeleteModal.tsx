@@ -27,7 +27,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   onClose,
   student = false,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
 
   if (!isOpen) {
     return null;
@@ -42,7 +42,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         className='z-10 w-10/12 p-6 bg-white border-4 border-red-700 rounded-lg shadow-lg lg:w-3/12 sm:w-1/2'
         onClick={(e) => e.stopPropagation()}>
         <h3 className='text-xl font-medium leading-6 text-gray-900'>
-          {t('translation:common.deleteModal.title')}
+          {t('common:deleteModal.title')}
         </h3>
         <div className='mt-2'>
           <p className='text-base text-gray-500'>
@@ -57,12 +57,12 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           <button
             onClick={onClose}
             className='inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white transition bg-gray-500 border border-transparent rounded-md shadow-xs hover:bg-white hover:text-black focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'>
-            {t('translation:common.deleteModal.buttons.cancel')}
+            {t('common:deleteModal.buttons.cancel')}
           </button>
           <button
             onClick={onDelete}
             className='inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-white transition bg-red-700 border border-gray-300 rounded-md shadow-xs hover:text-black hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'>
-            {t('translation:common.deleteModal.buttons.delete')}
+            {t('common:deleteModal.buttons.delete')}
           </button>
         </div>
       </div>

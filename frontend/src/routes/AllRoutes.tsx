@@ -12,7 +12,6 @@ import AdminRoutes from './AdminRoutes';
 import CounselorRoutes from './CounselorRoutes';
 import StudentRoutes from './StudentRoutes';
 import TeacherRoutes from './TeacherRoutes';
-import QrSelectScannerTester from '../views/QrSelectScannerTester';
 import NoUserHelp from '../views/main/NoUserHelp';
 import About from '../views/main/About';
 import Team from '../views/main/Team';
@@ -68,7 +67,6 @@ const AllRoutes = () => {
             </LanguageWrapper>
           }
         />
-        <Route path='/qrscantest' element={<QrSelectScannerTester />} />
         <Route path='/about' element={<About />} />
         <Route
           path='/:lang/about'

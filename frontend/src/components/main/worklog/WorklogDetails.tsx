@@ -38,7 +38,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
   codeExists = false,
   setCourseExists,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
 
@@ -75,12 +75,12 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
     <fieldset>
       {!modify && (
         <legend className='mb-5 ml-1 text-xl font-heading'>
-          {t('translation:teacher.worklog.details.title')}
+          {t('teacher:worklog.details.title')}
         </legend>
       )}
 
       <InputField
-        label={t('translation:teacher.worklog.details.name')}
+        label={t('teacher:worklog.details.name')}
         type='text'
         name='name'
         value={name}
@@ -88,7 +88,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
       />
 
       <InputField
-        label={t('translation:teacher.worklog.details.code')}
+        label={t('teacher:worklog.details.code')}
         type='text'
         name='code'
         value={code}
@@ -98,23 +98,19 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
         }}
       />
       {!modify && codeExists && (
-        <p className='text-red-400'>
-          {t('translation:teacher.worklog.error.codeExists')}
-        </p>
+        <p className='text-red-400'>{t('teacher:worklog.error.codeExists')}</p>
       )}
       {modify && codeExists && code !== firstCode && (
-        <p className='text-red-400'>
-          {t('translation:teacher.worklog.error.codeExists')}
-        </p>
+        <p className='text-red-400'>{t('teacher:worklog.error.codeExists')}</p>
       )}
       {modify && code === firstCode && codeChanged && (
         <p className='text-green-400'>
-          {t('translation:teacher.worklog.success.codeRestored')}
+          {t('teacher:worklog.success.codeRestored')}
         </p>
       )}
 
       <InputField
-        label={t('translation:teacher.worklog.details.description')}
+        label={t('teacher:worklog.details.description')}
         type='textarea'
         name='description'
         value={description}
@@ -124,7 +120,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
       />
 
       <InputField
-        label={t('translation:teacher.worklog.details.requiredHours')}
+        label={t('teacher:worklog.details.requiredHours')}
         type='number'
         name='requiredHours'
         value={requiredHours.toString()}
@@ -132,7 +128,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
       />
 
       <InputField
-        label={t('translation:teacher.worklog.details.startDate')}
+        label={t('teacher:worklog.details.startDate')}
         type='date'
         name='startDate'
         value={startDate ? startDate.split('T')[0] : ''}
@@ -140,7 +136,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
       />
 
       <InputField
-        label={t('translation:teacher.worklog.details.endDate')}
+        label={t('teacher:worklog.details.endDate')}
         type='date'
         name='endDate'
         value={endDate ? endDate.split('T')[0] : ''}

@@ -163,7 +163,7 @@ const TeacherStudentsView: React.FC = () => {
     <div className='w-full mx-auto 2xl:w-9/12'>
       <div className='flex flex-col items-center gap-5 sm:gap-0 sm:flex-row'>
         <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-          {t('translation:teacher.studentsView.title')}
+          {t('teacher:studentsView.title')}
         </h1>
       </div>
       <div className='w-full max-h-[40em] 2xl:max-h-[60em] overflow-y-scroll rounded-xl bg-gray-100 p-2 sm:p-5'>
@@ -174,7 +174,7 @@ const TeacherStudentsView: React.FC = () => {
                 ? '/counselor/mainview'
                 : `/${user?.role}/mainview`
             }
-            text={t('translation:teacher.studentsView.buttons.backToMainview')}
+            text={t('teacher:studentsView.buttons.backToMainview')}
           />
         </div>
         <div className='flex flex-col items-center justify-between md:flex-row'>
@@ -182,7 +182,7 @@ const TeacherStudentsView: React.FC = () => {
             <TextField
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              label={t('translation:teacher.studentsView.search.byName')}
+              label={t('teacher:studentsView.search.byName')}
               className='bg-white'
             />
           </div>
@@ -202,7 +202,7 @@ const TeacherStudentsView: React.FC = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={t('translation:teacher.studentsView.search.byCourse')}
+                label={t('teacher:studentsView.search.byCourse')}
                 margin='normal'
                 variant='outlined'
                 className='bg-white'
@@ -235,49 +235,37 @@ const TeacherStudentsView: React.FC = () => {
                   {student.first_name} {student.last_name}
                 </div>
                 {student.email && (
-                  <p>
-                    {t('translation:teacher.studentsView.studentCard.email')}
-                  </p>
+                  <p>{t('teacher:studentsView.studentCard.email')}</p>
                 )}
                 <p className='break-all'>{student.email}</p>
                 <div className='flex flex-col gap-3 mt-3'>
                   {student.username && (
                     <p>
-                      {t(
-                        'translation:teacher.studentsView.studentCard.username',
-                      )}{' '}
+                      {t('teacher:studentsView.studentCard.username')}{' '}
                       {student.username}
                     </p>
                   )}
                   {student.studentnumber && (
                     <p>
-                      {t(
-                        'translation:teacher.studentsView.studentCard.studentNumber',
-                      )}{' '}
+                      {t('teacher:studentsView.studentCard.studentNumber')}{' '}
                       {student.studentnumber}
                     </p>
                   )}
                   {student.group_name && (
                     <p>
-                      {t(
-                        'translation:teacher.studentsView.studentCard.studentGroup',
-                      )}{' '}
+                      {t('teacher:studentsView.studentCard.studentGroup')}{' '}
                       {student.group_name}
                     </p>
                   )}
                   {student.created_at && (
                     <p>
-                      {t(
-                        'translation:teacher.studentsView.studentCard.accountCreated',
-                      )}{' '}
+                      {t('teacher:studentsView.studentCard.accountCreated')}{' '}
                       {new Date(student.created_at).toLocaleString()}
                     </p>
                   )}
                   <div className='flex flex-wrap items-center justify-between p-2'>
                     <p className='text-blue-500'>
-                      {t(
-                        'translation:teacher.studentsView.studentCard.clickDetails',
-                      )}
+                      {t('teacher:studentsView.studentCard.clickDetails')}
                     </p>
                   </div>
                 </div>

@@ -31,7 +31,7 @@ const SuccessAlert: React.FC<SuccessAlertProps> = ({successAlert, onClose}) => {
       }`}>
       <div className='p-4 mx-auto mt-10 bg-green-100 rounded-lg shadow-lg modal-container w-96'>
         <h2 className='mb-4 text-xl font-heading text-green-600'>
-          {t('translation:successAlert.title')}
+          {t('common:successAlert.title')}
         </h2>
         <div className='mb-4'>
           {successAlert && <p className='text-green-700'>{successAlert}</p>}
@@ -40,7 +40,7 @@ const SuccessAlert: React.FC<SuccessAlertProps> = ({successAlert, onClose}) => {
           <button
             onClick={onClose}
             className='px-4 py-2 font-semibold text-white bg-green-500 rounded-sm hover:bg-green-600'>
-            {t('translation:common.close')}
+            {t('common:close')}
           </button>
         </div>
       </div>

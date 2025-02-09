@@ -43,7 +43,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
   courseExists,
   setCourseExists,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [firstCourseCode] = useState(courseCode);
   const [courseCodeChanged, setCourseCodeChanged] = useState(false);
   useEffect(() => {
@@ -74,12 +74,12 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
         <></>
       ) : (
         <legend className='mb-5 ml-1 text-xl'>
-          {t('translation:teacher.courseDetails.title')}
+          {t('teacher:courseDetails.title')}
         </legend>
       )}
 
       <InputField
-        label={t('translation:teacher.courseDetails.labels.courseCode')}
+        label={t('teacher:courseDetails.labels.courseCode')}
         type='text'
         name='courseCode'
         value={courseCode}
@@ -93,44 +93,44 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
       />
       {!modify && courseExists && (
         <p className='text-red-400'>
-          {t('translation:teacher.courseDetails.errors.codeExists')}
+          {t('teacher:courseDetails.errors.codeExists')}
         </p>
       )}
       {modify && courseExists && courseCode !== firstCourseCode && (
         <p className='text-red-400'>
-          {t('translation:teacher.courseDetails.errors.codeExists')}
+          {t('teacher:courseDetails.errors.codeExists')}
         </p>
       )}
 
       {modify && courseCode === firstCourseCode && courseCodeChanged && (
         <p className='text-green-400'>
-          {t('translation:teacher.courseDetails.success.codeRestored')}
+          {t('teacher:courseDetails.success.codeRestored')}
         </p>
       )}
 
       <InputField
-        label={t('translation:teacher.courseDetails.labels.courseName')}
+        label={t('teacher:courseDetails.labels.courseName')}
         type='text'
         name='courseName'
         value={courseName}
         onChange={(e) => setCourseName(e.target.value)}
       />
       <InputField
-        label={t('translation:teacher.courseDetails.labels.studentGroup')}
+        label={t('teacher:courseDetails.labels.studentGroup')}
         type='text'
         name='studentGroup'
         value={studentGroup}
         onChange={(e) => setStudentGroup(e.target.value)}
       />
       <InputField
-        label={t('translation:teacher.courseDetails.labels.startDate')}
+        label={t('teacher:courseDetails.labels.startDate')}
         type='date'
         name='startDate'
         value={startDate ? startDate.split('T')[0] : ''}
         onChange={(e) => setStartDate(e.target.value)}
       />
       <InputField
-        label={t('translation:teacher.courseDetails.labels.endDate')}
+        label={t('teacher:courseDetails.labels.endDate')}
         type='date'
         name='endDate'
         value={endDate ? endDate.split('T')[0] : ''}

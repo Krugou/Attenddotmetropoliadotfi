@@ -45,7 +45,7 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
   onCloseLecture,
 }) => {
   console.log(lecture);
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   return (
     <Dialog
       open={open}
@@ -55,63 +55,59 @@ const DeleteLectureModal: React.FC<DeleteLectureModalProps> = ({
       <DialogTitle
         className='p-4 text-white bg-metropolia-main-orange'
         id='alert-dialog-title'>
-        {t('translation:teacher.deleteLecture.title')}
+        {t('teacher:deleteLecture.title')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
           <strong className='pt-4 mb-4 text-lg font-heading'>
-            {t('translation:teacher.deleteLecture.subtitle')}
+            {t('teacher:deleteLecture.subtitle')}
           </strong>
         </DialogContentText>
         <ul className='mb-4 list-disc list-inside'>
           <li>
-            {t('translation:teacher.deleteLecture.details.date')}{' '}
+            {t('teacher:deleteLecture.details.date')}{' '}
             {lecture?.start_date
               ? new Date(lecture?.start_date).toLocaleDateString()
               : ''}
           </li>
           <li>
-            {t('translation:teacher.deleteLecture.details.timeOfDay')}{' '}
-            {lecture?.timeofday}
+            {t('teacher:deleteLecture.details.timeOfDay')} {lecture?.timeofday}
           </li>
           <li>
-            {t('translation:teacher.deleteLecture.details.teacherEmail')}{' '}
-            {lecture?.teacher}
+            {t('teacher:deleteLecture.details.teacherEmail')} {lecture?.teacher}
           </li>
           <li>
-            {t('translation:teacher.deleteLecture.details.courseCode')}{' '}
-            {lecture?.code}
+            {t('teacher:deleteLecture.details.courseCode')} {lecture?.code}
           </li>
           <li>
-            {t('translation:teacher.deleteLecture.details.topicName')}{' '}
-            {lecture?.topicname}
+            {t('teacher:deleteLecture.details.topicName')} {lecture?.topicname}
           </li>
         </ul>
         <DialogContentText id='alert-dialog-description'>
           <strong className='mb-4 text-lg font-heading'>
-            {t('translation:teacher.deleteLecture.question')}
+            {t('teacher:deleteLecture.question')}
           </strong>{' '}
           <br />
-          {t('translation:teacher.deleteLecture.explanation')}
+          {t('teacher:deleteLecture.explanation')}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
           onClick={onClose}>
-          {t('translation:teacher.deleteLecture.buttons.close')}
+          {t('teacher:deleteLecture.buttons.close')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-support-red sm:w-fit h-fit hover:bg-metropolia-support-secondary-red'
           onClick={onDelete}
           autoFocus>
-          {t('translation:teacher.deleteLecture.buttons.delete')}
+          {t('teacher:deleteLecture.buttons.delete')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-trend-green sm:w-fit h-fit hover:bg-metropolia-main-grey'
           onClick={onCloseLecture}
           autoFocus>
-          {t('translation:teacher.deleteLecture.buttons.finish')}
+          {t('teacher:deleteLecture.buttons.finish')}
         </button>
       </DialogActions>
     </Dialog>

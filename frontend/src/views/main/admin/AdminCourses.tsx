@@ -41,7 +41,7 @@ interface Course {
  * @returns {JSX.Element} The rendered AdminCourses component.
  */
 const AdminCourses: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const navigate = useNavigate();
 
   const {user} = useContext(UserContext);
@@ -104,7 +104,7 @@ const AdminCourses: React.FC = () => {
         </div>
       ) : courses.length === 0 ? (
         <div className='flex items-center justify-center h-full'>
-          <p>{t('translation:admin.common.noCoursesAvailable')}</p>
+          <p>{t('admin:common.noCoursesAvailable')}</p>
         </div>
       ) : (
         <>
@@ -139,7 +139,7 @@ const AdminCourses: React.FC = () => {
                       <th key={index} className='px-4 py-2'>
                         {key}
                         <button
-                          aria-label={`Sort by ${key}`} // Add this line
+                          aria-label={`Sort by ${key}`}
                           className='p-1 ml-2 text-sm text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-main-orangeDark focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orangeDark'
                           onClick={() => sortCourses(key)}>
                           <SortIcon />

@@ -31,7 +31,7 @@ import {useTranslation} from 'react-i18next';
 const CreateCourseEasy: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   const [currentStep, setCurrentStep] = useState(1);
   const [courseName, setCourseName] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -234,7 +234,7 @@ const CreateCourseEasy: React.FC = () => {
         {currentStep === 1 && (
           <fieldset>
             <legend className='mb-3 text-xl'>
-              {t('translation:teacher.createCourseEasy.title')}
+              {t('teacher:createCourseEasy.title')}
             </legend>
             <label className='flex flex-col items-center w-full px-4 py-6 mb-2 tracking-wide uppercase transition-colors duration-300 ease-in-out bg-white border rounded-lg shadow-lg cursor-pointer text-blue border-blue hover:bg-blue hover:text-white'>
               <svg className='w-8 h-8 fill-current' viewBox='0 0 20 20'>
@@ -261,9 +261,7 @@ const CreateCourseEasy: React.FC = () => {
                 className='w-5 h-5 text-blue-600 form-checkbox'
               />
               <span className='font-medium text-gray-900'>
-                {t(
-                  'translation:teacher.createCourseEasy.fileUpload.checkDetails',
-                )}
+                {t('teacher:createCourseEasy.fileUpload.checkDetails')}
               </span>
             </label>
             <div className='flex justify-end'>
@@ -271,7 +269,7 @@ const CreateCourseEasy: React.FC = () => {
                 type='button'
                 className='w-40 p-2 mt-2 text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
                 onClick={handleExcelInput}>
-                {t('translation:teacher.createCourseEasy.buttons.next')}
+                {t('teacher:createCourseEasy.buttons.next')}
               </button>
             </div>
           </fieldset>

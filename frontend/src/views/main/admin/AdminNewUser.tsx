@@ -16,7 +16,7 @@ import {useTranslation} from 'react-i18next';
  * @component
  */
 const AdminNewUser: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -189,23 +189,22 @@ const AdminNewUser: React.FC = () => {
   return (
     <>
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-        {t('translation:admin.newUser.addNew')}
-        {userType === 'student' ? 'Student' : 'Staff'}{' '}
-        {t('translation:admin.common.user')}
+        {t('admin:newUser.addNew')}
+        {userType === 'student' ? 'Student' : 'Staff'} {t('admin:common.user')}
       </h1>
       <div className='relative bg-white rounded-lg w-fit'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4'>
             <div className='flex flex-col'>
               <h2 className='mb-5 text-xl text-center font-heading'>
-                {t('translation:admin.newUser.userDetails')}
+                {t('admin:newUser.userDetails')}
               </h2>
 
               <div className='flex flex-col items-start justify-center mt-4'>
                 <label
                   htmlFor='userType'
                   className='mb-1 mr-2 text-gray-700 font-heading'>
-                  {t('translation:admin.newUser.userType')}
+                  {t('admin:newUser.userType')}
                 </label>
                 <select
                   id='userType'
@@ -215,10 +214,10 @@ const AdminNewUser: React.FC = () => {
                   }
                   className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'>
                   <option value='student'>
-                    {t('translation:admin.newUser.optionStudent')}
+                    {t('admin:newUser.optionStudent')}
                   </option>
                   <option value='staff'>
-                    {t('translation:admin.newUser.optionTeacher')}
+                    {t('admin:newUser.optionTeacher')}
                   </option>
                 </select>
               </div>
@@ -227,10 +226,10 @@ const AdminNewUser: React.FC = () => {
                   <label
                     htmlFor='staffRole'
                     className='mb-1 mr-2 text-gray-700 font-heading'>
-                    {t('translation:admin.newUser.staffRole')}
+                    {t('admin:newUser.staffRole')}
                   </label>
                   <select
-                    title={t('translation:admin.newUser.staffRolTitle')}
+                    title={t('admin:newUser.staffRolTitle')}
                     className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'
                     id='role'
                     value={roleid}
@@ -240,7 +239,7 @@ const AdminNewUser: React.FC = () => {
                       setStaff(1);
                     }}>
                     <option value='' disabled>
-                      {t('translation:admin.newUser.staffRolTitle')}
+                      {t('admin:newUser.staffRolTitle')}
                     </option>
                     {roles.map((role) => (
                       <option key={role.roleid} value={role.roleid}>
@@ -251,7 +250,7 @@ const AdminNewUser: React.FC = () => {
                 </div>
               )}
               <FormInput
-                label={t('translation:admin.common.email')}
+                label={t('admin:common.email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
@@ -259,17 +258,17 @@ const AdminNewUser: React.FC = () => {
               {isEmailTaken && (
                 <h2 className='text-red-500'>
                   {' '}
-                  {t('translation:admin.newUser.emailTaken')}
+                  {t('admin:newUser.emailTaken')}
                 </h2>
               )}
               <FormInput
-                label={t('translation:admin.common.firstName')}
+                label={t('admin:common.firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label={t('translation:admin.common.lastName')}
+                label={t('admin:common.lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}
@@ -277,14 +276,14 @@ const AdminNewUser: React.FC = () => {
               {userType === 'student' && (
                 <>
                   <FormInput
-                    label={t('translation:admin.common.studentNumber')}
+                    label={t('admin:common.studentNumber')}
                     placeholder='123456'
                     value={studentNumber}
                     onChange={setStudentNumber}
                   />
                   {isStudentNumberTaken && (
                     <h2 className='text-red-500'>
-                      {t('translation:admin.newUser.studentNumberTaken')}
+                      {t('admin:newUser.studentNumberTaken')}
                     </h2>
                   )}
                   <StudentGroupSelect

@@ -66,7 +66,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching worklog:', error);
-          toast.error(t('worklog.error.fetchFailed'));
+          toast.error(t('common:worklog.error.fetchFailed'));
           setIsLoading(false);
         }
       }
@@ -108,12 +108,12 @@ const TeacherWorklogCourseModify: React.FC = () => {
     if (!token) throw new Error('No token available');
 
     if (!name || !code || !startDate || !endDate || requiredHours <= 0) {
-      toast.error(t('worklog.error.requiredFields'));
+      toast.error(t('common:worklog.error.requiredFields'));
       return;
     }
 
     if (codeExists && code !== worklogData?.code) {
-      toast.error(t('worklog.error.codeExists'));
+      toast.error(t('common:worklog.error.codeExists'));
       return;
     }
 
@@ -138,19 +138,19 @@ const TeacherWorklogCourseModify: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div>{t('translation:teacher.worklog.modify.loading')}</div>;
+    return <div>{t('teacher:worklog.modify.loading')}</div>;
   }
 
   return (
     <div className='w-full'>
       <h2 className='p-3 m-auto mb-6 text-center text-gray-800 bg-white rounded-lg font-heading w-fit text-md sm:text-2xl'>
-        {t('translation:teacher.worklog.modify.title')}
+        {t('teacher:worklog.modify.title')}
       </h2>
       <form className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
         <div className='mt-2 mb-4'>
           <GeneralLinkButton
             path='/teacher/worklog'
-            text={t('translation:teacher.worklog.modify.backToWorklog')}
+            text={t('teacher:worklog.modify.backToWorklog')}
           />
         </div>
 
@@ -177,7 +177,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel2a-content'
             id='panel2a-header'>
-            {t('translation:teacher.worklog.modify.instructors')}
+            {t('teacher:worklog.modify.instructors')}
           </AccordionSummary>
           <AccordionDetails>
             <AddTeachers
@@ -194,7 +194,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
             className='w-1/2 px-4 py-2 text-white transition font-heading bg-metropolia-trend-green hover:bg-green-600 rounded-xl focus:outline-hidden focus:shadow-outline'
             type='button'
             onClick={handleSubmit}>
-            {t('translation:teacher.worklog.modify.save')}
+            {t('teacher:worklog.modify.save')}
           </button>
         </div>
       </form>

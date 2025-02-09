@@ -30,7 +30,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
  * @returns {JSX.Element} The rendered Login component.
  */
 const Login: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['common']);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [alert, setAlert] = useState<string | null>('');
@@ -105,7 +105,7 @@ const Login: React.FC = () => {
   return (
     <div className='w-full' role='main'>
       <h1 className='mb-6 font-semibold text-center text-gray-800 text-md sm:text-2xl'>
-        {t('translation:login.title', 'Sign in using your Metropolia Account')}
+        {t('common:login.title', 'Sign in using your Metropolia Account')}
       </h1>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
       <form
@@ -116,10 +116,8 @@ const Login: React.FC = () => {
           <label
             className='block mb-2 text-sm text-gray-700 font-heading sm:text-lg'
             htmlFor='username'>
-            {t('translation:login.username')} <span aria-hidden='true'>*</span>
-            <span className='sr-only'>
-              ({t('translation:common.required')})
-            </span>
+            {t('common:login.username')} <span aria-hidden='true'>*</span>
+            <span className='sr-only'>({t('common:required')})</span>
           </label>
           <input
             className={`w-full px-3 py-2 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline ${
@@ -128,10 +126,7 @@ const Login: React.FC = () => {
             id='username'
             type='text'
             ref={usernameRef}
-            placeholder={t(
-              'login.usernamePlaceholder',
-              'Enter your Metropolia username',
-            )}
+            placeholder={t('common:login.usernamePlaceholder')}
             aria-label='Metropolia username'
             aria-required='true'
             aria-invalid={!!validationErrors.username}
@@ -153,10 +148,8 @@ const Login: React.FC = () => {
           <label
             className='block mb-2 text-sm text-gray-700 font-heading sm:text-lg'
             htmlFor='password'>
-            {t('translation:login.password')} <span aria-hidden='true'>*</span>
-            <span className='sr-only'>
-              ({t('translation:common.required')})
-            </span>
+            {t('common:login.password')} <span aria-hidden='true'>*</span>
+            <span className='sr-only'>({t('common:required')})</span>
           </label>
           <div
             className='relative flex items-center justify-between gap-1'
@@ -175,14 +168,11 @@ const Login: React.FC = () => {
               aria-describedby={
                 validationErrors.password ? 'password-error' : undefined
               }
-              placeholder={t(
-                'login.passwordPlaceholder',
-                'Enter your Metropolia password',
-              )}
+              placeholder={t('common:login.passwordPlaceholder')}
             />
             <IconButton
               aria-label={t(
-                'login.togglePassword',
+                'common:login.togglePassword',
                 `${showPassword ? 'Hide' : 'Show'} password`,
               )}
               onClick={handleClickShowPassword}
@@ -205,8 +195,8 @@ const Login: React.FC = () => {
           <button
             className='w-1/2 px-4 py-2 text-white font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange rounded-xl focus:outline-hidden'
             type='submit'
-            aria-label={t('translation:login.signIn', 'Sign In')}>
-            {t('translation:login.signIn', 'Sign In')}
+            aria-label={t('common:login.signIn', 'Sign In')}>
+            {t('common:login.signIn', 'Sign In')}
           </button>
         </div>
         <div className='mt-10 text-center'>
@@ -215,11 +205,8 @@ const Login: React.FC = () => {
             className='font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
             target='_blank'
             rel='noopener noreferrer'
-            aria-label={t(
-              'login.forgotPassword',
-              'Reset your password (opens in new tab)',
-            )}>
-            {t('translation:login.forgotPasswordLink', 'Forgot your password?')}
+            aria-label={t('common:login.forgotPassword')}>
+            {t('common:login.forgotPasswordLink', 'Forgot your password?')}
           </a>
         </div>
       </form>

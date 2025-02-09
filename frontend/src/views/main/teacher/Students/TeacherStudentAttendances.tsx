@@ -96,7 +96,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
 
   // If the attendance data is not available, return a loading message
   if (!attendanceData) {
-    return <div>{t('translation:teacher.studentAttendances.loading')}</div>;
+    return <div>{t('teacher:studentAttendances.loading')}</div>;
   }
 
   // Function to handle sort option change
@@ -150,18 +150,13 @@ const TeacherStudentCourseAttendance: React.FC = () => {
         <div className='flex flex-col flex-wrap items-center justify-around gap-5 md:flex-row md:gap-0'>
           <input
             type='text'
-            placeholder={t(
-              'translation:teacher.studentAttendances.search.placeholder',
-            )}
+            placeholder={t('teacher:studentAttendances.search.placeholder')}
             value={searchTerm}
             onChange={handleSearchChange}
             className='md:w-[10em] p-4 m-2 border border-black rounded-sm'
           />
           <div className='flex gap-10 md:gap-2'>
-            <Tooltip
-              title={t(
-                'translation:teacher.studentAttendances.buttons.printPdf',
-              )}>
+            <Tooltip title={t('teacher:studentAttendances.buttons.printPdf')}>
               <button
                 onClick={handleExportToPDF}
                 className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
@@ -169,9 +164,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
               </button>
             </Tooltip>
             <Tooltip
-              title={t(
-                'translation:teacher.studentAttendances.buttons.exportExcel',
-              )}>
+              title={t('teacher:studentAttendances.buttons.exportExcel')}>
               <button
                 onClick={handleExportToExcel}
                 className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
@@ -181,9 +174,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
           </div>
           <FormControl className='mt-2 md:w-1/4 md:mt-0'>
             <div className='flex items-center gap-3 md:flex-none md:items-none'>
-              <label>
-                {t('translation:teacher.studentAttendances.sort.label')}
-              </label>
+              <label>{t('teacher:studentAttendances.sort.label')}</label>
               <Select
                 className='favorite-selector'
                 value={sortOption}
@@ -192,9 +183,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
                   <div className='item-selector'>
                     <AutorenewIcon className='highest-star-selector-icon' />
                     <span className='selector-text'>
-                      {t(
-                        'translation:teacher.studentAttendances.sort.allTopics',
-                      )}
+                      {t('teacher:studentAttendances.sort.allTopics')}
                     </span>
                   </div>
                 </MenuItem>
@@ -221,7 +210,7 @@ const TeacherStudentCourseAttendance: React.FC = () => {
 
   return (
     <div className='p-3 m-10 text-3xl text-center bg-white rounded-lg font-heading'>
-      {t('translation:teacher.studentAttendances.noData')}
+      {t('teacher:studentAttendances.noData')}
     </div>
   );
 };

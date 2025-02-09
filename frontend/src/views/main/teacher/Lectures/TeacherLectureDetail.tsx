@@ -125,20 +125,20 @@ const TeacherLectureDetail = () => {
         <button
           onClick={() => navigate('/teacher/lectures')}
           className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200'>
-          {t('translation:teacher.lectures.details.back')}
+          {t('teacher:lectures.details.back')}
         </button>
         <div className='space-x-2'>
           {lecture?.state === 'open' && (
             <button
               onClick={handleClose}
               className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-trend-green hover:bg-green-700'>
-              {t('translation:teacher.lectures.details.closeLecture')}
+              {t('teacher:lectures.details.closeLecture')}
             </button>
           )}
           <button
             onClick={handleDelete}
             className='px-4 py-2 text-sm font-medium text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700'>
-            {t('translation:teacher.lectures.details.deleteLecture')}
+            {t('teacher:lectures.details.deleteLecture')}
           </button>
         </div>
       </div>
@@ -146,7 +146,7 @@ const TeacherLectureDetail = () => {
       <div className='p-6 '>
         {lecture.attended === 0 && (
           <div className='mb-4 text-sm text-metropolia-support-red font-heading'>
-            {t('translation:teacher.lectures.details.warning')}
+            {t('teacher:lectures.details.warning')}
           </div>
         )}
 
@@ -163,7 +163,7 @@ const TeacherLectureDetail = () => {
           <div className='grid grid-cols-2 gap-4'>
             <div>
               <div className='mb-1 text-sm text-gray-600 font-heading'>
-                {t('translation:teacher.lectures.details.date')}
+                {t('teacher:lectures.details.date')}
               </div>
               <div className='font-medium'>
                 {new Date(lecture.start_date).toLocaleDateString()}
@@ -171,7 +171,7 @@ const TeacherLectureDetail = () => {
             </div>
             <div>
               <div className='mb-1 text-sm text-gray-600 font-heading'>
-                {t('translation:teacher.lectures.details.time')}
+                {t('teacher:lectures.details.time')}
               </div>
               <div className='font-medium'>{lecture.timeofday}</div>
             </div>
@@ -180,7 +180,7 @@ const TeacherLectureDetail = () => {
           <div className='p-4 rounded-lg bg-gray-50'>
             <div className='flex items-center justify-between mb-4'>
               <span className='text-sm text-gray-600 font-heading'>
-                {t('translation:teacher.lectures.details.attendance')}
+                {t('teacher:lectures.details.attendance')}
               </span>
               <div>
                 <span className='font-bold text-metropolia-trend-green'>
@@ -195,7 +195,7 @@ const TeacherLectureDetail = () => {
 
             <div className='flex items-center justify-between'>
               <span className='text-sm text-gray-600 font-heading'>
-                {t('translation:teacher.lectures.details.ratio')}
+                {t('teacher:lectures.details.ratio')}
               </span>
               <span className='font-bold'>
                 {Math.round(
@@ -210,7 +210,7 @@ const TeacherLectureDetail = () => {
 
           <div className='flex items-center justify-between'>
             <div className='text-sm text-gray-600 font-heading'>
-              {t('translation:teacher.lectures.details.status')}
+              {t('teacher:lectures.details.status')}
             </div>
             <span
               className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -228,21 +228,21 @@ const TeacherLectureDetail = () => {
 
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>
-          {t('translation:teacher.lectures.details.confirmDialog.title', {
+          {t('teacher:lectures.details.confirmDialog.title', {
             action,
           })}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('translation:teacher.lectures.details.confirmDialog.message')}
+            {t('teacher:lectures.details.confirmDialog.message')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color='primary'>
-            {t('translation:teacher.lectures.details.confirmDialog.cancel')}
+            {t('teacher:lectures.details.confirmDialog.cancel')}
           </Button>
           <Button onClick={handleConfirm} color='primary' autoFocus>
-            {t('translation:teacher.lectures.details.confirmDialog.confirm')}
+            {t('teacher:lectures.details.confirmDialog.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

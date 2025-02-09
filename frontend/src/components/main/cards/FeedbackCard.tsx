@@ -8,13 +8,13 @@ interface FeedbackCardProps {
 }
 
 const FeedbackCard: React.FC<FeedbackCardProps> = ({role}) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['admin']);
   return (
     <Card
       path={'/' + role + '/feedback'}
-      title={t('translation:admin.feedback.title')}
+      title={t('admin:feedback.title')}
       icon={Support}
-      description={t('translation:admin.feedback.description')}
+      description={t('admin:feedback.description')}
     />
   );
 };

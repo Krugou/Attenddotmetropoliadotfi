@@ -174,10 +174,10 @@ const TeacherWorklogCourseGroupStats = () => {
       <div className='flex items-center justify-between mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}
-          text={t('translation:common.back')}
+          text={t('common:back')}
         />
         <h1 className='text-2xl font-heading'>
-          {t('translation:teacher.worklog.stats.studentProgress')}
+          {t('teacher:worklog.stats.studentProgress')}
         </h1>
         <div className='w-[100px]'></div>
       </div>
@@ -190,7 +190,7 @@ const TeacherWorklogCourseGroupStats = () => {
             aria-controls='summary-content'
             id='summary-header'>
             <h2 className='text-xl font-heading'>
-              {t('translation:teacher.worklog.stats.totalProgress')}
+              {t('teacher:worklog.stats.totalProgress')}
             </h2>
           </AccordionSummary>
           <AccordionDetails className='bg-white rounded-b-lg'>
@@ -241,11 +241,11 @@ const TeacherWorklogCourseGroupStats = () => {
 
                 <div className='mt-4 text-center'>
                   <p>
-                    {t('translation:teacher.worklog.stats.required')}:{' '}
+                    {t('teacher:worklog.stats.required')}:{' '}
                     {requiredHours * students.length}h
                   </p>
                   <p>
-                    {t('translation:teacher.worklog.stats.totalCompleted')}:{' '}
+                    {t('teacher:worklog.stats.totalCompleted')}:{' '}
                     {totalCompletedHours.toFixed(1)}h
                   </p>
                 </div>

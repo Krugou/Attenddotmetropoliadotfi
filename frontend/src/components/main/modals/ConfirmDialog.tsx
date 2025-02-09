@@ -23,7 +23,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   setOpen,
   onConfirm,
 }) => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
 
   const handleClose = () => {
     setOpen(false);
@@ -50,13 +50,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
           onClick={handleClose}>
-          {t('translation:common.dialog.cancel')}
+          {t('common:dialog.cancel')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-support-red sm:w-fit h-fit hover:bg-metropolia-support-red'
           onClick={handleConfirm}
           autoFocus>
-          {t('translation:common.dialog.confirm')}
+          {t('common:dialog.confirm')}
         </button>
       </DialogActions>
     </Dialog>

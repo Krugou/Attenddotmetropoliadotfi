@@ -1,1 +1,54 @@
-{}
+{
+  "navigation": {
+    "help": "Hjälp",
+    "backToLogin": "Tillbaka till inloggning"
+  },
+  "help": {
+    "title": "Hjälpcenter",
+    "gettingStarted": {
+      "title": "Komma igång",
+      "description": "För att använda denna applikation behöver du ha:",
+      "item1": "Metropolia inloggningsuppgifter",
+      "item2": "Tillgång till Metropolias nätverk eller VPN",
+      "item3": "Google Chrome webbläsare (rekommenderas för bästa upplevelse)",
+      "pwa": "Denna applikation är byggd som en progressiv webbapp (PWA) optimerad för Chrome. För bästa upplevelse rekommenderar vi Chrome-webbläsaren där du kan installera den som en skrivbordsapplikation. På mobila enheter kan du lägga till appen på startskärmen: på Android, tryck på menyn (⋮) och välj \"Lägg till på startskärmen\", på iOS tryck på delningsknappen och välj \"Lägg till på hemskärmen\"."
+    },
+    "commonIssues": {
+      "title": "Vanliga problem",
+      "login": {
+        "title": "Kan inte logga in?",
+        "description": "Se till att du är ansluten till Metropolias nätverk eller VPN"
+      },
+      "connection": {
+        "title": "Anslutningsproblem?",
+        "description": "Kontrollera din internetanslutning och försök uppdatera sidan"
+      },
+      "iphone": {
+        "title": "Problem med iPhone?",
+        "description": "Om du använder en iPhone, se till att iCloud Private Relay är inaktiverat eftersom det kan störa VPN-anslutningen. Du kan inaktivera det i Inställningar > Apple-ID > iCloud > Private Relay."
+      }
+    },
+    "contact": {
+      "title": "Behöver du mer hjälp?",
+      "description": "Om du behöver ytterligare hjälp, kontakta Metropolias IT-support:",
+      "email": "E-post: kimmo.sauren@metropolia.fi"
+    }
+  },
+  "team": {
+    "title": "Utvecklingsteam",
+    "originalTeam": "Ursprungligt utvecklingsteam",
+    "additionalTeam": "Ytterligare utveckling",
+    "jakDescription": "Initialerna bildar akronymen \"JAK\"",
+    "roles": {
+      "originalDev": "Ursprunglig utvecklare",
+      "additionalDev": "Ytterligare utvecklare"
+    },
+    "viewGithub": "Visa GitHub-profil"
+  },
+  "about": {
+    "title": "Om Metropolia Attendance-appen",
+    "description": "Metropolia Attendance är ett omfattande närvarohanteringssystem särskilt utformat för Metropolia yrkeshögskola. Denna plattform representerar ett betydande steg framåt i moderniseringen av hur vi hanterar och registrerar studenternas deltagande i akademiska aktiviteter.",
+    "modernization": "Vårt system effektiviserar den traditionella närvarohanteringsprocessen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder realtidsspårning, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
+    "benefits": "För studenter erbjuder plattformen ett enkelt sätt att markera sin närvaro och följa sin deltagandehistorik. Lärare drar nytta av automatiserad närvarohantering, vilket låter dem fokusera mer på undervisning och mindre på administrativa uppgifter."
+  }
+}

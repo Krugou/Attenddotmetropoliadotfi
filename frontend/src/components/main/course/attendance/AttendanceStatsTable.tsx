@@ -73,7 +73,8 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
 }) => {
   // State to keep track of the fetched data
   const [fetchedData, setFetchedData] = useState<FetchedDataItem | null>(null);
-
+  const {user} = useContext(UserContext);
+  const navigate = useNavigate();
   const topics = allAttendanceCounts
     ? allAttendanceCounts.map((item) => item.topicname)
     : fetchedData?.topics || [];
@@ -106,8 +107,7 @@ const AttendanceStatsTable: React.FC<AttendanceStatsTableProps> = ({
 
     fetchData();
   }, [usercourseid]);
-  const {user} = useContext(UserContext);
-  const navigate = useNavigate();
+
 
   const handleStudentClick = (studentId: number) => {
     const targetPath =

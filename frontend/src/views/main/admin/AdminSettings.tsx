@@ -102,10 +102,10 @@ const AdminSettings = () => {
       <div className='grid gap-6'>
         <div>
           <h1 className='mb-4 text-2xl font-heading text-metropolia-main-orange md:text-3xl'>
-            {t('translation:admin.settings.serverSettings')}
+            {t('admin:settings.serverSettings')}
           </h1>
           <p className='mb-6 text-gray-600 font-body'>
-            {t('translation:admin.settings.serverSettingsDesc')}
+            {t('admin:settings.serverSettingsDesc')}
           </p>
         </div>
 
@@ -121,19 +121,18 @@ const AdminSettings = () => {
 
         <div>
           <h2 className='mb-4 text-xl font-heading text-metropolia-main-grey'>
-            {t('translation:admin.settings.currentSettings')}:
+            {t('admin:settings.currentSettings')}:
           </h2>
           <div className='space-y-3 text-gray-700 font-body'>
             <p>
-              {t('translation:admin.settings.speedOfHash')}:{' '}
+              {t('admin:settings.speedOfHash')}:{' '}
               {(speedofhash / 1000).toFixed(2)} seconds
             </p>
             <p>
-              {t('translation:admin.settings.hashSpeedMultiplier')}:{' '}
-              {leewayspeed}
+              {t('admin:settings.hashSpeedMultiplier')}: {leewayspeed}
             </p>
             <p>
-              {t('translation:admin.settings.leeway')}:
+              {t('admin:settings.leeway')}:
               {Math.floor((speedofhash * leewayspeed) / 3600000) > 0 &&
                 `${Math.floor((speedofhash * leewayspeed) / 3600000)} hours `}
               {Math.floor(((speedofhash * leewayspeed) % 3600000) / 60000) >
@@ -149,7 +148,7 @@ const AdminSettings = () => {
                 )} seconds`}
             </p>
             <p>
-              {t('translation:admin.settings.timeOut')}:
+              {t('admin:settings.timeOut')}:
               {Math.floor(timeouttime / 3600000) > 0 &&
                 `${Math.floor(timeouttime / 3600000)} hours `}
               {Math.floor((timeouttime % 3600000) / 60000) > 0 &&
@@ -158,8 +157,7 @@ const AdminSettings = () => {
                 `${((timeouttime % 60000) / 1000).toFixed(2)} seconds`}
             </p>
             <p>
-              {t('translation:admin.settings.attendanceThreshold')}:{' '}
-              {attendancethreshold}%
+              {t('admin:settings.attendanceThreshold')}: {attendancethreshold}%
             </p>
           </div>
         </div>
@@ -225,7 +223,7 @@ const AdminSettings = () => {
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-metropolia-main-orange hover:bg-metropolia-main-orange/90 focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange focus:ring-offset-2'
             }`}>
-          {t('translation:admin.settings.updateSettings')}
+          {t('admin:settings.updateSettings')}
         </button>
       </div>
     </div>

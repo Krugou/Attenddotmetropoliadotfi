@@ -186,7 +186,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
   };
 
   console.log(selectedCourse, 'SELECTED COURSE');
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher']);
   return (
     <div className={`grid ${additionalClasses} gap-4 mt-4`}>
       {courses
@@ -243,34 +243,28 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                 </h2>
                 <p className='mb-1'>
                   <strong>
-                    {t(
-                      'translation:teacher.studentCourse.labels.assignedTopics',
-                    )}
+                    {t('teacher:studentCourse.labels.assignedTopics')}
                   </strong>{' '}
                   {topics}
                 </p>
                 {user?.role !== 'student' && (
                   <p className='mb-1'>
                     <strong>
-                      {t('translation:teacher.studentCourse.labels.allTopics')}
+                      {t('teacher:studentCourse.labels.allTopics')}
                     </strong>{' '}
                     {course?.topic_names.replace(/,/g, ', ')}
                   </p>
                 )}
                 <p className='mb-1'>
-                  <strong>
-                    {t('translation:teacher.studentCourse.labels.startDate')}
-                  </strong>{' '}
+                  <strong>{t('teacher:studentCourse.labels.startDate')}</strong>{' '}
                   {startDate}
                 </p>
                 <p className='mb-1'>
-                  <strong>
-                    {t('translation:teacher.studentCourse.labels.endDate')}
-                  </strong>{' '}
+                  <strong>{t('teacher:studentCourse.labels.endDate')}</strong>{' '}
                   {endDateString}
                 </p>
                 <h2 className='mt-2 text-lg text-gray-700 font-heading'>
-                  {t('translation:teacher.studentCourse.labels.instructors')}
+                  {t('teacher:studentCourse.labels.instructors')}
                 </h2>
                 <ul>
                   {course.instructor_name
@@ -297,7 +291,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                               : `/${user?.role}/students/attendance/${course.usercourseid}`,
                           )
                     }>
-                    {t('translation:teacher.studentCourse.buttons.attendance')}
+                    {t('teacher:studentCourse.buttons.attendance')}
                   </button>
                   {user?.role !== 'student' && (
                     <>
@@ -315,9 +309,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                             allTopicsArray,
                           )
                         }>
-                        {t(
-                          'translation:teacher.studentCourse.buttons.editTopics',
-                        )}
+                        {t('teacher:studentCourse.buttons.editTopics')}
                       </button>
                       <Tooltip
                         title={t(
@@ -390,7 +382,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                   d='M12 6v6m0 0v6m0-6h6m-6 0H6'
                 />
               </svg>
-              {t('translation:teacher.studentCourse.buttons.addStudent')}
+              {t('teacher:studentCourse.buttons.addStudent')}
             </button>
           </div>
           <Modal open={editCourseOpen} onClose={handleCloseEditCourse}>
@@ -413,9 +405,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={t(
-                          'translation:teacher.studentCourse.labels.searchCourses',
-                        )}
+                        label={t('teacher:studentCourse.labels.searchCourses')}
                         margin='normal'
                         variant='outlined'
                       />
@@ -460,7 +450,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                         handleAddStudentToCourse(selectedCourse?.courseid);
                       handleCloseEditCourse();
                     }}>
-                    {t('translation:teacher.studentCourse.buttons.addToCourse')}
+                    {t('teacher:studentCourse.buttons.addToCourse')}
                   </button>
                 </div>
               </div>
