@@ -69,7 +69,7 @@ const StudentWorklogs: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching worklog entries:', error);
-        toast.error(t('worklog.errors.fetchFailed'));
+        toast.error(t('worklog.error.fetchFailed'));
       } finally {
         setLoading(false);
       }
@@ -195,24 +195,23 @@ const StudentWorklogs: React.FC = () => {
               </div>
             </div>
           </div>
-          {showCalendar && (
-            <Calendar
-              // @ts-ignore
-              onChange={handleDateChange}
-              value={selectedDate}
-              className='bg-white border rounded-md shadow-sm'
-              tileContent={({date}) => {
-                const dateStr = dayjs(date).format('YYYY-MM-DD');
-                const hasWorklog = worklogDates.includes(dateStr);
-                return hasWorklog ? (
-                  <div className='w-2 h-2 bg-metropolia-main-orange rounded-full mx-auto mt-1'></div>
-                ) : null;
-              }}
-            />
-          )}
         </div>
       </div>
-
+      {showCalendar && (
+        <Calendar
+          // @ts-ignore
+          onChange={handleDateChange}
+          value={selectedDate}
+          className='bg-white border rounded-md shadow-sm'
+          tileContent={({date}) => {
+            const dateStr = dayjs(date).format('YYYY-MM-DD');
+            const hasWorklog = worklogDates.includes(dateStr);
+            return hasWorklog ? (
+              <div className='w-2 h-2 bg-metropolia-main-orange rounded-full mx-auto mt-1'></div>
+            ) : null;
+          }}
+        />
+      )}
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {filteredEntries.map((entry) => (
           <div
