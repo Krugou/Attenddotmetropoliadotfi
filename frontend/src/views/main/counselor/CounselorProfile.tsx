@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered CounselorProfile component.
  */
 const CounselorProfile: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['counselor']);
   /**
    * User context.
    *
@@ -24,7 +24,7 @@ const CounselorProfile: React.FC = () => {
    * If no user data is available, render an error message.
    */
   if (!user) {
-    return <div>{t('translation:counselor.profile.noDataAvailable')}</div>;
+    return <div>{t('counselor:profile.noDataAvailable')}</div>;
   }
   /**
    * Render the profile of the counselor.
@@ -35,7 +35,7 @@ const CounselorProfile: React.FC = () => {
   return (
     <div className='flex flex-col items-center justify-center p-5 font-body bg-white rounded-lg h-fit sm:p-10'>
       <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
-        {t('translation:counselor.profile.title')}
+        {t('counselor:profile.title')}
       </h1>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />

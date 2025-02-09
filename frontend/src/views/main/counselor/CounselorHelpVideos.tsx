@@ -14,11 +14,11 @@ import {useTranslation} from 'react-i18next';
  * @returns {JSX.Element} The rendered CounselorHelpVideos component.
  */
 const CounselorHelpVideos: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['counselor']);
   return (
     <div className='w-full p-5'>
       <h1 className='p-3 mb-10 ml-auto mr-auto text-2xl font-heading text-center bg-white rounded-lg w-fit'>
-        {t('translation:counselor.helpVideos.counselorHelpVideos')}
+        {t('counselor:helpVideos.counselorHelpVideos')}
       </h1>
       <div className='flex flex-col space-y-6'>
         <VideoDropdown

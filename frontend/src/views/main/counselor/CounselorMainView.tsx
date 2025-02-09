@@ -15,36 +15,36 @@ import WelcomeModal from '../../../components/main/modals/WelcomeModal';
  * @returns {JSX.Element} The rendered CounselorMainView component.
  */
 const CounselorMainView: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['counselor']);
   return (
     <>
       <MainViewTitle role={'Counselor'} />
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/counselor/students'
-          title={t('translation:counselor.mainView.students')}
-          description={t('translation:counselor.mainView.studentsDesc')}
+          title={t('counselor:mainView.students')}
+          description={t('counselor:mainView.studentsDesc')}
           icon={People}
         />
 
         <Card
           path='/counselor/helpvideos'
-          title={t('translation:counselor.mainView.instructions')}
-          description={t('translation:counselor.mainView.instructionsDesc')}
+          title={t('counselor:mainView.instructions')}
+          description={t('counselor:mainView.instructionsDesc')}
           icon={Help}
         />
         <Card
           path='/counselor/courses/stats'
-          title={t('translation:counselor.mainView.attendanceStatistics')}
+          title={t('counselor:mainView.attendanceStatistics')}
           description={t(
-            'translation:counselor.mainView.attendanceStatisticsDesc',
+            'counselor:mainView.attendanceStatisticsDesc',
           )}
           icon={Assessment}
         />
         <Card
           path='/counselor/lateenrollment'
-          title={t('translation:counselor.mainView.lateEnrollment')}
-          description={t('translation:counselor.mainView.lateEnrollmentDesc')}
+          title={t('counselor:mainView.lateEnrollment')}
+          description={t('counselor:mainView.lateEnrollmentDesc')}
           icon={PersonAdd}
         />
         <FeedbackCard role='counselor' />
