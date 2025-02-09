@@ -197,6 +197,7 @@ const StudentWorklogs: React.FC = () => {
           </div>
           {showCalendar && (
             <Calendar
+              // @ts-ignore
               onChange={handleDateChange}
               value={selectedDate}
               className='bg-white border rounded-md shadow-sm'
