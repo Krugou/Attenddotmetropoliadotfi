@@ -147,6 +147,23 @@
       },
       "delete": {
         "deleteAttendance": "Poista läsnäolo"
+      },
+      "table": {
+        "headers": {
+          "lectureId": "Luennon ID",
+          "courseName": "Kurssin nimi",
+          "courseCode": "Kurssin koodi",
+          "topicName": "Aiheen nimi",
+          "date": "Päivämäärä",
+          "timeOfDay": "ap/ip",
+          "attendance": "Läsnäolo",
+          "totalAttendance": "Läsnäolo yhteensä",
+          "studentsWithTopic": "Opiskelijat tämän aiheen kanssa",
+          "ratio": "Suhdeluku(%)",
+          "state": "Tila",
+          "actions": "Toiminnot",
+          "technicalDetails": "Tekniset tiedot"
+        }
       }
     },
     "adminStats": {
@@ -578,7 +595,7 @@
           "courseCode": "Kurssin koodi",
           "topicName": "Aiheen nimi",
           "date": "Päivämäärä",
-          "timeOfDay": "am/pm",
+          "timeOfDay": "ap/ip",
           "attendance": "Läsnäolo",
           "totalAttendance": "Läsnäolo yhteensä",
           "studentsWithTopic": "Opiskelijat tämän aiheen kanssa",
@@ -1041,7 +1058,8 @@
     "back": "Takaisin",
     "confirm": "Vahvista",
     "view": "Näytä",
-    "close": "Sulje"
+    "close": "Sulje",
+    "user": "Käyttäjä"
   },
   "editTopics": {
     "title": "Muokkaa aiheita kurssille {{courseName}}",
@@ -1329,5 +1347,12 @@
     "deleteError": "Kohteen poistaminen epäonnistui",
     "loadingError": "Virhe tietojen lataamisessa",
     "sessionExpired": "Istuntosi on vanhentunut, kirjaudu sisään uudelleen"
+  },
+  "attendance": {
+    "status": {
+      "absent": "Poissa",
+      "present": "Läsnä",
+      "acceptedAbsence": "Hyväksytty poissaolo"
+    }
   }
 }

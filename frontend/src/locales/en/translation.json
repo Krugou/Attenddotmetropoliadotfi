@@ -147,6 +147,12 @@
       },
       "delete": {
         "deleteAttendance": "Delete attendance"
+      },
+      "table": {
+        "headers": {
+          "timeOfDay": "am/pm",
+          "date": "Date"
+        }
       }
     },
     "adminStats": {
@@ -1047,7 +1053,8 @@
     "close": "Close",
     "save": "Save Changes",
     "confirm": "Confirm",
-    "view": "View"
+    "view": "View",
+    "user": "User"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",
@@ -1336,5 +1343,12 @@
     "deleteError": "Failed to delete item",
     "loadingError": "Error loading data",
     "sessionExpired": "Your session has expired, please log in again"
+  },
+  "attendance": {
+    "status": {
+      "absent": "Absent",
+      "present": "Present",
+      "acceptedAbsence": "Accepted absence"
+    }
   }
 }

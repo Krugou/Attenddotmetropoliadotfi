@@ -147,6 +147,12 @@
       },
       "delete": {
         "deleteAttendance": "Radera närvaro"
+      },
+      "table": {
+        "headers": {
+          "timeOfDay": "fm/em",
+          "date": "Datum"
+        }
       }
     },
     "adminStats": {
@@ -882,7 +888,7 @@
     },
     "worklog": {
       "create": {
-       "title": "Lägg till ny arbetsdagbokskurs"
+        "title": "Lägg till ny arbetsdagbokskurs"
       },
       "errors": {
         "createFailed": "Det gick inte att skapa arbetsloggskurs"
@@ -1022,10 +1028,11 @@
     "create": "Skapa",
     "creating": "Skapar...",
     "back": "Tillbaka",
-    "close":"Stäng detta fönster",
-    "save":"Spara ändringar",
+    "close": "Stäng detta fönster",
+    "save": "Spara ändringar",
     "confirm": "Bekräfta",
-    "view": "Visa"
+    "view": "Visa",
+    "user": "Användare"
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
@@ -1231,25 +1238,25 @@
     "backToLogin": "Tillbaka till inloggning"
   },
   "feedback": {
-      "header": "Hjälp oss att utvecklas, {{username}}, genom att ge feedback.",
-      "topicLabel": "Feedback ämne",
-      "textLabel": "Feedback text",
-      "selectTopic": "Välj ämne",
-      "placeholder": "Skriv din feedback här...",
-      "submit": "Skicka",
-      "submitSuccess": "Din feedback har skickats framgångsrikt!",
-      "submitError": "Det uppstod ett fel när feedbacken skulle skickas.",
-      "topics": {
-        "Qr Code Scanning": "QR-kodskanning",
-        "User Interface / Accessibility": "Användargränssnitt / Tillgänglighet",
-        "Attendance info": "Närvaroinformation",
-        "Course Creation": "Kursskapande",
-        "Lecture Creation": "Föreläsningsskapande",
-        "Attendance gathering": "Närvaroregistrering",
-        "Course/Student info": "Kurs-/Studentinformation",
-        "Other": "Övrigt"
-      }
-    },
+    "header": "Hjälp oss att utvecklas, {{username}}, genom att ge feedback.",
+    "topicLabel": "Feedback ämne",
+    "textLabel": "Feedback text",
+    "selectTopic": "Välj ämne",
+    "placeholder": "Skriv din feedback här...",
+    "submit": "Skicka",
+    "submitSuccess": "Din feedback har skickats framgångsrikt!",
+    "submitError": "Det uppstod ett fel när feedbacken skulle skickas.",
+    "topics": {
+      "Qr Code Scanning": "QR-kodskanning",
+      "User Interface / Accessibility": "Användargränssnitt / Tillgänglighet",
+      "Attendance info": "Närvaroinformation",
+      "Course Creation": "Kursskapande",
+      "Lecture Creation": "Föreläsningsskapande",
+      "Attendance gathering": "Närvaroregistrering",
+      "Course/Student info": "Kurs-/Studentinformation",
+      "Other": "Övrigt"
+    }
+  },
   "header": {
     "developmentMode": "I utvecklingsläge",
     "profile": "Profil",
@@ -1272,7 +1279,8 @@
       "additionalDev": "Ytterligare utvecklare"
     },
     "viewGithub": "Visa GitHub-profil"
-  }, "about": {
+  },
+  "about": {
     "title": "Om Metropolia Attendance-appen",
     "description": "Metropolia Attendance är ett omfattande närvarohanteringssystem särskilt utformat för Metropolia yrkeshögskola. Denna plattform representerar ett betydande steg framåt i moderniseringen av hur vi hanterar och registrerar studenternas deltagande i akademiska aktiviteter.",
     "modernization": "Vårt system effektiviserar den traditionella närvarohanteringsprocessen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder realtidsspårning, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
@@ -1289,5 +1297,12 @@
     "deleteError": "Det gick inte att radera objektet",
     "loadingError": "Fel vid laddning av data",
     "sessionExpired": "Din session har gått ut, logga in igen"
+  },
+  "attendance": {
+    "status": {
+      "absent": "Frånvarande",
+      "present": "Närvarande",
+      "acceptedAbsence": "Godkänd frånvaro"
+    }
   }
 }
