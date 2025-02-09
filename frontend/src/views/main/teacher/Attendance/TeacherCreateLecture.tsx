@@ -372,7 +372,7 @@ const CreateLecture: React.FC = () => {
               onDelete={() => handleDelete(lecture.lectureid)}
             />
           ))}
-          <div className='flex flex-col items-center justify-center w-full p-1 m-auto bg-gray-100 rounded-lg 2xl:w-3/6 lg:w-4/6 sm:p-5'>
+          <div className='flex flex-col items-center justify-center w-full p-1 m-auto bg-metropolia-support-white rounded-lg 2xl:w-3/6 lg:w-4/6 sm:p-5'>
             <CheckOpenLectures />
             <h1 className='p-2 mt-5 mb-8 text-lg font-heading sm:text-2xl'>
               {t('teacher.createLecture.title')}
@@ -382,11 +382,11 @@ const CreateLecture: React.FC = () => {
             </h2>
 
             <div className='flex justify-center w-full'>
-              <div className='flex flex-col w-1/4 gap-3 sm:gap-5'>
+              <div className='flex  flex-col w-1/4 gap-3 sm:gap-5'>
                 <label
                   className='flex justify-end sm:text-xl text-md'
                   htmlFor='course'>
-                  <div className='flex items-center'>
+                  <div className='flex items-center '>
                     <Tooltip
                       title={t(
                         `teacher.createLecture.courseSection.tooltips.${
@@ -428,13 +428,13 @@ const CreateLecture: React.FC = () => {
                   {t('teacher.createLecture.courseSection.topicLabel')}
                 </label>
               </div>
-              <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12'>
+              <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12 '>
                 <select
                   title={t(
                     'teacher.createLecture.courseSection.tooltips.pickCourse',
                   )}
                   id='course'
-                  className='block h-8 mt-1 ml-1 mr-3 cursor-pointer sm:ml-5'
+                  className='block h-8 mt-1 ml-1 mr-3 cursor-pointer sm:ml-5 border-1 border-black/20 rounded-xl p-1'
                   value={selectedSession}
                   onClick={() => {
                     if (courses.length === 0) {
@@ -491,7 +491,7 @@ const CreateLecture: React.FC = () => {
                     'teacher.createLecture.courseSection.tooltips.pickTopic',
                   )}
                   id='topic'
-                  className='block h-8 ml-1 mr-3 cursor-pointer sm:ml-5 sm:mt-2 mt-none'
+                  className='block h-8 ml-1 mr-3 cursor-pointer sm:ml-5 sm:mt-2 mt-none border-1 border-black/20 rounded-xl p-1'
                   value={selectedTopic}
                   onChange={(e) => {
                     const index = e.target.selectedIndex;
@@ -511,7 +511,7 @@ const CreateLecture: React.FC = () => {
               </div>
             </div>
 
-            <div className='w-4/5 h-1 mt-10 rounded-md bg-metropolia-main-orange'></div>
+            <div className='w-4/5 h-1 mt-10 rounded-xl bg-metropolia-main-orange'></div>
             <h2 className='p-4 mt-2 text-xl'>
               {t('teacher.createLecture.dateSection.heading')}
             </h2>
@@ -529,7 +529,7 @@ const CreateLecture: React.FC = () => {
                   ref={inputRef}
                   type='text'
                   aria-label='Date'
-                  className='py-2 pl-4 pr-4 text-center border cursor-pointer rounded-xl focus:ring-3 focus:ring-metropolia-secondary-orange focus:outline-hidden'
+                  className='py-2 pl-4 pr-4 text-center  cursor-pointer rounded-xl focus:ring-3 focus:ring-metropolia-secondary-orange focus:outline-hidden border-1 border-black/20  '
                   value={
                     Array.isArray(date)
                       ? t(
@@ -567,7 +567,7 @@ const CreateLecture: React.FC = () => {
                   )}
                   value={selectedTimeOfDay}
                   onChange={(e) => setSelectedTimeOfDay(e.target.value)}
-                  className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white border border-gray-300 shadow-sm appearance-none cursor-pointer hover:border-gray-400 focus:outline-hidden focus:shadow-outline'>
+                  className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white   border-1 border-black/20 rounded-xl p-1 shadow-sm appearance-none cursor-pointer hover:border-gray-400 focus:outline-hidden focus:shadow-outline'>
                   {timeOfDay.map((option) => (
                     <option key={option} value={option}>
                       {option}
