@@ -302,5 +302,9 @@
   },
   "loginStart": "Kirjaudu",
   "status": "Tila",
-  "instructors": "Ohjaajat"
+  "instructors": "Ohjaajat",
+  "openLectureCard": {
+    "title": "Avointa luentoa löydetty, koodi: {{code}} aihe: {{topic}} !",
+    "description": "Klikkaa jatkaaksesi"
+  }
 }

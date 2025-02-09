@@ -281,5 +281,9 @@
   },
   "loginStart": "Logga in",
   "status": "Status",
-  "instructors": "Instruktörer"
+  "instructors": "Instruktörer",
+  "openLectureCard": {
+    "title": "Öppen föreläsning hittad, kod: {{code}} ämne: {{topic}} !",
+    "description": "Klicka för att fortsätta"
+  }
 }

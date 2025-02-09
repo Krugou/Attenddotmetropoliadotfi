@@ -4,7 +4,6 @@
 
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-
 import enAdmin from '../locales/en/admin.json';
 import enStudent from '../locales/en/student.json';
 import enTeacher from '../locales/en/teacher.json';
@@ -35,49 +34,31 @@ i18n
         admin: enAdmin,
         student: enStudent,
         teacher: enTeacher,
-        common: {
-          ...enCommon,
-          openLectureCard: {
-            title: 'Open lecture found, code: {{code}} topic: {{topic}} !',
-            description: 'Click to continue',
-          },
-        },
+        common: enCommon,
         counselor: enCounselor,
-        nouser: enNoUser,
+        noUser: enNoUser,
       },
       fi: {
         admin: fiAdmin,
         student: fiStudent,
         teacher: fiTeacher,
-        common: {
-          ...fiCommon,
-          openLectureCard: {
-            title: 'Avoin luento löytyi, koodi: {{code}} aihe: {{topic}} !',
-            description: 'Klikkaa jatkaaksesi',
-          },
-        },
+        common: fiCommon,
+
         counselor: fiCounselor,
-        nouser: fiNoUser,
+        noUser: fiNoUser,
       },
       sv: {
         admin: svAdmin,
         student: svStudent,
         teacher: svTeacher,
-        common: {
-          ...svCommon,
-          openLectureCard: {
-            title:
-              'Öppen föreläsning hittades, kod: {{code}} ämne: {{topic}} !',
-            description: 'Klicka för att fortsätta',
-          },
-        },
+        common: svCommon,
         counselor: svCounselor,
-        nouser: svNoUser,
+        noUser: svNoUser,
       },
     },
     lng: 'en', // Default language is English.
     fallbackLng: 'en', // Fallback language is English.
-    ns: ['admin', 'student', 'teacher', 'common', 'counselor', 'nouser'], // Namespaces to load
+    ns: ['admin', 'student', 'teacher', 'common', 'counselor', 'noUser'], // Namespaces to load
     defaultNS: 'common', // Default namespace
     interpolation: {
       escapeValue: false, // Not escape value, so it allows to use HTML in translations.

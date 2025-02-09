@@ -305,5 +305,9 @@
   },
   "loginStart": "Login",
   "status": "Status",
-  "instructors": "Instructors"
+  "instructors": "Instructors",
+  "openLectureCard": {
+    "title": "Open lecture found, code: {{code}} topic: {{topic}} !",
+    "description": "Click to continue"
+  }
 }
