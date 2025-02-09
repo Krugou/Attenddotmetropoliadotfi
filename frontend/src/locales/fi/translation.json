@@ -44,7 +44,9 @@
       },
       "search": "Hae",
       "searchPlaceholder": "Hae mistä tahansa kentästä",
-      "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla"
+      "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla",
+      "confirmDelete": "Vahvista poisto",
+      "studentGroup": "Opiskelijaryhmä"
     },
     "mainView": {
       "teacherDashboard": "Opettajan hallintapaneeli",
@@ -88,8 +90,13 @@
         "unknown": "Tuntematon virhe tapahtui",
         "loadFailed": "Kurssin tietojen lataaminen epäonnistui",
         "saveFailed": "Muutosten tallentaminen epäonnistui",
-        "permissionDenied": "Sinulla ei ole oikeuksia muokata tätä kurssia"
-      }
+        "permissionDenied": "Sinulla ei ole oikeuksia muokata tätä kurssia",
+        "modifyError": "Virhe kurssin muokkaamisessa"
+      },
+      "info": {
+        "topicChange": "Aiheet on muutettu"
+      },
+      "finish": "Valmis"
     },
     "lectures": {
       "error": {
@@ -137,6 +144,9 @@
         "noLecturesFound": "Luentoja ei löytynyt",
         "tryShowingAll": "Kokeile näyttää kaikki luennot, ei vain avoimia",
         "tryDifferentSearch": "Kokeile muuttaa hakukriteerejä"
+      },
+      "delete": {
+        "deleteAttendance": "Poista läsnäolo"
       }
     },
     "adminStats": {
@@ -252,7 +262,8 @@
       "saveButton": "Tallenna",
       "errors": {
         "emailTaken": "Opiskelijan sähköposti varattu",
-        "studentNumberTaken": "Opiskelijan numero varattu"
+        "studentNumberTaken": "Opiskelijan numero varattu",
+        "studentEmailTaken": "Sähköpostiosoite on jo käytössä"
       }
     },
     "logs": {
@@ -278,7 +289,8 @@
       "startDate": "Aloituspäivä",
       "endDate": "Päättymispäivä",
       "requiredHours": "Vaaditut tunnit",
-      "description": "Kuvaus"
+      "description": "Kuvaus",
+      "createNewWorkLog": "Luo uusi työaikakirjaus"
     }
   },
   "counselor": {
@@ -731,7 +743,8 @@
       "tooltips": {
         "customGroup": "lisää mukautettu aihealue tähän, esimerkki: \"customGroup\"",
         "customTopic": "lisää mukautetut aiheet tähän, esimerkki: \"exam\"",
-        "removeTopic": "Poista mukautettu aihe"
+        "removeTopic": "Poista mukautettu aihe",
+        "selectCourseGroup": "Valitse kurssiryhmä"
       }
     },
     "courseData": {
@@ -828,22 +841,6 @@
           }
         }
       },
-      "form": {
-        "name": "Kurssin nimi",
-        "code": "Kurssikoodi",
-        "startDate": "Alkamispäivä",
-        "endDate": "Päättymispäivä",
-        "description": "Kurssin kuvaus",
-        "submit": "Luo kurssi",
-        "requiredHours": "Vaadittu tuntimäärä",
-        "errors": {
-          "codeExists": "Työpäiväkirjakurssi tällä koodilla on jo olemassa"
-        },
-        "checking": "Tarkistetaan..."
-      },
-      "success": {
-        "courseCreated": "Työpäiväkirjakurssi luotu onnistuneesti"
-      },
       "errors": {
         "createFailed": "Työpäiväkirjakurssin luominen epäonnistui"
       },
@@ -929,7 +926,23 @@
         "remaining": "Jäljellä",
         "required": "Vaadittu",
         "totalCompleted": "Suoritettu yhteensä"
-      }
+      },
+      "deleteSuccess": "Työaikakirjaus poistettu onnistuneesti",
+      "noInstructors": "Ei määritettyjä opettajia",
+      "error": {
+        "codeExists": "Työaikakirjaus tällä koodilla on jo olemassa"
+      },
+      "success": {
+        "codeRestored": "Koodi on palautettu"
+      },
+      "form": {
+        "checking": "Tarkistetaan...",
+        "success": {
+          "codeRestored": "Koodi on palautettu"
+        }
+      },
+      "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
+      "title": "Työaikakirjaukset"
     }
   },
   "common": {
@@ -956,7 +969,8 @@
       "emailTaken": "Sähköposti varattu",
       "studentNumberTaken": "Opiskelijan numero varattu",
       "noToken": "Ei tokenia saatavilla",
-      "groupNotFound": "Ryhmää ei löytynyt"
+      "groupNotFound": "Ryhmää ei löytynyt",
+      "fillRequiredFields": "Täytä kaikki pakolliset kentät"
     },
     "email": "Sähköposti",
     "firstName": "Etunimi",
@@ -967,7 +981,10 @@
     "required": "pakollinen",
     "create": "Luo",
     "creating": "Luodaan...",
-    "back": "Takaisin"
+    "back": "Takaisin",
+    "confirm": "Vahvista",
+    "view": "Näytä",
+    "close": "Sulje"
   },
   "editTopics": {
     "title": "Muokkaa aiheita kurssille {{courseName}}",
@@ -1047,6 +1064,9 @@
       "personal": "Henkilökohtaiset tiedot",
       "account": "Tilitiedot",
       "preferences": "Asetukset"
+    },
+    "errors": {
+      "roleFetchFailed": "Roolitietojen hakeminen epäonnistui"
     }
   },
   "worklog": {
@@ -1083,6 +1103,24 @@
       "1": "Sisäänkirjautunut",
       "2": "Uloskirjautunut",
       "3": "Tarkistettu"
+    },
+    "edit": {
+      "title": "Muokkaa työaikakirjausta"
+    },
+    "error": {
+      "fetchFailed": "Tietojen hakeminen epäonnistui",
+      "requiredFields": "Täytä kaikki pakolliset kentät",
+      "codeExists": "Koodi on jo käytössä"
+    },
+    "selectCourse": "Valitse kurssi",
+    "clockIn": "Kirjaudu sisään",
+    "clockOut": "Kirjaudu ulos",
+    "description": "Kuvaus",
+    "optionalDescription": "Valinnainen kuvaus",
+    "requiredDescription": "Pakollinen kuvaus",
+    "tooltips": {
+      "modify": "Muokkaa",
+      "delete": "Poista"
     }
   },
   "languages": {

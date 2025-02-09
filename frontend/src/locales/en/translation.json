@@ -31,6 +31,8 @@
       "email": "Email",
       "studentNumber": "Student Number",
       "searchByDate": "Search by date",
+      "confirmDelete": "Confirm delete",
+      "studentGroup": "Student group",
       "deleteModal": {
         "title": "Confirmation",
         "messages": {
@@ -88,8 +90,13 @@
         "unknown": "An unknown error occurred",
         "loadFailed": "Failed to load course details",
         "saveFailed": "Failed to save changes",
-        "permissionDenied": "You don't have permission to modify this course"
-      }
+        "permissionDenied": "You don't have permission to modify this course",
+        "modifyError": "Error modifying course"
+      },
+      "info": {
+        "topicChange": "Topics have been changed"
+      },
+      "finish": "Finish"
     },
     "lectures": {
       "error": {
@@ -137,6 +144,9 @@
         "noLecturesFound": "No lectures found",
         "tryShowingAll": "Try showing all lectures instead of only open ones",
         "tryDifferentSearch": "Try adjusting your search criteria"
+      },
+      "delete": {
+        "deleteAttendance": "Delete attendance"
       }
     },
     "adminStats": {
@@ -251,7 +261,8 @@
       "saveButton": "Save",
       "errors": {
         "emailTaken": "Student email taken",
-        "studentNumberTaken": "Student number taken"
+        "studentNumberTaken": "Student number taken",
+        "studentEmailTaken": "Student email is already in use"
       }
     },
     "logs": {
@@ -277,7 +288,8 @@
       "startDate": "Start Date",
       "endDate": "End Date",
       "requiredHours": "Required Hours",
-      "description": "Description"
+      "description": "Description",
+      "createNewWorkLog": "Create new worklog"
     }
   },
   "counselor": {
@@ -730,7 +742,8 @@
       "tooltips": {
         "customGroup": "add custom topic group here example: \"customGroup\"",
         "customTopic": "add custom topics here example: \"exam\"",
-        "removeTopic": "Remove custom topic"
+        "removeTopic": "Remove custom topic",
+        "selectCourseGroup": "Select course group"
       }
     },
     "courseData": {
@@ -877,10 +890,15 @@
         "requiredHours": "Required Hours",
         "errors": {
           "codeExists": "A worklog course with this code already exists"
+        },
+        "checking": "Checking...",
+        "success": {
+          "codeRestored": "Code has been restored"
         }
       },
       "success": {
-        "courseCreated": "Work log course created successfully"
+        "courseCreated": "Work log course created successfully",
+        "codeRestored": "Code has been restored"
       },
       "errors": {
         "createFailed": "Failed to create work log course",
@@ -952,7 +970,8 @@
     "errors": {
       "emailTaken": "Email taken",
       "studentNumberTaken": "Student Number taken",
-      "noToken": "No token available"
+      "noToken": "No token available",
+      "fillRequiredFields": "Please fill all required fields"
     },
     "email": "Email",
     "firstName": "First Name",
@@ -968,7 +987,9 @@
     "creating": "Creating...",
     "back": "Back",
     "close": "Close",
-    "save":"Save Changes"
+    "save":"Save Changes",
+    "confirm": "Confirm",
+    "view": "View"
   },
   "editTopics": {
     "title": "Edit Topics for {{courseName}}",
@@ -1059,6 +1080,9 @@
       "personal": "Personal Information",
       "account": "Account Information",
       "preferences": "Preferences"
+    },
+    "errors": {
+      "roleFetchFailed": "Failed to fetch role information"
     }
   },
   "worklog": {
@@ -1089,6 +1113,25 @@
       "clockIn": "Clock in button",
       "clockOut": "Clock out button",
       "edit": "Edit entries button"
+    },
+    "edit": {
+      "title": "Edit worklog"
+    },
+    "error": {
+      "fetchFailed": "Failed to fetch data",
+      "requiredFields": "Please fill all required fields",
+      "codeExists": "Code already exists"
+    },
+    "selectCourse": "Select course",
+    "clockIn": "Clock in",
+    "clockOut": "Clock out",
+    "edit": "Edit",
+    "description": "Description",
+    "optionalDescription": "Optional description",
+    "requiredDescription": "Required description",
+    "tooltips": {
+      "modify": "Modify",
+      "delete": "Delete"
     }
   },
   "languages": {

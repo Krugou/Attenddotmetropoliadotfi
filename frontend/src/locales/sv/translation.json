@@ -44,7 +44,9 @@
       },
       "search": "Sök",
       "searchPlaceholder": "Sök i alla fält",
-      "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga"
+      "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga",
+      "confirmDelete": "Bekräfta radering",
+      "studentGroup": "Studentgrupp"
     },
     "mainView": {
       "teacherDashboard": "Lärarpanel",
@@ -88,8 +90,13 @@
         "unknown": "Ett okänt fel inträffade",
         "loadFailed": "Misslyckades med att ladda kursdetaljer",
         "saveFailed": "Misslyckades med att spara ändringar",
-        "permissionDenied": "Du har inte tillstånd att ändra den här kursen"
-      }
+        "permissionDenied": "Du har inte tillstånd att ändra den här kursen",
+        "modifyError": "Fel vid ändring av kurs"
+      },
+      "info": {
+        "topicChange": "Ämnen har ändrats"
+      },
+      "finish": "Slutför"
     },
     "lectures": {
       "error": {
@@ -137,6 +144,9 @@
         "noLecturesFound": "Inga föreläsningar hittades",
         "tryShowingAll": "Prova att visa alla föreläsningar istället för bara öppna",
         "tryDifferentSearch": "Prova att justera dina sökkriterier"
+      },
+      "delete": {
+        "deleteAttendance": "Radera närvaro"
       }
     },
     "adminStats": {
@@ -251,7 +261,8 @@
       "saveButton": "Spara",
       "errors": {
         "emailTaken": "Student-e-posten upptagen",
-        "studentNumberTaken": "Studentnumret är upptaget"
+        "studentNumberTaken": "Studentnumret är upptaget",
+        "studentEmailTaken": "E-postadressen är redan i användning"
       }
     },
     "logs": {
@@ -277,7 +288,8 @@
       "startDate": "Startdatum",
       "endDate": "Slutdatum",
       "requiredHours": "Obligatoriska timmar",
-      "description": "Beskrivning"
+      "description": "Beskrivning",
+      "createNewWorkLog": "Skapa ny arbetslogg"
     }
   },
   "counselor": {
@@ -730,7 +742,8 @@
       "tooltips": {
         "customGroup": "lägg till anpassad ämnesgrupp här exempel: \"anpassadGrupp\"",
         "customTopic": "lägg till anpassade ämnen här exempel: \"tentamen\"",
-        "removeTopic": "Ta bort anpassat ämne"
+        "removeTopic": "Ta bort anpassat ämne",
+        "selectCourseGroup": "Välj kursgrupp"
       }
     },
     "courseData": {
@@ -816,22 +829,6 @@
       "create": {
        "title": "Lägg till ny arbetsdagbokskurs"
       },
-      "form": {
-        "name": "Kursnamn",
-        "code": "Kurskod",
-        "startDate": "Startdatum",
-        "endDate": "Slutdatum",
-        "description": "Kursbeskrivning",
-        "submit": "Skapa kurs",
-        "requiredHours": "Obligatoriska timmar",
-        "errors": {
-          "codeExists": "En arbetsdagbokskurs med denna kod finns redan"
-        },
-        "checking": "Kontrollerar..."
-      },
-      "success": {
-        "courseCreated": "Arbetsloggskurs skapades framgångsrikt"
-      },
       "errors": {
         "createFailed": "Det gick inte att skapa arbetsloggskurs"
       },
@@ -907,7 +904,31 @@
         "remaining": "Återstående",
         "required": "Krävt",
         "totalCompleted": "Totalt slutfört"
+      },
+      "deleteSuccess": "Arbetslogg raderad framgångsrikt",
+      "noInstructors": "Inga lärare tilldelade",
+      "error": {
+        "codeExists": "En arbetslogg med denna kod finns redan"
+      },
+      "success": {
+        "codeRestored": "Koden har återställts"
+      },
+      "form": {
+        "checking": "Kontrollerar...",
+        "success": {
+          "codeRestored": "Koden har återställts"
+        }
+      },
+      "modifySuccess": "Arbetslogg ändrad framgångsrikt",
+      "title": "Arbetsloggar",
+      "entries": {
+        "status": "Status",
+        "date": "Datum",
+        "hours": "Timmar",
+        "description": "Beskrivning"
       }
+
+
     }
   },
   "common": {
@@ -934,7 +955,8 @@
       "emailTaken": "E-post upptagen",
       "studentNumberTaken": "Studentnummer upptaget",
       "noToken": "Ingen token tillgänglig",
-      "groupNotFound": "Gruppen hittades inte"
+      "groupNotFound": "Gruppen hittades inte",
+      "fillRequiredFields": "Vänligen fyll i alla obligatoriska fält"
     },
     "email": "E-post",
     "firstName": "Förnamn",
@@ -948,7 +970,9 @@
     "creating": "Skapar...",
     "back": "Tillbaka",
     "close":"Stäng detta fönster",
-    "save":"Spara ändringar"
+    "save":"Spara ändringar",
+    "confirm": "Bekräfta",
+    "view": "Visa"
   },
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
@@ -1028,6 +1052,9 @@
       "personal": "Personlig information",
       "account": "Kontoinformation",
       "preferences": "Inställningar"
+    },
+    "errors": {
+      "roleFetchFailed": "Kunde inte hämta rollinformation"
     }
   },
   "worklog": {
@@ -1064,6 +1091,25 @@
       "1": "Inloggad",
       "2": "Utloggad",
       "3": "Kontrollerad"
+    },
+    "edit": {
+      "title": "Redigera arbetslogg"
+    },
+    "error": {
+      "fetchFailed": "Kunde inte hämta data",
+      "requiredFields": "Vänligen fyll i alla obligatoriska fält",
+      "codeExists": "Koden finns redan"
+    },
+    "selectCourse": "Välj kurs",
+    "clockIn": "Stämpla in",
+    "clockOut": "Stämpla ut",
+
+    "description": "Beskrivning",
+    "optionalDescription": "Valfri beskrivning",
+    "requiredDescription": "Obligatorisk beskrivning",
+    "tooltips": {
+      "modify": "Ändra",
+      "delete": "Radera"
     }
   },
   "languages": {
