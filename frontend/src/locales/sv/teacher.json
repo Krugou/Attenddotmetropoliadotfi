@@ -510,7 +510,7 @@
       "topic": "Ämne"
     },
     "dialogs": {
-      "cancelConfirm": {
+      "cancelLecture": {
         "title": "Avbryta föreläsning?",
         "message": "Är du säker på att du vill avbryta denna föreläsning? Detta kommer att radera föreläsningen från databasen och kan inte ångras."
       }

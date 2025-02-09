@@ -617,7 +617,7 @@
       "topic": "Topic"
     },
     "dialogs": {
-      "cancelConfirm": {
+      "cancelLecture": {
         "title": "Cancel Lecture?",
         "message": "Are you sure you want to cancel this lecture? This will delete the lecture from the database and cannot be undone."
       }

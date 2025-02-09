@@ -618,7 +618,10 @@
       "showQRCode": "Näytä QR-koodi"
     },
     "dialogs": {
-      "cancelConfirm": "Haluatko varmasti peruuttaa luennon? Tämä poistaa luennon tietokannasta. Toimintoa ei voi kumota."
+      "cancelLecture": {
+        "title": "Peruuta luento",
+        "message": "Haluatko varmasti peruuttaa luennon? Tämä poistaa luennon tietokannasta. Toimintoa ei voi kumota."
+      }
     },
     "tooltips": {
       "attendanceStats": "{{attended}} Paikalla, {{notAttended}} Poissa, Yhteensä: {{total}}",
