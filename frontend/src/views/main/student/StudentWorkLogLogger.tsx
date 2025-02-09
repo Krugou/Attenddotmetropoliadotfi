@@ -284,7 +284,7 @@ const StudentWorkLogLogger: React.FC = () => {
               onClick={handleEdit}
               className={`${buttonBaseStyle}
                 bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
-              aria-label={t('worklog.edit')}>
+              aria-label={t('worklog.edit.title')}>
               <EditIcon className='w-6 h-6' />
               <span>{t('worklog.actions.edit')}</span>
             </button>
