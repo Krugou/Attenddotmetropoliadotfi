@@ -181,29 +181,42 @@ const StudentWorkLogLogger: React.FC = () => {
   }, [navigate]);
 
   const buttonBaseStyle = `
-    flex items-center justify-center gap-2
-    px-6 py-2 rounded-lg text-lg m-3
-    font-body font-medium text-white
-    transition-all duration-200
-    focus:outline-hidden focus:ring-2 focus:ring-offset-2
+    flex items-center justify-center gap-3
+    w-full px-6 py-3 rounded-lg
+    font-body text-lg font-medium text-white
+    transition-all duration-300 ease-in-out
+    shadow-md hover:shadow-lg
+    focus:outline-none focus:ring-2 focus:ring-offset-2
+    disabled:opacity-50 disabled:cursor-not-allowed
+    transform hover:scale-[1.02]
   `;
 
   return (
-    <div className='flex items-center justify-center min-h-[50vh] bg-white rounded-xl'>
-      <div className='flex flex-col gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-xs'>
-        <div className='flex flex-col gap-2'>
+    <div className='flex items-center justify-center min-h-[50vh] p-4 sm:p-6 md:p-8'>
+      <div className='w-full max-w-md bg-white rounded-2xl shadow-xl p-6 space-y-6'>
+        {/* Course Selection Section */}
+        <div className='space-y-4'>
+          <h2 className='text-2xl font-heading font-bold text-gray-800 mb-4'>
+            {t('worklog.logger.title')}
+          </h2>
+
           {activeCourse ? (
-            <div className='p-2 border rounded-sm font-body'>
-              <div className='font-medium'>{activeCourse.course.name}</div>
-              <div className='text-sm text-gray-500'>
+            <div className='p-4 border-2 border-metropolia-main-orange rounded-lg bg-white/50 shadow-sm'>
+              <h3 className='font-heading font-semibold text-lg text-gray-800'>
+                {activeCourse.course.name}
+              </h3>
+              <p className='text-sm text-gray-600 mt-1 font-body'>
                 {activeCourse.course.code}
-              </div>
+              </p>
             </div>
           ) : (
-            <select
-              value={selectedCourse || ''}
-              onChange={handleCourseChange}
-              className='p-2 border rounded-sm font-body'>
+              <select
+                title={t('worklog.selectCourse')}
+                value={selectedCourse || ''}
+                onChange={handleCourseChange}
+                className='w-full p-3 border-2 border-gray-200 rounded-lg font-body
+                  focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
+                  bg-white text-gray-700'>
               <option value='' disabled>
                 {t('worklog.selectCourse')}
               </option>
@@ -217,84 +230,96 @@ const StudentWorkLogLogger: React.FC = () => {
             </select>
           )}
         </div>
-        <button
-          onClick={() => handleOpenModal('in')}
-          disabled={hasActiveEntry}
-          className={`${buttonBaseStyle}
-            ${
+
+        {/* Action Buttons */}
+        <div className='space-y-4'>
+          <button
+            onClick={() => handleOpenModal('in')}
+            disabled={hasActiveEntry}
+            className={`${buttonBaseStyle} ${
               hasActiveEntry
-                ? 'bg-gray-400 cursor-not-allowed'
+                ? 'bg-gray-400'
                 : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
-            }
-            focus:ring-metropolia-main-orange`}
-          aria-label={t('worklog.clockIn')}>
-          <LoginIcon />
-          <span>{t('worklog.actions.in')}</span>
-        </button>
+            }`}
+            aria-label={t('worklog.clockIn')}>
+            <LoginIcon className="w-6 h-6" />
+            <span>{t('worklog.actions.in')}</span>
+          </button>
 
-        <button
-          onClick={() => handleOpenModal('out')}
-          disabled={!hasActiveEntry}
-          className={`${buttonBaseStyle}
-            ${
+          <button
+            onClick={() => handleOpenModal('out')}
+            disabled={!hasActiveEntry}
+            className={`${buttonBaseStyle} ${
               !hasActiveEntry
-                ? 'bg-gray-400 cursor-not-allowed'
+                ? 'bg-gray-400'
                 : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
-            }
-            focus:ring-metropolia-support-red`}
-          aria-label={t('worklog.clockOut')}>
-          <LogoutIcon />
-          <span>{t('worklog.actions.out')}</span>
-        </button>
+            }`}
+            aria-label={t('worklog.clockOut')}>
+            <LogoutIcon className="w-6 h-6" />
+            <span>{t('worklog.actions.out')}</span>
+          </button>
 
-        <button
-          onClick={handleEdit}
-          className={`${buttonBaseStyle}
-            bg-metropolia-trend-green hover:bg-metropolia-trend-green/80
-            focus:ring-metropolia-trend-green`}
-          aria-label={t('worklog.edit')}>
-          <EditIcon />
-          <span>{t('worklog.actions.edit')}</span>
-        </button>
+          <button
+            onClick={handleEdit}
+            className={`${buttonBaseStyle}
+              bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
+            aria-label={t('worklog.edit')}>
+            <EditIcon className="w-6 h-6" />
+            <span>{t('worklog.actions.edit')}</span>
+          </button>
+        </div>
       </div>
 
+      {/* Modal */}
       {isModalOpen && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='flex flex-col gap-4 p-4 bg-white rounded-lg shadow-lg'>
-            <label className='font-medium font-body'>
-              {actionType === 'in'
-                ? t('worklog.description') + ' *'
-                : t('worklog.optionalDescription')}
-              <input
-                type='text'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className={`w-full p-2 mt-2 border rounded ${
-                  actionType === 'in' ? 'bg-white' : 'bg-gray-50'
-                }`}
-                required={actionType === 'in'}
-                placeholder={
-                  actionType === 'in'
-                    ? t('worklog.requiredDescription')
-                    : t('worklog.optionalDescription')
-                }
-              />
-            </label>
-            <button
-              onClick={handleConfirmAction}
-              disabled={actionType === 'in' && !description.trim()}
-              className={`px-4 py-2 text-white rounded ${
-                actionType === 'in' && !description.trim()
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-500 hover:bg-blue-600'
-              }`}>
-              {t('common.confirm')}
-            </button>
-            <button
-              onClick={handleCloseModal}
-              className='px-4 py-2 bg-gray-300 rounded-sm hover:bg-gray-400'>
-              {t('common.cancel')}
-            </button>
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm'>
+          <div className='w-full max-w-md m-4 bg-white rounded-2xl shadow-2xl transform transition-all'>
+            <div className='p-6 space-y-6'>
+              <h3 className='text-xl font-heading font-bold text-gray-800'>
+                {actionType === 'in' ? t('worklog.clockIn') : t('worklog.clockOut')}
+              </h3>
+
+              <label className='block space-y-2'>
+                <span className='font-body font-medium text-gray-700'>
+                  {actionType === 'in'
+                    ? t('worklog.description') + ' *'
+                    : t('worklog.optionalDescription')}
+                </span>
+                <input
+                  type='text'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className='w-full p-3 border-2 rounded-lg font-body
+                    focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20
+                    transition-colors duration-200'
+                  required={actionType === 'in'}
+                  placeholder={
+                    actionType === 'in'
+                      ? t('worklog.requiredDescription')
+                      : t('worklog.optionalDescription')
+                  }
+                />
+              </label>
+
+              <div className='flex gap-4 pt-4'>
+                <button
+                  onClick={handleConfirmAction}
+                  disabled={actionType === 'in' && !description.trim()}
+                  className='flex-1 px-6 py-3 font-body font-medium text-white rounded-lg
+                    bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
+                    disabled:bg-gray-400 disabled:cursor-not-allowed
+                    transition-colors duration-200'>
+                  {t('common.confirm')}
+                </button>
+                <button
+                  onClick={handleCloseModal}
+                  className='flex-1 px-6 py-3 font-body font-medium text-gray-700 rounded-lg
+                    bg-gray-100 hover:bg-gray-200
+                    transition-colors duration-200'>
+                  {t('common.cancel')}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
