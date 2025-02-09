@@ -102,7 +102,7 @@ const TeacherCourseAttendances: React.FC = () => {
   };
 
   return (
-    <div className='w-full p-4 bg-gray-100 rounded-lg lg:w-fit'>
+    <div className='w-full p-4 bg-gray-100 rounded-lg md:w-3/4'>
       <h1 className='mb-5 text-3xl text-center font-heading'>
         {t('teacher.courseAttendances.title')}
       </h1>
@@ -113,7 +113,7 @@ const TeacherCourseAttendances: React.FC = () => {
               {t('teacher.courseAttendances.search.heading')}
             </h2>
             <Calendar
-              className='w-full mb-4 sm:mb-0'
+              className='w-full md:w-3/4 mb-4 sm:mb-0'
               onChange={handleDateChange}
               value={selectedDate}
               tileContent={({date}) => {
