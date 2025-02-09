@@ -178,7 +178,8 @@
       "course": "Kurssi",
       "description": "Kuvaus",
       "total": "Yhteensä",
-      "entries": "merkintää"
+      "entries": "merkintää",
+      "time": "Aika"
     },
     "actions": {
       "clockIn": "Kirjaudu sisään",
@@ -299,7 +300,7 @@
     "metropolia": "Metropolia",
     "navigation": "Navigointi"
   },
-  "loginStart":  "Kirjaudu",
+  "loginStart": "Kirjaudu",
   "status": "Tila",
   "instructors": "Ohjaajat"
 }

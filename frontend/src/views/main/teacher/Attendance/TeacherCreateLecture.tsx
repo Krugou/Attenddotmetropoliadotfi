@@ -389,7 +389,7 @@ const CreateLecture: React.FC = () => {
                   <div className='flex items-center '>
                     <Tooltip
                       title={t(
-                        `teacher.createLecture.courseSection.tooltips.${
+                        `teacher:createLecture.courseSection.tooltips.${
                           showEndedCourses ? 'hideEnded' : 'showEnded'
                         }`,
                       )}

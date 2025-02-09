@@ -163,7 +163,7 @@ const TeacherCourseAttendances: React.FC = () => {
                       className='p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
                       onClick={handleToggleOwnAttendances}>
                       {t(
-                        `teacher.courseAttendances.buttons.toggleView.${
+                        `teacher:courseAttendances.buttons.toggleView.${
                           showOwnAttendances ? 'showAll' : 'showOwn'
                         }`,
                       )}
@@ -194,7 +194,7 @@ const TeacherCourseAttendances: React.FC = () => {
                   className='w-1/2 p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
                   onClick={handleToggleOwnAttendances}>
                   {t(
-                    `teacher.courseAttendances.buttons.toggleView.${
+                    `teacher:courseAttendances.buttons.toggleView.${
                       showOwnAttendances ? 'showAll' : 'showOwn'
                     }`,
                   )}
@@ -202,7 +202,7 @@ const TeacherCourseAttendances: React.FC = () => {
               )}
               <p className='text-xl '>
                 {t(
-                  `teacher.courseAttendances.search.noAttendances.${
+                  `teacher:courseAttendances.search.noAttendances.${
                     showOwnAttendances ? 'own' : 'all'
                   }`,
                   {date: selectedDate.toDateString()},

@@ -468,7 +468,8 @@
       }
     },
     "errors": {
-      "createFailed": "Työpäiväkirjakurssin luominen epäonnistui"
+      "createFailed": "Työpäiväkirjakurssin luominen epäonnistui",
+      "groupNotFound": "Ryhmää ei löydy"
     },
     "detail": {
       "backToWorklog": "Takaisin työpäiväkirjaan"
@@ -529,7 +530,8 @@
       "addToGroup": "lisää opiskelijat ryhmään",
       "back": "takaisin",
       "close": "Sulje",
-      "save": "Tallenna"
+      "save": "Tallenna",
+      "entries": "Ryhmämerkinnät"
     },
     "entries": {
       "date": "Päivämäärä",

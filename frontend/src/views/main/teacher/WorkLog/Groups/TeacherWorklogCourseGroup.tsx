@@ -289,7 +289,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       </td>
                       <td className='p-3'>{entry.description}</td>
                       <td className='p-3'>
-                        {t(`teacher.worklog.status.${entry.status}`)}
+                        {t(`teacher:worklog.status.${entry.status}`)}
                       </td>
                     </tr>
                   ))}

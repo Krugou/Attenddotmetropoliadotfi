@@ -521,7 +521,8 @@
       "title": "Lägg till ny arbetsdagbokskurs"
     },
     "errors": {
-      "createFailed": "Det gick inte att skapa arbetsloggskurs"
+      "createFailed": "Det gick inte att skapa arbetsloggskurs",
+      "groupNotFound": "Gruppen hittades inte"
     },
     "detail": {
       "backToWorklog": "Tillbaka till arbetsloggen"
@@ -578,7 +579,8 @@
       "groupsTitle": "Befintliga grupper",
       "noGroups": "Inga grupper har skapats ännu.",
       "createSuccess": "Gruppen skapades framgångsrikt",
-      "stats": "Visa statistik"
+      "stats": "Visa statistik",
+      "entries": "Gruppposter"
     },
     "status": {
       "0": "Fel",

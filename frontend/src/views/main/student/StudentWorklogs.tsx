@@ -256,7 +256,7 @@ const StudentWorklogs: React.FC = () => {
                 </div>
                 <div className='flex items-center justify-between pt-2 mt-2 border-t'>
                   <span className={statusClass(entry.status)}>
-                    {t(`teacher.worklog.status.${entry.status}`)}
+                    {t(`teacher:worklog.status.${entry.status}`)}
                   </span>
                 </div>
               </div>
