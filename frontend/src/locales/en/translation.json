@@ -353,6 +353,27 @@
         "failedToLog": "Failed to log work entry",
         "failedToCheck": "Failed to check active work entries",
         "failedToFetch": "Failed to fetch courses"
+      },
+      "delete": {
+        "confirm": "Are you sure you want to delete this entry?",
+        "success": "Entry deleted successfully",
+        "error": "Failed to delete entry"
+      },
+      "edit": {
+        "success": "Entry updated successfully",
+        "error": "Failed to update entry"
+      },
+      "entries": {
+        "title": "Work Log Entries",
+        "date": "Date",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "duration": "Duration",
+        "course": "Course",
+        "description": "Description",
+        "total": "Total",
+        "entries": "entries",
+        "time": "Time"
       }
     }
   },
@@ -993,7 +1014,9 @@
         "date": "Date",
         "hours": "Hours",
         "description": "Description",
-        "status": "Status"
+        "status": "Status",
+        "time": "Time",
+        "duration": "Duration"
       },
       "status": {
         "0": "Status: Error",
@@ -1160,7 +1183,8 @@
       "course": "Course",
       "description": "Description",
       "total": "Total",
-      "entries": "entries"
+      "entries": "entries",
+      "time": "Time"
     },
     "actions": {
       "clockIn": "Clock In",
@@ -1180,7 +1204,9 @@
       "edit": "Edit entries button"
     },
     "edit": {
-      "title": "Edit worklog"
+      "title": "Edit worklog",
+      "success": "Entry updated successfully",
+      "error": "Failed to update entry"
     },
     "error": {
       "fetchFailed": "Failed to fetch data",
@@ -1229,7 +1255,12 @@
     "selectCourse": "Select a course",
     "clockIn": "Clock In",
     "clockOut": "Clock Out",
-    "optionalDescription": "Optional description"
+    "optionalDescription": "Optional description",
+    "delete": {
+      "confirm": "Are you sure you want to delete this entry?",
+      "success": "Entry deleted successfully",
+      "error": "Failed to delete entry"
+    }
   },
   "languages": {
     "en": "English",

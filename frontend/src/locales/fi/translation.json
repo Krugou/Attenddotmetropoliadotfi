@@ -364,6 +364,23 @@
         "failedToLog": "Työajan kirjaaminen epäonnistui",
         "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
         "failedToFetch": "Kurssien haku epäonnistui"
+      },
+      "delete": {
+        "confirm": "Haluatko varmasti poistaa tämän merkinnän?",
+        "success": "Merkintä poistettu onnistuneesti",
+        "error": "Merkinnän poistaminen epäonnistui"
+      },
+      "edit": {
+        "success": "Merkintä päivitetty onnistuneesti",
+        "error": "Merkinnän päivittäminen epäonnistui"
+      },
+      "entries": {
+        "date": "Päivämäärä",
+        "hours": "Tunnit",
+        "description": "Kuvaus",
+        "status": "Tila",
+        "time": "Aika",
+        "duration": "Kesto"
       }
     }
   },
@@ -983,7 +1000,9 @@
         "date": "Päivämäärä",
         "hours": "Tunnit",
         "description": "Kuvaus",
-        "status": "Tila"
+        "status": "Tila",
+        "time": "Aika",
+        "duration": "Kesto"
       },
       "status": {
         "0": "Status: Virhe",
@@ -1180,7 +1199,9 @@
       "3": "Status: Tarkistettu"
     },
     "edit": {
-      "title": "Muokkaa työaikakirjausta"
+      "title": "Muokkaa työaikakirjausta",
+      "success": "Merkintä päivitetty onnistuneesti",
+      "error": "Merkinnän päivittäminen epäonnistui"
     },
     "error": {
       "fetchFailed": "Tietojen haku epäonnistui",
@@ -1223,7 +1244,24 @@
     "requiredHours": "Vaaditut tunnit",
     "createNewWorkLog": "Luo uusi työaikakirjauskurssi",
     "noCourses": "Ei saatavilla olevia kursseja",
-    "redirecting": "Ohjataan päänäkymään..."
+    "redirecting": "Ohjataan päänäkymään...",
+    "delete": {
+      "confirm": "Haluatko varmasti poistaa tämän merkinnän?",
+      "success": "Merkintä poistettu onnistuneesti",
+      "error": "Merkinnän poistaminen epäonnistui"
+    },
+    "edit": {
+      "success": "Merkintä päivitetty onnistuneesti",
+      "error": "Merkinnän päivittäminen epäonnistui"
+    },
+    "entries": {
+      "date": "Päivämäärä",
+      "hours": "Tunnit",
+      "description": "Kuvaus",
+      "status": "Tila",
+      "time": "Aika",
+      "duration": "Kesto"
+    }
   },
   "languages": {
     "en": "Englanti",

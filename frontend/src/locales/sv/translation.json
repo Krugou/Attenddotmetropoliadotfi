@@ -350,6 +350,19 @@
         "failedToLog": "Misslyckades med att logga arbetstid",
         "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
         "failedToFetch": "Misslyckades med att hämta kurser"
+      },
+      "delete": {
+        "confirm": "Är du säker på att du vill radera denna post?",
+        "success": "Posten raderades framgångsrikt",
+        "error": "Misslyckades med att radera posten"
+      },
+      "edit": {
+        "success": "Posten uppdaterades framgångsrikt",
+        "error": "Misslyckades med att uppdatera posten"
+      },
+      "entries": {
+        "time": "Tid",
+        "duration": "Varaktighet"
       }
     }
   },
@@ -986,7 +999,9 @@
         "status": "Status",
         "date": "Datum",
         "hours": "Timmar",
-        "description": "Beskrivning"
+        "description": "Beskrivning",
+        "time": "Tid",
+        "duration": "Varaktighet"
       }
     }
   },
@@ -1127,7 +1142,9 @@
       "course": "Kurs",
       "description": "Beskrivning",
       "total": "Totalt",
-      "entries": "poster"
+      "entries": "poster",
+      "time": "Tid",
+      "duration": "Varaktighet"
     },
     "actions": {
       "clockIn": "Stämpla in",
@@ -1153,7 +1170,9 @@
       "3": "Status: Kontrollerad"
     },
     "edit": {
-      "title": "Redigera arbetslogg"
+      "title": "Redigera arbetslogg",
+      "success": "Posten uppdaterades framgångsrikt",
+      "error": "Misslyckades med att uppdatera posten"
     },
     "error": {
       "fetchFailed": "Kunde inte hämta data",
@@ -1172,6 +1191,11 @@
       "failedToLog": "Misslyckades med att logga arbetstid",
       "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
       "failedToFetch": "Misslyckades med att hämta kurser"
+    },
+    "delete": {
+      "confirm": "Är du säker på att du vill radera denna post?",
+      "success": "Posten raderades framgångsrikt",
+      "error": "Misslyckades med att radera posten"
     }
   },
   "languages": {
