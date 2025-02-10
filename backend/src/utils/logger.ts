@@ -38,6 +38,38 @@ const logger = pino(
   {
     level: 'info',
     timestamp: pino.stdTimeFunctions.isoTime,
+    formatters: {
+      level: (label) => {
+        return {level: label};
+      },
+      bindings: () => {
+        return {};
+      },
+      log: (object) => {
+        // Ensure all fields are included in the output
+        return {
+          ...object,
+          // If msg is an Error object, serialize it
+          msg:
+            object.msg instanceof Error
+              ? pino.stdSerializers.err(object.msg)
+              : object.msg,
+        };
+      },
+    },
+    serializers: {
+      // Ensure all error objects are properly serialized
+      err: pino.stdSerializers.err,
+      error: pino.stdSerializers.err,
+      // Custom serializer for request objects
+      req: (req) => ({
+        method: req?.method,
+        url: req?.url,
+        path: req?.path,
+      }),
+    },
+    messageKey: 'msg',
+    base: null, // Remove pid and hostname from logs
   },
   pino.multistream(streams),
 );
