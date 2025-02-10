@@ -34,6 +34,10 @@
     align-items: center;
 }
 
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
 
 @keyframes heightChange {
     0%, 100% {
@@ -70,6 +74,23 @@
     border-radius: 50%;
     position: absolute;
     animation: rocking-horseshoe 30s ease-in-out infinite;
+}
+
+@keyframes crazy-eye {
+    0% { transform: translate(-20px, -20px) rotate(0deg) scale(1.2); }
+    25% { transform: translate(20px, 20px) rotate(180deg) scale(0.8); }
+    50% { transform: translate(-20px, 20px) rotate(360deg) scale(1.5); }
+    75% { transform: translate(20px, -20px) rotate(540deg) scale(0.7); }
+    100% { transform: translate(-20px, -20px) rotate(720deg) scale(1.2); }
+}
+
+.big-brother-eye.crazy {
+    animation: heightChange 0.3s infinite, flash 0.2s infinite;
+}
+
+.eye.crazy {
+    animation: crazy-eye 0.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
 }
 
 
