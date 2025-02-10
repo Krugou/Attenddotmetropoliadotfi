@@ -56,5 +56,17 @@
       "selectLabel": "Välj önskad kamerainmatning:",
       "noDevices": "Inga kameror tillgängliga"
     }
+  },
+  "toasts": {
+    "errors": {
+      "invalidQr": "Ogiltig QR-kod",
+      "noStudent": "Inga studentuppgifter tillgängliga, logga in igen",
+      "scanError": "Fel vid skanning av QR-kod",
+      "tooSlow": "Du var för långsam, försök igen {{studentId}}"
+    },
+    "success": {
+      "savedToLecture": "Du har sparats till föreläsningen",
+      "alreadySaved": "Du har redan sparats till föreläsningen"
+    }
   }
 }

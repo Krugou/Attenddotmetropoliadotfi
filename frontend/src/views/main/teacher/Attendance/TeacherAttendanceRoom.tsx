@@ -181,7 +181,7 @@ const AttendanceRoom: React.FC = () => {
       // When a student is inserted manually, display a success message
       newSocket.on('manualStudentInsertSuccess', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.success(t('teacher:attendance.labels.studentInserted'));
+          toast.success(t('teacher:attendance.success.studentInserted'));
         }
       });
       // When a student is inserted manually, display an error message
@@ -193,17 +193,17 @@ const AttendanceRoom: React.FC = () => {
       // When a student is inserted manually, display an error message if the student number is empty
       newSocket.on('manualStudentInsertFailedEmpty', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher:attendance.errors.studentNumberEmpty'));
+          toast.error(t('teacher:attendance.errors.emptyStudentNumber'));
         }
       });
       newSocket.on('manualStudentRemoveFailedEmpty', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.error(t('teacher:attendance.errors.studentNumberEmpty'));
+          toast.error(t('teacher:attendance.errors.emptyStudentNumber'));
         }
       });
       newSocket.on('manualStudentRemoveSuccess', (receivedLectureId) => {
         if (receivedLectureId === lectureid) {
-          toast.success(t('teacher:attendance.labels.studentRemoved'));
+          toast.success(t('teacher:attendance.success.studentRemoved'));
         }
       });
       newSocket.on('manualStudentRemoveError', (receivedLectureId) => {
@@ -227,7 +227,7 @@ const AttendanceRoom: React.FC = () => {
       // When the lecture is canceled, display a success message and navigate to the main view
       newSocket.on('lectureCanceledSuccess', (receivedLectureId) => {
         if (lectureid === receivedLectureId) {
-          toast.success(t('teacher:attendance.labels.lectureCanceled'));
+          toast.success(t('teacher:attendance.success.lectureCanceled'));
           navigate('/teacher/mainview');
         }
       });
@@ -258,7 +258,7 @@ const AttendanceRoom: React.FC = () => {
         socket.on('lectureFinished', (checklectureid) => {
           console.log('lectureFinished');
           if (checklectureid === lectureid) {
-            toast.success(t('teacher:attendance.labels.lectureFinished'));
+            toast.success(t('teacher:attendance.success.lectureFinished'));
             if (courseId) {
               navigate(`/teacher/courses/attendances/${courseId}`);
             } else {

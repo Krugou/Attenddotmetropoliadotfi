@@ -56,5 +56,17 @@
       "selectLabel": "Choose desired camera input:",
       "noDevices": "No cameras available"
     }
+  },
+  "toasts": {
+    "errors": {
+      "invalidQr": "Invalid QR code",
+      "noStudent": "No Student details available, please login again",
+      "scanError": "Error scanning QR code",
+      "tooSlow": "You were too slow, try again {{studentId}}"
+    },
+    "success": {
+      "savedToLecture": "You have been saved into lecture",
+      "alreadySaved": "You have been saved into lecture already"
+    }
   }
 }

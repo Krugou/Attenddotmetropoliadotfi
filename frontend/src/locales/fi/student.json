@@ -56,5 +56,17 @@
       "selectLabel": "Valitse haluamasi kamerainput:",
       "noDevices": "Ei kameroita saatavilla"
     }
+  },
+  "toasts": {
+    "errors": {
+      "invalidQr": "Virheellinen QR-koodi",
+      "noStudent": "Opiskelijatietoja ei saatavilla, kirjaudu sisään uudelleen",
+      "scanError": "Virhe QR-koodin skannauksessa",
+      "tooSlow": "Olit liian hidas, yritä uudelleen {{studentId}}"
+    },
+    "success": {
+      "savedToLecture": "Sinut on tallennettu luennolle",
+      "alreadySaved": "Sinut on jo tallennettu luennolle"
+    }
   }
 }

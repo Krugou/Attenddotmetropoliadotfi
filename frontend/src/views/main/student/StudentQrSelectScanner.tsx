@@ -80,7 +80,7 @@ const StudentQrSelectScanner: React.FC = () => {
     }
     const [baseUrl, secureHash, lectureid] = decodedText.split('#');
     if (!secureHash || !lectureid || !baseUrl) {
-      toast.error('Invalid QR code');
+      toast.error(t('student:toasts.errors.invalidQr'));
       setLoading(false);
       return;
     }
@@ -118,7 +118,7 @@ const StudentQrSelectScanner: React.FC = () => {
         if (user && user.studentnumber) {
           studentId = user.studentnumber;
         } else {
-          toast.error('No Student details available, please login again');
+          toast.error(t('student:toasts.errors.noStudent'));
           navigate('/login');
           setLoading(false);
           return;
@@ -136,13 +136,13 @@ const StudentQrSelectScanner: React.FC = () => {
         setScanned(true);
       }
       newSocket.on('youHaveBeenSavedIntoLecture', (lectureid) => {
-        toast.success(`You have been saved into lecture`);
+        toast.success(t('student:toasts.success.savedToLecture'));
         setSuccessState(true);
         console.log('youHaveBeenSavedIntoLecture ', lectureid);
         navigate('/student/mainview');
       });
       newSocket.on('youHaveBeenSavedIntoLectureAlready', (lectureid) => {
-        toast.error(`You have been saved into lecture already`);
+        toast.error(t('student:toasts.success.alreadySaved'));
         setSuccessState(true);
         console.log('youHaveBeenSavedIntoLectureAlready ', lectureid);
         navigate('/student/mainview');
@@ -150,7 +150,7 @@ const StudentQrSelectScanner: React.FC = () => {
       newSocket.on(
         'inputThatStudentHasArrivedToLectureTooSlow',
         (studentId2) => {
-          toast.error('You were too slow, try again ' + studentId2);
+          toast.error(t('student:toasts.errors.tooSlow', { studentId: studentId2 }));
           setScanned(false);
         },
       );
@@ -172,7 +172,7 @@ const StudentQrSelectScanner: React.FC = () => {
   const handleError = (error: any) => {
     console.log('error', error);
     if (!successState) {
-      toast.error('Error scanning QR code');
+      toast.error(t('student:toasts.errors.scanError'));
     }
   };
   // Define scanner components configuration
