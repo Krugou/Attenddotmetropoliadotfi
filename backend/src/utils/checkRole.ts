@@ -10,7 +10,8 @@ import logger from './logger.js';
 const checkUserRole = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) {
-      logger.error('Role check failed: No user logged in', {
+      logger.error({
+        msg: 'Role check failed: No user logged in',
         path: req.path,
         method: req.method,
       });
@@ -19,7 +20,8 @@ const checkUserRole = (allowedRoles: string[]) => {
     }
 
     if (!allowedRoles.includes(req.user.role)) {
-      logger.error('Role check failed: Access denied', {
+      logger.error({
+        msg: 'Role check failed: Access denied',
         path: req.path,
         method: req.method,
         userRole: req.user.role,
