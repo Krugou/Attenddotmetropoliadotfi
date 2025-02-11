@@ -33,7 +33,6 @@ router.get(
   async (_req: Request, res: Response) => {
     try {
       const users = await usermodel.fetchAllStudents();
-      // console.log(users, 'users');
       res.send(users);
     } catch (error) {
       logger.error(error);
