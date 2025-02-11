@@ -11,6 +11,7 @@ import { WorkLogCourse } from '../models/work_log_coursemodel.js';
 import { WorkLogEntry } from '../models/work_log_entrymodel.js';
 import { WorkLogCourseGroup } from '../models/work_log_groupmodel.js';
 import { WorkLogCourseUser } from '../models/work_log_usermodel.js';
+import logger from '../utils/logger.js';
 
 // Define interfaces for input data
 export interface Student {
@@ -242,6 +243,22 @@ export interface WorkLogController {
     userId: number,
     courseId: number
   ) => Promise<{group_id: number; group_name: string} | null>;
+
+  addNewStudentToWorklog: (
+    courseId: number,
+    studentData: {
+      email: string;
+      first_name: string;
+      last_name: string;
+      studentnumber: string;
+      studentGroupId: number | null;
+    }
+  ) => Promise<{
+    success: boolean;
+    userId: number;
+    courseId: number;
+    result: ResultSetHeader;
+  }>;
 }
 
 const workLogController: WorkLogController = {
@@ -437,13 +454,28 @@ const workLogController: WorkLogController = {
    * @param courseId The course ID to create the group for
    * @param groupName The name of the group
    */
-  async createWorkLogGroup(courseId, groupName) {
+  async createWorkLogGroup(courseId: number, groupName: string) {
     try {
+      // First verify the course exists
+      const course = await work_log_courses.getWorkLogCourseById(courseId);
+      if (!course?.length) {
+        throw new Error(`Course ${courseId} not found`);
+      }
+
+      // Verify group name doesn't already exist for this course
+      const existingGroups = await work_log_course_groups.getWorkLogGroupsByCourse(courseId);
+      if (existingGroups.some(g => g.group_name === groupName)) {
+        throw new Error('Group name already exists for this course');
+      }
+
       const result = await work_log_course_groups.createWorkLogGroup(courseId, groupName);
+      if (!result?.insertId) {
+        throw new Error('Failed to create group - no ID returned');
+      }
 
       return result.insertId;
     } catch (error) {
-      console.error('Error in createWorkLogGroup:', error);
+      logger.error('Error in createWorkLogGroup:', error);
       throw error;
     }
   },
@@ -774,6 +806,47 @@ const workLogController: WorkLogController = {
       throw error;
     }
   },
+
+  async addNewStudentToWorklog(courseId: number, studentData: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    studentnumber: string;
+    studentGroupId: number | null;
+  }) {
+    try {
+      // First check if user exists
+      let userId: number;
+      const existingUser = await userModel.checkIfUserExistsByEmail(studentData.email);
+
+      if (existingUser.length > 0) {
+        userId = existingUser[0].userid;
+        await userModel.updateUserStudentNumber(studentData.studentnumber, studentData.email);
+      } else {
+        const userResult = await userModel.insertStudentUser(
+          studentData.email,
+          studentData.first_name,
+          studentData.last_name,
+          studentData.studentnumber,
+          studentData.studentGroupId || 0,
+        );
+        userId = userResult.insertId;
+      }
+
+      // Add user to worklog course
+      const result = await work_log_courses_users.addUserToCourse(userId, courseId);
+
+      return {
+        success: true,
+        userId,
+        courseId,
+        result
+      };
+    } catch (error) {
+      console.error('Error adding student to worklog:', error);
+      throw error;
+    }
+  }
 };
 
 export default workLogController;

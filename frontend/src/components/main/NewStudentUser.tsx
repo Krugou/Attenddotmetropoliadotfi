@@ -12,6 +12,8 @@ import CourseSelect from './newUser/CourseSelect';
 import FormInput from './newUser/FormInput';
 import StudentGroupSelect from './newUser/StudentGroupSelect';
 import SubmitButton from './newUser/SubmitButton';
+import { Button } from '@mui/material';
+
 
 const NewStudentUser: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -25,6 +27,9 @@ const NewStudentUser: React.FC = () => {
   const [showEndedCourses, setShowEndedCourses] = useState(false);
   const [allCourses, setAllCourses] = useState<Course[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [showWorklogSelect, setShowWorklogSelect] = useState(false);
+  const [worklogCourses, setWorklogCourses] = useState<WorklogCourse[]>([]);
+  const [selectedWorklogId, setSelectedWorklogId] = useState<number | null>(null);
 
   interface StudentGroup {
     studentgroupid: number;
@@ -42,6 +47,12 @@ const NewStudentUser: React.FC = () => {
     studentgroup_name: string;
     topic_names: string;
     // Include other properties of course here
+  }
+
+  interface WorklogCourse {
+    work_log_course_id: number;
+    name: string;
+    code: string;
   }
 
   const [studentGroups, setStudentGroups] = useState<StudentGroup[]>([]);
@@ -154,6 +165,27 @@ const NewStudentUser: React.FC = () => {
     fetchCourses();
   }, [user]);
 
+  useEffect(() => {
+    const fetchWorklogCourses = async () => {
+      if (user) {
+        const token = localStorage.getItem('userToken');
+        if (!token) return;
+
+        try {
+          const courses = await apiHooks.getWorkLogCoursesByInstructor(user.email, token);
+          setWorklogCourses(courses);
+        } catch (error) {
+          console.error('Failed to fetch worklog courses:', error);
+          toast.error(t('common:errors.fetchWorklogCoursesFailed'));
+        }
+      }
+    };
+
+    if (showWorklogSelect) {
+      fetchWorklogCourses();
+    }
+  }, [user, showWorklogSelect]);
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -171,19 +203,38 @@ const NewStudentUser: React.FC = () => {
       }
 
       try {
-        await apiHooks.addNewStudentUserCourse(
-          token,
-          email,
-          studentNumber,
-          firstName,
-          lastName,
-          studentGroupId,
-          selectedCourseId,
-        );
+        // Add to regular course if selected
+        if (selectedCourseId) {
+          await apiHooks.addNewStudentUserCourse(
+            token,
+            email,
+            studentNumber,
+            firstName,
+            lastName,
+            studentGroupId,
+            selectedCourseId
+          );
+        }
+
+        // Add to worklog course if selected
+        if (selectedWorklogId) {
+          await apiHooks.addNewStudentToWorklog(
+            token,
+            String(selectedWorklogId),
+            {
+              email,
+              first_name: firstName,
+              last_name: lastName,
+              studentnumber: studentNumber,
+              studentGroupId
+            }
+          );
+        }
+
         toast.success(t('common:newStudent.success.userAdded'));
       } catch (error) {
-        console.error('Failed to add new student user', error);
-        toast.error(t('common:newStudent.errors.addFailed', {error}));
+        console.error('Failed to add student:', error);
+        toast.error(t('common:newStudent.errors.addFailed'));
       }
     } else if (isStudentNumberTaken) {
       toast.error(t('common:newStudent.errors.studentNumberTaken'));
@@ -241,32 +292,73 @@ const NewStudentUser: React.FC = () => {
                 selectedGroup={studentGroupId}
                 onChange={setStudentGroupId}
               />
-              <div className='flex justify-center'>
-                <div className='w-full'>
-                  <CourseSelect
-                    courses={showEndedCourses ? allCourses : courses}
-                    selectedCourse={selectedCourseId}
-                    onChange={setSelectedCourseId}
-                  />
-                </div>
-                <div className='flex items-end mb-3 ml-2'>
-                  <Tooltip
-                    title={t(
-                      showEndedCourses
-                        ? 'common:hideEndedCourses'
-                        : 'common:showEndedCourses',
-                    )}
-                    placement='top'>
-                    <IconButton
-                      className='h-fit'
-                      onClick={() => setShowEndedCourses(!showEndedCourses)}>
-                      {showEndedCourses ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
-                  </Tooltip>
+              <div className='flex flex-col gap-4'>
+                <div className='flex flex-col items-center gap-2'>
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => setShowWorklogSelect(!showWorklogSelect)}
+                    endIcon={showWorklogSelect}
+                    sx={{
+                      color: 'black',
+                      width: '100%',
+                      '&:hover': {
+                        backgroundColor: 'metropolia.trend.green'
+                      }
+                    }}
+                  >
+                    {showWorklogSelect
+                      ? t('common:worklog.switchToRegular')
+                      : t('common:worklog.switchToWorklog')
+                    }
+                  </Button>
+
+                  {showWorklogSelect ? (
+                    <div className='w-full'>
+                      <label className='block mt-4'>
+                        <span className='font-heading text-gray-700'>
+                          worklog course
+                        </span>
+                        <select
+                          value={selectedWorklogId || ''}
+                          onChange={(e) => setSelectedWorklogId(Number(e.target.value) || null)}
+                          className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl'
+                        >
+                          <option value="">{t('common:worklog.selectCourse')}</option>
+                          {worklogCourses.map((course) => (
+                            <option key={course.work_log_course_id} value={course.work_log_course_id}>
+                              {course.name} ({course.code})
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  ) : (
+                    <div className='flex justify-center w-full'>
+                      <div className='w-full'>
+                        <CourseSelect
+                          courses={showEndedCourses ? allCourses : courses}
+                          selectedCourse={selectedCourseId}
+                          onChange={setSelectedCourseId}
+                        />
+                      </div>
+                      <div className='flex items-end mb-3 ml-2'>
+                        <Tooltip
+                          title={t(
+                            showEndedCourses
+                              ? 'common:hideEndedCourses'
+                              : 'common:showEndedCourses',
+                          )}
+                          placement='top'>
+                          <IconButton
+                            className='h-fit'
+                            onClick={() => setShowEndedCourses(!showEndedCourses)}>
+                            {showEndedCourses ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          </IconButton>
+                        </Tooltip>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

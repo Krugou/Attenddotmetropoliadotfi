@@ -372,6 +372,29 @@ export const getWorkLogStats = async (userId: number, token: string) => {
   }
 };
 
+export const addNewStudentToWorklog = async (
+  token: string,
+  courseId: string,
+  studentData: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    studentnumber: string;
+    studentGroupId: number | null;
+  }
+) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(studentData),
+  };
+
+  return await doFetch(`${baseUrl}worklog/${courseId}/students/new`, options);
+};
+
 export const worklogApi = {
   checkStudentExistingGroup,
   insertStudentToGroup,
@@ -396,4 +419,5 @@ export const worklogApi = {
   deleteWorkLogEntry,
   updateWorkLogEntry,
   getWorkLogStats,
+  addNewStudentToWorklog,
 };

@@ -77,24 +77,68 @@ const TeacherWorklogCourseGroups: React.FC = () => {
   const handleCreateGroup = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!newGroupName.trim()) {
+      toast.error(t('teacher:worklog.groups.errors.nameRequired'));
+      return;
+    }
+
     try {
       setIsCreatingGroup(true);
       const token = localStorage.getItem('userToken');
       if (!token || !courseid) {
         throw new Error('No token or course id found');
       }
-      const newGroupId = await apiHooks.createWorkLogGroup(
+
+      // Create group
+      const response = await apiHooks.createWorkLogGroup(
         courseid,
-        newGroupName,
+        newGroupName.trim(),
         token,
       );
 
-      if (newGroupId && selectedStudents.length > 0) {
-        await apiHooks.addStudentsToWorkLogGroup(
-          newGroupId,
-          selectedStudents,
-          token,
-        );
+      if (!response?.groupId) {
+        throw new Error('No group ID returned from creation');
+      }
+
+      // Add students if any selected
+      if (selectedStudents.length > 0) {
+        try {
+          await apiHooks.addStudentsToWorkLogGroup(
+            response.groupId,
+            selectedStudents,
+            token,
+          );
+        } catch (studentError) {
+          console.error('Error adding students to group:', studentError);
+          toast.warning(t('teacher:worklog.groups.warnings.studentsNotAdded'));
+        }
+      }
+
+      // Refresh data
+      await refreshData();
+
+      // Reset form
+      setNewGroupName('');
+      setSelectedStudents([]);
+      setShowCreateForm(false);
+      toast.success(t('teacher:worklog.groups.createSuccess'));
+    } catch (error) {
+      console.error('Error creating group:', error);
+      if (error instanceof Error) {
+        toast.error(t('teacher:worklog.groups.errors.createFailed', { message: error.message }));
+      } else {
+        toast.error(t('teacher:worklog.groups.errors.unknown'));
+      }
+    } finally {
+      setIsCreatingGroup(false);
+    }
+  };
+
+  const refreshData = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token || !courseid) {
+        throw new Error('No token or course id found');
       }
 
       const [updatedGroups, studentsResponse] = await Promise.all([
@@ -117,22 +161,12 @@ const TeacherWorklogCourseGroups: React.FC = () => {
         (student) => !student.existingGroup,
       );
 
-      // Update state
       setGroups(updatedGroups || []);
       setStudents(availableStudents);
-      setNewGroupName('');
-      setSelectedStudents([]);
-      setShowCreateForm(false);
-      toast.success(t('teacher:worklog.groups.createSuccess'));
     } catch (error) {
-      console.error('Error creating group:', error);
       if (error instanceof Error) {
-        toast.error(`Failed to create group: ${error.message}`);
-      } else {
-        toast.error('An unexpected error occurred while creating the group');
+        toast.error(error.message);
       }
-    } finally {
-      setIsCreatingGroup(false);
     }
   };
 

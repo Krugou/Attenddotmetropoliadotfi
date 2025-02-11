@@ -128,20 +128,38 @@ router.put(
 router.post(
   '/:courseId/groups',
   checkUserRole(['admin', 'counselor', 'teacher']),
+  [
+    param('courseId').isInt().withMessage('Invalid courseId'),
+    body('name').isString().trim().notEmpty().withMessage('Group name is required'),
+  ],
+  validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
       const courseId = Number(req.params.courseId);
       const {name} = req.body;
-      if (!name) {
-        res.status(400).json({error: 'Group name is required'});
+
+      // Additional validation
+      if (!courseId || isNaN(courseId)) {
+        res.status(400).json({ error: 'Invalid course ID' });
         return;
       }
-      const result = await workLogController.createWorkLogGroup(courseId, name);
-      res.send(result);
+
+      if (!name || typeof name !== 'string' || name.trim().length === 0) {
+         res.status(400).json({ error: 'Valid group name is required' });
+          return;
+      }
+
+      const result = await workLogController.createWorkLogGroup(courseId, name.trim());
+      res.json({ success: true, groupId: result });
     } catch (error) {
       logger.error('Error creating worklog group:', error);
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: 'Failed to create worklog group' });
+      }
     }
-  },
+  }
 );
 
 router.post(
@@ -509,6 +527,30 @@ router.get(
       res.status(500).json({error: 'Failed to check student group'});
     }
   },
+);
+
+router.post(
+  '/:courseId/students/new',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  [
+    param('courseId').isInt().withMessage('Invalid courseId'),
+    body('email').isEmail().withMessage('Invalid email'),
+    body('first_name').isString().notEmpty().withMessage('Invalid first name'),
+    body('last_name').isString().notEmpty().withMessage('Invalid last name'),
+    body('studentnumber').isString().notEmpty().withMessage('Invalid student number'),
+    body('studentGroupId').optional().isInt().withMessage('Invalid student group ID'),
+  ],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const courseId = Number(req.params.courseId);
+      const result = await workLogController.addNewStudentToWorklog(courseId, req.body);
+      res.json(result);
+    } catch (error) {
+      logger.error('Error adding student to worklog course:', error);
+      res.status(500).json({ error: 'Failed to add student to worklog course' });
+    }
+  }
 );
 
 export default router;
