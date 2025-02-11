@@ -177,7 +177,6 @@ router.post(
             const addStaffUserResponse = await usermodel.addStaffUser(userData);
             if (!addStaffUserResponse) {
               logger.error('Failed to add staff user to the database.');
-              console.error('Failed to add staff user to the database.');
             }
             // Create a token for the user
             const token = jwt.sign(
@@ -197,9 +196,6 @@ router.post(
               logger.info(
                 `Staff Metropolia API login was successful for user: ${username}`,
               );
-              console.log(
-                `Staff Metropolia API login was successful for user: ${username}`,
-              );
             }
             // If the staff user exists, authenticate their login
             authenticate(req, res, next, username);
@@ -216,15 +212,12 @@ router.post(
         logger.info(
           `Non-staff Metropolia API login was successful for user: ${username}`,
         );
-        console.log(
-          `Non-staff Metropolia API login was successful for user: ${username}`,
-        );
+
         authenticate(req, res, next, username);
       }
     } catch (error) {
       console.log('Error in user login: ');
       logger.error(error);
-      console.error(error);
       res.status(500).json({error: 'Internal server error'});
     }
   },
@@ -261,7 +254,6 @@ router.post(
       });
     } catch (error) {
       logger.error(error);
-      console.error(error);
       res.status(500).json({
         message: 'An unexpected error occurred',
       });
