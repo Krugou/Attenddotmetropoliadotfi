@@ -62,9 +62,7 @@ router.post(
     // Get username and password from the request body
     const {username, password} = req.body;
 
-    // if the user is admin, return the admin account
-
-    // create tokens for dev accounts and return them
+    //  If the user is a dev account, authenticate them without calling the Metropolia API
     if (
       username === process.env.devaccount! &&
       password === process.env.devpass!
@@ -121,7 +119,7 @@ router.post(
         email: 'counselor@metropolia.fi',
       };
     } else {
-      //TRY TO FIND USER IN METROPOLIA DATABASE
+      // If the user is not a dev account, call the Metropolia API to authenticate the user
       const options = {
         method: 'POST',
         headers: {
@@ -138,7 +136,7 @@ router.post(
         return;
       }
     }
-
+    
     try {
       req.body.username = metropoliaData.email;
       // If the logged-in user is Metropolia staff and they don't exist in the DB yet, add them to the DB
@@ -208,7 +206,7 @@ router.post(
       if (metropoliaData.staff === false) {
         // Call the authenticate function to handle passport authentication
         logger.info(
-          `Non-staff Metropolia API login was successful for user: ${username}`,
+          `Non-staff Metropolia API login was successful for user: ${username} `,
         );
 
         authenticate(req, res, next, username);
