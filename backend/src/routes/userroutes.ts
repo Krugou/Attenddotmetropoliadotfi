@@ -1,7 +1,5 @@
 import express, {Request, Response, Router, NextFunction} from 'express';
-import {body, validationResult} from 'express-validator';
 import jwt from 'jsonwebtoken';
-import userFeedBackModel from '../models/userfeedbackmodel.js';
 import usermodel from '../models/usermodel.js';
 import {ResponseData, User, UserData} from '../types.js';
 import {authenticate} from '../utils/auth.js';
@@ -219,44 +217,6 @@ router.post(
       console.log('Error in user login: ');
       logger.error(error);
       res.status(500).json({error: 'Internal server error'});
-    }
-  },
-);
-router.post(
-  '/feedback',
-  [
-    body('topic').notEmpty().withMessage('Topic is required'),
-    body('text').notEmpty().withMessage('Text is required'),
-    body('userId').notEmpty().withMessage('User ID is required'),
-  ],
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        res.status(400).json({errors: errors.array()});
-        return;
-      }
-      const {topic, text, userId} = req.body;
-
-      const result = await userFeedBackModel.insertUserFeedback(
-        userId,
-        topic,
-        text,
-      );
-      if (result === null) {
-        res.status(500).json({
-          message: 'Internal server error',
-        });
-        return;
-      }
-      res.status(200).json({
-        message: 'Success',
-      });
-    } catch (error) {
-      logger.error(error);
-      res.status(500).json({
-        message: 'An unexpected error occurred',
-      });
     }
   },
 );

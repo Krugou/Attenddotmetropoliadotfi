@@ -21,6 +21,7 @@ import courseRoutes from './routes/courseroutes.js';
 import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
 import workLogRoutes from './routes/worklogroutes.js'; // Add this import
+import feedbackRoutes from './routes/feedbackroutes.js';
 import SocketHandlers from './sockets/socketHandlers.js';
 import logger from './utils/logger.js';
 /**
@@ -102,6 +103,7 @@ app.use(passport.initialize());
  * - /courses - Course management endpoints
  * - /admin - Administrative operations endpoints
  * - /worklog - Work log management endpoints
+ * - /feedback - User feedback endpoints
  *
  * @security All protected routes require valid JWT token
  * @example
@@ -162,6 +164,16 @@ app.use(
   '/worklog',
   passport.authenticate('jwt', {session: false}),
   workLogRoutes,
+);
+
+/**
+ * Use feedback routes for /feedback path with JWT authentication
+ * This sets up routes related to user feedback that require JWT authentication
+ */
+app.use(
+  '/feedback',
+  passport.authenticate('jwt', {session: false}),
+  feedbackRoutes,
 );
 
 /**

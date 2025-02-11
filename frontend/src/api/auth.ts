@@ -70,7 +70,7 @@ export const postUserFeedback = async (
   inputs: {topic: string; text: string; userId: number},
   token: string,
 ) => {
-  const response = await doFetch(baseUrl + 'users/feedback', {
+  const response = await doFetch(baseUrl + 'feedback', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
