@@ -169,6 +169,10 @@
     }
   },
   "worklog": {
+    "enrollment":{
+      "switchToRegular": "kurssi",
+      "switchToWorklog": "Työpäiväkirja"
+    },
     "entries": {
       "title": "Työaikakirjaukset",
       "date": "Päivämäärä",

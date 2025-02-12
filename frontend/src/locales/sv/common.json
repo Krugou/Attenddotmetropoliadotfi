@@ -174,6 +174,10 @@
     }
   },
   "worklog": {
+    "enrollment":{
+      "switchToRegular": "kurs",
+      "switchToWorklog": "arbetslogg"
+    },
     "entries": {
       "title": "Arbetsloggposter",
       "date": "Datum",

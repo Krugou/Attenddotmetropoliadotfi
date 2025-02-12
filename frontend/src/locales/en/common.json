@@ -171,6 +171,10 @@
     }
   },
   "worklog": {
+    "enrollment":{
+      "switchToRegular": "Course",
+      "switchToWorklog": "Worklog"
+    },
     "entries": {
       "title": "Work Log Entries",
       "date": "Date",

@@ -12,7 +12,6 @@ import CourseSelect from './newUser/CourseSelect';
 import FormInput from './newUser/FormInput';
 import StudentGroupSelect from './newUser/StudentGroupSelect';
 import SubmitButton from './newUser/SubmitButton';
-import { Button } from '@mui/material';
 
 
 const NewStudentUser: React.FC = () => {
@@ -29,7 +28,9 @@ const NewStudentUser: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [showWorklogSelect, setShowWorklogSelect] = useState(false);
   const [worklogCourses, setWorklogCourses] = useState<WorklogCourse[]>([]);
-  const [selectedWorklogId, setSelectedWorklogId] = useState<number | null>(null);
+  const [selectedWorklogId, setSelectedWorklogId] = useState<number | null>(
+    null,
+  );
 
   interface StudentGroup {
     studentgroupid: number;
@@ -172,7 +173,10 @@ const NewStudentUser: React.FC = () => {
         if (!token) return;
 
         try {
-          const courses = await apiHooks.getWorkLogCoursesByInstructor(user.email, token);
+          const courses = await apiHooks.getWorkLogCoursesByInstructor(
+            user.email,
+            token,
+          );
           setWorklogCourses(courses);
         } catch (error) {
           console.error('Failed to fetch worklog courses:', error);
@@ -212,7 +216,7 @@ const NewStudentUser: React.FC = () => {
             firstName,
             lastName,
             studentGroupId,
-            selectedCourseId
+            selectedCourseId,
           );
         }
 
@@ -226,8 +230,8 @@ const NewStudentUser: React.FC = () => {
               first_name: firstName,
               last_name: lastName,
               studentnumber: studentNumber,
-              studentGroupId
-            }
+              studentGroupId,
+            },
           );
         }
 
@@ -294,24 +298,14 @@ const NewStudentUser: React.FC = () => {
               />
               <div className='flex flex-col gap-4'>
                 <div className='flex flex-col items-center gap-2'>
-                  <Button
-                    variant="text"
-                    size="small"
+                  <button
+                    type='button'
                     onClick={() => setShowWorklogSelect(!showWorklogSelect)}
-                    endIcon={showWorklogSelect}
-                    sx={{
-                      color: 'black',
-                      width: '100%',
-                      '&:hover': {
-                        backgroundColor: 'metropolia.trend.green'
-                      }
-                    }}
-                  >
+                    className='w-full px-4 py-2 text-sm font-body text-metropolia-support-black hover:bg-metropolia-trend-green/50 transition-colors duration-200 rounded flex items-center justify-center gap-2 '>
                     {showWorklogSelect
-                      ? t('common:worklog.switchToRegular')
-                      : t('common:worklog.switchToWorklog')
-                    }
-                  </Button>
+                      ? t('common:worklog.enrollment.switchToRegular')
+                      : t('common:worklog.enrollment.switchToWorklog')}
+                  </button>
 
                   {showWorklogSelect ? (
                     <div className='w-full'>
@@ -321,12 +315,17 @@ const NewStudentUser: React.FC = () => {
                         </span>
                         <select
                           value={selectedWorklogId || ''}
-                          onChange={(e) => setSelectedWorklogId(Number(e.target.value) || null)}
-                          className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl'
-                        >
-                          <option value="">{t('common:worklog.selectCourse')}</option>
+                          onChange={(e) =>
+                            setSelectedWorklogId(Number(e.target.value) || null)
+                          }
+                          className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl'>
+                          <option value=''>
+                            {t('common:worklog.selectCourse')}
+                          </option>
                           {worklogCourses.map((course) => (
-                            <option key={course.work_log_course_id} value={course.work_log_course_id}>
+                            <option
+                              key={course.work_log_course_id}
+                              value={course.work_log_course_id}>
                               {course.name} ({course.code})
                             </option>
                           ))}
@@ -352,8 +351,14 @@ const NewStudentUser: React.FC = () => {
                           placement='top'>
                           <IconButton
                             className='h-fit'
-                            onClick={() => setShowEndedCourses(!showEndedCourses)}>
-                            {showEndedCourses ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                            onClick={() =>
+                              setShowEndedCourses(!showEndedCourses)
+                            }>
+                            {showEndedCourses ? (
+                              <VisibilityOffIcon />
+                            ) : (
+                              <VisibilityIcon />
+                            )}
                           </IconButton>
                         </Tooltip>
                       </div>
