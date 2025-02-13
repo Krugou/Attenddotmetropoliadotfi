@@ -7,6 +7,7 @@ import TeacherCourses from '../../views/main/teacher/Courses/TeacherCourses.tsx'
 import TeacherCourseStats from '../../views/main/teacher/Courses/TeacherCourseStats.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView.tsx';
 import TeacherCreateCourseRoutes from './create/TeacherCreateCourseRoutes.tsx';
+import TeacherStudentCourseActivity from '../../views/main/teacher/Courses/TeacherStudentCourseActivity.tsx';
 /**
  * TeacherCoursesRoutes component.
  * This component is responsible for defining the routes for the teacher's courses section of the application.
@@ -25,6 +26,7 @@ const TeacherCoursesRoutes: React.FC = () => {
       <Route path='stats/:courseid?' element={<TeacherCourseStats />} />
       <Route path='attendances/:id' element={<TeacherCourseAttendances />} />
       <Route path=':id' element={<TeacherCourseDetail />} />
+      <Route path='/activity' element={<TeacherStudentCourseActivity />} />
       <Route path='*' element={<TeacherMainView />} />
     </Routes>
   );

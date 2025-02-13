@@ -169,6 +169,14 @@ const MainView: React.FC = () => {
                   )}
                   icon={School}
                 />
+                 <Card
+                  path='/teacher/courses/activity'
+                  title={t('teacher:mainView.cards.studenActivity.title')}
+                  description={t(
+                    'teacher:mainView.cards.studenActivity.description',
+                  )}
+                  icon={People}
+                />
               </>
             )}
 

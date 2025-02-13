@@ -3,6 +3,7 @@ import {courseApi} from './course';
 import {adminApi} from './admin';
 import {secureApi} from './secure';
 import {worklogApi} from './worklog';
+import activityApi from './activity';
 
 export * from './auth';
 export * from './course';
@@ -15,6 +16,7 @@ export const apiHooks = {
   ...adminApi,
   ...secureApi,
   ...worklogApi,
+  ...activityApi,
 };
 
 export default apiHooks;

@@ -20,7 +20,8 @@ import adminRoutes from './routes/adminroutes.js';
 import courseRoutes from './routes/courseroutes.js';
 import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
-import workLogRoutes from './routes/worklogroutes.js'; // Add this import
+import workLogRoutes from './routes/worklogroutes.js';
+import activityRoutes from './routes/activityroutes.js';
 import feedbackRoutes from './routes/feedbackroutes.js';
 import SocketHandlers from './sockets/socketHandlers.js';
 import logger from './utils/logger.js';
@@ -164,6 +165,12 @@ app.use(
   '/worklog',
   passport.authenticate('jwt', {session: false}),
   workLogRoutes,
+);
+
+app.use(
+  '/activity',
+  passport.authenticate('jwt', {session: false}),
+  activityRoutes,
 );
 
 /**
