@@ -94,16 +94,30 @@ const StudentWorklogs: React.FC = () => {
   const filteredEntries = entries.filter((entry) => {
     const matchesCourse =
       selectedCourse === 'all' || entry.course?.code === selectedCourse;
+
+    // Debug logging
+    console.log('Entry date:', entry.start_time);
+    console.log('Selected date:', selectedDate);
+
+    const entryDate = dayjs(entry.start_time);
+    const compareDate = selectedDate ? dayjs(selectedDate) : null;
+
+    // Debug logging
+    console.log('Entry date formatted:', entryDate.format('YYYY-MM-DD'));
+    console.log('Compare date formatted:', compareDate?.format('YYYY-MM-DD'));
+
     const matchesDate =
       !selectedDate ||
-      dayjs(entry.start_time).format('YYYY-MM-DD') ===
-        dayjs(selectedDate).format('YYYY-MM-DD');
+      entryDate.format('YYYY-MM-DD') === compareDate?.format('YYYY-MM-DD');
+
     return matchesCourse && matchesDate;
   });
 
-  const worklogDates = entries.map((entry) =>
-    dayjs(entry.start_time).format('YYYY-MM-DD'),
-  );
+  const worklogDates = [
+    ...new Set(
+      entries.map((entry) => dayjs(entry.start_time).format('YYYY-MM-DD')),
+    ),
+  ];
 
   if (loading) {
     return <Loader />;
@@ -111,12 +125,11 @@ const StudentWorklogs: React.FC = () => {
 
   return (
     <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
-      <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
-        <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
+      <div className='flex flex-row justify-between   mb-6 gap-4'>
+        <div className='flex flex-col w-full sm:flex-row items-start justify-start h-full sm:items-center gap-4'>
           <h1 className='text-2xl font-heading text-metropolia-main-orange'>
             {t('common:worklog.entries.title')}
           </h1>
-
           <div className='flex items-center gap-2 bg-metropolia-support-white rounded-lg p-1 shadow-sm'>
             <button
               onClick={() => setViewMode('card')}
@@ -140,6 +153,7 @@ const StudentWorklogs: React.FC = () => {
             </button>
           </div>
         </div>
+
         <WorklogFilters
           selectedCourse={selectedCourse}
           setSelectedCourse={setSelectedCourse}
@@ -151,6 +165,7 @@ const StudentWorklogs: React.FC = () => {
           worklogDates={worklogDates}
         />
       </div>
+
       {viewMode === 'card' ? (
         <WorklogCardView
           entries={filteredEntries}

@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import RestoreIcon from '@mui/icons-material/Restore';
 import Calendar from 'react-calendar';
+import dayjs from 'dayjs';
 
 interface WorklogFiltersProps {
   selectedCourse: string;
@@ -27,12 +28,17 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
 }) => {
   const {t} = useTranslation(['common']);
 
-  const handleDateChange = (value: Date | [Date, Date] | null) => {
-    setSelectedDate(value instanceof Date ? value : null);
+  const handleDateChange = (value: Date) => {
+    console.log('Selected date in calendar:', value);
+    setSelectedDate(value);
+    setShowCalendar(false); // Close calendar after selection
   };
 
+  // Debug logging for worklog dates
+  console.log('Available worklog dates:', worklogDates);
+
   return (
-    <>
+    <div className='flex flex-col  md:items-center gap-4 w-full md:w-auto'>
       <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
         <div className='w-full md:w-auto'>
           <select
@@ -76,21 +82,34 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
         </div>
       </div>
       {showCalendar && (
-        <Calendar
-          // @ts-ignore
-          onChange={handleDateChange}
-          value={selectedDate}
-          className='bg-white border rounded-md shadow-sm'
-          tileContent={({date}) => {
-            const dateStr = new Date(date).toISOString().split('T')[0];
-            const hasWorklog = worklogDates.includes(dateStr);
-            return hasWorklog ? (
-              <div className='w-2 h-2 bg-metropolia-main-orange rounded-full mx-auto mt-1'></div>
-            ) : null;
-          }}
-        />
+        <div className='relative z-50'>
+          {' '}
+          {/* Ensure calendar appears above other elements */}
+          <Calendar
+            onChange={handleDateChange}
+            value={selectedDate}
+            className='bg-white border rounded-md shadow-sm'
+            tileClassName={({date}) => {
+              const dateStr = dayjs(date).format('YYYY-MM-DD');
+              return worklogDates.includes(dateStr) ? 'has-worklog' : '';
+            }}
+            tileContent={({date}) => {
+              const dateStr = dayjs(date).format('YYYY-MM-DD');
+              const hasWorklog = worklogDates.includes(dateStr);
+              console.log(
+                'Checking date:',
+                dateStr,
+                'Has worklog:',
+                hasWorklog,
+              );
+              return hasWorklog ? (
+                <div className='w-2 h-2 bg-metropolia-main-orange rounded-full mx-auto mt-1'></div>
+              ) : null;
+            }}
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 
