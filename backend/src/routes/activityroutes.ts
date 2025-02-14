@@ -26,7 +26,6 @@ router.get(
 
       const result = await ActivityController.getStudentsFromInstructorCourses(requestedId);
 
-
       res.json(result);
 
     } catch (error) {

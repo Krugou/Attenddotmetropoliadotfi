@@ -35,6 +35,7 @@ interface CombinedStudentData {
   studentNumber: string;
   groupName: string;
   courseName: string;
+  code: string;
   attendance: {
     total: number;
     attended: number;
@@ -76,6 +77,8 @@ const TeacherStudentCourseActivity: React.FC = () => {
         }
 
         const response = await apihook.getStudentAttendance(user.userid, token);
+
+
 
         if (!response.success || !response.data) {
           throw new Error(response.error || 'Failed to load attendance data');
@@ -348,6 +351,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
               <TableRow>
                 <SortableHeader field="name" label={t('common.name')} />
                 <SortableHeader field="courseName" label={t('common.course')} />
+                <SortableHeader field="code" label={t('common.courseCode')} />
                 <SortableHeader field="email" label={t('common.email')} />
                 <SortableHeader
                   field="studentNumber"
@@ -381,6 +385,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
                   className='hover:bg-gray-50'>
                   <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
                   <TableCell>{student.courseName}</TableCell>
+                  <TableCell>{student.code}</TableCell>
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.studentNumber}</TableCell>
                   <TableCell>{student.groupName}</TableCell>

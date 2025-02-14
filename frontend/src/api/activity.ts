@@ -9,6 +9,7 @@ export interface AttendanceData {
   lastName: string;
   studentNumber: string;
   groupName: string;
+  code: string;
   attendance: {
     total: number;
     attended: number;

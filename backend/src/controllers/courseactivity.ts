@@ -10,6 +10,7 @@ interface SQLStudentData {
   last_name: string;
   studentnumber: string;
   courseid: number;
+  code: string;
   course_name: string;
   group_name: string | null;
   total_lectures: number;
@@ -37,7 +38,7 @@ const courseActivityController = {
 
       const courseGroups = {};
 
-      // Transform SQL data to response format
+
       students.forEach(student => {
         if (!courseGroups[student.courseid]) {
           courseGroups[student.courseid] = {
@@ -52,6 +53,7 @@ const courseActivityController = {
           email: student.email,
           firstName: student.first_name,
           lastName: student.last_name,
+          code: student.code,
           studentNumber: student.studentnumber,
           groupName: student.group_name || '',
           attendance: {

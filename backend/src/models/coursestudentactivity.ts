@@ -18,6 +18,7 @@ const courseStudentActivityModel = {
           u.last_name,
           u.studentnumber,
           c.courseid,
+          c.code,
           c.name as course_name,
           sg.group_name,
           COUNT(DISTINCT l.lectureid) as total_lectures,
