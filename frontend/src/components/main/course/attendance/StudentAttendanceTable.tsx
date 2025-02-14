@@ -210,8 +210,8 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
       </div>
 
       {/* Mobile Card View */}
-      <div className='grid grid-cols-1 gap-4 md:hidden'>
-        <div className='flex items-center justify-between mb-4 bg-metropolia-support-white p-2 rounded'>
+      <div className='grid grid-cols-1 gap-4 md:hidden '>
+        <div className='flex items-center justify-between mb-4 bg-metropolia-support-white p-2 rounded transition-shadow duration-300  shadow-lg hover:shadow-xl'>
           <p className='text-sm text-gray-500 italic'>
             {sortConfig
               ? `${t('common:sorting.currentSort')} ${sortConfig.key} (${t(
@@ -248,7 +248,7 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
             transition={{duration: 0.3, delay: index * 0.1}}
             className={`${getStatusClass(
               attendance.status,
-            )} rounded-lg shadow-sm p-4 border border-gray-100`}>
+            )}   p-4 border border-gray-100  rounded transition-shadow  duration-300  shadow-lg hover:shadow-xl`}>
             <div className='flex justify-between items-start mb-3'>
               <h3 className='text-lg font-medium text-metropolia-main-grey'>
                 {attendance.topicname}
