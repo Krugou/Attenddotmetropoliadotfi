@@ -39,6 +39,11 @@ const TeacherLectureDetail = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [action, setAction] = useState<'close' | 'delete' | null>(null);
 
+  const getLocalDate = (utcDate: string) => {
+    const date = new Date(utcDate);
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  };
+
   useEffect(() => {
     const fetchLecture = async () => {
       if (!user || !lectureid) return;
@@ -131,9 +136,9 @@ const TeacherLectureDetail = () => {
           <button
             onClick={() =>
               navigate(
-                `/teacher/courses/attendances/${lecture.courseid}/${
-                  lecture.start_date.split('T')[0]
-                }`,
+                `/teacher/courses/attendances/${
+                  lecture.courseid
+                }/${getLocalDate(lecture.start_date)}`,
               )
             }
             className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
@@ -142,13 +147,13 @@ const TeacherLectureDetail = () => {
           {lecture?.state === 'open' && (
             <button
               onClick={handleClose}
-              className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-trend-green hover:bg-green-700'>
+              className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors rounded-lg bg-metropolia-trend-green hover:bg-green-700'>
               {t('teacher:lectures.details.closeLecture')}
             </button>
           )}
           <button
             onClick={handleDelete}
-            className='px-4 py-2 text-sm font-medium text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700'>
+            className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700'>
             {t('teacher:lectures.details.deleteLecture')}
           </button>
         </div>
