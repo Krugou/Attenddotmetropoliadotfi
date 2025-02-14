@@ -625,6 +625,12 @@
       "cancelLecture": {
         "title": "Cancel Lecture?",
         "message": "Are you sure you want to cancel this lecture? This will delete the lecture from the database and cannot be undone."
+      },
+      "success": {
+        "title": "All Students Present!",
+        "allPresent": "Everyone has arrived!",
+        "options": "You can finish now or wait {{seconds}} seconds for automatic finish.",
+        "finishing": "Finishing the lecture automatically..."
       }
     },
     "settings": {

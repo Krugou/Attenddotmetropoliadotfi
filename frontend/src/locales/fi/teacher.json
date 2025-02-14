@@ -628,6 +628,12 @@
       "cancelLecture": {
         "title": "Peruuta luento",
         "message": "Haluatko varmasti peruuttaa luennon? Tämä poistaa luennon tietokannasta. Toimintoa ei voi kumota."
+      },
+      "success": {
+        "title": "Kaikki opiskelijat paikalla!",
+        "allPresent": "Kaikki ovat saapuneet!",
+        "options": "Voit lopettaa nyt tai odottaa {{seconds}} sekuntia automaattista lopetusta.",
+        "finishing": "Lopetetaan luento automaattisesti..."
       }
     },
     "tooltips": {
