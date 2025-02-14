@@ -63,6 +63,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               {t('common:worklog.entries.startTime')}
             </label>
             <input
+              title={t('common:worklog.entries.startTime')}
               type='datetime-local'
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
@@ -74,6 +75,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               {t('common:worklog.entries.endTime')}
             </label>
             <input
+              title={t('common:worklog.entries.endTime')}
               type='datetime-local'
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
@@ -85,6 +87,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               {t('common:worklog.entries.description')}
             </label>
             <textarea
+              title={t('common:worklog.entries.description')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className='w-full p-2 border rounded-sm'
@@ -96,6 +99,7 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               {t('teacher:worklog.entries.status')}
             </label>
             <select
+              title={t('teacher:worklog.entries.status')}
               value={status}
               onChange={(e) => setStatus(Number(e.target.value))}
               className='w-full p-2 border rounded-sm'>

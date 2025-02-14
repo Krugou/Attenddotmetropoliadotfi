@@ -321,5 +321,7 @@
   "openLectureCard": {
     "title": "Avointa luentoa löydetty, koodi: {{code}} aihe: {{topic}} !",
     "description": "Klikkaa jatkaaksesi"
-  }
+  },
+  "save": "Tallenna muutokset",
+  "cancel": "Peruuta"
 }
