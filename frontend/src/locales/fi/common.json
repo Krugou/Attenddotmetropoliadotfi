@@ -273,6 +273,10 @@
       "duration": "Kesto",
       "description": "Kuvaus",
       "status": "Status"
+    },
+    "view": {
+      "card": "Kortti",
+      "table": "Taulukko"
     }
   },
   "lectures": {

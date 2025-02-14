@@ -254,6 +254,10 @@
       "duration": "Varaktighet",
       "description": "Beskrivning",
       "status": "Status"
+    },
+    "view": {
+      "card": "Kort",
+      "table": "Tabell"
     }
   },
   "lectures": {

@@ -275,6 +275,10 @@
       "duration": "Duration",
       "description": "Description",
       "status": "Status"
+    },
+    "view": {
+      "table": "Table",
+      "card": "Card"
     }
   },
   "lectures": {
