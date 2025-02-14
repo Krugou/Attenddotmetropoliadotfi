@@ -6,7 +6,11 @@
     "showAttendanceTable": "Näytä läsnäolotaulukko",
     "all": "Kaikki",
     "yourCourses": "Omat kurssisi",
-    "showEndedCourses": "Näytä päättyneet kurssit"
+    "showEndedCourses": "Näytä päättyneet kurssit",
+    "onTrack": "Oikealla tiellä",
+    "needsImprovement": "Tarvitsee parannusta",
+    "attendanceWarning": "Läsnäolovaroitus",
+    "attendanceOverview": "Osallistumiskatsaus"
   },
   "helpVideos": {
     "title": "Opiskelijan apuvideot",

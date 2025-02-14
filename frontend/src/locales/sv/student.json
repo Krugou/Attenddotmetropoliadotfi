@@ -6,7 +6,11 @@
     "showAttendanceTable": "Visa närvarotabell",
     "all": "Alla",
     "yourCourses": "Dina kurser",
-    "showEndedCourses": "Visa avslutade kurser"
+    "showEndedCourses": "Visa avslutade kurser",
+    "onTrack": "På rätt spår",
+    "needsImprovement": "Behöver förbättras",
+    "attendanceWarning": "Närvaro varning",
+    "attendanceOverview": "Närvaroöversikt"
   },
   "helpVideos": {
     "title": "Studentens hjälpvideor",

@@ -6,7 +6,11 @@
     "showAttendanceTable": "Show Attendance Table",
     "all": "All",
     "yourCourses": "Your Courses",
-    "showEndedCourses": "Show ended courses"
+    "showEndedCourses": "Show ended courses",
+    "attendanceOverview": "Attendance Overview",
+    "attendanceWarning": "Attendance Warning",
+    "onTrack": "On Track",
+    "needsImprovement": "Needs Improvement"
   },
   "helpVideos": {
     "title": "Student Help Videos",
