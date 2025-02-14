@@ -1,4 +1,4 @@
-import logger from 'utils/logger.js';
+import logger from '../utils/logger.js';
 import createPool from '../config/createPool.js';
 const pool = createPool('ADMIN');
 

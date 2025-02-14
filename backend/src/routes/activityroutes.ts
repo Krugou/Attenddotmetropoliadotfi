@@ -2,7 +2,7 @@ import express, {Request, Response, Router} from 'express';
 import ActivityController from '../controllers/courseactivity.js';
 import checkUserRole from '../utils/checkRole.js';
 import validate from '../utils/validate.js';
-import logger from 'utils/logger.js';
+import logger from '../utils/logger.js';
 const router: Router = express.Router();
 
 
