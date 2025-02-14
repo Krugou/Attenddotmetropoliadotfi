@@ -146,20 +146,25 @@ const StudentCourseAttendance: React.FC = () => {
         .includes(searchTerm) &&
       (sortOption === 'All' || attendance.topicname === sortOption),
   );
-
+  console.log(attendanceData);
   if (attendanceData.length > 0) {
     return (
       <motion.div
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{duration: 0.5}}
-        className='w-full p-4 md:p-6 lg:p-8 space-y-6'>
-        <h1 className='text-2xl md:text-4xl text-center font-heading  text-metropolia-main-grey mb-8'>
-          {t('student:course.attendaceOfCourse')} {attendanceData[0].name}
-        </h1>
+        className='w-full p-4 md:p-6 lg:p-8 space-y-6 bg-metropolia-support-white p-4 rounded'>
+        <div className='flex justify-center mb-4 flex-col bg-metropolia-support-white p-4 rounded'>
+          <h1 className='text-2xl md:text-4xl text-center font-heading text-metropolia-main-grey '>
+            {t('student:course.attendaceOfCourse')}:
+          </h1>
+          <h2 className='text-lg md:text-xl text-center text-gray-600'>
+            {attendanceData[0].name} - {attendanceData[0].code}
+          </h2>
+        </div>
 
         <div className='flex flex-col items-center space-y-4 w-full'>
-          <div className='flex flex-row items-center justify-between  w-full space-x-4'>
+          <div className='flex flex-row items-center justify-between  w-full space-x-4 bg-metropolia-support-white p-4 rounded'>
             <div className='w-full max-w-md '>
               <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
                 {t('admin:common.searchByDate')}:
@@ -180,7 +185,7 @@ const StudentCourseAttendance: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={handleChange}
-                className='w-full p-3 border border-metropolia-main-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all bg-white'>
+                className='w-full p-3 border border-metropolia-main-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all bg-metropolia-support-white'>
                 <option value='All' className='py-2'>
                   {t('student:course.all')}
                 </option>
