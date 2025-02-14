@@ -1,13 +1,12 @@
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
-import {Button, FormControl, MenuItem, Select} from '@mui/material';
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import AttendanceStatsTable from '../../../../components/main/course/attendance/AttendanceStatsTable';
-import AttendanceTable from '../../../../components/main/course/attendance/AttendanceTable';
+import StudentAttendanceTable from '../../../../components/main/course/attendance/StudentAttendanceTable';
+import StudentAttendanceStatsTable from '../../../../components/main/course/attendance/StudentAttendanceStatsTable';
 import apiHooks from '../../../../api';
 import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
+import {motion} from 'framer-motion';
 /**
  * Interface for the attendance data.
  *
@@ -47,29 +46,20 @@ interface Attendance {
  */
 const StudentCourseAttendance: React.FC = () => {
   const {t} = useTranslation(['admin', 'student']);
-  // Get the usercourseid from the url
   const {usercourseid} = useParams<{usercourseid}>();
-
-  // State to keep track of the sort option
   const [sortOption, setSortOption] = useState('All');
-
-  // State to keep track of the attendance data
   const [attendanceData, setAttendanceData] = useState<Attendance[] | null>(
     null,
   );
-
   const [showTable, setShowTable] = useState(true);
-
-  // State to keep track of the search term
   const [searchTerm, setSearchTerm] = useState('');
-
   const {threshold} = useCourses();
 
   // Function to handle search term change
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-  // Fetch attendance data for the course
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -81,7 +71,6 @@ const StudentCourseAttendance: React.FC = () => {
           usercourseid,
           token,
         );
-        console.log(response, 'RESPONSE');
         setAttendanceData(response);
       } catch (error) {
         console.error('Error:', error);
@@ -91,12 +80,16 @@ const StudentCourseAttendance: React.FC = () => {
     fetchData();
   }, [usercourseid]);
 
-  // If the attendance data is not available, return a loading message
   if (!attendanceData) {
-    return <div>{t('admin:common.loading')}</div>;
+    return (
+      <div className='flex items-center justify-center min-h-[400px]'>
+        <div className='text-xl text-metropolia-main-grey animate-pulse'>
+          {t('admin:common.loading')}
+        </div>
+      </div>
+    );
   }
 
-  // Function to handle sort option change
   const handleChange = (event) => {
     setSortOption(event.target.value);
   };
@@ -153,77 +146,83 @@ const StudentCourseAttendance: React.FC = () => {
         .includes(searchTerm) &&
       (sortOption === 'All' || attendance.topicname === sortOption),
   );
-  console.log(filteredAttendanceData, 'filteredAttendanceData');
+
   if (attendanceData.length > 0) {
     return (
-      <div className='flex flex-col w-full p-5 overflow-x-auto bg-gray-100 border-t rounded-lg 2xl:w-3/4 border-x'>
-        <h1 className='mt-2 mb-8 text-xl text-center font-heading sm:text-4xl'>
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{duration: 0.5}}
+        className='w-full p-4 md:p-6 lg:p-8 space-y-6'>
+        <h1 className='text-2xl md:text-4xl text-center font-heading  text-metropolia-main-grey mb-8'>
           {t('student:course.attendaceOfCourse')} {attendanceData[0].name}
         </h1>
-        <div className='flex flex-col flex-wrap items-center justify-around gap-5 mb-5 sm:flex-row'>
-          <input
-            type='text'
-            placeholder={t('admin:common.searchByDate')}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className='w-10/12 sm:w-[20em] mt-10 p-4 m-2 border border-black rounded-sm'
-          />
-          <FormControl className='mt-2 md:w-1/4 md:mt-0'>
-            <label>{t('student:course.sortTopics')}:</label>
-            <Select
-              className='favorite-selector'
-              value={sortOption}
-              onChange={handleChange}>
-              <MenuItem value='All'>
-                <div className='item-selector'>
-                  <AutorenewIcon className='highest-star-selector-icon' />
-                  <span className='selector-text'>
-                    {t('student:course.all')}
-                  </span>
-                </div>
-              </MenuItem>
-              {uniqueTopics.map((topic, index) => (
-                <MenuItem key={index} value={topic}>
-                  <div className='item-selector'>
-                    <AutorenewIcon className='highest-star-selector-icon' />
-                    <span className='selector-text'>{topic}</span>
-                  </div>
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+
+        <div className='flex flex-col items-center space-y-4 w-full'>
+          <div className='flex flex-row items-center justify-between  w-full space-x-4'>
+            <div className='w-full max-w-md '>
+              <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
+                {t('admin:common.searchByDate')}:
+              </label>
+              <input
+                type='text'
+                placeholder={new Date().toLocaleDateString()}
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className='w-full p-3 border border-metropolia-main-grey rounded-lg bg-metropolia-support-white focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all placeholder-gray-400'
+              />
+            </div>
+
+            <div className='w-full max-w-md'>
+              <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
+                {t('student:course.sortTopics')}:
+              </label>
+              <select
+                value={sortOption}
+                onChange={handleChange}
+                className='w-full p-3 border border-metropolia-main-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all bg-white'>
+                <option value='All' className='py-2'>
+                  {t('student:course.all')}
+                </option>
+                {uniqueTopics.map((topic, index) => (
+                  <option key={index} value={topic} className='py-2'>
+                    {topic}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowTable(!showTable)}
+            className='inline-flex items-center px-6 py-3 bg-metropolia-main-orange text-white rounded-lg hover:bg-metropolia-main-orange-dark transition-colors duration-200 font-medium space-x-2'>
+            <ShowChartIcon className='w-5 h-5' />
+            <span>
+              {showTable
+                ? t('student:course.showAttendanceStats')
+                : t('student:course.showAttendanceTable')}
+            </span>
+          </button>
         </div>
-        <div className='text-center'>
-          <Button
-            variant='contained'
-            color='primary'
-            startIcon={<ShowChartIcon />}
-            className='w-fit '
-            onClick={() => setShowTable(!showTable)}>
-            {showTable
-              ? t('student:course.showAttendanceStats')
-              : t('student:course.showAttendanceTable')}
-          </Button>
+
+        <div className='mt-8'>
+          {showTable ? (
+            <StudentAttendanceTable attendanceData={filteredAttendanceData} />
+          ) : (
+            <StudentAttendanceStatsTable
+              attendanceStudentData={attendanceStudentData}
+              threshold={threshold}
+            />
+          )}
         </div>
-        {showTable && (
-          <AttendanceTable filteredAttendanceData={filteredAttendanceData} />
-        )}
-        {!showTable && (
-          <AttendanceStatsTable
-            attendanceStudentData={attendanceStudentData}
-            threshold={threshold}
-            usercourseid={usercourseid}
-          />
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <div className='p-3 m-10 text-3xl text-center bg-white rounded-lg font-heading'>
-        {t('admin:common.noDataAvailable')}
-      </div>
+      </motion.div>
     );
   }
+
+  return (
+    <div className='p-6 m-10 text-3xl text-center bg-white rounded-lg font-heading text-metropolia-main-grey'>
+      {t('admin:common.noDataAvailable')}
+    </div>
+  );
 };
 
 export default StudentCourseAttendance;
