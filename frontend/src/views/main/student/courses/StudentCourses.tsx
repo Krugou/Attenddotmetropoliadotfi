@@ -2,9 +2,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import StudentCourseGrid from '../../../components/main/course/StudentCourseGrid';
-import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../api';
+import StudentCourseGrid from '../../../../components/main/course/StudentCourseGrid';
+import {UserContext} from '../../../../contexts/UserContext';
+import apiHooks from '../../../../api';
 
 /**
  * StudentCourses component.

@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
-import {UserContext} from '../../../contexts/UserContext';
-import apiHooks from '../../../api';
+import {UserContext} from '../../../../contexts/UserContext';
+import apiHooks from '../../../../api';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {CircularProgress} from '@mui/material';
-import EditWorklogModal from '../../../components/modals/EditWorklogModal';
+import EditWorklogModal from '../../../../components/modals/EditWorklogModal';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';

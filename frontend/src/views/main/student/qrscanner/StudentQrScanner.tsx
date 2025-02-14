@@ -13,7 +13,7 @@ import React, {
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import io, {Socket} from 'socket.io-client';
-import {UserContext} from '../../../contexts/UserContext.tsx';
+import {UserContext} from '../../../../contexts/UserContext.tsx';
 import {useTranslation} from 'react-i18next';
 /**
  * StudentQrScanner component.

@@ -7,8 +7,8 @@ import {
   EditRounded as EditIcon,
 } from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
-import apiHooks from '../../../api';
-import {UserContext} from '../../../contexts/UserContext';
+import apiHooks from '../../../../api';
+import {UserContext} from '../../../../contexts/UserContext';
 
 interface WorkLogCourse {
   work_log_course_id: number;

@@ -3,10 +3,10 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 import {Button, FormControl, MenuItem, Select} from '@mui/material';
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import AttendanceStatsTable from '../../../components/main/course/attendance/AttendanceStatsTable';
-import AttendanceTable from '../../../components/main/course/attendance/AttendanceTable';
-import apiHooks from '../../../api';
-import {useCourses} from '../../../hooks/courseHooks';
+import AttendanceStatsTable from '../../../../components/main/course/attendance/AttendanceStatsTable';
+import AttendanceTable from '../../../../components/main/course/attendance/AttendanceTable';
+import apiHooks from '../../../../api';
+import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
 /**
  * Interface for the attendance data.
