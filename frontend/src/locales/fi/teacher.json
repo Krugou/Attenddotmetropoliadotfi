@@ -180,7 +180,11 @@
         "title": "Haluatko varmasti {{action}} luennon?",
         "message": "Tätä toimintoa ei voi peruuttaa.",
         "cancel": "Peruuta",
-        "confirm": "Vahvista"
+        "confirm": "Vahvista",
+        "important": {
+          "title": "⚠️ Tärkeää:",
+          "message": "Tätä toimintoa ei voi perua. Luento poistetaan pysyvästi, eikä sitä lasketa mukaan kokonaisläsnäoloprosenttiin."
+        }
       },
       "editAttendances": "Muokkaa Oppilaiden Läsnäoloja"
     }

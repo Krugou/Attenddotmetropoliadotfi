@@ -180,7 +180,11 @@
         "title": "Are you sure you want to {{action}} the lecture?",
         "message": "This action cannot be undone.",
         "cancel": "Cancel",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "important": {
+          "title": "⚠️ Important:",
+          "message": "This action cannot be undone. The lecture will be permanently removed and will not be counted in the overall attendance score."
+        }
       },
       "editAttendances": "Edit Student Attendances"
     }

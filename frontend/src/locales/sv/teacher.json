@@ -180,7 +180,11 @@
         "title": "Är du säker på att du vill {{action}} föreläsningen?",
         "message": "Denna åtgärd kan inte ångras.",
         "cancel": "Avbryt",
-        "confirm": "Bekräfta"
+        "confirm": "Bekräfta",
+        "important": {
+          "title": "⚠️ Viktigt:",
+          "message": "Denna åtgärd kan inte ångras. Föreläsningen kommer att tas bort permanent och kommer inte att räknas med i det totala närvaroresultatet."
+        }
       },
       "editAttendances": "Redigera studentdeltagare"
     }
