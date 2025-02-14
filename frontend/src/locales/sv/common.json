@@ -66,7 +66,8 @@
     "status": {
       "absent": "Frånvarande",
       "present": "Närvarande",
-      "acceptedAbsence": "Godkänd frånvaro"
+      "acceptedAbsence": "Godkänd frånvaro",
+      "title": "Status"
     }
   },
   "notifications": {
@@ -273,7 +274,8 @@
       "headers": {
         "date": "Datum",
         "timeOfDay": "Tid på dagen",
-        "topicName": "Ämnesnamn"
+        "topicName": "Ämnesnamn",
+        "topic": "Ämne"
       }
     }
   },

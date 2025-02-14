@@ -76,7 +76,8 @@
     "status": {
       "absent": "Absent",
       "present": "Present",
-      "acceptedAbsence": "Accepted absence"
+      "acceptedAbsence": "Accepted absence",
+      "title": "Status"
     }
   },
   "notifications": {
@@ -292,7 +293,8 @@
       "headers": {
         "date": "Date",
         "timeOfDay": "Time of Day",
-        "topicName": "Topic Name"
+        "topicName": "Topic Name",
+        "topic": "Topic"
       }
     }
   },

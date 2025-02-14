@@ -63,7 +63,8 @@
     "status": {
       "absent": "Poissa",
       "present": "Läsnä",
-      "acceptedAbsence": "Hyväksytty poissaolo"
+      "acceptedAbsence": "Hyväksytty poissaolo",
+      "title": "Tila"
     }
   },
   "notifications": {
@@ -289,7 +290,8 @@
       "headers": {
         "date": "Päivämäärä",
         "timeOfDay": "Vuorokaudenaika",
-        "topicName": "Aiheen nimi"
+        "topicName": "Aiheen nimi",
+        "topic": "Aihe"
       }
     }
   },
