@@ -1,4 +1,3 @@
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {
   BarChart,
@@ -15,6 +14,7 @@ import {toast} from 'react-toastify';
 import LecturesByDayChart from '../../../components/main/admin/LecturesByDayChart';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../utils/Loader';
 
 interface RoleCount {
   role_name: string;
@@ -226,7 +226,7 @@ const AdminStats = () => {
   }
 
   if (!userStatistics || !lectureStatistics) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   const chartConfig = {

@@ -1,9 +1,9 @@
-import {CircularProgress} from '@mui/material';
 import React, {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext.tsx';
 import apiHooks from '../../api';
+import Loader from '../../utils/Loader.tsx';
 /**
  * Gdpr component.
  * This component is responsible for rendering the GDPR acceptance form and handling the user's response.
@@ -196,7 +196,7 @@ const Gdpr = () => {
             </div>
           </div>
         ) : (
-          <CircularProgress />
+          <Loader />
         )}
       </div>
     </div>

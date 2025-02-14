@@ -1,5 +1,4 @@
 import {useTranslation} from 'react-i18next';
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
@@ -7,6 +6,7 @@ import apiHooks from '../../../../api';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MobileLectures from '../../../../components/main/teacher/lectures/MobileLectures';
 import DesktopLectures from '../../../../components/main/teacher/lectures/DesktopLectures';
+import Loader from '../../../../utils/Loader';
 
 interface Lecture {
   lectureid: number;
@@ -67,7 +67,7 @@ const TeacherLectures: React.FC = () => {
   }, [user]);
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   // Calculate total lectures count

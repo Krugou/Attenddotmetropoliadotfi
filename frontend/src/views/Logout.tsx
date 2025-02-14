@@ -1,8 +1,8 @@
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../contexts/UserContext';
+import Loader from '../utils/Loader';
 
 /**
  * Logout component.
@@ -62,7 +62,7 @@ const Logout = () => {
    */
   return (
     <div className='flex items-center justify-center h-full'>
-      <CircularProgress color='primary' />
+      <Loader />
     </div>
   );
 };

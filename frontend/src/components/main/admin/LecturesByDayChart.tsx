@@ -11,7 +11,7 @@ import {
   Label,
 } from 'recharts';
 import {useTranslation} from 'react-i18next';
-import CircularProgress from '@mui/material/CircularProgress';
+import Loader from '../../../utils/Loader';
 
 // const getDayOfWeek = (date: string, t: (key: string) => string) => {
 //   const dayNames = [
@@ -76,7 +76,7 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
   }, [lectures]);
 
   if (!lectures) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   return (

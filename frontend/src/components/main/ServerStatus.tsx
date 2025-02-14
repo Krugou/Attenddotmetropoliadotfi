@@ -1,11 +1,11 @@
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import DoneIcon from '@mui/icons-material/Done';
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {API_CONFIG} from '../../config';
 
 const baseUrl = API_CONFIG.baseUrl;
 import {useTranslation} from 'react-i18next';
+import Loader from '../../utils/Loader';
 
 interface ServerResponse {
   builddate: string;
@@ -63,7 +63,7 @@ const ServerStatus: React.FC = () => {
       });
   }, []);
   if (loading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   if (import.meta.env.MODE === 'development') {

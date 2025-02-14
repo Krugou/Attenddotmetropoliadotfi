@@ -4,7 +4,6 @@ import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../../../contexts/UserContext';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../../api';
-import CircularProgress from '@mui/material/CircularProgress';
 import {
   Dialog,
   DialogActions,
@@ -13,6 +12,7 @@ import {
   DialogTitle,
   Button,
 } from '@mui/material';
+import Loader from '../../../../utils/Loader';
 
 interface Lecture {
   lectureid: number;
@@ -121,7 +121,7 @@ const TeacherLectureDetail = () => {
   const handleDelete = () => handleDialogOpen('delete');
   const handleClose = () => handleDialogOpen('close');
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <Loader />;
   if (!lecture) return null;
 
   return (

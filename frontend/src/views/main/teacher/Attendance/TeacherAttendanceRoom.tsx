@@ -1,4 +1,3 @@
-import {CircularProgress} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import QRCode from 'react-qr-code';
@@ -13,6 +12,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {API_CONFIG} from '../../../../config';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../../utils/Loader';
 
 const baseUrl = API_CONFIG.baseUrl;
 /**
@@ -332,7 +332,7 @@ const AttendanceRoom: React.FC = () => {
   return (
     <div className='w-full'>
       {loading ? (
-        <CircularProgress />
+        <Loader />
       ) : (
         <div
           className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 bg-gray-100 ${
@@ -381,7 +381,7 @@ const AttendanceRoom: React.FC = () => {
                 <div className='relative w-full'>
                   {!hashDataReceived ? (
                     <div className='flex items-center justify-center w-full h-full'>
-                      <CircularProgress />
+                     <Loader />
                     </div>
                   ) : (
                     <QRCode

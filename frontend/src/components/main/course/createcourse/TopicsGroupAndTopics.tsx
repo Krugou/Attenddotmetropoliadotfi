@@ -1,4 +1,3 @@
-import {CircularProgress} from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import List from '@mui/material/List';
@@ -9,6 +8,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import ConfirmDialog from '../../modals/ConfirmDialog';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../../utils/Loader';
 
 /**
  * Props interface represents the properties of the TopicGroupAndTopicsSelector component.
@@ -232,7 +232,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
     topicData,
   ]);
   if (loading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
   /**
    * Handles the deletion of a group.

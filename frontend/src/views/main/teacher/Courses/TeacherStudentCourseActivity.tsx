@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import apihook from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import {
-  CircularProgress,
   Alert,
   Typography,
   Box,
@@ -21,6 +20,7 @@ import {
 import {UserContext} from '../../../../contexts/UserContext';
 import {subDays, parseISO, isBefore, format} from 'date-fns';
 import {useCourses} from '../../../../hooks/courseHooks';
+import Loader from '../../../../utils/Loader';
 
 interface CombinedStudentData {
   userId: number;
@@ -95,7 +95,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
         justifyContent='center'
         alignItems='center'
         minHeight='200px'>
-        <CircularProgress />
+        <Loader />
       </Box>
     );
   }

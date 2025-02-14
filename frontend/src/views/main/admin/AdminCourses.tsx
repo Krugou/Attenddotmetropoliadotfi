@@ -1,5 +1,4 @@
 import SortIcon from '@mui/icons-material/Sort';
-import {CircularProgress} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
@@ -7,6 +6,7 @@ import InputField from '../../../components/main/course/createcourse/coursedetai
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../utils/Loader';
 /**
  * Course interface.
  * This interface defines the structure of a course object.
@@ -100,7 +100,7 @@ const AdminCourses: React.FC = () => {
     <div className='relative w-full p-5 bg-white rounded-lg lg:w-fit'>
       {isLoading ? (
         <div className='flex items-center justify-center h-full'>
-          <CircularProgress />
+          <Loader />
         </div>
       ) : courses.length === 0 ? (
         <div className='flex items-center justify-center h-full'>

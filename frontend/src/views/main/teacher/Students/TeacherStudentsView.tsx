@@ -1,5 +1,4 @@
 import WarningIcon from '@mui/icons-material/Warning';
-import {CircularProgress, Pagination} from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import React, {useContext, useEffect, useState} from 'react';
@@ -10,6 +9,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../../utils/Loader';
 /**
  * Student interface.
  * This interface defines the shape of a Student object.
@@ -106,7 +106,7 @@ const TeacherStudentsView: React.FC = () => {
 
   // If loading, show loading spinner
   if (loading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   // Filter students based on search term and selected course

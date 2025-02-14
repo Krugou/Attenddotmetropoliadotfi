@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import ProfileInfo from '../../../components/profiles/ProfileInfo';
 import {UserContext} from '../../../contexts/UserContext';
 import {useTranslation} from 'react-i18next';
-import {CircularProgress} from '@mui/material';
 import {useNavigate} from 'react-router-dom'; // Import useNavigate
+import Loader from '../../../utils/Loader';
 /**
  * TeacherProfile component.
  * This component is responsible for rendering the profile of a teacher.
@@ -23,7 +23,7 @@ const TeacherProfile: React.FC = () => {
   }, [user]);
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   if (!user) {

@@ -7,7 +7,6 @@ import {
   DialogTitle,
   Menu,
 } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
@@ -22,6 +21,7 @@ import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Loader from '../../../utils/Loader';
 
 interface Lecture {
   lectureid: number;
@@ -202,7 +202,7 @@ const AdminLectures: React.FC = () => {
   }, [user, sortOrder]);
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   const filteredLectures = lectures.filter(

@@ -1,5 +1,4 @@
 import {
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,6 +19,7 @@ import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../../utils/Loader';
 
 const AdminLectureDetail = () => {
   type DataType = {
@@ -112,7 +112,7 @@ const AdminLectureDetail = () => {
     setOpen(false);
   };
   if (loading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   return (

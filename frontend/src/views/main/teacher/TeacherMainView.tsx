@@ -1,4 +1,3 @@
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
@@ -19,6 +18,7 @@ import {
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
 import OpenDataTest from '../../../components/main/utils/OpenDataTest';
+import Loader from '../../../utils/Loader';
 
 /**
  * MainView component.
@@ -61,7 +61,7 @@ const MainView: React.FC = () => {
       <MainViewTitle role={'Teacher'} />
       {isLoading ? (
         <div className='flex items-center justify-center'>
-          <CircularProgress />
+          <Loader />
         </div>
       ) : (
         <>

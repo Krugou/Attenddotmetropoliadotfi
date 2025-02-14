@@ -1,6 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {CircularProgress} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {formatISO} from 'date-fns';
@@ -14,6 +13,7 @@ import DeleteLectureModal from '../../../../components/main/modals/DeleteLecture
 import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../../utils/Loader';
 /**
  * CreateLecture component.
  * This component is responsible for rendering the lecture creation view for a teacher.
@@ -358,7 +358,7 @@ const CreateLecture: React.FC = () => {
     <div className='w-full'>
       {loading ? (
         <div className='flex items-center justify-center'>
-          <CircularProgress />
+          <Loader />
         </div>
       ) : (
         <>

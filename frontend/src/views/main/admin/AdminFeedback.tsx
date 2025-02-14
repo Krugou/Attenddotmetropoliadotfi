@@ -10,11 +10,11 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
+import Loader from '../../../utils/Loader';
 interface FeedbackItem {
   feedbackId: number;
   text: string;
@@ -117,7 +117,7 @@ const AdminFeedback = () => {
         <div className='max-h-[calc(100vh-20rem)] overflow-y-auto px-2 sm:px-4'>
           {loading ? (
             <div className='flex justify-center py-8'>
-              <CircularProgress />
+                <Loader />
             </div>
           ) : feedback.length > 0 ? (
             <div className='space-y-4'>
