@@ -91,7 +91,8 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [editCourseOpen, setEditCourseOpen] = useState(false);
-  const {courses: editCourses} = useCourses();
+  const {courses: editCourses} =
+    user?.role !== 'student' ? useCourses() : {courses: []};
   const handleOpenEditCourse = () => {
     setEditCourseOpen(true);
   };
