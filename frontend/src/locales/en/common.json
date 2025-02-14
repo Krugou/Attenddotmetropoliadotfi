@@ -229,10 +229,6 @@
       "requiredDescription": "Description is required for clock in"
     },
     "messages": {
-      "clockedIn": "Clocked in at {time} with reason: {description}",
-      "clockedOut": "Clocked out at {time}",
-      "clockedOutWithReason": "Clocked out at {time} with reason: {description}",
-      "editClicked": "Edit clicked at {time}",
       "failedToLog": "Failed to log work entry",
       "failedToCheck": "Failed to check active work entries",
       "failedToFetch": "Failed to fetch courses"
@@ -280,6 +276,15 @@
     "view": {
       "table": "Table",
       "card": "Card"
+    },
+    "search": {
+      "placeholder": "Search by description, course name or code..."
+    },
+    "sort": {
+      "date": "Sort by Date",
+      "course": "Sort by Course",
+      "duration": "Sort by Duration",
+      "description": "Sort by Description"
     }
   },
   "lectures": {

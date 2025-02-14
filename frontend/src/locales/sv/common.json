@@ -230,10 +230,6 @@
     "clockOut": "Stämpla ut",
     "optionalDescription": "Valfri beskrivning",
     "messages": {
-      "clockedIn": "Stämplat in kl {time} med anledning: {description}",
-      "clockedOut": "Stämplat ut kl {time}",
-      "clockedOutWithReason": "Stämplat ut kl {time} med anledning: {description}",
-      "editClicked": "Redigering klickad kl {time}",
       "failedToLog": "Misslyckades med att logga arbetstid",
       "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
       "failedToFetch": "Misslyckades med att hämta kurser"
@@ -259,7 +255,18 @@
     "view": {
       "card": "Kort",
       "table": "Tabell"
-    }
+    },
+    "search": {
+      "placeholder": "Sök efter beskrivning..."
+    },
+    "sort": {
+      "date": "Sortera efter datum",
+      "course": "Sortera efter kurs",
+      "duration": "Sortera efter varaktighet",
+      "description": "Sortera efter beskrivning"
+    },
+    "requiredDescription": "Obligatorisk beskrivning",
+    "description": "Beskrivning"
   },
   "lectures": {
     "table": {
