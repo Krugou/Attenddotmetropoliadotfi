@@ -125,6 +125,7 @@ const TeacherCourseAttendances: React.FC = () => {
             </h2>
             <Calendar
               className='w-full md:w-3/4 mb-4 sm:mb-0'
+              // @ts-ignore
               onChange={handleDateChange}
               value={selectedDate}
               tileContent={({date}) => {

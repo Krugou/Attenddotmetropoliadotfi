@@ -164,7 +164,7 @@ const StudentWorklogs: React.FC = () => {
         <WorklogTableView entries={filteredEntries} />
       )}
       <EditWorklogModal
-        isOpen={isModalOpen}
+        open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         entry={selectedEntry}
         onSave={handleSaveEdit}

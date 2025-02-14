@@ -77,6 +77,7 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
       </div>
       {showCalendar && (
         <Calendar
+          // @ts-ignore
           onChange={handleDateChange}
           value={selectedDate}
           className='bg-white border rounded-md shadow-sm'

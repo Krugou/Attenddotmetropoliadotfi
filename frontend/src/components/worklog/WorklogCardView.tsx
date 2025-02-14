@@ -6,6 +6,8 @@ import {calculateDuration} from '../../utils/timeUtils';
 
 interface WorklogCardViewProps {
   entries: WorkLogEntry[];
+  setSelectedEntry: (entry: WorkLogEntry | null) => void;
+  setIsModalOpen: (isOpen: boolean) => void;
 }
 
 const WorklogCardView: React.FC<WorklogCardViewProps> = ({entries}) => {
