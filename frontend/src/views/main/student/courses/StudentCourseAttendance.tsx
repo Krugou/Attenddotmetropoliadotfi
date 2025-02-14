@@ -4,7 +4,6 @@ import {useParams} from 'react-router-dom';
 import StudentAttendanceTable from '../../../../components/main/course/attendance/StudentAttendanceTable';
 import StudentAttendanceStatsTable from '../../../../components/main/course/attendance/StudentAttendanceStatsTable';
 import apiHooks from '../../../../api';
-import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
 import {motion} from 'framer-motion';
 /**
@@ -47,19 +46,38 @@ interface Attendance {
  */
 const StudentCourseAttendance: React.FC = () => {
   const {t} = useTranslation(['admin', 'student']);
-  const {usercourseid} = useParams<{usercourseid}>();
+  const {usercourseid} = useParams<{usercourseid: string}>();
   const [sortOption, setSortOption] = useState('All');
   const [attendanceData, setAttendanceData] = useState<Attendance[] | null>(
     null,
   );
   const [showTable, setShowTable] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const {threshold} = useCourses();
+  const [threshold, setThreshold] = useState<number>(0);
 
-  // Function to handle search term change
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+
+  useEffect(() => {
+    const fetchThreshold = async () => {
+      try {
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+          throw new Error(t('common:noToken'));
+        }
+        const response = await apiHooks.getAttendanceThreshold(token);
+        if (!response?.attendancethreshold) {
+          throw new Error('Invalid threshold response');
+        }
+        setThreshold(response.attendancethreshold);
+      } catch (error) {
+        console.error('Failed to fetch attendance threshold:', error);
+      }
+    };
+
+    fetchThreshold();
+  }, [t]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,8 +86,11 @@ const StudentCourseAttendance: React.FC = () => {
         if (!token) {
           throw new Error('No token available');
         }
+        if (!usercourseid) {
+          throw new Error('No usercourseid provided');
+        }
         const response = await apiHooks.getAttendanceInfoByUsercourseid(
-          usercourseid,
+          parseInt(usercourseid, 10),
           token,
         );
         setAttendanceData(response);
@@ -91,7 +112,7 @@ const StudentCourseAttendance: React.FC = () => {
     );
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSortOption(event.target.value);
   };
 
@@ -154,8 +175,8 @@ const StudentCourseAttendance: React.FC = () => {
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{duration: 0.5}}
-        className='w-full p-4 md:p-6 lg:p-8 space-y-6 bg-metropolia-support-white p-4 rounded'>
-        <div className='flex justify-center mb-4 flex-col bg-metropolia-support-white p-4 rounded'>
+        className='w-full md:p-6 lg:p-8 space-y-6 bg-metropolia-support-white rounded'>
+        <div className='flex justify-center mb-4 flex-col bg-metropolia-support-white rounded'>
           <h1 className='text-2xl md:text-4xl text-center font-heading text-metropolia-main-grey '>
             {t('student:course.attendaceOfCourse')}:
           </h1>
@@ -186,7 +207,9 @@ const StudentCourseAttendance: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={handleChange}
-                className='w-full p-3 border border-metropolia-main-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all bg-metropolia-support-white'>
+                className='w-full p-3 border border-metropolia-main-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange transition-all bg-metropolia-support-white'
+                aria-label={t('student:course.sortTopics')}
+                title={t('student:course.sortTopics')}>
                 <option value='All' className='py-2'>
                   {t('student:course.all')}
                 </option>
