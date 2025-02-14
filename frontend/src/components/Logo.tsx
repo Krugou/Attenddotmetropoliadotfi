@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
+import {motion, AnimatePresence} from 'framer-motion';
 import '../css/logo.css';
 
 /**
@@ -38,7 +39,10 @@ const Logo = () => {
 
     if (newClickCount === 3) {
       setIsCrazy(true);
-      setTimeout(() => setIsCrazy(false), 5000);
+      setTimeout(() => {
+        setIsCrazy(false);
+        resetClickCount();
+      }, 5000);
     } else if (newClickCount === 5) {
       setIsHidden(true);
       setTimeout(() => {
@@ -48,25 +52,81 @@ const Logo = () => {
     }
   };
 
-  return (
-    <div
-      className={`transition-opacity duration-500 ${
-        isHidden ? 'opacity-0' : 'opacity-100'
-      }`}>
-      <div
-        className='p-2 m-4 logo cursor-pointer active:scale-95 transition-transform duration-150'
-        onClick={handleClick}>
-        <div className='oval-shape bg-metropolia-main-orange dark:bg-metropolia-main-orange-dark'>
-          <div className={`big-brother-eye ${isCrazy ? 'crazy' : ''}`}>
-            <div className={`eye ${isCrazy ? 'crazy' : ''}`}></div>
-          </div>
-        </div>
-      </div>
+  const containerVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {duration: 0.5},
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {duration: 0.3},
+    },
+  };
 
-      <p className='p-2 m-2 text-4xl subpixel-antialiased tracking-widest text-center font-heading'>
-        {isHidden ? 'Stop it' : 'JakSec'}
-      </p>
-    </div>
+  const logoVariants = {
+    normal: {rotate: 0, scale: 1},
+    crazy: {
+      rotate: [0, -10, 10, -10, 10, 0],
+      scale: [1, 1.1, 0.9, 1.1, 0.9, 1],
+      transition: {
+        duration: 0.5,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      },
+    },
+    hover: {
+      scale: 1.1,
+      transition: {type: 'spring', stiffness: 400, damping: 10},
+    },
+    tap: {scale: 0.9},
+  };
+
+  const textVariants = {
+    normal: {y: 0},
+    crazy: {
+      y: [0, -10, 10, -10, 10, 0],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      },
+    },
+  };
+
+  return (
+    <AnimatePresence>
+      {!isHidden && (
+        <motion.div
+          variants={containerVariants}
+          initial='hidden'
+          animate='visible'
+          exit='exit'>
+          <motion.div
+            className='p-2 m-4 logo cursor-pointer'
+            variants={logoVariants}
+            animate={isCrazy ? 'crazy' : 'normal'}
+            whileHover='hover'
+            whileTap='tap'
+            onClick={handleClick}>
+            <div className='oval-shape bg-metropolia-main-orange dark:bg-metropolia-main-orange-dark'>
+              <div className={`big-brother-eye ${isCrazy ? 'crazy' : ''}`}>
+                <div className={`eye ${isCrazy ? 'crazy' : ''}`}></div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.p
+            className='p-2 m-2 text-4xl subpixel-antialiased tracking-widest text-center font-heading'
+            variants={textVariants}
+            animate={isCrazy ? 'crazy' : 'normal'}>
+            {isHidden ? 'Stop it' : 'JakSec'}
+          </motion.p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
