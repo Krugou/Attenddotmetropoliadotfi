@@ -181,6 +181,7 @@ const attendanceModel: AttendanceModel = {
 				lecture.timeofday,
 				topics.topicname,
 				courses.name,
+        courses.code,
 				teachers.email AS teacher
 			FROM
 				attendance
