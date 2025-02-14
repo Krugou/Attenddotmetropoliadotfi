@@ -54,7 +54,8 @@
     "emailTaken": "E-post upptagen",
     "studentNumberTaken": "Studentnummer upptagen",
     "noToken": "Ingen tillgänglig token",
-    "fillRequiredFields": "Fyll i alla obligatoriska fält"
+    "fillRequiredFields": "Fyll i alla obligatoriska fält",
+    "openDataConnectionFailed": "Anslutning till Metropolias Open Data API kunde inte upprättas. Viss systemfunktionalitet kan vara begränsad. Kontakta din systemadministratör."
   },
   "email": "E-post",
   "firstName": "Förnamn",
@@ -174,7 +175,7 @@
     }
   },
   "worklog": {
-    "enrollment":{
+    "enrollment": {
       "switchToRegular": "kurs",
       "switchToWorklog": "arbetslogg"
     },

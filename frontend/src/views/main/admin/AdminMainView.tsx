@@ -13,6 +13,7 @@ import {
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
 import WelcomeModal from '../../../components/main/modals/WelcomeModal';
+import OpenDataTest from '../../../components/main/utils/OpenDataTest';
 
 /**
  * AdminMainView component.
@@ -27,6 +28,7 @@ const AdminMainView: React.FC = () => {
   return (
     <>
       <MainViewTitle role={'Admin'} />
+      <OpenDataTest token={localStorage.getItem('userToken') || ''} />
 
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card

@@ -10,6 +10,7 @@ import logger from '../utils/logger.js';
 import validate from '../utils/validate.js';
 import UserModel from '../models/usermodel.js';
 import attendanceController from '../controllers/attendancecontroller.js';
+import openData from '../utils/opendata.js';
 const pool = createPool('ADMIN');
 /**
  * Router for secure routes.
@@ -336,6 +337,40 @@ router.get(
       res.status(500).json({
         ok: false,
         error: 'Internal server error',
+      });
+    }
+  },
+);
+
+router.get(
+  '/test-opendata',
+  checkUserRole(['admin', 'teacher', 'counselor']),
+  async (_req: Request, res: Response) => {
+    try {
+      // Test with a mock realization code
+      const testCode = 'TX00AA11-3001';
+      const response = await openData.checkOpenDataRealization(testCode);
+
+      if (response && !response.error) {
+        res.json({
+          status: 'success',
+          message: 'OpenData API connection successful',
+          connected: true,
+        });
+      } else {
+        res.status(401).json({
+          status: 'error',
+          message: 'Failed to connect to OpenData API - Invalid credentials',
+          connected: false,
+        });
+      }
+    } catch (error) {
+      logger.error('OpenData API test failed:', error);
+      res.status(500).json({
+        status: 'error',
+        message: 'Failed to connect to OpenData API',
+        connected: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
       });
     }
   },

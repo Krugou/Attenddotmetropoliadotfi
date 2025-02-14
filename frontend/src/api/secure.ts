@@ -120,6 +120,16 @@ export const updateUserEdit = async (token: string, user: any) => {
   return doFetch(url, options);
 };
 
+export const testOpenDataConnection = async (token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}secure/test-opendata`, options);
+};
+
 export const secureApi = {
   updateUserEdit,
   fetchUserByIdEdit,
@@ -130,4 +140,5 @@ export const secureApi = {
   fetchStudentGroups,
   fetchAllStudents,
   checkStaffByEmail,
+  testOpenDataConnection,
 };

@@ -51,7 +51,8 @@
     "emailTaken": "Email taken",
     "studentNumberTaken": "Student Number taken",
     "noToken": "No token available",
-    "fillRequiredFields": "Please fill all required fields"
+    "fillRequiredFields": "Please fill all required fields",
+    "openDataConnectionFailed": "Connection to Metropolia Open Data API could not be established. Some system functionality may be limited. Please contact your system administrator."
   },
   "email": "Email",
   "firstName": "First Name",
@@ -171,7 +172,7 @@
     }
   },
   "worklog": {
-    "enrollment":{
+    "enrollment": {
       "switchToRegular": "Course",
       "switchToWorklog": "Worklog"
     },

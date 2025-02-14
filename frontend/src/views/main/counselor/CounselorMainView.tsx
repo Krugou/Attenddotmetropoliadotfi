@@ -5,6 +5,7 @@ import MainViewTitle from '../../../components/main/titles/MainViewTitle';
 import {People, Help, Assessment, PersonAdd} from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
 import WelcomeModal from '../../../components/main/modals/WelcomeModal';
+import OpenDataTest from '../../../components/main/utils/OpenDataTest';
 
 /**
  * CounselorMainView component.
@@ -19,6 +20,7 @@ const CounselorMainView: React.FC = () => {
   return (
     <>
       <MainViewTitle role={'Counselor'} />
+      <OpenDataTest token={localStorage.getItem('userToken') || ''} />
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/counselor/students'
@@ -36,9 +38,7 @@ const CounselorMainView: React.FC = () => {
         <Card
           path='/counselor/courses/stats'
           title={t('counselor:mainView.attendanceStatistics')}
-          description={t(
-            'counselor:mainView.attendanceStatisticsDesc',
-          )}
+          description={t('counselor:mainView.attendanceStatisticsDesc')}
           icon={Assessment}
         />
         <Card

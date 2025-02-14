@@ -18,6 +18,7 @@ import {
   PersonAdd,
 } from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
+import OpenDataTest from '../../../components/main/utils/OpenDataTest';
 
 /**
  * MainView component.
@@ -64,6 +65,9 @@ const MainView: React.FC = () => {
         </div>
       ) : (
         <>
+          {user && (
+            <OpenDataTest token={localStorage.getItem('userToken') || ''} />
+          )}
           <div
             className={`${
               courses.length === 0
@@ -169,7 +173,7 @@ const MainView: React.FC = () => {
                   )}
                   icon={School}
                 />
-                 <Card
+                <Card
                   path='/teacher/courses/activity'
                   title={t('teacher:mainView.cards.studenActivity.title')}
                   description={t(

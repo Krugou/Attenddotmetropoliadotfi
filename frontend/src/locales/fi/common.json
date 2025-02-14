@@ -51,7 +51,8 @@
     "emailTaken": "Sähköposti on varattu",
     "studentNumberTaken": "Opiskelijanumero on varattu",
     "noToken": "Ei saatavilla olevaa tunnusta",
-    "fillRequiredFields": "Täytä kaikki vaaditut kentät"
+    "fillRequiredFields": "Täytä kaikki vaaditut kentät",
+    "openDataConnectionFailed": "Yhteyttä Metropolian Open Data -rajapintaan ei voitu muodostaa. Osa järjestelmän toiminnoista saattaa olla rajoitettuja. Ota yhteyttä järjestelmänvalvojaan."
   },
   "email": "Sähköposti",
   "firstName": "Etunimi",
@@ -169,7 +170,7 @@
     }
   },
   "worklog": {
-    "enrollment":{
+    "enrollment": {
       "switchToRegular": "kurssi",
       "switchToWorklog": "Työpäiväkirja"
     },
