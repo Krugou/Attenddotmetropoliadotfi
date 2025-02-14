@@ -89,6 +89,13 @@
 	.react-calendar__tile.highlight {
 		@apply bg-metropolia-main-orange;
 	}
+  button {
+    @apply cursor-pointer;
+  }
+  input {
+    @apply cursor-text
+    ;
+  }
 }
 
 @layer base {
