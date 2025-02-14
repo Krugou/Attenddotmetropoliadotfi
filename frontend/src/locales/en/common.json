@@ -346,5 +346,6 @@
     "none": "none",
     "asc": "ascending",
     "desc": "descending"
-  }
+  },
+  "noToken": "No token"
 }

@@ -327,5 +327,6 @@
     "none": "ingen sortering",
     "asc": "stigande",
     "desc": "fallande"
-  }
+  },
+  "noToken": "Inget tecken"
 }

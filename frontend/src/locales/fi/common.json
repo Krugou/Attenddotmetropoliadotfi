@@ -344,5 +344,6 @@
     "none": "ei lajittelua",
     "asc": "nouseva",
     "desc": "laskeva"
-  }
+  },
+  "noToken": "Ei merkki"
 }
