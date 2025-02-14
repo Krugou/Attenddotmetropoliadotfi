@@ -229,6 +229,7 @@ const TeacherCourseStats = () => {
         <div className='flex justify-between sm:justify-around'>
           <Tooltip title={t('teacher:courseStats.buttons.printPdf')}>
             <button
+              aria-label={t('teacher:courseStats.buttons.printPdf')}
               onClick={handlePdfExport}
               className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
               <PrintIcon fontSize='large' />
@@ -258,7 +259,8 @@ const TeacherCourseStats = () => {
           <Tooltip title={t('teacher:courseStats.buttons.exportExcel')}>
             <button
               onClick={handleExcelExport}
-              className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
+              className='p-2 text-white rounded-sm bg-metropolia-main-orange'
+              aria-label={t('teacher:courseStats.buttons.exportExcel')}>
               <GetAppIcon fontSize='large' />
             </button>
           </Tooltip>

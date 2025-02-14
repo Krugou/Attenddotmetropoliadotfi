@@ -12,6 +12,7 @@ const Logo = () => {
   const [isCrazy, setIsCrazy] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [clickCount, setClickCount] = useState(0);
+  // @ts-expect-error resetTimer is not initialized
   const [resetTimer, setResetTimer] = useState<NodeJS.Timeout | null>(null);
 
   const resetClickCount = useCallback(() => {
@@ -106,6 +107,7 @@ const Logo = () => {
           exit='exit'>
           <motion.div
             className='p-2 m-4 logo cursor-pointer'
+            // @ts-expect-error variants is not initialized
             variants={logoVariants}
             animate={isCrazy ? 'crazy' : 'normal'}
             whileHover='hover'
@@ -120,6 +122,7 @@ const Logo = () => {
 
           <motion.p
             className='p-2 m-2 text-4xl subpixel-antialiased tracking-widest text-center font-heading'
+            // @ts-expect-error variants is not initialized
             variants={textVariants}
             animate={isCrazy ? 'crazy' : 'normal'}>
             {isHidden ? 'Stop it' : 'JakSec'}
