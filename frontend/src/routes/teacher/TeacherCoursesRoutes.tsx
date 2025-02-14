@@ -24,7 +24,10 @@ const TeacherCoursesRoutes: React.FC = () => {
       <Route path='create/*' element={<TeacherCreateCourseRoutes />} />
       <Route path=':id/modify' element={<TeacherCourseModify />} />
       <Route path='stats/:courseid?' element={<TeacherCourseStats />} />
-      <Route path='attendances/:id' element={<TeacherCourseAttendances />} />
+      <Route
+        path='attendances/:id/:date?'
+        element={<TeacherCourseAttendances />}
+      />
       <Route path=':id' element={<TeacherCourseDetail />} />
       <Route path='/activity' element={<TeacherStudentCourseActivity />} />
       <Route path='*' element={<TeacherMainView />} />

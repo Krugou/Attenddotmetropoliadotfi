@@ -18,17 +18,26 @@ import {useTranslation} from 'react-i18next';
  * It fetches the lectures and their attendances and provides functionality for the teacher to filter the attendances based on a selected date, print the attendances to a PDF, export the attendances to an Excel file, and navigate to the attendance statistics view.
  */
 const TeacherCourseAttendances: React.FC = () => {
-  const {t} = useTranslation(['translation']);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const {t} = useTranslation(['teacher']);
+  const navigate = useNavigate();
+  const {id: courseId, date: dateParam} = useParams();
+
+  // Initialize selectedDate from URL parameter or current date
+  const [selectedDate, setSelectedDate] = useState<Date | null>(() => {
+    if (dateParam) {
+      const parsedDate = new Date(dateParam);
+      return isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
+    }
+    return new Date();
+  });
+
   const [lecturesAndTheirAttendances, setLecturesAndTheirAttendances] =
     useState<any[]>([]); // [lecture, [attendances]
-  const {id: courseId} = useParams();
   const {update, setUpdate} = useContext(UserContext);
   const {user} = useContext(UserContext);
   const userEmail = user?.email;
   const [showOwnAttendances, setShowOwnAttendances] = useState(true);
 
-  const navigate = useNavigate();
   // Fetch the lectures and their attendances
   useEffect(() => {
     const fetchAttendances = async () => {
@@ -52,8 +61,10 @@ const TeacherCourseAttendances: React.FC = () => {
   }, [courseId, update]);
 
   // Function to handle date change
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate(date);
+    const formattedDate = date.toISOString().split('T')[0];
+    navigate(`/teacher/courses/attendances/${courseId}/${formattedDate}`);
   };
 
   // Map the lecture start dates to an array
