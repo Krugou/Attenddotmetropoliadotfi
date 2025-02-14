@@ -30,7 +30,7 @@ const Loader = () => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}>
-          ✨ {t('common:metropoliaLoading')} ✨
+          {t('common:metropoliaLoading')}
         </motion.h1>
       </div>
     </div>
