@@ -129,7 +129,7 @@ const TeacherLectureDetail = () => {
       <div className='flex items-center justify-between mb-6 '>
         <button
           onClick={() => navigate('/teacher/lectures')}
-          className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200'>
+          className='px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200'>
           {t('teacher:lectures.details.back')}
         </button>
         <div className='space-x-2'>
@@ -141,7 +141,7 @@ const TeacherLectureDetail = () => {
                 }/${getLocalDate(lecture.start_date)}`,
               )
             }
-            className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
+            className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors rounded-lg bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
             {t('teacher:lectures.details.editAttendances')}
           </button>
           {lecture?.state === 'open' && (
