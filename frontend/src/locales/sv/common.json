@@ -244,7 +244,8 @@
     },
     "filter": {
       "course": "Välj en kurs",
-      "allCourses": "Alla kurser"
+      "allCourses": "Alla kurser",
+      "clearDate": "Rensa datum"
     },
     "table": {
       "date": "Datum",

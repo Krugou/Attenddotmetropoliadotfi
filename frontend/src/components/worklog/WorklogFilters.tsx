@@ -63,6 +63,7 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
             </button>
             {selectedDate && (
               <button
+                title={t('common:worklog.filter.clearDate')}
                 onClick={() => {
                   setSelectedDate(null);
                   setShowCalendar(false);

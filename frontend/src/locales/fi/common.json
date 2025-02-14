@@ -263,7 +263,8 @@
     },
     "filter": {
       "allCourses": "Kaikki kurssit",
-      "course": "Valitse kurssi"
+      "course": "Valitse kurssi",
+      "clearDate": "Palauta päivämäärä"
     },
     "table": {
       "date": "Päivämäärä",

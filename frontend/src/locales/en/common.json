@@ -265,7 +265,8 @@
     },
     "filter": {
       "allCourses": "All courses",
-      "course": "Select a course"
+      "course": "Select a course",
+      "clearDate": "Clear date"
     },
     "table": {
       "date": "Date",
