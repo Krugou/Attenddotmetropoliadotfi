@@ -243,7 +243,16 @@
       "error": "Misslyckades med att radera posten"
     },
     "filter": {
-      "course": "Välj en kurs"
+      "course": "Välj en kurs",
+      "allCourses": "Alla kurser"
+    },
+    "table": {
+      "date": "Datum",
+      "course": "Kurs",
+      "time": "Tid",
+      "duration": "Varaktighet",
+      "description": "Beskrivning",
+      "status": "Status"
     }
   },
   "lectures": {

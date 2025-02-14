@@ -264,6 +264,14 @@
     "filter": {
       "allCourses": "Kaikki kurssit",
       "course": "Valitse kurssi"
+    },
+    "table": {
+      "date": "Päivämäärä",
+      "course": "Kurssi",
+      "time": "Aika",
+      "duration": "Kesto",
+      "description": "Kuvaus",
+      "status": "Status"
     }
   },
   "lectures": {

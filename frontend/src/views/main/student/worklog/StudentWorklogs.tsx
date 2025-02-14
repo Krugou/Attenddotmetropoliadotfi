@@ -4,26 +4,13 @@ import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import {CircularProgress} from '@mui/material';
 import EditWorklogModal from '../../../../components/modals/EditWorklogModal';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import RestoreIcon from '@mui/icons-material/Restore';
-dayjs.extend(duration);
-
-interface WorkLogEntry {
-  entry_id: number;
-  start_time: string;
-  end_time: string;
-  description: string;
-  course: {
-    name: string;
-    code: string;
-  };
-  status: number;
-}
+import {ViewList, ViewModule} from '@mui/icons-material';
+import WorklogFilters from '../../../../components/worklog/WorklogFilters';
+import WorklogCardView from '../../../../components/worklog/WorklogCardView';
+import WorklogTableView from '../../../../components/worklog/WorklogTableView';
+import type {WorkLogEntry} from '../../../../types/worklog';
 
 const StudentWorklogs: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -38,6 +25,7 @@ const StudentWorklogs: React.FC = () => {
     Array<{code: string; name: string}>
   >([]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -51,11 +39,8 @@ const StudentWorklogs: React.FC = () => {
           user.userid,
           token,
         );
-        console.log('🚀 ~ fetchEntries ~ response:', response);
-
         if (response.entries) {
           setEntries(response.entries);
-          // Extract unique courses
           const courses = new Map();
           response.entries.forEach((entry: WorkLogEntry) => {
             if (entry.course?.code && !courses.has(entry.course.code)) {
@@ -90,7 +75,6 @@ const StudentWorklogs: React.FC = () => {
         updatedData,
         token,
       );
-
       setEntries(
         entries.map((entry) =>
           entry.entry_id === selectedEntry.entry_id
@@ -104,22 +88,6 @@ const StudentWorklogs: React.FC = () => {
       console.error('Error updating entry:', error);
       toast.error(t('common:worklog.edit.error'));
     }
-  };
-
-  const calculateDuration = (start: string, end: string) => {
-    const startTime = dayjs(start);
-    const endTime = dayjs(end);
-    const diff = endTime.diff(startTime);
-    const duration = dayjs.duration(diff);
-    return `${Math.floor(duration.asHours())}h ${duration.minutes()}min`;
-  };
-
-  const statusClass = (status: number) => {
-    return `inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-      status === 1
-        ? 'bg-yellow-100 text-yellow-800'
-        : 'bg-green-100 text-green-800'
-    }`;
   };
 
   const filteredEntries = entries.filter((entry) => {
@@ -136,10 +104,6 @@ const StudentWorklogs: React.FC = () => {
     dayjs(entry.start_time).format('YYYY-MM-DD'),
   );
 
-  const handleDateChange = (value: Date | [Date, Date] | null) => {
-    setSelectedDate(value instanceof Date ? value : null);
-  };
-
   if (loading) {
     return (
       <div className='flex items-center justify-center h-64'>
@@ -151,135 +115,60 @@ const StudentWorklogs: React.FC = () => {
   return (
     <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
       <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
-        <h1 className='text-2xl font-heading text-metropolia-main-orange'>
-          {t('common:worklog.entries.title')}
-        </h1>
-        <div className='flex flex-col '>
-          <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
-            <div className='w-full md:w-auto'>
-              <select
-                title={t('common:worklog.filter.course')} // translation in english 'course'
-                id='courseFilter'
-                className='w-full md:w-auto p-2 border rounded-md bg-white text-metropolia-main-grey'
-                value={selectedCourse}
-                onChange={(e) => setSelectedCourse(e.target.value)}>
-                <option value='all'>
-                  {t('common:worklog.filter.allCourses')}
-                </option>
-                {uniqueCourses.map((course) => (
-                  <option key={course.code} value={course.code}>
-                    {course.name} - {course.code}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className='w-full md:w-auto'>
-              <div className='flex items-center gap-2 mb-2'>
-                <button
-                  onClick={() => setShowCalendar(!showCalendar)}
-                  className='p-2 text-metropolia-main-orange hover:text-metropolia-secondary-orange rounded-full transition-colors duration-200 hover:bg-gray-100'
-                  title={t(
-                    showCalendar
-                      ? 'common:worklog.filter.hideCalendar'
-                      : 'common:worklog.filter.showCalendar',
-                  )}>
-                  <CalendarTodayIcon />
-                </button>
-                {selectedDate && (
-                  <button
-                    onClick={() => {
-                      setSelectedDate(null);
-                      setShowCalendar(!showCalendar);
-                    }}
-                    className='text-sm text-metropolia-main-orange hover:text-metropolia-secondary-orange'>
-                    <RestoreIcon />
-                  </button>
-                )}
-              </div>
-            </div>
+        <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
+          <h1 className='text-2xl font-heading text-metropolia-main-orange'>
+            {t('common:worklog.entries.title')}
+          </h1>
+
+          <div className='flex items-center gap-2 bg-metropolia-support-white rounded-lg p-1 shadow-sm'>
+            <button
+              onClick={() => setViewMode('card')}
+              className={`p-2 rounded-md transition-colors ${
+                viewMode === 'card'
+                  ? 'bg-metropolia-main-orange text-white'
+                  : 'text-metropolia-main-grey hover:bg-gray-100'
+              }`}
+              title={t('common:worklog.view.card')}>
+              <ViewModule />
+            </button>
+            <button
+              onClick={() => setViewMode('table')}
+              className={`p-2 rounded-md transition-colors ${
+                viewMode === 'table'
+                  ? 'bg-metropolia-main-orange text-white'
+                  : 'text-metropolia-main-grey hover:bg-gray-100'
+              }`}
+              title={t('common:worklog.view.table')}>
+              <ViewList />
+            </button>
           </div>
         </div>
-      </div>
-      {showCalendar && (
-        <Calendar
-          // @ts-ignore
-          onChange={handleDateChange}
-          value={selectedDate}
-          className='bg-white border rounded-md shadow-sm'
-          tileContent={({date}) => {
-            const dateStr = dayjs(date).format('YYYY-MM-DD');
-            const hasWorklog = worklogDates.includes(dateStr);
-            return hasWorklog ? (
-              <div className='w-2 h-2 bg-metropolia-main-orange rounded-full mx-auto mt-1'></div>
-            ) : null;
-          }}
+        <WorklogFilters
+          selectedCourse={selectedCourse}
+          setSelectedCourse={setSelectedCourse}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          showCalendar={showCalendar}
+          setShowCalendar={setShowCalendar}
+          uniqueCourses={uniqueCourses}
+          worklogDates={worklogDates}
         />
-      )}
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        {filteredEntries.map((entry) => (
-          <div
-            key={entry.entry_id}
-            className='relative overflow-hidden transition-shadow duration-300 bg-metropolia-support-white rounded-lg shadow-lg hover:shadow-xl'>
-            <div className='p-4 pt-10 '>
-              <div className='flex items-center justify-between mb-4'>
-                <div className='text-lg font-semibold text-metropolia-main-grey'>
-                  {entry.course?.name} - {entry.course?.code}
-                </div>
-                <div className='text-sm text-metropolia-main-grey'>
-                  {dayjs(entry.start_time).format('YYYY-MM-DD')}
-                </div>
-              </div>
-
-              <div className='space-y-2'>
-                <div className='flex justify-between'>
-                  <span className='text-sm text-metropolia-main-grey'>
-                    {t('common:worklog.entries.time')}:
-                  </span>
-                  <span className='text-sm font-medium'>
-                    {dayjs(entry.start_time).format('HH:mm')} -{' '}
-                    {dayjs(entry.end_time).format('HH:mm')}
-                  </span>
-                </div>
-
-                <div className='flex justify-between'>
-                  <span className='text-sm text-metropolia-main-grey'>
-                    {t('common:worklog.entries.duration')}:
-                  </span>
-                  <span className='text-sm font-medium'>
-                    {calculateDuration(entry.start_time, entry.end_time)}
-                  </span>
-                </div>
-
-                <div className='pt-2 mt-2 border-t'>
-                  <p className='text-sm text-metropolia-main-grey line-clamp-2'>
-                    {entry.description}
-                  </p>
-                </div>
-                <div className='flex items-center justify-between pt-2 mt-2 border-t'>
-                  <span className={statusClass(entry.status)}>
-                    {t(`teacher:worklog.status.${entry.status}`)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
-
+      {viewMode === 'card' ? (
+        <WorklogCardView
+          entries={filteredEntries}
+          setSelectedEntry={setSelectedEntry}
+          setIsModalOpen={setIsModalOpen}
+        />
+      ) : (
+        <WorklogTableView entries={filteredEntries} />
+      )}
       <EditWorklogModal
-        open={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setSelectedEntry(null);
-        }}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         entry={selectedEntry}
         onSave={handleSaveEdit}
       />
-
-      <div className='mt-4 text-sm text-metropolia-main-grey'>
-        {t('common:worklog.entries.total')}: {filteredEntries.length}{' '}
-        {t('common:worklog.entries.entries')}
-      </div>
     </div>
   );
 };
