@@ -19,8 +19,8 @@ import {
   TextField,
 } from '@mui/material';
 import {UserContext} from '../../../../contexts/UserContext';
-import { subDays, parseISO, isBefore, format } from 'date-fns';
-import { useCourses } from '../../../../hooks/courseHooks';
+import {subDays, parseISO, isBefore, format} from 'date-fns';
+import {useCourses} from '../../../../hooks/courseHooks';
 
 interface CombinedStudentData {
   userId: number;
@@ -44,9 +44,11 @@ const TeacherStudentCourseActivity: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [allStudents, setAllStudents] = useState<CombinedStudentData[]>([]);
-  const [filterPeriod, setFilterPeriod] = useState<'all' | 'week' | 'month' | 'threshold' | 'custom'>('all');
+  const [filterPeriod, setFilterPeriod] = useState<
+    'all' | 'week' | 'month' | 'threshold' | 'custom'
+  >('all');
   const [customDays, setCustomDays] = useState<number>(0);
-  const { threshold } = useCourses();
+  const {threshold} = useCourses();
 
   useEffect(() => {
     const loadAttendanceData = async () => {
@@ -68,12 +70,11 @@ const TeacherStudentCourseActivity: React.FC = () => {
           throw new Error(response.error || 'Failed to load attendance data');
         }
 
-
-        const combinedStudents = response.data.flatMap(course =>
-          course.students.map(student => ({
+        const combinedStudents = response.data.flatMap((course) =>
+          course.students.map((student) => ({
             ...student,
-            courseName: course.courseName
-          }))
+            courseName: course.courseName,
+          })),
         );
 
         setAllStudents(combinedStudents);
@@ -87,10 +88,13 @@ const TeacherStudentCourseActivity: React.FC = () => {
     loadAttendanceData();
   }, [user?.userid]);
 
-
   if (loading) {
     return (
-      <Box display='flex' justifyContent='center' alignItems='center' minHeight='200px'>
+      <Box
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
+        minHeight='200px'>
         <CircularProgress />
       </Box>
     );
@@ -110,7 +114,9 @@ const TeacherStudentCourseActivity: React.FC = () => {
         console.error('Invalid threshold value:', threshold);
         return students;
       }
-      return students.filter(student => student.attendance.percentage < threshold);
+      return students.filter(
+        (student) => student.attendance.percentage < threshold,
+      );
     }
 
     const now = new Date();
@@ -128,20 +134,15 @@ const TeacherStudentCourseActivity: React.FC = () => {
         break;
     }
 
-
-    return students.filter(student => {
-
+    return students.filter((student) => {
       if (!student.attendance.lastAttendance) {
         console.log(`${student.firstName} has never attended`);
         return true;
       }
 
-
       const lastAttendanceDate = parseISO(student.attendance.lastAttendance);
 
-
       const hasNotAttendedSince = isBefore(lastAttendanceDate, cutoffDate);
-
 
       return hasNotAttendedSince;
     });
@@ -156,34 +157,52 @@ const TeacherStudentCourseActivity: React.FC = () => {
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
         <div className='flex justify-between sm:justify-around mb-4'>
-
-
           <div className='sm:w-[30em] mr-3 ml-3 w-1/2'>
             <RadioGroup
               row
               value={filterPeriod}
-              onChange={(e) => setFilterPeriod(e.target.value as 'all' | 'week' | 'month' | 'threshold' | 'custom')}
-            >
-              <FormControlLabel value="all" control={<Radio />} label={t('common.allTime')} />
-              <FormControlLabel value="week" control={<Radio />} label={t('common.lastWeek')} />
-              <FormControlLabel value="month" control={<Radio />} label={t('common.lastMonth')} />
+              onChange={(e) =>
+                setFilterPeriod(
+                  e.target.value as
+                    | 'all'
+                    | 'week'
+                    | 'month'
+                    | 'threshold'
+                    | 'custom',
+                )
+              }>
+              <FormControlLabel
+                value='all'
+                control={<Radio />}
+                label={t('common:allTime')}
+              />
+              <FormControlLabel
+                value='week'
+                control={<Radio />}
+                label={t('common:lastWeek')}
+              />
+              <FormControlLabel
+                value='month'
+                control={<Radio />}
+                label={t('common:lastMonth')}
+              />
               {threshold && typeof threshold === 'number' && (
                 <FormControlLabel
-                  value="threshold"
+                  value='threshold'
                   control={<Radio />}
-                  label={t('common.belowThreshold', { threshold })}
+                  label={t('common.belowThreshold', {threshold})}
                 />
               )}
             </RadioGroup>
 
             {filterPeriod === 'custom' && (
               <TextField
-                type="number"
+                type='number'
                 label={t('common.numberOfDays')}
                 value={customDays}
                 onChange={(e) => setCustomDays(parseInt(e.target.value) || 0)}
                 className='mt-2'
-                size="small"
+                size='small'
                 fullWidth
               />
             )}
@@ -194,14 +213,17 @@ const TeacherStudentCourseActivity: React.FC = () => {
           <Typography variant='body1' className='font-body'>
             {t('teacher.courseActivity.studentsNotAttending', {
               count: filteredStudents.length,
-              period: filterPeriod === 'all' ? t('common.total') :
-                      filterPeriod === 'week' ? t('common.inLastWeek') :
-                      filterPeriod === 'month' ? t('common.inLastMonth') :
-                      t('common.inLastNDays', { days: customDays })
+              period:
+                filterPeriod === 'all'
+                  ? t('common.total')
+                  : filterPeriod === 'week'
+                  ? t('common.inLastWeek')
+                  : filterPeriod === 'month'
+                  ? t('common.inLastMonth')
+                  : t('common.inLastNDays', {days: customDays}),
             })}
           </Typography>
         </Paper>
-
 
         <TableContainer component={Paper} className='shadow-md'>
           <Table>
@@ -223,8 +245,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
               {filteredStudents.map((student, index) => (
                 <TableRow
                   key={`${student.userId}-${student.courseName}-${student.studentNumber}-${index}`}
-                  className='hover:bg-gray-50'
-                >
+                  className='hover:bg-gray-50'>
                   <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
                   <TableCell>{student.courseName}</TableCell>
                   <TableCell>{student.email}</TableCell>
@@ -234,8 +255,11 @@ const TeacherStudentCourseActivity: React.FC = () => {
                   <TableCell>{student.attendance.attended}</TableCell>
                   <TableCell>{`${student.attendance.percentage}%`}</TableCell>
                   <TableCell>
-                    {student.attendance.lastAttendance ?
-                      format(parseISO(student.attendance.lastAttendance), 'dd.MM.yyyy HH:mm')
+                    {student.attendance.lastAttendance
+                      ? format(
+                          parseISO(student.attendance.lastAttendance),
+                          'dd.MM.yyyy HH:mm',
+                        )
                       : t('common.never')}
                   </TableCell>
                   <TableCell>
@@ -245,8 +269,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
                           student.attendance.percentage >= threshold
                             ? 'bg-green-500'
                             : 'bg-red-500'
-                        }`}
-                      >
+                        }`}>
                         {student.attendance.percentage >= threshold
                           ? t('common.passing')
                           : t('common.failing')}
