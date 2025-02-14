@@ -158,6 +158,7 @@ const StudentWorklogs: React.FC = () => {
           <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
             <div className='w-full md:w-auto'>
               <select
+                title={t('common:worklog.filter.course')} // translation in english 'course'
                 id='courseFilter'
                 className='w-full md:w-auto p-2 border rounded-md bg-white text-metropolia-main-grey'
                 value={selectedCourse}

@@ -241,6 +241,9 @@
       "confirm": "Är du säker på att du vill radera denna post?",
       "success": "Posten raderades framgångsrikt",
       "error": "Misslyckades med att radera posten"
+    },
+    "filter": {
+      "course": "Välj en kurs"
     }
   },
   "lectures": {

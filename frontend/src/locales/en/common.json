@@ -264,7 +264,8 @@
       "error": "Failed to delete entry"
     },
     "filter": {
-      "allCourses": "Alla kurser"
+      "allCourses": "Alla kurser",
+      "course": "Select a course"
     }
   },
   "lectures": {

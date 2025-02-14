@@ -262,7 +262,8 @@
       "error": "Merkinnän poistaminen epäonnistui"
     },
     "filter": {
-      "allCourses": "Kaikki kurssit"
+      "allCourses": "Kaikki kurssit",
+      "course": "Valitse kurssi"
     }
   },
   "lectures": {
