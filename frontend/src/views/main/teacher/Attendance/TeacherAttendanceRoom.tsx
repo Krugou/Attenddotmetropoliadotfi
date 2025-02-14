@@ -12,7 +12,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {API_CONFIG} from '../../../../config';
 import {useTranslation} from 'react-i18next';
-import Loader from '../../../../utils/Loader';
+import SkeletonLoader from '../../../../components/common/SkeletonLoader';
 
 const baseUrl = API_CONFIG.baseUrl;
 /**
@@ -331,14 +331,14 @@ const AttendanceRoom: React.FC = () => {
 
   return (
     <div className='w-full'>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div
-          className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 bg-gray-100 ${
-            lectureSuccess ? 'border-metropolia-trend-green border-2' : ''
-          }`}>
-          <div className='flex flex-col items-center justify-between sm:flex-row'>
+      <div
+        className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 bg-gray-100 ${
+          lectureSuccess ? 'border-metropolia-trend-green border-2' : ''
+        }`}>
+        <div className='flex flex-col items-center justify-between sm:flex-row'>
+          {loading ? (
+            <SkeletonLoader className='h-8 w-96 mb-4 sm:mb-0' />
+          ) : (
             <h1 className='text-2xl font-heading'>
               {courseName} | {courseCode} | {topicname} |
               {lectureSuccess
@@ -350,123 +350,136 @@ const AttendanceRoom: React.FC = () => {
                   })
                 : t('admin:common.loading')}
             </h1>
-            <div className='flex flex-row justify-end'>
+          )}
+          <div className='flex flex-row justify-end'>
+            <button
+              className='bg-metropolia-support-red sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
+              onClick={() => {
+                navigate(`/teacher/attendance/reload/${lectureid}`);
+              }}
+              title={t('teacher:attendance.buttons.resetTimer')}>
+              {t('teacher:attendance.buttons.resetTimer')}
+            </button>
+            {latency !== null && latency !== undefined && (
               <button
-                className='bg-metropolia-support-red sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
-                onClick={() => {
-                  navigate(`/teacher/attendance/reload/${lectureid}`);
-                }}
-                title={t('teacher:attendance.buttons.resetTimer')}>
-                {t('teacher:attendance.buttons.resetTimer')}
+                className={`flex items-center justify-center p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
+                  latency < 100
+                    ? 'bg-metropolia-trend-green hover:bg-green-600'
+                    : latency < 300
+                    ? 'bg-yellow-500 hover:bg-yellow-600'
+                    : 'bg-metropolia-support-red hover:bg-red-600'
+                }`}
+                title={`Ping: ${latency}ms`}
+                onClick={() => setDialogOpen(true)}>
+                <SettingsIcon />
               </button>
-              {latency !== null && latency !== undefined && (
-                <button
-                  className={`flex items-center justify-center p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
-                    latency < 100
-                      ? 'bg-metropolia-trend-green hover:bg-green-600'
-                      : latency < 300
-                      ? 'bg-yellow-500 hover:bg-yellow-600'
-                      : 'bg-metropolia-support-red hover:bg-red-600'
-                  }`}
-                  title={`Connection latency: ${latency}ms`}
-                  onClick={() => setDialogOpen(true)}>
-                  <SettingsIcon />
-                </button>
-              )}
-            </div>
+            )}
           </div>
-          <div className='flex flex-col-reverse items-start justify-between sm:flex-row'>
-            <div className='flex flex-col-reverse items-center w-full sm:flex-row'>
-              {!hideQR && (
-                <div className='relative w-full'>
-                  {!hashDataReceived ? (
-                    <div className='flex items-center justify-center w-full h-full'>
-                     <Loader />
-                    </div>
-                  ) : (
-                    <QRCode
-                      size={256}
-                      value={hashValue}
-                      viewBox={`0 0 256 256`}
-                      className='w-full 2xl:w-[50em] sm:w-[20em] lg:w-full border-8 border-white h-full'
-                      level='L'
-                    />
-                  )}
-                </div>
-              )}
+        </div>
+        <div className='flex flex-col-reverse items-start justify-between sm:flex-row'>
+          <div className='flex flex-col-reverse items-center w-full sm:flex-row'>
+            {!hideQR && (
+              <div className='relative w-full'>
+                {!hashDataReceived ? (
+                  <div className='flex items-center justify-center w-full h-full'>
+                    <SkeletonLoader className='w-[256px] h-[256px]' />
+                  </div>
+                ) : (
+                  <QRCode
+                    size={256}
+                    value={hashValue}
+                    viewBox={`0 0 256 256`}
+                    className='w-full 2xl:w-[50em] sm:w-[20em] lg:w-full border-8 border-white h-full'
+                    level='L'
+                  />
+                )}
+              </div>
+            )}
+            {loading ? (
+              <div className='w-full pl-4'>
+                <SkeletonLoader count={5} className='mb-2 h-12' />
+              </div>
+            ) : (
               <Attendees
                 arrayOfStudents={arrayOfStudents}
                 socket={socket}
                 lectureid={lectureid || ''}
                 widerNamesToggle={widerNamesToggle}
               />
-            </div>
-            <h2
-              className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropolia-main-orange rounded-xl'
-              title={t('teacher:attendance.tooltips.attendanceStats', {
-                attended: arrayOfStudents.length,
-                notAttended: courseStudents.length,
-                total: arrayOfStudents.length + courseStudents.length,
-              })}>
-              <label className='text-metropolia-trend-green'>
-                {arrayOfStudents.length}
-              </label>
-              /
-              <label className='text-metropolia-support-red'>
-                {courseStudents.length}
-              </label>{' '}
-            </h2>
-          </div>
-          <div className='flex flex-col items-center justify-end gap-5 sm:flex-row-reverse'>
-            <button
-              className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-support-red sm:w-fit h-fit hover:bg-red-500'
-              onClick={() => setConfirmOpen(true)}
-              title={t('teacher:attendance.tooltips.deleteLecture')}>
-              {t('teacher:attendance.buttons.cancelLecture')}
-            </button>
-            <button
-              onClick={handleLectureFinished}
-              className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
-              title={t('teacher:attendance.tooltips.finishLecture')}>
-              {t('teacher:attendance.buttons.finishLecture')}
-            </button>
-            <ConfirmDialog
-              title={t('teacher:attendance.dialogs.cancelLecture.title')}
-              open={confirmOpen}
-              setOpen={setConfirmOpen}
-              onConfirm={handleLectureCanceled}>
-              {t('teacher:attendance.dialogs.cancelLecture.message')}
-            </ConfirmDialog>
-            {lectureid && (
-              <CourseStudents
-                coursestudents={courseStudents}
-                socket={socket}
-                lectureid={lectureid}
-                isAnimationStopped={isAnimationStopped}
-                setLectureSuccess={setLectureSuccess}
-                loading={loading}
-                scrollTabToggle={scrollTabToggle}
-                widerNamesToggle={widerNamesToggle}
-              />
-            )}
-            {dialogOpen && (
-              <AttendanceSettings
-                dialogOpen={dialogOpen}
-                setDialogOpen={setDialogOpen}
-                setIsAnimationStopped={setIsAnimationStopped}
-                setScrollTabToggle={setScrollTabToggle}
-                setWiderNamesToggle={setWiderNamesToggle}
-                setHideQR={setHideQR}
-                latency={latency}
-                stopAnimation={isAnimationStopped}
-                enableScroll={scrollTabToggle}
-                widerNames={widerNamesToggle}
-                hideQR={hideQR}
-              />
             )}
           </div>
+          <h2
+            className='p-2 ml-2 text-2xl border-4 shadow-xl border-metropolia-main-orange rounded-xl'
+            title={t('teacher:attendance.tooltips.attendanceStats', {
+              attended: arrayOfStudents.length,
+              notAttended: courseStudents.length,
+              total: arrayOfStudents.length + courseStudents.length,
+            })}>
+            {loading ? (
+              <SkeletonLoader className='w-16 h-8' />
+            ) : (
+              <>
+                <label className='text-metropolia-trend-green'>
+                  {arrayOfStudents.length}
+                </label>
+                /
+                <label className='text-metropolia-support-red'>
+                  {courseStudents.length}
+                </label>{' '}
+              </>
+            )}
+          </h2>
         </div>
-      )}
+        <div className='flex flex-col items-center justify-end gap-5 sm:flex-row-reverse'>
+          <button
+            className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-support-red sm:w-fit h-fit hover:bg-red-500'
+            onClick={() => setConfirmOpen(true)}
+            title={t('teacher:attendance.tooltips.deleteLecture')}>
+            {t('teacher:attendance.buttons.cancelLecture')}
+          </button>
+          <button
+            onClick={handleLectureFinished}
+            className='w-full p-2 mt-4 text-sm text-white transition rounded-sm font-heading bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
+            title={t('teacher:attendance.tooltips.finishLecture')}>
+            {t('teacher:attendance.buttons.finishLecture')}
+          </button>
+          <ConfirmDialog
+            title={t('teacher:attendance.dialogs.cancelLecture.title')}
+            open={confirmOpen}
+            setOpen={setConfirmOpen}
+            onConfirm={handleLectureCanceled}>
+            {t('teacher:attendance.dialogs.cancelLecture.message')}
+          </ConfirmDialog>
+          {lectureid && (
+            <CourseStudents
+              coursestudents={courseStudents}
+              socket={socket}
+              lectureid={lectureid}
+              isAnimationStopped={isAnimationStopped}
+              setLectureSuccess={setLectureSuccess}
+              lectureSuccess={lectureSuccess}
+              loading={loading}
+              scrollTabToggle={scrollTabToggle}
+              widerNamesToggle={widerNamesToggle}
+            />
+          )}
+          {dialogOpen && (
+            <AttendanceSettings
+              dialogOpen={dialogOpen}
+              setDialogOpen={setDialogOpen}
+              setIsAnimationStopped={setIsAnimationStopped}
+              setScrollTabToggle={setScrollTabToggle}
+              setWiderNamesToggle={setWiderNamesToggle}
+              setHideQR={setHideQR}
+              latency={latency}
+              stopAnimation={isAnimationStopped}
+              enableScroll={scrollTabToggle}
+              widerNames={widerNamesToggle}
+              hideQR={hideQR}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

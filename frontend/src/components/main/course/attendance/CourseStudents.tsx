@@ -1,6 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Socket} from 'socket.io-client';
 import {useTranslation} from 'react-i18next';
+import SkeletonLoader from '../../../common/SkeletonLoader';
+import ConfirmDialog from '../../modals/ConfirmDialog';
+
 // Define the props for the CourseStudents component
 interface Props {
   coursestudents: {
@@ -13,6 +16,7 @@ interface Props {
   lectureid: string;
   isAnimationStopped: boolean;
   setLectureSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  lectureSuccess: boolean;
   loading: boolean;
   scrollTabToggle: boolean;
   widerNamesToggle: boolean;
@@ -32,10 +36,12 @@ const CourseStudents: React.FC<Props> = ({
   lectureid,
   isAnimationStopped,
   setLectureSuccess,
+  lectureSuccess,
   loading,
   scrollTabToggle,
   widerNamesToggle,
 }) => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   // Define state and refs const
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const scrollPositionRef = useRef<number>(0);
@@ -180,96 +186,138 @@ const CourseStudents: React.FC<Props> = ({
     if (!loading) {
       if (coursestudents.length < 1) {
         setLectureSuccess(true);
+        setShowSuccessModal(true);
       } else {
         setLectureSuccess(false);
+        setShowSuccessModal(false);
       }
     }
   }, [coursestudents]);
-  return (
-    <div
-      ref={scrollContainerRef}
-      onScroll={() => {
-        if (scrollContainerRef.current) {
-          scrollPositionRef.current = scrollContainerRef.current.scrollLeft;
-        }
-      }}
-      onMouseDown={onMouseDown}
-      onMouseLeave={() => {
-        onMouseEnd();
-        setBounceGroup((prevGroup) =>
-          prevGroup !== null ? (prevGroup + 1) % 2 : 0,
-        );
-      }}
-      onMouseUp={onMouseEnd}
-      onMouseMove={onMouseMove}
-      onMouseEnter={() => {
-        if (scrollInterval.current !== null) {
-          clearInterval(scrollInterval.current);
-        }
-        if (scrollContainerRef.current) {
-          scrollPositionRef.current = scrollContainerRef.current.scrollLeft;
-        }
-        setBounceGroup(null);
-      }}
-      className={`noSelect ${
-        scrollTabToggle ? '' : 'hideScrollbar'
-      }  flex  border-2 border-metropolia-support-red ${
-        coursestudents.length > 10 ? 'justify-start' : 'justify-center'
-      } bg-white p-3 rounded-lg shadow-md w-full mt-4 overflow-hidden overflow-x-auto`}>
-      {coursestudents.length === 0 ? (
-        <p className=''>
-          {remainingTime > 0
-            ? t('teacher:courseStudents.allStudentsHere', {
-                seconds: remainingTime,
-              })
-            : t('teacher:courseStudents.finishingLecture')}
-        </p>
-      ) : (
-        <div className={`   whitespace-nowrap `}>
-          {coursestudents.map((student, index) => {
-            const formattedName = widerNamesToggle
-              ? `${student.first_name} ${student.last_name}`
-              : `${student.first_name} ${student.last_name.charAt(0)}.`;
 
-            const isBouncing = !isAnimationStopped && index % 2 === bounceGroup;
-            const isFirst = index === 0;
-            const isLast = index === coursestudents.length - 1;
-            const bgColorClass = isFirst
-              ? 'bg-metropolia-support-red'
-              : isLast
-              ? 'bg-metropolia-trend-green'
-              : index % 2 === 0
-              ? 'bg-metropolia-main-orange'
-              : 'bg-metropolia-main-grey';
-            const shapeClass = isFirst
-              ? 'rounded-l-lg rounded-r-none'
-              : isLast
-              ? 'rounded-r-lg rounded-l-none'
-              : 'rounded-none';
-            return (
-              <p
-                ref={isFirst ? firstItemRef : isLast ? lastItemRef : null}
-                key={student.userid}
-                className={`inline-block cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
-                  isBouncing ? 'motion-safe:animate-bounce' : ''
-                }`}
-                title={`${student.first_name} ${student.last_name}`}
-                onClick={() => {
-                  if (socket) {
-                    socket.emit(
-                      'manualStudentInsert',
-                      student.studentnumber,
-                      lectureid,
-                    );
-                  }
-                }}>
-                {formattedName}
-              </p>
-            );
-          })}
+  const handleFinishNow = () => {
+    if (socket) {
+      socket.emit('lectureFinishedWithButton', lectureid);
+    }
+    setShowSuccessModal(false);
+  };
+
+  return (
+    <>
+      <div
+        ref={scrollContainerRef}
+        onScroll={() => {
+          if (scrollContainerRef.current) {
+            scrollPositionRef.current = scrollContainerRef.current.scrollLeft;
+          }
+        }}
+        onMouseDown={onMouseDown}
+        onMouseLeave={() => {
+          onMouseEnd();
+          setBounceGroup((prevGroup) =>
+            prevGroup !== null ? (prevGroup + 1) % 2 : 0,
+          );
+        }}
+        onMouseUp={onMouseEnd}
+        onMouseMove={onMouseMove}
+        onMouseEnter={() => {
+          if (scrollInterval.current !== null) {
+            clearInterval(scrollInterval.current);
+          }
+          if (scrollContainerRef.current) {
+            scrollPositionRef.current = scrollContainerRef.current.scrollLeft;
+          }
+          setBounceGroup(null);
+        }}
+        className={`noSelect ${
+          scrollTabToggle ? '' : 'hideScrollbar'
+        }  flex  border-2 border-metropolia-support-red ${
+          coursestudents.length > 10 ? 'justify-start' : 'justify-center'
+        } bg-white p-3 rounded-lg shadow-md w-full mt-4 overflow-hidden overflow-x-auto`}>
+        {loading ? (
+          <div className='flex gap-2 w-full'>
+            <SkeletonLoader
+              count={5}
+              className='mx-2'
+              width='120px'
+              height='40px'
+            />
+          </div>
+        ) : coursestudents.length === 0 && lectureSuccess ? (
+          <p className=''>
+            {remainingTime > 0
+              ? t('teacher:courseStudents.allStudentsHere', {
+                  seconds: remainingTime,
+                })
+              : t('teacher:courseStudents.finishingLecture')}
+          </p>
+        ) : (
+          <div className={`   whitespace-nowrap `}>
+            {coursestudents.map((student, index) => {
+              const formattedName = widerNamesToggle
+                ? `${student.first_name} ${student.last_name}`
+                : `${student.first_name} ${student.last_name.charAt(0)}.`;
+
+              const isBouncing =
+                !isAnimationStopped && index % 2 === bounceGroup;
+              const isFirst = index === 0;
+              const isLast = index === coursestudents.length - 1;
+              const bgColorClass = isFirst
+                ? 'bg-metropolia-support-red'
+                : isLast
+                ? 'bg-metropolia-trend-green'
+                : index % 2 === 0
+                ? 'bg-metropolia-main-orange'
+                : 'bg-metropolia-main-grey';
+              const shapeClass = isFirst
+                ? 'rounded-l-lg rounded-r-none'
+                : isLast
+                ? 'rounded-r-lg rounded-l-none'
+                : 'rounded-none';
+              return (
+                <p
+                  ref={isFirst ? firstItemRef : isLast ? lastItemRef : null}
+                  key={student.userid}
+                  className={`inline-block cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
+                    isBouncing ? 'motion-safe:animate-bounce' : ''
+                  }`}
+                  title={`${student.first_name} ${student.last_name}`}
+                  onClick={() => {
+                    if (socket) {
+                      socket.emit(
+                        'manualStudentInsert',
+                        student.studentnumber,
+                        lectureid,
+                      );
+                    }
+                  }}>
+                  {formattedName}
+                </p>
+              );
+            })}
+          </div>
+        )}
+      </div>
+      <ConfirmDialog
+        title={t('teacher:attendance.dialogs.success.title')}
+        open={showSuccessModal}
+        setOpen={setShowSuccessModal}
+        onConfirm={handleFinishNow}
+        confirmText={t('teacher:attendance.buttons.finishNow')}
+        cancelText={t('teacher:attendance.buttons.waitForTimer')}>
+        <div className='text-center'>
+          <p className='mb-4 text-xl text-metropolia-trend-green font-semibold'>
+            {t('teacher:attendance.dialogs.success.allPresent')}
+          </p>
+          <p>
+            {remainingTime > 0
+              ? t('teacher:attendance.dialogs.success.options', {
+                  seconds: remainingTime,
+                })
+              : t('teacher:attendance.dialogs.success.finishing')}
+          </p>
         </div>
-      )}
-    </div>
+      </ConfirmDialog>
+    </>
   );
 };
 
