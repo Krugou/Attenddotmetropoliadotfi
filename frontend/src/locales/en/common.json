@@ -338,5 +338,13 @@
     "description": "Click to continue"
   },
   "metropoliaLoading": "Metropolia Attendance App loading...",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "sorting": {
+    "clickToSort": "Click column headers to sort",
+    "currentSort": "Currently sorted by: ",
+    "sortBy": "Sort by",
+    "none": "none",
+    "asc": "ascending",
+    "desc": "descending"
+  }
 }

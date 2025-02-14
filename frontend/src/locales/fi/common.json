@@ -336,5 +336,13 @@
   "save": "Tallenna muutokset",
   "cancel": "Peruuta",
   "loading": "Ladataan...",
-  "metropoliaLoading": "Metropolian läsnäolosovellus lataa..."
+  "metropoliaLoading": "Metropolian läsnäolosovellus lataa...",
+  "sorting": {
+    "clickToSort": "Klikkaa sarakeotsikkoa lajitellaksesi",
+    "currentSort": "Lajiteltu: ",
+    "sortBy": "Lajittele",
+    "none": "ei lajittelua",
+    "asc": "nouseva",
+    "desc": "laskeva"
+  }
 }

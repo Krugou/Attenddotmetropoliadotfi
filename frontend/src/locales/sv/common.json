@@ -319,5 +319,13 @@
     "description": "Klicka för att fortsätta"
   },
   "loading": "Belastning...",
-  "metropoliaLoading": "Metropolia närvaro App Loading ..."
+  "metropoliaLoading": "Metropolia närvaro App Loading ...",
+  "sorting": {
+    "clickToSort": "Klicka på kolumnrubriken för att sortera",
+    "currentSort": "Sorterad: ",
+    "sortBy": "Sortera efter",
+    "none": "ingen sortering",
+    "asc": "stigande",
+    "desc": "fallande"
+  }
 }
