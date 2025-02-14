@@ -16,11 +16,16 @@ import {
   Radio,
   FormControlLabel,
   TextField,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
 import {UserContext} from '../../../../contexts/UserContext';
 import {subDays, parseISO, isBefore, format} from 'date-fns';
 import {useCourses} from '../../../../hooks/courseHooks';
 import Loader from '../../../../utils/Loader';
+import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
+import SearchIcon from '@mui/icons-material/Search';
+import NotesIcon from '@mui/icons-material/Notes';
 
 interface CombinedStudentData {
   userId: number;
@@ -38,6 +43,9 @@ interface CombinedStudentData {
   };
 }
 
+type SortField = keyof CombinedStudentData | 'name' | 'attendance.percentage' | 'attendance.total' | 'attendance.attended' | 'attendance.lastAttendance';
+type SortOrder = 'asc' | 'desc';
+
 const TeacherStudentCourseActivity: React.FC = () => {
   const {t} = useTranslation();
   const {user} = useContext(UserContext);
@@ -49,6 +57,9 @@ const TeacherStudentCourseActivity: React.FC = () => {
   >('all');
   const [customDays, setCustomDays] = useState<number>(0);
   const {threshold} = useCourses();
+  const [sortField, setSortField] = useState<SortField>('lastName');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const loadAttendanceData = async () => {
@@ -104,6 +115,56 @@ const TeacherStudentCourseActivity: React.FC = () => {
     return <Alert severity='error'>{error}</Alert>;
   }
 
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortOrder('asc');
+    }
+  };
+
+  const getSortedValue = (student: CombinedStudentData, field: SortField) => {
+    switch (field) {
+      case 'name':
+        return `${student.lastName} ${student.firstName}`;
+      case 'attendance.percentage':
+        return student.attendance.percentage;
+      case 'attendance.total':
+        return student.attendance.total;
+      case 'attendance.attended':
+        return student.attendance.attended;
+      case 'attendance.lastAttendance':
+        return student.attendance.lastAttendance || '0';
+      default:
+        return student[field as keyof CombinedStudentData];
+    }
+  };
+
+  const sortStudents = (students: CombinedStudentData[]) => {
+    return [...students].sort((a, b) => {
+      const aValue = getSortedValue(a, sortField);
+      const bValue = getSortedValue(b, sortField);
+
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+  };
+
+  const filterStudentsBySearch = (students: CombinedStudentData[]) => {
+    if (!searchQuery) return students;
+
+    const query = searchQuery.toLowerCase();
+    return students.filter(
+      (student) =>
+        `${student.firstName} ${student.lastName}`.toLowerCase().includes(query) ||
+        String(student.studentNumber).toLowerCase().includes(query) ||
+        student.groupName.toLowerCase().includes(query) ||
+        student.courseName.toLowerCase().includes(query),
+    );
+  };
+
   const filterStudentsByAttendance = (students: CombinedStudentData[]) => {
     if (filterPeriod === 'all') {
       return students;
@@ -148,7 +209,39 @@ const TeacherStudentCourseActivity: React.FC = () => {
     });
   };
 
-  const filteredStudents = filterStudentsByAttendance(allStudents);
+  const filteredStudents = filterStudentsBySearch(
+    sortStudents(filterStudentsByAttendance(allStudents)),
+  );
+
+  const SortableHeader: React.FC<{
+    field: SortField;
+    label: string;
+  }> = ({field, label}) => (
+    <TableCell
+      onClick={() => handleSort(field)}
+      style={{cursor: 'pointer'}}
+      className="select-none">
+      <div className="flex items-center justify-between">
+        <span>{label}</span>
+        <div className="flex items-center">
+          {sortField === field ? (
+            <IconButton size="small" className="ml-1">
+              <NotesIcon
+                fontSize="small"
+                className={`text-metropolia-main-orange transform transition-transform ${
+                  sortOrder === 'asc' ? 'rotate-0' : 'rotate-180'
+                }`}
+              />
+            </IconButton>
+          ) : (
+            <IconButton size="small" className="ml-1 opacity-20 hover:opacity-100">
+              <NotesIcon fontSize="small" />
+            </IconButton>
+          )}
+        </div>
+      </div>
+    </TableCell>
+  );
 
   return (
     <>
@@ -156,8 +249,15 @@ const TeacherStudentCourseActivity: React.FC = () => {
         {t('teacher.courseActivity.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
+      <GeneralLinkButton
+      path='/teacher/mainView'
+      text={t('teacher.courseActivity.back')}
+    />
+
+
         <div className='flex justify-between sm:justify-around mb-4'>
-          <div className='sm:w-[30em] mr-3 ml-3 w-1/2'>
+
+          <div className='sm:w-[100em] flex justify-center items-center mr-3 ml-3 w-1/2'>
             <RadioGroup
               row
               value={filterPeriod}
@@ -195,6 +295,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
               )}
             </RadioGroup>
 
+
             {filterPeriod === 'custom' && (
               <TextField
                 type='number'
@@ -207,6 +308,22 @@ const TeacherStudentCourseActivity: React.FC = () => {
               />
             )}
           </div>
+          <div className="mb-4 w-full">
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder={t('common.search')}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
         </div>
 
         <Paper className='p-4 mb-4 bg-gray-50'>
@@ -229,16 +346,32 @@ const TeacherStudentCourseActivity: React.FC = () => {
           <Table>
             <TableHead className='bg-gray-50'>
               <TableRow>
-                <TableCell>{t('common.name')}</TableCell>
-                <TableCell>{t('common.course')}</TableCell>
-                <TableCell>{t('common.email')}</TableCell>
-                <TableCell>{t('common.studentNumber')}</TableCell>
-                <TableCell>{t('common.group')}</TableCell>
-                <TableCell>{t('common.totalLectures')}</TableCell>
-                <TableCell>{t('common.attendedLectures')}</TableCell>
-                <TableCell>{t('common.attendancePercentage')}</TableCell>
-                <TableCell>{t('common.lastAttendance')}</TableCell>
+                <SortableHeader field="name" label={t('common.name')} />
+                <SortableHeader field="courseName" label={t('common.course')} />
+                <SortableHeader field="email" label={t('common.email')} />
+                <SortableHeader
+                  field="studentNumber"
+                  label={t('common.studentNumber')}
+                />
+                <SortableHeader field="groupName" label={t('common.group')} />
+                <SortableHeader
+                  field="attendance.total"
+                  label={t('common.totalLectures')}
+                />
+                <SortableHeader
+                  field="attendance.attended"
+                  label={t('common.attendedLectures')}
+                />
+                <SortableHeader
+                  field="attendance.percentage"
+                  label={t('common.attendancePercentage')}
+                />
+                <SortableHeader
+                  field="attendance.lastAttendance"
+                  label={t('common.lastAttendance')}
+                />
                 <TableCell>{t('common.status')}</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
