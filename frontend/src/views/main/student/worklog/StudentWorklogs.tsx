@@ -11,6 +11,7 @@ import WorklogFilters from '../../../../components/worklog/WorklogFilters';
 import WorklogCardView from '../../../../components/worklog/WorklogCardView';
 import WorklogTableView from '../../../../components/worklog/WorklogTableView';
 import type {WorkLogEntry} from '../../../../types/worklog';
+import Loader from '../../../../utils/Loader';
 
 const StudentWorklogs: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -105,11 +106,7 @@ const StudentWorklogs: React.FC = () => {
   );
 
   if (loading) {
-    return (
-      <div className='flex items-center justify-center h-64'>
-        <CircularProgress />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
