@@ -14,6 +14,8 @@ interface ConfirmDialogProps {
   open: boolean;
   setOpen: (value: boolean) => void;
   onConfirm: () => void;
+  confirmText?: string;
+  cancelText?: string;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -22,6 +24,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   open,
   setOpen,
   onConfirm,
+  confirmText,
+  cancelText,
 }) => {
   const {t} = useTranslation(['teacher']);
 
@@ -50,13 +54,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
           onClick={handleClose}>
-          {t('common:dialog.cancel')}
+          {cancelText || t('common:dialog.cancel')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-support-red sm:w-fit h-fit hover:bg-metropolia-support-red'
           onClick={handleConfirm}
           autoFocus>
-          {t('common:dialog.confirm')}
+          {confirmText || t('common:dialog.confirm')}
         </button>
       </DialogActions>
     </Dialog>

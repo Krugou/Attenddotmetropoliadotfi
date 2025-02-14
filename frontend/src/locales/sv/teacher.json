@@ -502,7 +502,9 @@
       "toggleScrollView": "Växla rullningsvy",
       "toggleWiderNames": "Växla bredare namn",
       "hideQRCode": "Dölj QR-kod",
-      "showQRCode": "Visa QR-kod"
+      "showQRCode": "Visa QR-kod",
+      "finishNow": "Slut nu",
+      "waitForTimer": "Vänta på timern"
     },
     "tooltips": {
       "attendanceStats": "{{attended}} Närvarande, {{notAttended}} Frånvarande, Totalt: {{total}}",

@@ -622,7 +622,9 @@
       "toggleScrollView": "Vaihda vieritystilaa",
       "toggleWiderNames": "Vaihda leveämpiä nimiä",
       "hideQRCode": "Piilota QR-koodi",
-      "showQRCode": "Näytä QR-koodi"
+      "showQRCode": "Näytä QR-koodi",
+      "finishNow": "Lopeta nyt",
+      "waitForTimer": "Odota ajastinta"
     },
     "dialogs": {
       "cancelLecture": {

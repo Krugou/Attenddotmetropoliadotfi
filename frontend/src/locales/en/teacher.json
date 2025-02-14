@@ -609,7 +609,9 @@
     "buttons": {
       "resetTimer": "Reset timer",
       "cancelLecture": "Cancel Lecture",
-      "finishLecture": "Finish Lecture"
+      "finishLecture": "Finish Lecture",
+      "waitForTimer": "Wait for timer",
+      "finishNow": "Finish now"
     },
     "tooltips": {
       "attendanceStats": "{{attended}} Attended, {{notAttended}} Not attended, Total: {{total}}",
