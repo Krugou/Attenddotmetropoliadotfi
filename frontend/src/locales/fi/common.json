@@ -323,5 +323,7 @@
     "description": "Klikkaa jatkaaksesi"
   },
   "save": "Tallenna muutokset",
-  "cancel": "Peruuta"
+  "cancel": "Peruuta",
+  "loading": "Ladataan...",
+  "metropoliaLoading": "Metropolian läsnäolosovellus lataa..."
 }

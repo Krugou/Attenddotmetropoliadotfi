@@ -303,5 +303,7 @@
   "openLectureCard": {
     "title": "Öppen föreläsning hittad, kod: {{code}} ämne: {{topic}} !",
     "description": "Klicka för att fortsätta"
-  }
+  },
+  "loading": "Belastning...",
+  "metropoliaLoading": "Metropolia närvaro App Loading ..."
 }

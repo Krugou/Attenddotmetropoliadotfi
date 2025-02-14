@@ -324,5 +324,7 @@
   "openLectureCard": {
     "title": "Open lecture found, code: {{code}} topic: {{topic}} !",
     "description": "Click to continue"
-  }
+  },
+  "metropoliaLoading": "Metropolia Attendance App loading...",
+  "loading": "Loading..."
 }
