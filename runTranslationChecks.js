@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Function to extract translation keys from codebase
+// Updated function to extract translation keys from codebase
 const extractTranslationKeys = (dir, fileList = []) => {
   const files = fs.readdirSync(dir);
   files.forEach((file) => {
@@ -11,20 +11,26 @@ const extractTranslationKeys = (dir, fileList = []) => {
       extractTranslationKeys(filePath, fileList);
     } else if (filePath.endsWith('.tsx') || filePath.endsWith('.ts')) {
       const content = fs.readFileSync(filePath, 'utf-8');
-      const regex = /t\(['"`]([^'"`]+)['"`]\)/g;
+      // Updated regex to capture namespace and key
+      const regex = /t\(['"`](?:([^:'"`]+):)?([^'"`]+)['"`]\)/g;
       let match;
       while ((match = regex.exec(content)) !== null) {
-        fileList.push(match[1]);
+        const namespace = match[1] || 'common'; // Default to 'common' if no namespace
+        const key = match[2];
+        fileList.push(`${namespace}:${key}`);
       }
     }
   });
   return fileList;
 };
 
-// Function to find missing translations
-const findMissingTranslations = (keys, translations) => {
+// Updated function to find missing translations
+const findMissingTranslations = (keys, translations, namespace) => {
   return keys.filter((key) => {
-    const keyParts = key.split('.');
+    const [keyNamespace, keyPath] = key.split(':');
+    if (keyNamespace !== namespace) return false;
+
+    const keyParts = keyPath.split('.');
     let current = translations;
     for (const part of keyParts) {
       if (current[part] === undefined) {
@@ -36,130 +42,91 @@ const findMissingTranslations = (keys, translations) => {
   });
 };
 
-// Function to find unused translations
-const findUnusedTranslations = (translationKeys, usedTranslationKeys) => {
-  return translationKeys.filter((key) => !usedTranslationKeys.includes(key));
-};
+// Updated paths to include all namespace files
+const getTranslationFiles = (lang) => ({
+  common: path.join(__dirname, `./frontend/src/locales/${lang}/common.json`),
+  admin: path.join(__dirname, `./frontend/src/locales/${lang}/admin.json`),
+  student: path.join(__dirname, `./frontend/src/locales/${lang}/student.json`),
+  teacher: path.join(__dirname, `./frontend/src/locales/${lang}/teacher.json`),
+  counselor: path.join(
+    __dirname,
+    `./frontend/src/locales/${lang}/counselor.json`,
+  ),
+  noUser: path.join(__dirname, `./frontend/src/locales/${lang}/noUser.json`),
+});
 
-// Paths to translation files
-const enTranslationFilePath = path.join(
-  __dirname,
-  './frontend/src/locales/en/translation.json',
-);
-const fiTranslationFilePath = path.join(
-  __dirname,
-  './frontend/src/locales/fi/translation.json',
-);
-const svTranslationFilePath = path.join(
-  __dirname,
-  './frontend/src/locales/sv/translation.json',
-);
+// Load translations for each namespace
+const loadTranslations = (lang) => {
+  const files = getTranslationFiles(lang);
+  const translations = {};
 
-// Extract translation keys from JSON files
-const extractTranslationKeysFromFile = (filePath) => {
-  try {
-    if (!fs.existsSync(filePath)) {
-      console.warn(`Warning: Translation file not found: ${filePath}`);
-      return [];
-    }
-
-    const content = fs.readFileSync(filePath, 'utf-8');
-    if (!content || content.trim() === '') {
-      console.warn(`Warning: Empty translation file: ${filePath}`);
-      return [];
-    }
-
-    const keys = [];
-    const traverse = (obj, prefix = '') => {
-      for (const key in obj) {
-        const fullKey = prefix ? `${prefix}.${key}` : key;
-        if (typeof obj[key] === 'object' && obj[key] !== null) {
-          traverse(obj[key], fullKey);
-        } else {
-          keys.push(fullKey);
-        }
-      }
-    };
-
+  Object.entries(files).forEach(([namespace, filePath]) => {
     try {
-      const parsed = JSON.parse(content);
-      traverse(parsed);
-      return keys;
-    } catch (parseError) {
-      console.error(`Error parsing JSON in ${filePath}:`, parseError.message);
-      return [];
+      if (fs.existsSync(filePath)) {
+        translations[namespace] = require(filePath);
+      }
+    } catch (error) {
+      console.error(
+        `Error loading ${lang} ${namespace} translations:`,
+        error.message,
+      );
     }
-  } catch (error) {
-    console.error(`Error reading translation file ${filePath}:`, error.message);
-    return [];
-  }
-};
+  });
 
-const enTranslationKeys = extractTranslationKeysFromFile(enTranslationFilePath);
-const fiTranslationKeys = extractTranslationKeysFromFile(fiTranslationFilePath);
-const svTranslationKeys = extractTranslationKeysFromFile(svTranslationFilePath);
+  return translations;
+};
 
 // Extract used translation keys from codebase
 const codebaseDir = path.join(__dirname, 'frontend/src');
 const usedTranslationKeys = extractTranslationKeys(codebaseDir);
 const uniqueUsedTranslationKeys = [...new Set(usedTranslationKeys)];
 
-// Find missing translations
-let enTranslation = {},
-  fiTranslation = {},
-  svTranslation = {};
+// Load all translations
+const enTranslations = loadTranslations('en');
+const fiTranslations = loadTranslations('fi');
+const svTranslations = loadTranslations('sv');
 
-try {
-  if (fs.existsSync(enTranslationFilePath)) {
-    enTranslation = require(enTranslationFilePath);
-  }
-  if (fs.existsSync(fiTranslationFilePath)) {
-    fiTranslation = require(fiTranslationFilePath);
-  }
-  if (fs.existsSync(svTranslationFilePath)) {
-    svTranslation = require(svTranslationFilePath);
-  }
-} catch (error) {
-  console.error('Error loading translation files:', error.message);
-}
-
-const missingInEn = findMissingTranslations(
-  uniqueUsedTranslationKeys,
-  enTranslation,
-);
-const missingInFi = findMissingTranslations(
-  uniqueUsedTranslationKeys,
-  fiTranslation,
-);
-const missingInSv = findMissingTranslations(
-  uniqueUsedTranslationKeys,
-  svTranslation,
-);
-
-// Find unused translations
-const unusedEnTranslationKeys = findUnusedTranslations(
-  enTranslationKeys,
-  uniqueUsedTranslationKeys,
-);
-const unusedFiTranslationKeys = findUnusedTranslations(
-  fiTranslationKeys,
-  uniqueUsedTranslationKeys,
-);
-const unusedSvTranslationKeys = findUnusedTranslations(
-  svTranslationKeys,
-  uniqueUsedTranslationKeys,
-);
-
-// Write results to a JavaScript file
+// Check for missing translations in each namespace
+const namespaces = [
+  'common',
+  'admin',
+  'student',
+  'teacher',
+  'counselor',
+  'noUser',
+];
 const results = {
-  missingInEn,
-  missingInFi,
-  missingInSv,
-  unusedEnTranslationKeys,
-  unusedFiTranslationKeys,
-  unusedSvTranslationKeys,
+  missing: {
+    en: {},
+    fi: {},
+    sv: {},
+  },
+  unused: {
+    en: {},
+    fi: {},
+    sv: {},
+  },
 };
 
+namespaces.forEach((namespace) => {
+  results.missing.en[namespace] = findMissingTranslations(
+    uniqueUsedTranslationKeys,
+    enTranslations[namespace] || {},
+    namespace,
+  );
+  results.missing.fi[namespace] = findMissingTranslations(
+    uniqueUsedTranslationKeys,
+    fiTranslations[namespace] || {},
+    namespace,
+  );
+  results.missing.sv[namespace] = findMissingTranslations(
+    uniqueUsedTranslationKeys,
+    svTranslations[namespace] || {},
+    namespace,
+  );
+});
+
+// Write results to a JavaScript file
 const resultsDir = path.join(__dirname, 'translationCheckResult');
 const resultsFilePath = path.join(resultsDir, 'translationResults.js');
 
@@ -168,9 +135,24 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir);
 }
 
+// Format results for output
+const formattedResults = {
+  missing: {
+    en: Object.fromEntries(
+      Object.entries(results.missing.en).filter(([_, v]) => v.length > 0),
+    ),
+    fi: Object.fromEntries(
+      Object.entries(results.missing.fi).filter(([_, v]) => v.length > 0),
+    ),
+    sv: Object.fromEntries(
+      Object.entries(results.missing.sv).filter(([_, v]) => v.length > 0),
+    ),
+  },
+};
+
 fs.writeFileSync(
   resultsFilePath,
-  `module.exports = ${JSON.stringify(results, null, 2)};`,
+  `module.exports = ${JSON.stringify(formattedResults, null, 2)};`,
 );
 
 console.log('Results written to translationResults.js');
