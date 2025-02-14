@@ -1,3 +1,4 @@
+import logger from 'utils/logger.js';
 import courseStudentActivityModel from '../models/coursestudentactivity.js';
 
 
@@ -68,7 +69,7 @@ const courseActivityController = {
       };
 
     } catch (error) {
-      console.error('Controller error:', error);
+      logger.error('Controller error:', error);
       return {
         success: false,
         data: [],

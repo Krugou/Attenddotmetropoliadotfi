@@ -1,3 +1,4 @@
+import logger from 'utils/logger.js';
 import createPool from '../config/createPool.js';
 const pool = createPool('ADMIN');
 
@@ -37,10 +38,9 @@ const courseStudentActivityModel = {
         ORDER BY c.name, u.last_name, u.first_name;
       `, [instructorId]);
 
-      console.log('Raw SQL result:', rows);
       return rows;
     } catch (error) {
-      console.error('Database error:', error);
+      logger.error('Database error:', error);
       throw error;
     }
   },
