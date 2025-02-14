@@ -201,8 +201,8 @@ const StudentCourseAttendance: React.FC = () => {
             className='w-fit '
             onClick={() => setShowTable(!showTable)}>
             {showTable
-              ? t('student.course.showAttendanceStats')
-              : t('student.course.showAttendanceTable')}
+              ? t('student:course.showAttendanceStats')
+              : t('student:course.showAttendanceTable')}
           </Button>
         </div>
         {showTable && (
