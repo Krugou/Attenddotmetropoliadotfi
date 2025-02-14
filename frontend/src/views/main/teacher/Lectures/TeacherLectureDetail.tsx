@@ -10,7 +10,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Button,
 } from '@mui/material';
 import Loader from '../../../../utils/Loader';
 
@@ -242,25 +241,66 @@ const TeacherLectureDetail = () => {
         </div>
       </div>
 
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>
-          {t('teacher:lectures.details.confirmDialog.title', {
-            action,
-          })}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t('teacher:lectures.details.confirmDialog.message')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose} color='primary'>
-            {t('teacher:lectures.details.confirmDialog.cancel')}
-          </Button>
-          <Button onClick={handleConfirm} color='primary' autoFocus>
-            {t('teacher:lectures.details.confirmDialog.confirm')}
-          </Button>
-        </DialogActions>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        className='relative z-50'
+        PaperProps={{
+          className: 'rounded-xl shadow-xl max-w-md w-full mx-4 p-0 bg-white',
+        }}>
+        <div className='p-6'>
+          <DialogTitle className='p-0 mb-4'>
+            <h3
+              className={`text-2xl font-bold font-heading ${
+                action === 'delete'
+                  ? 'text-metropolia-support-red'
+                  : 'text-metropolia-main-grey'
+              }`}>
+              {action === 'delete'
+                ? t('teacher:lectures.details.confirmDialog.title', {action})
+                : t('teacher:lectures.details.confirmDialog.title', {action})}
+            </h3>
+          </DialogTitle>
+          <DialogContent className='p-0'>
+            <DialogContentText className='text-base text-metropolia-main-grey'>
+              {action === 'delete' ? (
+                <div className='space-y-4'>
+                  <div className='p-4 bg-red-50 rounded-lg border border-red-100'>
+                    <p className='text-metropolia-support-red'>
+                      <span className='font-bold block mb-2'>
+                        {t(
+                          'teacher:lectures.details.confirmDialog.important.title',
+                        )}
+                      </span>
+                      {t(
+                        'teacher:lectures.details.confirmDialog.important.message',
+                      )}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                t('teacher:lectures.details.confirmDialog.message')
+              )}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions className='p-0 mt-6 flex gap-3'>
+            <button
+              onClick={handleDialogClose}
+              className='px-4 py-2 text-sm font-medium text-metropolia-main-grey bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors'>
+              {t('teacher:lectures.details.confirmDialog.cancel')}
+            </button>
+            <button
+              onClick={handleConfirm}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${
+                action === 'delete'
+                  ? 'bg-metropolia-support-red hover:bg-metropolia-support-red-dark'
+                  : 'bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
+              }`}
+              autoFocus>
+              {t('teacher:lectures.details.confirmDialog.confirm')}
+            </button>
+          </DialogActions>
+        </div>
       </Dialog>
     </div>
   );
