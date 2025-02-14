@@ -128,6 +128,17 @@ const TeacherLectureDetail = () => {
           {t('teacher:lectures.details.back')}
         </button>
         <div className='space-x-2'>
+          <button
+            onClick={() =>
+              navigate(
+                `/teacher/courses/attendances/${lecture.courseid}/${
+                  lecture.start_date.split('T')[0]
+                }`,
+              )
+            }
+            className='px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
+            {t('teacher:lectures.details.editAttendances')}
+          </button>
           {lecture?.state === 'open' && (
             <button
               onClick={handleClose}

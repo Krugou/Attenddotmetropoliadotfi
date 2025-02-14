@@ -181,7 +181,8 @@
         "message": "Denna åtgärd kan inte ångras.",
         "cancel": "Avbryt",
         "confirm": "Bekräfta"
-      }
+      },
+      "editAttendances": "Redigera närvaro"
     }
   },
   "studentAttendances": {

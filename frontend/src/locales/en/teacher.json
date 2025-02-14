@@ -181,7 +181,8 @@
         "message": "This action cannot be undone.",
         "cancel": "Cancel",
         "confirm": "Confirm"
-      }
+      },
+      "editAttendances": "Edit Attendances"
     }
   },
   "studentAttendances": {

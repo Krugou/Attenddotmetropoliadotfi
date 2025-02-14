@@ -181,7 +181,8 @@
         "message": "Tätä toimintoa ei voi peruuttaa.",
         "cancel": "Peruuta",
         "confirm": "Vahvista"
-      }
+      },
+      "editAttendances": "Muokata läsnäoloa"
     }
   },
   "studentAttendances": {
