@@ -28,6 +28,7 @@ interface Attendance {
   topicname: string;
   teacher: string;
   status: number;
+  code: string;
 }
 /**
  * StudentCourseAttendance component.
