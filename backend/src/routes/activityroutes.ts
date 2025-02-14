@@ -2,6 +2,7 @@ import express, {Request, Response, Router} from 'express';
 import ActivityController from '../controllers/courseactivity.js';
 import checkUserRole from '../utils/checkRole.js';
 import validate from '../utils/validate.js';
+import logger from 'utils/logger.js';
 const router: Router = express.Router();
 
 
@@ -29,7 +30,7 @@ router.get(
       res.json(result);
 
     } catch (error) {
-      console.error('Route error:', error);
+      logger.error('Route error:', error);
       res.status(500).json({
         success: false,
         data: [],
