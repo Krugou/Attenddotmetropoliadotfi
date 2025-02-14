@@ -4,14 +4,14 @@ import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import dayjs from 'dayjs';
-import {CircularProgress} from '@mui/material';
 import EditWorklogModal from '../../../../components/modals/EditWorklogModal';
-import {ViewList, ViewModule} from '@mui/icons-material';
+import {ViewList, ViewModule, Search, Sort} from '@mui/icons-material';
 import WorklogFilters from '../../../../components/worklog/WorklogFilters';
 import WorklogCardView from '../../../../components/worklog/WorklogCardView';
 import WorklogTableView from '../../../../components/worklog/WorklogTableView';
 import type {WorkLogEntry} from '../../../../types/worklog';
 import Loader from '../../../../utils/Loader';
+import {calculateDuration} from '../../../../utils/timeUtils';
 
 const StudentWorklogs: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -27,6 +27,14 @@ const StudentWorklogs: React.FC = () => {
   >([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortConfig, setSortConfig] = useState<{
+    key: 'date' | 'course' | 'duration' | 'description';
+    direction: 'asc' | 'desc';
+  }>({
+    key: 'date',
+    direction: 'desc',
+  });
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -91,27 +99,63 @@ const StudentWorklogs: React.FC = () => {
     }
   };
 
-  const filteredEntries = entries.filter((entry) => {
-    const matchesCourse =
-      selectedCourse === 'all' || entry.course?.code === selectedCourse;
+  const handleSort = (key: 'date' | 'course' | 'duration' | 'description') => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc',
+    }));
+  };
 
-    // Debug logging
-    console.log('Entry date:', entry.start_time);
-    console.log('Selected date:', selectedDate);
+  const sortEntries = (entriesToSort: WorkLogEntry[]) => {
+    return [...entriesToSort].sort((a, b) => {
+      const multiplier = sortConfig.direction === 'asc' ? 1 : -1;
 
-    const entryDate = dayjs(entry.start_time);
-    const compareDate = selectedDate ? dayjs(selectedDate) : null;
+      switch (sortConfig.key) {
+        case 'date':
+          return (
+            (dayjs(a.start_time).valueOf() - dayjs(b.start_time).valueOf()) *
+            multiplier
+          );
+        case 'course':
+          return (
+            (a.course?.name || '').localeCompare(b.course?.name || '') *
+            multiplier
+          );
+        case 'duration':
+          const durationA = calculateDuration(a.start_time, a.end_time);
+          const durationB = calculateDuration(b.start_time, b.end_time);
+          return durationA.localeCompare(durationB) * multiplier;
+        case 'description':
+          return a.description.localeCompare(b.description) * multiplier;
+        default:
+          return 0;
+      }
+    });
+  };
 
-    // Debug logging
-    console.log('Entry date formatted:', entryDate.format('YYYY-MM-DD'));
-    console.log('Compare date formatted:', compareDate?.format('YYYY-MM-DD'));
+  const filteredAndSortedEntries = React.useMemo(() => {
+    let filtered = entries.filter((entry) => {
+      const matchesCourse =
+        selectedCourse === 'all' || entry.course?.code === selectedCourse;
 
-    const matchesDate =
-      !selectedDate ||
-      entryDate.format('YYYY-MM-DD') === compareDate?.format('YYYY-MM-DD');
+      const entryDate = dayjs(entry.start_time);
+      const compareDate = selectedDate ? dayjs(selectedDate) : null;
 
-    return matchesCourse && matchesDate;
-  });
+      const matchesDate =
+        !selectedDate ||
+        entryDate.format('YYYY-MM-DD') === compareDate?.format('YYYY-MM-DD');
+
+      const matchesSearch =
+        searchQuery === '' ||
+        entry.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        entry.course?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        entry.course?.code.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchesCourse && matchesDate && matchesSearch;
+    });
+
+    return sortEntries(filtered);
+  }, [entries, selectedCourse, selectedDate, searchQuery, sortConfig]);
 
   const worklogDates = [
     ...new Set(
@@ -125,8 +169,8 @@ const StudentWorklogs: React.FC = () => {
 
   return (
     <div className='container px-4 py-8 bg-metropolia-support-white rounded-xl mx-auto'>
-      <div className='flex flex-row justify-between   mb-6 gap-4'>
-        <div className='flex flex-col w-full sm:flex-row items-start justify-start h-full sm:items-center gap-4'>
+      <div className='flex flex-col gap-4'>
+        <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
           <h1 className='text-2xl font-heading text-metropolia-main-orange'>
             {t('common:worklog.entries.title')}
           </h1>
@@ -154,26 +198,65 @@ const StudentWorklogs: React.FC = () => {
           </div>
         </div>
 
-        <WorklogFilters
-          selectedCourse={selectedCourse}
-          setSelectedCourse={setSelectedCourse}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          showCalendar={showCalendar}
-          setShowCalendar={setShowCalendar}
-          uniqueCourses={uniqueCourses}
-          worklogDates={worklogDates}
-        />
+        <div className='flex flex-col sm:flex-row gap-4 items-stretch'>
+          <div className='flex-1'>
+            <div className='relative'>
+              <input
+                type='text'
+                placeholder={t('common:worklog.search.placeholder')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className='w-full pl-10 pr-4 py-2 border-2 border-metropolia-main-grey/20 rounded-lg focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20'
+              />
+              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-metropolia-main-grey/50' />
+            </div>
+          </div>
+
+          <WorklogFilters
+            selectedCourse={selectedCourse}
+            setSelectedCourse={setSelectedCourse}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            showCalendar={showCalendar}
+            setShowCalendar={setShowCalendar}
+            uniqueCourses={uniqueCourses}
+            worklogDates={worklogDates}
+          />
+        </div>
+
+        <div className='flex gap-2 flex-wrap'>
+          {(['date', 'course', 'duration', 'description'] as const).map(
+            (key) => (
+              <button
+                key={key}
+                onClick={() => handleSort(key)}
+                className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm ${
+                  sortConfig.key === key
+                    ? 'bg-metropolia-main-orange text-white'
+                    : 'bg-gray-100 text-metropolia-main-grey hover:bg-gray-200'
+                }`}>
+                {t(`common:worklog.sort.${key}`)}
+                {sortConfig.key === key && (
+                  <Sort
+                    className={`h-4 w-4 transform ${
+                      sortConfig.direction === 'desc' ? 'rotate-180' : ''
+                    }`}
+                  />
+                )}
+              </button>
+            ),
+          )}
+        </div>
       </div>
 
       {viewMode === 'card' ? (
         <WorklogCardView
-          entries={filteredEntries}
+          entries={filteredAndSortedEntries}
           setSelectedEntry={setSelectedEntry}
           setIsModalOpen={setIsModalOpen}
         />
       ) : (
-        <WorklogTableView entries={filteredEntries} />
+        <WorklogTableView entries={filteredAndSortedEntries} />
       )}
       <EditWorklogModal
         open={isModalOpen}
