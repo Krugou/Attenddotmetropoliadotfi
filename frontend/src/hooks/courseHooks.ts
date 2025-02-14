@@ -39,7 +39,6 @@ export const useCourses = () => {
           throw new Error('No token available');
         }
         const response = await apiHooks.getAttendanceThreshold(token);
-        console.log(response, 'thresholdresponse');
         setThreshold(response.attendancethreshold);
       } catch (error) {
         console.log(error);
