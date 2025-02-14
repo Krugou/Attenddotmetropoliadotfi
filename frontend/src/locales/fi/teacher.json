@@ -644,6 +644,26 @@
       "qrScanning": "Näytä tämä QR-koodi opiskelijoille skannattavaksi",
       "manualInput": "Voit myös merkitä opiskelijat läsnä/poissa manuaalisesti",
       "viewMode": "Vaihda näkymätiloja hallitaksesi läsnäoloa paremmin"
+    },
+    "settings": {
+      "title": "Asetukset",
+      "guide": "Ohje",
+      "showSettings": "Näytä asetukset",
+      "showGuide": "Näytä ohje",
+      "close": "Sulje",
+      "networkStatus": {
+        "title": "Verkon tila",
+        "connectionLatency": "Yhteyden viive:",
+        "excellent": "Erinomainen yhteys",
+        "good": "Hyvä yhteys",
+        "poor": "Huono yhteys"
+      },
+      "toggles": {
+        "stopAnimation": "Pysäytä animaatio",
+        "enableScroll": "Ota vieritys käyttöön",
+        "widerNames": "Leveämmät nimet",
+        "hideQR": "Piilota QR-koodi"
+      }
     }
   },
   "courseStudents": {

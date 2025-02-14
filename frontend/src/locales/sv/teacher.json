@@ -519,6 +519,26 @@
         "title": "Avbryta föreläsning?",
         "message": "Är du säker på att du vill avbryta denna föreläsning? Detta kommer att radera föreläsningen från databasen och kan inte ångras."
       }
+    },
+    "settings": {
+      "title": "Inställningar",
+      "guide": "Guide",
+      "showSettings": "Visa inställningar",
+      "showGuide": "Visa guide",
+      "close": "Stäng",
+      "networkStatus": {
+        "title": "Nätverksstatus",
+        "connectionLatency": "Anslutningsfördröjning:",
+        "excellent": "Utmärkt anslutning",
+        "good": "Bra anslutning",
+        "poor": "Dålig anslutning"
+      },
+      "toggles": {
+        "stopAnimation": "Stoppa animation",
+        "enableScroll": "Aktivera rullning",
+        "widerNames": "Bredare namn",
+        "hideQR": "Dölj QR-kod"
+      }
     }
   },
   "worklog": {

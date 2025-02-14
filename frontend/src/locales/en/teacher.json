@@ -626,6 +626,26 @@
         "title": "Cancel Lecture?",
         "message": "Are you sure you want to cancel this lecture? This will delete the lecture from the database and cannot be undone."
       }
+    },
+    "settings": {
+      "title": "Settings",
+      "guide": "Guide",
+      "showSettings": "Show Settings",
+      "showGuide": "Show Guide",
+      "close": "Close",
+      "networkStatus": {
+        "title": "Network Status",
+        "connectionLatency": "Connection Latency:",
+        "excellent": "Excellent connection",
+        "good": "Good connection",
+        "poor": "Poor connection"
+      },
+      "toggles": {
+        "stopAnimation": "Stop Animation",
+        "enableScroll": "Enable Scroll",
+        "widerNames": "Wider Names",
+        "hideQR": "Hide QR Code"
+      }
     }
   },
   "courseStudents": {

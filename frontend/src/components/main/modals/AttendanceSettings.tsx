@@ -57,9 +57,13 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
       {/* Network Status */}
       {latency !== null && latency !== undefined && (
         <div className='p-4 mb-4 rounded-lg bg-gray-50'>
-          <h3 className='mb-2 text-lg font-heading'>Network Status</h3>
+          <h3 className='mb-2 text-lg font-heading'>
+            {t('teacher:attendance.settings.networkStatus.title')}
+          </h3>
           <div className='flex items-center justify-between'>
-            <span className='font-body'>Connection Latency:</span>
+            <span className='font-body'>
+              {t('teacher:attendance.settings.networkStatus.connectionLatency')}
+            </span>
             <span
               className={`font-mono px-3 py-1 rounded ${
                 latency < 100
@@ -73,37 +77,45 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
           </div>
           <div className='mt-2 text-sm text-gray-500 font-body'>
             {latency < 100
-              ? 'Excellent connection'
+              ? t('teacher:attendance.settings.networkStatus.excellent')
               : latency < 300
-              ? 'Good connection'
-              : 'Poor connection'}
+              ? t('teacher:attendance.settings.networkStatus.good')
+              : t('teacher:attendance.settings.networkStatus.poor')}
           </div>
         </div>
       )}
 
       <div className='flex items-center justify-between'>
-        <label className='font-body'>Stop Animation</label>
+        <label className='font-body'>
+          {t('teacher:attendance.settings.toggles.stopAnimation')}
+        </label>
         <Switch
           checked={stopAnimation}
           onChange={(e) => setIsAnimationStopped(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
-        <label className='font-body'>Enable Scroll</label>
+        <label className='font-body'>
+          {t('teacher:attendance.settings.toggles.enableScroll')}
+        </label>
         <Switch
           checked={enableScroll}
           onChange={(e) => setScrollTabToggle(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
-        <label className='font-body'>Wider Names</label>
+        <label className='font-body'>
+          {t('teacher:attendance.settings.toggles.widerNames')}
+        </label>
         <Switch
           checked={widerNames}
           onChange={(e) => setWiderNamesToggle(e.target.checked)}
         />
       </div>
       <div className='flex items-center justify-between'>
-        <label className='font-body'>Hide QR Code</label>
+        <label className='font-body'>
+          {t('teacher:attendance.settings.toggles.hideQR')}
+        </label>
         <Switch
           checked={hideQR}
           onChange={(e) => setHideQR(e.target.checked)}
@@ -119,7 +131,9 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
       maxWidth='sm'
       fullWidth>
       <DialogTitle className='p-4 text-white bg-metropolia-main-orange font-heading'>
-        {showGuide ? 'Guide' : 'Settings'}
+        {showGuide
+          ? t('teacher:attendance.settings.guide')
+          : t('teacher:attendance.settings.title')}
       </DialogTitle>
 
       <div className='flex border-b'>
@@ -128,14 +142,14 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
           className={`flex-1 p-4 font-heading ${
             !showGuide ? 'bg-metropolia-trend-green text-white' : ''
           }`}>
-          Show Settings
+          {t('teacher:attendance.settings.showSettings')}
         </button>
         <button
           onClick={() => setShowGuide(true)}
           className={`flex-1 p-4 font-heading ${
             showGuide ? 'bg-metropolia-trend-green text-white' : ''
           }`}>
-          Show Guide
+          {t('teacher:attendance.settings.showGuide')}
         </button>
       </div>
 
@@ -147,7 +161,7 @@ const AttendanceSettings: React.FC<AttendanceInstructionsProps> = ({
         <button
           className='w-full p-2 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
           onClick={() => setDialogOpen(false)}>
-          Close
+          {t('teacher:attendance.settings.close')}
         </button>
       </div>
     </Dialog>
