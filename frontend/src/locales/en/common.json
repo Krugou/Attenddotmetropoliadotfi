@@ -191,6 +191,7 @@
     "actions": {
       "clockIn": "Clock In",
       "clockOut": "Clock Out",
+      "view": "View Entries",
       "edit": "Edit Entries",
       "in": "In",
       "out": "Out"

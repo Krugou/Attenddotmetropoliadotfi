@@ -194,6 +194,7 @@
     "actions": {
       "clockIn": "Stämpla in",
       "clockOut": "Stämpla ut",
+      "view": "Visa poster",
       "edit": "Redigera poster",
       "in": "In",
       "out": "Ut"

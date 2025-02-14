@@ -189,7 +189,7 @@
     "actions": {
       "clockIn": "Kirjaudu sisään",
       "clockOut": "Kirjaudu ulos",
-      "edit": "Muokkaa merkintöjä",
+      "view": "Näytä merkinnät",
       "in": "Sisään",
       "out": "Ulos"
     },
