@@ -1,57 +1,27 @@
 import React, {useContext, useEffect, useState} from 'react';
-import apihook from '../../../../api';
 import {useTranslation} from 'react-i18next';
-import {
-  Alert,
-  Typography,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  TextField,
-  IconButton,
-  InputAdornment,
-} from '@mui/material';
 import {UserContext} from '../../../../contexts/UserContext';
-import {subDays, parseISO, isBefore, format} from 'date-fns';
 import {useCourses} from '../../../../hooks/courseHooks';
+import apihook from '../../../../api';
 import Loader from '../../../../utils/Loader';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import SearchIcon from '@mui/icons-material/Search';
-import NotesIcon from '@mui/icons-material/Notes';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+import {subDays, parseISO, isBefore} from 'date-fns';
 
-interface CombinedStudentData {
-  userId: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  studentNumber: string;
-  groupName: string;
-  courseName: string;
-  code: string;
-  attendance: {
-    total: number;
-    attended: number;
-    percentage: number;
-    lastAttendance: string;
-  };
-}
-
-type SortField =
-  | keyof CombinedStudentData
-  | 'name'
-  | 'attendance.percentage'
-  | 'attendance.total'
-  | 'attendance.attended'
-  | 'attendance.lastAttendance';
-type SortOrder = 'asc' | 'desc';
+// Import new components
+import {useColumnConfig} from '../../../../components/main/teacher/courseActivity/ColumnConfig';
+import {FilterButtons} from '../../../../components/main/teacher/courseActivity/FilterButtons';
+import {SearchInput} from '../../../../components/main/teacher/courseActivity/SearchInput';
+import {SortableHeader} from '../../../../components/main/teacher/courseActivity/SortableHeader';
+import {TableBody} from '../../../../components/main/teacher/courseActivity/TableBody';
+import {MobileCardList} from '../../../../components/main/teacher/courseActivity/MobileCardList';
+import {ColumnVisibilityMenu} from '../../../../components/main/teacher/courseActivity/ColumnVisibilityMenu';
+import {
+  CombinedStudentData,
+  FilterPeriod,
+  SortField,
+  SortOrder,
+} from '../../../../components/main/teacher/courseActivity/types';
 
 const TeacherStudentCourseActivity: React.FC = () => {
   const {t} = useTranslation();
@@ -59,14 +29,44 @@ const TeacherStudentCourseActivity: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [allStudents, setAllStudents] = useState<CombinedStudentData[]>([]);
-  const [filterPeriod, setFilterPeriod] = useState<
-    'all' | 'week' | 'month' | 'threshold' | 'custom'
-  >('all');
+  const [filterPeriod, setFilterPeriod] = useState<FilterPeriod>('all');
   const [customDays, setCustomDays] = useState<number>(0);
   const {threshold} = useCourses();
   const [sortField, setSortField] = useState<SortField>('lastName');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [searchQuery, setSearchQuery] = useState('');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [visibleColumns, setVisibleColumns] = useState<Set<string>>(new Set());
+
+  // Get column configuration
+  const columns = useColumnConfig();
+
+  useEffect(() => {
+    const defaultVisible = new Set(
+      columns.filter((col) => col.defaultVisible).map((col) => col.key),
+    );
+    setVisibleColumns(defaultVisible);
+  }, []);
+
+  const handleColumnToggle = (columnKey: string) => {
+    setVisibleColumns((prev) => {
+      const next = new Set(prev);
+      if (next.has(columnKey)) {
+        next.delete(columnKey);
+      } else {
+        next.add(columnKey);
+      }
+      return next;
+    });
+  };
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     const loadAttendanceData = async () => {
@@ -105,22 +105,6 @@ const TeacherStudentCourseActivity: React.FC = () => {
 
     loadAttendanceData();
   }, [user?.userid]);
-
-  if (loading) {
-    return (
-      <Box
-        display='flex'
-        justifyContent='center'
-        alignItems='center'
-        minHeight='200px'>
-        <Loader />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return <Alert severity='error'>{error}</Alert>;
-  }
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -222,120 +206,58 @@ const TeacherStudentCourseActivity: React.FC = () => {
     sortStudents(filterStudentsByAttendance(allStudents)),
   );
 
-  const SortableHeader: React.FC<{
-    field: SortField;
-    label: string;
-  }> = ({field, label}) => (
-    <TableCell
-      onClick={() => handleSort(field)}
-      style={{cursor: 'pointer'}}
-      className='select-none'>
-      <div className='flex items-center justify-between'>
-        <span>{label}</span>
-        <div className='flex items-center'>
-          {sortField === field ? (
-            <IconButton size='small' className='ml-1'>
-              <NotesIcon
-                fontSize='small'
-                className={`text-metropolia-main-orange transform transition-transform ${
-                  sortOrder === 'asc' ? 'rotate-0' : 'rotate-180'
-                }`}
-              />
-            </IconButton>
-          ) : (
-            <IconButton
-              size='small'
-              className='ml-1 opacity-20 hover:opacity-100'>
-              <NotesIcon fontSize='small' />
-            </IconButton>
-          )}
-        </div>
+  if (loading) {
+    return (
+      <div className='flex justify-center items-center min-h-[200px]'>
+        <Loader />
       </div>
-    </TableCell>
-  );
+    );
+  }
+
+  if (error) {
+    return (
+      <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative'>
+        {error}
+      </div>
+    );
+  }
 
   return (
-    <>
-      <h1 className='p-3 mb-2 text-2xl text-center bg-white rounded-md font-heading'>
+    <div className='max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 py-6'>
+      <h1 className='text-2xl sm:text-3xl font-heading text-center bg-white rounded-xl shadow-sm p-4 mb-6'>
         {t('teacher:courseActivity.title')}
       </h1>
-      <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
-        <GeneralLinkButton
-          path='/teacher/mainView'
-          text={t('teacher:courseActivity.back')}
-        />
 
-        <div className='flex justify-between sm:justify-around mb-4'>
-          <div className='sm:w-[100em] flex justify-center items-center mr-3 ml-3 w-1/2'>
-            <RadioGroup
-              row
-              value={filterPeriod}
-              onChange={(e) =>
-                setFilterPeriod(
-                  e.target.value as
-                    | 'all'
-                    | 'week'
-                    | 'month'
-                    | 'threshold'
-                    | 'custom',
-                )
-              }>
-              <FormControlLabel
-                value='all'
-                control={<Radio />}
-                label={t('common:allTime')}
-              />
-              <FormControlLabel
-                value='week'
-                control={<Radio />}
-                label={t('common:lastWeek')}
-              />
-              <FormControlLabel
-                value='month'
-                control={<Radio />}
-                label={t('common:lastMonth')}
-              />
-              {threshold && typeof threshold === 'number' && (
-                <FormControlLabel
-                  value='threshold'
-                  control={<Radio />}
-                  label={t('common:belowThreshold', {threshold})}
-                />
-              )}
-            </RadioGroup>
-
-            {filterPeriod === 'custom' && (
-              <TextField
-                type='number'
-                label={t('common:numberOfDays')}
-                value={customDays}
-                onChange={(e) => setCustomDays(parseInt(e.target.value) || 0)}
-                className='mt-2'
-                size='small'
-                fullWidth
-              />
-            )}
-          </div>
-          <div className='mb-4 w-full'>
-            <TextField
-              fullWidth
-              variant='outlined'
-              placeholder={t('common:search')}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
+      <div className='bg-white rounded-xl shadow-lg p-4 sm:p-6'>
+        <div className='mb-6'>
+          <div className='flex justify-between items-center'>
+            <GeneralLinkButton
+              path='/teacher/mainView'
+              text={t('teacher:courseActivity.back')}
             />
+            <button
+              onClick={handleMenuOpen}
+              className='px-4 py-2 text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
+              <ViewColumnIcon className='w-5 h-5 mr-2' />
+              {t('common:columns')}
+            </button>
           </div>
         </div>
 
-        <Paper className='p-4 mb-4 bg-gray-50'>
-          <Typography variant='body1' className='font-body'>
+        <div className='flex flex-col lg:flex-row justify-between gap-6 mb-6'>
+          <FilterButtons
+            filterPeriod={filterPeriod}
+            setFilterPeriod={setFilterPeriod}
+            threshold={threshold}
+          />
+          <SearchInput
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </div>
+
+        <div className='p-4 mb-6 bg-gray-50 rounded-lg border border-gray-100'>
+          <p className='font-body text-gray-700'>
             {t('teacher:courseActivity.studentsNotAttending', {
               count: filteredStudents.length,
               period:
@@ -347,84 +269,51 @@ const TeacherStudentCourseActivity: React.FC = () => {
                   ? t('common:inLastMonth')
                   : t('common:inLastNDays', {days: customDays}),
             })}
-          </Typography>
-        </Paper>
+          </p>
+        </div>
 
-        <TableContainer component={Paper} className='shadow-md'>
-          <Table>
-            <TableHead className='bg-gray-50'>
-              <TableRow>
-                <SortableHeader field='name' label={t('common:name')} />
-                <SortableHeader field='courseName' label={t('common:course')} />
-                <SortableHeader field='code' label={t('common:courseCode')} />
-                <SortableHeader field='email' label={t('common:email')} />
-                <SortableHeader
-                  field='studentNumber'
-                  label={t('common:studentNumber')}
-                />
-                <SortableHeader field='groupName' label={t('common:group')} />
-                <SortableHeader
-                  field='attendance.total'
-                  label={t('common:totalLectures')}
-                />
-                <SortableHeader
-                  field='attendance.attended'
-                  label={t('common:attendedLectures')}
-                />
-                <SortableHeader
-                  field='attendance.percentage'
-                  label={t('common:attendancePercentage')}
-                />
-                <SortableHeader
-                  field='attendance.lastAttendance'
-                  label={t('common:lastAttendance')}
-                />
-                <TableCell>{t('common:status')}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredStudents.map((student, index) => (
-                <TableRow
-                  key={`${student.userId}-${student.courseName}-${student.studentNumber}-${index}`}
-                  className='hover:bg-gray-50'>
-                  <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
-                  <TableCell>{student.courseName}</TableCell>
-                  <TableCell>{student.code}</TableCell>
-                  <TableCell>{student.email}</TableCell>
-                  <TableCell>{student.studentNumber}</TableCell>
-                  <TableCell>{student.groupName}</TableCell>
-                  <TableCell>{student.attendance.total}</TableCell>
-                  <TableCell>{student.attendance.attended}</TableCell>
-                  <TableCell>{`${student.attendance.percentage}%`}</TableCell>
-                  <TableCell>
-                    {student.attendance.lastAttendance
-                      ? format(
-                          parseISO(student.attendance.lastAttendance),
-                          'dd.MM.yyyy HH:mm',
-                        )
-                      : t('common:never')}
-                  </TableCell>
-                  <TableCell>
-                    {threshold && typeof threshold === 'number' && (
-                      <span
-                        className={`px-2 py-1 rounded-full text-white ${
-                          student.attendance.percentage >= threshold
-                            ? 'bg-green-500'
-                            : 'bg-red-500'
-                        }`}>
-                        {student.attendance.percentage >= threshold
-                          ? t('common:passing')
-                          : t('common:failing')}
-                      </span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {/* Desktop Table View */}
+        <div className='hidden md:block overflow-x-auto rounded-xl border border-gray-200'>
+          <table className='min-w-full divide-y divide-gray-200'>
+            <thead className='bg-gray-50'>
+              <tr>
+                {columns
+                  .filter((column) => visibleColumns.has(column.key))
+                  .map(({key, label}) => (
+                    <SortableHeader
+                      key={key}
+                      field={key as SortField}
+                      label={label}
+                      sortField={sortField}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                    />
+                  ))}
+                <th className='px-4 py-2'>{t('common:status')}</th>
+              </tr>
+            </thead>
+            <TableBody
+              students={filteredStudents}
+              visibleColumns={visibleColumns}
+              columns={columns}
+              threshold={threshold}
+            />
+          </table>
+        </div>
+
+        {/* Mobile Card View */}
+        <MobileCardList students={filteredStudents} threshold={threshold} />
+
+        {/* Column Visibility Menu */}
+        <ColumnVisibilityMenu
+          anchorEl={anchorEl}
+          columns={columns}
+          visibleColumns={visibleColumns}
+          onColumnToggle={handleColumnToggle}
+          onClose={handleMenuClose}
+        />
       </div>
-    </>
+    </div>
   );
 };
 
