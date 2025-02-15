@@ -44,7 +44,13 @@ interface CombinedStudentData {
   };
 }
 
-type SortField = keyof CombinedStudentData | 'name' | 'attendance.percentage' | 'attendance.total' | 'attendance.attended' | 'attendance.lastAttendance';
+type SortField =
+  | keyof CombinedStudentData
+  | 'name'
+  | 'attendance.percentage'
+  | 'attendance.total'
+  | 'attendance.attended'
+  | 'attendance.lastAttendance';
 type SortOrder = 'asc' | 'desc';
 
 const TeacherStudentCourseActivity: React.FC = () => {
@@ -77,8 +83,6 @@ const TeacherStudentCourseActivity: React.FC = () => {
         }
 
         const response = await apihook.getStudentAttendance(user.userid, token);
-
-
 
         if (!response.success || !response.data) {
           throw new Error(response.error || 'Failed to load attendance data');
@@ -161,7 +165,9 @@ const TeacherStudentCourseActivity: React.FC = () => {
     const query = searchQuery.toLowerCase();
     return students.filter(
       (student) =>
-        `${student.firstName} ${student.lastName}`.toLowerCase().includes(query) ||
+        `${student.firstName} ${student.lastName}`
+          .toLowerCase()
+          .includes(query) ||
         String(student.studentNumber).toLowerCase().includes(query) ||
         student.groupName.toLowerCase().includes(query) ||
         student.courseName.toLowerCase().includes(query),
@@ -223,22 +229,24 @@ const TeacherStudentCourseActivity: React.FC = () => {
     <TableCell
       onClick={() => handleSort(field)}
       style={{cursor: 'pointer'}}
-      className="select-none">
-      <div className="flex items-center justify-between">
+      className='select-none'>
+      <div className='flex items-center justify-between'>
         <span>{label}</span>
-        <div className="flex items-center">
+        <div className='flex items-center'>
           {sortField === field ? (
-            <IconButton size="small" className="ml-1">
+            <IconButton size='small' className='ml-1'>
               <NotesIcon
-                fontSize="small"
+                fontSize='small'
                 className={`text-metropolia-main-orange transform transition-transform ${
                   sortOrder === 'asc' ? 'rotate-0' : 'rotate-180'
                 }`}
               />
             </IconButton>
           ) : (
-            <IconButton size="small" className="ml-1 opacity-20 hover:opacity-100">
-              <NotesIcon fontSize="small" />
+            <IconButton
+              size='small'
+              className='ml-1 opacity-20 hover:opacity-100'>
+              <NotesIcon fontSize='small' />
             </IconButton>
           )}
         </div>
@@ -249,17 +257,15 @@ const TeacherStudentCourseActivity: React.FC = () => {
   return (
     <>
       <h1 className='p-3 mb-2 text-2xl text-center bg-white rounded-md font-heading'>
-        {t('teacher.courseActivity.title')}
+        {t('teacher:courseActivity.title')}
       </h1>
       <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
-      <GeneralLinkButton
-      path='/teacher/mainView'
-      text={t('teacher.courseActivity.back')}
-    />
-
+        <GeneralLinkButton
+          path='/teacher/mainView'
+          text={t('teacher:courseActivity.back')}
+        />
 
         <div className='flex justify-between sm:justify-around mb-4'>
-
           <div className='sm:w-[100em] flex justify-center items-center mr-3 ml-3 w-1/2'>
             <RadioGroup
               row
@@ -293,16 +299,15 @@ const TeacherStudentCourseActivity: React.FC = () => {
                 <FormControlLabel
                   value='threshold'
                   control={<Radio />}
-                  label={t('common.belowThreshold', {threshold})}
+                  label={t('common:belowThreshold', {threshold})}
                 />
               )}
             </RadioGroup>
 
-
             {filterPeriod === 'custom' && (
               <TextField
                 type='number'
-                label={t('common.numberOfDays')}
+                label={t('common:numberOfDays')}
                 value={customDays}
                 onChange={(e) => setCustomDays(parseInt(e.target.value) || 0)}
                 className='mt-2'
@@ -311,36 +316,36 @@ const TeacherStudentCourseActivity: React.FC = () => {
               />
             )}
           </div>
-          <div className="mb-4 w-full">
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder={t('common.search')}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </div>
+          <div className='mb-4 w-full'>
+            <TextField
+              fullWidth
+              variant='outlined'
+              placeholder={t('common:search')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
         </div>
 
         <Paper className='p-4 mb-4 bg-gray-50'>
           <Typography variant='body1' className='font-body'>
-            {t('teacher.courseActivity.studentsNotAttending', {
+            {t('teacher:courseActivity.studentsNotAttending', {
               count: filteredStudents.length,
               period:
                 filterPeriod === 'all'
-                  ? t('common.total')
+                  ? t('common:total')
                   : filterPeriod === 'week'
-                  ? t('common.inLastWeek')
+                  ? t('common:inLastWeek')
                   : filterPeriod === 'month'
-                  ? t('common.inLastMonth')
-                  : t('common.inLastNDays', {days: customDays}),
+                  ? t('common:inLastMonth')
+                  : t('common:inLastNDays', {days: customDays}),
             })}
           </Typography>
         </Paper>
@@ -349,33 +354,32 @@ const TeacherStudentCourseActivity: React.FC = () => {
           <Table>
             <TableHead className='bg-gray-50'>
               <TableRow>
-                <SortableHeader field="name" label={t('common.name')} />
-                <SortableHeader field="courseName" label={t('common.course')} />
-                <SortableHeader field="code" label={t('common.courseCode')} />
-                <SortableHeader field="email" label={t('common.email')} />
+                <SortableHeader field='name' label={t('common:name')} />
+                <SortableHeader field='courseName' label={t('common:course')} />
+                <SortableHeader field='code' label={t('common:courseCode')} />
+                <SortableHeader field='email' label={t('common:email')} />
                 <SortableHeader
-                  field="studentNumber"
-                  label={t('common.studentNumber')}
+                  field='studentNumber'
+                  label={t('common:studentNumber')}
                 />
-                <SortableHeader field="groupName" label={t('common.group')} />
+                <SortableHeader field='groupName' label={t('common:group')} />
                 <SortableHeader
-                  field="attendance.total"
-                  label={t('common.totalLectures')}
-                />
-                <SortableHeader
-                  field="attendance.attended"
-                  label={t('common.attendedLectures')}
+                  field='attendance.total'
+                  label={t('common:totalLectures')}
                 />
                 <SortableHeader
-                  field="attendance.percentage"
-                  label={t('common.attendancePercentage')}
+                  field='attendance.attended'
+                  label={t('common:attendedLectures')}
                 />
                 <SortableHeader
-                  field="attendance.lastAttendance"
-                  label={t('common.lastAttendance')}
+                  field='attendance.percentage'
+                  label={t('common:attendancePercentage')}
                 />
-                <TableCell>{t('common.status')}</TableCell>
-
+                <SortableHeader
+                  field='attendance.lastAttendance'
+                  label={t('common:lastAttendance')}
+                />
+                <TableCell>{t('common:status')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -398,7 +402,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
                           parseISO(student.attendance.lastAttendance),
                           'dd.MM.yyyy HH:mm',
                         )
-                      : t('common.never')}
+                      : t('common:never')}
                   </TableCell>
                   <TableCell>
                     {threshold && typeof threshold === 'number' && (
@@ -409,8 +413,8 @@ const TeacherStudentCourseActivity: React.FC = () => {
                             : 'bg-red-500'
                         }`}>
                         {student.attendance.percentage >= threshold
-                          ? t('common.passing')
-                          : t('common.failing')}
+                          ? t('common:passing')
+                          : t('common:failing')}
                       </span>
                     )}
                   </TableCell>
