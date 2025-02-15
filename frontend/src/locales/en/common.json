@@ -347,5 +347,22 @@
     "asc": "ascending",
     "desc": "descending"
   },
-  "noToken": "No token"
+  "noToken": "No token",
+  "passing": "Passing",
+  "failing": "Falling",
+  "never": "Never",
+  "lastAttendance": "Last Attendance",
+  "attendancePercentage": "Attendance Percentage",
+  "attendedLectures": "Attended Lectures",
+  "totalLectures": "Total Lectures",
+  "group": "Group",
+  "courseCode": "Course Code",
+  "course": "Course",
+  "name": "Name",
+  "search": "Search",
+  "numberOfDays": "Number Of Days",
+  "belowThreshold": "Below Threshold",
+  "lastMonth": "Last Month",
+  "lastWeek": "Last Week",
+  "allTime": "All Time"
 }

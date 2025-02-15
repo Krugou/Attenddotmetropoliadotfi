@@ -664,5 +664,10 @@
     "allStudentsHere": "All students are here. Auto finishing in {{seconds}} seconds",
     "finishingLecture": "Finishing lecture...",
     "manualInsert": "Manual student insertion"
+  },
+  "courseActivity": {
+    "studentsNotAttending": "Students Not Attending",
+    "back": "Back to mainview",
+    "title": "Students with low activity in courses"
   }
 }
