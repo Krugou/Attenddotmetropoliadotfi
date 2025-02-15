@@ -294,6 +294,10 @@
       "yourWorkLogCourses": {
         "title": "Your Worklog Courses",
         "description": "View all of your worklog courses"
+      },
+      "studentActivity": {
+        "description": "Show student Low activity details",
+        "title": "Student Activity"
       }
     }
   },

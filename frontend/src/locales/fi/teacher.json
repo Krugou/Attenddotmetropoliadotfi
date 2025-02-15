@@ -294,6 +294,10 @@
       "yourWorkLogCourses": {
         "title": "Työpäiväkirjakurssisi",
         "description": "Näytä kaikki työpäiväkirjakurssisi"
+      },
+      "studentActivity": {
+        "title": "Opiskelijatoiminta",
+        "description": "Näytä opiskelijoiden alhaiset toiminnan yksityiskohdat"
       }
     }
   },

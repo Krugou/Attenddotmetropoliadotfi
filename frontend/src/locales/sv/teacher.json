@@ -294,6 +294,10 @@
       "yourWorkLogCourses": {
         "title": "Dina arbetsdagbokskurser",
         "description": "Visa alla dina arbetsdagbokskurser"
+      },
+      "studentActivity": {
+        "title": "Studentaktivitet",
+        "description": "Visa student låg aktivitetsdetaljer"
       }
     }
   },
