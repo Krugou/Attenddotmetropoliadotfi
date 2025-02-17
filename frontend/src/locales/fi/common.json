@@ -318,7 +318,8 @@
   "header": {
     "developmentMode": "Kehitystilassa",
     "profile": "Profiili",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "sessionExpired": "Istunto on vanhentunut, kirjaudu uudelleen."
   },
   "footer": {
     "appName": "Metropolia Läsnäolosovellus",

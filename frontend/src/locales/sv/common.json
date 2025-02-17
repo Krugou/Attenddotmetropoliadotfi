@@ -302,7 +302,8 @@
   "header": {
     "developmentMode": "I utvecklingsläge",
     "profile": "Profil",
-    "logout": "Logga ut"
+    "logout": "Logga ut",
+    "sessionExpired": "Din session har löpt ut, logga in igen."
   },
   "footer": {
     "appName": "Metropolia Närvaroapp",

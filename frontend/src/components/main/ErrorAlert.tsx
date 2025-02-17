@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 
@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
  * It includes properties for the error alert message and a function to close the alert.
  */
 interface ErrorAlertProps {
+  backToLogin?: boolean;
   alert: string | null;
   onClose: () => void;
 }
@@ -22,36 +23,85 @@ interface ErrorAlertProps {
  * @param {ErrorAlertProps} props The props that define the error alert message and the close function.
  * @returns {JSX.Element} The rendered ErrorAlert component.
  */
-const ErrorAlert: React.FC<ErrorAlertProps> = ({alert, onClose}) => {
+const ErrorAlert: React.FC<ErrorAlertProps> = ({
+  backToLogin,
+  alert,
+  onClose,
+}) => {
   const navigate = useNavigate();
   const {t} = useTranslation(['common']);
 
+  // Close on escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && alert) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [alert, onClose]);
+
+  if (!alert) return null;
+
   return (
-    <div
-      className={`fixed inset-0 z-10 flex items-center justify-center ${
-        alert ? 'block' : 'hidden'
-      }`}>
-      <div className='p-4 mx-auto mt-10 bg-red-100 rounded-lg shadow-lg modal-container w-96'>
-        <h2 className='mb-4 text-xl font-heading text-red-600'>
-          {t('common:errorAlert.title')}
-        </h2>
-        <div className='mb-4'>
-          {alert && <p className='text-red-700'>{alert}</p>}
+    <div className='fixed inset-0 z-50 flex items-center justify-center'>
+      {/* Backdrop */}
+      <div
+        className='fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity'
+        onClick={onClose}
+        aria-hidden='true'
+      />
+
+      {/* Modal */}
+      <div
+        role='alertdialog'
+        aria-modal='true'
+        aria-labelledby='error-title'
+        className='relative w-full max-w-md transform transition-all p-6 mx-4 bg-white rounded-xl shadow-2xl'>
+        {/* Header */}
+        <div className='flex items-center gap-3 mb-4'>
+          <div className='p-2 rounded-full bg-metropolia-support-red/10'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-6 h-6 text-metropolia-support-red'
+              viewBox='0 0 20 20'
+              fill='currentColor'>
+              <path
+                fillRule='evenodd'
+                d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </div>
+          <h2
+            id='error-title'
+            className='text-xl font-bold text-metropolia-support-red font-heading'>
+            {t('common:errorAlert.title')}
+          </h2>
         </div>
-        <div className='flex justify-end'>
-          {alert === 'Your session has expired, please login again.' && (
+
+        {/* Content */}
+        <div className='mb-6'>
+          <p className='text-gray-700'>{alert}</p>
+        </div>
+
+        {/* Actions */}
+        <div className='flex justify-end gap-3'>
+          {backToLogin && (
             <button
               onClick={() => {
                 navigate('/login');
                 onClose();
               }}
-              className='px-4 py-2 mr-2 font-semibold text-white bg-blue-500 rounded-sm hover:bg-blue-600'>
+              className='px-4 py-2 text-sm font-medium text-white transition-colors bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark focus:outline-none focus:ring-2 focus:ring-metropolia-support-blue focus:ring-offset-2 rounded-md'>
               {t('common:errorAlert.backToLogin')}
             </button>
           )}
           <button
             onClick={onClose}
-            className='px-4 py-2 font-semibold text-white bg-red-500 rounded-sm hover:bg-red-600'>
+            className='px-4 py-2 text-sm font-medium text-white transition-colors bg-metropolia-support-red hover:bg-metropolia-support-red-dark focus:outline-none focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2 rounded-md'>
             {t('common:errorAlert.close')}
           </button>
         </div>

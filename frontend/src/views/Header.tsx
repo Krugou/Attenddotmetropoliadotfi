@@ -64,7 +64,13 @@ const Header = () => {
         }
       } catch (error) {
         // If the user info cannot be fetched, remove the token and set the user to null
-        setAlert('Your session has expired, please login again.');
+        setAlert(
+          t(
+            'common:header.sessionExpired',
+            'Your session has expired, please login again.',
+          ),
+        );
+
         localStorage.removeItem('userToken');
 
         // Set the user in the UserContext to null
@@ -111,7 +117,13 @@ const Header = () => {
       className={`flex items-center ${
         user ? 'sm:flex-row flex-col' : ''
       } sm:p-4 p-0 m-4 justify-between`}>
-      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+      {alert && (
+        <ErrorAlert
+          backToLogin={true}
+          onClose={() => setAlert(null)}
+          alert={alert}
+        />
+      )}
       <Link to={user ? `/${user.role.toLowerCase()}/mainview` : '/'}>
         <img
           src={logo}
