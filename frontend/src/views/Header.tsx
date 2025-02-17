@@ -114,9 +114,9 @@ const Header = () => {
   // Render the header
   return (
     <header
-      className={`flex items-center ${
+      className={`flex items-center border-2  border-b-metropolia-main-orange ${
         user ? 'sm:flex-row flex-col' : ''
-      } sm:p-4 p-0 m-4 justify-between`}>
+      } sm:p-4 p-0  justify-between`}>
       {alert && (
         <ErrorAlert
           backToLogin={true}
