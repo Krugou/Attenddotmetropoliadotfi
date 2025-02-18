@@ -86,6 +86,7 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
           {' '}
           {/* Ensure calendar appears above other elements */}
           <Calendar
+            //@ts-expect-error - React-Calendar types are incorrect
             onChange={handleDateChange}
             value={selectedDate}
             className='bg-white border rounded-md shadow-sm'

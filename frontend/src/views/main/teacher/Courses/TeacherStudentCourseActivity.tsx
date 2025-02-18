@@ -170,9 +170,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
   const filterStudentsByAttendance = (students: CombinedStudentData[]) => {
     if (filterPeriod === 'all') {
       if (threshold && typeof threshold === 'number') {
-        return students.filter(
-          (student) => student.attendance.percentage < 90,
-        );
+        return students.filter((student) => student.attendance.percentage < 90);
       }
       return students;
     }
@@ -243,7 +241,11 @@ const TeacherStudentCourseActivity: React.FC = () => {
         <div className='mb-6'>
           <div className='flex justify-between items-center'>
             <GeneralLinkButton
-              path={user?.role === 'teacher' ? '/teacher/mainView' : '/counselor/mainView'}
+              path={
+                user?.role === 'teacher'
+                  ? '/teacher/mainView'
+                  : '/counselor/mainView'
+              }
               text={t('teacher:courseActivity.back')}
             />
             <button
@@ -259,7 +261,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
           <FilterButtons
             filterPeriod={filterPeriod}
             setFilterPeriod={setFilterPeriod}
-            threshold={threshold}
+            threshold={threshold ?? undefined}
           />
           <SearchInput
             searchQuery={searchQuery}
@@ -307,13 +309,16 @@ const TeacherStudentCourseActivity: React.FC = () => {
               students={filteredStudents}
               visibleColumns={visibleColumns}
               columns={columns}
-              threshold={threshold}
+              threshold={threshold ?? undefined}
             />
           </table>
         </div>
 
         {/* Mobile Card View */}
-        <MobileCardList students={filteredStudents} threshold={threshold} />
+        <MobileCardList
+          students={filteredStudents}
+          threshold={threshold ?? undefined}
+        />
 
         {/* Column Visibility Menu */}
         <ColumnVisibilityMenu

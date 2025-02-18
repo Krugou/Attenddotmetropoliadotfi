@@ -28,22 +28,28 @@ export const TableBody: React.FC<TableBodyProps> = ({
             .filter((column) => visibleColumns.has(column.key))
             .map(({key}) => (
               <td key={key} className='px-4 py-2'>
-                {key === 'name'
-                  ? `${student.firstName} ${student.lastName}`
-                  : key.includes('attendance.')
-                  ? key === 'attendance.lastAttendance'
-                    ? student.attendance.lastAttendance
-                      ? format(
-                          parseISO(student.attendance.lastAttendance),
-                          'dd.MM.yyyy HH:mm',
-                        )
-                      : t('common:never')
-                    : key === 'attendance.percentage'
-                    ? `${student.attendance.percentage}%`
-                    : student.attendance[
-                        key.split('.')[1] as keyof typeof student.attendance
-                      ]
-                  : student[key.split('.')[0] as keyof typeof student]}
+                {(() => {
+                  if (key === 'name') {
+                    return `${student.firstName} ${student.lastName}`;
+                  }
+                  if (key.includes('attendance.')) {
+                    const attendanceKey = key.split('.')[1] as keyof typeof student.attendance;
+                    if (key === 'attendance.lastAttendance') {
+                      return student.attendance.lastAttendance
+                        ? format(
+                            parseISO(student.attendance.lastAttendance),
+                            'dd.MM.yyyy HH:mm',
+                          )
+                        : t('common:never');
+                    }
+                    if (key === 'attendance.percentage') {
+                      return `${student.attendance.percentage}%`;
+                    }
+                    return String(student.attendance[attendanceKey]);
+                  }
+                  const studentKey = key.split('.')[0] as keyof typeof student;
+                  return String(student[studentKey]);
+                })()}
               </td>
             ))}
           <td className='px-4 py-2'>
