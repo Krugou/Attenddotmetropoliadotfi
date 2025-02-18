@@ -19,9 +19,13 @@ const specifiedColors = [
   'rgba(255, 94, 122, 0.5)', // Bright Pink Crayola
   'rgba(255, 142, 64, 0.5)', // Orange Wheel
 ];
-const generateRandomCirclesBackground = (colors: string[]): string => {
-  const svgWidth = 1920;
-  const svgHeight = 1080;
+const generateRandomCirclesBackground = (
+  colors: string[],
+  width: number,
+  height: number,
+): string => {
+  const svgWidth = width;
+  const svgHeight = height;
 
   const now = new Date();
   const numCircles = now.getHours() * 4; // Number of circles based on the current hour (0-23)
@@ -51,6 +55,14 @@ const generateRandomCirclesBackground = (colors: string[]): string => {
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 };
 
+const debounce = (func: (...args: any[]) => void, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};
+
 /**
  * A container component that displays a random background image and includes a header and footer.
  */
@@ -59,11 +71,35 @@ const BackgroundContainer: React.FC<BackgroundContainerProps> = ({
   colors,
 }) => {
   const [backgroundUrl, setBackgroundUrl] = useState<string>('');
+  const [dimensions, setDimensions] = useState<{width: number; height: number}>(
+    {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    },
+  );
 
   useEffect(() => {
-    const url = generateRandomCirclesBackground(colors || specifiedColors);
+    const handleResize = debounce(() => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }, 1500);
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const url = generateRandomCirclesBackground(
+      colors || specifiedColors,
+      dimensions.width,
+      dimensions.height,
+    );
     setBackgroundUrl(url);
-  }, [colors]);
+  }, [colors, dimensions]);
 
   return (
     <div className='flex flex-col h-screen'>
