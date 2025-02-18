@@ -44,9 +44,10 @@ const generateRandomCirclesBackground = (colors: string[]): string => {
     );
   }
 
-  const svg = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">${circles.join(
-    '',
-  )}</svg>`;
+  const svg = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" fill="#f2efed" />
+    ${circles.join('')}
+  </svg>`;
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 };
 
