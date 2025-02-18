@@ -56,6 +56,7 @@ const generateRandomCirclesBackground = (
 };
 
 const debounce = (func: (...args: any[]) => void, wait: number) => {
+  // @ts-expect-error setTimeout returns a number, not a Timeout object
   let timeout: NodeJS.Timeout;
   return (...args: any[]) => {
     clearTimeout(timeout);
