@@ -102,8 +102,6 @@ const StudentWorkLogLogger: React.FC = () => {
       return;
     }
 
-    const time = new Date().toLocaleTimeString();
-
     try {
       const token = localStorage.getItem('userToken');
       if (!token) {
