@@ -346,5 +346,9 @@
     "asc": "nouseva",
     "desc": "laskeva"
   },
-  "noToken": "Ei merkki"
+  "noToken": "Ei merkki",
+  "total": "Kokonais",
+  "inLastWeek": "Viime viikolla",
+  "inLastMonth": "Viime kuussa",
+  "belowThreshold": "Kynnyksen alapuolella"
 }

@@ -329,5 +329,9 @@
     "asc": "stigande",
     "desc": "fallande"
   },
-  "noToken": "Inget tecken"
+  "noToken": "Inget tecken",
+  "total": "Total",
+  "inLastWeek": "Förra veckan",
+  "inLastMonth": "Förra månaden",
+  "belowThreshold": "Under tröskeln"
 }

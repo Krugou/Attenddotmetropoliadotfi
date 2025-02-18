@@ -365,5 +365,8 @@
   "belowThreshold": "Below Threshold",
   "lastMonth": "Last Month",
   "lastWeek": "Last Week",
-  "allTime": "All Time"
+  "allTime": "All Time",
+  "total": "Total",
+  "inLastWeek": "In Last Week",
+  "inLastMonth": "In Last Month"
 }
