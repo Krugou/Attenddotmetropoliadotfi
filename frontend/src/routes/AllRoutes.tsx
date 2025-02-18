@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {Route, Routes, useLocation, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import BackgroundContainer from '../components/main/background/BackgroundContainer';
+import BackgroundContainer from '../components/main/background/BackgroundContainerTest';
 import {UserContext} from '../contexts/UserContext';
 import Logout from '../views/Logout';
 import Gdpr from '../views/main/Gdpr';
