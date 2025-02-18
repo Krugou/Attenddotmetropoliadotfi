@@ -155,35 +155,31 @@ const MainView: React.FC = () => {
               description={t('teacher:mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
-                 <Card
-                  path='/teacher/courses/activity'
-                  title={t('teacher:mainView.cards.studentActivity.title')}
-                  description={t(
-                    'teacher:mainView.cards.studentActivity.description',
-                  )}
-                  icon={People}
-                />
-            {user?.role === 'admin' && (
-              <>
-                <Card
-                  path='/teacher/worklog/create'
-                  title={t('teacher:mainView.cards.createWorkLogCourse.title')}
-                  description={t(
-                    'teacher:mainView.cards.createWorkLogCourse.description',
-                  )}
-                  icon={Add}
-                />
-                <Card
-                  path='/teacher/worklog'
-                  title={t('teacher:mainView.cards.yourWorkLogCourses.title')}
-                  description={t(
-                    'teacher:mainView.cards.yourWorkLogCourses.description',
-                  )}
-                  icon={School}
-                />
+            <Card
+              path='/teacher/courses/activity'
+              title={t('teacher:mainView.cards.studentActivity.title')}
+              description={t(
+                'teacher:mainView.cards.studentActivity.description',
+              )}
+              icon={People}
+            />
 
-              </>
-            )}
+            <Card
+              path='/teacher/worklog/create'
+              title={t('teacher:mainView.cards.createWorkLogCourse.title')}
+              description={t(
+                'teacher:mainView.cards.createWorkLogCourse.description',
+              )}
+              icon={Add}
+            />
+            <Card
+              path='/teacher/worklog'
+              title={t('teacher:mainView.cards.yourWorkLogCourses.title')}
+              description={t(
+                'teacher:mainView.cards.yourWorkLogCourses.description',
+              )}
+              icon={School}
+            />
 
             <FeedbackCard role='teacher' />
           </div>
