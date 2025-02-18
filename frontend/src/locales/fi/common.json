@@ -350,5 +350,6 @@
   "total": "Kokonais",
   "inLastWeek": "Viime viikolla",
   "inLastMonth": "Viime kuussa",
-  "belowThreshold": "Kynnyksen alapuolella"
+  "belowThreshold": "Kynnyksen alapuolella",
+  "columns": "Pylväät"
 }

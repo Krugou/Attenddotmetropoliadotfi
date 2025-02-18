@@ -333,5 +333,6 @@
   "total": "Total",
   "inLastWeek": "Förra veckan",
   "inLastMonth": "Förra månaden",
-  "belowThreshold": "Under tröskeln"
+  "belowThreshold": "Under tröskeln",
+  "columns": "Kolumner"
 }

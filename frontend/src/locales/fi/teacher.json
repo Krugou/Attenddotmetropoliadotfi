@@ -682,5 +682,10 @@
     "allStudentsHere": "Kaikki opiskelijat ovat paikalla. Automaattinen lopetus {{seconds}} sekunnissa",
     "finishingLecture": "Lopettaa luentoa...",
     "manualInsert": "Opiskelijan manuaalinen lisäys"
+  },
+  "courseActivity": {
+    "back": "Takaisin Mainview",
+    "title": "Opiskelijat, joilla on vähän aktiivisuutta kursseilla",
+    "studentsNotAttending": "Opiskelijat eivät osallistu"
   }
 }

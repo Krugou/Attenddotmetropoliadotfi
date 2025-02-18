@@ -368,5 +368,6 @@
   "allTime": "All Time",
   "total": "Total",
   "inLastWeek": "In Last Week",
-  "inLastMonth": "In Last Month"
+  "inLastMonth": "In Last Month",
+  "columns": "Columns"
 }

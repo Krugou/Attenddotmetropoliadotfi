@@ -672,5 +672,10 @@
     "allStudentsHere": "Alla studenter är här. Automatisk avslutning om {{seconds}} sekunder",
     "finishingLecture": "Avslutar föreläsning...",
     "manualInsert": "Manuell insättning av student"
+  },
+  "courseActivity": {
+    "back": "Tillbaka till MainView",
+    "title": "Studenter med låg aktivitet i kurser",
+    "studentsNotAttending": "Studenter som inte deltar"
   }
 }
