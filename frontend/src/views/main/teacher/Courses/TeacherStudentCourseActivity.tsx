@@ -250,7 +250,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
             />
             <button
               onClick={handleMenuOpen}
-              className='px-4 py-2 text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
+              className='px-4 py-2 hidden md:block text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
               <ViewColumnIcon className='w-5 h-5 mr-2' />
               {t('common:columns')}
             </button>
