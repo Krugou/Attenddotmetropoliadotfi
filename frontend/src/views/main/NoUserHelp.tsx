@@ -12,7 +12,7 @@ const NoUserHelp: React.FC = () => {
   return (
     <div className='max-w-4xl p-6 mx-auto space-y-8 rounded-sm bg-metropolia-support-white dark:bg-metropolia-main-grey-dark'>
       {/* Main heading */}
-      <h1 className='mb-8 text-3xl font-heading text-metropolia-main-grey dark:text-metropolia-support-black'>
+      <h1 className='mb-8 text-3xl font-heading text-metropolia-main-grey dark:text-metropolia-support-white'>
         {t('noUser:help.title', 'Help Center')}
       </h1>
 
