@@ -28,12 +28,12 @@ const generateRandomCirclesBackground = (
   const svgHeight = height;
 
   const now = new Date();
-  const numCircles = now.getHours() * 4; // Number of circles based on the current hour (0-23)
-  const minRadius = now.getDate() * 2; // Minimum radius based on the current day of the month (1-31)
   const startOfYear = new Date(now.getFullYear(), 0, 0);
   const diff = now.getTime() - startOfYear.getTime();
   const oneDay = 1000 * 60 * 60 * 24;
   const daysPassed = Math.floor(diff / oneDay);
+  const numCircles = now.getHours() * 2; // Number of circles based on the current hour (0-23)
+  const minRadius = now.getDate() * 2; // Minimum radius based on the current day of the month (1-31)
   const maxRadius = daysPassed * 3; // Maximum radius based on the number of days passed in the current year
 
   const circles: string[] = [];
