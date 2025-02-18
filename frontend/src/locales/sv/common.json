@@ -334,5 +334,13 @@
   "inLastWeek": "Förra veckan",
   "inLastMonth": "Förra månaden",
   "belowThreshold": "Under tröskeln",
-  "columns": "Kolumner"
+  "columns": "Kolumner",
+  "name": "Namn",
+  "course": "Kurs",
+  "courseCode": "Kurskod",
+  "group": "Grupp",
+  "totalLectures": "Totala föreläsningar",
+  "attendedLectures": "Deltog i föreläsningar",
+  "lastAttendance": "Sista närvaro",
+  "attendancePercentage": "Närvaroprocent"
 }

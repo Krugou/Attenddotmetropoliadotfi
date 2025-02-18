@@ -1,5 +1,4 @@
 import {useTranslation} from 'react-i18next';
-import {SortField} from './types';
 
 export const useColumnConfig = () => {
   const {t} = useTranslation();

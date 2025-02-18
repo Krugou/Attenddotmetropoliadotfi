@@ -351,5 +351,13 @@
   "inLastWeek": "Viime viikolla",
   "inLastMonth": "Viime kuussa",
   "belowThreshold": "Kynnyksen alapuolella",
-  "columns": "Pylväät"
+  "columns": "Pylväät",
+  "name": "Nimi",
+  "course": "Kurssi",
+  "courseCode": "Kurssikoodi",
+  "group": "Ryhmä",
+  "totalLectures": "Kokonaisluennot",
+  "attendedLectures": "Osallistui luentoihin",
+  "lastAttendance": "Viimeinen osallistuminen",
+  "attendancePercentage": "Osallistumisprosentti"
 }
