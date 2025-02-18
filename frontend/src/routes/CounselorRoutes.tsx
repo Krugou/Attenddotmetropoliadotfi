@@ -9,6 +9,7 @@ import CounselorMainView from '../views/main/counselor/CounselorMainView.tsx';
 import CounselorProfile from '../views/main/counselor/CounselorProfile.tsx';
 import CounselorLateEnrollment from '../views/main/counselor/students/CounselorLateEnrollment.tsx';
 import CounselorStudentRoutes from './counselor/CounselorStudentRoutes.tsx';
+import StudentCourseActivity from '../views/main/student/courses/StudentCourseActivity.tsx';
 
 /**
  * CounselorRoutes component.
@@ -55,6 +56,7 @@ const CounselorRoutes = () => {
       <Route path='feedback' element={<Feedback />} />
       <Route path='lateenrollment' element={<CounselorLateEnrollment />} />
       <Route path='team' element={<Team />} />
+      <Route path='activity' element={<StudentCourseActivity />} />
     </Routes>
   );
 };

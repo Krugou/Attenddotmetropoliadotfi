@@ -155,6 +155,14 @@ const MainView: React.FC = () => {
               description={t('teacher:mainView.cards.lectureStats.description')}
               icon={Timeline}
             />
+                 <Card
+                  path='/teacher/courses/activity'
+                  title={t('teacher:mainView.cards.studentActivity.title')}
+                  description={t(
+                    'teacher:mainView.cards.studentActivity.description',
+                  )}
+                  icon={People}
+                />
             {user?.role === 'admin' && (
               <>
                 <Card
@@ -173,14 +181,7 @@ const MainView: React.FC = () => {
                   )}
                   icon={School}
                 />
-                <Card
-                  path='/teacher/courses/activity'
-                  title={t('teacher:mainView.cards.studentActivity.title')}
-                  description={t(
-                    'teacher:mainView.cards.studentActivity.description',
-                  )}
-                  icon={People}
-                />
+
               </>
             )}
 

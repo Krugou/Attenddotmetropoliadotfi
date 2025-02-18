@@ -47,6 +47,12 @@ const CounselorMainView: React.FC = () => {
           description={t('counselor:mainView.lateEnrollmentDesc')}
           icon={PersonAdd}
         />
+        <Card
+        path='/counselor/activity'
+        title='Activity'
+        description='View activity'
+        icon={Assessment}
+        />
         <FeedbackCard role='counselor' />
       </div>
       <WelcomeModal storageKey='welcomeModal.v1' />

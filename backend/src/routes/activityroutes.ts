@@ -5,6 +5,24 @@ import validate from '../utils/validate.js';
 import logger from '../utils/logger.js';
 const router: Router = express.Router();
 
+router.get(
+  '/all',
+  checkUserRole(['admin', 'counselor']),
+  validate,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const result = await ActivityController.getStudentsFromAllCourses();
+      res.json(result);
+    } catch (error) {
+      logger.error('Route error:', error);
+      res.status(500).json({
+        success: false,
+        data: [],
+        error: 'Internal server error'
+      });
+    }
+  }
+);
 
 router.get(
   '/:id',

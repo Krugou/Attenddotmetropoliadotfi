@@ -44,7 +44,7 @@ export const getStudentAttendance = async (userid: number, token: string): Promi
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: 'Bearer ' + token,
         },
       }
     );
@@ -56,8 +56,33 @@ export const getStudentAttendance = async (userid: number, token: string): Promi
     };
   }
 };
+
+export const getAllStudentsAttendance = async (token: string): Promise<ActivityResponse> => {
+  try {
+    const response = await doFetch(
+      `${API_CONFIG.baseUrl}activity/all`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error('Error fetching all students attendance:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch attendance data'
+    };
+  }
+};
+
 const activityApi = {
   getStudentAttendance,
+  getAllStudentsAttendance,
 };
 
 

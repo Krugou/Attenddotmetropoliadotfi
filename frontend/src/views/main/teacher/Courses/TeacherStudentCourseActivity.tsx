@@ -30,7 +30,6 @@ const TeacherStudentCourseActivity: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [allStudents, setAllStudents] = useState<CombinedStudentData[]>([]);
   const [filterPeriod, setFilterPeriod] = useState<FilterPeriod>('all');
-  const [customDays, setCustomDays] = useState<number>(0);
   const {threshold} = useCourses();
   const [sortField, setSortField] = useState<SortField>('lastName');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
@@ -81,8 +80,18 @@ const TeacherStudentCourseActivity: React.FC = () => {
         if (!token) {
           throw new Error('No token available');
         }
+        let response;
+        if (user.role === 'teacher') {
+          response = await apihook.getStudentAttendance(user.userid, token);
+        } else if (user.role === 'counselor' || user.role === 'admin') {
+          response = await apihook.getAllStudentsAttendance(token);
+        } else {
+          console.log('Invalid role:', user.role);
+          throw new Error('Invalid user role');
+        }
 
-        const response = await apihook.getStudentAttendance(user.userid, token);
+        // Log the response
+        console.log('API Response:', response);
 
         if (!response.success || !response.data) {
           throw new Error(response.error || 'Failed to load attendance data');
@@ -104,7 +113,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
     };
 
     loadAttendanceData();
-  }, [user?.userid]);
+  }, [user?.userid, user?.role]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -160,6 +169,11 @@ const TeacherStudentCourseActivity: React.FC = () => {
 
   const filterStudentsByAttendance = (students: CombinedStudentData[]) => {
     if (filterPeriod === 'all') {
+      if (threshold && typeof threshold === 'number') {
+        return students.filter(
+          (student) => student.attendance.percentage < 90,
+        );
+      }
       return students;
     }
 
@@ -182,9 +196,6 @@ const TeacherStudentCourseActivity: React.FC = () => {
         break;
       case 'month':
         cutoffDate = subDays(now, 30);
-        break;
-      case 'custom':
-        cutoffDate = subDays(now, customDays);
         break;
     }
 
@@ -232,7 +243,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
         <div className='mb-6'>
           <div className='flex justify-between items-center'>
             <GeneralLinkButton
-              path='/teacher/mainView'
+              path={user?.role === 'teacher' ? '/teacher/mainView' : '/counselor/mainView'}
               text={t('teacher:courseActivity.back')}
             />
             <button
@@ -267,7 +278,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
                   ? t('common:inLastWeek')
                   : filterPeriod === 'month'
                   ? t('common:inLastMonth')
-                  : t('common:inLastNDays', {days: customDays}),
+                  : t('common:belowThreshold', {threshold}),
             })}
           </p>
         </div>

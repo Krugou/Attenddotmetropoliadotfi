@@ -79,6 +79,60 @@ const courseActivityController = {
       };
     }
   },
+
+  async getStudentsFromAllCourses() {
+    try {
+      const students = await courseStudentActivityModel.getStudentsFromAllCourses() as SQLStudentData[];
+
+      if (!students || !Array.isArray(students) || students.length === 0) {
+        return {
+          success: true,
+          data: []
+        };
+      }
+
+      const courseGroups = {};
+
+      students.forEach(student => {
+        if (!courseGroups[student.courseid]) {
+          courseGroups[student.courseid] = {
+            courseName: student.course_name,
+            courseId: student.courseid,
+            students: []
+          };
+        }
+
+        courseGroups[student.courseid].students.push({
+          userId: student.userid,
+          email: student.email,
+          firstName: student.first_name,
+          lastName: student.last_name,
+          code: student.code,
+          studentNumber: student.studentnumber,
+          groupName: student.group_name || '',
+          attendance: {
+            total: Number(student.total_lectures),
+            attended: Number(student.attended_lectures),
+            percentage: Number(student.attendance_percentage || 0),
+            lastAttendance: student.last_attendance_info || ''
+          }
+        });
+      });
+
+      return {
+        success: true,
+        data: Object.values(courseGroups)
+      };
+
+    } catch (error) {
+      logger.error('Controller error:', error);
+      return {
+        success: false,
+        data: [],
+        error: 'Failed to fetch student data'
+      };
+    }
+  },
 };
 
 export default courseActivityController;
