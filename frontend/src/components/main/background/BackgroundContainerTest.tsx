@@ -1,9 +1,5 @@
 import React, {ReactNode, useEffect, useState} from 'react';
-import tausta1 from '../../../assets/images/tausta1.png';
-import tausta2 from '../../../assets/images/tausta2.png';
-import tausta3 from '../../../assets/images/tausta3.png';
-import tausta4 from '../../../assets/images/tausta4.png';
-import tausta5 from '../../../assets/images/tausta5.png';
+
 import Footer from '../../../views/Footer';
 import Header from '../../../views/Header';
 /**
@@ -14,7 +10,6 @@ interface BackgroundContainerProps {
   colors?: string[]; // Optional array of colors for the circles
 }
 
-const backgrounds = [tausta1, tausta2, tausta3, tausta4, tausta5];
 /**
  * Generates a random circle SVG background.
  */
@@ -32,12 +27,12 @@ const generateRandomCirclesBackground = (colors: string[]): string => {
   const numCircles = now.getHours() * 4; // Number of circles based on the current hour (0-23)
   const minRadius = now.getDate() * 2; // Minimum radius based on the current day of the month (1-31)
   const startOfYear = new Date(now.getFullYear(), 0, 0);
-  const diff = now - startOfYear;
+  const diff = now.getTime() - startOfYear.getTime();
   const oneDay = 1000 * 60 * 60 * 24;
   const daysPassed = Math.floor(diff / oneDay);
   const maxRadius = daysPassed * 3; // Maximum radius based on the number of days passed in the current year
 
-  const circles = [];
+  const circles: string[] = [];
 
   for (let i = 0; i < numCircles; i++) {
     const radius = Math.random() * (maxRadius - minRadius) + minRadius;
