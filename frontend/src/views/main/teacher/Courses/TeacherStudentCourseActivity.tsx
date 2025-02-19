@@ -86,12 +86,9 @@ const TeacherStudentCourseActivity: React.FC = () => {
         } else if (user.role === 'counselor' || user.role === 'admin') {
           response = await apihook.getAllStudentsAttendance(token);
         } else {
-          console.log('Invalid role:', user.role);
           throw new Error('Invalid user role');
         }
-
-        // Log the response
-        console.log('API Response:', response);
+        
 
         if (!response.success || !response.data) {
           throw new Error(response.error || 'Failed to load attendance data');

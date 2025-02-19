@@ -35,6 +35,12 @@ const courseStudentActivityModel = {
         LEFT JOIN attendance a ON l.lectureid = a.lectureid AND a.usercourseid = uc.usercourseid
         WHERE ci.userid = ?
         AND u.staff = 0
+        AND c.start_date <= DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
+        AND (
+          (c.end_date IS NOT NULL AND c.end_date >= CURDATE())
+          OR
+          (c.end_date IS NULL AND c.start_date >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH))
+        )
         GROUP BY u.userid, c.courseid
         ORDER BY c.name, u.last_name, u.first_name;
       `, [instructorId]);
@@ -48,31 +54,37 @@ const courseStudentActivityModel = {
   async getStudentsFromAllCourses() {
     try {
       const [rows] = await pool.promise().query(`
-        SELECT
-          u.userid,
-          u.email,
-          u.first_name,
-          u.last_name,
-          u.studentnumber,
-          c.courseid,
-          c.code,
-          c.name as course_name,
-          sg.group_name,
-          COUNT(DISTINCT l.lectureid) as total_lectures,
-          COUNT(DISTINCT CASE WHEN a.status = 1 THEN a.attendanceid END) as attended_lectures,
-          ROUND(COUNT(DISTINCT CASE WHEN a.status = 1 THEN a.attendanceid END) * 100.0 /
-            NULLIF(COUNT(DISTINCT l.lectureid), 0), 1) as attendance_percentage,
-          MAX(l.start_date) as last_attendance_info
-        FROM users u
-        JOIN usercourses uc ON u.userid = uc.userid
-        JOIN courses c ON uc.courseid = c.courseid
-        LEFT JOIN studentgroups sg ON u.studentgroupid = sg.studentgroupid
-        JOIN courseinstructors ci ON c.courseid = ci.courseid
-        LEFT JOIN lecture l ON c.courseid = l.courseid
-        LEFT JOIN attendance a ON l.lectureid = a.lectureid AND a.usercourseid = uc.usercourseid
-        AND u.staff = 0
-        GROUP BY u.userid, c.courseid
-        ORDER BY c.name, u.last_name, u.first_name;
+          SELECT
+            u.userid,
+            u.email,
+            u.first_name,
+            u.last_name,
+            u.studentnumber,
+            c.courseid,
+            c.code,
+            c.name as course_name,
+            sg.group_name,
+            COUNT(DISTINCT l.lectureid) as total_lectures,
+            COUNT(DISTINCT CASE WHEN a.status = 1 THEN a.attendanceid END) as attended_lectures,
+            ROUND(COUNT(DISTINCT CASE WHEN a.status = 1 THEN a.attendanceid END) * 100.0 /
+              NULLIF(COUNT(DISTINCT l.lectureid), 0), 1) as attendance_percentage,
+            MAX(l.start_date) as last_attendance_info
+          FROM users u
+          JOIN usercourses uc ON u.userid = uc.userid
+          JOIN courses c ON uc.courseid = c.courseid
+          LEFT JOIN studentgroups sg ON u.studentgroupid = sg.studentgroupid
+          JOIN courseinstructors ci ON c.courseid = ci.courseid
+          LEFT JOIN lecture l ON c.courseid = l.courseid
+          LEFT JOIN attendance a ON l.lectureid = a.lectureid AND a.usercourseid = uc.usercourseid
+          WHERE u.staff = 0
+          AND c.start_date <= DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
+          AND (
+            (c.end_date IS NOT NULL AND c.end_date >= CURDATE())
+            OR
+            (c.end_date IS NULL AND c.start_date >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH))
+          )
+          GROUP BY u.userid, c.courseid
+          ORDER BY c.name, u.last_name, u.first_name;
       `);
 
       return rows;
@@ -81,9 +93,6 @@ const courseStudentActivityModel = {
       throw error;
     }
   },
-
-
-
 };
 
 export default courseStudentActivityModel;
