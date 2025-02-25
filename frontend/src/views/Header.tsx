@@ -7,6 +7,7 @@ import NavigationButton from '../components/main/buttons/NavigationButton';
 import {UserContext} from '../contexts/UserContext';
 import apiHooks from '../api';
 import {useTranslation} from 'react-i18next';
+import LanguageSwitcher from '../components/common/LanguageSwitcher';
 
 /**
  * Header component.
@@ -37,7 +38,14 @@ const Header = () => {
 
   // Get the current user and the setUser function from the UserContext
   const {user, setUser} = useContext(UserContext);
-  const {t} = useTranslation(['translation']);
+  const {t, i18n} = useTranslation(['translation']);
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'en');
+
+  const handleLanguageChange = (newLang: string) => {
+    setCurrentLanguage(newLang);
+    i18n.changeLanguage(newLang);
+  };
+
   /**
    * Function to get the user info based on the token stored in localStorage.
    */
@@ -150,30 +158,39 @@ const Header = () => {
           />
         </div>
       )}
-      {!user && (
-        <div className='relative flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
-          {location.pathname.includes('/help') ? (
-            <NavigationButton
-              path={lang ? `/${lang}/login` : '/login'}
-              label={t('noUser:navigation.backToLogin', 'Back to Login')}
-            />
-          ) : (
-            <NavigationButton
-              path={lang ? `/${lang}/help` : '/help'}
-              label={t('noUser:navigation.help', 'Help')}
-            />
-          )}
-
-          <FirstTimeHereGuide
-            message={t(
-              'Need help? Click the help button above to get started!',
-            )}
-            position='bottom'
-            storageKey='help-guided-seen'
-            isFixed={false}
+      <div className='flex justify-center items-center '>
+        {!user && (
+          <LanguageSwitcher
+            currentLanguage={currentLanguage}
+            onLanguageChange={handleLanguageChange}
+            dropdown={true}
           />
-        </div>
-      )}
+        )}
+        {!user && (
+          <div className='relative flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
+            {location.pathname.includes('/help') ? (
+              <NavigationButton
+                path={lang ? `/${lang}/login` : '/login'}
+                label={t('noUser:navigation.backToLogin', 'Back to Login')}
+              />
+            ) : (
+              <NavigationButton
+                path={lang ? `/${lang}/help` : '/help'}
+                label={t('noUser:navigation.help', 'Help')}
+              />
+            )}
+
+            <FirstTimeHereGuide
+              message={t(
+                'Need help? Click the help button above to get started!',
+              )}
+              position='bottom'
+              storageKey='help-guided-seen'
+              isFixed={false}
+            />
+          </div>
+        )}
+      </div>
     </header>
   );
 };
