@@ -1,10 +1,5 @@
 import React from 'react';
-import {Link, Route, Routes, useLocation} from 'react-router-dom';
-import AdminErrorLogs from './AdminErrorLogs';
-import AdminFeedback from './AdminFeedback';
-import AdminGuide from './AdminGuide';
-import AdminLogs from './AdminLogs';
-import AdminStats from './AdminStats';
+import {Link, Outlet, useLocation} from 'react-router-dom';
 import HelpIcon from '@mui/icons-material/Help';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -12,12 +7,20 @@ import ErrorIcon from '@mui/icons-material/Error';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import {useTranslation} from 'react-i18next';
 
+/**
+ * AdminDashboard component.
+ * Provides navigation and layout for admin dashboard functionality.
+ * @returns {JSX.Element} The rendered AdminDashboard component.
+ */
 const AdminDashboard = () => {
   const {t} = useTranslation(['admin']);
   const location = useLocation();
 
   const isActivePath = (path: string) => {
-    return location.pathname === `/admin/dashboard/${path}`;
+    return (
+      location.pathname === path ||
+      (path === '/admin/dashboard/' && location.pathname === '/admin/dashboard')
+    );
   };
 
   const navItems = [
@@ -45,9 +48,9 @@ const AdminDashboard = () => {
       <h2 className='p-3 mb-6 text-3xl font-heading text-center border-b text-metropolia border-metropolia/20'>
         {t('admin:dashboard.title')}
       </h2>
-      <div className='flex flex-col gap-4 md:flex-row'>
-        <nav className='w-full p-4 bg-white border shadow-md md:w-60 rounded-xl border-metropolia-main-grey/10'>
-          <ul className='space-y-2'>
+      <div className='flex flex-col gap-4'>
+        <nav className='w-full p-4 bg-white border shadow-md rounded-xl border-metropolia-main-grey/10'>
+          <ul className='flex flex-wrap gap-2 justify-center'>
             {navItems.map((item) => (
               <li key={item.path} className='overflow-hidden rounded-lg'>
                 <Link
@@ -68,13 +71,7 @@ const AdminDashboard = () => {
           </ul>
         </nav>
         <main className='grow p-6 transition-all duration-300 ease-in-out bg-white shadow-md rounded-xl hover:shadow-lg'>
-          <Routes>
-            <Route index element={<AdminGuide />} />
-            <Route path='stats' element={<AdminStats />} />
-            <Route path='logs' element={<AdminLogs />} />
-            <Route path='user-feedback' element={<AdminFeedback />} />
-            <Route path='errorlogs' element={<AdminErrorLogs />} />
-          </Routes>
+          <Outlet />
         </main>
       </div>
     </div>
