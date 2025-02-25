@@ -138,7 +138,7 @@ const CourseStudents: React.FC<Props> = ({
 
     // Calculate the distance the mouse has moved (walk)
     // Multiply by 3 to increase the speed of the scroll (scroll-fast)
-    const walk = (x - startX) * 3;
+    const walk = (x - startX) * 2;
 
     // Update the scroll position of the scroll container
     scrollContainerRef.current.scrollLeft = scrollLeft - walk;
@@ -272,12 +272,12 @@ const CourseStudents: React.FC<Props> = ({
                 ? 'rounded-l-lg rounded-r-none'
                 : isLast
                 ? 'rounded-r-lg rounded-l-none'
-                : 'rounded-none';
+                : 'rounded';
               return (
                 <p
                   ref={isFirst ? firstItemRef : isLast ? lastItemRef : null}
                   key={student.userid}
-                  className={`inline-block cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
+                  className={`inline-block  cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
                     isBouncing ? 'motion-safe:animate-bounce' : ''
                   }`}
                   title={`${student.first_name} ${student.last_name}`}
