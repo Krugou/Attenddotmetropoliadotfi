@@ -125,7 +125,7 @@ const NoUserHelp: React.FC = () => {
           <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
             {t(
               'noUser:help.contact.description',
-              'If you need additional assistance, please contact Metropolia IT support:',
+              'If you need additional assistance, please contact Metropolia support:',
             )}
           </p>
           <div className='p-4 rounded-lg bg-metropolia-main-grey/5 dark:bg-metropolia-main-grey'>
