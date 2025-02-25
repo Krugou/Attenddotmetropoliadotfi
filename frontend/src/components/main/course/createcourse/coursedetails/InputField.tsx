@@ -34,7 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => (
   <>
     <label className='mb-2 font-heading text-gray-900' htmlFor={name}>
-      {label}
+      {label}:
     </label>
     {type === 'textarea' ? (
       <textarea
