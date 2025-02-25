@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import apiHooks from '../../api';
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../contexts/UserContext';
-import {FI, GB, SE} from 'country-flag-icons/react/3x2';
+import LanguageSwitcher from '../common/LanguageSwitcher';
 
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.
@@ -197,41 +197,10 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         </h3>
         <div className='flex items-center justify-between gap-2'>
           <strong>{t('common:profileInfo.labels.language')}:</strong>{' '}
-          <div className='flex gap-2'>
-            <button
-              onClick={() => handleLanguageChange('en')}
-              className={`p-1 rounded ${
-                user.language === 'en'
-                  ? 'bg-metropolia-main-orange'
-                  : 'bg-metropolia-main-grey'
-              }`}
-              title={t('common:languages.flags.en')}
-              aria-label={t('common:languages.flags.en')}>
-              <GB className='w-6 h-4' aria-hidden='true' />
-            </button>
-            <button
-              onClick={() => handleLanguageChange('fi')}
-              className={`p-1 rounded ${
-                user.language === 'fi'
-                  ? 'bg-metropolia-main-orange'
-                  : 'bg-metropolia-main-grey'
-              }`}
-              title={t('common:languages.flags.fi')}
-              aria-label={t('common:languages.flags.fi')}>
-              <FI className='w-6 h-4' aria-hidden='true' />
-            </button>
-            <button
-              onClick={() => handleLanguageChange('sv')}
-              className={`p-1 rounded ${
-                user.language === 'sv'
-                  ? 'bg-metropolia-main-orange'
-                  : 'bg-metropolia-main-grey'
-              }`}
-              title={t('common:languages.flags.sv')}
-              aria-label={t('common:languages.flags.sv')}>
-              <SE className='w-6 h-4' aria-hidden='true' />
-            </button>
-          </div>
+          <LanguageSwitcher
+            currentLanguage={user.language}
+            onLanguageChange={handleLanguageChange}
+          />
         </div>
         <p className='flex items-center justify-between gap-2'>
           <strong>{t('common:profileInfo.labels.activeStatus')}:</strong>{' '}
