@@ -1,4 +1,5 @@
 import SortIcon from '@mui/icons-material/Sort';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
@@ -44,6 +45,7 @@ const AdminUsers: React.FC = () => {
   const [searchField, setSearchField] = useState<string>('all');
   const [sortKey, setSortKey] = useState('last_name');
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const sortedUsers = [...users].sort((a, b) => {
@@ -119,6 +121,19 @@ const AdminUsers: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    const token = localStorage.getItem('userToken');
+    if (token && user) {
+      const fetchedUsers = await apiHooks.fetchUsers(token);
+      const otherUsers = fetchedUsers.filter(
+        (fetchedUser) => fetchedUser.userid !== user.userid,
+      );
+      setUsers(otherUsers);
+    }
+    setIsRefreshing(false);
+  };
+
   useEffect(() => {
     if (user) {
       setIsLoading(true);
@@ -185,6 +200,18 @@ const AdminUsers: React.FC = () => {
             path='/admin/newuser/'
             buttonClassName='mb-8 transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
           />
+          <div className='flex justify-end mb-4'>
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange disabled:opacity-50 disabled:cursor-not-allowed sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
+              aria-label={t('admin:common.refresh')}
+              title={t('admin:common.refresh')}>
+              <RefreshIcon
+                className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
+            </button>
+          </div>
           <div className='mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-100'>
             <SearchField
               searchTerm={searchTerm}
