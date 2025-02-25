@@ -45,7 +45,8 @@
     "searchPlaceholder": "Hae mistä tahansa kentästä",
     "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla",
     "confirmDelete": "Vahvista poisto",
-    "studentGroup": "Opiskelijaryhmä"
+    "studentGroup": "Opiskelijaryhmä",
+    "createFirstWorkLog": "Luo ensimmäinen työaika kurssi"
   },
   "mainView": {
     "teacherDashboard": "Opettajan hallintapaneeli",

@@ -45,7 +45,8 @@
     "searchPlaceholder": "Sök i alla fält",
     "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga",
     "confirmDelete": "Bekräfta radering",
-    "studentGroup": "Studentgrupp"
+    "studentGroup": "Studentgrupp",
+    "createFirstWorkLog": "Skapa första arbetsstilskursen"
   },
   "mainView": {
     "teacherDashboard": "Lärarpanel",

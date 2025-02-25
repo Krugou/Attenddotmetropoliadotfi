@@ -88,7 +88,8 @@
     "studentNumber": "Student Number",
     "topics": "Topics",
     "user": "User",
-    "userCourseId": "User Course ID"
+    "userCourseId": "User Course ID",
+    "createFirstWorkLog": "Create First Worklog course"
   },
   "courses": {
     "delete": {
