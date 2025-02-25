@@ -26,6 +26,10 @@
       "iphone": {
         "title": "Problem med iPhone?",
         "description": "Om du använder en iPhone, se till att iCloud Private Relay är inaktiverat eftersom det kan störa VPN-anslutningen. Du kan inaktivera det i Inställningar > Apple-ID > iCloud > Private Relay."
+      },
+      "scaling": {
+        "description": "Denna webbplats är byggd med 100% displayskalning i åtanke. \nOm din enhet använder olika skalningsinställningar kan innehållet vara för stort eller för litet. \nJustera din webbläsarzoom eller systemdisplayskalning för optimal visning.",
+        "title": "Skalningsfrågor?"
       }
     },
     "contact": {

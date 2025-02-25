@@ -24,7 +24,11 @@
         "description": "Make sure you are connected to Metropolia network or VPN",
         "title": "Cannot Log In?"
       },
-      "title": "Common Issues"
+      "title": "Common Issues",
+      "scaling": {
+        "description": "This website is built using 100% display scaling in mind. If your device uses different scaling settings, the content might appear too big or too small. Adjust your browser zoom or system display scaling for optimal viewing.",
+        "title": "Display Scaling Issues?"
+      }
     },
     "contact": {
       "description": "If you need additional assistance, please contact Metropolia IT support:",

@@ -26,6 +26,10 @@
       "iphone": {
         "title": "Ongelmia iPhonen kanssa?",
         "description": "Jos käytät iPhonea, varmista että iCloud Private Relay on pois päältä, sillä se voi häiritä VPN-yhteyttä. Voit poistaa sen käytöstä kohdasta Asetukset > Apple ID > iCloud > Private Relay."
+      },
+      "scaling": {
+        "description": "Tämä verkkosivusto on rakennettu käyttämällä 100%: n näytön skaalausta mielessä. \nJos laite käyttää erilaisia ​​skaalausasetuksia, sisältö saattaa näyttää liian suurelta tai liian pieneltä. \nSäädä selaimen zoomaus tai järjestelmänäytön skaalaus optimaalisen katselun saavuttamiseksi.",
+        "title": "Skaalausongelmia?"
       }
     },
     "contact": {
