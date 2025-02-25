@@ -7,6 +7,25 @@ import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../utils/Loader';
+import SearchField from '../../../components/main/shared/SearchField';
+
+// Add custom hook for debounced value
+const useDebounce = <T,>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 /**
  * AdminUsers component.
  * This component is responsible for rendering a list of users for an admin.
@@ -22,25 +41,84 @@ const AdminUsers: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchField, setSearchField] = useState<string>('all');
   const [sortKey, setSortKey] = useState('last_name');
   const [isLoading, setIsLoading] = useState(true);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
   const sortedUsers = [...users].sort((a, b) => {
     if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1;
     if (a[sortKey] > b[sortKey]) return sortOrder === 'asc' ? 1 : -1;
     return 0;
   });
+
   const sortUsers = (key: string) => {
     setSortKey(key);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
+
+  const clearSearch = () => {
+    setSearchTerm('');
+    setSearchField('all');
+  };
+
+  const searchFields = [
+    {value: 'all', label: t('admin:common.allFields')},
+    {value: 'last_name', label: t('admin:users.lastName')},
+    {value: 'first_name', label: t('admin:users.firstName')},
+    {value: 'email', label: t('admin:users.email')},
+    {value: 'username', label: t('admin:users.username')},
+    {value: 'role', label: t('admin:users.role')},
+  ];
+
+  const highlightMatch = (
+    text: string | number | undefined,
+    searchTerm: string,
+  ) => {
+    if (
+      !text ||
+      !searchTerm ||
+      (searchField !== 'all' && searchField !== sortKey)
+    ) {
+      return text?.toString() || '';
+    }
+
+    const textStr = text.toString();
+    const searchTermLower = searchTerm.toLowerCase();
+    const textLower = textStr.toLowerCase();
+
+    if (!textLower.includes(searchTermLower)) {
+      return textStr;
+    }
+
+    const startIndex = textLower.indexOf(searchTermLower);
+    const endIndex = startIndex + searchTermLower.length;
+
+    const before = textStr.slice(0, startIndex);
+    const match = textStr.slice(startIndex, endIndex);
+    const after = textStr.slice(endIndex);
+
+    return (
+      <>
+        {before}
+        <span className='bg-metropolia-support-yellow text-metropolia-main-grey font-medium px-1 rounded'>
+          {match}
+        </span>
+        {after}
+      </>
+    );
+  };
+
   const filteredUsers = sortedUsers.filter((user) =>
     Object.values(user).some(
       (value) =>
         typeof value === 'string' &&
-        value.toLowerCase().includes(searchTerm.toLowerCase()),
+        value.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
     ),
   );
+
   const navigate = useNavigate();
+
   useEffect(() => {
     if (user) {
       setIsLoading(true);
@@ -66,34 +144,65 @@ const AdminUsers: React.FC = () => {
       fetchUsers();
     }
   }, [user]);
+
   return (
-    <div className='relative w-full p-5 bg-white rounded-lg lg:w-fit'>
+    <div className='relative w-full p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg border border-gray-100 lg:w-fit transition-all duration-300 hover:shadow-xl'>
       {isLoading ? (
-        <div className='flex items-center justify-center h-full'>
+        <div className='flex flex-col items-center justify-center h-64 gap-4'>
           <Loader />
+          <p className='text-metropolia-main-grey animate-pulse font-medium'>
+            {t('admin:common.loading')}
+          </p>
         </div>
       ) : users.length === 0 ? (
-        <div className='flex items-center justify-center h-full'>
-          <p>{t('admin:common.noUsersAvailable')}</p>
+        <div className='flex flex-col items-center justify-center h-64 gap-3 text-center'>
+          <div className='w-16 h-16 mb-2 rounded-full bg-metropolia-trend-light-blue/20 flex items-center justify-center'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-8 h-8 text-metropolia-trend-light-blue'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'>
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+              />
+            </svg>
+          </div>
+          <p className='text-lg font-semibold text-metropolia-main-grey'>
+            {t('admin:common.noUsersAvailable')}
+          </p>
+          <p className='text-sm text-metropolia-main-grey/70'>
+            {t('admin:common.createFirstUser')}
+          </p>
         </div>
       ) : (
         <>
-          <GeneralLinkButton path='/admin/newuser/' text='Create new user' />
-          <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
-            <InputField
-              type='text'
-              name='search'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder='Search by any field..'
-              label='Search'
+          <GeneralLinkButton
+            text='Create New User'
+            path='/admin/newuser/'
+            buttonClassName='mb-8 transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
+          />
+          <div className='mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-100'>
+            <SearchField
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              searchField={searchField}
+              onSearchFieldChange={setSearchField}
+              onClearSearch={clearSearch}
+              searchFields={searchFields}
+              placeholder={t('admin:common.searchPlaceholder')}
+              searchLabel={t('admin:common.search')}
+              searchInLabel={t('admin:common.searchIn')}
+              resultsCount={filteredUsers.length}
             />
           </div>
-
-          <div className='relative bg-gray-100'>
-            <div className='relative overflow-y-scroll max-h-96 h-96'>
+          <div className='relative bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg overflow-hidden shadow-inner border border-gray-200'>
+            <div className='relative overflow-y-scroll max-h-96 h-96 scrollbar-thin scrollbar-thumb-metropolia-main-orange scrollbar-track-gray-100'>
               <table className='w-full table-auto'>
-                <thead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
+                <thead className='sticky top-0 z-10 bg-gradient-to-r from-metropolia-main-orange/90 to-metropolia-secondary-orange/90 text-white shadow-md'>
                   <tr>
                     {[
                       'last_name',
@@ -105,13 +214,15 @@ const AdminUsers: React.FC = () => {
                       'created_at',
                       'activeStatus',
                     ].map((key, index) => (
-                      <th key={index} className='px-4 py-2'>
+                      <th
+                        key={index}
+                        className='px-4 py-3 font-semibold text-left transition-colors'>
                         {key}
                         <button
-                          aria-label='Sort Column'
-                          className='p-1 ml-2 text-sm text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-main-orangeDark focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orangeDark'
+                          aria-label={`Sort by ${key}`}
+                          className='p-1 ml-2 text-sm rounded-full bg-white/20 hover:bg-white/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 active:scale-95'
                           onClick={() => sortUsers(key)}>
-                          <SortIcon />
+                          <SortIcon className='w-4 h-4' />
                         </button>
                       </th>
                     ))}
@@ -125,7 +236,7 @@ const AdminUsers: React.FC = () => {
                         onClick={() =>
                           navigate(`/admin/users/${user.userid}/modify`)
                         }
-                        className='cursor-pointer hover:bg-gray-200'>
+                        className='hover:bg-gray-200 cursor-pointer transition-colors duration-200'>
                         {[
                           'last_name',
                           'email',
@@ -141,7 +252,10 @@ const AdminUsers: React.FC = () => {
                               ? user[key] === 1
                                 ? 'Yes'
                                 : 'No'
-                              : user[key]}
+                              : highlightMatch(
+                                  user[key]?.toString(),
+                                  debouncedSearchTerm,
+                                )}
                           </td>
                         ))}
                       </tr>
@@ -151,6 +265,34 @@ const AdminUsers: React.FC = () => {
               </table>
             </div>
           </div>
+          {filteredUsers.length === 0 && debouncedSearchTerm && (
+            <div className='mt-4 text-center py-8 bg-gray-50 rounded-lg border border-gray-200'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-12 w-12 mx-auto text-metropolia-main-grey/50 mb-2'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                />
+              </svg>
+              <p className='text-lg font-medium text-metropolia-main-grey'>
+                {t('admin:common.noResultsFound')}
+              </p>
+              <p className='text-sm text-metropolia-main-grey/70 mt-1'>
+                {t('admin:common.tryDifferentSearch')}
+              </p>
+              <button
+                onClick={clearSearch}
+                className='mt-4 px-4 py-2 bg-metropolia-trend-light-blue text-white rounded-md hover:bg-metropolia-trend-light-blue-dark transition-colors'>
+                {t('admin:common.clearSearch')}
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>
