@@ -12,19 +12,7 @@ import {
 } from 'recharts';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../utils/Loader';
-
-// const getDayOfWeek = (date: string, t: (key: string) => string) => {
-//   const dayNames = [
-//     t('admin:lectureChart.days.sunday'),
-//     t('admin:lectureChart.days.monday'),
-//     t('admin:lectureChart.days.tuesday'),
-//     t('admin:lectureChart.days.wednesday'),
-//     t('admin:lectureChart.days.thursday'),
-//     t('admin:lectureChart.days.friday'),
-//     t('admin:lectureChart.days.saturday'),
-//   ];
-//   return dayNames[new Date(date).getDay()];
-// };
+import {chartConfig} from '../../../views/main/admin/Dashboard/AdminStats';
 
 interface Lecture {
   lectureid: number;
@@ -80,17 +68,29 @@ const LecturesByDayChart: React.FC<LecturesByDayChartProps> = ({lectures}) => {
   }
 
   return (
-    <ResponsiveContainer width='100%' height={400}>
-      <BarChart data={chartData}>
+    <ResponsiveContainer {...chartConfig}>
+      <BarChart data={chartData} margin={chartConfig.margin}>
         <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='day' interval={0}>
-          <Label value={t('admin:lecturesByDay.dayOfWeek')} position='bottom' />
+        <XAxis
+          dataKey='day'
+          interval={0}
+          angle={-45}
+          textAnchor='end'
+          height={120}
+          tick={{fill: '#53565a', fontSize: 12}}
+          dy={50}>
+          <Label
+            value={t('admin:lecturesByDay.dayOfWeek')}
+            position='bottom'
+            dy={50}
+          />
         </XAxis>
-        <YAxis>
+        <YAxis tick={{fill: '#53565a'}} dx={-10}>
           <Label
             value={t('admin:lecturesByDay.lectureCount')}
             angle={-90}
             position='insideLeft'
+            style={{fill: '#53565a'}}
           />
         </YAxis>
         <Tooltip />
