@@ -35,7 +35,10 @@
     "userStatistics": "User Statistics",
     "worklogCourses": "Worklog Courses",
     "worklogEntries": "Worklog Entries",
-    "worklogStatistics": "Worklog Statistics"
+    "worklogStatistics": "Worklog Statistics",
+    "totalWorklogCourses": "Total WorkLog Courses",
+    "worklogCoursesActive": "Active Worklog Courses",
+    "coursesActive": "Active Courses"
   },
   "attendance": {
     "buttons": {

@@ -182,7 +182,10 @@
     "totalEntries": "Totalt antal poster",
     "entryCount": "Antal poster",
     "worklogEntries": "Arbetsdagboksposter",
-    "worklogStatistics": "Arbetsdagboksstatistik"
+    "worklogStatistics": "Arbetsdagboksstatistik",
+    "coursesActive": "Aktiva kurser",
+    "totalWorklogCourses": "Totala arbetsstilskurser",
+    "worklogCoursesActive": "Aktiva arbetslogkurser"
   },
   "dashboard": {
     "title": "Serverpanel"

@@ -193,7 +193,10 @@
     "totalEntries": "Merkintöjä yhteensä",
     "entryCount": "Merkintöjen määrä",
     "worklogEntries": "Työpäiväkirjamerkinnät",
-    "worklogStatistics": "Työpäiväkirjatilastot"
+    "worklogStatistics": "Työpäiväkirjatilastot",
+    "coursesActive": "Aktiiviset kurssit",
+    "totalWorklogCourses": "Kokonaistyökurssit",
+    "worklogCoursesActive": "Aktiiviset työtietokurssit"
   },
   "dashboard": {
     "title": "Palvelimen hallintapaneeli"
