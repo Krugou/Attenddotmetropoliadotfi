@@ -97,10 +97,6 @@ const AdminLogs: React.FC = () => {
   return (
     <div className='w-full bg-white shadow-md rounded-lg overflow-hidden'>
       <div className='p-4'>
-        <h1 className='text-2xl font-heading font-bold mb-4 text-metropolia-main-grey'>
-          System Logs
-        </h1>
-
         <Tab.Group selectedIndex={activeTab} onChange={setActiveTab}>
           <Tab.List className='flex space-x-1 rounded-xl bg-metropolia-main-grey-dark/10 p-1 mb-4'>
             <Tab
