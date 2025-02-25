@@ -8,6 +8,7 @@ import AdminMainView from '../views/main/admin/AdminMainView.tsx';
 import AdminNewUser from '../views/main/admin/AdminNewUser.tsx';
 import AdminProfile from '../views/main/admin/AdminProfile.tsx';
 import AdminCoursesRoutes from './admin/AdminCourseRoutes';
+import AdminDashBoardRoutes from './admin/AdminDashBoardRoutes';
 import AdminLecturesRoutes from './admin/AdminLectureRoutes.tsx';
 import AdminSettingsRoutes from './admin/AdminSettingsRoutes.tsx';
 import AdminUserRoutes from './admin/AdminUserRoutes';
@@ -57,7 +58,7 @@ const AdminRoutes = () => {
       <Route path='profile' element={<AdminProfile />} />
       <Route path='settings/*' element={<AdminSettingsRoutes />} />
       <Route path='*' element={<AdminMainView />} />
-      <Route path='dashboard/*' element={<AdminDashboard />} />
+      <Route path='dashboard/*' element={<AdminDashBoardRoutes />} />
       <Route path='team' element={<Team />} />
       <Route path='lectures/*' element={<AdminLecturesRoutes />} />
       <Route path='newuser' element={<AdminNewUser />} />
