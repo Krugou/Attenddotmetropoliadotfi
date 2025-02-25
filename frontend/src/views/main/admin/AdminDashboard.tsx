@@ -3,7 +3,6 @@ import {Link, Outlet, useLocation} from 'react-router-dom';
 import HelpIcon from '@mui/icons-material/Help';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import ErrorIcon from '@mui/icons-material/Error';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import StorageIcon from '@mui/icons-material/Storage';
 import {useTranslation} from 'react-i18next';
