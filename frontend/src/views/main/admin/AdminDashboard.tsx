@@ -32,11 +32,7 @@ const AdminDashboard = () => {
       icon: <QueryStatsIcon />,
     },
     {path: '/admin/dashboard/logs', label: 'Logs', icon: <ListAltIcon />},
-    {
-      path: '/admin/dashboard/errorlogs',
-      label: 'Error Logs',
-      icon: <ErrorIcon />,
-    },
+
     {
       path: '/admin/dashboard/user-feedback',
       label: 'User Feedback',
