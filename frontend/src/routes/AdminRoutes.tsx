@@ -3,7 +3,6 @@ import {Route, Routes, useNavigate} from 'react-router-dom';
 import {UserContext} from '../contexts/UserContext';
 import Feedback from '../views/main/Feedback.tsx';
 import Team from '../views/main/Team.tsx';
-import AdminDashboard from '../views/main/admin/AdminDashboard.tsx';
 import AdminMainView from '../views/main/admin/AdminMainView.tsx';
 import AdminNewUser from '../views/main/admin/AdminNewUser.tsx';
 import AdminProfile from '../views/main/admin/AdminProfile.tsx';
