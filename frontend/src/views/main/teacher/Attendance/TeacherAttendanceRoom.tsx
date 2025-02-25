@@ -332,23 +332,35 @@ const AttendanceRoom: React.FC = () => {
   return (
     <div className='w-full'>
       <div
-        className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 bg-gray-100 ${
+        className={`flex flex-col m-auto w-full xl:w-full 2xl:w-3/4 h-full p-5 rounded-xl bg-gray-100 ${
           lectureSuccess ? 'border-metropolia-trend-green border-2' : ''
         }`}>
         <div className='flex flex-col items-center justify-between sm:flex-row'>
           {loading ? (
             <SkeletonLoader className='h-8 w-96 mb-4 sm:mb-0' />
           ) : (
-            <h1 className='text-2xl font-heading'>
-              {courseName} | {courseCode} | {topicname} |
-              {lectureSuccess
-                ? t('teacher:attendance.labels.allStudentsPresent')
-                : countdown !== null
-                ? t('teacher:attendance.labels.autoFinish', {
-                    minutes: Math.floor(countdown / 60),
-                    seconds: countdown % 60,
-                  })
-                : t('admin:common.loading')}
+            <h1 className='flex flex-wrap items-center gap-2 text-2xl font-heading'>
+              <span className='text-metropolia-main-grey'>{courseName}</span>
+              <span className='text-metropolia-main-orange font-bold'>
+                {courseCode}
+              </span>
+              <span className='text-metropolia-support-blue'>{topicname}</span>
+              <span className='text-metropolia-main-grey'>|</span>
+              <span
+                className={`${
+                  lectureSuccess
+                    ? 'text-metropolia-trend-green'
+                    : 'text-metropolia-main-grey'
+                }`}>
+                {lectureSuccess
+                  ? t('teacher:attendance.labels.allStudentsPresent')
+                  : countdown !== null
+                  ? t('teacher:attendance.labels.autoFinish', {
+                      minutes: Math.floor(countdown / 60),
+                      seconds: countdown % 60,
+                    })
+                  : t('admin:common.loading')}
+              </span>
             </h1>
           )}
           <div className='flex flex-row justify-end'>
