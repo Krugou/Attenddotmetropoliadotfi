@@ -835,4 +835,59 @@ router.get(
   },
 );
 
+router.get(
+  '/server-status',
+  checkUserRole(['admin']),
+  async (_req: Request, res: Response) => {
+    try {
+      // Get system information
+      const os = await import('os');
+      const systemInfo = {
+        system: {
+          uptime: os.uptime(),
+          cpuUsage: os.loadavg()[0] / os.cpus().length,
+          loadAverage: os.loadavg(),
+          totalMemory: os.totalmem(),
+          freeMemory: os.freemem(),
+        },
+        database: {
+          uptime: 0,
+          connectionCount: 0,
+          threadCount: 0,
+          queryCount: 0,
+          slowQueries: 0,
+        },
+      };
+
+      // Get database information
+      const [dbStatus] = await pool
+        .promise()
+        .query('SHOW GLOBAL STATUS WHERE Variable_name IN (?, ?, ?, ?, ?)', [
+          'Uptime',
+          'Threads_connected',
+          'Threads_running',
+          'Questions',
+          'Slow_queries',
+        ]);
+
+      const dbStatusMap = new Map(
+        dbStatus.map((row) => [row.Variable_name, row.Value]),
+      );
+
+      systemInfo.database = {
+        uptime: parseInt(dbStatusMap.get('Uptime')),
+        connectionCount: parseInt(dbStatusMap.get('Threads_connected')),
+        threadCount: parseInt(dbStatusMap.get('Threads_running')),
+        queryCount: parseInt(dbStatusMap.get('Questions')),
+        slowQueries: parseInt(dbStatusMap.get('Slow_queries')),
+      };
+
+      res.json(systemInfo);
+    } catch (error) {
+      logger.error(error);
+      res.status(500).json({message: 'Internal server error'});
+    }
+  },
+);
+
 export default router;
