@@ -10,7 +10,6 @@ import {
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import InputField from '../../../components/main/course/createcourse/coursedetails/InputField';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
@@ -455,7 +454,9 @@ const AdminLectures: React.FC = () => {
               className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange disabled:opacity-50 disabled:cursor-not-allowed sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
               aria-label={t('admin:common.refresh')}
               title={t('admin:common.refresh')}>
-              <RefreshIcon className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <RefreshIcon
+                className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
             </button>
             <button
               onClick={toggleSortOrder}
