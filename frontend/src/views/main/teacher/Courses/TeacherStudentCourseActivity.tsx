@@ -88,7 +88,6 @@ const TeacherStudentCourseActivity: React.FC = () => {
         } else {
           throw new Error('Invalid user role');
         }
-        
 
         if (!response.success || !response.data) {
           throw new Error(response.error || 'Failed to load attendance data');
@@ -229,7 +228,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
   }
 
   return (
-    <div className='max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 py-6'>
+    <div className='max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6'>
       <h1 className='text-2xl sm:text-3xl font-heading text-center bg-white rounded-xl shadow-sm p-4 mb-6'>
         {t('teacher:courseActivity.title')}
       </h1>
