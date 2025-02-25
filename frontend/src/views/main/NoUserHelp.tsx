@@ -99,6 +99,20 @@ const NoUserHelp: React.FC = () => {
               )}
             </p>
           </div>
+          <div className='pb-4 border-b border-metropolia-main-grey/20 dark:border-metropolia-support-white/20'>
+            <h3 className='font-semibold text-metropolia-main-grey dark:text-metropolia-support-white'>
+              {t(
+                'noUser:help.commonIssues.scaling.title',
+                'Display Scaling Issues?',
+              )}
+            </h3>
+            <p className='text-metropolia-main-grey dark:text-metropolia-support-white'>
+              {t(
+                'noUser:help.commonIssues.scaling.description',
+                'This website is built using 100% display scaling in mind. If your device uses different scaling settings, the content might appear too big or too small. Adjust your browser zoom or system display scaling for optimal viewing.',
+              )}
+            </p>
+          </div>
         </div>
       </section>
 
