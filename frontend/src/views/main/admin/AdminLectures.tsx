@@ -22,6 +22,25 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Loader from '../../../utils/Loader';
+import SearchField from '../../../components/main/shared/SearchField';
+import RefreshIcon from '@mui/icons-material/Refresh';
+
+// Add custom hook for debounced value
+const useDebounce = <T,>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 interface Lecture {
   lectureid: number;
@@ -65,6 +84,9 @@ const AdminLectures: React.FC = () => {
   const [sortKey, setSortKey] = useState<keyof Lecture>('lectureid');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [visibleColumns, setVisibleColumns] = useState<Set<string>>(new Set());
+  const [searchField, setSearchField] = useState<keyof Lecture | 'all'>('all');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Column configurations
   const columns: ColumnConfig[] = [
@@ -205,15 +227,34 @@ const AdminLectures: React.FC = () => {
     return <Loader />;
   }
 
-  const filteredLectures = lectures.filter(
-    (lecture) =>
+  const filteredLectures = lectures.filter((lecture) => {
+    if (!debouncedSearchTerm)
+      return filterOpen ? lecture.state === 'open' : true;
+
+    const searchTermLower = debouncedSearchTerm.toLowerCase().trim();
+
+    if (searchField === 'all') {
+      return (
+        (filterOpen ? lecture.state === 'open' : true) &&
+        Object.entries(lecture).some(([key, value]) => {
+          if (key === 'lectureid' || !value) return false;
+          return value.toString().toLowerCase().includes(searchTermLower);
+        })
+      );
+    }
+
+    const fieldValue = lecture[searchField];
+    return (
       (filterOpen ? lecture.state === 'open' : true) &&
-      Object.values(lecture).some(
-        (value) =>
-          typeof value === 'string' &&
-          value.toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-  );
+      fieldValue &&
+      fieldValue.toString().toLowerCase().includes(searchTermLower)
+    );
+  });
+
+  const clearSearch = () => {
+    setSearchTerm('');
+    setSearchField('all');
+  };
 
   const paginatedLectures = filteredLectures.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -357,6 +398,23 @@ const AdminLectures: React.FC = () => {
 
   const openLectures = lectures.filter((lecture) => lecture.state === 'open');
 
+  const searchFields = [
+    {value: 'all', label: t('admin:common.allFields')},
+    {value: 'lectureid', label: t('admin:lectures.tableContent.lectureId')},
+    {
+      value: 'teacheremail',
+      label: t('admin:lectures.tableContent.teacherEmail'),
+    },
+    {value: 'coursename', label: t('admin:lectures.tableContent.courseName')},
+    {value: 'coursecode', label: t('admin:lectures.tableContent.courseCode')},
+  ];
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await getLectures();
+    setIsRefreshing(false);
+  };
+
   return (
     <div className='relative w-full p-5 bg-white rounded-lg'>
       {/* Render control buttons */}
@@ -391,6 +449,14 @@ const AdminLectures: React.FC = () => {
         </div>
         {!(filterOpen && openLectures.length === 0) && (
           <div className='flex gap-2 group'>
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange disabled:opacity-50 disabled:cursor-not-allowed sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
+              aria-label={t('admin:common.refresh')}
+              title={t('admin:common.refresh')}>
+              <RefreshIcon className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+            </button>
             <button
               onClick={toggleSortOrder}
               className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
@@ -479,34 +545,34 @@ const AdminLectures: React.FC = () => {
         </div>
       )}
 
-      {/* Render search input only when not filtering open lectures with none available */}
+      {/* Replace current search input with SearchField */}
       {lectures.length > 0 && !(filterOpen && openLectures.length === 0) && (
-        <div className='lg:w-1/4 sm:w-[20em] w-1/2 mt-4 mb-4'>
-          <InputField
-            type='text'
-            name='search'
-            value={searchTerm}
-            /* @ts-ignore */
-            onChange={handleSearchChange}
-            placeholder='Search by any field..'
-            label='Search'
+        <div className='mt-6 mb-5'>
+          <SearchField
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            searchField={searchField}
+            onSearchFieldChange={setSearchField}
+            onClearSearch={clearSearch}
+            searchFields={searchFields}
+            placeholder={t('admin:common.searchPlaceholder')}
+            searchLabel={t('admin:common.search')}
+            searchInLabel={t('admin:common.searchIn')}
+            resultsCount={filteredLectures.length}
+            className='bg-white p-4 rounded-lg shadow-md'
           />
         </div>
       )}
 
-      {/* Only show open lectures count if there are filtered lectures */}
-      {filterOpen && filteredLectures.length > 0 && (
-        <h2 className='mb-2 text-lg'>{`Open lectures: ${filteredLectures.length}`}</h2>
-      )}
-
-      <div className='relative'>
+      {/* Update table container styling */}
+      <div className='relative bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg overflow-hidden shadow-inner border border-gray-200'>
         <div
-          className={`relative bg-gray-100 overflow-auto ${
-            isExpanded ? 'h-screen' : 'h-[384px]'
-          }`}>
+          className={`relative overflow-y-scroll ${
+            isExpanded ? 'h-screen' : 'max-h-96 h-96'
+          } scrollbar-thin scrollbar-thumb-metropolia-main-orange scrollbar-track-gray-100`}>
           {paginatedLectures.length > 0 ? (
-            <table className='w-full text-sm bg-white border-collapse table-auto'>
-              <thead className='sticky top-0 z-10 bg-white border-t-2 border-black'>
+            <table className='w-full table-auto'>
+              <thead className='sticky top-0 z-10 bg-gradient-to-r from-metropolia-main-orange/90 to-metropolia-secondary-orange/90 text-white shadow-md'>
                 <tr>
                   {columns
                     .filter((column) => visibleColumns.has(column.key))
