@@ -327,6 +327,16 @@ export const fetchAttendances = async (
   );
 };
 
+export const getServerStatus = async (token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(baseUrl + 'admin/server-status', options);
+};
+
 export const adminApi = {
   fetchAttendances,
   updateUser,
@@ -354,4 +364,5 @@ export const adminApi = {
   fetchAllRolesSpecial,
   updateServerSettings,
   fetchServerSettings,
+  getServerStatus,
 };
