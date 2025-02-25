@@ -13,6 +13,7 @@ import apiHooks from '../../../../api';
 import {API_CONFIG} from '../../../../config';
 import {useTranslation} from 'react-i18next';
 import SkeletonLoader from '../../../../components/common/SkeletonLoader';
+import FirstTimeHereGuide from '../../../../components/main/FirstTimeHereGuide';
 
 const baseUrl = API_CONFIG.baseUrl;
 /**
@@ -363,9 +364,9 @@ const AttendanceRoom: React.FC = () => {
               </span>
             </h1>
           )}
-          <div className='flex flex-row justify-end'>
+          <div className='flex flex-row justify-end '>
             <button
-              className='bg-metropolia-support-red sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
+              className='bg-metropolia-support-red font-bold sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
               onClick={() => {
                 navigate(`/teacher/attendance/reload/${lectureid}`);
               }}
@@ -373,18 +374,26 @@ const AttendanceRoom: React.FC = () => {
               {t('teacher:attendance.buttons.resetTimer')}
             </button>
             {latency !== null && latency !== undefined && (
-              <button
-                className={`flex items-center justify-center p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
-                  latency < 100
-                    ? 'bg-metropolia-trend-green hover:bg-green-600'
-                    : latency < 300
-                    ? 'bg-yellow-500 hover:bg-yellow-600'
-                    : 'bg-metropolia-support-red hover:bg-red-600'
-                }`}
-                title={`Ping: ${latency}ms`}
-                onClick={() => setDialogOpen(true)}>
-                <SettingsIcon />
-              </button>
+              <div className='relative'>
+                <button
+                  className={`flex items-center  justify-center font-bold  p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
+                    latency < 100
+                      ? 'bg-metropolia-trend-green hover:bg-green-600'
+                      : latency < 300
+                      ? 'bg-yellow-500 hover:bg-yellow-600'
+                      : 'bg-metropolia-support-red hover:bg-red-600'
+                  }`}
+                  title={`Ping: ${latency}ms`}
+                  onClick={() => setDialogOpen(true)}>
+                  <SettingsIcon style={{fontSize: '2rem'}} />
+                </button>
+                <FirstTimeHereGuide
+                  message={t('teacher:attendance.tooltips.settings', '')}
+                  position='bottom'
+                  storageKey='attendance-settingsbutton-seen'
+                  isFixed={false}
+                />
+              </div>
             )}
           </div>
         </div>
