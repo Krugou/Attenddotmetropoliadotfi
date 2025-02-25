@@ -21,9 +21,10 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
   const {t} = useTranslation(['admin']);
 
   const getSeverity = (line: string): string => {
-    if (line.includes('ERROR')) return 'bg-red-100 text-red-800';
-    if (line.includes('WARNING')) return 'bg-yellow-100 text-yellow-800';
-    if (line.includes('INFO')) return 'bg-blue-100 text-blue-800';
+    const lowerLine = line.toLowerCase();
+    if (lowerLine.includes('error')) return 'bg-red-100 text-red-800';
+    if (lowerLine.includes('warning')) return 'bg-yellow-100 text-yellow-800';
+    if (lowerLine.includes('info')) return 'bg-blue-100 text-blue-800';
     return '';
   };
 
@@ -33,8 +34,8 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
     const timestamp = timestampMatch ? timestampMatch[0] : '';
 
     // Extract log level if it exists
-    const levelMatch = line.match(/(ERROR|WARNING|INFO|DEBUG)/);
-    const level = levelMatch ? levelMatch[0] : '';
+    const levelMatch = line.match(/(ERROR|WARNING|INFO|DEBUG|error|warning|info|debug)/i);
+    const level = levelMatch ? levelMatch[0].toUpperCase() : '';
 
     // Get remaining content after timestamp and level
     let content = line;
@@ -42,7 +43,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
       content = content.replace(timestamp, '');
     }
     if (level) {
-      content = content.replace(level, '');
+      content = content.replace(new RegExp(level, 'i'), '');
     }
     content = content.replace(/\[\d+m|\[\d+;\d+m/g, ''); // Remove ANSI color codes
 
