@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import AdminDashboard from '../../views/main/admin/AdminDashboard';
-import AdminFeedback from '../../views/main/admin/AdminFeedback';
+import AdminFeedback from '../../views/main/admin/Dashboard/AdminFeedback';
 import AdminGuide from '../../views/main/admin/Dashboard/AdminGuide';
 import AdminLogs from '../../views/main/admin/Dashboard/AdminLogs';
 import AdminStats from '../../views/main/admin/Dashboard/AdminStats';
