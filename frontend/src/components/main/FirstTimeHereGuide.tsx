@@ -54,6 +54,22 @@ const FirstTimeHereGuide: React.FC<FirstTimeHereGuideProps> = ({
     }
   };
 
+  const getArrowClasses = (): string => {
+    const baseClasses = 'absolute w-0 h-0 border-solid';
+
+    switch (position) {
+      case 'left':
+        return `${baseClasses} right-0 top-1/2 -translate-y-1/2 translate-x-2 border-y-transparent border-y-[8px] border-l-[8px] border-l-metropolia-support-white dark:border-l-metropolia-main-grey border-r-0`;
+      case 'right':
+        return `${baseClasses} left-0 top-1/2 -translate-y-1/2 -translate-x-2 border-y-transparent border-y-[8px] border-r-[8px] border-r-metropolia-support-white dark:border-r-metropolia-main-grey border-l-0`;
+      case 'top':
+        return `${baseClasses} bottom-0 left-1/2 -translate-x-1/2 translate-y-2 border-x-transparent border-x-[8px] border-t-[8px] border-t-metropolia-support-white dark:border-t-metropolia-main-grey border-b-0`;
+      case 'bottom':
+      default:
+        return `${baseClasses} top-0 left-1/2 -translate-x-1/2 -translate-y-2 border-x-transparent border-x-[8px] border-b-[8px] border-b-metropolia-support-white dark:border-b-metropolia-main-grey border-t-0`;
+    }
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -61,15 +77,20 @@ const FirstTimeHereGuide: React.FC<FirstTimeHereGuideProps> = ({
       role='alert'
       aria-live='polite'
       className={`${getPositionClasses()} max-w-md w-40`}>
-      <div className='p-4 rounded-lg shadow-lg bg-metropolia-support-white dark:bg-metropolia-main-grey'>
-        <button
-          onClick={handleClose}
-          aria-label={t('common:close', 'Close')}
-          className='absolute p-2 rounded-full text-metropolia-main-grey dark:text-metropolia-support-white top-2 right-2 hover:bg-metropolia-main-grey/10 dark:hover:bg-metropolia-support-white/10'>
-          <span aria-hidden='true'>&times;</span>
-        </button>
+      <div className='relative p-4 rounded-lg shadow-lg flex flex-col bg-metropolia-support-white dark:bg-metropolia-main-grey'>
+        <div className={getArrowClasses()} />
+        <div className='h-2'>
+          <button
+            onClick={handleClose}
+            aria-label={t('common:close', 'Close')}
+            className='absolute p-2 rounded-full text-metropolia-main-grey dark:text-metropolia-support-white top-2 right-2 hover:bg-metropolia-main-grey/10 dark:hover:bg-metropolia-support-white/10'>
+            <span className='' aria-hidden='true'>
+              &times;
+            </span>
+          </button>
+        </div>
         <div className='w-full p-2'>
-          <p className='break-words text-metropolia-main-grey dark:text-metropolia-support-white font-body'>
+          <p className='break-words font-bold text-metropolia-main-grey dark:text-metropolia-support-white font-body'>
             {message}
           </p>
         </div>
