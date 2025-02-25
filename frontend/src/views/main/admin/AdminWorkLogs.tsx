@@ -1,4 +1,5 @@
 import SortIcon from '@mui/icons-material/Sort';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
@@ -7,6 +8,7 @@ import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../utils/Loader';
+import SearchField from '../../../components/main/shared/SearchField';
 
 interface WorkLogCourse {
   work_log_course_id: number;
@@ -48,6 +50,7 @@ const AdminWorkLogs: React.FC = () => {
   );
   const [sortKey, setSortKey] = useState<keyof WorkLogCourse>('created_at');
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const sortedWorkLogs = [...workLogs].sort((a, b) => {
@@ -117,6 +120,20 @@ const AdminWorkLogs: React.FC = () => {
   const clearSearch = () => {
     setSearchTerm('');
     setSearchField('all');
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      try {
+        const fetchedWorkLogs = await apiHooks.getWorkLogCourses(token);
+        setWorkLogs(fetchedWorkLogs);
+      } catch (error) {
+        console.error('Error fetching worklog courses:', error);
+      }
+    }
+    setIsRefreshing(false);
   };
 
   // Search field options
@@ -190,83 +207,32 @@ const AdminWorkLogs: React.FC = () => {
             path='/teacher/worklog/create'
             className='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
           />
+          <div className='flex justify-end mb-4'>
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-orange h-fit hover:bg-metropolia-secondary-orange disabled:opacity-50 disabled:cursor-not-allowed sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline'
+              aria-label={t('admin:common.refresh')}
+              title={t('admin:common.refresh')}>
+              <RefreshIcon
+                className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
+            </button>
+          </div>
           <div className='mt-6 mb-5'>
-            <div className='flex flex-col lg:flex-row gap-4 items-start'>
-              <div className='relative lg:w-1/3 w-full'>
-                <div className='absolute left-3 top-9 text-metropolia-main-grey'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-5 w-5'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'>
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                    />
-                  </svg>
-                </div>
-                <InputField
-                  type='text'
-                  name='search'
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder={t('admin:common.searchPlaceholder')}
-                  label={t('admin:common.search')}
-                  className='pl-10 focus-within:ring-2 focus-within:ring-metropolia-trend-light-blue transition-all duration-300'
-                />
-                {searchTerm && (
-                  <button
-                    onClick={clearSearch}
-                    className='absolute top-9 right-3 text-metropolia-main-grey hover:text-metropolia-support-red transition-colors'
-                    aria-label={t('admin:common.clearSearch')}>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'>
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M6 18L18 6M6 6l12 12'
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-              <div className='lg:w-1/4 w-full'>
-                <label className='block text-metropolia-main-grey text-sm font-medium mb-1'>
-                  {t('admin:common.searchIn')}
-                </label>
-                <select
-                  value={searchField}
-                  onChange={(e) =>
-                    setSearchField(
-                      e.target.value as keyof WorkLogCourse | 'all',
-                    )
-                  }
-                  className='w-full rounded-md border-gray-300 shadow-sm focus:border-metropolia-trend-light-blue focus:ring focus:ring-metropolia-trend-light-blue focus:ring-opacity-50'>
-                  {searchFields.map((field) => (
-                    <option key={field.value} value={field.value}>
-                      {field.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {debouncedSearchTerm && (
-                <div className='lg:ml-auto lg:mt-8 mt-2'>
-                  <p className='text-sm text-metropolia-main-grey'>
-                    {t('admin:common.resultsFound', {
-                      count: filteredWorkLogs.length,
-                    })}
-                  </p>
-                </div>
-              )}
-            </div>
+            <SearchField
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              searchField={searchField}
+              onSearchFieldChange={setSearchField}
+              onClearSearch={clearSearch}
+              searchFields={searchFields}
+              placeholder={t('admin:common.searchPlaceholder')}
+              searchLabel={t('admin:common.search')}
+              searchInLabel={t('admin:common.searchIn')}
+              resultsCount={filteredWorkLogs.length}
+              className='bg-white p-4 rounded-lg shadow-md'
+            />
           </div>
           <div className='relative bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg overflow-hidden shadow-inner border border-gray-200'>
             <div className='relative overflow-y-scroll max-h-96 h-96 scrollbar-thin scrollbar-thumb-metropolia-main-orange scrollbar-track-gray-100'>
