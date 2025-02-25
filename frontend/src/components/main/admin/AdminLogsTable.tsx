@@ -7,7 +7,7 @@ interface AdminLogsTableProps {
   handleReset: () => void;
   lineLimit: number;
   logType: 'logs' | 'error';
-  isDesktop: boolean;
+  isDesktop?: boolean;
 }
 
 const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
@@ -34,7 +34,9 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
     const timestamp = timestampMatch ? timestampMatch[0] : '';
 
     // Extract log level if it exists
-    const levelMatch = line.match(/(ERROR|WARNING|INFO|DEBUG|error|warning|info|debug)/i);
+    const levelMatch = line.match(
+      /(ERROR|WARNING|INFO|DEBUG|error|warning|info|debug)/i,
+    );
     const level = levelMatch ? levelMatch[0].toUpperCase() : '';
 
     // Get remaining content after timestamp and level
