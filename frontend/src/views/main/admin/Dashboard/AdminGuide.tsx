@@ -25,6 +25,10 @@ const AdminGuide = () => {
           <strong>{t('admin:guide.userFeedback')}: </strong>{' '}
           {t('admin:guide.userFeedbackText')}
         </li>
+        <li className='text-sm md:text-base'>
+          <strong>{t('admin:guide.serverStatus')}: </strong>{' '}
+          {t('admin:guide.serverStatusText')}
+        </li>
       </ul>
     </div>
   );
