@@ -161,7 +161,9 @@
     "statisticsText": "This section provides statistical data and analysis relevant to the system's performance and user interactions.",
     "title": "Guide",
     "userFeedback": "User Feedback",
-    "userFeedbackText": "Administrators can access and review feedback submitted by users, helping to understand user experiences and address any issues or concerns."
+    "userFeedbackText": "Administrators can access and review feedback submitted by users, helping to understand user experiences and address any issues or concerns.",
+    "serverStatus": "Server Status",
+    "serverStatusText": "Monitor system and database performance metrics in real-time, including CPU usage, memory utilization, database connections, query statistics, and server uptime. Use this information to ensure optimal system performance and identify potential bottlenecks."
   },
   "lectureChart": {
     "days": {

@@ -222,7 +222,9 @@
     "errorLogs": "Felloggar",
     "errorLogsText": "Detta område visar loggar som specifikt är relaterade till fel som inträffar inom systemet, vilket underlättar felsökning och felkorrigering.",
     "userFeedback": "Användarfeedback",
-    "userFeedbackText": "Administratörer kan få tillgång till och granska feedback som lämnats in av användare, vilket hjälper till att förstå användarnas upplevelser och hantera eventuella problem eller bekymmer."
+    "userFeedbackText": "Administratörer kan få tillgång till och granska feedback som lämnats in av användare, vilket hjälper till att förstå användarnas upplevelser och hantera eventuella problem eller bekymmer.",
+    "serverStatus": "Serverstatus",
+    "serverStatusText": "Övervaka system- och databasprestanda i realtid, inklusive CPU-användning, minnesanvändning, databasanslutningar, frågestatistik och upptid för servern. \nAnvänd denna information för att säkerställa optimal systemprestanda och identifiera potentiella flaskhalsar."
   },
   "newUser": {
     "addNew": "Lägg till ny",

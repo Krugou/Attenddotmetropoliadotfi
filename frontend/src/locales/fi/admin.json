@@ -233,7 +233,9 @@
     "errorLogs": "Virhelokit",
     "errorLogsText": "Tämä alue näyttää erityisesti järjestelmässä kohdattuja virheisiin liittyviä lokitietoja, jotka auttavat vianselvityksessä.",
     "userFeedback": "Käyttäjäpalaute",
-    "userFeedbackText": "Järjestelmänvalvojat voivat tarkastella käyttäjien jättämää palautetta, mikä auttaa ymmärtämään käyttäjäkokemuksia ja käsittelemään mahdollisia ongelmia tai huolenaiheita."
+    "userFeedbackText": "Järjestelmänvalvojat voivat tarkastella käyttäjien jättämää palautetta, mikä auttaa ymmärtämään käyttäjäkokemuksia ja käsittelemään mahdollisia ongelmia tai huolenaiheita.",
+    "serverStatus": "Palvelimen tila",
+    "serverStatusText": "Tarkkaile järjestelmän ja tietokannan suorituskykymittareita reaaliajassa, mukaan lukien suorittimen käyttö, muistin käyttö, tietokantayhteydet, kyselytilastot ja palvelimen käyttöaika. \nKäytä näitä tietoja varmistaaksesi järjestelmän optimaalisen suorituskyvyn ja tunnista mahdolliset pullonkaulat."
   },
   "newUser": {
     "addNew": "Lisää uusi",
