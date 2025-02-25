@@ -17,10 +17,7 @@ const AdminGuide = () => {
         <li className='text-sm md:text-base'>
           <strong>{t('admin:guide.logs')}: </strong> {t('admin:guide.logsText')}
         </li>
-        <li className='text-sm md:text-base'>
-          <strong>{t('admin:guide.errorLogs')}: </strong>{' '}
-          {t('admin:guide.errorLogsText')}
-        </li>
+
         <li className='text-sm md:text-base'>
           <strong>{t('admin:guide.userFeedback')}: </strong>{' '}
           {t('admin:guide.userFeedbackText')}
