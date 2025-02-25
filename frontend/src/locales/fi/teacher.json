@@ -645,7 +645,8 @@
     "tooltips": {
       "attendanceStats": "{{attended}} Paikalla, {{notAttended}} Poissa, Yhteensä: {{total}}",
       "deleteLecture": "Poista tämä luento",
-      "finishLecture": "Lopeta luento ja merkitse loput alalistalla olevat opiskelijat poissaoleviksi"
+      "finishLecture": "Lopeta luento ja merkitse loput alalistalla olevat opiskelijat poissaoleviksi",
+      "settings": "Vaihtoehtoiset asetukset"
     },
     "cards": {
       "info": "Luennon tiedot",

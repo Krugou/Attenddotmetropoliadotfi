@@ -513,7 +513,8 @@
     "tooltips": {
       "attendanceStats": "{{attended}} Närvarande, {{notAttended}} Frånvarande, Totalt: {{total}}",
       "deleteLecture": "Radera denna föreläsning",
-      "finishLecture": "Avsluta föreläsningen och markera resterande studenter i nedre listan som frånvarande"
+      "finishLecture": "Avsluta föreläsningen och markera resterande studenter i nedre listan som frånvarande",
+      "settings": "Alternativa inställningar"
     },
     "cards": {
       "info": "Föreläsningsinformation",

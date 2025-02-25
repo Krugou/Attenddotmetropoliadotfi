@@ -620,7 +620,8 @@
     "tooltips": {
       "attendanceStats": "{{attended}} Attended, {{notAttended}} Not attended, Total: {{total}}",
       "deleteLecture": "Delete this lecture",
-      "finishLecture": "Finish Lecture and set rest of bottom list of students to not attended"
+      "finishLecture": "Finish Lecture and set rest of bottom list of students to not attended",
+      "settings": "Alternative settings"
     },
     "cards": {
       "info": "Lecture Information",
