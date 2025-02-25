@@ -384,5 +384,18 @@
   },
   "admin:logs": {
     "errorTitle": ""
+  },
+  "serverStatus": {
+    "usage": "Käyttö",
+    "system": "Järjestelmä",
+    "uptime": "Käyttöaika",
+    "loadAverage": "Kuorman keskiarvo",
+    "totalMemory": "Kokonaismuisti",
+    "freeMemory": "Vapaa muisti",
+    "database": "Tietokanta",
+    "connections": "Yhteydet",
+    "threads": "Kierteet",
+    "queries": "Kyselyt",
+    "slowQueries": "Hitaat kyselyt"
   }
 }

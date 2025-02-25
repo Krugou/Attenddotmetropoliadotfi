@@ -366,5 +366,18 @@
   },
   "admin:logs": {
     "errorTitle": ""
+  },
+  "serverStatus": {
+    "usage": "Användande",
+    "system": "System",
+    "uptime": "Drifttid",
+    "loadAverage": "Belastningsgenomsnitt",
+    "totalMemory": "Totalt minne",
+    "freeMemory": "Fritt minne",
+    "database": "Databas",
+    "connections": "Anslutningar",
+    "threads": "Trådar",
+    "queries": "Frågor",
+    "slowQueries": "Långsamma frågor"
   }
 }

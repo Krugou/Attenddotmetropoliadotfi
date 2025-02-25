@@ -384,5 +384,18 @@
       "delete": "Delete entry",
       "modify": "Modify entry"
     }
+  },
+  "serverStatus": {
+    "system": "System",
+    "uptime": "Uptime",
+    "usage": "Usage",
+    "loadAverage": "Load Average",
+    "totalMemory": "Total Memory",
+    "freeMemory": "Free memory",
+    "database": "Database",
+    "connections": "Connections",
+    "threads": "Threads",
+    "queries": "Queries",
+    "slowQueries": "Slow Queries"
   }
 }
