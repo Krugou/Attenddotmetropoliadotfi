@@ -5,6 +5,7 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ErrorIcon from '@mui/icons-material/Error';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import StorageIcon from '@mui/icons-material/Storage';
 import {useTranslation} from 'react-i18next';
 
 /**
@@ -40,6 +41,11 @@ const AdminDashboard = () => {
       path: '/admin/dashboard/user-feedback',
       label: 'User Feedback',
       icon: <FeedbackIcon />,
+    },
+    {
+      path: '/admin/dashboard/server-status',
+      label: 'Server Status',
+      icon: <StorageIcon />,
     },
   ];
 
