@@ -46,7 +46,15 @@
     "noWorkLogsAvailable": "Ei työpäiväkirjakursseja saatavilla",
     "confirmDelete": "Vahvista poisto",
     "studentGroup": "Opiskelijaryhmä",
-    "createFirstWorkLog": "Luo ensimmäinen työaika kurssi"
+    "createFirstWorkLog": "Luo ensimmäinen työaika kurssi",
+    "searchIn": "Etsiä",
+    "refresh": "Virkistää",
+    "allFields": "Kaikki kentät",
+    "createFirstCourse": "Luo ensimmäinen kurssi",
+    "noResultsFound": "Tuloksia ei löydy",
+    "tryDifferentSearch": "Kokeile erilaista hakua",
+    "clearSearch": "Tyhjennä",
+    "createFirstUser": "Luo ensimmäinen käyttäjä"
   },
   "mainView": {
     "teacherDashboard": "Opettajan hallintapaneeli",
@@ -134,7 +142,8 @@
       "currentTopicStudentCount": "Nykyisen aiheen opiskelijamäärä",
       "ratio": "Suhdeluku(%)",
       "state": "Tila",
-      "actions": "Toimenpiteet"
+      "actions": "Toimenpiteet",
+      "lectureId": "Luentotunnus"
     },
     "dialog": {
       "dialogText": "Tätä toimintoa ei voi peruuttaa."
@@ -402,5 +411,18 @@
     "threads": "Kierteet",
     "queries": "Kyselyt",
     "slowQueries": "Hitaat kyselyt"
+  },
+  "course": {
+    "name": "Nimi",
+    "code": "Koodi",
+    "studentGroup": "Opiskelijaryhmä",
+    "topics": "Aiheet"
+  },
+  "users": {
+    "lastName": "Sukunimi",
+    "firstName": "Etunimi",
+    "email": "Sähköposti",
+    "username": "Käyttäjänimi",
+    "role": "Rooli"
   }
 }

@@ -279,7 +279,9 @@
       "card": "Card"
     },
     "search": {
-      "placeholder": "Search by description, course name or code..."
+      "placeholder": "Search by description, course name or code...",
+      "noResults": "No results found",
+      "tryDifferentTerms": "No matches found for \"{{searchTerm}}\". Try different keywords or filters."
     },
     "sort": {
       "date": "Sort by Date",

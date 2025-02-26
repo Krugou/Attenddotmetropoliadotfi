@@ -92,7 +92,15 @@
     "topics": "Topics",
     "user": "User",
     "userCourseId": "User Course ID",
-    "createFirstWorkLog": "Create First Worklog course"
+    "createFirstWorkLog": "Create First Worklog course",
+    "searchIn": "Search in",
+    "refresh": "Refresh",
+    "allFields": "All fields",
+    "createFirstCourse": "Create First Course",
+    "noResultsFound": "No results found",
+    "tryDifferentSearch": "Try different search",
+    "clearSearch": "Clear search",
+    "createFirstUser": "Create first user"
   },
   "courses": {
     "delete": {
@@ -234,7 +242,8 @@
       "state": "State",
       "teacherEmail": "Teacher Email",
       "topicName": "Topic Name",
-      "totalAttendance": "Total Attendance"
+      "totalAttendance": "Total Attendance",
+      "lectureId": "Lecture Id"
     }
   },
   "lecturesByDay": {
@@ -402,5 +411,18 @@
     "threads": "Threads",
     "queries": "Queries",
     "slowQueries": "Slow Queries"
+  },
+  "course": {
+    "name": "Name",
+    "code": "Code",
+    "studentGroup": "Student Group",
+    "topics": "Topics"
+  },
+  "users": {
+    "lastName": "Last name",
+    "firstName": "First Name",
+    "email": "Email",
+    "username": "Username",
+    "role": "Role"
   }
 }

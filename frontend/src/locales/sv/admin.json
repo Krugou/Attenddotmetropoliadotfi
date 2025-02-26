@@ -46,7 +46,15 @@
     "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga",
     "confirmDelete": "Bekräfta radering",
     "studentGroup": "Studentgrupp",
-    "createFirstWorkLog": "Skapa första arbetsstilskursen"
+    "createFirstWorkLog": "Skapa första arbetsstilskursen",
+    "searchIn": "Söka in",
+    "refresh": "Uppdatera",
+    "allFields": "Alla fält",
+    "createFirstCourse": "Skapa första kursen",
+    "noResultsFound": "Inga resultat hittades",
+    "tryDifferentSearch": "Prova annorlunda sökning",
+    "clearSearch": "Tydlig sökning",
+    "createFirstUser": "Skapa första användare"
   },
   "mainView": {
     "teacherDashboard": "Lärarpanel",
@@ -134,7 +142,8 @@
       "currentTopicStudentCount": "Nuvarande ämnesstudentantal",
       "ratio": "Förhållande(%)",
       "state": "Tillstånd",
-      "actions": "Åtgärder"
+      "actions": "Åtgärder",
+      "lectureId": "Föreläsnings -ID"
     },
     "dialog": {
       "dialogText": "Denna åtgärd kan inte ångras."
@@ -384,5 +393,18 @@
     "threads": "Trådar",
     "queries": "Frågor",
     "slowQueries": "Långsamma frågor"
+  },
+  "course": {
+    "name": "Namn",
+    "code": "Koda",
+    "studentGroup": "Studentgrupp",
+    "topics": "Ämnen"
+  },
+  "users": {
+    "lastName": "Efternamn",
+    "firstName": "Förnamn",
+    "email": "E-post",
+    "username": "Användarnamn",
+    "role": "Roll"
   }
 }
