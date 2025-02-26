@@ -286,7 +286,8 @@
     "staffRole": "Henkilöstön rooli",
     "staffRolTitle": "Valitse henkilöstön rooli",
     "emailTaken": "Sähköposti varattu",
-    "studentNumberTaken": "Opiskelijan numero varattu"
+    "studentNumberTaken": "Opiskelijan numero varattu",
+    "selectUserTypeInstruction": "Valitse, haluatko luoda uuden opiskelijan tai työntekijän. \nHenkilöstön jäsenille voidaan antaa erilaiset roolit vaihtelevilla käyttöoikeuksilla, kun taas opiskelijat osoitetaan tietyille opiskelijaryhmille."
   },
   "adminProfile": {
     "noData": "Ei käyttäjätietoja saatavilla.",

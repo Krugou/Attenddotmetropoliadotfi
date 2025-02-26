@@ -275,7 +275,8 @@
     "staffRole": "Personalroll",
     "staffRolTitle": "Välj personalroll",
     "emailTaken": "E-post upptagen",
-    "studentNumberTaken": "Studentnummer upptaget"
+    "studentNumberTaken": "Studentnummer upptaget",
+    "selectUserTypeInstruction": "Välj om du vill skapa en ny student eller en personal. \nPersonal kan tilldelas olika roller med olika behörigheter, medan studenter kommer att tilldelas specifika studentgrupper."
   },
   "adminProfile": {
     "noData": "Inga användardata tillgängliga.",
