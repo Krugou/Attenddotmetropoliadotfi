@@ -37,7 +37,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         <button
           onClick={() => setIsOpen(!isOpen)}
           className='flex items-center gap-2 p-2 text-sm font-medium rounded hover:bg-metropolia-main-orange/10 focus:outline-none'
-          aria-expanded={isOpen} // Changed from String(isOpen) to boolean
+          aria-expanded={isOpen}
           aria-haspopup='true'>
           {CurrentFlag && (
             <CurrentFlag className='w-6 h-4' aria-hidden='true' />
