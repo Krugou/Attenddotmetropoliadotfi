@@ -575,18 +575,20 @@ const AdminLectures: React.FC = () => {
                     .map(({key, label, align}) => (
                       <th
                         key={key}
-                        className={`p-3 border-b border-gray-200 bg-gray-50 ${align} whitespace-nowrap font-heading`}>
+                        className={`p-3 border-b border-gray-200 ${align} whitespace-nowrap font-heading`}>
                         <div className='flex items-center justify-center gap-2'>
                           {label}
                           <button
                             onClick={() => sortLectures(key as keyof Lecture)}
-                            className='p-1.5 text-white rounded-xl bg-metropolia-secondary-orange hover:bg-metropolia-main-orange'>
+                            className='p-1.5 text-white rounded-xl bg-metropolia-secondary-orange hover:bg-metropolia-main-orange'
+                            title={`Sort by ${label}`}
+                            aria-label={`Sort by ${label}`}>
                             <SortIcon className='w-4 h-4' />
                           </button>
                         </div>
                       </th>
                     ))}
-                  <th className='p-3 text-center border-b border-gray-200 bg-gray-50 whitespace-nowrap font-heading'>
+                  <th className='p-3 text-center border-b border-gray-200 whitespace-nowrap font-heading'>
                     {t('admin:lectures.tableContent.actions')}
                   </th>
                 </tr>
