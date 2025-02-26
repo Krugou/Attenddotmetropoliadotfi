@@ -100,7 +100,15 @@
     "noResultsFound": "No results found",
     "tryDifferentSearch": "Try different search",
     "clearSearch": "Clear search",
-    "createFirstUser": "Create first user"
+    "createFirstUser": "Create first user",
+    "present": "Present",
+    "absent": "Absent",
+    "deleting": "Deleting...",
+    "retry": "Retry",
+    "course": "Course",
+    "date": "Date",
+    "error": "Error",
+    "actions": "Actions"
   },
   "courses": {
     "delete": {
@@ -201,14 +209,29 @@
       "sortByOldest": "Sort by Oldest"
     },
     "delete": {
-      "deleteAttendance": "Delete attendance"
+      "deleteAttendance": "Delete attendance",
+      "title": "Delete Attendance",
+      "deleteAttendanceConfirm": "Are you sure you want to delete this attendance? This action cannot be undone."
+    },
+    "detail": {
+      "title": "Lecture Attendance Details",
+      "totalAttendances": "{{count}} total attendances",
+      "noData": "No attendance data available",
+      "duplicate": "Duplicate",
+      "noAttendanceData": "No attendance data found for this lecture"
     },
     "dialog": {
       "dialogText": "This action cannot be undone."
     },
     "error": {
       "deleteAttendance": "Error deleting attendance",
-      "lectureOrCourseID": "Course ID or Lecture ID is not available"
+      "lectureOrCourseID": "Course ID or Lecture ID is not available",
+      "missingIds": "Course ID or Lecture ID is missing",
+      "fetchAttendances": "Failed to fetch attendance data",
+      "unknown": "An unknown error occurred"
+    },
+    "info": {
+      "noData": "No attendance data available for this lecture"
     },
     "noData": {
       "noLecturesFound": "No lectures found",
@@ -223,6 +246,9 @@
       "lowestAttendance": "Lowest Attended",
       "lowestNotAttended": "Lowest Not Attended",
       "totalLectures": "Total Lectures"
+    },
+    "success": {
+      "deleteAttendance": "Attendance deleted successfully"
     },
     "table": {
       "headers": {
@@ -266,7 +292,15 @@
     "showOlder": "Show older",
     "showOlderErrors": "Show older Error Logs",
     "showOlderLogs": "Show older Logs",
-    "title": "Admin Logs"
+    "title": "Admin Logs",
+    "errorLogs": "Error Logs",
+    "systemLogs": "System Logs",
+    "showing": "Showing {{count}} of {{limit}} lines",
+    "refresh": "Refresh",
+    "showMore": "Show More",
+    "loadMore": "Load More Logs",
+    "lineNumber": "Line {{number}}",
+    "noLogsAvailable": "No logs available"
   },
   "mainView": {
     "counselorDashboard": "Counselor Dashboard",

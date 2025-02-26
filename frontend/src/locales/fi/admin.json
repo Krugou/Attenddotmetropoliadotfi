@@ -54,7 +54,15 @@
     "noResultsFound": "Tuloksia ei löydy",
     "tryDifferentSearch": "Kokeile erilaista hakua",
     "clearSearch": "Tyhjennä",
-    "createFirstUser": "Luo ensimmäinen käyttäjä"
+    "createFirstUser": "Luo ensimmäinen käyttäjä",
+    "error": "Virhe",
+    "retry": "Tehdä uudelleen",
+    "course": "Kurssi",
+    "date": "Päivämäärä",
+    "actions": "Toimet",
+    "present": "Esittää",
+    "absent": "Poissa",
+    "deleting": "Poistetaan ..."
   },
   "mainView": {
     "teacherDashboard": "Opettajan hallintapaneeli",
@@ -109,7 +117,10 @@
   "lectures": {
     "error": {
       "lectureOrCourseID": "Kurssin ID tai Luennon ID ei ole saatavilla",
-      "deleteAttendance": "Virhe poistaessa läsnäoloa"
+      "deleteAttendance": "Virhe poistaessa läsnäoloa",
+      "missingIds": "Kurssin tunnus tai luentotunnus puuttuu",
+      "fetchAttendances": "Käyttäytymistietojen hakeminen epäonnistui",
+      "unknown": "Tapahtui tuntematon virhe"
     },
     "alternative": {
       "showAllLectures": "Näytä kaikki luennot",
@@ -155,7 +166,9 @@
       "tryDifferentSearch": "Kokeile muuttaa hakukriteerejä"
     },
     "delete": {
-      "deleteAttendance": "Poista läsnäolo"
+      "deleteAttendance": "Poista läsnäolo",
+      "title": "Poistaa läsnäolo",
+      "deleteAttendanceConfirm": "Haluatko varmasti poistaa tämän osallistumisen? \nTätä toimintaa ei voida kumota."
     },
     "table": {
       "headers": {
@@ -173,6 +186,19 @@
         "actions": "Toiminnot",
         "technicalDetails": "Tekniset tiedot"
       }
+    },
+    "info": {
+      "noData": "Tämän luennon läsnäolotiedot eivät ole käytettävissä"
+    },
+    "success": {
+      "deleteAttendance": "Läsnäolo poistettiin onnistuneesti"
+    },
+    "detail": {
+      "title": "Luennon läsnäolotiedot",
+      "totalAttendances": "{{kreivi}} kokonaiskäytöt",
+      "noData": "Ei osallistumistietoja",
+      "duplicate": "Kopioida",
+      "noAttendanceData": "Tämän luennon läsnäolotiedot eivät löydy"
     }
   },
   "adminStats": {

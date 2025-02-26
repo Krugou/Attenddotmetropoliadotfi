@@ -54,7 +54,15 @@
     "noResultsFound": "Inga resultat hittades",
     "tryDifferentSearch": "Prova annorlunda sökning",
     "clearSearch": "Tydlig sökning",
-    "createFirstUser": "Skapa första användare"
+    "createFirstUser": "Skapa första användare",
+    "error": "Fel",
+    "retry": "Försöka igen",
+    "course": "Kurs",
+    "date": "Datum",
+    "actions": "Handlingar",
+    "present": "Presentera",
+    "absent": "Frånvarande",
+    "deleting": "Radera ..."
   },
   "mainView": {
     "teacherDashboard": "Lärarpanel",
@@ -109,7 +117,10 @@
   "lectures": {
     "error": {
       "lectureOrCourseID": "Kurs-ID eller Föreläsnings-ID är inte tillgängligt",
-      "deleteAttendance": "Fel vid radering av närvaro"
+      "deleteAttendance": "Fel vid radering av närvaro",
+      "missingIds": "Kurs -ID eller föreläsnings -ID saknas",
+      "fetchAttendances": "Det gick inte att hämta närvarouppgifter",
+      "unknown": "Ett okänt fel inträffade"
     },
     "alternative": {
       "showAllLectures": "Visa alla föreläsningar",
@@ -155,13 +166,28 @@
       "tryDifferentSearch": "Prova att justera dina sökkriterier"
     },
     "delete": {
-      "deleteAttendance": "Radera närvaro"
+      "deleteAttendance": "Radera närvaro",
+      "title": "Radera närvaro",
+      "deleteAttendanceConfirm": "Är du säker på att du vill ta bort detta närvaro? \nDenna åtgärd kan inte ångras."
     },
     "table": {
       "headers": {
         "timeOfDay": "fm/em",
         "date": "Datum"
       }
+    },
+    "info": {
+      "noData": "Inga närvarouppgifter tillgängliga för denna föreläsning"
+    },
+    "success": {
+      "deleteAttendance": "Närvaron raderades framgångsrikt"
+    },
+    "detail": {
+      "title": "Föreläsnings närvaroinformation",
+      "totalAttendances": "{{greve}} Totala deltagare",
+      "noData": "Inga närvarouppgifter tillgängliga",
+      "duplicate": "Duplicera",
+      "noAttendanceData": "Inga närvarouppgifter hittades för denna föreläsning"
     }
   },
   "adminStats": {
