@@ -262,11 +262,6 @@ const AdminLectures: React.FC = () => {
 
   const totalPages = Math.ceil(filteredLectures.length / ITEMS_PER_PAGE);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to first page on search
-  };
-
   const handleDialogOpen = (lectureid: string, action: 'close' | 'delete') => {
     setSelectedLecture(lectureid);
     setAction(action);
@@ -616,6 +611,8 @@ const AdminLectures: React.FC = () => {
                       <div className='flex gap-1'>
                         <button
                           color='primary'
+                          title={t('admin:common.details')}
+                          aria-label={t('admin:common.details')}
                           onClick={() =>
                             handleRowClick(
                               lecture.courseid,
