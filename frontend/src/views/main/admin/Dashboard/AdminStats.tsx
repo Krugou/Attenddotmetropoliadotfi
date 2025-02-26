@@ -390,7 +390,7 @@ const AdminStats = () => {
         )}
         <ResponsiveContainer {...chartConfig}>
           <BarChart
-            data={courseStatistics}
+            data={courseStatistics ?? []}
             margin={chartConfig.margin} // Explicitly set margin on BarChart
           >
             <CartesianGrid strokeDasharray='3 3' stroke='#e0e0e0' />
@@ -440,7 +440,7 @@ const AdminStats = () => {
           </p>
         )}
         <ResponsiveContainer {...chartConfig}>
-          <BarChart data={worklogStatistics}>
+          <BarChart data={worklogStatistics ?? []}>
             <CartesianGrid strokeDasharray='3 3' stroke='#e0e0e0' />
             <XAxis
               dataKey='name'
