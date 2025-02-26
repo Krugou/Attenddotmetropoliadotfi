@@ -296,7 +296,7 @@
         "description": "Näytä kaikki työpäiväkirjakurssisi"
       },
       "studentActivity": {
-        "title": "Opiskelijatoiminta",
+        "title": "Opiskelija aktiivisuus",
         "description": "Näytä opiskelijoiden alhaiset toiminnan yksityiskohdat"
       }
     }

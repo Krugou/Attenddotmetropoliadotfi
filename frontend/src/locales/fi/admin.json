@@ -60,7 +60,7 @@
     "course": "Kurssi",
     "date": "Päivämäärä",
     "actions": "Toimet",
-    "present": "Esittää",
+    "present": "Paikalla",
     "absent": "Poissa",
     "deleting": "Poistetaan ..."
   },
@@ -396,10 +396,10 @@
     "clockOut": "Kirjaudu ulos",
     "optionalDescription": "Valinnainen kuvaus",
     "messages": {
-      "clockedIn": "Kirjauduttu sisään klo {time}, syy: {description}",
+      "clockedIn": "Kirjauduttu sisään klo {{time}}, syy: {{description}}",
       "clockedOut": "Kirjauduttu ulos klo {time}",
-      "clockedOutWithReason": "Kirjauduttu ulos klo {time}, syy: {description}",
-      "editClicked": "Muokkaus klikattu klo {time}",
+      "clockedOutWithReason": "Kirjauduttu ulos klo {{time}}, syy: {{description}}",
+      "editClicked": "Muokkaus klikattu klo {{time}}",
       "failedToLog": "Työajan kirjaaminen epäonnistui",
       "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
       "failedToFetch": "Kurssien haku epäonnistui"

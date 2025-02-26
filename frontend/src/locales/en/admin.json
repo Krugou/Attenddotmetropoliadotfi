@@ -402,10 +402,10 @@
       "title": "Work Log Entry"
     },
     "messages": {
-      "clockedIn": "Clocked in at {time} with reason: {description}",
-      "clockedOut": "Clocked out at {time}",
-      "clockedOutWithReason": "Clocked out at {time} with reason: {description}",
-      "editClicked": "Edit clicked at {time}",
+      "clockedIn": "Clocked in at {{time}} with reason: {{description}}",
+      "clockedOut": "Clocked out at {{time}}",
+      "clockedOutWithReason": "Clocked out at {{time}} with reason: {{description}}",
+      "editClicked": "Edit clicked at {{time}}",
       "failedToCheck": "Failed to check active work entries",
       "failedToFetch": "Failed to fetch courses",
       "failedToLog": "Failed to log work entry"
