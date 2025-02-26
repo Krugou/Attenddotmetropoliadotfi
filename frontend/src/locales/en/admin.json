@@ -322,7 +322,9 @@
     "userRegistration": "User Registration",
     "userRegistrationDesc": "Register a new user",
     "workLog": "Worklog course management",
-    "workLogDesc": "View and manage all worklogs"
+    "workLogDesc": "View and manage all worklogs",
+    "otherDashboards": "Other Dashboards",
+    "otherDashboardsDesc": "Access additional system dashboards and monitoring tools"
   },
   "newUser": {
     "addNew": "Add New",
