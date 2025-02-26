@@ -215,7 +215,7 @@ const AdminCourses: React.FC = () => {
           <GeneralLinkButton
             text='Create New Course'
             path='/teacher/courses/create'
-            buttonClassName='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
+            className='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
           />
           <div className='flex justify-end mb-4'>
             <button
