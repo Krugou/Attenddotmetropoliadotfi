@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 interface GeneralLinkButtonProps {
   path: string;
   text: string;
-  buttonClassName?: string;
+  className?: string;
 }
 /**
  * A button component that navigates to a specified path when clicked.
@@ -14,13 +14,13 @@ interface GeneralLinkButtonProps {
 const GeneralLinkButton: React.FC<GeneralLinkButtonProps> = ({
   path,
   text,
-  buttonClassName,
+  className,
 }) => {
   const navigate = useNavigate();
   return (
     <button
       className={`px-2 py-1 font-heading text-white transition rounded-sm bg-metropolia-main-orange h-fit hover:hover:bg-metropolia-secondary-orange sm:py-2 sm:px-4 focus:outline-hidden focus:shadow-outline ${
-        buttonClassName || ''
+        className || ''
       }`}
       onClick={() => navigate(path)}>
       {text}
