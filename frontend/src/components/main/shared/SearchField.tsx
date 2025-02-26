@@ -1,15 +1,15 @@
 import React from 'react';
-
+import {JSX} from 'react';
 interface SearchOption {
   value: string;
   label: string;
 }
 
-interface SearchFieldProps {
+interface SearchFieldProps<T extends string = string> {
   searchTerm: string;
   onSearchChange: (value: string) => void;
-  searchField: string;
-  onSearchFieldChange: (value: string) => void;
+  searchField: T;
+  onSearchFieldChange: (value: T) => void;
   onClearSearch: () => void;
   searchFields: SearchOption[];
   placeholder?: string;
@@ -19,7 +19,7 @@ interface SearchFieldProps {
   className?: string;
 }
 
-const SearchField: React.FC<SearchFieldProps> = ({
+function SearchField<T extends string = string>({
   searchTerm,
   onSearchChange,
   searchField,
@@ -31,7 +31,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
   searchInLabel = 'Search in',
   resultsCount,
   className = '',
-}) => {
+}: SearchFieldProps<T>): JSX.Element {
   return (
     <div className={`flex flex-col lg:flex-row gap-4 items-start ${className}`}>
       <div className='relative lg:w-1/3 w-full'>
@@ -90,7 +90,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
         <select
           title={searchInLabel}
           value={searchField}
-          onChange={(e) => onSearchFieldChange(e.target.value)}
+          onChange={(e) => onSearchFieldChange(e.target.value as T)}
           className='w-full rounded-md border-gray-300 shadow-sm focus:border-metropolia-trend-light-blue focus:ring focus:ring-metropolia-trend-light-blue focus:ring-opacity-50 py-2 px-3'>
           {searchFields.map((field) => (
             <option key={field.value} value={field.value}>
@@ -108,6 +108,6 @@ const SearchField: React.FC<SearchFieldProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default SearchField;
