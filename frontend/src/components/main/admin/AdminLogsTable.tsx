@@ -74,16 +74,16 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
       <div className='overflow-hidden'>
         <div className='mb-4 flex justify-between items-center'>
           <h2 className='text-xl font-heading font-semibold'>
-            {logType === 'error' ? 'Error Logs' : 'System Logs'}
+            {logType === 'error' ? t('logs.errorLogs') : t('logs.systemLogs')}
             <span className='text-sm font-normal ml-2'>
-              (Showing {logs.length} of {lineLimit} lines)
+              ({t('logs.showing', {count: logs.length, limit: lineLimit})})
             </span>
           </h2>
           <div className='space-x-2'>
             <button
               onClick={handleReset}
               className='px-4 py-2 bg-metropolia-main-grey text-white rounded hover:bg-metropolia-main-grey-dark transition-colors'>
-              Refresh
+              {t('logs.refresh')}
             </button>
             <button
               onClick={handleShowMore}
@@ -93,7 +93,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-metropolia-main-orange text-white hover:bg-metropolia-main-orange-dark'
               }`}>
-              Show More
+              {t('logs.showMore')}
             </button>
           </div>
         </div>
@@ -130,7 +130,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
             <button
               onClick={handleShowMore}
               className='px-4 py-2 bg-metropolia-main-orange text-white rounded hover:bg-metropolia-main-orange-dark transition-colors'>
-              Load More Logs
+              {t('logs.loadMore')}
             </button>
           </div>
         )}
@@ -142,7 +142,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
       <div className='overflow-hidden'>
         <div className='mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2'>
           <h2 className='text-lg font-heading font-semibold'>
-            {logType === 'error' ? 'Error Logs' : 'System Logs'}
+            {logType === 'error' ? t('logs.errorLogs') : t('logs.systemLogs')}
             <span className='text-xs font-normal ml-2'>
               ({logs.length}/{lineLimit})
             </span>
@@ -151,7 +151,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
             <button
               onClick={handleReset}
               className='flex-1 sm:flex-none px-3 py-1 bg-metropolia-main-grey text-white text-sm rounded hover:bg-metropolia-main-grey-dark'>
-              Refresh
+              {t('logs.refresh')}
             </button>
             <button
               onClick={handleShowMore}
@@ -161,7 +161,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
                   ? 'bg-gray-300 text-gray-500'
                   : 'bg-metropolia-main-orange text-white hover:bg-metropolia-main-orange-dark'
               }`}>
-              Show More
+              {t('logs.showMore')}
             </button>
           </div>
         </div>
@@ -175,7 +175,7 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
               }`}>
               <div className='flex justify-between items-center mb-1'>
                 <span className='text-xs font-medium bg-gray-200 px-2 py-1 rounded'>
-                  Line {log.lineNumber}
+                  {t('logs.lineNumber', {number: log.lineNumber})}
                 </span>
               </div>
               <div className='text-sm font-mono break-words'>
@@ -190,14 +190,14 @@ const AdminLogsTable: React.FC<AdminLogsTableProps> = ({
             <button
               onClick={handleShowMore}
               className='w-full px-4 py-2 bg-metropolia-main-orange text-white rounded hover:bg-metropolia-main-orange-dark'>
-              Load More Logs
+              {t('logs.loadMore')}
             </button>
           </div>
         )}
 
         {logs.length === 0 && (
           <div className='text-center py-8 text-gray-500'>
-            No logs available
+            {t('logs.noLogsAvailable')}
           </div>
         )}
       </div>
