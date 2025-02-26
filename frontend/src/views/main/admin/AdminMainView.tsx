@@ -3,8 +3,6 @@ import Card from '../../../components/main/cards/Card';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
 import {
-  School,
-  SupervisorAccount,
   People,
   PersonAdd,
   Event,
@@ -37,12 +35,7 @@ const AdminMainView: React.FC = () => {
           description={t('admin:mainView.otherDashboardsDesc')}
           icon={Dashboard}
         />
-        <Card
-          path='/admin/courses/'
-          title={t('admin:mainView.courseManagement')}
-          description={t('admin:mainView.courseManagementDesc')}
-          icon={Event}
-        />
+
         <Card
           path='/admin/users/'
           title={t('admin:mainView.userManagement')}
@@ -62,6 +55,18 @@ const AdminMainView: React.FC = () => {
           icon={Event}
         />
         <Card
+          path='/admin/courses/'
+          title={t('admin:mainView.courseManagement')}
+          description={t('admin:mainView.courseManagementDesc')}
+          icon={Event}
+        />
+        <Card
+          path='/admin/worklog/'
+          title={t('admin:mainView.workLog')}
+          description={t('admin:mainView.workLogDesc')}
+          icon={Event}
+        />
+        <Card
           path='/admin/settings/'
           title={t('admin:mainView.serverConfiguration')}
           description={t('admin:mainView.serverConfigurationDesc')}
@@ -72,12 +77,6 @@ const AdminMainView: React.FC = () => {
           title={t('admin:mainView.serverDashboard')}
           description={t('admin:mainView.serverDashboardDesc')}
           icon={Dashboard}
-        />
-        <Card
-          path='/admin/worklog/'
-          title={t('admin:mainView.workLog')}
-          description={t('admin:mainView.workLogDesc')}
-          icon={Event}
         />
 
         <FeedbackCard role='admin' />
