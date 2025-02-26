@@ -238,7 +238,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               type='button'
               className='px-2 py-1 text-sm text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
-              {t('common:common.cancel')}
+              {t('common:cancel')}
             </button>
             <button
               type='button'
