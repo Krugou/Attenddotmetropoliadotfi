@@ -335,7 +335,8 @@
     "staffRole": "Staff Role",
     "studentNumberTaken": "Student number taken",
     "userDetails": "User Details",
-    "userType": "User Type"
+    "userType": "User Type",
+    "selectUserTypeInstruction": "Please select whether you want to create a new student or staff member. Staff members can be assigned different roles with varying permissions, while students will be assigned to specific student groups."
   },
   "settings": {
     "attendanceThreshold": "Attendance Threshold",

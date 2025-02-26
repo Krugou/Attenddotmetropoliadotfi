@@ -84,7 +84,9 @@
     "workLog": "Hantering av arbetsloggsböcker",
     "workLogDesc": "Visa och hantera arbetsloggar",
     "studentDashboard": "Studentpanel",
-    "studentDashboardDesc": "Visa och hantera studentdata"
+    "studentDashboardDesc": "Visa och hantera studentdata",
+    "otherDashboards": "Andra instrumentpaneler",
+    "otherDashboardsDesc": "Åtkomst till ytterligare systempaneler och övervakningsverktyg"
   },
   "courses": {
     "modify": {

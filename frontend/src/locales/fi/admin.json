@@ -84,7 +84,9 @@
     "workLog": "Työpäiväkirjakurssien hallinta",
     "workLogDesc": "Näytä ja hallitse työpäiväkirjoja",
     "studentDashboard": " Opiskelijan hallintapaneeli",
-    "studentDashboardDesc": "Hallinnoi opiskelija moduuleja"
+    "studentDashboardDesc": "Hallinnoi opiskelija moduuleja",
+    "otherDashboards": "Muut kojetaulut",
+    "otherDashboardsDesc": "Pääsy lisäjärjestelmän kojetauluihin ja valvontatyökaluihin"
   },
   "courses": {
     "modify": {
