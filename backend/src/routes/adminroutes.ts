@@ -862,24 +862,34 @@ router.get(
       // Get database information
       const [dbStatus] = await pool
         .promise()
-        .query('SHOW GLOBAL STATUS WHERE Variable_name IN (?, ?, ?, ?, ?)', [
-          'Uptime',
-          'Threads_connected',
-          'Threads_running',
-          'Questions',
-          'Slow_queries',
-        ]);
+        .query<RowDataPacket[]>(
+          'SHOW GLOBAL STATUS WHERE Variable_name IN (?, ?, ?, ?, ?)',
+          [
+            'Uptime',
+            'Threads_connected',
+            'Threads_running',
+            'Questions',
+            'Slow_queries',
+          ],
+        );
 
       const dbStatusMap = new Map(
-        dbStatus.map((row) => [row.Variable_name, row.Value]),
+        (dbStatus as RowDataPacket[]).map((row) => [
+          row.Variable_name,
+          row.Value,
+        ]),
       );
 
       systemInfo.database = {
-        uptime: parseInt(dbStatusMap.get('Uptime')),
-        connectionCount: parseInt(dbStatusMap.get('Threads_connected')),
-        threadCount: parseInt(dbStatusMap.get('Threads_running')),
-        queryCount: parseInt(dbStatusMap.get('Questions')),
-        slowQueries: parseInt(dbStatusMap.get('Slow_queries')),
+        uptime: parseInt(String(dbStatusMap.get('Uptime')) || '0'),
+        connectionCount: parseInt(
+          String(dbStatusMap.get('Threads_connected')) || '0',
+        ),
+        threadCount: parseInt(
+          String(dbStatusMap.get('Threads_running')) || '0',
+        ),
+        queryCount: parseInt(String(dbStatusMap.get('Questions')) || '0'),
+        slowQueries: parseInt(String(dbStatusMap.get('Slow_queries')) || '0'),
       };
 
       res.json(systemInfo);
