@@ -124,7 +124,7 @@ const Header = () => {
     <header
       className={`flex items-center border-2  border-b-metropolia-main-orange ${
         user ? 'sm:flex-row flex-col' : ''
-      } sm:p-4 p-0  justify-between`}>
+      } sm:p-4 p-0 justify-between`}>
       {alert && (
         <ErrorAlert
           backToLogin={true}
@@ -158,15 +158,14 @@ const Header = () => {
           />
         </div>
       )}
-      <div className='flex justify-center items-center '>
-        {!user && (
+      {!user && (
+        <div className='flex justify-center items-center'>
           <LanguageSwitcher
             currentLanguage={currentLanguage}
             onLanguageChange={handleLanguageChange}
             dropdown={true}
           />
-        )}
-        {!user && (
+
           <div className='relative flex items-center justify-center w-full gap-10 p-2 m-2 sm:w-fit'>
             {location.pathname.includes('/help') ? (
               <NavigationButton
@@ -189,8 +188,8 @@ const Header = () => {
               isFixed={false}
             />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   );
 };
