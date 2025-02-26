@@ -197,7 +197,7 @@ const AdminUsers: React.FC = () => {
           <GeneralLinkButton
             text='Create New User'
             path='/admin/newuser/'
-            buttonClassName='mb-8 transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
+            className='mb-8 transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
           />
           <div className='flex justify-end mb-4'>
             <button
