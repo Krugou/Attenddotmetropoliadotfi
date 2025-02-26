@@ -15,7 +15,7 @@ const AdminOtherDashboards: React.FC = () => {
   const {t} = useTranslation(['admin']);
   return (
     <>
-      <MainViewTitle role={'Admin'} subtitle={'Other Dashboards'} />
+      <MainViewTitle role={'Admin'} />
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
           path='/teacher/mainview'
