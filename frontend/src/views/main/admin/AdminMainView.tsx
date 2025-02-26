@@ -32,16 +32,10 @@ const AdminMainView: React.FC = () => {
 
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
         <Card
-          path='/teacher/mainview'
-          title={t('admin:mainView.teacherDashboard')}
-          description={t('admin:mainView.teacherDashboardDesc')}
-          icon={School}
-        />
-        <Card
-          path='/counselor/mainview'
-          title={t('admin:mainView.counselorDashboard')}
-          description={t('admin:mainView.counselorDashboardDesc')}
-          icon={SupervisorAccount}
+          path='/admin/other-dashboards/'
+          title={t('admin:mainView.otherDashboards')}
+          description={t('admin:mainView.otherDashboardsDesc')}
+          icon={Dashboard}
         />
         <Card
           path='/admin/courses/'
@@ -85,14 +79,7 @@ const AdminMainView: React.FC = () => {
           description={t('admin:mainView.workLogDesc')}
           icon={Event}
         />
-        {import.meta.env.MODE === 'development' && (
-          <Card
-            path='/student/'
-            title={t('admin:mainView.studentDashboard')}
-            description={t('admin:mainView.studentDashboardDesc')}
-            icon={People}
-          />
-        )}
+
         <FeedbackCard role='admin' />
       </div>
       <WelcomeModal storageKey='welcomeModal.v1' />
