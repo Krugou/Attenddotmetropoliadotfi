@@ -188,54 +188,68 @@ const AdminNewUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
+      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit shadow-md'>
         {t('admin:newUser.addNew')}
         {userType === 'student' ? 'Student' : 'Staff'} {t('admin:common.user')}
       </h1>
-      <div className='relative bg-white rounded-lg w-fit'>
+      <div className='relative bg-white rounded-lg w-fit shadow-lg'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4'>
             <div className='flex flex-col'>
-              <h2 className='mb-5 text-xl text-center font-heading'>
+              <h2 className='mb-5 text-xl text-center font-heading text-metropolia-main-grey'>
                 {t('admin:newUser.userDetails')}
               </h2>
 
-              <div className='flex flex-col items-start justify-center mt-4'>
-                <label
-                  htmlFor='userType'
-                  className='mb-1 mr-2 text-gray-700 font-heading'>
+              <div className='flex flex-col items-start justify-center mt-4 mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100'>
+                <h3 className='mb-2 text-lg font-heading text-metropolia-main-grey'>
                   {t('admin:newUser.userType')}
-                </label>
-                <select
-                  id='userType'
-                  value={userType}
-                  onChange={(e) =>
-                    setUserType(e.target.value as 'staff' | 'student')
-                  }
-                  className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'>
-                  <option value='student'>
+                </h3>
+                <p className='mb-4 text-gray-600 text-sm'>
+                  {t(
+                    'admin:newUser.selectUserTypeInstruction',
+                    'Please select whether you want to create a new student or staff member. ' +
+                      'Staff members can be assigned different roles with varying permissions, ' +
+                      'while students will be assigned to specific student groups.',
+                  )}
+                </p>
+                <div className='w-full flex gap-4 mt-2'>
+                  <button
+                    type='button'
+                    onClick={() => setUserType('student')}
+                    className={`flex-1 py-3 px-4 rounded-lg transition-all text-center font-medium ${
+                      userType === 'student'
+                        ? 'bg-metropolia-main-orange text-white shadow-md'
+                        : 'bg-gray-100 text-metropolia-main-grey hover:bg-gray-200'
+                    }`}>
                     {t('admin:newUser.optionStudent')}
-                  </option>
-                  <option value='staff'>
+                  </button>
+                  <button
+                    type='button'
+                    onClick={() => setUserType('staff')}
+                    className={`flex-1 py-3 px-4 rounded-lg transition-all text-center font-medium ${
+                      userType === 'staff'
+                        ? 'bg-metropolia-main-orange text-white shadow-md'
+                        : 'bg-gray-100 text-metropolia-main-grey hover:bg-gray-200'
+                    }`}>
                     {t('admin:newUser.optionTeacher')}
-                  </option>
-                </select>
+                  </button>
+                </div>
               </div>
+
               {userType === 'staff' && (
                 <div className='flex flex-col items-start justify-center mt-4'>
                   <label
                     htmlFor='staffRole'
-                    className='mb-1 mr-2 text-gray-700 font-heading'>
+                    className='mb-1 mr-2 text-metropolia-main-grey font-heading'>
                     {t('admin:newUser.staffRole')}
                   </label>
                   <select
                     title={t('admin:newUser.staffRolTitle')}
-                    className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl focus:outline-hidden focus:shadow-outline'
+                    className='w-full px-4 py-2.5 mb-3 text-metropolia-main-grey border border-gray-300 shadow-sm appearance-none cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange focus:border-transparent'
                     id='role'
                     value={roleid}
                     onChange={(e) => {
                       setRoleId(parseInt(e.target.value));
-
                       setStaff(1);
                     }}>
                     <option value='' disabled>
@@ -256,8 +270,7 @@ const AdminNewUser: React.FC = () => {
                 onChange={setEmail}
               />
               {isEmailTaken && (
-                <h2 className='text-red-500'>
-                  {' '}
+                <h2 className='text-metropolia-support-red mb-2'>
                   {t('admin:newUser.emailTaken')}
                 </h2>
               )}
@@ -282,7 +295,7 @@ const AdminNewUser: React.FC = () => {
                     onChange={setStudentNumber}
                   />
                   {isStudentNumberTaken && (
-                    <h2 className='text-red-500'>
+                    <h2 className='text-metropolia-support-red mb-2'>
                       {t('admin:newUser.studentNumberTaken')}
                     </h2>
                   )}
