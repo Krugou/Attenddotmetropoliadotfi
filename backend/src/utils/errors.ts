@@ -1,3 +1,5 @@
+import logger from './logger';
+
 /**
  * Class representing an HTTP error.
  */
@@ -25,6 +27,7 @@ class HttpError extends Error {
  */
 const httpError = (message: string, status: number) => {
   console.log('error used in httpError');
+  logger.error(message);
   const err = new HttpError(message, status);
   return err;
 };
