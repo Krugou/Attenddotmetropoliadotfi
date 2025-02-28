@@ -23,6 +23,7 @@ import userRoutes from './routes/userroutes.js';
 import workLogRoutes from './routes/worklogroutes.js';
 import activityRoutes from './routes/activityroutes.js';
 import feedbackRoutes from './routes/feedbackroutes.js';
+import microsoftAuthRoutes from './routes/microsoftAuthRoutes.js';
 import SocketHandlers from './sockets/socketHandlers.js';
 import logger from './utils/logger.js';
 /**
@@ -121,6 +122,13 @@ app.use(passport.initialize());
  * This sets up the routes related to user management under the /users path.
  */
 app.use('/users', userRoutes);
+
+/**
+ * Use Microsoft authentication routes for /auth/microsoft path
+ * This sets up the routes related to Microsoft Entra ID authentication under the /auth/microsoft path.
+ */
+app.use('/auth/microsoft', microsoftAuthRoutes);
+
 /**
  * Simple GET route for debugging
  */
