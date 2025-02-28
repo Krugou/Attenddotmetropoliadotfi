@@ -140,7 +140,9 @@
     "vpnNotConnected": "Du är för närvarande inte ansluten till Metropolias interna nätverk. Klicka här för att få VPN-instruktioner",
     "version": "Version",
     "connection": "Serveranslutning",
-    "reloadNeeded": "Vänligen uppdatera sidan tills denna text försvinner"
+    "reloadNeeded": "Vänligen uppdatera sidan tills denna text försvinner",
+    "vpnConnected": "Ansluten till Metropolia Internt Network",
+    "vpnConnection": "Förbindelse"
   },
   "successAlert": {
     "title": "Framgång"

@@ -137,7 +137,9 @@
     "vpnNotConnected": "You are presently not linked to the internal network of Metropolia. Click here to access the VPN instructions",
     "version": "Version",
     "connection": "Server Connection",
-    "reloadNeeded": "Please reload the page until this text disappears"
+    "reloadNeeded": "Please reload the page until this text disappears",
+    "vpnConnected": "Connected to Metropolia internal network",
+    "vpnConnection": "Connection"
   },
   "successAlert": {
     "title": "Success"

@@ -135,7 +135,9 @@
     "vpnNotConnected": "Et ole tällä hetkellä kytketty Metropolian sisäiseen verkkoon. Klikkaa tästä saadaksesi VPN-ohjeet",
     "version": "Versio",
     "connection": "Palvelinyhteys",
-    "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa"
+    "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa",
+    "vpnConnected": "Kytketty Metropolian sisäiseen verkkoon",
+    "vpnConnection": "Yhteys"
   },
   "successAlert": {
     "title": "Onnistui"
