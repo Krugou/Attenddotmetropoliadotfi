@@ -1,8 +1,13 @@
-import express, {Request, Response, Router} from 'express';
+import express from 'express';
 import jwt from 'jsonwebtoken';
 import usermodel from '../models/usermodel.js';
 import {User, UserData} from '../types.js';
 import logger from '../utils/logger.js';
+import {authenticate} from '../utils/auth.js';
+
+const Router = express.Router;
+type Request = express.Request;
+type Response = express.Response;
 
 /**
  * Router for Microsoft Entra ID authentication routes.
@@ -18,7 +23,7 @@ router.get('/login', (req: Request, res: Response) => {
     // This would be configured with actual Entra ID client details in production
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
-    const scope = encodeURIComponent('openid profile email');
+    const scope = encodeURIComponent('openid profile email User.Read');
     const responseType = 'code';
     const tenantId = process.env.MS_TENANT_ID; // Metropolia's tenant ID
 
@@ -111,44 +116,56 @@ router.post('/callback', async (req: Request, res: Response) => {
     const name = payload.name || '';
     const [firstName = '', lastName = ''] = name.split(' ');
 
-    // Check if the domain is metropolia.fi to determine if staff or student
-    // Users with @metropolia.fi are staff, @metropolia.student.fi are students
-    const isStaff = email.endsWith('@metropolia.fi');
+    // Check if user is staff based on profile information
+    // This uses the 'extension_Role' claim from Azure AD
+    const isStaff =
+      payload.extension_Role === 'Staff' ||
+      (payload.groups && payload.groups.includes('Staff'));
+
     const username = email.split('@')[0];
 
-    // Default to teacher role for staff, student role for students
-    const roleid = isStaff ? 3 : 5; // 3=teacher, 5=student
+    // Handle staff users
+    if (isStaff) {
+      // Try to find the user in our database
+      let userFromDB = await usermodel.getAllUserInfo(email);
 
-    // Try to find the user in our database
-    let userFromDB = await usermodel.getAllUserInfo(email);
+      // If staff user doesn't exist, create a new user
+      if (userFromDB === null) {
+        const userData: UserData = {
+          username,
+          staff: 1,
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          roleid: 3, // teacher role
+        };
 
-    // If user doesn't exist, create a new user
-    if (userFromDB === null) {
-      const userData: UserData = {
-        username,
-        staff: isStaff ? 1 : 0,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        roleid,
-      };
+        // Add staff user to database
+        userFromDB = await usermodel.addStaffUser(userData);
 
-      // Add user to database
-      userFromDB = await usermodel.addStaffUser(userData);
+        if (!userFromDB) {
+          logger.error('Failed to create staff user from Microsoft login');
+          return res.status(500).json({error: 'Failed to create user'});
+        }
 
-      if (!userFromDB) {
-        logger.error('Failed to create user from Microsoft login');
-        return res.status(500).json({error: 'Failed to create user'});
+        // Create a JWT token for the new staff user
+        const token = jwt.sign(userFromDB as User, process.env.JWT_SECRET, {
+          expiresIn: '2h',
+        });
+
+        // Return the user and token to the frontend
+        return res.status(200).json({user: userFromDB, token});
+      } else {
+        // Existing staff user, use normal authentication
+        req.body.username = email;
+        return authenticate(req, res, () => {}, username);
       }
+    } else {
+      // For students, use the same authentication flow as normal login
+      logger.info(`Non-staff Microsoft login attempt for user: ${username}`);
+      req.body.username = email;
+      return authenticate(req, res, () => {}, username);
     }
-
-    // Create a JWT token for the user
-    const token = jwt.sign(userFromDB as User, process.env.JWT_SECRET, {
-      expiresIn: '2h',
-    });
-
-    // Return the user and token to the frontend
-    res.status(200).json({user: userFromDB, token});
   } catch (error) {
     logger.error('Error in Microsoft authentication callback:', error);
     res.status(500).json({error: 'Internal server error'});
