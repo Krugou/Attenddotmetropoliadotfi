@@ -7,7 +7,7 @@ import Logout from '../views/Logout';
 import Gdpr from '../views/main/Gdpr';
 import Login from '../views/main/Login';
 import StartView from '../views/main/StartView';
-
+import MicrosoftCallback from '../views/main/MicrosoftCallback';
 import AdminRoutes from './AdminRoutes';
 import CounselorRoutes from './CounselorRoutes';
 import StudentRoutes from './StudentRoutes';
@@ -56,6 +56,11 @@ const AllRoutes = () => {
               <Login />
             </LanguageWrapper>
           }
+        />
+        {/* Microsoft Authentication Callback Route */}
+        <Route
+          path='/auth/microsoft/callback'
+          element={<MicrosoftCallback />}
         />
         <Route path='/gdpr' element={<Gdpr />} />
         <Route path='/help' element={<NoUserHelp />} />
