@@ -606,6 +606,7 @@
         "title": "Kursens studenter",
         "select": "Välj studenter att lägga till i grupper"
       },
+      "allStudentsAssigned": "Alla studenter har tilldelats",
       "addStudents": "Lägg till valda studenter",
       "studentsAdded": "Studenter har lagts till i gruppen",
       "studentCount": "{{count}} studenter",

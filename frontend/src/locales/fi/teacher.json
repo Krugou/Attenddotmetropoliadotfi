@@ -524,6 +524,7 @@
         "title": "Kurssin opiskelijat",
         "select": "Valitse opiskelijat lisättäväksi ryhmiin"
       },
+      "allStudentsAssigned": "Kaikki opiskelijat on lisätty ryhmiin",
       "addStudents": "Lisää valitut opiskelijat",
       "studentsAdded": "Opiskelijat lisätty ryhmään onnistuneesti",
       "studentCount": "{{count}} opiskelijaa",

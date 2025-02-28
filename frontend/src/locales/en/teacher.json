@@ -545,6 +545,7 @@
         "title": "Course Students",
         "select": "Select students to add to groups"
       },
+      "allStudentsAssigned": "All students have been assigned to groups",
       "addStudents": "Add Selected Students",
       "studentsAdded": "Students added to group successfully",
       "studentCount": "{{count}} students",

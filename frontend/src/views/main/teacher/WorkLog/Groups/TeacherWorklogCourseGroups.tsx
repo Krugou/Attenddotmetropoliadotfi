@@ -173,135 +173,145 @@ const TeacherWorklogCourseGroups: React.FC = () => {
   if (loading) {
     return (
       <div className='flex items-center justify-center p-8'>
-        <div className='text-xl font-body'>Loading...</div>
+        <div className='text-xl font-body'>{t('common:loading')}</div>
       </div>
     );
   }
 
   return (
-    <div className='container px-4 py-8 mx-auto'>
-      <div className='flex items-center justify-between mb-6'>
-        <h1 className='text-3xl font-heading'>
-          {t('teacher:worklog.groups.title')}
-        </h1>
-        <button
-          onClick={() => setShowCreateForm(!showCreateForm)}
-          className='px-4 py-2 text-white rounded-sm bg-metropolia-main-orange hover:bg-opacity-90 font-body'>
-          {showCreateForm
-            ? t('common:cancel')
-            : t('teacher:worklog.groups.createGroup')}
-        </button>
-      </div>
-
-      {showCreateForm && (
-        <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
-          <h2 className='mb-4 text-2xl font-heading'>
-            {t('teacher:worklog.groups.createNew')}
-          </h2>
-          <form onSubmit={handleCreateGroup} className='space-y-6'>
-            <div>
-              <label
-                htmlFor='groupName'
-                className='block mb-1 text-sm text-gray-700 font-body'>
-                {t('teacher:worklog.groups.groupName')}
-              </label>
-              <input
-                id='groupName'
-                type='text'
-                value={newGroupName}
-                onChange={(e) => setNewGroupName(e.target.value)}
-                className='w-full p-2 border rounded-sm font-body'
-                required
-              />
-            </div>
-
-            <div>
-              <h3 className='mb-2 text-lg font-heading'>
-                {t('teacher:worklog.groups.selectStudents')}
-              </h3>
-              <div className='p-4 overflow-y-auto border rounded-sm max-h-96'>
-                <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-                  {students.map((student) => (
-                    <div
-                      key={student.userid}
-                      className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
-                        selectedStudents.includes(student.userid)
-                          ? 'border-metropolia-main-orange bg-orange-50'
-                          : 'border-gray-200 hover:border-metropolia-main-orange/50'
-                      }`}
-                      onClick={() => {
-                        if (selectedStudents.includes(student.userid)) {
-                          setSelectedStudents(
-                            selectedStudents.filter(
-                              (id) => id !== student.userid,
-                            ),
-                          );
-                        } else {
-                          setSelectedStudents([
-                            ...selectedStudents,
-                            student.userid,
-                          ]);
-                        }
-                      }}>
-                      <div className='pr-8'>
-                        <div className='font-medium font-body'>
-                          {`${student.first_name} ${student.last_name}`}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className='flex justify-end gap-4'>
-              <button
-                type='button'
-                onClick={() => setShowCreateForm(false)}
-                className='px-4 py-2 border rounded-sm font-body hover:bg-gray-50'>
-                {t('common:cancel')}
-              </button>
-              <button
-                type='submit'
-                disabled={isCreatingGroup || !newGroupName.trim()}
-                className={`px-4 py-2 rounded font-body ${
-                  isCreatingGroup || !newGroupName.trim()
-                    ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-metropolia-main-orange text-white hover:bg-opacity-90'
-                }`}>
-                {isCreatingGroup ? t('common:creating') : t('common:create')}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      <h2 className='mb-6 text-2xl font-heading'>
-        {t('teacher:worklog.groups.groupsTitle')}
+    <div className='w-full'>
+      <h2 className='p-3 ml-auto mr-auto text-3xl text-center bg-white rounded-lg font-heading w-fit xl:text-4xl'>
+        {t('teacher:worklog.groups.title')}
       </h2>
-      {groups?.length === 0 ? (
-        <div className='p-6 bg-white rounded-lg shadow-sm'>
-          <p className='text-center text-gray-600 font-body'>
-            {t('teacher:worklog.groups.noGroups')}
-          </p>
+
+      <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
+        <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
+          <GeneralLinkButton
+            path={`/teacher/worklog`}
+            text={t('common:back')}
+          />
+          <button
+            onClick={() => setShowCreateForm(!showCreateForm)}
+            className='px-4 py-2 text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
+            {showCreateForm
+              ? t('common:cancel')
+              : t('teacher:worklog.groups.createGroup')}
+          </button>
         </div>
-      ) : (
-        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {groups?.map((group) => (
-            <div
-              key={group.group_id}
-              className='p-6 bg-white rounded-lg shadow-sm'>
-              <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
-              <div className='flex justify-end mt-4'>
-                <GeneralLinkButton
-                  path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
-                  text={t('common:view')}
+
+        {showCreateForm && (
+          <div className='p-6 mt-5 mb-5 bg-white rounded-lg shadow-sm'>
+            <h2 className='mb-4 text-2xl font-heading'>
+              {t('teacher:worklog.groups.createNew')}
+            </h2>
+            <form onSubmit={handleCreateGroup} className='space-y-6'>
+              <div>
+                <label
+                  htmlFor='groupName'
+                  className='block mb-1 text-sm text-gray-700 font-body'>
+                  {t('teacher:worklog.groups.groupName')}
+                </label>
+                <input
+                  id='groupName'
+                  type='text'
+                  value={newGroupName}
+                  onChange={(e) => setNewGroupName(e.target.value)}
+                  className='w-full p-2 border rounded-sm font-body'
+                  required
                 />
               </div>
+
+              <div>
+                <h3 className='mb-2 text-lg font-heading'>
+                  {t('teacher:worklog.groups.selectStudents')}
+                </h3>
+                <div className='p-4 overflow-y-auto border rounded-sm max-h-96'>
+                  {students.length === 0 ? (
+                    <div className='flex items-center justify-center p-8 text-gray-500 font-body'>
+                      <p>{t('teacher:worklog.groups.allStudentsAssigned')}</p>
+                    </div>
+                  ) : (
+                    <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+                      {students.map((student) => (
+                        <div
+                          key={student.userid}
+                          className={`relative p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                            selectedStudents.includes(student.userid)
+                              ? 'border-metropolia-main-orange bg-orange-50'
+                              : 'border-gray-200 hover:border-metropolia-main-orange/50'
+                          }`}
+                          onClick={() => {
+                            if (selectedStudents.includes(student.userid)) {
+                              setSelectedStudents(
+                                selectedStudents.filter(
+                                  (id) => id !== student.userid,
+                                ),
+                              );
+                            } else {
+                              setSelectedStudents([
+                                ...selectedStudents,
+                                student.userid,
+                              ]);
+                            }
+                          }}>
+                          <div className='pr-8'>
+                            <div className='font-medium font-body'>
+                              {`${student.first_name} ${student.last_name}`}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className='flex justify-end gap-4'>
+                <button
+                  type='button'
+                  onClick={() => setShowCreateForm(false)}
+                  className='px-4 py-2 border rounded-sm font-body hover:bg-gray-50'>
+                  {t('common:cancel')}
+                </button>
+                <button
+                  type='submit'
+                  disabled={isCreatingGroup || !newGroupName.trim()}
+                  className={`px-4 py-2 rounded font-body ${
+                    isCreatingGroup || !newGroupName.trim()
+                      ? 'bg-gray-300 cursor-not-allowed'
+                      : 'bg-metropolia-main-orange text-white hover:bg-opacity-90'
+                  }`}>
+                  {isCreatingGroup ? t('common:creating') : t('common:create')}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
+          {groups?.length === 0 ? (
+            <div className='p-6 bg-white rounded-lg shadow-sm'>
+              <p className='text-center text-gray-600 font-body'>
+                {t('teacher:worklog.groups.noGroups')}
+              </p>
             </div>
-          ))}
+          ) : (
+            groups?.map((group) => (
+              <div
+                key={group.group_id}
+                className='p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200'>
+                <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
+                <div className='flex justify-end mt-4'>
+                  <GeneralLinkButton
+                    path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
+                    text={t('common:view')}
+                  />
+                </div>
+              </div>
+            ))
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
