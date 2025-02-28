@@ -21,7 +21,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Loader from '../../../utils/Loader';
-import SearchField from '../../../components/main/shared/SearchField';
+import SearchField from '../../../components/common/SearchField';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 // Add custom hook for debounced value

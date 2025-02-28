@@ -7,7 +7,7 @@ import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../utils/Loader';
-import SearchField from '../../../components/main/shared/SearchField';
+import SearchField from '../../../components/common/SearchField';
 
 // Add custom hook for debounced value
 const useDebounce = <T,>(value: T, delay: number): T => {
