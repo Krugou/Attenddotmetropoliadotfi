@@ -137,7 +137,7 @@
     "connection": "Palvelinyhteys",
     "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa",
     "vpnConnected": "Kytketty Metropolian sisäiseen verkkoon",
-    "vpnConnection": "Yhteys"
+    "vpnConnection": "Sisäinen yhteys"
   },
   "successAlert": {
     "title": "Onnistui"

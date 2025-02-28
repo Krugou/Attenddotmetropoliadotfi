@@ -142,7 +142,7 @@
     "connection": "Serveranslutning",
     "reloadNeeded": "Vänligen uppdatera sidan tills denna text försvinner",
     "vpnConnected": "Ansluten till Metropolia Internt Network",
-    "vpnConnection": "Förbindelse"
+    "vpnConnection": "Inre anslutning"
   },
   "successAlert": {
     "title": "Framgång"

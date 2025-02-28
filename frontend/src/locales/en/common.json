@@ -139,7 +139,7 @@
     "connection": "Server Connection",
     "reloadNeeded": "Please reload the page until this text disappears",
     "vpnConnected": "Connected to Metropolia internal network",
-    "vpnConnection": "Connection"
+    "vpnConnection": "Internal Connection"
   },
   "successAlert": {
     "title": "Success"
