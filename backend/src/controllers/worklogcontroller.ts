@@ -7,10 +7,10 @@ import work_log_instructors from '../models/work_log_instructormodel.js';
 import student_group_assignments from '../models/student_group_assigments.js';
 import studentGroupModel from '../models/studentgroupmodel.js';
 import userModel from '../models/usermodel.js';
-import { WorkLogCourse } from '../models/work_log_coursemodel.js';
-import { WorkLogEntry } from '../models/work_log_entrymodel.js';
-import { WorkLogCourseGroup } from '../models/work_log_groupmodel.js';
-import { WorkLogCourseUser } from '../models/work_log_usermodel.js';
+import {WorkLogCourse} from '../models/work_log_coursemodel.js';
+import {WorkLogEntry} from '../models/work_log_entrymodel.js';
+import {WorkLogCourseGroup} from '../models/work_log_groupmodel.js';
+import {WorkLogCourseUser} from '../models/work_log_usermodel.js';
 import logger from '../utils/logger.js';
 
 // Define interfaces for input data
@@ -241,7 +241,7 @@ export interface WorkLogController {
 
   checkStudentExistingGroup: (
     userId: number,
-    courseId: number
+    courseId: number,
   ) => Promise<{group_id: number; group_name: string} | null>;
 
   addNewStudentToWorklog: (
@@ -252,7 +252,7 @@ export interface WorkLogController {
       last_name: string;
       studentnumber: string;
       studentGroupId: number | null;
-    }
+    },
   ) => Promise<{
     success: boolean;
     userId: number;
@@ -415,10 +415,18 @@ const workLogController: WorkLogController = {
   ): Promise<WorkLogCourseDetails> {
     try {
       const course = await work_log_courses.getWorkLogCourseById(courseId);
-      const entries = await work_log_entries.getWorkLogEntriesByCourse(courseId);
-      const groups = await work_log_course_groups.getWorkLogGroupsByCourse(courseId);
-      const instructors = await work_log_instructors.getInstructorsByCourse(courseId);
-      const userCount = await work_log_courses_users.getUserCountByCourse(courseId);
+      const entries = await work_log_entries.getWorkLogEntriesByCourse(
+        courseId,
+      );
+      const groups = await work_log_course_groups.getWorkLogGroupsByCourse(
+        courseId,
+      );
+      const instructors = await work_log_instructors.getInstructorsByCourse(
+        courseId,
+      );
+      const userCount = await work_log_courses_users.getUserCountByCourse(
+        courseId,
+      );
       return {
         course: {
           ...course[0],
@@ -441,7 +449,10 @@ const workLogController: WorkLogController = {
    */
   async assignUserToCourse(userId, courseId) {
     try {
-      const result = await work_log_courses_users.addUserToCourse(userId, courseId);
+      const result = await work_log_courses_users.addUserToCourse(
+        userId,
+        courseId,
+      );
       return result;
     } catch (error) {
       console.error('Error in assignUserToCourse:', error);
@@ -463,12 +474,16 @@ const workLogController: WorkLogController = {
       }
 
       // Verify group name doesn't already exist for this course
-      const existingGroups = await work_log_course_groups.getWorkLogGroupsByCourse(courseId);
-      if (existingGroups.some(g => g.group_name === groupName)) {
+      const existingGroups =
+        await work_log_course_groups.getWorkLogGroupsByCourse(courseId);
+      if (existingGroups.some((g) => g.group_name === groupName)) {
         throw new Error('Group name already exists for this course');
       }
 
-      const result = await work_log_course_groups.createWorkLogGroup(courseId, groupName);
+      const result = await work_log_course_groups.createWorkLogGroup(
+        courseId,
+        groupName,
+      );
       if (!result?.insertId) {
         throw new Error('Failed to create group - no ID returned');
       }
@@ -487,8 +502,11 @@ const workLogController: WorkLogController = {
    */
   async assignStudentToGroup(groupId, userId) {
     try {
-      const result = await student_group_assignments.assignStudentToGroup(groupId, userId);
-      console.log('🚀 ~ assignStudentToGroup ~ result:', result);
+      const result = await student_group_assignments.assignStudentToGroup(
+        groupId,
+        userId,
+      );
+      // console.log('🚀 ~ assignStudentToGroup ~ result:', result);
       return result;
     } catch (error) {
       console.error('Error in assignStudentToGroup:', error);
@@ -501,14 +519,14 @@ const workLogController: WorkLogController = {
    * @param userId The user ID to get stats for
    */
   async getWorkLogStats(userId: number) {
-      try {
-        const stats = await work_log_courses.getWorkLogStatsByUser(userId);
-        return stats;
-      } catch (error) {
-        console.error('Error in getWorkLogStats:', error);
-        throw error;
-      }
-    },
+    try {
+      const stats = await work_log_courses.getWorkLogStatsByUser(userId);
+      return stats;
+    } catch (error) {
+      console.error('Error in getWorkLogStats:', error);
+      throw error;
+    }
+  },
   /**
    * Checks if a worklog course with the given code already exists
    * @param code The code to check
@@ -587,17 +605,20 @@ const workLogController: WorkLogController = {
     }
   },
 
-
   async getWorkLogStudentsByCourse(
     courseId: string,
   ): Promise<{students: RowDataPacket[]}> {
     try {
-      const course = await work_log_courses.getWorkLogCourseById(Number(courseId));
+      const course = await work_log_courses.getWorkLogCourseById(
+        Number(courseId),
+      );
       if (!course?.length) {
         throw new Error('Worklog course not found');
       }
 
-      const students = await work_log_courses_users.getStudentsByCourse(Number(courseId));
+      const students = await work_log_courses_users.getStudentsByCourse(
+        Number(courseId),
+      );
       return {
         students: students || [],
       };
@@ -626,7 +647,9 @@ const workLogController: WorkLogController = {
   ): Promise<{groups: WorkLogCourseGroup[]}> {
     try {
       // First validate the course exists
-      const course = await work_log_courses.getWorkLogCourseById(Number(courseId));
+      const course = await work_log_courses.getWorkLogCourseById(
+        Number(courseId),
+      );
       if (!course?.length) {
         throw new Error('Worklog course not found');
       }
@@ -655,7 +678,9 @@ const workLogController: WorkLogController = {
       }
 
       // Get group details and validate against work_log_course_groups schema
-      const groups = await work_log_course_groups.getWorkLogGroupsByCourse(courseId);
+      const groups = await work_log_course_groups.getWorkLogGroupsByCourse(
+        courseId,
+      );
       const group = groups.find((g) => g.group_id === groupId);
 
       if (!group) {
@@ -671,12 +696,12 @@ const workLogController: WorkLogController = {
 
       // Get students from student_group_assignments join with users
       const students = await student_group_assignments.getGroupMembers(groupId);
-      console.log('🚀 ~ students:', students);
-      console.log('Students in group:', {
-        groupId,
-        studentCount: students?.length,
-        studentIds: students?.map((s) => s.userid),
-      });
+      // console.log('🚀 ~ students:', students);
+      // console.log('Students in group:', {
+      //   groupId,
+      //   studentCount: students?.length,
+      //   studentIds: students?.map((s) => s.userid),
+      // });
 
       // Get entries from work_log_entries for these students
       const studentIds = students.map((s) => s.userid);
@@ -715,7 +740,7 @@ const workLogController: WorkLogController = {
     try {
       // First verify the entry exists
       const entry = await work_log_entries.getWorkLogEntryById(entryId);
-      console.log('🚀 ~ deleteWorkLogEntry ~ entry:', entry);
+      // console.log('🚀 ~ deleteWorkLogEntry ~ entry:', entry);
 
       if (!entry) {
         throw new Error('Worklog entry not found');
@@ -736,9 +761,7 @@ const workLogController: WorkLogController = {
 
   async getWorkLogEntriesByStudentUser(userId: number) {
     try {
-
       const entries = await work_log_entries.getWorkLogEntriesByUserId(userId);
-
 
       const entriesWithCourses = await Promise.all(
         entries.map(async (entry) => {
@@ -767,22 +790,22 @@ const workLogController: WorkLogController = {
 
   async updateWorkLogEntry(entryId: number, updatedData: any) {
     try {
-
       const entry = await work_log_entries.getWorkLogEntryById(entryId);
       if (!entry) {
         throw new Error('Worklog entry not found');
       }
 
-
       const updates = {
         description: updatedData.description,
         start_time: updatedData.startTime || updatedData.start_time,
         end_time: updatedData.endTime || updatedData.end_time,
-        status: updatedData.status
+        status: updatedData.status,
       };
 
-
-      const result = await work_log_entries.updateWorkLogEntry(entryId, updates);
+      const result = await work_log_entries.updateWorkLogEntry(
+        entryId,
+        updates,
+      );
 
       if (result.affectedRows === 0) {
         throw new Error('Failed to update worklog entry');
@@ -797,31 +820,42 @@ const workLogController: WorkLogController = {
 
   async checkStudentExistingGroup(
     userId: number,
-    courseId: number
+    courseId: number,
   ): Promise<{group_id: number; group_name: string} | null> {
     try {
-      return await work_log_courses_users.checkStudentExistingGroup(userId, courseId);
+      return await work_log_courses_users.checkStudentExistingGroup(
+        userId,
+        courseId,
+      );
     } catch (error) {
       console.error('Error checking student existing group:', error);
       throw error;
     }
   },
 
-  async addNewStudentToWorklog(courseId: number, studentData: {
-    email: string;
-    first_name: string;
-    last_name: string;
-    studentnumber: string;
-    studentGroupId: number | null;
-  }) {
+  async addNewStudentToWorklog(
+    courseId: number,
+    studentData: {
+      email: string;
+      first_name: string;
+      last_name: string;
+      studentnumber: string;
+      studentGroupId: number | null;
+    },
+  ) {
     try {
       // First check if user exists
       let userId: number;
-      const existingUser = await userModel.checkIfUserExistsByEmail(studentData.email);
+      const existingUser = await userModel.checkIfUserExistsByEmail(
+        studentData.email,
+      );
 
       if (existingUser.length > 0) {
         userId = existingUser[0].userid;
-        await userModel.updateUserStudentNumber(studentData.studentnumber, studentData.email);
+        await userModel.updateUserStudentNumber(
+          studentData.studentnumber,
+          studentData.email,
+        );
       } else {
         const userResult = await userModel.insertStudentUser(
           studentData.email,
@@ -834,19 +868,22 @@ const workLogController: WorkLogController = {
       }
 
       // Add user to worklog course
-      const result = await work_log_courses_users.addUserToCourse(userId, courseId);
+      const result = await work_log_courses_users.addUserToCourse(
+        userId,
+        courseId,
+      );
 
       return {
         success: true,
         userId,
         courseId,
-        result
+        result,
       };
     } catch (error) {
       console.error('Error adding student to worklog:', error);
       throw error;
     }
-  }
+  },
 };
 
 export default workLogController;

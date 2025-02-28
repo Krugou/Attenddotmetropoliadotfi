@@ -135,7 +135,7 @@ const attendanceModel: AttendanceModel = {
           [status, attendanceid],
         );
 
-      console.log('Update result:', result);
+      // console.log('Update result:', result);
 
       return true;
     } catch (error) {

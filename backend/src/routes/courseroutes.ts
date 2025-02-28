@@ -531,7 +531,7 @@ router.put(
       }
     } catch (error) {
       logger.error(error);
-      console.log('error', error);
+      // console.log('error', error);
     }
 
     // Get the course ID from the request

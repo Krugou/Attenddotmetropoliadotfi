@@ -256,9 +256,9 @@ router.post(
       res
         .status(200)
         .send({message: 'Student user inserted successfully', userResult});
-      console.log(
-        'manual student user insert success ' + email + ' ' + studentnumber,
-      );
+      // console.log(
+      //   'manual student user insert success ' + email + ' ' + studentnumber,
+      // );
     } catch (error) {
       console.error(error);
       logger.error(error);
@@ -302,7 +302,7 @@ router.post(
       res
         .status(200)
         .send({message: 'Staff user inserted successfully', userResult});
-      console.log('manual staff user insert success ' + email);
+      // console.log('manual staff user insert success ' + email);
     } catch (error) {
       console.error(error);
       logger.error(error);

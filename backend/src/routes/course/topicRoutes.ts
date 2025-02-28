@@ -213,7 +213,7 @@ router.delete(
         return;
       }
       const userid = req.user?.userid;
-      console.log('🚀 ~ file: topicRoutes.ts:150 ~ userid:', userid);
+      // console.log('🚀 ~ file: topicRoutes.ts:150 ~ userid:', userid);
 
       const topicGroupResult =
         await TopicGroupController.deleteTopicGroupByName(

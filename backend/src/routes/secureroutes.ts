@@ -132,7 +132,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     if (req.user) {
-      console.log('insert-student-user-course ', req.user?.email);
+      // console.log('insert-student-user-course ', req.user?.email);
       logger.info({email: req.user?.email}, 'Inserting student user');
     }
     const {
@@ -193,9 +193,9 @@ router.post(
       res
         .status(200)
         .send({message: 'Student user inserted successfully', userResult});
-      console.log(
-        `Student user successfully inserted. Email: ${email}, Student Number: ${studentnumber}`,
-      );
+      // console.log(
+      //   `Student user successfully inserted. Email: ${email}, Student Number: ${studentnumber}`,
+      // );
     } catch (error) {
       logger.error(error);
       console.error(error);

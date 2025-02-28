@@ -213,7 +213,7 @@ router.post(
   [body('studentnumber').isNumeric(), body('lectureid').isNumeric()],
   async (req: Request, res: Response) => {
     if (req.user) {
-      console.log('admin/attendance delete ', req.user?.email);
+      // console.log('admin/attendance delete ', req.user?.email);
       logger.info({useremail: req.user.email}, ' courses/attendance/delete ');
     }
     try {
@@ -280,7 +280,7 @@ router.post(
   ],
   async (req: Request, res: Response) => {
     if (req.user) {
-      console.log('lecture created ', req.user?.email);
+      // console.log('lecture created ', req.user?.email);
       logger.info(
         {useremail: req.user?.email},
         ' courses/attendance/lecture created ',
@@ -363,7 +363,7 @@ router.put(
   async (req: Request, res: Response) => {
     if (req.user) {
       logger.info({useremail: req.user.email}, ' courses/attendance/update ');
-      console.log('attendance update ', req.user?.email);
+      // console.log('attendance update ', req.user?.email);
     }
     const {attendanceid, status} = req.body;
 
@@ -426,7 +426,7 @@ router.delete(
         {useremail: req.user.email},
         ' courses/attendance/lecture delete ',
       );
-      console.log('delete lecture ', req.user?.email);
+      // console.log('delete lecture ', req.user?.email);
     }
     try {
       const lectureid = req.params.lectureid;
