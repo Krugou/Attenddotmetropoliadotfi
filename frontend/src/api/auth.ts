@@ -23,6 +23,30 @@ export const postLogin = async (inputs: LoginInputs) => {
   return await doFetch(baseUrl + 'users', options);
 };
 
+/**
+ * Microsoft authentication endpoints
+ */
+export const initiateMicrosoftLogin = async () => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return await doFetch(baseUrl + 'auth/microsoft/login', options);
+};
+
+export const handleMicrosoftCallback = async (code: string) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({code}),
+  };
+  return await doFetch(baseUrl + 'auth/microsoft/callback', options);
+};
+
 export const getUserInfoByToken = async (token: string) => {
   const options = {
     method: 'GET',
@@ -87,4 +111,6 @@ export const authApi = {
   updateGdprStatus,
   getUserInfoByUserid,
   postUserFeedback,
+  initiateMicrosoftLogin,
+  handleMicrosoftCallback,
 };
