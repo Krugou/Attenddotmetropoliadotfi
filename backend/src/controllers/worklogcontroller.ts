@@ -259,6 +259,15 @@ export interface WorkLogController {
     courseId: number;
     result: ResultSetHeader;
   }>;
+
+  /**
+   * Removes a student from a worklog group
+   * @param groupId The ID of the group
+   * @param studentId The ID of the student to remove
+   * @returns Promise with delete result
+   * @throws Error if student not found in group or removal fails
+   */
+  removeStudentFromGroup(groupId: number, studentId: number): Promise<ResultSetHeader>;
 }
 
 const workLogController: WorkLogController = {
@@ -881,6 +890,28 @@ const workLogController: WorkLogController = {
       };
     } catch (error) {
       console.error('Error adding student to worklog:', error);
+      throw error;
+    }
+  },
+
+  async removeStudentFromGroup(groupId: number, studentId: number): Promise<ResultSetHeader> {
+    try {
+      const groupMembers = await student_group_assignments.getGroupMembers(groupId);
+      const studentExists = groupMembers.some(member => member.userid === studentId);
+
+      if (!studentExists) {
+        throw new Error('Student not found in group');
+      }
+
+      const result = await student_group_assignments.removeStudentFromGroup(groupId, studentId);
+
+      if (result.affectedRows === 0) {
+        throw new Error('Failed to remove student from group');
+      }
+
+      return result;
+    } catch (error) {
+      logger.error('Error removing student from group:', error);
       throw error;
     }
   },

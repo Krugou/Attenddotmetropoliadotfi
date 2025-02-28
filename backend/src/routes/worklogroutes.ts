@@ -569,4 +569,30 @@ router.post(
   },
 );
 
+router.delete(
+  '/group/:groupId/student/:studentId',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  [
+    param('groupId').isInt().withMessage('Invalid groupId'),
+    param('studentId').isInt().withMessage('Invalid studentId')
+  ],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const groupId = Number(req.params.groupId);
+      const studentId = Number(req.params.studentId);
+
+      await workLogController.removeStudentFromGroup(groupId, studentId);
+
+      res.json({
+        success: true,
+        message: 'Student removed from group successfully'
+      });
+    } catch (error) {
+      logger.error('Error removing student from group:', error);
+      res.status(500).json({ error: 'Failed to remove student from group' });
+    }
+  }
+);
+
 export default router;
