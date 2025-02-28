@@ -1,14 +1,16 @@
-import React, {useContext, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useContext, useRef, useState, useEffect} from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import ErrorAlert from '../../components/main/ErrorAlert.tsx';
 import ServerStatus from '../../components/main/ServerStatus.tsx';
 import {UserContext} from '../../contexts/UserContext.tsx';
 import apiHooks from '../../api';
+import {authApi} from '../../api/auth';
 import {IconButton} from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {z} from 'zod';
 import {useTranslation} from 'react-i18next';
+import MicrosoftIcon from '@mui/icons-material/Microsoft';
 
 // Define Zod schema for login validation
 const loginSchema = z.object({
@@ -26,6 +28,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
  *
  * This component is responsible for rendering the login form and handling the login process.
  * It uses the UserContext to set the user after a successful login.
+ * It also provides a Microsoft Entra ID login option if the "testingmicrosoft" parameter is present.
  *
  * @returns {JSX.Element} The rendered Login component.
  */
@@ -36,10 +39,22 @@ const Login: React.FC = () => {
   const [alert, setAlert] = useState<string | null>('');
   const {setUser} = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState<
     Partial<Record<keyof LoginFormData, string>>
   >({});
+  const [showMicrosoftLogin, setShowMicrosoftLogin] = useState<boolean>(false);
+
+  /**
+   * Check if the URL contains the "testingmicrosoft" parameter
+   */
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.has('testingmicrosoft')) {
+      setShowMicrosoftLogin(true);
+    }
+  }, [location]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -102,12 +117,64 @@ const Login: React.FC = () => {
     }
   };
 
+  /**
+   * Initiates the Microsoft Entra ID login flow
+   * Calls the backend API to get the Microsoft authentication URL
+   * and redirects the user to Microsoft's login page
+   */
+  const handleMicrosoftLogin = async () => {
+    try {
+      console.log('Microsoft login initiated');
+      const response = await authApi.initiateMicrosoftLogin();
+
+      if (response && response.url) {
+        // Redirect to Microsoft's authentication page
+        window.location.href = response.url;
+      } else {
+        toast.error('Microsoft login configuration error', {
+          position: 'top-center',
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      console.error('Failed to initiate Microsoft login:', error);
+      toast.error('Failed to connect to Microsoft authentication service', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+    }
+  };
+
   return (
     <div className='w-full' role='main'>
       <h1 className='mb-6 font-semibold text-center text-gray-800 text-md sm:text-2xl'>
         {t('common:login.title', 'Sign in using your Metropolia Account')}
       </h1>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
+      {showMicrosoftLogin && (
+        <div className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
+          <button
+            onClick={handleMicrosoftLogin}
+            className='flex items-center justify-center w-full px-4 py-2 mb-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-xl focus:outline-hidden'
+            type='button'
+            aria-label={t(
+              'common:login.microsoftSignIn',
+              'Sign In with Microsoft',
+            )}>
+            <MicrosoftIcon className='mr-2' />
+            {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
+          </button>
+          <div className='flex items-center my-4'>
+            <hr className='flex-grow border-gray-300' />
+            <span className='px-3 text-gray-500'>
+              {t('common:login.or', 'OR')}
+            </span>
+            <hr className='flex-grow border-gray-300' />
+          </div>
+        </div>
+      )}
+
       <form
         onSubmit={handleSubmit}
         className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'
