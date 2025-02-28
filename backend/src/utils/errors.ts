@@ -26,7 +26,6 @@ class HttpError extends Error {
  * @returns {HttpError} The created HTTP error.
  */
 const httpError = (message: string, status: number) => {
-  console.log('error used in httpError');
   logger.error(message);
   const err = new HttpError(message, status);
   return err;
