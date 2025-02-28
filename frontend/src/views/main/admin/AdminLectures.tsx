@@ -192,12 +192,7 @@ const AdminLectures: React.FC = () => {
         setIsLoading(false);
         return false;
       }
-      const sortedLectures = result.sort((a, b) => {
-        return sortOrder === 'asc'
-          ? a.lectureid - b.lectureid
-          : b.lectureid - a.lectureid;
-      });
-      setLectures(sortedLectures);
+      setLectures(result);
       setIsLoading(false);
       return true;
     } catch (error) {
@@ -220,7 +215,40 @@ const AdminLectures: React.FC = () => {
       return () => clearInterval(intervalId);
     }
     return () => {};
-  }, [user, sortOrder]);
+  }, [user]);
+
+  // Apply sorting whenever sortKey or sortOrder changes
+  useEffect(() => {
+    // Create a new sorted array based on the current sortKey and sortOrder
+    const sortedData = [...lectures].sort((a, b) => {
+      const valueA = a[sortKey];
+      const valueB = b[sortKey];
+
+      // Handle different data types properly
+      if (typeof valueA === 'number' && typeof valueB === 'number') {
+        return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+      }
+
+      // Handle date strings (assuming they're in a format that string comparison works correctly)
+      if (sortKey === 'start_date') {
+        return sortOrder === 'asc'
+          ? new Date(valueA).getTime() - new Date(valueB).getTime()
+          : new Date(valueB).getTime() - new Date(valueA).getTime();
+      }
+
+      // Default string comparison
+      const strA = String(valueA).toLowerCase();
+      const strB = String(valueB).toLowerCase();
+
+      if (sortOrder === 'asc') {
+        return strA.localeCompare(strB);
+      } else {
+        return strB.localeCompare(strA);
+      }
+    });
+
+    setLectures(sortedData);
+  }, [sortKey, sortOrder]);
 
   if (isLoading) {
     return <Loader />;
@@ -289,13 +317,7 @@ const AdminLectures: React.FC = () => {
           await apiHooks.deleteLectureByLectureId(selectedLecture, token);
           toast.success('Lecture deleted successfully ' + selectedLecture);
         }
-        const result = await apiHooks.fetchAllLectures(token);
-        const sortedLectures = result.sort((a, b) => {
-          return sortOrder === 'asc'
-            ? a.lectureid - b.lectureid
-            : b.lectureid - a.lectureid;
-        });
-        setLectures(sortedLectures);
+        await getLectures(); // Just get fresh data without sorting here
       } catch (error) {
         toast.error('Failed to perform action: ' + (error as Error).message);
       }
