@@ -90,8 +90,24 @@ router.post('/callback', async (req: Request, res: Response) => {
         }),
       },
     );
+    if (!tokenResponse.ok) {
+      const errorData = await tokenResponse.json();
+      logger.error('Token exchange error:', errorData);
+      return res
+        .status(400)
+        .json({error: 'Failed to exchange authorization code'});
+    }
+
+    const tokenData = (await tokenResponse.json()) as {
+      id_token: string;
+      access_token: string;
+    };
+
+    console.log('🚀 ~ router.post ~ tokenData:', tokenData);
+    console.log('...');
+    const idToken = tokenData.id_token;
+    const accessToken = tokenData.access_token;
     // @ts-ignore
-    const accessToken = tokenResponse.accessToken;
     const userResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
       method: 'GET',
       headers: {
@@ -102,19 +118,6 @@ router.post('/callback', async (req: Request, res: Response) => {
 
     const userData = await userResponse.json();
     console.log('🚀 ~ router.post ~ userData:', userData);
-    if (!tokenResponse.ok) {
-      const errorData = await tokenResponse.json();
-      logger.error('Token exchange error:', errorData);
-      return res
-        .status(400)
-        .json({error: 'Failed to exchange authorization code'});
-    }
-
-    const tokenData = (await tokenResponse.json()) as {id_token: string};
-
-    console.log('🚀 ~ router.post ~ tokenData:', tokenData);
-    const idToken = tokenData.id_token;
-
     // Decode the ID token to get user information
     // Note: In production, you should validate the token signature properly
     const tokenParts = idToken.split('.');
