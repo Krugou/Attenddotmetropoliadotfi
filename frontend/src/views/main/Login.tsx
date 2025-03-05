@@ -157,7 +157,7 @@ const Login: React.FC = () => {
           <p className='text-sm text-center text-gray-600 font-extrabold'>
             {t(
               'common:login.microsoftTesting',
-              'Microsoft login is currently in testing phase and might not work correctly yet.',
+              'Microsoft login is currently in testing phase and may not work as expected.',
             )}
           </p>
           <div className='flex items-center my-4'>
