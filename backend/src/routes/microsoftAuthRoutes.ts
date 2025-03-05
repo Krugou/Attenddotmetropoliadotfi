@@ -1,7 +1,7 @@
-import express, {Router, Request, Response} from 'express';
+import express, {Router, Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import usermodel from '../models/usermodel.js';
-import {User} from '../types.js';
+import {User, UserData} from '../types.js';
 import logger from '../utils/logger.js';
 import {authenticate} from '../utils/auth.js';
 
@@ -14,13 +14,15 @@ const router: Router = express.Router();
  * Initiate Microsoft Entra ID authentication flow
  * Redirects the user to Microsoft's authentication page
  */
-// @ts-ignore
 router.get('/login', (req: Request, res: Response) => {
   try {
     // This would be configured with actual Entra ID client details in production
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
-    const scope = encodeURIComponent('openid profile email User.Read');
+    // add all the scopes needed for the application "Company attribuuttia josta pitäis tulla palautteena joko Metropolia Henkilökunta tai Metropolia Opiskelija, tai sitten ExtensionAttribute5 jossa joko 365staff tai 365student arvo"
+    const scope = encodeURIComponent(
+      'openid profile email User.Read offline_access extension_CompanyAttribute5',
+    );
     const responseType = 'code';
     const tenantId = process.env.MS_TENANT_ID; // Metropolia's tenant ID
 
@@ -46,7 +48,6 @@ router.get('/login', (req: Request, res: Response) => {
  * Handle the OAuth callback from Microsoft Entra ID
  * This endpoint receives the authorization code and exchanges it for an access token
  */
-// @ts-ignore
 router.post('/callback', async (req: Request, res: Response) => {
   try {
     // Check if the environment variables are not undefined
@@ -90,7 +91,7 @@ router.post('/callback', async (req: Request, res: Response) => {
         }),
       },
     );
-    console.log('🚀 ~ router.post ~ tokenData:', tokenResponse);
+
     if (!tokenResponse.ok) {
       const errorData = await tokenResponse.json();
       logger.error('Token exchange error:', errorData);
@@ -99,9 +100,7 @@ router.post('/callback', async (req: Request, res: Response) => {
         .json({error: 'Failed to exchange authorization code'});
     }
 
-    const tokenData = (await tokenResponse.json()) as {id_token: string};
-
-    console.log('🚀 ~ router.post ~ tokenData:', tokenData);
+    const tokenData = await tokenResponse.json();
     const idToken = tokenData.id_token;
 
     // Decode the ID token to get user information
@@ -112,11 +111,8 @@ router.post('/callback', async (req: Request, res: Response) => {
     );
 
     // Extract user information from the token
-    const email = payload.email;
-    console.log('🚀 ~ router.post ~ email:', email);
-
+    const email = payload.email || payload.preferred_username;
     const name = payload.name || '';
-    console.log('🚀 ~ router.post ~ name:', name);
     const [firstName = '', lastName = ''] = name.split(' ');
 
     // Check if user is staff based on profile information
@@ -124,9 +120,8 @@ router.post('/callback', async (req: Request, res: Response) => {
     const isStaff =
       payload.extension_Role === 'Staff' ||
       (payload.groups && payload.groups.includes('Staff'));
-    console.log('🚀 ~ router.post ~ isStaff:', isStaff);
 
-    const username = payload.preferred_username.split('@')[0];
+    const username = email.split('@')[0];
 
     // Handle staff users
     if (isStaff) {
@@ -135,23 +130,17 @@ router.post('/callback', async (req: Request, res: Response) => {
 
       // If staff user doesn't exist, create a new user
       if (userFromDB === null) {
-        // Create staff user object with required fields - using a type assertion to match the User interface
-        // expected by the addStaffUser function
-        const staffUser: any = {
+        const userData: UserData = {
           username,
           staff: 1,
           first_name: firstName,
           last_name: lastName,
           email,
           roleid: 3, // teacher role
-          activeStatus: 1,
-          language: 'en',
-          darkMode: 0,
         };
 
         // Add staff user to database
-        // @ts-ignore - Use type assertion to bypass TypeScript error
-        userFromDB = await usermodel.addStaffUser(staffUser);
+        userFromDB = await usermodel.addStaffUser(userData);
 
         if (!userFromDB) {
           logger.error('Failed to create staff user from Microsoft login');
@@ -168,13 +157,13 @@ router.post('/callback', async (req: Request, res: Response) => {
       } else {
         // Existing staff user, use normal authentication
         req.body.username = email;
-        return authenticate(req, res, (err?: Error | null) => {}, username);
+        return authenticate(req, res, (_: NextFunction) => {}, username);
       }
     } else {
       // For students, use the same authentication flow as normal login
       logger.info(`Non-staff Microsoft login attempt for user: ${username}`);
       req.body.username = email;
-      return authenticate(req, res, (err?: Error | null) => {}, username);
+      return authenticate(req, res, (_: NextFunction) => {}, username);
     }
   } catch (error) {
     logger.error('Error in Microsoft authentication callback:', error);
