@@ -10,75 +10,38 @@ import Loader from '../../utils/Loader';
 interface ServerResponse {
   builddate: string;
 }
-
 /**
  * ServerStatus component.
  *
  * This component fetches the server status and version information and displays it.
- * In development mode, it allows faking the VPN connection status for testing purposes.
  *
  * @returns {JSX.Element} The rendered ServerStatus component.
  */
 const ServerStatus: React.FC = () => {
   const {t} = useTranslation(['common']);
   // Define the URL for the VPN test page
-  const vpnTestUrl = 'https://ip.metropolia.fi/';
+  // const vpnTestUrl =
+  // 	import.meta.env.MODE === 'development'
+  // 		? 'http://localhost:3002'
+  // 		: 'https://thweb.metropolia.fi/';
   const [isServerOnline, setIsServerOnline] = useState(false);
   const [newestVersion, setNewestVersion] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [connectionStatus, setConnectionStatus] = useState(false);
-  // State for fake VPN connection in development mode
-  const [fakeVpnEnabled, setFakeVpnEnabled] = useState(false);
-
+  // const [connectionStatus, setConnectionStatus] = useState(false);
   /**
-   * Fetch the VPN test URL and check if the IP address starts with "10."
-   * which indicates a successful Metropolia VPN connection.
-   * In development mode, allow faking the VPN connection.
+   * Fetch the VPN test URL and set the connection status based on the response.
    */
-  useEffect(() => {
-    // Check if we're in development mode and should use fake VPN status
-    if (import.meta.env.MODE === 'development') {
-      // Check if fake VPN status is stored in localStorage
-      const storedFakeVpn = localStorage.getItem('fakeVpnStatus');
-      if (storedFakeVpn === 'true') {
-        console.log('Using fake VPN connection status: Connected');
-        setFakeVpnEnabled(true);
-        setConnectionStatus(true);
-        return;
-      }
-    }
-
-    // Real VPN check
-    fetch(vpnTestUrl)
-      .then((response) => response.text())
-      .then((data) => {
-        // Check if the response contains an IP that starts with "10."
-        const ipMatch = data.match(/Your IP-address is: (10\.\d+\.\d+\.\d+)/);
-        if (ipMatch && ipMatch[1]) {
-          console.log('VPN test passed - IP starts with 10.');
-          setConnectionStatus(true);
-        } else {
-          console.log('VPN test failed - IP does not start with 10.');
-          setConnectionStatus(false);
-        }
-      })
-      .catch((error) => {
-        console.log('VPN test failed', error);
-        setConnectionStatus(false);
-      });
-  }, []);
-
-  /**
-   * Toggle the fake VPN connection status for local development
-   */
-  const toggleFakeVpn = () => {
-    const newStatus = !fakeVpnEnabled;
-    setFakeVpnEnabled(newStatus);
-    setConnectionStatus(newStatus);
-    localStorage.setItem('fakeVpnStatus', newStatus.toString());
-    console.log(`Fake VPN connection ${newStatus ? 'enabled' : 'disabled'}`);
-  };
-
+  // useEffect(() => {
+  // 	fetch(vpnTestUrl, {method: 'HEAD', mode: 'no-cors'})
+  // 		.then(() => {
+  // 			console.log('VPN test passed');
+  // 			setConnectionStatus(true);
+  // 		})
+  // 		.catch(error => {
+  // 			console.log('VPN test failed', error);
+  // 			setConnectionStatus(false);
+  // 		});
+  // }, []);
   /**
    * Fetch the server status and version information and set the state variables based on the response.
    */
@@ -99,45 +62,27 @@ const ServerStatus: React.FC = () => {
         setLoading(false);
       });
   }, []);
-
   if (loading) {
     return <Loader />;
   }
 
   if (import.meta.env.MODE === 'development') {
     return (
-      <div className='p-2 m-2 bg-white rounded-xl'>
-        <p>
-          Server: {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
-          <br />
-          VPN: {connectionStatus ? <DoneIcon /> : <DangerousIcon />}
-        </p>
-        <button
-          onClick={toggleFakeVpn}
-          className={`mt-2 p-1 text-xs rounded ${
-            fakeVpnEnabled
-              ? 'bg-metropolia-support-red text-white'
-              : 'bg-metropolia-trend-green text-white'
-          }`}>
-          {fakeVpnEnabled ? 'Disable fake VPN' : 'Enable fake VPN'}
-        </button>
-      </div>
+      <p className='p-2 m-2 bg-white rounded-xl'>
+        {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
+      </p>
     );
   }
 
-  // Production mode rendering
   return (
     <>
       <p className='text-xl font-medium animate-bounce '>
-        {!connectionStatus && (
-          <a
-            href='https://wiki.metropolia.fi/display/itservices/VPN+Connection+via+GlobalProtect+Service'
-            target='_blank'
-            rel='noopener noreferrer'>
-            {t('common:serverStatus.vpnNotConnected')}
-          </a>
-        )}
-        {connectionStatus && !isServerOnline && (
+        {/* {connectionStatus
+					? ''
+					: 'You are not connected to Metropolia internal network'} */}
+        {isServerOnline ? (
+          ''
+        ) : (
           <a
             href='https://wiki.metropolia.fi/display/itservices/VPN+Connection+via+GlobalProtect+Service'
             target='_blank'
@@ -158,22 +103,10 @@ const ServerStatus: React.FC = () => {
           {t('common:serverStatus.connection')}:{' '}
           {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
         </p>
-        <p className='p-2 m-2'>
-          {t('common:serverStatus.vpnConnection')}:{' '}
-          {connectionStatus ? <DoneIcon /> : <DangerousIcon />}
-        </p>
       </div>
       {!newestVersion && isServerOnline && (
         <p className='p-2 m-2 rounded-xl'>
           <strong>{t('common:serverStatus.reloadNeeded')}</strong>
-        </p>
-      )}
-      {connectionStatus && (
-        <p className='p-2 m-2 text-sm text-metropolia-support-blue'>
-          {t(
-            'common:serverStatus.vpnConnected',
-            'Connected to Metropolia internal network',
-          )}
         </p>
       )}
     </>
