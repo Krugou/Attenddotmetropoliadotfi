@@ -90,6 +90,7 @@ router.post('/callback', async (req: Request, res: Response) => {
         }),
       },
     );
+    // @ts-ignore
     const accessToken = tokenResponse.accessToken;
     const userResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
       method: 'GET',
