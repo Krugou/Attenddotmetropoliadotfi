@@ -134,9 +134,7 @@ const attendanceModel: AttendanceModel = {
           'UPDATE attendance SET status = ? WHERE attendanceid = ? ORDER BY date DESC LIMIT 1',
           [status, attendanceid],
         );
-
-      // console.log('Update result:', result);
-
+      console.log(result);
       return true;
     } catch (error) {
       console.error('Error updating attendance status:', error);
