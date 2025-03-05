@@ -212,7 +212,7 @@ router.post(
           } else {
             // If the staff user exists, authenticate their login (same as userroutes.ts)
             logger.info(`Staff Microsoft login success for user: ${username}`);
-            authenticate(req, res, next, username);
+            authenticate(req, res, next, username, 'microsoft');
           }
         } catch (error) {
           logger.error('Error processing staff user:', error);
@@ -223,7 +223,7 @@ router.post(
       // If the logged-in user is not staff, authenticate them (same as userroutes.ts)
       if (!isStaff) {
         logger.info(`Non-staff Microsoft login for user: ${username}`);
-        authenticate(req, res, next, username);
+        authenticate(req, res, next, username, 'microsoft');
       }
     } catch (error) {
       logger.error('Error in Microsoft authentication callback:', error);
