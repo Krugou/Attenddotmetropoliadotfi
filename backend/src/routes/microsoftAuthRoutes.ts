@@ -156,12 +156,12 @@ router.post(
 
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
-      logger.info('Basic user data retrieved successfully');
+      logger.info('Basic user data retrieved successfully', userData);
 
       // Fetch additional user details
       try {
         const moreDetailsUserResponse = await fetch(
-          `https://graph.microsoft.com/v1.0/users/${userData.id}`,
+          `https://graph.microsoft.com/v1.0/users/${userData.id}/licenseDetails`,
           {
             method: 'GET',
             headers: {
