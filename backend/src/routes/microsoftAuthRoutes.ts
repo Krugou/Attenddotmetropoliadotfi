@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import usermodel from '../models/usermodel.js';
 import {User} from '../types.js';
 import logger from '../utils/logger.js';
-import {authenticate} from '../utils/auth.js';
 
 /**
  * Router for Microsoft Entra ID authentication routes.
