@@ -43,7 +43,8 @@ router.get('/login', (req: Request, res: Response) => {
     // This would be configured with actual Entra ID client details in production
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
-    const scope = encodeURIComponent('openid profile email User.Read');
+    // Update scope to include User.Read.All permission
+    const scope = encodeURIComponent('openid profile email User.Read.All');
     const responseType = 'code';
     const tenantId = process.env.MS_TENANT_ID; // Metropolia's tenant ID
 
@@ -128,7 +129,7 @@ router.post(
       // const idToken = tokenData.id_token;
       const accessToken = tokenData.access_token;
 
-      // Fetch user profile data from Microsoft Graph API
+      // Fetch user profile data from Microsoft Graph API using the /me endpoint
       const userResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
         method: 'GET',
         headers: {
@@ -141,9 +142,21 @@ router.post(
         logger.error(`Failed to get user data: ${userResponse.status}`);
         return res.status(500).json({error: 'Failed to retrieve user data'});
       }
+
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
       console.log(userData);
+      const moreDetailsUserResponse = await fetch(
+        `https://graph.microsoft.com/v1.0/users/${userData.id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(moreDetailsUserResponse);
       // Extract user information from the token and Graph API
       const email = userData.mail;
       const firstName = userData.givenName || '';
