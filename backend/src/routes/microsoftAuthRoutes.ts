@@ -214,7 +214,7 @@ router.post(
             logger.info(`Staff Microsoft login success for user: ${username}`);
             // Set the email in the request body for passport authentication
             req.body.username = email;
-            authenticate(req, res, next, username, 'microsoft');
+            authenticate(req, res, next, username);
           }
         } catch (error) {
           logger.error('Error processing staff user:', error);
@@ -227,7 +227,7 @@ router.post(
         logger.info(`Non-staff Microsoft login for user: ${username}`);
         // Set the email in the request body for passport authentication
         req.body.username = email;
-        authenticate(req, res, next, username, 'microsoft');
+        authenticate(req, res, next, username);
       }
     } catch (error) {
       logger.error('Error in Microsoft authentication callback:', error);
