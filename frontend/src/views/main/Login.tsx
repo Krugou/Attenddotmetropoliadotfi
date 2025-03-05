@@ -1,5 +1,5 @@
-import React, {useContext, useRef, useState, useEffect} from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
+import React, {useContext, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import ErrorAlert from '../../components/main/ErrorAlert.tsx';
 import ServerStatus from '../../components/main/ServerStatus.tsx';
@@ -39,12 +39,11 @@ const Login: React.FC = () => {
   const [alert, setAlert] = useState<string | null>('');
   const {setUser} = useContext(UserContext);
   const navigate = useNavigate();
-  const location = useLocation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState<
     Partial<Record<keyof LoginFormData, string>>
   >({});
-  const [showMicrosoftLogin, setShowMicrosoftLogin] = useState<boolean>(true);
+  const [showMicrosoftLogin] = useState<boolean>(true);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
