@@ -20,9 +20,7 @@ router.get('/login', (req: Request, res: Response) => {
     // This would be configured with actual Entra ID client details in production
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
-    const scope = encodeURIComponent(
-      'openid profile email User.Read offline_access extension_CompanyAttribute5',
-    );
+    const scope = encodeURIComponent('openid profile email User.Read');
     const responseType = 'code';
     const tenantId = process.env.MS_TENANT_ID; // Metropolia's tenant ID
 
