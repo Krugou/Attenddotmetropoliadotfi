@@ -23,6 +23,7 @@ interface MicrosoftGraphUserResponse {
   'surname': string;
   'userPrincipalName': string;
   'id': string;
+  'isStaff'?: boolean;
 }
 
 // Interface for token data
@@ -34,14 +35,17 @@ interface TokenData {
 }
 
 // Interface for more detailed user information
-interface MicrosoftGraphDetailedUserResponse
-  extends MicrosoftGraphUserResponse {
-  // Additional fields that may be available in the detailed response
-  department?: string;
-  companyName?: string;
-  employeeId?: string;
-  userType?: string;
-  // Add any other fields that might be useful
+interface MicrosoftGraphDetailedUserResponse {
+  '@odata.context': string; // The context of the response
+  'value': {
+    id: string; // The ID of the user
+    principalDisplayName: string; // The display name of the principal
+    principalId: string; // The ID of the principal
+    principalType: string; // The type of the principal
+    resourceDisplayName: string; // The display name of the resource
+    resourceId: string; // The ID of the resource
+    resourceType: string; // The type of the resource
+  }[];
 }
 
 /**
@@ -184,20 +188,17 @@ router.post(
           const detailedUserData =
             (await moreDetailsUserResponse.json()) as MicrosoftGraphDetailedUserResponse;
           // console.log('🚀 ~ detailedUserData:', detailedUserData);
-          // if detaileduserData array contains one of the array as principalDisplayName as 'metropolia staff' then console log this user is staff
+          // if detaileduserData array contains one of the array as principalDisplayName as 'metropolia staff' then console log this user is staff but make it only log it once it finds it
           if (
-            //@ts-expect-error - Check if the user is staff
             detailedUserData.value.some(
               (item) => item.principalDisplayName === 'metropolia staff',
             )
           ) {
-            console.log('this user is staff', userData.mail);
+            userData.isStaff = true;
           }
 
-          // Merge additional useful information into userData if needed
-          if (detailedUserData.department) {
-            // @ts-expect-error - Add department to userData
-            userData.department = detailedUserData.department;
+          if (userData.isStaff) {
+            logger.info(`User ${userData.mail} is confirmed as staff.`);
           }
 
           // Use any additional fields from detailedUserData as needed
