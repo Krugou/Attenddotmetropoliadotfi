@@ -108,10 +108,13 @@ router.post('/callback', async (req: Request, res: Response) => {
     const payload = JSON.parse(
       Buffer.from(tokenParts[1], 'base64').toString('utf-8'),
     );
-    logger.info('Microsoft login payload:', payload);
+    console.log(payload);
     // Extract user information from the token
     const email = payload.email || payload.preferred_username;
+    console.log('🚀 ~ router.post ~ email:', email);
+
     const name = payload.name || '';
+    console.log('🚀 ~ router.post ~ name:', name);
     const [firstName = '', lastName = ''] = name.split(' ');
 
     // Check if user is staff based on profile information
@@ -119,6 +122,7 @@ router.post('/callback', async (req: Request, res: Response) => {
     const isStaff =
       payload.extension_Role === 'Staff' ||
       (payload.groups && payload.groups.includes('Staff'));
+    console.log('🚀 ~ router.post ~ isStaff:', isStaff);
 
     const username = email.split('@')[0];
 
