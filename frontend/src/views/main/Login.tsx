@@ -44,17 +44,7 @@ const Login: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<
     Partial<Record<keyof LoginFormData, string>>
   >({});
-  const [showMicrosoftLogin, setShowMicrosoftLogin] = useState<boolean>(false);
-
-  /**
-   * Check if the URL contains the "testingmicrosoft" parameter
-   */
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (params.has('testingmicrosoft')) {
-      setShowMicrosoftLogin(true);
-    }
-  }, [location]);
+  const [showMicrosoftLogin, setShowMicrosoftLogin] = useState<boolean>(true);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -165,6 +155,12 @@ const Login: React.FC = () => {
             <MicrosoftIcon className='mr-2' />
             {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
           </button>
+          <p className='text-sm text-center text-gray-600 font-extrabold'>
+            {t(
+              'common:login.microsoftTesting',
+              'Microsoft login is currently in testing phase and might not work correctly yet.',
+            )}
+          </p>
           <div className='flex items-center my-4'>
             <hr className='flex-grow border-gray-300' />
             <span className='px-3 text-gray-500'>
