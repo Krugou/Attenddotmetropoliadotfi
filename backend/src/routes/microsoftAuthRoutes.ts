@@ -100,6 +100,8 @@ router.post('/callback', async (req: Request, res: Response) => {
     }
 
     const tokenData = (await tokenResponse.json()) as {id_token: string};
+    // @ts-ignore
+    JSON.parse(Buffer.from(tokenData, 'base64').toString('utf-8'));
     const idToken = tokenData.id_token;
 
     // Decode the ID token to get user information
