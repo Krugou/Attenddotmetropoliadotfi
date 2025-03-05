@@ -33,6 +33,17 @@ interface TokenData {
   expires_in?: number;
 }
 
+// Interface for more detailed user information
+interface MicrosoftGraphDetailedUserResponse
+  extends MicrosoftGraphUserResponse {
+  // Additional fields that may be available in the detailed response
+  department?: string;
+  companyName?: string;
+  employeeId?: string;
+  userType?: string;
+  // Add any other fields that might be useful
+}
+
 /**
  * Initiate Microsoft Entra ID authentication flow
  * Redirects the user to Microsoft's authentication page
@@ -145,18 +156,54 @@ router.post(
 
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
-      console.log(userData);
-      const moreDetailsUserResponse = await fetch(
-        `https://graph.microsoft.com/v1.0/users/${userData.id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
+      logger.info('Basic user data retrieved successfully');
+
+      // Fetch additional user details
+      try {
+        const moreDetailsUserResponse = await fetch(
+          `https://graph.microsoft.com/v1.0/users/${userData.id}`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
           },
-        },
-      );
-      console.log(moreDetailsUserResponse);
+        );
+
+        if (!moreDetailsUserResponse.ok) {
+          logger.warn(
+            `Failed to get detailed user data: ${moreDetailsUserResponse.status}`,
+            {
+              userId: userData.id,
+              statusText: moreDetailsUserResponse.statusText,
+            },
+          );
+        } else {
+          // Parse the JSON response
+          const detailedUserData =
+            (await moreDetailsUserResponse.json()) as MicrosoftGraphDetailedUserResponse;
+          console.log('🚀 ~ detailedUserData:', detailedUserData);
+
+          logger.info('Retrieved additional user details successfully', {
+            userId: userData.id,
+            department: detailedUserData.department,
+            userType: detailedUserData.userType,
+          });
+
+          // Merge additional useful information into userData if needed
+          if (detailedUserData.department) {
+            // @ts-expect-error - Add department to userData
+            userData.department = detailedUserData.department;
+          }
+
+          // Use any additional fields from detailedUserData as needed
+        }
+      } catch (error) {
+        // Log error but continue with basic user data
+        logger.error('Error fetching detailed user information:', error);
+      }
+
       // Extract user information from the token and Graph API
       const email = userData.mail;
       const firstName = userData.givenName || '';
