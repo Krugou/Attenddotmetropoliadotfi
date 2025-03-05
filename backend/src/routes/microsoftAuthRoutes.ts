@@ -183,7 +183,16 @@ router.post(
           // Parse the JSON response
           const detailedUserData =
             (await moreDetailsUserResponse.json()) as MicrosoftGraphDetailedUserResponse;
-          console.log('🚀 ~ detailedUserData:', detailedUserData);
+          // console.log('🚀 ~ detailedUserData:', detailedUserData);
+          // if detaileduserData array contains one of the array as principalDisplayName as 'metropolia staff' then console log this user is staff
+          if (
+            //@ts-expect-error - Check if the user is staff
+            detailedUserData.value.some(
+              (item) => item.principalDisplayName === 'metropolia staff',
+            )
+          ) {
+            console.log('this user is staff', userData.mail);
+          }
 
           // Merge additional useful information into userData if needed
           if (detailedUserData.department) {
