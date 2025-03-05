@@ -90,7 +90,17 @@ router.post('/callback', async (req: Request, res: Response) => {
         }),
       },
     );
-    console.log('🚀 ~ router.post ~ tokenData:', tokenResponse);
+    const accessToken = tokenResponse.accessToken;
+    const userResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const userData = await userResponse.json();
+    console.log('🚀 ~ router.post ~ userData:', userData);
     if (!tokenResponse.ok) {
       const errorData = await tokenResponse.json();
       logger.error('Token exchange error:', errorData);
