@@ -143,6 +143,7 @@ router.post(
       }
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
+      console.log(userData);
       // Extract user information from the token and Graph API
       const email = userData.mail;
       const firstName = userData.givenName || '';
