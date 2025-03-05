@@ -194,11 +194,8 @@ router.post('/callback', async (req: Request, res: Response) => {
     const lastName = userData.surname || '';
     const jobTitle = userData.jobTitle || '';
 
-    // Check if user is staff based on profile information
-    const isStaff =
-      jobTitle?.toLowerCase().includes('professor') ||
-      jobTitle?.toLowerCase().includes('teacher') ||
-      jobTitle?.toLowerCase().includes('assistant');
+    // Check if user is staff based of does the user have job title.
+    const isStaff = jobTitle.length > 0;
 
     logger.info(`User login attempt - Email: ${email}, Staff: ${isStaff}`);
 
@@ -210,6 +207,7 @@ router.post('/callback', async (req: Request, res: Response) => {
     if (isStaff) {
       // Try to find the user in our database
       let userFromDB = await usermodel.getAllUserInfo(email);
+      console.log('🚀 ~ router.post ~ userFromDB:', userFromDB);
 
       // If staff user doesn't exist, create a new user
       if (userFromDB === null) {
