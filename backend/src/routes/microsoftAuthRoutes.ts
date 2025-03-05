@@ -100,21 +100,15 @@ router.post('/callback', async (req: Request, res: Response) => {
     }
 
     const tokenData = (await tokenResponse.json()) as {id_token: string};
-    // @ts-ignore
-    console.log(
-      JSON.parse(Buffer.from(tokenData.id_token, 'base64').toString('utf-8')),
-    );
+
+    console.log('🚀 ~ router.post ~ tokenData:', tokenData);
     const idToken = tokenData.id_token;
 
     // Decode the ID token to get user information
     // Note: In production, you should validate the token signature properly
     const tokenParts = idToken.split('.');
-
     const payload = JSON.parse(
       Buffer.from(tokenParts[1], 'base64').toString('utf-8'),
-    );
-    tokenParts.map((part) =>
-      console.log(JSON.parse(Buffer.from(part, 'base64').toString('utf-8'))),
     );
 
     // Extract user information from the token
