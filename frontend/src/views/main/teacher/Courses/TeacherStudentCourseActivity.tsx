@@ -267,17 +267,18 @@ const TeacherStudentCourseActivity: React.FC = () => {
 
         <div className='p-4 mb-6 bg-gray-50 rounded-lg border border-gray-100'>
           <p className='font-body text-gray-700'>
-            {t('teacher:courseActivity.studentsNotAttending', {
-              count: filteredStudents.length,
-              period:
-                filterPeriod === 'all'
-                  ? t('common:total')
-                  : filterPeriod === 'week'
-                  ? t('common:inLastWeek')
-                  : filterPeriod === 'month'
-                  ? t('common:inLastMonth')
-                  : t('common:belowThreshold', {threshold}),
-            })}
+            {t('teacher:courseActivity.studentsNotAttending')}
+            {filteredStudents.length > 0
+              ? ` ${filteredStudents.length}`
+              : ' 0'}{' '}
+            {''}
+            {filterPeriod === 'all'
+              ? t('common:total')
+              : filterPeriod === 'week'
+              ? t('common:inLastWeek')
+              : filterPeriod === 'month'
+              ? t('common:inLastMonth')
+              : t('common:belowThreshold', {threshold})}
           </p>
         </div>
 
