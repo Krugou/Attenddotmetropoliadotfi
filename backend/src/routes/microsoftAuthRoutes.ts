@@ -210,8 +210,10 @@ router.post(
             // Send the user and the token in the response
             return res.json({user: addStaffUserResponse, token});
           } else {
-            // If the staff user exists, authenticate their login (same as userroutes.ts)
+            // If the staff user exists, authenticate their login
             logger.info(`Staff Microsoft login success for user: ${username}`);
+            // Set the email in the request body for passport authentication
+            req.body.username = email;
             authenticate(req, res, next, username, 'microsoft');
           }
         } catch (error) {
@@ -220,9 +222,11 @@ router.post(
         }
       }
 
-      // If the logged-in user is not staff, authenticate them (same as userroutes.ts)
+      // If the logged-in user is not staff, authenticate them
       if (!isStaff) {
         logger.info(`Non-staff Microsoft login for user: ${username}`);
+        // Set the email in the request body for passport authentication
+        req.body.username = email;
         authenticate(req, res, next, username, 'microsoft');
       }
     } catch (error) {
