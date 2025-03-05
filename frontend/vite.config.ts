@@ -72,7 +72,7 @@ export default defineConfig(({mode}) => {
     },
     esbuild: {
       // Remove console and debugger statements during the build process
-      // drop: ['console', 'debugger'],
+      drop: ['console', 'debugger'],
     },
   };
 });
