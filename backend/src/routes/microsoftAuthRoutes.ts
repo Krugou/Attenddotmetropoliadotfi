@@ -90,7 +90,7 @@ router.post('/callback', async (req: Request, res: Response) => {
         }),
       },
     );
-
+    console.log('🚀 ~ router.post ~ tokenData:', tokenResponse);
     if (!tokenResponse.ok) {
       const errorData = await tokenResponse.json();
       logger.error('Token exchange error:', errorData);
