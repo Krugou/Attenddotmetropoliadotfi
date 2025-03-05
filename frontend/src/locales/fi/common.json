@@ -29,7 +29,10 @@
     "signIn": "Kirjaudu sisään",
     "togglePassword": "{{action}} salasana",
     "forgotPassword": "Nollaa salasanasi (avautuu uuteen välilehteen)",
-    "forgotPasswordLink": "Unohditko salasanasi?"
+    "forgotPasswordLink": "Unohditko salasanasi?",
+    "microsoftSignIn": "Kirjaudu sisään Microsoftin kanssa",
+    "microsoftTesting": "Microsoft Login on parhaillaan testivaiheessa. \nVoit vapaasti testata sitä ja ilmoittaa, jos ongelmia palautteen kautta.",
+    "or": "TAI"
   },
   "dialog": {
     "confirm": "Kyllä",

@@ -32,7 +32,10 @@
     "signIn": "Logga in",
     "togglePassword": "{{action}} lösenord",
     "forgotPassword": "Återställ ditt lösenord (öppnas i ny flik)",
-    "forgotPasswordLink": "Glömt ditt lösenord?"
+    "forgotPasswordLink": "Glömt ditt lösenord?",
+    "microsoftSignIn": "Logga in med Microsoft",
+    "microsoftTesting": "Microsoft -inloggning är för närvarande i testfas. \nTesta gärna det och rapportera om problem via feedback.",
+    "or": "ELLER"
   },
   "dialog": {
     "confirm": "Ja",
