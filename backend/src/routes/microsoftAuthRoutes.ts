@@ -210,11 +210,20 @@ router.post(
             // Send the user and the token in the response
             return res.json({user: addStaffUserResponse, token});
           } else {
-            // If the staff user exists, authenticate their login
+            // If the staff user exists, simply authenticate them
             logger.info(`Staff Microsoft login success for user: ${username}`);
-            // Set the email in the request body for passport authentication
-            req.body.username = email;
-            authenticate(req, res, next, username);
+
+            // Create a token for the user
+            const token = jwt.sign(
+              userFromDB as User,
+              process.env.JWT_SECRET as string,
+              {
+                expiresIn: '2h',
+              },
+            );
+
+            // Send the user and token in response
+            return res.json({user: userFromDB, token});
           }
         } catch (error) {
           logger.error('Error processing staff user:', error);
@@ -222,12 +231,37 @@ router.post(
         }
       }
 
-      // If the logged-in user is not staff, authenticate them
+      // If the logged-in user is not staff, check if they exist in database
       if (!isStaff) {
-        logger.info(`Non-staff Microsoft login for user: ${username}`);
-        // Set the email in the request body for passport authentication
-        req.body.username = email;
-        authenticate(req, res, next, username);
+        try {
+          // Find user in database by email
+          const userFromDB = await usermodel.getAllUserInfo(email);
+
+          if (!userFromDB) {
+            logger.info('User is not assigned to any courses', {email});
+            return res.status(403).json({
+              message:
+                'You are currently not assigned to any courses. Please contact your teacher to be assigned to a course.',
+            });
+          }
+
+          logger.info(`Non-staff Microsoft login for user: ${username}`);
+
+          // Create a token for the user
+          const token = jwt.sign(
+            userFromDB as User,
+            process.env.JWT_SECRET as string,
+            {
+              expiresIn: '2h',
+            },
+          );
+
+          // Send the user and token in response
+          return res.json({user: userFromDB, token});
+        } catch (error) {
+          logger.error('Error processing non-staff user:', error);
+          return res.status(500).json({error: 'Internal server error'});
+        }
       }
     } catch (error) {
       logger.error('Error in Microsoft authentication callback:', error);
