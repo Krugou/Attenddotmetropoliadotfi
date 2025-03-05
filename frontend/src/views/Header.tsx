@@ -106,6 +106,7 @@ const Header = () => {
         '/sv/help',
         '/sv/team',
         '/sv/about',
+        '/auth/microsoft/callback',
       ];
 
       if (!publicPaths.includes(location.pathname)) {
