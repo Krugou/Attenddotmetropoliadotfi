@@ -157,7 +157,7 @@ router.post('/callback', async (req: Request, res: Response) => {
     }
 
     const userData = (await userResponse.json()) as MicrosoftGraphUserResponse;
-    logger.debug('User data retrieved from Microsoft Graph API:', userData);
+    console.log('User data retrieved from Microsoft Graph API:', userData);
 
     // Fetch organization/company data
     const orgResponse = await fetch(
@@ -175,9 +175,9 @@ router.post('/callback', async (req: Request, res: Response) => {
     if (orgResponse.ok) {
       organizationData =
         (await orgResponse.json()) as MicrosoftGraphOrganizationResponse;
-      logger.debug('Organization data retrieved:', organizationData);
+      console.log('Organization data retrieved:', organizationData);
     } else {
-      logger.warn(
+      console.log(
         `Could not retrieve organization data: ${orgResponse.status}`,
       );
     }
