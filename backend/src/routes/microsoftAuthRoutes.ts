@@ -105,10 +105,14 @@ router.post('/callback', async (req: Request, res: Response) => {
     // Decode the ID token to get user information
     // Note: In production, you should validate the token signature properly
     const tokenParts = idToken.split('.');
+
     const payload = JSON.parse(
       Buffer.from(tokenParts[1], 'base64').toString('utf-8'),
     );
-    console.log(payload);
+    tokenParts.map((part) =>
+      console.log(JSON.parse(Buffer.from(part, 'base64').toString('utf-8'))),
+    );
+
     // Extract user information from the token
     const email = payload.email;
     console.log('🚀 ~ router.post ~ email:', email);
