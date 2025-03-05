@@ -70,7 +70,6 @@ router.get('/login', (req: Request, res: Response) => {
  * Handle the OAuth callback from Microsoft Entra ID
  * This endpoint receives the authorization code and exchanges it for an access token
  */
-// @ts-ignore
 router.post(
   '/callback',
   // @ts-ignore
@@ -126,7 +125,6 @@ router.post(
       }
 
       const tokenData = (await tokenResponse.json()) as TokenData;
-
       logger.info('Token data received successfully');
       const idToken = tokenData.id_token;
       const accessToken = tokenData.access_token;
@@ -144,80 +142,92 @@ router.post(
         logger.error(`Failed to get user data: ${userResponse.status}`);
         return res.status(500).json({error: 'Failed to retrieve user data'});
       }
-
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
-      console.log('User data retrieved from Microsoft Graph API:', userData);
-
-      // Decode the ID token to get user information
-      const tokenParts = idToken.split('.');
-      const payload = JSON.parse(
-        Buffer.from(tokenParts[1], 'base64').toString('utf-8'),
-      );
-
       // Extract user information from the token and Graph API
-      const email = userData.mail || payload.email;
+      const email = userData.mail;
       const firstName = userData.givenName || '';
       const lastName = userData.surname || '';
       const jobTitle = userData.jobTitle || '';
 
-      // Check if user is staff based of does the user have job title.
-      const isStaff = jobTitle.length > 0;
+      // Extract username from email (same as in userroutes.ts)
+      const username = userData.userPrincipalName.split('@')[0];
 
-      logger.info(`User login attempt - Email: ${email}, Staff: ${isStaff}`);
+      // Determine if user is staff based on job title or other indicators
+      // This aligns with the logic in userroutes.ts
+      const isStaff = !!jobTitle;
 
-      const username = payload.preferred_username.split('@')[0];
+      logger.info(`MS Auth: ${email} - isStaff: ${isStaff}`);
 
-      // Handle staff users
+      // If the logged-in user is staff and they don't exist in the DB yet, add them to the DB
       if (isStaff) {
-        // Try to find the user in our database
-        let userFromDB = await usermodel.getAllUserInfo(email);
+        try {
+          // Check if the user exists in the database
+          const userFromDB = await usermodel.getAllUserInfo(email);
 
-        // If staff user doesn't exist, create a new user
-        if (userFromDB === null) {
-          // Create staff user object with required fields
-          const staffUser = {
-            username,
-            staff: 1,
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            roleid: 3, // teacher role
-            activeStatus: 1,
-            language: userData.preferredLanguage?.substring(0, 2) || 'en',
-            darkMode: 0,
-          };
+          if (userFromDB === null) {
+            // Determine role ID based on username pattern - matching userroutes.ts logic
+            let roleid;
+            switch (username) {
+              case 'admin':
+                roleid = 4;
+                break;
+              case 'counselor':
+                roleid = 2;
+                break;
+              default:
+                roleid = 3; // default to teacher
+            }
 
-          // Add staff user to database
-          // @ts-ignore - Use type assertion to bypass TypeScript error
-          userFromDB = await usermodel.addStaffUser(staffUser);
+            // Create userData object matching the structure used in userroutes.ts
+            const userData = {
+              username: username,
+              staff: 1,
+              first_name: firstName,
+              last_name: lastName,
+              email: email,
+              roleid: roleid,
+              activeStatus: 1,
+              language: 'en',
+              darkMode: 0,
+            };
+            // If the staff user doesn't exist, add them to the database
+            const addStaffUserResponse = await usermodel.addStaffUser(userData);
+            if (!addStaffUserResponse) {
+              logger.error('Failed to add staff user to the database.');
+              return res.status(500).json({error: 'Failed to create user'});
+            }
 
-          if (!userFromDB) {
-            logger.error('Failed to create staff user from Microsoft login');
-            return res.status(500).json({error: 'Failed to create user'});
+            // Create a token for the user
+            const token = jwt.sign(
+              addStaffUserResponse as User,
+              process.env.JWT_SECRET as string,
+              {
+                expiresIn: '2h',
+              },
+            );
+
+            // Send the user and the token in the response
+            return res.json({user: addStaffUserResponse, token});
+          } else {
+            // If the staff user exists, authenticate their login (same as userroutes.ts)
+            logger.info(`Staff Microsoft login success for user: ${username}`);
+            authenticate(req, res, next, username);
           }
-
-          // Create a JWT token for the new staff user
-          const token = jwt.sign(userFromDB as User, process.env.JWT_SECRET, {
-            expiresIn: '2h',
-          });
-
-          // Return the user and token to the frontend
-          return res.status(200).json({user: userFromDB, token});
-        } else {
-          // Existing staff user, use normal authentication
-          req.body.username = email;
-          authenticate(req, res, next, username);
+        } catch (error) {
+          logger.error('Error processing staff user:', error);
+          return res.status(500).json({error: 'Internal server error'});
         }
-      } else {
-        // For students, use the same authentication flow as normal login
-        logger.info(`Non-staff Microsoft login attempt for user: ${username}`);
-        req.body.username = email;
+      }
+
+      // If the logged-in user is not staff, authenticate them (same as userroutes.ts)
+      if (!isStaff) {
+        logger.info(`Non-staff Microsoft login for user: ${username}`);
         authenticate(req, res, next, username);
       }
     } catch (error) {
       logger.error('Error in Microsoft authentication callback:', error);
-      res.status(500).json({error: 'Internal server error'});
+      return res.status(500).json({error: 'Internal server error'});
     }
   },
 );
