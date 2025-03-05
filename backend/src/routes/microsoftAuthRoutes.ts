@@ -108,7 +108,7 @@ router.post('/callback', async (req: Request, res: Response) => {
     const payload = JSON.parse(
       Buffer.from(tokenParts[1], 'base64').toString('utf-8'),
     );
-
+    logger.info('Microsoft login payload:', payload);
     // Extract user information from the token
     const email = payload.email || payload.preferred_username;
     const name = payload.name || '';
