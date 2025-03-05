@@ -11,6 +11,20 @@ interface BackgroundContainerProps {
 }
 
 /**
+ * This system generates random decorative circles based on calendar data for a dynamic SVG background.
+ * The randomization is deterministic based on time factors:
+ *
+ * - Number of circles: Based on the current hour (hours * 2), creating more circles later in the day
+ * - Minimum circle radius: Based on the current day of month (day * 2), larger minimums later in month
+ * - Maximum circle radius: Based on days passed in current year (daysPassed * 3), creating larger potential circles as year progresses
+ *
+ * Circle positions (cx, cy) are fully randomized within the viewport dimensions.
+ * Circle colors are randomly selected from the provided colors array (or defaults to specifiedColors).
+ *
+ * This approach creates a visually interesting pattern that subtly changes throughout the day and
+ * evolves throughout the month/year while maintaining performance through controlled circle counts.
+ */
+/**
  * Generates a random circle SVG background.
  */
 const specifiedColors = [
