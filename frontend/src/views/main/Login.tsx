@@ -43,7 +43,6 @@ const Login: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<
     Partial<Record<keyof LoginFormData, string>>
   >({});
-  const [showMicrosoftLogin] = useState<boolean>(true);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -140,35 +139,32 @@ const Login: React.FC = () => {
         {t('common:login.title', 'Sign in using your Metropolia Account')}
       </h1>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
-
-      {showMicrosoftLogin && (
-        <div className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
-          <button
-            onClick={handleMicrosoftLogin}
-            className='flex items-center justify-center w-full px-4 py-2 mb-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-xl focus:outline-hidden'
-            type='button'
-            aria-label={t(
-              'common:login.microsoftSignIn',
-              'Sign In with Microsoft',
-            )}>
-            <MicrosoftIcon className='mr-2' />
-            {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
-          </button>
-          <p className='text-sm text-center text-gray-600 font-extrabold'>
-            {t(
-              'common:login.microsoftTesting',
-              'Microsoft login is currently in testing phase and may not work as expected.',
-            )}
-          </p>
-          <div className='flex items-center my-4'>
-            <hr className='flex-grow border-gray-300' />
-            <span className='px-3 text-gray-500'>
-              {t('common:login.or', 'OR')}
-            </span>
-            <hr className='flex-grow border-gray-300' />
-          </div>
+      <div className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
+        <button
+          onClick={handleMicrosoftLogin}
+          className='flex items-center justify-center w-full px-4 py-2 mb-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-xl focus:outline-hidden'
+          type='button'
+          aria-label={t(
+            'common:login.microsoftSignIn',
+            'Sign In with Microsoft',
+          )}>
+          <MicrosoftIcon className='mr-2' />
+          {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
+        </button>
+        <p className='text-sm text-center text-gray-600 font-extrabold'>
+          {t(
+            'common:login.microsoftTesting',
+            'Microsoft login is currently in testing phase and may not work as expected.',
+          )}
+        </p>
+        <div className='flex items-center my-4'>
+          <hr className='flex-grow border-gray-300' />
+          <span className='px-3 text-gray-500'>
+            {t('common:login.or', 'OR')}
+          </span>
+          <hr className='flex-grow border-gray-300' />
         </div>
-      )}
+      </div>
 
       <form
         onSubmit={handleSubmit}
