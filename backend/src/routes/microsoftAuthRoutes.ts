@@ -161,7 +161,7 @@ router.post(
       // Fetch additional user details
       try {
         const moreDetailsUserResponse = await fetch(
-          `https://graph.microsoft.com/v1.0/users/${userData.id}/licenseDetails`,
+          `https://graph.microsoft.com/v1.0/users/${userData.id}/appRoleAssignments`,
           {
             method: 'GET',
             headers: {
@@ -184,12 +184,6 @@ router.post(
           const detailedUserData =
             (await moreDetailsUserResponse.json()) as MicrosoftGraphDetailedUserResponse;
           console.log('🚀 ~ detailedUserData:', detailedUserData);
-
-          logger.info('Retrieved additional user details successfully', {
-            userId: userData.id,
-            department: detailedUserData.department,
-            userType: detailedUserData.userType,
-          });
 
           // Merge additional useful information into userData if needed
           if (detailedUserData.department) {
