@@ -191,7 +191,7 @@ router.post(
           // if detaileduserData array contains one of the array as principalDisplayName as 'metropolia staff' then console log this user is staff but make it only log it once it finds it
           if (
             detailedUserData.value.some(
-              (item) => item.principalDisplayName === 'metropolia staff',
+              (item) => item.principalDisplayName === 'Metropolia staff',
             )
           ) {
             userData.isStaff = true;
