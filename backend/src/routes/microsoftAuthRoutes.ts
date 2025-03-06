@@ -34,20 +34,6 @@ interface TokenData {
   expires_in?: number;
 }
 
-// Interface for more detailed user information
-interface MicrosoftGraphDetailedUserResponse {
-  '@odata.context': string; // The context of the response
-  'value': {
-    id: string; // The ID of the user
-    principalDisplayName: string; // The display name of the principal
-    principalId: string; // The ID of the principal
-    principalType: string; // The type of the principal
-    resourceDisplayName: string; // The display name of the resource
-    resourceId: string; // The ID of the resource
-    resourceType: string; // The type of the resource
-  }[];
-}
-
 /**
  * Initiate Microsoft Entra ID authentication flow
  * Redirects the user to Microsoft's authentication page
