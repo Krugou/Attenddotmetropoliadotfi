@@ -151,12 +151,7 @@ const Login: React.FC = () => {
           <MicrosoftIcon className='mr-2' />
           {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
         </button>
-        <p className='text-sm text-center text-gray-600 font-extrabold'>
-          {t(
-            'common:login.microsoftTesting',
-            'Microsoft login is currently in testing phase and may not work as expected.',
-          )}
-        </p>
+
         <div className='flex items-center my-4'>
           <hr className='flex-grow border-gray-300' />
           <span className='px-3 text-gray-500'>
