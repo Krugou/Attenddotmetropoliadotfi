@@ -145,6 +145,7 @@ router.post(
       const accessToken = tokenData.access_token;
 
       // Fetch user profile data from Microsoft Graph API using the /me endpoint
+      // this needs right permissions in the scope "User.Read"
       const userResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
         method: 'GET',
         headers: {
@@ -160,9 +161,10 @@ router.post(
 
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
-      logger.info('Basic user data retrieved successfully', userData);
+      console.log('Basic user data retrieved successfully', userData);
 
       // Fetch additional user details
+      // this needs right permissions in the scope "User.Read.All"
       try {
         const moreDetailsUserResponse = await fetch(
           `https://graph.microsoft.com/v1.0/users/${userData.id}/appRoleAssignments`,
@@ -176,7 +178,7 @@ router.post(
         );
 
         if (!moreDetailsUserResponse.ok) {
-          logger.warn(
+          logger.error(
             `Failed to get detailed user data: ${moreDetailsUserResponse.status}`,
             {
               userId: userData.id,
@@ -196,7 +198,9 @@ router.post(
           }
 
           if (userData.isStaff) {
-            logger.info(`User ${userData.mail} is confirmed as staff.`);
+            logger.info(
+              `User ${userData.mail} is confirmed as staff via appRoleAssignments.`,
+            );
           }
 
           // Use any additional fields from detailedUserData as needed
@@ -218,7 +222,9 @@ router.post(
       // Determine if user is staff based on job title or other indicators
       // This aligns with the logic in userroutes.ts
       const isStaff = !!jobTitle;
-
+      if (isStaff) {
+        logger.info(`User was Confirmed as staff via job title: ${jobTitle}`);
+      }
       logger.info(`MS Auth: ${email} - isStaff: ${isStaff}`);
 
       // If the logged-in user is staff and they don't exist in the DB yet, add them to the DB
