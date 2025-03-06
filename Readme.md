@@ -30,6 +30,10 @@ For detailed setup instructions, development environment configuration, and depl
 
 [How to Start](HowToStart.md)
 
+For instructions on updating API keys and authentication credentials, see:
+
+[API Key Updates](API_KEY_UPDATES.md)
+
 ## 🏗️ Architecture
 
 The application follows a modern web architecture:
