@@ -59,7 +59,7 @@ router.get('/login', (req: Request, res: Response) => {
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
     // Update scope to include User.Read.All permission
-    const scope = encodeURIComponent('openid profile email User.Read.All');
+    const scope = encodeURIComponent('openid profile email User.Read');
     const responseType = 'code';
     const tenantId = process.env.MS_TENANT_ID; // Metropolia's tenant ID
 
@@ -100,7 +100,6 @@ router.post(
       if (!code) {
         return res.status(400).json({error: 'No authorization code provided'});
       }
-
       // Exchange the authorization code for an access token
       const clientId = process.env.MS_CLIENT_ID;
       const clientSecret = process.env.MS_CLIENT_SECRET;
@@ -157,58 +156,8 @@ router.post(
         logger.error(`Failed to get user data: ${userResponse.status}`);
         return res.status(500).json({error: 'Failed to retrieve user data'});
       }
-
       const userData =
         (await userResponse.json()) as MicrosoftGraphUserResponse;
-      console.log('Basic user data retrieved successfully', userData);
-
-      // Fetch additional user details
-      // this needs right permissions in the scope "User.Read.All"
-      try {
-        const moreDetailsUserResponse = await fetch(
-          `https://graph.microsoft.com/v1.0/users/${userData.id}/appRoleAssignments`,
-          {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${accessToken}`,
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-
-        if (!moreDetailsUserResponse.ok) {
-          logger.error(
-            `Failed to get detailed user data: ${moreDetailsUserResponse.status}`,
-            {
-              userId: userData.id,
-              statusText: moreDetailsUserResponse.statusText,
-            },
-          );
-        } else {
-          // Parse the JSON response
-          const detailedUserData =
-            (await moreDetailsUserResponse.json()) as MicrosoftGraphDetailedUserResponse;
-          if (
-            detailedUserData.value.some(
-              (item) => item.principalDisplayName === 'Metropolia staff',
-            )
-          ) {
-            userData.isStaff = true;
-          }
-
-          if (userData.isStaff) {
-            logger.info(
-              `User ${userData.mail} is confirmed as staff via appRoleAssignments.`,
-            );
-          }
-
-          // Use any additional fields from detailedUserData as needed
-        }
-      } catch (error) {
-        // Log error but continue with basic user data
-        logger.error('Error fetching detailed user information:', error);
-      }
-
       // Extract user information from the token and Graph API
       const email = userData.mail;
       const firstName = userData.givenName || '';
@@ -221,9 +170,7 @@ router.post(
       // Determine if user is staff based on job title or other indicators
       // This aligns with the logic in userroutes.ts
       const isStaff = !!jobTitle;
-      if (isStaff) {
-        logger.info(`User was Confirmed as staff via job title: ${jobTitle}`);
-      }
+
       logger.info(`MS Auth: ${email} - isStaff: ${isStaff}`);
 
       // If the logged-in user is staff and they don't exist in the DB yet, add them to the DB
