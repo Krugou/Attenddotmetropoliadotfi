@@ -15,7 +15,8 @@
     "frontendDev": "cd frontend && npm run dev",
     "docs": "concurrently \"cd backend && npm run docs \" \"cd frontend && npm run docs\"",
     "sqlBackup": "cd backend && npm run sqlBackup",
-    "translationCheck": "node runTranslationChecks.js"
+    "translationCheck": "node runTranslationChecks.js",
+    "rebuild": "npm run build && cd backend && npm i --force && npm run tsc && pm2 delete all && pm2 start ecosystem.config.cjs && pm2 save"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.23.0",
