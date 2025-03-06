@@ -157,8 +157,6 @@ router.post(
       // This aligns with the logic in userroutes.ts
       const isStaff = !!jobTitle;
 
-      logger.info(`MS Auth: ${email} - isStaff: ${isStaff}`);
-
       // If the logged-in user is staff and they don't exist in the DB yet, add them to the DB
       if (isStaff) {
         try {
