@@ -140,7 +140,6 @@ router.post(
       }
 
       const tokenData = (await tokenResponse.json()) as TokenData;
-      logger.info('Token data received successfully');
       // const idToken = tokenData.id_token;
       const accessToken = tokenData.access_token;
 
