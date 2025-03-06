@@ -1,115 +1,97 @@
-# Metropolia Attendance app project
+# Metropolia Attendance Application
 
-> This app is made for metropolia university of applied sciences to help teachers to take attendance in their Lectures.
-
-[Project link here!](https://JakSec.northeurope.cloudapp.azure.com/)
-
-[TSdocs link](https://krugou.github.io/JakSurveillance/)
+> A comprehensive attendance tracking solution developed for Metropolia University of Applied Sciences to streamline lecture attendance management and enhance educational administrative processes.
 
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/Krugou/JakSurveillance)](https://github.com/Krugou/JakSurveillance)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18.0+-61dafb.svg)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.0+-339933.svg)](https://nodejs.org/)
 
-## How to Start the project
+## 🔗 Links
+
+- [Production Frontend](https://attend.metropolia.fi/)
+- [API Endpoint](https://attend.metropolia.fi/api/)
+- [TypeScript Documentation](https://krugou.github.io/attenddotmetropoliadotfi/)
+
+## 📋 Project Overview
+
+The Metropolia Attendance application enables instructors to efficiently record student presence in lectures through multiple authentication methods:
+
+- QR code scanning
+- Manual attendance recording
+- Student self-registration
+- Microsoft Entra ID (Azure AD) authentication
+
+The system provides detailed analytics, reporting features, and integration with Metropolia's curriculum data through the Open Data API.
+
+## 🚀 Getting Started
+
+For detailed setup instructions, development environment configuration, and deployment guides, see:
 
 [How to Start](HowToStart.md)
 
-## What we found out
+## 🏗️ Architecture
 
-<!-- Write about what you found out here -->
+The application follows a modern web architecture:
 
-> You can import excel files to sql easily using nodejs npm package called xlsx
->
-> We learned what it's like to work with a real client
->
-> We learned to work with typescript
->
-> We learned how to communicate and associate with a real client
+- **Frontend**: React with TypeScript, Tailwind CSS for styling
+- **Backend**: Node.js with Express, TypeScript
+- **Database**: MariaDB
+- **Authentication**: JWT tokens, Microsoft Entra ID integration
+- **API**: RESTful endpoints with OpenAPI documentation
 
-## What works and what doesn't
+## 🛡️ Security and Best Practices
 
-<!-- Write about what works and what doesn't here -->
+This project adheres to industry best practices:
 
-> Every user has instructional videos
->
-> Every user has their own profile
->
-> Teachers can create courses and lectures
->
-> Teachers can gather attendance of the students from a lecture
->
-> Teachers can view and modify course details
->
-> Teachers can view and modify students attendance
->
-> Teachers can view the statistics of students attendance on a course
->
-> Teachers can add and delete students on a course
->
-> Teachers can modify students topics on a course
->
-> Teachers can change their own role
->
-> Counselor can view and modify students attendance
->
-> Counselor can view and modify course details
->
-> Counselor can modify students topics on a course
->
-> Counselor can view the statistics of students attendance on a course
->
-> Counselor can change their own role
->
-> Students can attend a lecture by scanning a qr code
->
-> Students can view their own attendance on a course
->
-> Students can view their own attendance statistics
->
-> Students can view their own course details
->
-> Different user pools for SQL statements created, but not yet implemented
+- Secure authentication with proper JWT handling
+- Input validation and sanitization
+- CORS security policies
+- Role-based access control
+- Data encryption for sensitive information
+- Regular security audits and updates
 
-## The pros and cons of the project
+## 🌐 Internationalization
 
-<!-- Write about the pros and cons here -->
+The application supports multiple languages:
 
-### Pros
+- Finnish
+- English
+- Swedish
 
-> Good amount of functionalities
->
-> Project stayed on schedule always
->
-> Communication
->
-> Client was happy with the end result
+Translations are managed through i18next with proper localization patterns.
 
-### Cons
+## 🛠️ Development
 
-> Not that responsive on some pages with mobile
+### Prerequisites
 
-### Features added after presentation
+- Node.js (LTS version)
+- MariaDB
+- API keys (Metropolia Open Data API)
+- Microsoft Entra ID credentials
 
-> Teacher is now able to delete the ongoing lecture in the attendance room
->
-> immediate attendees list update after student insert or delete on the attendance room
->
-> Purging of the attendance room student listing after the lecture has ended
->
-> Qr Code in attendance room now can be read as any mobile device camera as qr link to selected baseUrl from apihooks
+### Technology Stack
 
-## Our Team Members
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **Backend**: Node.js, Express, TypeScript
+- **Database**: MariaDB
+- **Documentation**: TypeDoc, OpenAPI
+- **Testing**: Jest, Playwright
 
-### Joonas Lamminmäki
+## 📝 Documentation
 
-> [Jonsson-123](https://github.com/Jonsson-123)
+- [Backend Documentation](./backend/README.md)
+- [Frontend Documentation](./frontend/README.md)
+- [System Architecture](./DOCUMENTATION.md)
 
-### Kaarle Häyhä
+## 📊 Monitoring and Maintenance
 
-> [KaarleH](https://github.com/KaarleH)
+The application uses PM2 for process management and includes comprehensive logging for troubleshooting and performance monitoring.
 
-### Aleksi Nokelainen
+## 👥 Contributors
 
-> [Krugou](https://github.com/Krugou)
->
-## Future
-proper metropolia server
-[HAKA LOGIN](https://wiki.eduuni.fi/display/CSCHAKA/Tekninen+dokumentaatio)
+- Developed by Metropolia University of Applied Sciences students and faculty.
+
+---
+
+© 2023 Metropolia University of Applied Sciences
