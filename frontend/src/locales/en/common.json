@@ -31,7 +31,6 @@
     "forgotPassword": "Reset your password (opens in new tab)",
     "forgotPasswordLink": "Forgot your password?",
     "microsoftSignIn": "Sign In with Microsoft",
-    "microsoftTesting": "Microsoft login is currently in testing phase. Feel free to test it and report if problems via feedback.",
     "or": "OR"
   },
   "dialog": {
