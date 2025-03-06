@@ -662,6 +662,7 @@
     "modifySuccess": "Arbetslogg ändrad framgångsrikt",
     "title": "Arbetsloggar",
     "entries": {
+      "name": "Namn",
       "status": "Status",
       "date": "Datum",
       "hours": "Timmar",

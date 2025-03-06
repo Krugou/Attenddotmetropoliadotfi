@@ -563,6 +563,7 @@
       "back": "back"
     },
     "entries": {
+      "name": "Name",
       "date": "Date",
       "hours": "Hours",
       "description": "Description",

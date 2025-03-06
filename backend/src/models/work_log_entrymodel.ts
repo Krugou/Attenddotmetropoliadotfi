@@ -217,8 +217,9 @@ const work_log_entries = {
       if (!studentIds.length) return [];
 
       const [rows] = await pool.promise().query<WorkLogEntry[]>(
-        `SELECT wle.*
+        `SELECT wle.*, u.first_name, u.last_name
          FROM work_log_entries wle
+         JOIN users u ON wle.userid = u.userid
          WHERE wle.work_log_course_id = ?
          AND wle.userid IN (?)
          ORDER BY wle.start_time DESC`,

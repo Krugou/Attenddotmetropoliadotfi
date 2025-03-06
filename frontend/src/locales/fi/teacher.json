@@ -544,6 +544,7 @@
       "entries": "Ryhmämerkinnät"
     },
     "entries": {
+      "name":" Nimi",
       "date": "Päivämäärä",
       "hours": "Tunnit",
       "description": "Kuvaus",
