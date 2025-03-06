@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import usermodel from '../models/usermodel.js';
 import {User} from '../types.js';
 import logger from '../utils/logger.js';
-
+import {UserData} from '../types.js';
 /**
  * Router for Microsoft Entra ID authentication routes.
  */
@@ -248,18 +248,16 @@ router.post(
             }
 
             // Create userData object matching the structure used in userroutes.ts
-            const userData = {
+            const userData: UserData = {
               username: username,
               staff: 1,
               first_name: firstName,
               last_name: lastName,
               email: email,
               roleid: roleid,
-              activeStatus: 1,
-              language: 'en',
-              darkMode: 0,
             };
             // If the staff user doesn't exist, add them to the database
+            //@ts-expect-error
             const addStaffUserResponse = await usermodel.addStaffUser(userData);
             if (!addStaffUserResponse) {
               logger.error('Failed to add staff user to the database.');
