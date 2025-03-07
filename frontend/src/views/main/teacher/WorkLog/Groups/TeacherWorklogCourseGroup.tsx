@@ -185,14 +185,16 @@ const TeacherWorklogCourseGroup: React.FC = () => {
   return (
     <>
       <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
-        <div className='mb-6'>
-          <Link
-            to={`/teacher/worklog/course/${courseid}`}
-            className='inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-150 rounded-lg bg-metropolia-main-orange hover:bg-opacity-90 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange font-body'>
-            {t('teacher:worklog.detail.backToWorklog')}
-          </Link>
+        <div className='flex gap-4 mb-6'>
+          <GeneralLinkButton
+            path={`/teacher/worklog/group/${courseid}`}
+            text={t('teacher:worklog.detail.backToCourse')}
+          />
+          <GeneralLinkButton
+            path={`/teacher/worklog`}
+            text={t('teacher:worklog.detail.backToWorklog')}
+          />
         </div>
-
         <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
           <h1 className='mb-4 text-3xl font-heading'>
             {groupDetails.group.group_name}
@@ -332,7 +334,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                 <table className='w-full table-auto'>
                   <thead>
                     <tr className='text-gray-600 border-b font-body'>
-                    <th className='p-3 text-left'>
+                      <th className='p-3 text-left'>
                         {t('teacher:worklog.entries.name')}
                       </th>
                       <th className='p-3 text-left'>

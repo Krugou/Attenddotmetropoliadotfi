@@ -55,14 +55,18 @@ const TeacherWorklogCourseDetail: React.FC = () => {
         {worklogData?.name} - {worklogData?.code}
       </h2>
       <div className='w-full mx-auto mt-4 bg-white rounded-lg shadow-lg sm:w-3/4 md:w-2/4 lg:w-2/5 2xl:w-1/5'>
-        <div className='pt-5 pl-5'>
+        <div className='flex gap-4 pt-5 pl-5'>
           <GeneralLinkButton
             path={
               user?.role === 'admin'
-                ? '/counselor/worklog'
+                ? '/teacher/worklog'
                 : `/${user?.role}/worklog`
             }
             text={t('teacher:worklog.detail.backToWorklog')}
+          />
+          <GeneralLinkButton
+            path={`/teacher/worklog/group/${courseid}`}
+            text={t('teacher:worklog.data.viewGroups')}
           />
         </div>
         {worklogData && (

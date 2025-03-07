@@ -7,8 +7,8 @@ export interface WorkLogCourseGroup extends RowDataPacket {
   group_id: number;
   work_log_course_id: number;
   group_name: string;
+  member_count: number;
 }
-
 
 const work_log_course_groups = {
   async createWorkLogGroup(
@@ -98,11 +98,16 @@ const work_log_course_groups = {
     courseId: number,
   ): Promise<WorkLogCourseGroup[]> {
     try {
-      const [rows] = await pool
-        .promise()
-        .query<
-          WorkLogCourseGroup[]
-        >('SELECT * FROM work_log_course_groups WHERE work_log_course_id = ?', [courseId]);
+      const [rows] = await pool.promise().query<WorkLogCourseGroup[]>(
+        `SELECT
+          wcg.*,
+          COALESCE(COUNT(sga.userid), 0) as member_count
+         FROM work_log_course_groups wcg
+         LEFT JOIN student_group_assignments sga ON wcg.group_id = sga.group_id
+         WHERE wcg.work_log_course_id = ?
+         GROUP BY wcg.group_id, wcg.work_log_course_id, wcg.group_name`,
+        [courseId],
+      );
       return rows;
     } catch (error) {
       console.error('Error getting work log groups by course:', error);

@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import apiHooks from '../../../../../api';
 import GeneralLinkButton from '../../../../../components/main/buttons/GeneralLinkButton';
+import {UserContext} from '../../../../../contexts/UserContext';
 
 interface WorkLogGroup {
   group_id: number;
   group_name: string;
   work_log_course_id?: number;
+  member_count: number;
 }
 
 interface WorkLogStudent {
@@ -19,10 +21,10 @@ interface WorkLogStudent {
   studentnumber: string;
   existingGroup?: {group_id: number; group_name: string} | null;
 }
-
 const TeacherWorklogCourseGroups: React.FC = () => {
   const {t} = useTranslation(['translation']);
   const {courseid} = useParams<{courseid: string}>();
+  const {user} = useContext(UserContext);
   const [groups, setGroups] = useState<WorkLogGroup[]>([]);
   const [students, setStudents] = useState<WorkLogStudent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +127,11 @@ const TeacherWorklogCourseGroups: React.FC = () => {
     } catch (error) {
       console.error('Error creating group:', error);
       if (error instanceof Error) {
-        toast.error(t('teacher:worklog.groups.errors.createFailed', { message: error.message }));
+        toast.error(
+          t('teacher:worklog.groups.errors.createFailed', {
+            message: error.message,
+          }),
+        );
       } else {
         toast.error(t('teacher:worklog.groups.errors.unknown'));
       }
@@ -186,10 +192,20 @@ const TeacherWorklogCourseGroups: React.FC = () => {
 
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
+          <div className='flex gap-4'>
           <GeneralLinkButton
-            path={`/teacher/worklog`}
-            text={t('common:back')}
-          />
+              path={
+                user?.role === 'admin'
+                  ? '/counselor/mainview'
+                  : `${user?.role}/mainview`
+              }
+              text={t('teacher:courses.buttons.backToMainview')}
+            />
+            <GeneralLinkButton
+              path={`/teacher/worklog`}
+              text={t('common:back')}
+            />
+          </div>
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
             className='px-4 py-2 text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
@@ -217,6 +233,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   value={newGroupName}
                   onChange={(e) => setNewGroupName(e.target.value)}
                   className='w-full p-2 border rounded-sm font-body'
+                  max={10}
                   required
                 />
               </div>
@@ -299,9 +316,16 @@ const TeacherWorklogCourseGroups: React.FC = () => {
             groups?.map((group) => (
               <div
                 key={group.group_id}
-                className='p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200'>
-                <h3 className='mb-4 text-xl font-heading'>{group.group_name}</h3>
-                <div className='flex justify-end mt-4'>
+                className='p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200'>
+                <h3 className='mb-2 text-lg font-heading break-words'>
+                  {group.group_name}
+                </h3>
+                <div className='flex items-center justify-between'>
+                  <p className='text-sm text-gray-600 font-body'>
+                    {t('teacher:worklog.groups.studentCount', {
+                      count: group.member_count
+                    })}
+                  </p>
                   <GeneralLinkButton
                     path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
                     text={t('common:view')}
