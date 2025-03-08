@@ -52,16 +52,11 @@ router.get(
         {
           userId: req.user?.userid,
           userRole: req.user?.role,
-          recordCount: result.length || 0,
         },
         'Successfully retrieved all students activity data',
       );
 
-      res.json({
-        success: true,
-        data: result,
-        error: null,
-      });
+      res.json(result);
     } catch (error) {
       logger.error(
         {
@@ -145,16 +140,11 @@ router.get(
           userId: authenticatedUserId,
           userRole: userRole,
           requestedId,
-          recordCount: result.length || 0,
         },
         'Successfully retrieved instructor course activity data',
       );
 
-      res.json({
-        success: true,
-        data: result,
-        error: null,
-      });
+      res.json(result);
     } catch (error) {
       logger.error(
         {
