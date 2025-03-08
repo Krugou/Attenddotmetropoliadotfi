@@ -41,13 +41,36 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
   const {t} = useTranslation(['teacher']);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
+  const [charCount, setCharCount] = useState(description.length);
+  const [nameCharCount, setNameCharCount] = useState(name.length);
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
+    setDescription(e.target.value);
+    setCharCount(e.target.value.length);
+  };
+
+  const handleNameChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
+
+    setName(e.target.value);
+    setNameCharCount(e.target.value.length);
+  };
 
   useEffect(() => {
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
       throw new Error('No token available');
     }
-    const delay = 250; // Delay in milliseconds
+    const delay = 250;
 
     const validateWorklogCode = async () => {
       const response = await apiHooks.checkWorklogCode(code, token);
@@ -79,13 +102,19 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
         </legend>
       )}
 
-      <InputField
-        label={t('teacher:worklog.details.name')}
-        type='text'
-        name='name'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div>
+        <InputField
+          label={t('teacher:worklog.details.name')}
+          type='text'
+          name='name'
+          value={name}
+          onChange={handleNameChange}
+          maxLength={100}
+        />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {nameCharCount}/100 characters
+        </p>
+      </div>
 
       <InputField
         label={t('teacher:worklog.details.code')}
@@ -109,15 +138,21 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
         </p>
       )}
 
-      <InputField
-        label={t('teacher:worklog.details.description')}
-        type='textarea'
-        name='description'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows={4}
-        className='p-2 border rounded-lg w-full'
-      />
+      <div>
+        <InputField
+          label={t('teacher:worklog.details.description')}
+          type='textarea'
+          name='description'
+          value={description}
+          onChange={handleDescriptionChange}
+          maxLength={500}
+          rows={4}
+          className='p-2 border rounded-lg w-full'
+        />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {charCount}/500 characters
+        </p>
+      </div>
 
       <InputField
         label={t('teacher:worklog.details.requiredHours')}

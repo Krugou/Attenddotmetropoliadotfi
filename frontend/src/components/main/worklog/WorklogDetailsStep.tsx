@@ -39,6 +39,8 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
   const [isCheckingCode, setIsCheckingCode] = useState(false);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
+  const [charCount, setCharCount] = useState(description.length);
+  const [nameCharCount, setNameCharCount] = useState(name.length);
 
   useEffect(() => {
     const token: string | null = localStorage.getItem('userToken');
@@ -71,7 +73,27 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
       setIsCheckingCode(false);
     };
   }, [code, setCourseExists]);
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
 
+    setDescription(e.target.value);
+    setCharCount(e.target.value.length);
+  };
+
+  const handleNameChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
+
+    setName(e.target.value);
+    setNameCharCount(e.target.value.length);
+  };
   return (
     <div className='space-y-4'>
       <div className='flex flex-col'>
@@ -84,10 +106,14 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           type='text'
           id='name'
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleNameChange}
+          maxLength={100}
           className='p-2 border rounded-lg'
           required
         />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {nameCharCount}/100 characters
+        </p>
       </div>
 
       <div className='flex flex-col'>
@@ -138,10 +164,14 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
         <textarea
           id='description'
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={handleDescriptionChange}
+          maxLength={500}
           className='p-2 border rounded-lg'
           rows={4}
         />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {charCount}/500 characters
+        </p>
       </div>
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>

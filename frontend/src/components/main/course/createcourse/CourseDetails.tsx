@@ -46,6 +46,11 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
   const {t} = useTranslation(['teacher']);
   const [firstCourseCode] = useState(courseCode);
   const [courseCodeChanged, setCourseCodeChanged] = useState(false);
+  const [courseNameCharCount, setCourseNameCharCount] = useState(
+    courseName.length,
+  );
+  const [groupCharCount, setGroupCharCount] = useState(studentGroup.length);
+
   useEffect(() => {
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
@@ -68,6 +73,27 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
       }
     }
   }, [courseCode]);
+
+  const handleCourseNameChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
+    setCourseName(e.target.value);
+    setCourseNameCharCount(e.target.value.length);
+  };
+
+  const handleGroupChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (!e || !e.target) {
+      return;
+    }
+    setStudentGroup(e.target.value);
+    setGroupCharCount(e.target.value.length);
+  };
+
   return (
     <fieldset>
       {modify ? (
@@ -108,20 +134,34 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
         </p>
       )}
 
-      <InputField
-        label={t('teacher:courseDetails.labels.courseName')}
-        type='text'
-        name='courseName'
-        value={courseName}
-        onChange={(e) => setCourseName(e.target.value)}
-      />
-      <InputField
-        label={t('teacher:courseDetails.labels.studentGroup')}
-        type='text'
-        name='studentGroup'
-        value={studentGroup}
-        onChange={(e) => setStudentGroup(e.target.value)}
-      />
+      <div>
+        <InputField
+          label={t('teacher:courseDetails.labels.courseName')}
+          type='text'
+          name='courseName'
+          value={courseName}
+          onChange={handleCourseNameChange}
+          maxLength={100}
+        />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {courseNameCharCount}/100 characters
+        </p>
+      </div>
+
+      <div>
+        <InputField
+          label={t('teacher:courseDetails.labels.studentGroup')}
+          type='text'
+          name='studentGroup'
+          value={studentGroup}
+          onChange={handleGroupChange}
+          maxLength={100}
+        />
+        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+          {groupCharCount}/100 characters
+        </p>
+      </div>
+
       <InputField
         label={t('teacher:courseDetails.labels.startDate')}
         type='date'

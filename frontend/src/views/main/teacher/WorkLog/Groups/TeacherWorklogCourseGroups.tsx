@@ -32,6 +32,15 @@ const TeacherWorklogCourseGroups: React.FC = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [isCreatingGroup, setIsCreatingGroup] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+
+  const handleGroupNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e || !e.target) {
+      return;
+    }
+    setNewGroupName(e.target.value);
+    setCharCount(e.target.value.length);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -193,7 +202,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
       <div className='w-full p-5 m-auto mt-5 bg-gray-100 rounded-lg 2xl:w-3/4'>
         <div className='flex flex-col justify-between gap-5 sm:gap-0 sm:flex-row'>
           <div className='flex gap-4'>
-          <GeneralLinkButton
+            <GeneralLinkButton
               path={
                 user?.role === 'admin'
                   ? '/counselor/mainview'
@@ -231,11 +240,14 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   id='groupName'
                   type='text'
                   value={newGroupName}
-                  onChange={(e) => setNewGroupName(e.target.value)}
+                  onChange={handleGroupNameChange}
                   className='w-full p-2 border rounded-sm font-body'
-                  max={10}
+                  maxLength={100}
                   required
                 />
+                <p className='mt-1 text-sm text-gray-500 text-right font-body'>
+                  {charCount}/100 characters
+                </p>
               </div>
 
               <div>
@@ -323,7 +335,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                 <div className='flex items-center justify-between'>
                   <p className='text-sm text-gray-600 font-body'>
                     {t('teacher:worklog.groups.studentCount', {
-                      count: group.member_count
+                      count: group.member_count,
                     })}
                   </p>
                   <GeneralLinkButton

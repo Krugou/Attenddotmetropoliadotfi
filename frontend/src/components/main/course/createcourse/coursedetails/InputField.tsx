@@ -14,6 +14,7 @@ interface InputFieldProps {
   placeholder?: string;
   rows?: number;
   className?: string;
+  maxLength?: number;
 }
 /**
  * InputField is a functional component that renders an input field with a label.
@@ -31,6 +32,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder = '',
   rows = 4,
   className = 'w-full p-2 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange',
+  maxLength,
 }) => (
   <>
     <label className='mb-2 font-heading text-gray-900' htmlFor={name}>
@@ -48,6 +50,7 @@ const InputField: React.FC<InputFieldProps> = ({
         disabled={disabled}
         placeholder={placeholder}
         rows={rows}
+        maxLength={maxLength}
       />
     ) : (
       <input
@@ -61,6 +64,7 @@ const InputField: React.FC<InputFieldProps> = ({
         required
         disabled={disabled}
         placeholder={placeholder}
+        maxLength={maxLength}
       />
     )}
   </>
