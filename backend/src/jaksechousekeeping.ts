@@ -62,7 +62,14 @@ class UserDeactivationService {
         [yearsThreshold],
       );
 
-      const deactivatedCount = (result as any).affectedRows;
+      // Properly type the MySQL result
+      type MySQLUpdateResult = {
+        affectedRows: number;
+        insertId: number;
+        changedRows: number;
+      };
+
+      const deactivatedCount = (result as MySQLUpdateResult).affectedRows;
 
       if (deactivatedCount > 0) {
         logger.info(
@@ -110,7 +117,9 @@ async function main() {
 const userDeactivationService = new UserDeactivationService();
 
 // Run the main function when this script is executed directly
-if (require.main === module) {
+// Using ES modules compatible approach
+const isMainModule = import.meta.url.endsWith(process.argv[1]);
+if (isMainModule) {
   main();
 }
 
