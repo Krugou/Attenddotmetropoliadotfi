@@ -19,7 +19,7 @@ module.exports = {
       cron_restart: '0 0 * * *', // Reboot at midnight
     },
     {
-      name: 'UserDeactivation', // Application name
+      name: 'AutomaticUserDeactivation', // Application name
       script: './nodejs/jaksechousekeeping.js', // Script to be run
       watch: false,
       autorestart: false, // Don't auto-restart
