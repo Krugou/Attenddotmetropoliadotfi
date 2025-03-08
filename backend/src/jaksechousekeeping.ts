@@ -30,7 +30,6 @@ class UserDeactivationService {
    */
   constructor() {
     this.pool = createPool('ADMIN');
-    logger.info('UserDeactivationService initialized');
   }
 
   /**
