@@ -10,7 +10,7 @@ import lectureModel from '../models/lecturemodel.js';
 import rolemodel from '../models/rolemodel.js';
 import userFeedBackModel from '../models/userfeedbackmodel.js';
 import usermodel from '../models/usermodel.js';
-import housekeeping from '../jaksechousekeeping.js';
+// import housekeeping from '../jaksechousekeeping.js';
 import checkUserRole from '../utils/checkRole.js';
 import logger from '../utils/logger.js';
 import readLogFile from '../utils/readLogFile.js';
@@ -18,7 +18,7 @@ import validate from '../utils/validate.js';
 
 const pool = createPool('ADMIN');
 const router: Router = express.Router();
-const {userDeactivationService} = housekeeping;
+// const {userDeactivationService} = housekeeping;
 
 /**
  * Route that fetches the server settings.
@@ -914,52 +914,52 @@ router.get(
  * @throws {403} - If user lacks admin permission
  * @throws {500} - If server encounters an error during deactivation
  */
-router.post(
-  '/maintenance/deactivate-users',
-  checkUserRole(['admin']),
-  [
-    query('years')
-      .optional()
-      .isInt({min: 1})
-      .withMessage('Years must be a positive integer')
-      .toInt(),
-  ],
-  validate,
-  async (req: Request, res: Response) => {
-    try {
-      if (req.user) {
-        logger.info(
-          {
-            useremail: req.user.email,
-            action: 'manual user deactivation',
-          },
-          'admin/maintenance/deactivate-users',
-        );
-      }
+// router.post(
+//   '/maintenance/deactivate-users',
+//   checkUserRole(['admin']),
+//   [
+//     query('years')
+//       .optional()
+//       .isInt({min: 1})
+//       .withMessage('Years must be a positive integer')
+//       .toInt(),
+//   ],
+//   validate,
+//   async (req: Request, res: Response) => {
+//     try {
+//       if (req.user) {
+//         logger.info(
+//           {
+//             useremail: req.user.email,
+//             action: 'manual user deactivation',
+//           },
+//           'admin/maintenance/deactivate-users',
+//         );
+//       }
 
-      // Get years parameter (default to 5 if not provided)
-      const years = req.query.years
-        ? parseInt(req.query.years as string, 10)
-        : 5;
+//       // Get years parameter (default to 5 if not provided)
+//       const years = req.query.years
+//         ? parseInt(req.query.years as string, 10)
+//         : 5;
 
-      // Execute deactivation
-      const result = await userDeactivationService.deactivateOldUsers(years);
+//       // Execute deactivation
+//       const result = await userDeactivationService.deactivateOldUsers(years);
 
-      // Return results
-      res.json({
-        success: true,
-        message: `Successfully deactivated ${result.deactivatedCount} users created more than ${years} years ago`,
-        deactivatedCount: result.deactivatedCount,
-      });
-    } catch (error) {
-      logger.error('Error in deactivate-users endpoint:', error);
-      res.status(500).json({
-        success: false,
-        message: 'Failed to deactivate users',
-        error: error instanceof Error ? error.message : 'Unknown error',
-      });
-    }
-  },
-);
+//       // Return results
+//       res.json({
+//         success: true,
+//         message: `Successfully deactivated ${result.deactivatedCount} users created more than ${years} years ago`,
+//         deactivatedCount: result.deactivatedCount,
+//       });
+//     } catch (error) {
+//       logger.error('Error in deactivate-users endpoint:', error);
+//       res.status(500).json({
+//         success: false,
+//         message: 'Failed to deactivate users',
+//         error: error instanceof Error ? error.message : 'Unknown error',
+//       });
+//     }
+//   },
+// );
 
 export default router;
