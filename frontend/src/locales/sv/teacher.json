@@ -563,6 +563,7 @@
       "groupNotFound": "Gruppen hittades inte"
     },
     "detail": {
+      "backtogroups": "Tillbaka till grupper",
       "backToWorklog": "Tillbaka till arbetsloggen"
     },
     "details": {

@@ -188,7 +188,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
         <div className='flex gap-4 mb-6'>
           <GeneralLinkButton
             path={`/teacher/worklog/group/${courseid}`}
-            text={t('teacher:worklog.detail.backToCourse')}
+            text={t('teacher:worklog.detail.backtogroups')}
           />
           <GeneralLinkButton
             path={`/teacher/worklog`}

@@ -464,6 +464,7 @@
   "worklog": {
     "title": "your Worklog courses",
     "detail": {
+      "backtogroups": "Back to groups",
       "backToWorklog": "Back to Worklog"
     },
     "details": {
@@ -493,6 +494,7 @@
       "deleteSuccess": "Worklog course deleted successfully",
       "createdAt": "Created at",
       "viewGroups": "View Groups"
+
     },
     "modify": {
       "title": "Modify Worklog Course",

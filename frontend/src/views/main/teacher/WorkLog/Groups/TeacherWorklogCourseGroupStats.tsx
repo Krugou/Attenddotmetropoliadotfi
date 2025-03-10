@@ -172,10 +172,16 @@ const TeacherWorklogCourseGroupStats = () => {
   return (
     <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
       <div className='flex items-center justify-between mb-6'>
+        <div className='flex gap-4 mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}
           text={t('common:back')}
         />
+        <GeneralLinkButton
+          path={`/teacher/worklog/group/${courseid}`}
+          text={t('teacher:worklog.detail.backtogroups')}
+        />
+        </div>
         <h1 className='text-2xl font-heading'>
           {t('teacher:worklog.stats.studentProgress')}
         </h1>

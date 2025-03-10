@@ -481,6 +481,7 @@
       "groupNotFound": "Ryhmää ei löydy"
     },
     "detail": {
+      "backtogroups": "Takaisin ryhmiin",
       "backToWorklog": "Takaisin työpäiväkirjaan"
     },
     "details": {
@@ -491,6 +492,7 @@
       "requiredHours": "Vaaditut tunnit",
       "startDate": "Aloituspäivä",
       "endDate": "Päättymispäivä"
+
     },
     "data": {
       "courseCode": "Kurssikoodi",
