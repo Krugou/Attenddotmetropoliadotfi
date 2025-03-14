@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
 import Accordion from '@mui/material/Accordion';
@@ -36,8 +36,6 @@ interface GroupDetails {
     studentnumber: string;
   }[];
   entries: {
-    first_name: string;
-    last_name: string;
     entry_id: number;
     start_time: string;
     end_time: string;
@@ -195,6 +193,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
             text={t('teacher:worklog.detail.backToWorklog')}
           />
         </div>
+
         <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
           <h1 className='mb-4 text-3xl font-heading'>
             {groupDetails.group.group_name}
@@ -335,9 +334,6 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                   <thead>
                     <tr className='text-gray-600 border-b font-body'>
                       <th className='p-3 text-left'>
-                        {t('teacher:worklog.entries.name')}
-                      </th>
-                      <th className='p-3 text-left'>
                         {t('teacher:worklog.entries.date')}
                       </th>
                       <th className='p-3 text-left'>
@@ -356,9 +352,6 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       <tr
                         key={entry.entry_id}
                         className='border-b hover:bg-gray-50 font-body'>
-                        <td className='p-3'>
-                          {entry.first_name} {entry.last_name}
-                        </td>
                         <td className='p-3'>
                           {new Date(entry.start_time).toLocaleDateString()}
                         </td>

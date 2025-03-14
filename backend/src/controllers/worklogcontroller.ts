@@ -154,7 +154,7 @@ export interface WorkLogController {
     userId: number,
     courseId: number,
   ) => Promise<ResultSetHeader>;
-  getWorkLogStats: (userId: number) => Promise<RowDataPacket[]>;
+  getWorkLogStats: (userId: number, courseId?: number) => Promise<RowDataPacket[]>;
   getWorkLogCoursesByInstructor: (email: string) => Promise<WorkLogCourse[]>;
   deleteWorkLog: (worklogId: number) => Promise<ResultSetHeader>;
 
@@ -526,10 +526,11 @@ const workLogController: WorkLogController = {
   /**
    * Gets work log statistics for a user
    * @param userId The user ID to get stats for
+   * @param courseId Optional course ID to filter stats
    */
-  async getWorkLogStats(userId: number) {
+  async getWorkLogStats(userId: number, courseId?: number) {
     try {
-      const stats = await work_log_courses.getWorkLogStatsByUser(userId);
+      const stats = await work_log_courses.getWorkLogStatsByUser(userId, courseId);
       return stats;
     } catch (error) {
       console.error('Error in getWorkLogStats:', error);

@@ -185,19 +185,27 @@ const work_log_courses = {
       throw error;
     }
   },
-  async getWorkLogStatsByUser(userId: number): Promise<RowDataPacket[]> {
+  async getWorkLogStatsByUser(userId: number, courseId?: number): Promise<RowDataPacket[]> {
     try {
-      const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT
-                      wlc.name as course_name,
-                      COUNT(wle.entry_id) as entry_count,
-                      SUM(TIMESTAMPDIFF(MINUTE, wle.start_time, wle.end_time)) as total_minutes
-                     FROM work_log_courses wlc
-                     JOIN work_log_entries wle ON wlc.work_log_course_id = wle.work_log_course_id
-                     WHERE wle.userid = ?
-                     GROUP BY wlc.work_log_course_id`,
-        [userId],
-      );
+      let query = `SELECT
+                    wlc.name as course_name,
+                    COUNT(wle.entry_id) as entry_count,
+                    SUM(TIMESTAMPDIFF(MINUTE, wle.start_time, wle.end_time)) as total_minutes
+                   FROM work_log_courses wlc
+                   JOIN work_log_entries wle ON wlc.work_log_course_id = wle.work_log_course_id
+                   WHERE wle.userid = ?`;
+
+      const params: any[] = [userId];
+
+      // Add course filter if provided
+      if (courseId !== undefined) {
+        query += ` AND wlc.work_log_course_id = ?`;
+        params.push(courseId);
+      }
+
+      query += ` GROUP BY wlc.work_log_course_id`;
+
+      const [rows] = await pool.promise().query<RowDataPacket[]>(query, params);
       return rows;
     } catch (error) {
       console.error('Error getting work log stats:', error);

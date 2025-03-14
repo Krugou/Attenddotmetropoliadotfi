@@ -356,7 +356,7 @@ export const updateWorkLogEntry = async (
   return await doFetch(`${baseUrl}worklog/entries/${entryId}`, options);
 };
 
-export const getWorkLogStats = async (userId: number, token: string) => {
+export const getWorkLogStats = async (userId: number, token: string ,courseId?: number) => {
   try {
     const options = {
       method: 'GET',
@@ -365,7 +365,13 @@ export const getWorkLogStats = async (userId: number, token: string) => {
         'Authorization': 'Bearer ' + token,
       },
     };
-    return await doFetch(`${baseUrl}worklog/stats/${userId}`, options);
+
+    // Add courseId to query params if provided
+    const url = courseId
+      ? `${baseUrl}worklog/stats/${userId}?courseId=${courseId}`
+      : `${baseUrl}worklog/stats/${userId}`;
+
+    return await doFetch(url, options);
   } catch (error) {
     console.error('Error fetching worklog stats:', error);
     return [];

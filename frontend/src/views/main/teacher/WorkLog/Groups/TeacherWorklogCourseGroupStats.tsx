@@ -104,6 +104,19 @@ const TeacherWorklogCourseGroupStats = () => {
   const [error, setError] = useState<string | null>(null);
   const [requiredHours, setRequiredHours] = useState(0);
 
+  const getClampedPercentage = (percentage: number): number => {
+    return Math.min(100, Math.max(0, percentage));
+  };
+
+  // Add this function to get appropriate color based on completion percentage
+  const getProgressColor = (percentage: number): string => {
+    if (percentage >= 100) return 'bg-green-500'; // Complete
+    if (percentage >= 75) return 'bg-emerald-500'; // Almost complete
+    if (percentage >= 50) return 'bg-yellow-500'; // Halfway
+    if (percentage >= 25) return 'bg-orange-500'; // Started
+    return 'bg-red-500'; // Just beginning
+  };
+
   const fetchStats = useCallback(async () => {
     try {
       const token = localStorage.getItem('userToken');
@@ -119,13 +132,15 @@ const TeacherWorklogCourseGroupStats = () => {
 
       const studentStats = await Promise.all(
         groupDetails.students.map(async (student) => {
+          // Pass courseId to get stats only for this course
           const worklogStats = await apiHooks.getWorkLogStats(
             student.userid,
             token,
+            Number(courseid),
           );
-          const courseStats = worklogStats.find(
-            (stat) => stat.course_name === groupDetails.course.name,
-          );
+
+          // Since we're now getting stats only for this course, we can use the first item
+          const courseStats = worklogStats[0];
 
           const completedHours = courseStats
             ? courseStats.total_minutes / 60
@@ -274,21 +289,33 @@ const TeacherWorklogCourseGroupStats = () => {
               name={student.name}
             />
             <div className='mt-4 text-center font-body'>
-              <div className='grid grid-cols-2 gap-2'>
-                <div className='text-sm'>
-                  <p>Required: {requiredHours}h</p>
-                  <p>Completed: {student.completedHours}h</p>
-                </div>
-                <div className='text-sm'>
-                  <p>Remaining: {student.remainingHours}h</p>
-                  <p>Progress: {student.percentageCompleted}%</p>
-                </div>
-              </div>
+              {/* Replace the grid with a table */}
+              <table className='w-full text-sm'>
+                <tbody>
+                  <tr className='border-b'>
+                    <td className='text-left p-1'>Required:</td>
+                    <td className='text-right p-1'>{requiredHours}h</td>
+                  </tr>
+                  <tr className='border-b'>
+                    <td className='text-left p-1'>Completed:</td>
+                    <td className='text-right p-1'>{student.completedHours}h</td>
+                  </tr>
+                  <tr className='border-b'>
+                    <td className='text-left p-1'>Remaining:</td>
+                    <td className='text-right p-1'>{student.remainingHours}h</td>
+                  </tr>
+                  <tr className='border-b'>
+                    <td className='text-left p-1'>Progress:</td>
+                    <td className='text-right p-1'>{getClampedPercentage(student.percentageCompleted)}%</td>
+                  </tr>
+                </tbody>
+              </table>
               {/* Progress bar */}
               <div className='w-full h-2 mt-2 bg-gray-200 rounded-full'>
                 <div
-                  className='h-2 transition-all duration-300 bg-orange-500 rounded-full'
-                  style={{width: `${student.percentageCompleted}%`}}
+                  className={`h-2 transition-all duration-300 ${getProgressColor(student.percentageCompleted)} rounded-full`}
+                  style={{width: `${getClampedPercentage(student.percentageCompleted)}%`}}
+                  title={`${student.percentageCompleted.toFixed(1)}% complete`}
                 />
               </div>
             </div>

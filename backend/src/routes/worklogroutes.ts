@@ -250,7 +250,9 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const userId = Number(req.params.userId);
-      const stats = await workLogController.getWorkLogStats(userId);
+      // Get optional courseId from query params
+      const courseId = req.query.courseId ? Number(req.query.courseId) : undefined;
+      const stats = await workLogController.getWorkLogStats(userId, courseId);
       res.send(stats);
     } catch (error) {
       logger.error(error);
