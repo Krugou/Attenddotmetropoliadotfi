@@ -190,14 +190,28 @@ const TeacherStudentsView: React.FC = () => {
           setTotalPages(1);
         }
       } else {
-        const result = await apiHooks.fetchStudentsPaginationByInstructorId(
-          user.userid,
-          token,
-          studentsPerPage,
-          page,
-        );
-        setAllStudents(result.students);
-        setTotalPages(result.totalPages);
+        if (user?.role === 'teacher') {
+          const result = await apiHooks.fetchStudentsPaginationByInstructorId(
+            user?.userid,
+            token,
+            studentsPerPage,
+            page,
+          );
+          setAllStudents(result.students);
+          setTotalPages(result.totalPages);
+          setLoading(false);
+        }
+
+        if (user?.role === 'counselor' || user?.role === 'admin') {
+          const result = await apiHooks.fetchPaginatedStudents(
+            token,
+            studentsPerPage,
+            page,
+          );
+          setAllStudents(result.students);
+          setTotalPages(result.totalPages);
+          setLoading(false);
+        }
       }
     } catch (error) {
       console.error('Error searching students:', error);
