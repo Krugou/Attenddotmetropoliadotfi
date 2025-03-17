@@ -419,7 +419,7 @@ const StudentCourseGrid: React.FC<StudentCourseGridProps> = ({
                       </p>
                       <p className='mt-2'>
                         Topics:{' '}
-                        {selectedCourse?.topic_names.split(',').join(', ')}
+                        {selectedCourse?.topic_names.replace(/,/g, ', ')}
                       </p>
                       <p className='mt-2'>
                         Course Started:{' '}
