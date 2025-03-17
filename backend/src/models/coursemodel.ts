@@ -187,7 +187,7 @@ const course: CourseModel = {
       const [rows] = await pool.promise().query<
         RowDataPacket[]
       >(`SELECT courses.*, studentgroups.group_name AS studentgroup_name,
-				GROUP_CONCAT(topics.topicname) AS topic_names
+				GROUP_CONCAT(DISTINCT topics.topicname) AS topic_names
 		FROM courses
 		JOIN courseinstructors ON courses.courseid = courseinstructors.courseid
 		JOIN users ON courseinstructors.userid = users.userid
