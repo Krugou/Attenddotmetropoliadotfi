@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {Pagination} from '@mui/material';
 
 import TextField from '@mui/material/TextField';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
@@ -29,6 +29,7 @@ interface Student {
   userid: number;
   group_name: string;
 }
+
 /**
  * SelectedCourse interface.
  * This interface defines the shape of a SelectedCourse object.
@@ -44,6 +45,16 @@ interface SelectedCourse {
   selected_topics: string;
   created_at: string;
 }
+
+/**
+ * StudentFetchResult interface.
+ * This interface defines the structure of data returned from student fetch operations.
+ */
+interface StudentFetchResult {
+  students: Student[];
+  totalPages: number;
+}
+
 /**
  * TeacherStudentsView component.
  * This component is responsible for rendering the view for a teacher to see their students.
@@ -64,48 +75,131 @@ const TeacherStudentsView: React.FC = () => {
   const [studentsPerPage] = useState(100);
   const {t} = useTranslation(['teacher']);
 
-  // Fetch all students on mount
-  useEffect(() => {
-    const token: string | null = localStorage.getItem('userToken');
+  /**
+   * Generic function to fetch students with error handling
+   * @param fetchFn Function to fetch students
+   * @returns StudentFetchResult or null on error
+   */
+  const fetchStudentsWithErrorHandling = useCallback(
+    async <T extends any[]>(
+      fetchFn: (token: string, ...args: T) => Promise<StudentFetchResult>,
+      ...args: T
+    ): Promise<StudentFetchResult | null> => {
+      const token = localStorage.getItem('userToken');
 
-    if (!token) {
-      toast.error('No token available');
-      throw new Error('No token available');
-    }
+      if (!token) {
+        toast.error(t('common:errors.noToken'));
+        return null;
+      }
 
-    const fetchStudents = async () => {
       try {
-        if (user?.role === 'teacher') {
-          const result = await apiHooks.fetchStudentsPaginationByInstructorId(
-            user?.userid,
-            token,
-            studentsPerPage,
-            page,
-          );
-          setAllStudents(result.students);
-          setTotalPages(result.totalPages);
-          setLoading(false);
-        }
-
-        if (user?.role === 'counselor' || user?.role === 'admin') {
-          const result = await apiHooks.fetchPaginatedStudents(
-            token,
-            studentsPerPage,
-            page,
-          );
-          setAllStudents(result.students);
-          setTotalPages(result.totalPages);
-          setLoading(false);
-        }
+        return await fetchFn(token, ...args);
       } catch (error) {
         console.error('Error fetching students:', error);
-        toast.error('Failed to fetch students');
-        setLoading(false);
+        toast.error(t('common:errors.fetchStudentsFailed'));
+        return null;
       }
-    };
+    },
+    [t],
+  );
 
-    fetchStudents();
-  }, [user, page, studentsPerPage]); // Add page and studentsPerPage to dependencies
+  /**
+   * Fetch appropriate students based on user role
+   */
+  const fetchStudentsByRole = useCallback(async (): Promise<void> => {
+    if (!user) return;
+
+    let result: StudentFetchResult | null = null;
+
+    try {
+      if (user.role === 'teacher' && user.userid) {
+        result = await fetchStudentsWithErrorHandling(
+          async (token, userId, perPage, pageNum) =>
+            apiHooks.fetchStudentsPaginationByInstructorId(
+              userId,
+              token,
+              perPage,
+              pageNum,
+            ),
+          user.userid,
+          studentsPerPage,
+          page,
+        );
+      } else if (['counselor', 'admin'].includes(user.role)) {
+        result = await fetchStudentsWithErrorHandling(
+          async (token, perPage, pageNum) =>
+            apiHooks.fetchPaginatedStudents(token, perPage, pageNum),
+          studentsPerPage,
+          page,
+        );
+      }
+
+      if (result) {
+        setAllStudents(result.students);
+        setTotalPages(result.totalPages);
+      }
+    } catch (error) {
+      // Error already handled by fetchStudentsWithErrorHandling
+    } finally {
+      setLoading(false);
+    }
+  }, [user, page, studentsPerPage, fetchStudentsWithErrorHandling]);
+
+  // Fetch all students on mount
+  useEffect(() => {
+    fetchStudentsByRole();
+  }, [fetchStudentsByRole]);
+
+  /**
+   * Search students by text across all properties
+   */
+  const searchStudents = useCallback(
+    async (searchQuery: string): Promise<void> => {
+      setSearchTerm(searchQuery);
+
+      if (!user?.userid) return;
+
+      const token = localStorage.getItem('userToken');
+      if (!token) {
+        toast.error(t('common:errors.noToken'));
+        return;
+      }
+
+      try {
+        if (searchQuery.trim() !== '') {
+          // For searching, fetch all students first then filter client-side
+          let fetchedStudents: Student[] = [];
+
+          if (user.role === 'teacher') {
+            fetchedStudents = await apiHooks.getStudentsByInstructorId(
+              user.userid,
+              token,
+            );
+          } else if (['counselor', 'admin'].includes(user.role)) {
+            fetchedStudents = await apiHooks.fetchUsers(token);
+          }
+
+          const filtered = fetchedStudents.filter((student) =>
+            Object.values(student).some(
+              (value) =>
+                typeof value === 'string' &&
+                value.toLowerCase().includes(searchQuery.toLowerCase()),
+            ),
+          );
+
+          setAllStudents(filtered);
+          setTotalPages(1);
+        } else {
+          // If search is cleared, return to pagination mode
+          await fetchStudentsByRole();
+        }
+      } catch (error) {
+        console.error('Error searching students:', error);
+        toast.error(t('common:errors.searchFailed'));
+      }
+    },
+    [user, fetchStudentsByRole, t],
+  );
 
   // If loading, show loading spinner
   if (loading) {
@@ -125,7 +219,7 @@ const TeacherStudentsView: React.FC = () => {
   // This function is called when a course is selected
   const handleCourseSelect = async (value: string) => {
     if (!courses) {
-      toast.error('Courses not loaded');
+      toast.error(t('common:errors.coursesNotLoaded'));
       return;
     }
     // Find the selected course from the courses array
@@ -140,18 +234,18 @@ const TeacherStudentsView: React.FC = () => {
       try {
         const token: string | null = localStorage.getItem('userToken');
         if (!token) {
-          throw new Error('No token available');
+          toast.error(t('common:errors.noToken'));
+          return;
         }
         const students = await apiHooks.getStudentsByCourseId(
           selected.courseid,
           token,
         );
-        console.log(students, 'students');
         setStudents(students);
         setTotalPages(1);
       } catch (error) {
-        toast.error('Error fetching course details');
-        console.log(error);
+        console.error('Error fetching course students:', error);
+        toast.error(t('common:errors.fetchCourseDetailsFailed'));
       }
     }
   };
@@ -161,62 +255,6 @@ const TeacherStudentsView: React.FC = () => {
     value: number,
   ) => {
     setPage(value);
-  };
-
-  const handleSearch = async (searchTerm: string) => {
-    setSearchTerm(searchTerm);
-
-    const token = localStorage.getItem('userToken');
-    if (!token || !user?.userid) return;
-
-    try {
-      if (searchTerm.trim() !== '') {
-        let allStudents;
-        if (user.role === 'teacher') {
-          allStudents = await apiHooks.getStudentsByInstructorId(user.userid, token);
-        } else if (user.role === 'counselor' || user.role === 'admin') {
-          allStudents = await apiHooks.fetchUsers(token);
-        }
-
-        if (allStudents) {
-          const filtered = allStudents.filter((student) =>
-            Object.values(student).some(
-              (value) =>
-                typeof value === 'string' &&
-                value.toLowerCase().includes(searchTerm.toLowerCase()),
-            ),
-          );
-          setAllStudents(filtered);
-          setTotalPages(1);
-        }
-      } else {
-        if (user?.role === 'teacher') {
-          const result = await apiHooks.fetchStudentsPaginationByInstructorId(
-            user?.userid,
-            token,
-            studentsPerPage,
-            page,
-          );
-          setAllStudents(result.students);
-          setTotalPages(result.totalPages);
-          setLoading(false);
-        }
-
-        if (user?.role === 'counselor' || user?.role === 'admin') {
-          const result = await apiHooks.fetchPaginatedStudents(
-            token,
-            studentsPerPage,
-            page,
-          );
-          setAllStudents(result.students);
-          setTotalPages(result.totalPages);
-          setLoading(false);
-        }
-      }
-    } catch (error) {
-      console.error('Error searching students:', error);
-      toast.error('Failed to search students');
-    }
   };
 
   return (
@@ -241,7 +279,7 @@ const TeacherStudentsView: React.FC = () => {
           <div className='w-8/12 sm:w-[15em] mt-5 lg:ml-4 ml-0 mb-4'>
             <TextField
               value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e) => searchStudents(e.target.value)}
               label={t('teacher:studentsView.search.byName')}
               className='bg-white'
             />
