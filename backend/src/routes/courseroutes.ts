@@ -587,6 +587,7 @@ router.get(
     try {
       if (req.user?.role === 'counselor' || req.user?.role === 'admin') {
         const courses = await course.fetchAllCourses();
+        console.log('🚀 ~ courses:', courses);
         res.send(courses);
       } else if (req.user?.role === 'teacher') {
         const courses = await course.getCoursesByInstructorEmail(
