@@ -166,37 +166,42 @@ const TeacherStudentsView: React.FC = () => {
   const handleSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm);
 
-    if (searchTerm.length > 0) {
-      try {
-        const token = localStorage.getItem('userToken');
-        if (!token || !user?.userid) return;
+    const token = localStorage.getItem('userToken');
+    if (!token || !user?.userid) return;
 
-        const allStudents = await apiHooks.getStudentsByInstructorId(user.userid, token);
-        const filtered = allStudents.filter((student) =>
-          Object.values(student).some(
-            (value) =>
-              typeof value === 'string' &&
-              value.toLowerCase().includes(searchTerm.toLowerCase()),
-          ),
+    try {
+      if (searchTerm.trim() !== '') {
+        let allStudents;
+        if (user.role === 'teacher') {
+          allStudents = await apiHooks.getStudentsByInstructorId(user.userid, token);
+        } else if (user.role === 'counselor' || user.role === 'admin') {
+          allStudents = await apiHooks.fetchUsers(token);
+        }
+
+        if (allStudents) {
+          const filtered = allStudents.filter((student) =>
+            Object.values(student).some(
+              (value) =>
+                typeof value === 'string' &&
+                value.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+          );
+          setAllStudents(filtered);
+          setTotalPages(1);
+        }
+      } else {
+        const result = await apiHooks.fetchStudentsPaginationByInstructorId(
+          user.userid,
+          token,
+          studentsPerPage,
+          page,
         );
-        setAllStudents(filtered);
-        setTotalPages(1);
-      } catch (error) {
-        console.error('Error searching students:', error);
-        toast.error('Failed to search students');
+        setAllStudents(result.students);
+        setTotalPages(result.totalPages);
       }
-    } else {
-      const token = localStorage.getItem('userToken');
-      if (!token || !user?.userid) return;
-
-      const result = await apiHooks.fetchStudentsPaginationByInstructorId(
-        user.userid,
-        token,
-        studentsPerPage,
-        page,
-      );
-      setAllStudents(result.students);
-      setTotalPages(result.totalPages);
+    } catch (error) {
+      console.error('Error searching students:', error);
+      toast.error('Failed to search students');
     }
   };
 
