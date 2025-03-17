@@ -551,6 +551,25 @@ export const getDetailsByCourseId = async (courseId: string, token: string) => {
     options,
   );
 };
+
+export const getStudentsByInstructorId = async (
+  instructorId: number,
+  token: string,
+) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+
+  return await doFetch(
+    `${baseUrl}courses/students/${instructorId}`,
+    options
+  );
+};
+
 export const courseApi = {
   getDetailsByCourseId,
   getAllCourses,
@@ -585,4 +604,5 @@ export const courseApi = {
   deleteTopicGroupAndTopicsByUserid,
   deleteLectureByLectureId,
   updateStudentCourses,
+  getStudentsByInstructorId,
 };

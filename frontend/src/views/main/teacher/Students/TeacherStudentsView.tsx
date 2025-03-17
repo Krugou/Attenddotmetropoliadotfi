@@ -12,6 +12,7 @@ import apiHooks from '../../../../api';
 import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../../utils/Loader';
+
 /**
  * Student interface.
  * This interface defines the shape of a Student object.
@@ -147,6 +148,7 @@ const TeacherStudentsView: React.FC = () => {
         );
         console.log(students, 'students');
         setStudents(students);
+        setTotalPages(1);
       } catch (error) {
         toast.error('Error fetching course details');
         console.log(error);
@@ -159,6 +161,43 @@ const TeacherStudentsView: React.FC = () => {
     value: number,
   ) => {
     setPage(value);
+  };
+
+  const handleSearch = async (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+
+    if (searchTerm.length > 0) {
+      try {
+        const token = localStorage.getItem('userToken');
+        if (!token || !user?.userid) return;
+
+        const allStudents = await apiHooks.getStudentsByInstructorId(user.userid, token);
+        const filtered = allStudents.filter((student) =>
+          Object.values(student).some(
+            (value) =>
+              typeof value === 'string' &&
+              value.toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+        );
+        setAllStudents(filtered);
+        setTotalPages(1);
+      } catch (error) {
+        console.error('Error searching students:', error);
+        toast.error('Failed to search students');
+      }
+    } else {
+      const token = localStorage.getItem('userToken');
+      if (!token || !user?.userid) return;
+
+      const result = await apiHooks.fetchStudentsPaginationByInstructorId(
+        user.userid,
+        token,
+        studentsPerPage,
+        page,
+      );
+      setAllStudents(result.students);
+      setTotalPages(result.totalPages);
+    }
   };
 
   return (
@@ -183,7 +222,7 @@ const TeacherStudentsView: React.FC = () => {
           <div className='w-8/12 sm:w-[15em] mt-5 lg:ml-4 ml-0 mb-4'>
             <TextField
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               label={t('teacher:studentsView.search.byName')}
               className='bg-white'
             />
@@ -275,15 +314,17 @@ const TeacherStudentsView: React.FC = () => {
             </Link>
           ))}
         </div>
-        <div className='flex justify-center p-4'>
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={handlePageChange}
-            variant='outlined'
-            shape='rounded'
-          />
-        </div>
+        {totalPages > 1 && (
+          <div className='flex justify-center p-4'>
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+              variant='outlined'
+              shape='rounded'
+            />
+          </div>
+        )}
       </div>
     </div>
   );
