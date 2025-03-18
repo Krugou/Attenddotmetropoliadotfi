@@ -3,7 +3,6 @@ import getToken from '../../utils/getToken.js';
 import doFetch from '../../utils/doFetch.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
-import * as ipActivityTracker from '../../utils/ipActivityTracker.js';
 
 /**
  * Represents a student record used for attendance.
@@ -65,6 +64,7 @@ export class StudentArrivalError extends Error {
  * @param lectureData - Shared reference to global lecture data
  * @param notYetPresentStudents - Shared reference to students not yet present in each lecture
  * @param presentStudents - Shared reference to currently present students in each lecture
+ * @param listOfIpAlreadyUsedLecture - Map tracking used IPs for each lecture
  *
  * @throws {StudentArrivalError} If validation fails or insertion fails
  */
@@ -78,13 +78,17 @@ export const handleStudentArrival = async (
   lectureData: LectureDataStore,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
+  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
 ): Promise<void> => {
   try {
-    const ip = socket.handshake.headers['x-forwarded-for'] as string ||
-              socket.handshake.address ||
-              'unknown';
+    const ip =
+      (socket.handshake.headers['x-forwarded-for'] as string) ||
+      socket.handshake.address ||
+      'unknown';
 
-    logger.info(`Student ${studentId} from IP ${ip} attempting to mark attendance for lecture ${lectureid}`);
+    logger.info(
+      `Student ${studentId} from IP ${ip} attempting to mark attendance for lecture ${lectureid}`,
+    );
 
     // Basic input validation
     if (
@@ -99,6 +103,30 @@ export const handleStudentArrival = async (
         `Missing or invalid input details for student ${studentId} in lecture ${lectureid}`,
       );
       throw new StudentArrivalError('Missing or invalid input details.');
+    }
+
+    // Check if lecture IP tracking set exists, create if not
+    if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
+      listOfIpAlreadyUsedLecture.set(lectureid, new Set<string>());
+    }
+
+    // Check that user IP is not already used for this lecture
+    if (listOfIpAlreadyUsedLecture.get(lectureid)?.has(ip)) {
+      io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
+      logger.error(
+        `IP ${ip} already used for student ${studentId} in lecture ${lectureid}`,
+      );
+      return;
+    }
+
+    // Check if the student is already present
+    if (
+      presentStudents[lectureid]?.some(
+        (student) => student.studentnumber === studentId,
+      )
+    ) {
+      io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
+      return;
     }
 
     // Find matching timestamp
@@ -175,9 +203,17 @@ export const handleStudentArrival = async (
       return;
     }
 
-    console.log(`ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`);
+    // Store the IP in the used IPs map for this lecture
+    listOfIpAlreadyUsedLecture.get(lectureid)?.add(ip);
+
+    console.log(
+      `ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`,
+    );
     io.to(socket.id).emit('youHaveBeenSavedIntoLecture', lectureid);
-    logger.info(`Student ${studentId} from IP ${ip} successfully saved into lecture ${lectureid}`);
+
+    logger.info(
+      `Student ${studentId} from IP ${ip} successfully saved into lecture ${lectureid}`,
+    );
   } catch (error) {
     console.error('Student arrival error:', error);
     logger.error(
