@@ -1,5 +1,5 @@
 import express, {Request, Response, Router} from 'express';
-import {body, param, query} from 'express-validator';
+import {body, param} from 'express-validator';
 import {RowDataPacket} from 'mysql2';
 import createPool from '../config/createPool.js';
 import adminController from '../controllers/admincontroller.js';
