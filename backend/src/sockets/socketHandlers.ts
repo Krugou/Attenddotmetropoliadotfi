@@ -40,6 +40,9 @@ const notYetPresentStudents: {[lectureid: string]: Student[]} = {};
 // The timeout id for the lecture
 const lectureTimeoutIds = new Map();
 
+// Simple IP tracking: { lectureId: { ip: true } }
+const listofipsalreadtyused: Record<string, Record<string, boolean>> = {};
+
 const SocketHandlers = (io: Server) => {
   io.use(authenticateSocket);
   io.on('connection', (socket: AuthenticatedSocket) => {
@@ -47,6 +50,7 @@ const SocketHandlers = (io: Server) => {
       `Authenticated user ${socket.user?.username} connected via websocket connection `,
     );
     socket.on('disconnect', () => {});
+
     socket.on('createAttendanceCollection', async (lectureid: string) => {
       try {
         await handleCreateAttendanceCollection(
@@ -62,8 +66,32 @@ const SocketHandlers = (io: Server) => {
         logger.error('Error creating attendance collection:', err);
       }
     });
+
     socket.on('lectureFinishedWithButton', async (lectureid: string) => {
       try {
+        const ip = socket.handshake.headers['x-forwarded-for'] as string ||
+                   socket.handshake.address ||
+                   'unknown';
+        const username = socket.user?.username || 'unknown';
+
+        // Check if IP has been used for this lecture
+        if (listofipsalreadtyused[lectureid]?.[ip]) {
+          socket.emit('error', {
+            code: 'DUPLICATE_ACTION',
+            message: 'You have already finished this lecture today'
+          });
+          logger.info(`IP check failed: User ${username} from IP ${ip} attempted to finish lecture ${lectureid} again`);
+          logger.warn(`Duplicate lecture finish attempt from IP ${ip}`);
+          return;
+        }
+
+        // Record this IP for this lecture
+        if (!listofipsalreadtyused[lectureid]) {
+          listofipsalreadtyused[lectureid] = {};
+        }
+        listofipsalreadtyused[lectureid][ip] = true;
+        logger.info(`IP ${ip} recorded for lecture ${lectureid} by user ${username}`);
+
         await handleLectureFinish(
           socket,
           lectureid,
@@ -72,11 +100,17 @@ const SocketHandlers = (io: Server) => {
           presentStudents,
           lectureData,
           lectureTimeoutIds,
+          listofipsalreadtyused, // Pass the IP tracker object
         );
+
+        // Also delete locally as a backup
+        delete listofipsalreadtyused[lectureid];
+
       } catch (err) {
         logger.error('Error finalizing lecture:', err);
       }
     });
+
     // Handle the 'inputThatStudentHasArrivedToLecture' event
     // This event is emitted when the student inputs the secure hash and unixtime
     socket.on(
@@ -88,6 +122,42 @@ const SocketHandlers = (io: Server) => {
         lectureid: number,
       ) => {
         try {
+          const ip = socket.handshake.headers['x-forwarded-for'] as string ||
+                     socket.handshake.address ||
+                     'unknown';
+          const lectureIdStr = String(lectureid);
+
+          // Add debug logging to diagnose the issue
+          console.log(`Student arriving - IP: ${ip}, StudentID: ${studentId}, Lecture: ${lectureid}`);
+          console.log(`Current IP tracking state for lecture ${lectureid}:`,
+                      listofipsalreadtyused[lectureIdStr] ?
+                      Object.keys(listofipsalreadtyused[lectureIdStr]) :
+                      'No IPs registered');
+
+          // Check if IP has been used for this lecture
+          if (listofipsalreadtyused[lectureIdStr]?.[ip]) {
+            socket.emit('error', {
+              code: 'DUPLICATE_ATTENDANCE',
+              message: 'You have already marked attendance for this lecture today'
+            });
+            // Enhanced logging for debug
+            console.log(`DUPLICATE ATTEMPT - IP ${ip} already used for lecture ${lectureid}`);
+            logger.info(`IP check failed: Student ${studentId} from IP ${ip} attempted to mark attendance for lecture ${lectureid} again`);
+            // Fix: Use logger.info instead of logger.warn to avoid the TypeError
+            logger.info(`Duplicate attendance attempt from IP ${ip}`);
+            return;
+          }
+
+          // Record this IP for this lecture
+          if (!listofipsalreadtyused[lectureIdStr]) {
+            listofipsalreadtyused[lectureIdStr] = {};
+          }
+          listofipsalreadtyused[lectureIdStr][ip] = true;
+
+          // Add detailed logging
+          console.log(`IP ${ip} registered for lecture ${lectureIdStr} - Student ${studentId}`);
+          logger.info(`IP ${ip} recorded for lecture ${lectureIdStr} by student ${studentId}`);
+
           await handleStudentArrival(
             socket,
             io,
@@ -100,10 +170,12 @@ const SocketHandlers = (io: Server) => {
             presentStudents,
           );
         } catch (error) {
+          console.error('Error in student arrival handler:', error);
           logger.error('Error in handleStudentArrival:', error);
         }
       },
     );
+
     // Handle the 'manualstudentinsert' event
     // This event is emitted when the teacher inputs the student id
     socket.on(
@@ -144,15 +216,47 @@ const SocketHandlers = (io: Server) => {
 
     // Handle the 'lecturecanceled' event
     socket.on('lectureCanceled', async (lectureid) => {
-      handleLectureCanceled(
-        socket,
-        io,
-        lectureid,
-        notYetPresentStudents,
-        presentStudents,
-        lectureData,
-        lectureTimeoutIds,
-      );
+      try {
+        const ip = socket.handshake.headers['x-forwarded-for'] as string ||
+                   socket.handshake.address ||
+                   'unknown';
+        const username = socket.user?.username || 'unknown';
+
+        // Check if IP has been used for this lecture
+        if (listofipsalreadtyused[lectureid]?.[ip]) {
+          socket.emit('error', {
+            code: 'DUPLICATE_ACTION',
+            message: 'You have already canceled this lecture today'
+          });
+          logger.info(`IP check failed: User ${username} from IP ${ip} attempted to cancel lecture ${lectureid} again`);
+          logger.warn(`Duplicate lecture cancellation attempt from IP ${ip}`);
+          return;
+        }
+
+        // Record this IP for this lecture
+        if (!listofipsalreadtyused[lectureid]) {
+          listofipsalreadtyused[lectureid] = {};
+        }
+        listofipsalreadtyused[lectureid][ip] = true;
+        logger.info(`IP ${ip} recorded for lecture ${lectureid} by user ${username}`);
+
+        await handleLectureCanceled(
+          socket,
+          io,
+          lectureid,
+          notYetPresentStudents,
+          presentStudents,
+          lectureData,
+          lectureTimeoutIds,
+          listofipsalreadtyused, // Pass the IP tracker object
+        );
+
+        // Also delete locally as a backup
+        delete listofipsalreadtyused[lectureid];
+
+      } catch (error) {
+        logger.error('Error canceling lecture:', error);
+      }
     });
   });
 };

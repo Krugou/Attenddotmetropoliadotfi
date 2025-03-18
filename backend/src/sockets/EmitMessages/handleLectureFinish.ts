@@ -8,7 +8,6 @@ import {Server} from 'socket.io';
 import getToken from '../../utils/getToken.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
-import * as ipActivityTracker from '../../utils/ipActivityTracker.js';
 
 /**
  * Represents a student record used for attendance.
@@ -59,6 +58,7 @@ export class FinishLectureError extends Error {
  * @param {AttendanceRecord} presentStudents - Record of students who are present
  * @param {LectureMetaRecord} lectureData - Additional lecture data
  * @param {LectureTimeoutIds} lectureTimeoutIds - Map of lecture timeouts
+ * @param {Record<string, Record<string, boolean>>} [ipTracker] - Optional IP tracking object
  * @throws {FinishLectureError} If the finalize operation fails
  */
 export const finalizeLecture = async (
@@ -68,6 +68,7 @@ export const finalizeLecture = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
+  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
 ): Promise<void> => {
   try {
     if (!lectureid) {
@@ -115,10 +116,11 @@ export const finalizeLecture = async (
     }
     lectureTimeoutIds.delete(lectureid);
 
-    // Clean up IP activity tracking data
-    const activeIPs = ipActivityTracker.getActiveIPs(lectureid);
-    console.log(`CLEANUP - Removing tracking data for lecture ${lectureid}, IPs: ${activeIPs.join(', ')}`);
-    ipActivityTracker.clearLectureActivity(lectureid);
+    // Also cleanup IP tracking if provided
+    if (ipTracker && ipTracker[lectureid]) {
+      console.log(`Cleaning up IP tracking for lecture ${lectureid} in finalizeLecture`);
+      delete ipTracker[lectureid];
+    }
 
     logger.info(`Lecture with ID ${lectureid} finished successfully.`);
   } catch (error) {
@@ -142,6 +144,7 @@ export const finalizeLecture = async (
  * @param presentStudents - Record of students who are currently present
  * @param lectureData - Ancillary data stored for each lecture
  * @param lectureTimeoutIds - Map of lecture timeouts for automatic finishing
+ * @param ipTracker - Optional IP tracking object
  * @throws {FinishLectureError} If the finalize operation fails
  *
  * @example
@@ -180,19 +183,16 @@ export const handleLectureFinish = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
+  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
 ): Promise<void> => {
-
   const ip = socket.handshake.headers['x-forwarded-for'] as string ||
              socket.handshake.address ||
              'unknown';
-
-  // Add direct console output for the IP
-  console.log(`LECTURE FINISH - IP: ${ip}, User: ${socket.user?.username}, Lecture: ${lectureid}`);
-
   const username = socket.user?.username || 'unknown';
-  logger.info(`User ${username} from IP ${ip} attempting to finish lecture ${lectureid}`);
 
+  logger.info(`User ${username} from IP ${ip} finishing lecture ${lectureid}`);
 
+  // Check for required role
   if (
     !['teacher', 'admin', 'counselor'].some((role) =>
       socket.user?.role.includes(role),
@@ -206,21 +206,6 @@ export const handleLectureFinish = async (
     return;
   }
 
-
-  if (ipActivityTracker.hasActivityToday(ip, lectureid)) {
-    console.log(`DUPLICATE ACTION - IP: ${ip} already finished lecture ${lectureid} today`);
-    socket.emit('error', {
-      code: 'DUPLICATE_ACTION',
-      message: 'You have already finished this lecture today'
-    });
-    logger.warn(`Duplicate lecture finish attempt from IP ${ip} (user: ${username}) for lecture ${lectureid}`);
-    return;
-  }
-
-
-  ipActivityTracker.recordActivity(ip, lectureid);
-
-  logger.info(`Lecture with ID: ${lectureid} finishing with button press by IP ${ip} (user: ${username})`);
   await finalizeLecture(
     lectureid,
     io,
@@ -228,5 +213,6 @@ export const handleLectureFinish = async (
     presentStudents,
     lectureData,
     lectureTimeoutIds,
+    ipTracker, // Pass to finalizeLecture
   );
 };

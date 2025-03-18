@@ -30,6 +30,7 @@ class LectureCancellationError extends Error {
  * @param presentStudents - Reference to stored present students
  * @param lectureData - Reference to lecture data
  * @param lectureTimeoutIds - Reference to stored timeouts
+ * @param ipTracker - Optional reference to IP tracking data
  */
 export const handleLectureCanceled = async (
   socket: AuthenticatedSocket,
@@ -39,18 +40,15 @@ export const handleLectureCanceled = async (
   presentStudents: Record<string, unknown[]>,
   lectureData: Record<string, unknown>,
   lectureTimeoutIds: Map<string, NodeJS.Timeout>,
+  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
 ): Promise<void> => {
   try {
-    // Get IP address from socket
     const ip = socket.handshake.headers['x-forwarded-for'] as string ||
               socket.handshake.address ||
               'unknown';
-
-    // Add direct console output for the IP
-    console.log(`LECTURE CANCELED - IP: ${ip}, User: ${socket.user?.username}, Lecture: ${lectureid}`);
-
     const username = socket.user?.username || 'unknown';
-    logger.info(`User ${username} from IP ${ip} attempting to cancel lecture ${lectureid}`);
+
+    logger.info(`User ${username} from IP ${ip} canceling lecture ${lectureid}`);
 
     // Defensive check: ensure the lectureid is a non-empty string
     if (!lectureid || typeof lectureid !== 'string') {
@@ -70,20 +68,6 @@ export const handleLectureCanceled = async (
       logger.warn(`Unauthorized access attempt from IP ${ip} (user: ${username}) to cancel lecture ${lectureid}`);
       return;
     }
-
-
-    if (ipActivityTracker.hasActivityToday(ip, lectureid)) {
-      console.log(`DUPLICATE ACTION - IP: ${ip} already canceled lecture ${lectureid} today`);
-      socket.emit('error', {
-        code: 'DUPLICATE_ACTION',
-        message: 'You have already canceled this lecture today'
-      });
-      logger.warn(`Duplicate lecture cancellation attempt from IP ${ip} (user: ${username}) for lecture ${lectureid}`);
-      return;
-    }
-
-
-    ipActivityTracker.recordActivity(ip, lectureid);
 
     const token = await getToken();
 
@@ -116,11 +100,11 @@ export const handleLectureCanceled = async (
     }
     lectureTimeoutIds.delete(lectureid);
 
-
-    // Clean up IP activity tracking data
-    const activeIPs = ipActivityTracker.getActiveIPs(lectureid);
-    console.log(`CLEANUP - Removing tracking data for lecture ${lectureid}, IPs: ${activeIPs.join(', ')}`);
-    ipActivityTracker.clearLectureActivity(lectureid);
+    // Also cleanup IP tracking if provided
+    if (ipTracker && ipTracker[lectureid]) {
+      console.log(`Cleaning up IP tracking for lecture ${lectureid} in handleLectureCanceled`);
+      delete ipTracker[lectureid];
+    }
 
     logger.info(
       `Lecture with ID: ${lectureid} was successfully removed from memory by IP ${ip} (user: ${username})`,
