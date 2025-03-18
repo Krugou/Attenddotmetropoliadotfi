@@ -93,6 +93,7 @@ export const handleCreateAttendanceCollection = async (
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
   lectureTimeoutIds: LectureTimeoutMap,
+  listOfIpAlreadyUsedLecture,
 ): Promise<void> => {
   try {
     // Validate user's role
@@ -238,6 +239,7 @@ export const handleCreateAttendanceCollection = async (
         presentStudents,
         lectureData,
         lectureTimeoutIds,
+        listOfIpAlreadyUsedLecture,
       );
     }, timeout);
 
