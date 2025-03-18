@@ -131,7 +131,10 @@
       "checkDetails": "Varmista, että tiedot ovat oikein, ennen kuin lisäät opiskelijan.",
       "contactAdmin": "Jos olet lisännyt opiskelijan väärillä tiedoilla, ota yhteyttä ylläpitäjään."
     },
-    "addButton": "Lisää uusi käyttäjä"
+    "addButton": "Lisää uusi käyttäjä",
+    "goToStudents": "Opintoohjaaja opiskelija editointi",
+    "guideHowToAddStudentToCourse": "Vaihda profiili -painiketta neuvonantajan rooliin ja lisää ne neuvonantajan opiskelijoiden katselemalla",
+    "subtitle": "Jos opiskelija on jo järjestelmässä (opiskelijoiden yksityiskohdat jo löytyvät)"
   },
   "serverStatus": {
     "vpnNotConnected": "Et ole tällä hetkellä kytketty Metropolian sisäiseen verkkoon. Klikkaa tästä saadaksesi VPN-ohjeet",

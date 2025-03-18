@@ -136,7 +136,10 @@
       "checkDetails": "Vänligen se till att detaljerna stämmer innan du lägger till studenten.",
       "contactAdmin": "Om du har lagt till en student med felaktiga detaljer, kontakta din administratör."
     },
-    "addButton": "Lägg till ny användare"
+    "addButton": "Lägg till ny användare",
+    "goToStudents": "Rådgivarstudenter redigerar",
+    "guideHowToAddStudentToCourse": "Ändra med profilknappen till rådgivarrollen och lägg till dem med hjälp av rådgivarstudentervy",
+    "subtitle": "Om studenten redan är i system (studentinformation redan tagits)"
   },
   "serverStatus": {
     "vpnNotConnected": "Du är för närvarande inte ansluten till Metropolias interna nätverk. Klicka här för att få VPN-instruktioner",

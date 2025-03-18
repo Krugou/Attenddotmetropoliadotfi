@@ -133,7 +133,10 @@
       "checkDetails": "Please make sure the details are right before adding the student.",
       "contactAdmin": "If you have added a student with incorrect details, contact your administrator."
     },
-    "addButton": "Add New User"
+    "addButton": "Add New User",
+    "subtitle": "If student is already in system (student details already taken)",
+    "guideHowToAddStudentToCourse": "Change using profile button to counselor role and add them using counselor students view",
+    "goToStudents": "Counselor Students edit"
   },
   "serverStatus": {
     "vpnNotConnected": "You are presently not linked to the internal network of Metropolia. Click here to access the VPN instructions",
