@@ -3,7 +3,6 @@ import getToken from '../../utils/getToken.js';
 import doFetch from '../../utils/doFetch.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
-import * as ipActivityTracker from '../../utils/ipActivityTracker.js';
 
 /**
  * Shared data references can be injected or imported here:
@@ -30,7 +29,6 @@ class LectureCancellationError extends Error {
  * @param presentStudents - Reference to stored present students
  * @param lectureData - Reference to lecture data
  * @param lectureTimeoutIds - Reference to stored timeouts
- * @param ipTracker - Optional reference to IP tracking data
  */
 export const handleLectureCanceled = async (
   socket: AuthenticatedSocket,
@@ -40,16 +38,9 @@ export const handleLectureCanceled = async (
   presentStudents: Record<string, unknown[]>,
   lectureData: Record<string, unknown>,
   lectureTimeoutIds: Map<string, NodeJS.Timeout>,
-  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
+  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
 ): Promise<void> => {
   try {
-    const ip = socket.handshake.headers['x-forwarded-for'] as string ||
-              socket.handshake.address ||
-              'unknown';
-    const username = socket.user?.username || 'unknown';
-
-    logger.info(`User ${username} from IP ${ip} canceling lecture ${lectureid}`);
-
     // Defensive check: ensure the lectureid is a non-empty string
     if (!lectureid || typeof lectureid !== 'string') {
       throw new LectureCancellationError('Invalid lecture ID');
@@ -65,7 +56,6 @@ export const handleLectureCanceled = async (
         code: 'UNAUTHORIZED',
         message: 'Only teachers, admins, or counselors can cancel lectures',
       });
-      logger.warn(`Unauthorized access attempt from IP ${ip} (user: ${username}) to cancel lecture ${lectureid}`);
       return;
     }
 
@@ -84,30 +74,24 @@ export const handleLectureCanceled = async (
     // Notify clients that the lecture has been canceled
     io.to(lectureid).emit('lectureCanceledSuccess', lectureid);
 
-    // Log success with IP address
+    // Log success
     logger.info(
-      `Lecture with ID: ${lectureid} was successfully canceled by IP ${ip} (user: ${username}) at ${new Date().toISOString()}`,
+      `Lecture with ID: ${lectureid} was successfully canceled at ${new Date().toISOString()}`,
     );
 
     // Clean up references to avoid memory leaks
     delete notYetPresentStudents[lectureid];
     delete presentStudents[lectureid];
     delete lectureData[lectureid];
-
+    delete listOfIpAlreadyUsedLecture[lectureid];
     const lectureTimeout = lectureTimeoutIds.get(lectureid);
     if (lectureTimeout) {
       clearTimeout(lectureTimeout);
     }
     lectureTimeoutIds.delete(lectureid);
 
-    // Also cleanup IP tracking if provided
-    if (ipTracker && ipTracker[lectureid]) {
-      console.log(`Cleaning up IP tracking for lecture ${lectureid} in handleLectureCanceled`);
-      delete ipTracker[lectureid];
-    }
-
     logger.info(
-      `Lecture with ID: ${lectureid} was successfully removed from memory by IP ${ip} (user: ${username})`,
+      `Lecture with ID: ${lectureid} was successfully removed from memory`,
     );
   } catch (error) {
     logger.error('Error canceling lecture:', error);
