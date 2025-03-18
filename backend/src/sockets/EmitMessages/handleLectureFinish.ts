@@ -58,7 +58,6 @@ export class FinishLectureError extends Error {
  * @param {AttendanceRecord} presentStudents - Record of students who are present
  * @param {LectureMetaRecord} lectureData - Additional lecture data
  * @param {LectureTimeoutIds} lectureTimeoutIds - Map of lecture timeouts
- * @param {Record<string, Record<string, boolean>>} [ipTracker] - Optional IP tracking object
  * @throws {FinishLectureError} If the finalize operation fails
  */
 export const finalizeLecture = async (
@@ -68,7 +67,7 @@ export const finalizeLecture = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
-  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
+  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
 ): Promise<void> => {
   try {
     if (!lectureid) {
@@ -109,18 +108,12 @@ export const finalizeLecture = async (
     delete notYetPresentStudents[lectureid];
     delete presentStudents[lectureid];
     delete lectureData[lectureid];
-
+    delete listOfIpAlreadyUsedLecture[lectureid];
     const lectureTimeout = lectureTimeoutIds.get(lectureid);
     if (lectureTimeout) {
       clearTimeout(lectureTimeout);
     }
     lectureTimeoutIds.delete(lectureid);
-
-    // Also cleanup IP tracking if provided
-    if (ipTracker && ipTracker[lectureid]) {
-      console.log(`Cleaning up IP tracking for lecture ${lectureid} in finalizeLecture`);
-      delete ipTracker[lectureid];
-    }
 
     logger.info(`Lecture with ID ${lectureid} finished successfully.`);
   } catch (error) {
@@ -137,14 +130,12 @@ export const finalizeLecture = async (
  *
  * @async
  * @function handleLectureFinish
- * @param socket
  * @param lectureid - The unique identifier of the lecture being completed
  * @param io - The Socket.IO server instance
  * @param notYetPresentStudents - Record of students who haven't confirmed presence yet
  * @param presentStudents - Record of students who are currently present
  * @param lectureData - Ancillary data stored for each lecture
  * @param lectureTimeoutIds - Map of lecture timeouts for automatic finishing
- * @param ipTracker - Optional IP tracking object
  * @throws {FinishLectureError} If the finalize operation fails
  *
  * @example
@@ -183,16 +174,8 @@ export const handleLectureFinish = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
-  ipTracker?: Record<string, Record<string, boolean>>, // Added parameter
+  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
 ): Promise<void> => {
-  const ip = socket.handshake.headers['x-forwarded-for'] as string ||
-             socket.handshake.address ||
-             'unknown';
-  const username = socket.user?.username || 'unknown';
-
-  logger.info(`User ${username} from IP ${ip} finishing lecture ${lectureid}`);
-
-  // Check for required role
   if (
     !['teacher', 'admin', 'counselor'].some((role) =>
       socket.user?.role.includes(role),
@@ -202,10 +185,10 @@ export const handleLectureFinish = async (
       code: 'UNAUTHORIZED',
       message: 'Only teachers, admins, or counselors can finish lectures',
     });
-    logger.warn(`Unauthorized access attempt from IP ${ip} (user: ${username}) to finish lecture ${lectureid}`);
     return;
   }
 
+  logger.info(`Lecture with ID: ${lectureid} finishing with button press`);
   await finalizeLecture(
     lectureid,
     io,
@@ -213,6 +196,6 @@ export const handleLectureFinish = async (
     presentStudents,
     lectureData,
     lectureTimeoutIds,
-    ipTracker, // Pass to finalizeLecture
+    listOfIpAlreadyUsedLecture,
   );
 };
