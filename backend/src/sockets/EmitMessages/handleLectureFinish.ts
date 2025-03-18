@@ -8,6 +8,7 @@ import {Server} from 'socket.io';
 import getToken from '../../utils/getToken.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
+import * as ipActivityTracker from '../../utils/ipActivityTracker.js';
 
 /**
  * Represents a student record used for attendance.
@@ -114,6 +115,11 @@ export const finalizeLecture = async (
     }
     lectureTimeoutIds.delete(lectureid);
 
+    // Clean up IP activity tracking data
+    const activeIPs = ipActivityTracker.getActiveIPs(lectureid);
+    console.log(`CLEANUP - Removing tracking data for lecture ${lectureid}, IPs: ${activeIPs.join(', ')}`);
+    ipActivityTracker.clearLectureActivity(lectureid);
+
     logger.info(`Lecture with ID ${lectureid} finished successfully.`);
   } catch (error) {
     logger.error('Error finishing lecture:', error);
@@ -129,6 +135,7 @@ export const finalizeLecture = async (
  *
  * @async
  * @function handleLectureFinish
+ * @param socket
  * @param lectureid - The unique identifier of the lecture being completed
  * @param io - The Socket.IO server instance
  * @param notYetPresentStudents - Record of students who haven't confirmed presence yet
@@ -174,6 +181,18 @@ export const handleLectureFinish = async (
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
 ): Promise<void> => {
+
+  const ip = socket.handshake.headers['x-forwarded-for'] as string ||
+             socket.handshake.address ||
+             'unknown';
+
+  // Add direct console output for the IP
+  console.log(`LECTURE FINISH - IP: ${ip}, User: ${socket.user?.username}, Lecture: ${lectureid}`);
+
+  const username = socket.user?.username || 'unknown';
+  logger.info(`User ${username} from IP ${ip} attempting to finish lecture ${lectureid}`);
+
+
   if (
     !['teacher', 'admin', 'counselor'].some((role) =>
       socket.user?.role.includes(role),
@@ -183,10 +202,25 @@ export const handleLectureFinish = async (
       code: 'UNAUTHORIZED',
       message: 'Only teachers, admins, or counselors can finish lectures',
     });
+    logger.warn(`Unauthorized access attempt from IP ${ip} (user: ${username}) to finish lecture ${lectureid}`);
     return;
   }
 
-  logger.info(`Lecture with ID: ${lectureid} finishing with button press`);
+
+  if (ipActivityTracker.hasActivityToday(ip, lectureid)) {
+    console.log(`DUPLICATE ACTION - IP: ${ip} already finished lecture ${lectureid} today`);
+    socket.emit('error', {
+      code: 'DUPLICATE_ACTION',
+      message: 'You have already finished this lecture today'
+    });
+    logger.warn(`Duplicate lecture finish attempt from IP ${ip} (user: ${username}) for lecture ${lectureid}`);
+    return;
+  }
+
+
+  ipActivityTracker.recordActivity(ip, lectureid);
+
+  logger.info(`Lecture with ID: ${lectureid} finishing with button press by IP ${ip} (user: ${username})`);
   await finalizeLecture(
     lectureid,
     io,

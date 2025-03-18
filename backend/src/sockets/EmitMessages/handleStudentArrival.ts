@@ -3,6 +3,7 @@ import getToken from '../../utils/getToken.js';
 import doFetch from '../../utils/doFetch.js';
 import type {AuthenticatedSocket} from 'utils/authenticateSocket.js';
 import logger from '../../utils/logger.js';
+import * as ipActivityTracker from '../../utils/ipActivityTracker.js';
 
 /**
  * Represents a student record used for attendance.
@@ -79,6 +80,28 @@ export const handleStudentArrival = async (
   presentStudents: AttendanceRecord,
 ): Promise<void> => {
   try {
+    // Get IP address from socket
+    const ip = socket.handshake.headers['x-forwarded-for'] as string ||
+              socket.handshake.address ||
+              'unknown';
+    const lectureIdStr = String(lectureid);
+
+    // Add direct console output for the IP
+    console.log(`STUDENT ARRIVAL - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`);
+
+    logger.info(`Student ${studentId} from IP ${ip} attempting to mark attendance for lecture ${lectureid}`);
+
+    if (ipActivityTracker.hasActivityToday(ip, lectureIdStr)) {
+      console.log(`DUPLICATE ATTEMPT - IP: ${ip} already marked attendance for lecture ${lectureid}`);
+      socket.emit('error', {
+        code: 'DUPLICATE_ATTENDANCE',
+        message: 'You have already marked attendance for this lecture today'
+      });
+      logger.warn(`Duplicate attendance attempt from IP ${ip} for student ${studentId} in lecture ${lectureid}`);
+      logger.info(`Duplicate attendance attempt from IP ${ip} for student ${studentId} in lecture ${lectureid}`);
+      return;
+    }
+
     // Basic input validation
     if (
       !secureHash ||
@@ -168,8 +191,13 @@ export const handleStudentArrival = async (
       return;
     }
 
+    // When successfully processed, record this activity
+    ipActivityTracker.recordActivity(ip, lectureIdStr);
+
+    console.log(`ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`);
+
     io.to(socket.id).emit('youHaveBeenSavedIntoLecture', lectureid);
-    logger.info(`Student ${studentId} saved into lecture ${lectureid}`);
+    logger.info(`Student ${studentId} from IP ${ip} successfully saved into lecture ${lectureid}`);
   } catch (error) {
     logger.error(
       `Error processing student arrival for lecture ${lectureid}`,
