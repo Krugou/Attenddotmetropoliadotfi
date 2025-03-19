@@ -70,7 +70,7 @@ const TeacherLateEnrollment: React.FC = () => {
   const [enrollmentMode, setEnrollmentMode] = useState<
     'new' | 'existing' | null
   >(null);
-  const {user, update, setUpdate} = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState<Student[]>([]);
@@ -99,6 +99,7 @@ const TeacherLateEnrollment: React.FC = () => {
       const filtered = editCourses.filter(
         (course) =>
           !studentCourses.some(
+            // @ts-expect-error
             (studentCourse) => studentCourse.courseid === course.courseid,
           ),
       );
@@ -166,7 +167,7 @@ const TeacherLateEnrollment: React.FC = () => {
     }
 
     try {
-      const response = await apiHooks.updateStudentCourses(
+      await apiHooks.updateStudentCourses(
         token,
         selectedStudent.userid,
         selectedCourse.courseid,
