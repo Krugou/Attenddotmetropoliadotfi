@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import WarningIcon from '@mui/icons-material/Warning';
 
 /**
@@ -9,6 +9,7 @@ export interface IPTrackingData {
   location?: string;
   timestamp?: string | number;
   device?: string;
+  studentnumber?: string | number;
   [key: string]: any;
 }
 
@@ -20,6 +21,7 @@ interface IPWarningTooltipProps {
   iconClass?: string;
   tooltipClass?: string;
   heading?: string;
+  position?: 'top' | 'bottom';
 }
 
 /**
@@ -30,6 +32,7 @@ interface IPWarningTooltipProps {
  * ```tsx
  * <IPWarningTooltip
  *   ipTrackingData={[{ip: '192.168.1.1', location: 'Finland', timestamp: '2023-05-01T12:00:00Z'}]}
+ *   position="bottom"
  * />
  * ```
  */
@@ -38,25 +41,29 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
   iconClass = 'text-metropolia-support-yellow-dark',
   tooltipClass = 'bg-white text-black p-3 rounded shadow-lg max-w-xs z-50',
   heading = 'User Access Information',
+  position = 'bottom',  // Set default position to bottom
 }) => {
 
-  const normalizeData = (): IPTrackingData[] => {
+  console.log('ipTrackingData:', ipTrackingData);
+
+  const normalizedData = useMemo(() => {
     if (!ipTrackingData) return [];
 
-
-    if (Array.isArray(ipTrackingData)) return ipTrackingData;
+    if (Array.isArray(ipTrackingData)) {
+      return [...ipTrackingData].sort((a, b) => {
+        const timeA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+        const timeB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+        return timeB - timeA;
+      });
+    }
 
     if (typeof ipTrackingData === 'object' && ipTrackingData !== null) {
-
       if (Object.keys(ipTrackingData).length === 0) return [];
-
       return [ipTrackingData as IPTrackingData];
     }
 
     return [];
-  };
-
-  const normalizedData = normalizeData();
+  }, [ipTrackingData]);
 
   if (normalizedData.length === 0) {
     return null;
@@ -73,30 +80,49 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
     }
   };
 
+  // Get position-specific classes
+  const getPositionClasses = () => {
+    return position === 'top'
+      ? 'bottom-full mb-2'
+      : 'top-full mt-2';
+  };
+
   return (
     <div className="relative inline-block group cursor-help ml-2">
-      <WarningIcon className={iconClass} />
-      <div className={`hidden group-hover:block absolute left-1/2 -translate-x-1/2 bottom-full mb-2 ${tooltipClass}`}>
+      <div className="flex items-center">
+        <WarningIcon className={iconClass} />
+        <span className="ml-1 text-xs font-bold bg-metropolia-support-yellow-dark text-white rounded-full px-2">
+          {normalizedData.length}
+        </span>
+      </div>
+
+      <div className={`hidden group-hover:block absolute left-1/2 -translate-x-1/2 ${getPositionClasses()} ${tooltipClass}`}>
         <h4 className="font-bold mb-2 border-b pb-1">{heading}</h4>
-        {normalizedData.map((data, index) => (
-          <div key={index} className="mb-2 last:mb-0">
-            {data.ip && <p className="text-sm my-1"><span className="font-bold">IP:</span> {data.ip}</p>}
-            {data.location && <p className="text-sm my-1"><span className="font-bold">Location:</span> {data.location}</p>}
-            {data.timestamp && <p className="text-sm my-1"><span className="font-bold">Time:</span> {formatTimestamp(data.timestamp)}</p>}
-            {data.device && <p className="text-sm my-1"><span className="font-bold">Device:</span> {data.device}</p>}
-
-            {/* Display any additional properties */}
-            {Object.entries(data)
-              .filter(([key]) => !['ip', 'location', 'timestamp', 'device'].includes(key))
-              .map(([key, value]) => (
-                <p key={key} className="text-sm my-1">
-                  <span className="font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}:</span> {String(value)}
+        <div className="max-h-60 overflow-y-auto">
+          {normalizedData.map((data, index) => (
+            <div key={index} className="mb-2 last:mb-0">
+              {data.ip && <p className="text-sm my-1"><span className="font-bold">IP:</span> {data.ip}</p>}
+              {data.studentnumber && (
+                <p className="text-sm my-1">
+                  <span className="font-bold">Student:</span> {data.studentnumber}
                 </p>
-              ))}
+              )}
+              {data.timestamp && <p className="text-sm my-1"><span className="font-bold">Time:</span> {formatTimestamp(data.timestamp)}</p>}
+              {data.location && <p className="text-sm my-1"><span className="font-bold">Location:</span> {data.location}</p>}
+              {data.device && <p className="text-sm my-1"><span className="font-bold">Device:</span> {data.device}</p>}
 
-            {index < normalizedData.length - 1 && <hr className="my-2 border-gray-200" />}
-          </div>
-        ))}
+              {Object.entries(data)
+                .filter(([key]) => !['ip', 'location', 'timestamp', 'device', 'studentnumber'].includes(key))
+                .map(([key, value]) => (
+                  <p key={key} className="text-sm my-1">
+                    <span className="font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}:</span> {String(value)}
+                  </p>
+                ))}
+
+              {index < normalizedData.length - 1 && <hr className="my-2 border-gray-200" />}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

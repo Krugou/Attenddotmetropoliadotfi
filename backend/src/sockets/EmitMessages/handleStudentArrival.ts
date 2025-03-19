@@ -53,6 +53,15 @@ export class StudentArrivalError extends Error {
 }
 
 /**
+ * Data structure for tracking IP addresses and associated student IDs
+ */
+interface IpStudentRecord {
+  ip: string;
+  studentId: string;
+  timestamp: number;
+}
+
+/**
  * Handles the event where a student arrives to a lecture with a given security hash.
  *
  * @param socket - The client's socket instance
@@ -78,7 +87,7 @@ export const handleStudentArrival = async (
   lectureData: LectureDataStore,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
-  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
+  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
     const ip =
@@ -105,9 +114,9 @@ export const handleStudentArrival = async (
       throw new StudentArrivalError('Missing or invalid input details.');
     }
 
-    // Check if lecture IP tracking set exists, create if not
+    // Check if lecture IP tracking map exists, create if not
     if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
-      listOfIpAlreadyUsedLecture.set(lectureid, new Set<string>());
+      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord>());
     }
 
     // Check that user IP is not already used for this lecture
@@ -203,8 +212,23 @@ export const handleStudentArrival = async (
       return;
     }
 
-    // Store the IP in the used IPs map for this lecture
-    listOfIpAlreadyUsedLecture.get(lectureid)?.add(ip);
+    // Store the IP and associated student ID in the tracking map for this lecture
+    listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, {
+      ip,
+      studentId,
+      timestamp: Date.now()
+    });
+
+
+    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid)?.values() || [])
+      .map(record => ({
+        ip: record.ip,
+        timestamp: record.timestamp,
+        studentnumber: record.studentId
+      }));
+
+    // Emit the full list to everyone in the lecture room
+    io.to(lectureid.toString()).emit('usedIpChecking', ipList);
 
     console.log(
       `ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`,
