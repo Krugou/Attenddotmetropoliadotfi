@@ -21,6 +21,13 @@ interface LectureTimestamp {
   end: number;
 }
 
+
+interface IpStudentRecord {
+  ip: string;
+  studentId: string;
+  timestamp: number;
+}
+
 /**
  * Represents the structure of lecture data stored in memory.
  */
@@ -78,7 +85,7 @@ export const handleStudentArrival = async (
   lectureData: LectureDataStore,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
-  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
+  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
     const ip =
@@ -105,9 +112,9 @@ export const handleStudentArrival = async (
       throw new StudentArrivalError('Missing or invalid input details.');
     }
 
-    // Check if lecture IP tracking set exists, create if not
+    // Check if lecture IP tracking map exists, create if not
     if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
-      listOfIpAlreadyUsedLecture.set(lectureid, new Set<string>());
+      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord>());
     }
 
     // Check that user IP is not already used for this lecture
@@ -204,14 +211,21 @@ export const handleStudentArrival = async (
     }
 
     // Store the IP in the used IPs map for this lecture
-    listOfIpAlreadyUsedLecture.get(lectureid)?.add(ip);
+    const ipMapForLecture = listOfIpAlreadyUsedLecture.get(lectureid);
+    if (ipMapForLecture) {
+      ipMapForLecture.set(ip, {
+        ip,
+        studentId,
+        timestamp: Date.now()
+      });
+    }
 
     // Create a formatted list of IPs with additional metadata
-    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid) || new Set())
-      .map(ip => ({
+    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid)?.entries() || [])
+      .map(([ip, record]) => ({
         ip,
-        timestamp: Date.now(),
-        studentnumber: studentId // NOTE: This is applying the current student ID to ALL IPs
+        timestamp: record.timestamp,
+        studentnumber: record.studentId
       }));
 
     // Emit the full list to everyone in the lecture room
