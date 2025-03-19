@@ -12,7 +12,6 @@ export interface IPTrackingData {
   device?: string;
   studentnumber?: string | number;
   duplicate?: boolean;
-  suspicious?: boolean;
   [key: string]: any;
 }
 
@@ -68,11 +67,9 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
     return [];
   }, [ipTrackingData]);
 
-  // Check for suspicious or duplicate IP attempts
+  // Check for duplicate IP attempts
   const hasIssues = useMemo(() => {
-    return normalizedData.some(data =>
-      data.duplicate === true || data.suspicious === true
-    );
+    return normalizedData.some(data => data.duplicate === true);
   }, [normalizedData]);
 
   if (normalizedData.length === 0) {
@@ -116,19 +113,14 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
           {normalizedData.map((data, index) => (
             <div
               key={index}
-              className={`mb-2 last:mb-0 ${data.duplicate || data.suspicious ? 'bg-red-50 border-l-4 border-metropolia-support-red p-1' : ''}`}
+              className={`mb-2 last:mb-0 ${data.duplicate ? 'bg-red-50 border-l-4 border-metropolia-support-red p-1' : ''}`}
             >
               {data.ip && (
                 <p className="text-sm my-1">
                   <span className="font-bold">IP:</span> {data.ip}
                   {data.duplicate && (
                     <span className="ml-2 text-xs text-metropolia-support-red font-bold">
-                      DUPLICATE ATTEMPT
-                    </span>
-                  )}
-                  {data.suspicious && (
-                    <span className="ml-2 text-xs text-metropolia-support-red font-bold">
-                      SUSPICIOUS ACTIVITY
+                      {data.message || "DUPLICATE IP"}
                     </span>
                   )}
                 </p>
@@ -139,11 +131,14 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
                 </p>
               )}
               {data.timestamp && <p className="text-sm my-1"><span className="font-bold">Time:</span> {formatTimestamp(data.timestamp)}</p>}
+
+              {/* Keep displaying other standard fields */}
               {data.location && <p className="text-sm my-1"><span className="font-bold">Location:</span> {data.location}</p>}
               {data.device && <p className="text-sm my-1"><span className="font-bold">Device:</span> {data.device}</p>}
 
+              {/* Show any other fields that are not in the standard set */}
               {Object.entries(data)
-                .filter(([key]) => !['ip', 'location', 'timestamp', 'device', 'studentnumber'].includes(key))
+                .filter(([key]) => !['ip', 'location', 'timestamp', 'device', 'studentnumber', 'duplicate', 'message'].includes(key))
                 .map(([key, value]) => (
                   <p key={key} className="text-sm my-1">
                     <span className="font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}:</span> {String(value)}
