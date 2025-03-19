@@ -54,7 +54,11 @@
     "studentNumberTaken": "Opiskelijanumero on varattu",
     "noToken": "Ei saatavilla olevaa tunnusta",
     "fillRequiredFields": "Täytä kaikki vaaditut kentät",
-    "openDataConnectionFailed": "Yhteyttä Metropolian Open Data -rajapintaan ei voitu muodostaa. Osa järjestelmän toiminnoista saattaa olla rajoitettuja. Ota yhteyttä järjestelmänvalvojaan."
+    "openDataConnectionFailed": "Yhteyttä Metropolian Open Data -rajapintaan ei voitu muodostaa. Osa järjestelmän toiminnoista saattaa olla rajoitettuja. Ota yhteyttä järjestelmänvalvojaan.",
+    "searchFailed": "Haku epäonnistui.",
+    "selectionRequired": "Valinta vaaditaan",
+    "fetchFailed": "Hae epäonnistui",
+    "enrollmentFailed": "Ilmoittautuminen epäonnistui"
   },
   "email": "Sähköposti",
   "firstName": "Etunimi",
@@ -369,5 +373,19 @@
   "attendancePercentage": "Osallistumisprosentti",
   "labels": {
     "userAccessInformation": "Käyttäjän käyttötiedot"
+  },
+  "lateEnrollment": {
+    "selectMode": "Valitse tila",
+    "newStudent": "Uusi opiskelija",
+    "existingStudent": "Opiskelija",
+    "backToOptions": "Takaisin vaihtoehtoihin",
+    "findExistingStudent": "Löydä nykyinen opiskelija",
+    "noStudentsFound": "Ei oppilaita löytänyt.",
+    "searchPlaceholder": "Matti Meikäläinen",
+    "selectCourse": "Valitse kurssi",
+    "viewDetails": "Katso yksityiskohdat",
+    "addToCourse": "Lisätä",
+    "studentAddedToCourse": "Opiskelija lisätty kurssille",
+    "noAvailableCourses": "Ei käytettävissä olevia kursseja"
   }
 }

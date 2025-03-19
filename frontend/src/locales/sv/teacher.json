@@ -414,7 +414,9 @@
       "startDate": "Startdatum:",
       "endDate": "Slutdatum:",
       "instructors": "Instruktörer",
-      "searchCourses": "Sök kurser"
+      "searchCourses": "Sök kurser",
+      "studentGroup": "Studentgrupp",
+      "topics": "Ämnen"
     },
     "buttons": {
       "attendance": "Närvaro",

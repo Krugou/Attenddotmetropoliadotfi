@@ -414,7 +414,9 @@
       "startDate": "Aloituspäivämäärä:",
       "endDate": "Päättymispäivämäärä:",
       "instructors": "Opettajat",
-      "searchCourses": "Hae kursseja"
+      "searchCourses": "Hae kursseja",
+      "studentGroup": "Opiskelijaryhmä",
+      "topics": "Aiheet"
     },
     "buttons": {
       "attendance": "Läsnäolo",
@@ -492,7 +494,6 @@
       "requiredHours": "Vaaditut tunnit",
       "startDate": "Aloituspäivä",
       "endDate": "Päättymispäivä"
-
     },
     "data": {
       "courseCode": "Kurssikoodi",
@@ -546,7 +547,7 @@
       "entries": "Ryhmämerkinnät"
     },
     "entries": {
-      "name":" Nimi",
+      "name": " Nimi",
       "date": "Päivämäärä",
       "hours": "Tunnit",
       "description": "Kuvaus",

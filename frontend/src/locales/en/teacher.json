@@ -414,7 +414,9 @@
       "startDate": "Start Date:",
       "endDate": "End Date:",
       "instructors": "Instructors",
-      "searchCourses": "Search courses"
+      "searchCourses": "Search courses",
+      "studentGroup": "Student group",
+      "topics": "Topics"
     },
     "buttons": {
       "attendance": "Attendance",
@@ -494,7 +496,6 @@
       "deleteSuccess": "Worklog course deleted successfully",
       "createdAt": "Created at",
       "viewGroups": "View Groups"
-
     },
     "modify": {
       "title": "Modify Worklog Course",

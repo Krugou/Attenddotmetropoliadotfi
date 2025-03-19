@@ -54,7 +54,11 @@
     "studentNumberTaken": "Student Number taken",
     "noToken": "No token available",
     "fillRequiredFields": "Please fill all required fields",
-    "openDataConnectionFailed": "Connection to Metropolia Open Data API could not be established. Some system functionality may be limited. Please contact your system administrator."
+    "openDataConnectionFailed": "Connection to Metropolia Open Data API could not be established. Some system functionality may be limited. Please contact your system administrator.",
+    "searchFailed": "Search failed.",
+    "selectionRequired": "Selection required",
+    "fetchFailed": "Fetch failed",
+    "enrollmentFailed": "Enrollment failed"
   },
   "email": "Email",
   "firstName": "First Name",
@@ -391,5 +395,19 @@
   },
   "labels": {
     "userAccessInformation": "User Access Information"
+  },
+  "lateEnrollment": {
+    "selectMode": "Select Mode",
+    "newStudent": "New student",
+    "existingStudent": "Existing Student",
+    "backToOptions": "Back to options",
+    "findExistingStudent": "Find Existing Student",
+    "noStudentsFound": "No students found.",
+    "searchPlaceholder": "Matti Meikäläinen",
+    "selectCourse": "Select course",
+    "viewDetails": "View details",
+    "addToCourse": "Add to course",
+    "studentAddedToCourse": "Student added to course",
+    "noAvailableCourses": "No available courses"
   }
 }

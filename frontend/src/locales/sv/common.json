@@ -57,7 +57,11 @@
     "studentNumberTaken": "Studentnummer upptagen",
     "noToken": "Ingen tillgänglig token",
     "fillRequiredFields": "Fyll i alla obligatoriska fält",
-    "openDataConnectionFailed": "Anslutning till Metropolias Open Data API kunde inte upprättas. Viss systemfunktionalitet kan vara begränsad. Kontakta din systemadministratör."
+    "openDataConnectionFailed": "Anslutning till Metropolias Open Data API kunde inte upprättas. Viss systemfunktionalitet kan vara begränsad. Kontakta din systemadministratör.",
+    "searchFailed": "Sökningen misslyckades.",
+    "selectionRequired": "Urval krävs",
+    "fetchFailed": "Hämtning",
+    "enrollmentFailed": "Anmälan misslyckades"
   },
   "email": "E-post",
   "firstName": "Förnamn",
@@ -352,5 +356,19 @@
   "attendancePercentage": "Närvaroprocent",
   "labels": {
     "userAccessInformation": "Användaråtkomstinformation"
+  },
+  "lateEnrollment": {
+    "selectMode": "Välj läge",
+    "newStudent": "Nystudent",
+    "existingStudent": "Befintlig student",
+    "backToOptions": "Tillbaka till alternativ",
+    "findExistingStudent": "Hitta befintlig student",
+    "noStudentsFound": "Inga studenter hittades.",
+    "searchPlaceholder": "Matti Meikäläinen",
+    "selectCourse": "Välj kurs",
+    "viewDetails": "Visa detaljer",
+    "addToCourse": "Lägga till kursen",
+    "studentAddedToCourse": "Student läggs till kursen",
+    "noAvailableCourses": "Inga tillgängliga kurser"
   }
 }
