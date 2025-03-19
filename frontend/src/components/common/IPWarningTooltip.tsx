@@ -1,5 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import WarningIcon from '@mui/icons-material/Warning';
+import ErrorIcon from '@mui/icons-material/Error';
 
 /**
  * Interface for IP tracking data object
@@ -10,6 +11,8 @@ export interface IPTrackingData {
   timestamp?: string | number;
   device?: string;
   studentnumber?: string | number;
+  duplicate?: boolean;
+  suspicious?: boolean;
   [key: string]: any;
 }
 
@@ -65,6 +68,13 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
     return [];
   }, [ipTrackingData]);
 
+  // Check for suspicious or duplicate IP attempts
+  const hasIssues = useMemo(() => {
+    return normalizedData.some(data =>
+      data.duplicate === true || data.suspicious === true
+    );
+  }, [normalizedData]);
+
   if (normalizedData.length === 0) {
     return null;
   }
@@ -90,8 +100,12 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
   return (
     <div className="relative inline-block group cursor-help ml-2">
       <div className="flex items-center">
-        <WarningIcon className={iconClass} />
-        <span className="ml-1 text-xs font-bold bg-metropolia-support-yellow-dark text-white rounded-full px-2">
+        {hasIssues ? (
+          <ErrorIcon className="text-metropolia-support-red" />
+        ) : (
+          <WarningIcon className={iconClass} />
+        )}
+        <span className={`ml-1 text-xs font-bold ${hasIssues ? 'bg-metropolia-support-red' : 'bg-metropolia-support-yellow-dark'} text-white rounded-full px-2`}>
           {normalizedData.length}
         </span>
       </div>
@@ -100,8 +114,25 @@ const IPWarningTooltip: React.FC<IPWarningTooltipProps> = ({
         <h4 className="font-bold mb-2 border-b pb-1">{heading}</h4>
         <div className="max-h-60 overflow-y-auto">
           {normalizedData.map((data, index) => (
-            <div key={index} className="mb-2 last:mb-0">
-              {data.ip && <p className="text-sm my-1"><span className="font-bold">IP:</span> {data.ip}</p>}
+            <div
+              key={index}
+              className={`mb-2 last:mb-0 ${data.duplicate || data.suspicious ? 'bg-red-50 border-l-4 border-metropolia-support-red p-1' : ''}`}
+            >
+              {data.ip && (
+                <p className="text-sm my-1">
+                  <span className="font-bold">IP:</span> {data.ip}
+                  {data.duplicate && (
+                    <span className="ml-2 text-xs text-metropolia-support-red font-bold">
+                      DUPLICATE ATTEMPT
+                    </span>
+                  )}
+                  {data.suspicious && (
+                    <span className="ml-2 text-xs text-metropolia-support-red font-bold">
+                      SUSPICIOUS ACTIVITY
+                    </span>
+                  )}
+                </p>
+              )}
               {data.studentnumber && (
                 <p className="text-sm my-1">
                   <span className="font-bold">Student:</span> {data.studentnumber}

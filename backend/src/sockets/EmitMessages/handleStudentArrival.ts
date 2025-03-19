@@ -59,7 +59,13 @@ interface IpStudentRecord {
   ip: string;
   studentId: string;
   timestamp: number;
+  isDuplicate?: boolean;
 }
+
+/**
+ * Tracks attempted IP usages - including rejected duplicate attempts
+ */
+interface IpAttemptRecord extends Map<string, IpStudentRecord[]> {}
 
 /**
  * Handles the event where a student arrives to a lecture with a given security hash.
@@ -87,7 +93,7 @@ export const handleStudentArrival = async (
   lectureData: LectureDataStore,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
-  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
+  listOfIpAlreadyUsedLecture: Map<number, IpAttemptRecord>,
 ): Promise<void> => {
   try {
     const ip =
@@ -114,13 +120,36 @@ export const handleStudentArrival = async (
       throw new StudentArrivalError('Missing or invalid input details.');
     }
 
-    // Check if lecture IP tracking map exists, create if not
+
     if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
-      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord>());
+      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord[]>());
     }
 
-    // Check that user IP is not already used for this lecture
-    if (listOfIpAlreadyUsedLecture.get(lectureid)?.has(ip)) {
+    const ipRecord: IpStudentRecord = {
+      ip,
+      studentId,
+      timestamp: Date.now(),
+      isDuplicate: false
+    };
+
+
+    const lectureIpRecords = listOfIpAlreadyUsedLecture.get(lectureid) as IpAttemptRecord;
+
+
+    const isDuplicateAttempt = lectureIpRecords.has(ip);
+
+    if (isDuplicateAttempt) {
+
+      ipRecord.isDuplicate = true;
+
+
+      const existingRecords = lectureIpRecords.get(ip) || [];
+      lectureIpRecords.set(ip, [...existingRecords, ipRecord]);
+
+
+      sendIpTrackingData(io, lectureid, lectureIpRecords);
+
+
       io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
       logger.error(
         `IP ${ip} already used for student ${studentId} in lecture ${lectureid}`,
@@ -212,23 +241,11 @@ export const handleStudentArrival = async (
       return;
     }
 
-    // Store the IP and associated student ID in the tracking map for this lecture
-    listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, {
-      ip,
-      studentId,
-      timestamp: Date.now()
-    });
+
+    lectureIpRecords.set(ip, [ipRecord]);
 
 
-    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid)?.values() || [])
-      .map(record => ({
-        ip: record.ip,
-        timestamp: record.timestamp,
-        studentnumber: record.studentId
-      }));
-
-    // Emit the full list to everyone in the lecture room
-    io.to(lectureid.toString()).emit('usedIpChecking', ipList);
+    sendIpTrackingData(io, lectureid, lectureIpRecords);
 
     console.log(
       `ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`,
@@ -249,3 +266,53 @@ export const handleStudentArrival = async (
     );
   }
 };
+
+/**
+ * Helper function to prepare and send IP tracking data to the frontend
+ */
+function sendIpTrackingData(
+  io: Server,
+  lectureid: number,
+  ipRecords: IpAttemptRecord
+): void {
+
+  const ipList = Array.from(ipRecords.entries()).flatMap(([ip, records]) => {
+    return records.map(record => ({
+      ip: record.ip,
+      timestamp: record.timestamp,
+      studentnumber: record.studentId,
+      duplicate: record.isDuplicate || false
+    }));
+  });
+
+
+  const ipCounts = new Map<string, string[]>();
+
+
+  Array.from(ipRecords.entries()).forEach(([ip, records]) => {
+
+    const uniqueStudentIds = Array.from(new Set(
+      records.map(record => record.studentId)
+    ));
+
+    ipCounts.set(ip, uniqueStudentIds);
+  });
+
+
+  const suspiciousIps = Array.from(ipCounts.entries())
+    .filter(([_, studentIds]) => studentIds.length > 1)
+    .map(([ip]) => ip);
+
+  const enrichedIpList = ipList.map(record => ({
+    ...record,
+    suspicious: suspiciousIps.includes(record.ip)
+  }));
+
+
+  logger.info(
+    `IP tracking - Lecture ${lectureid}: ${ipList.length} records, ${suspiciousIps.length} suspicious IPs`
+  );
+
+
+  io.to(lectureid.toString()).emit('usedIpChecking', enrichedIpList);
+}
