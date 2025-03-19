@@ -38,6 +38,9 @@ interface IpStudentRecord {
   ip: string;
   studentId: string;
   timestamp: number;
+  userAgent: string;
+  studentIds: string[];
+  studentId2?: string;
 }
 
 // The lists of students who have arrived and who have not yet arrived
@@ -46,7 +49,10 @@ const notYetPresentStudents: {[lectureid: string]: Student[]} = {};
 // The timeout id for the lecture
 const lectureTimeoutIds = new Map();
 // Map to track used IP addresses per lecture: Map<lectureId, Set<IP>>
-const listOfIpAlreadyUsedLecture = new Map<number, Map<string, IpStudentRecord>>();
+const listOfIpAlreadyUsedLecture = new Map<
+  number,
+  Map<string, IpStudentRecord>
+>();
 
 const SocketHandlers = (io: Server) => {
   io.use(authenticateSocket);
