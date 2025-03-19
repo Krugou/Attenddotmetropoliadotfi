@@ -249,23 +249,7 @@ const NewStudentUser: React.FC = () => {
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
         {t('common:newStudent.title')}
       </h1>
-      <h2 className='p-3 mb-5 ml-auto mr-auto text-base text-center bg-white rounded-lg font-heading w-fit'>
-        {t('common:newStudent.subtitle')}
-      </h2>
-      {(user?.role === 'counselor' || user?.role === 'admin') && (
-        <div className='flex justify-center'>
-          <a
-            href='/counselor/students'
-            className='text-metropolia-support-white bg-metropolia-main-orange  p-2 rounded font-bold hover:bg-metropolia-main-orange/80 transition-colors duration-200'>
-            {t('common:newStudent.goToStudents')}
-          </a>
-        </div>
-      )}
-      {user?.role === 'teacher' && (
-        <div className='flex justify-center bg-metropolia-support-white p-2 rounded font-bold text-metropolia-main-orange'>
-          <p>{t('common:newStudent.guideHowToAddStudentToCourse')} </p>
-        </div>
-      )}
+
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
