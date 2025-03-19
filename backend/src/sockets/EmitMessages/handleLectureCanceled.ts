@@ -10,6 +10,12 @@ import logger from '../../utils/logger.js';
  */
 // import { notYetPresentStudents, presentStudents, lectureData, lectureTimeoutIds } from '../socketHandlers';
 
+interface IpStudentRecord {
+  ip: string;
+  studentId: string;
+  timestamp: number;
+}
+
 /**
  * Custom error type for lecture cancelation failures.
  */
@@ -38,7 +44,7 @@ export const handleLectureCanceled = async (
   presentStudents: Record<string, unknown[]>,
   lectureData: Record<string, unknown>,
   lectureTimeoutIds: Map<string, NodeJS.Timeout>,
-  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
+  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
     // Defensive check: ensure the lectureid is a non-empty string

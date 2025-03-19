@@ -17,6 +17,13 @@ export interface Student {
   [key: string]: any;
 }
 
+interface IpStudentRecord {
+  ip: string;
+  studentId: string;
+  timestamp: number;
+}
+
+
 /**
  * Represents the shape of our "not yet present" and "present" records, keyed by lecture ID.
  */
@@ -67,7 +74,7 @@ export const finalizeLecture = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
-  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
+  listOfIpAlreadyUsedLecture:  Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
     if (!lectureid) {
@@ -174,7 +181,7 @@ export const handleLectureFinish = async (
   presentStudents: AttendanceRecord,
   lectureData: LectureMetaRecord,
   lectureTimeoutIds: LectureTimeoutIds,
-  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
+  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   if (
     !['teacher', 'admin', 'counselor'].some((role) =>

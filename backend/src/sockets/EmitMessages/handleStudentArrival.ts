@@ -53,15 +53,6 @@ export class StudentArrivalError extends Error {
 }
 
 /**
- * Data structure for tracking IP addresses and associated student IDs
- */
-interface IpStudentRecord {
-  ip: string;
-  studentId: string;
-  timestamp: number;
-}
-
-/**
  * Handles the event where a student arrives to a lecture with a given security hash.
  *
  * @param socket - The client's socket instance
@@ -87,7 +78,7 @@ export const handleStudentArrival = async (
   lectureData: LectureDataStore,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
-  listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
+  listOfIpAlreadyUsedLecture: Map<number, Set<string>>,
 ): Promise<void> => {
   try {
     const ip =
@@ -114,43 +105,16 @@ export const handleStudentArrival = async (
       throw new StudentArrivalError('Missing or invalid input details.');
     }
 
-    // Check if lecture IP tracking map exists, create if not
+    // Check if lecture IP tracking set exists, create if not
     if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
-      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord>());
+      listOfIpAlreadyUsedLecture.set(lectureid, new Set<string>());
     }
 
-    const ipMapForLecture = listOfIpAlreadyUsedLecture.get(lectureid);
-    const existingRecord = ipMapForLecture?.get(ip);
-
-    // If this IP is already used, reject the attempt and notify about duplicate
-    if (existingRecord) {
-      // Prepare duplicate information
-      const duplicateInfo = {
-        ip,
-        timestamp: Date.now(),
-        studentnumber: studentId,
-        duplicate: true,
-        message: "IP already used for attendance"
-      };
-
-      // Get all current IP records for the lecture
-      const allIpRecords = Array.from(ipMapForLecture?.values() || [])
-        .map(record => ({
-          ip: record.ip,
-          timestamp: record.timestamp,
-          studentnumber: record.studentId
-        }));
-
-      // Add duplicate attempt to the list
-      allIpRecords.push(duplicateInfo);
-
-      // Send updated list to everyone in the lecture room
-      io.to(lectureid.toString()).emit('usedIpChecking', allIpRecords);
-
-      // Notify the student they're already saved or rejected
+    // Check that user IP is not already used for this lecture
+    if (listOfIpAlreadyUsedLecture.get(lectureid)?.has(ip)) {
       io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
       logger.error(
-        `IP ${ip} already used in lecture ${lectureid}, attempted by student ${studentId}`
+        `IP ${ip} already used for student ${studentId} in lecture ${lectureid}`,
       );
       return;
     }
@@ -239,20 +203,15 @@ export const handleStudentArrival = async (
       return;
     }
 
-    // Store the IP and associated student ID in the tracking map for this lecture
-    ipMapForLecture?.set(ip, {
-      ip,
-      studentId,
-      timestamp: Date.now()
-    });
+    // Store the IP in the used IPs map for this lecture
+    listOfIpAlreadyUsedLecture.get(lectureid)?.add(ip);
 
-    // Simply send the current list of IPs used in this lecture
-    const ipList = Array.from(ipMapForLecture?.values() || [])
-      .map(record => ({
-        ip: record.ip,
-        timestamp: record.timestamp,
-        studentnumber: record.studentId,
-        duplicate: false
+    // Create a formatted list of IPs with additional metadata
+    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid) || new Set())
+      .map(ip => ({
+        ip,
+        timestamp: Date.now(),
+        studentnumber: studentId // NOTE: This is applying the current student ID to ALL IPs
       }));
 
     // Emit the full list to everyone in the lecture room
