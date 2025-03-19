@@ -152,10 +152,13 @@ export const handleStudentArrival = async (
       }
 
       listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, existingRecord);
-
-      logger.error(
-        `Multiple students using same IP: ${ip} has ${existingRecord.studentIds.length} students in lecture ${lectureid}`,
-      );
+      // studentids length is greater than 1  then log it
+      // as suspicious activity
+      if (existingRecord.studentIds.length > 1) {
+        logger.info(
+          `Multiple students using same IP: ${ip} has ${existingRecord.studentIds.length} students in lecture ${lectureid}`,
+        );
+      }
     }
 
     // Find matching timestamp
