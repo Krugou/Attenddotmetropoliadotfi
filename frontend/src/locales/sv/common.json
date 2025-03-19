@@ -349,5 +349,8 @@
   "totalLectures": "Totala föreläsningar",
   "attendedLectures": "Deltog i föreläsningar",
   "lastAttendance": "Sista närvaro",
-  "attendancePercentage": "Närvaroprocent"
+  "attendancePercentage": "Närvaroprocent",
+  "labels": {
+    "userAccessInformation": "Användaråtkomstinformation"
+  }
 }

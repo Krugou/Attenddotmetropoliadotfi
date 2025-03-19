@@ -366,5 +366,8 @@
   "totalLectures": "Kokonaisluennot",
   "attendedLectures": "Osallistui luentoihin",
   "lastAttendance": "Viimeinen osallistuminen",
-  "attendancePercentage": "Osallistumisprosentti"
+  "attendancePercentage": "Osallistumisprosentti",
+  "labels": {
+    "userAccessInformation": "Käyttäjän käyttötiedot"
+  }
 }

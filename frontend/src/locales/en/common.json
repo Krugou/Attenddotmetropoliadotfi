@@ -388,5 +388,8 @@
     "daysAgo": "{{count}} day ago",
     "daysAgo_plural": "{{count}} days ago",
     "invalidDate": "Invalid date"
+  },
+  "labels": {
+    "userAccessInformation": "User Access Information"
   }
 }
