@@ -223,7 +223,7 @@ const AttendanceRoom: React.FC = () => {
           setLatency(latency);
         }
       });
-      newSocket.on('UsedIpChecking', (receivedIpTrackingData) => {
+      newSocket.on('usedIpChecking', (receivedIpTrackingData) => {
         setIpTrackingData(receivedIpTrackingData);
       });
       // When a student is inserted manually, display an error message if the student number is invalid
