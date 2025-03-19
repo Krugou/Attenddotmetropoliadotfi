@@ -21,11 +21,15 @@ interface LectureTimestamp {
   end: number;
 }
 
-
+// Update the IpStudentRecord interface to support multiple students
 interface IpStudentRecord {
   ip: string;
   studentId: string;
+  studentId2?: string; // Keep for backward compatibility
+  studentIds: string[]; // Array to track all students using this IP
+  duplicateFound?: boolean;
   timestamp: number;
+  userAgent: string;
 }
 
 /**
@@ -92,10 +96,8 @@ export const handleStudentArrival = async (
       (socket.handshake.headers['x-forwarded-for'] as string) ||
       socket.handshake.address ||
       'unknown';
-
-    logger.info(
-      `Student ${studentId} from IP ${ip} attempting to mark attendance for lecture ${lectureid}`,
-    );
+    const userAgent =
+      (socket.handshake.headers['user-agent'] as string) || 'unknown';
 
     // Basic input validation
     if (
@@ -114,16 +116,10 @@ export const handleStudentArrival = async (
 
     // Check if lecture IP tracking map exists, create if not
     if (!listOfIpAlreadyUsedLecture.has(lectureid)) {
-      listOfIpAlreadyUsedLecture.set(lectureid, new Map<string, IpStudentRecord>());
-    }
-
-    // Check that user IP is not already used for this lecture
-    if (listOfIpAlreadyUsedLecture.get(lectureid)?.has(ip)) {
-      io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
-      logger.error(
-        `IP ${ip} already used for student ${studentId} in lecture ${lectureid}`,
+      listOfIpAlreadyUsedLecture.set(
+        lectureid,
+        new Map<string, IpStudentRecord>(),
       );
-      return;
     }
 
     // Check if the student is already present
@@ -134,6 +130,32 @@ export const handleStudentArrival = async (
     ) {
       io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
       return;
+    }
+
+    // Check if ip is already used and if its used update the listOfIpAlreadyUsedLecture
+    // with incoming studentid as studentId2 and add duplicateFound as true
+    const existingRecord = listOfIpAlreadyUsedLecture.get(lectureid)?.get(ip);
+    if (existingRecord) {
+      // Update existing record with duplicate information
+      existingRecord.studentId2 = studentId; // Keep for backward compatibility
+      existingRecord.duplicateFound = true;
+      existingRecord.timestamp = Date.now();
+      existingRecord.userAgent = userAgent;
+
+      // Add to studentIds array if not already present
+      if (!existingRecord.studentIds) {
+        existingRecord.studentIds = [existingRecord.studentId];
+      }
+
+      if (!existingRecord.studentIds.includes(studentId)) {
+        existingRecord.studentIds.push(studentId);
+      }
+
+      listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, existingRecord);
+
+      logger.error(
+        `Multiple students using same IP: ${ip} has ${existingRecord.studentIds.length} students in lecture ${lectureid}`,
+      );
     }
 
     // Find matching timestamp
@@ -210,30 +232,46 @@ export const handleStudentArrival = async (
       return;
     }
 
-    // Store the IP in the used IPs map for this lecture
-    const ipMapForLecture = listOfIpAlreadyUsedLecture.get(lectureid);
-    if (ipMapForLecture) {
-      ipMapForLecture.set(ip, {
+    // Store the IP directly in the used IPs map for this lecture - only when successfully saved
+    if (listOfIpAlreadyUsedLecture.has(lectureid)) {
+      // Initialize the new record with extended tracking capability
+      const newRecord = {
         ip,
         studentId,
-        timestamp: Date.now()
-      });
+        timestamp: Date.now(),
+        userAgent,
+        studentIds: existingRecord?.studentIds || [studentId],
+        // Preserve duplicate information if it exists or create new if needed
+        duplicateFound: existingRecord?.studentIds
+          ? existingRecord.studentIds.length > 1
+          : false,
+        ...(existingRecord?.duplicateFound
+          ? {
+              studentId2: existingRecord.studentId2,
+            }
+          : {}),
+      };
+
+      listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, newRecord);
+
+      // Log suspicious activity if multiple students using same IP
+      if (newRecord.studentIds.length > 1) {
+        logger.error(
+          `IP ${ip} is being used by ${
+            newRecord.studentIds.length
+          } students in lecture ${lectureid}: ${newRecord.studentIds.join(
+            ', ',
+          )}`,
+        );
+      }
     }
 
-    // Create a formatted list of IPs with additional metadata
-    const ipList = Array.from(listOfIpAlreadyUsedLecture.get(lectureid)?.entries() || [])
-      .map(([ip, record]) => ({
-        ip,
-        timestamp: record.timestamp,
-        studentnumber: record.studentId
-      }));
-
-    // Emit the full list to everyone in the lecture room
-    io.to(lectureid.toString()).emit('usedIpChecking', ipList);
-
-    console.log(
-      `ATTENDANCE RECORDED - IP: ${ip}, Student: ${studentId}, Lecture: ${lectureid}`,
+    // Emit the IP tracking information directly to everyone in the lecture room
+    io.to(lectureid.toString()).emit(
+      'usedIpChecking',
+      listOfIpAlreadyUsedLecture.get(lectureid),
     );
+
     io.to(socket.id).emit('youHaveBeenSavedIntoLecture', lectureid);
 
     logger.info(
