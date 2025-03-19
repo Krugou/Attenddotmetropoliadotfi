@@ -14,6 +14,7 @@ import {API_CONFIG} from '../../../../config';
 import {useTranslation} from 'react-i18next';
 import SkeletonLoader from '../../../../components/common/SkeletonLoader';
 import FirstTimeHereGuide from '../../../../components/main/FirstTimeHereGuide';
+import IPWarningTooltip, { IPTrackingData } from '../../../../components/common/IPWarningTooltip';
 
 const baseUrl = API_CONFIG.baseUrl;
 /**
@@ -55,6 +56,7 @@ const AttendanceRoom: React.FC = () => {
   const [scrollTabToggle, setScrollTabToggle] = useState(false);
   const [widerNamesToggle, setWiderNamesToggle] = useState(false);
   const [hideQR, setHideQR] = useState(false);
+  const [ipTrackingData, setIpTrackingData] = useState<IPTrackingData | IPTrackingData[] | null>(null);
   /**
    * useEffect hook for fetching lecture info.
    * This hook is run when the component mounts and whenever the lectureid changes.
@@ -221,6 +223,9 @@ const AttendanceRoom: React.FC = () => {
           setLatency(latency);
         }
       });
+      newSocket.on('viestiohjaus', (receivedIpTrackingData) => {
+        setIpTrackingData(receivedIpTrackingData);
+      });
       // When a student is inserted manually, display an error message if the student number is invalid
       newSocket.on('disconnect', () => {
         console.log('Disconnected from the server');
@@ -364,9 +369,15 @@ const AttendanceRoom: React.FC = () => {
               </span>
             </h1>
           )}
-          <div className='flex flex-row justify-end '>
+          <div className='flex flex-row justify-end items-center'>
+            <IPWarningTooltip
+              ipTrackingData={ipTrackingData}
+              iconClass='text-metropolia-support-yellow-dark text-2xl mx-2'
+              tooltipClass='bg-white text-black p-3 rounded shadow-lg max-w-xs z-50'
+              heading={t('common:labels.userAccessInformation', 'User Access Information')}
+            />
             <button
-              className='bg-metropolia-support-red font-bold sm:w-fit h-[4em] transition  p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
+              className='bg-metropolia-support-red font-bold sm:w-fit h-[4em] transition p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
               onClick={() => {
                 navigate(`/teacher/attendance/reload/${lectureid}`);
               }}
@@ -376,7 +387,7 @@ const AttendanceRoom: React.FC = () => {
             {latency !== null && latency !== undefined && (
               <div className='relative'>
                 <button
-                  className={`flex items-center  justify-center font-bold  p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
+                  className={`flex items-center justify-center font-bold p-2 m-2 text-white rounded transition-colors h-[4em] w-[4em] ${
                     latency < 100
                       ? 'bg-metropolia-trend-green hover:bg-green-600'
                       : latency < 300
