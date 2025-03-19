@@ -14,7 +14,9 @@ import {API_CONFIG} from '../../../../config';
 import {useTranslation} from 'react-i18next';
 import SkeletonLoader from '../../../../components/common/SkeletonLoader';
 import FirstTimeHereGuide from '../../../../components/main/FirstTimeHereGuide';
-import IPWarningTooltip, { IPTrackingData } from '../../../../components/common/IPWarningTooltip';
+import IPWarningTooltip, {
+  IPTrackingData,
+} from '../../../../components/common/IPWarningTooltip';
 
 const baseUrl = API_CONFIG.baseUrl;
 /**
@@ -56,7 +58,9 @@ const AttendanceRoom: React.FC = () => {
   const [scrollTabToggle, setScrollTabToggle] = useState(false);
   const [widerNamesToggle, setWiderNamesToggle] = useState(false);
   const [hideQR, setHideQR] = useState(false);
-  const [ipTrackingData, setIpTrackingData] = useState<IPTrackingData | IPTrackingData[] | null>(null);
+  const [ipTrackingData, setIpTrackingData] = useState<
+    IPTrackingData | IPTrackingData[] | null
+  >(null);
   /**
    * useEffect hook for fetching lecture info.
    * This hook is run when the component mounts and whenever the lectureid changes.
@@ -223,6 +227,71 @@ const AttendanceRoom: React.FC = () => {
           setLatency(latency);
         }
       });
+      // const mockIpTrackingData = new Map([
+      //   // Single student IP records
+      //   [
+      //     '192.168.1.100',
+      //     {
+      //       ip: '192.168.1.100',
+      //       studentId: '12345678',
+      //       studentIds: ['12345678'],
+      //       timestamp: Date.now() - 120000, // 2 minutes ago
+      //       userAgent:
+      //         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      //     },
+      //   ],
+      //   [
+      //     '192.168.1.101',
+      //     {
+      //       ip: '192.168.1.101',
+      //       studentId: '23456789',
+      //       studentIds: ['23456789'],
+      //       timestamp: Date.now() - 300000, // 5 minutes ago
+      //       userAgent:
+      //         'Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1',
+      //     },
+      //   ],
+      //   [
+      //     '192.168.1.102',
+      //     {
+      //       ip: '192.168.1.102',
+      //       studentId: '34567890',
+      //       studentIds: ['34567890'],
+      //       timestamp: Date.now() - 60000, // 1 minute ago
+      //       userAgent:
+      //         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      //     },
+      //   ],
+
+      //   // Duplicate student IP records (multiple students from same IP)
+      //   [
+      //     '192.168.1.200',
+      //     {
+      //       ip: '192.168.1.200',
+      //       studentId: '222',
+      //       studentId2: '56789012',
+      //       studentIds: ['222', '56789012'],
+      //       duplicateFound: true,
+      //       timestamp: Date.now() - 180000, // 3 minutes ago
+      //       userAgent:
+      //         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      //     },
+      //   ],
+      //   [
+      //     '192.168.1.201',
+      //     {
+      //       ip: '192.168.1.201',
+      //       studentId: '67890123',
+      //       studentId2: '78901234',
+      //       studentIds: ['67890123', '78901234', '89012345'],
+      //       duplicateFound: true,
+      //       timestamp: Date.now() - 240000, // 4 minutes ago
+      //       userAgent:
+      //         'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      //     },
+      //   ],
+      // ]);
+      // setIpTrackingData(mockIpTrackingData);
       newSocket.on('usedIpChecking', (receivedIpTrackingData) => {
         setIpTrackingData(receivedIpTrackingData);
       });
@@ -374,7 +443,12 @@ const AttendanceRoom: React.FC = () => {
               ipTrackingData={ipTrackingData}
               iconClass='text-metropolia-support-yellow-dark text-2xl mx-2'
               tooltipClass='bg-white text-black p-3 rounded shadow-lg max-w-xs z-50'
-              heading={t('common:labels.userAccessInformation', 'User Access Information')}
+              heading={t(
+                'common:labels.userAccessInformation',
+                'User Access Information',
+              )}
+              attendees={arrayOfStudents}
+              courseStudents={courseStudents}
             />
             <button
               className='bg-metropolia-support-red font-bold sm:w-fit h-[4em] transition p-2 m-2 text-md w-full hover:bg-red-500 text-white rounded-sm'
