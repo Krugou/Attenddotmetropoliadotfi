@@ -183,7 +183,8 @@ const TeacherStudentsView: React.FC = () => {
             Object.values(student).some(
               (value) =>
                 typeof value === 'string' &&
-                value.toLowerCase().includes(searchQuery.toLowerCase()),
+                value.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                student.roleid === 1,
             ),
           );
 
