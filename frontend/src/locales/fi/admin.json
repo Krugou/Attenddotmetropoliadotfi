@@ -452,6 +452,12 @@
     "firstName": "Etunimi",
     "email": "Sähköposti",
     "username": "Käyttäjänimi",
-    "role": "Rooli"
+    "role": "Rooli",
+    "studentnumber": "Opiskelijanumero",
+    "created_at": "Luotu",
+    "activeStatus": "Aktiivisuustila",
+    "showInactive": "Näytä passiiviset",
+    "hideInactive": "Piilota passiiviset",
+    "showAll": "Näytä kaikki käyttäjät"
   }
 }

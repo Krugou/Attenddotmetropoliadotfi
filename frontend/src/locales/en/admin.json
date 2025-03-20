@@ -460,6 +460,12 @@
     "firstName": "First Name",
     "email": "Email",
     "username": "Username",
-    "role": "Role"
+    "role": "Role",
+    "studentnumber": "Student Number",
+    "created_at": "Created At",
+    "activeStatus": "Active Status",
+    "showInactive": "Show Inactive",
+    "hideInactive": "Hide Inactive",
+    "showAll": "Show All Users"
   }
 }

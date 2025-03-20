@@ -434,6 +434,12 @@
     "firstName": "Förnamn",
     "email": "E-post",
     "username": "Användarnamn",
-    "role": "Roll"
+    "role": "Roll",
+    "studentnumber": "Studentnummer",
+    "created_at": "Skapat",
+    "activeStatus": "Aktivitetsstatus",
+    "showInactive": "Visa inaktiva",
+    "hideInactive": "Dölj inaktiva",
+    "showAll": "Visa alla användare"
   }
 }
