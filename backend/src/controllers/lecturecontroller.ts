@@ -10,28 +10,26 @@ const lectureController = {
    *
    * @param {string} topicname - The name of the topic.
    * @param {string} coursecode - The code of the course.
-   * @param {Date} start_date - The start date of the lecture.
-   * @param {Date} end_date - The end date of the lecture.
+   * @param {string} start_date - The start date of the lecture in ISO 8601 or MySQL format.
+   * @param {string} end_date - The end date of the lecture in ISO 8601 or MySQL format.
    * @param {'am' | 'pm'} timeofday - The time of day of the lecture.
    * @param {'open' | 'closed'} state - The state of the lecture.
    * @param {number | undefined} teacherid - The ID of the teacher.
-   * @returns {Promise<number | undefined>} The ID of the inserted lecture, or undefined if the insertion failed.
+   * @returns {Promise<{lectureid: number} | undefined>} The ID of the inserted lecture, or undefined if the insertion failed.
    */
   async insertIntoLecture(
     topicname: string,
     coursecode: string,
-    start_date: Date,
-    end_date: Date,
+    start_date: string,
+    end_date: string,
     timeofday: 'am' | 'pm',
     state: 'open' | 'closed',
     teacherid: number | undefined,
   ) {
     try {
       const topicId = await topicModel.findTopicIdUsingTopicName(topicname);
-      // console.log('🚀 ~ file: lecturemodel.ts:63 ~ topicRows:', topicId);
 
       const courseRows = await course.findCourseIdUsingCourseCode(coursecode);
-      // console.log('🚀 ~ file: lecturemodel.ts:70 ~ courseRows:', courseRows);
 
       if (
         !topicId ||
@@ -44,13 +42,39 @@ const lectureController = {
       }
 
       const topicid = topicId[0].topicid;
-      // console.log('🚀 ~ file: lecturemodel.ts:78 ~ topicid:', topicid);
       const courseid = courseRows[0].courseid;
-      // console.log('🚀 ~ file: lecturemodel.ts:80 ~ courseid:', courseid);
+
+      // Parse dates from string format to Date objects
+      let parsedStartDate: Date;
+      let parsedEndDate: Date;
+
+      try {
+        // Try to parse the date - handle different possible formats
+        parsedStartDate = new Date(start_date);
+        parsedEndDate = new Date(end_date);
+
+        // Validate the parsed dates
+        if (isNaN(parsedStartDate.getTime())) {
+          throw new Error('Invalid start date format');
+        }
+        if (isNaN(parsedEndDate.getTime())) {
+          throw new Error('Invalid end date format');
+        }
+        if (parsedStartDate >= parsedEndDate) {
+          throw new Error('Start date must be before end date');
+        }
+      } catch (error) {
+        console.error('Date parsing error:', error);
+        throw new Error(
+          `Failed to parse dates: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+        );
+      }
 
       const result = await lectureModel.insertIntoLecture(
-        start_date,
-        end_date,
+        parsedStartDate,
+        parsedEndDate,
         timeofday,
         topicid,
         courseid,
@@ -63,12 +87,13 @@ const lectureController = {
       }
 
       const lectureid = (result as {insertId: number}).insertId;
-      // console.log('🚀 ~ file: lecturemodel.ts:88 ~ lectureid:', lectureid);
       return {lectureid: lectureid};
     } catch (error) {
-      console.error(error);
+      console.error('Error in insertIntoLecture:', error);
+      throw error;
     }
   },
+
   /**
    * Gets the students in a lecture.
    *
@@ -131,12 +156,7 @@ const lectureController = {
       const lecture = await lectureModel.getLectureByLectureId(
         Number(lectureid),
       );
-      // console.log(
-      // 	'🚀 ~ file: lecturecontroller.ts:126 ~ closeLecture ~ lecture:',
-      // 	lecture,
-      // );
       const lectureDate = lecture?.[0].start_date;
-      // console.log('Students:', students);
       students?.forEach(async (student) => {
         try {
           await attendanceController.insertIntoAttendance(
@@ -151,7 +171,6 @@ const lectureController = {
       });
 
       const result = await lectureModel.updateLectureState(lectureid, 'closed');
-      // console.log('Update result:', result);
       return result;
     } catch (error) {
       console.error(error);
