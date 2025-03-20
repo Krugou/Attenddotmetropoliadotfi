@@ -2,6 +2,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import TopicIcon from '@mui/icons-material/Topic';
 import {formatISO} from 'date-fns';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Calendar from 'react-calendar';
@@ -14,6 +18,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../../utils/Loader';
+
 /**
  * CreateLecture component.
  * This component is responsible for rendering the lecture creation view for a teacher.
@@ -382,9 +387,9 @@ const CreateLecture: React.FC = () => {
   };
 
   return (
-    <div className='w-full'>
+    <div className='w-full max-w-6xl mx-auto'>
       {loading ? (
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center min-h-[60vh]'>
           <Loader />
         </div>
       ) : (
@@ -399,235 +404,277 @@ const CreateLecture: React.FC = () => {
               onDelete={() => handleDelete(lecture.lectureid)}
             />
           ))}
-          <div className='flex flex-col items-center justify-center w-full p-1 m-auto bg-metropolia-support-white rounded-lg 2xl:w-3/6 lg:w-4/6 sm:p-5'>
+          <div className='flex flex-col items-center w-full p-4 m-auto bg-white shadow-lg rounded-xl 2xl:w-4/6 lg:w-5/6'>
             <CheckOpenLectures />
-            <h1 className='p-2 mt-5 mb-8 text-lg font-heading sm:text-2xl'>
+            <h1 className='p-2 mt-5 mb-6 text-2xl font-bold text-center text-metropolia-main-grey font-heading sm:text-3xl'>
               {t('teacher:createLecture.title')}
             </h1>
-            <h2 className='p-4 mt-2 text-xl'>
-              {t('teacher:createLecture.courseSection.heading')}
-            </h2>
 
-            <div className='flex justify-center w-full'>
-              <div className='flex  flex-col w-1/4 gap-3 sm:gap-5'>
-                <label
-                  className='flex justify-end sm:text-xl text-md'
-                  htmlFor='course'>
-                  <div className='flex items-center '>
-                    <Tooltip
-                      title={t(
-                        `teacher:createLecture.courseSection.tooltips.${
-                          showEndedCourses ? 'hideEnded' : 'showEnded'
-                        }`,
-                      )}
-                      placement='top'>
-                      <IconButton
-                        className='mb-4'
-                        onClick={() => {
-                          const filteredCourses = showEndedCourses
-                            ? allCourses.filter(
-                                (course) =>
-                                  new Date(course.end_date).setHours(
-                                    0,
-                                    0,
-                                    0,
-                                    0,
-                                  ) >= new Date().setHours(0, 0, 0, 0),
-                              )
-                            : allCourses;
+            {/* Course Selection Section */}
+            <div className='w-full p-6 mb-8 bg-metropolia-support-white rounded-lg shadow-sm'>
+              <h2 className='pb-4 mb-4 text-xl font-semibold border-b-2 border-metropolia-main-orange text-metropolia-main-grey'>
+                {t('teacher:createLecture.courseSection.heading')}
+              </h2>
 
-                          setShowEndedCourses(!showEndedCourses);
-                          setCourses(filteredCourses);
-                        }}>
-                        {showEndedCourses ? (
-                          <VisibilityOffIcon />
-                        ) : (
-                          <VisibilityIcon />
-                        )}
-                      </IconButton>
-                    </Tooltip>
-                    {t('teacher:createLecture.courseSection.courseLabel')}
+              <div className='flex flex-col gap-6 md:flex-row md:items-start'>
+                {/* Left Column - Labels */}
+                <div className='flex flex-col w-full gap-4 md:w-1/3'>
+                  <div className='flex items-center gap-2 mb-1'>
+                    <div className='flex items-center justify-center w-10 h-10 rounded-full bg-metropolia-main-orange/10'>
+                      <MenuBookIcon className='text-metropolia-main-orange' />
+                    </div>
+                    <label
+                      className='text-lg font-medium text-metropolia-main-grey'
+                      htmlFor='course'>
+                      {t('teacher:createLecture.courseSection.courseLabel')}
+                    </label>
                   </div>
-                </label>
-                <label
-                  className='flex justify-end sm:text-xl text-md'
-                  htmlFor='topic'>
-                  {t('teacher:createLecture.courseSection.topicLabel')}
-                </label>
+
+                  <div className='flex items-center gap-2'>
+                    <div className='flex items-center justify-center w-10 h-10 rounded-full bg-metropolia-main-orange/10'>
+                      <TopicIcon className='text-metropolia-main-orange' />
+                    </div>
+                    <label
+                      className='text-lg font-medium text-metropolia-main-grey'
+                      htmlFor='topic'>
+                      {t('teacher:createLecture.courseSection.topicLabel')}
+                    </label>
+                  </div>
+                </div>
+
+                {/* Right Column - Selection Inputs */}
+                <div className='flex flex-col w-full gap-4 md:w-2/3'>
+                  {/* Course selection with filter button */}
+                  <div className='relative'>
+                    <div className='flex items-center gap-2'>
+                      <div className='relative flex-grow'>
+                        <select
+                          title={t(
+                            'teacher:createLecture.courseSection.tooltips.pickCourse',
+                          )}
+                          id='course'
+                          className='w-full px-4 py-3 pr-10 bg-white border rounded-lg cursor-pointer border-metropolia-main-grey/20 focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-secondary-orange/20 focus:outline-none transition-all'
+                          value={selectedSession}
+                          onClick={() => {
+                            if (courses.length === 0) {
+                              toast.error(
+                                t(
+                                  'teacher:createLecture.courseSection.errors.noCourses',
+                                ),
+                              );
+                            }
+                          }}
+                          onChange={(e) => {
+                            const selectedIndex = e.target.value;
+                            setSelectedSession(selectedIndex);
+                            setSelectedCourse(courses[selectedIndex] || null);
+                            setSelectedTopic(
+                              courses[selectedIndex] &&
+                                courses[selectedIndex].topic_names
+                                ? courses[selectedIndex].topic_names.split(
+                                    ',',
+                                  )[0]
+                                : '',
+                            );
+                          }}
+                          aria-label={t(
+                            'teacher:createLecture.courseSection.courseLabel',
+                          )}>
+                          {Array.isArray(courses) &&
+                            courses.map((course, index) => {
+                              const courseId =
+                                typeof course.courseid === 'function'
+                                  ? course.courseid()
+                                  : course.courseid;
+
+                              const courseName = course.name || 'No Name';
+                              const courseCode = course.code || 'No Code';
+
+                              if (!courseId || !courseName || !courseCode) {
+                                console.error('Invalid course data:', course);
+                                return null;
+                              }
+
+                              return (
+                                <option key={index} value={index}>
+                                  {courseName + ' | ' + courseCode}
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </div>
+
+                      <div className='flex items-center'>
+                        <Tooltip
+                          title={t(
+                            `teacher:createLecture.courseSection.tooltips.${
+                              showEndedCourses ? 'hideEnded' : 'showEnded'
+                            }`,
+                          )}
+                          placement='top'>
+                          <IconButton
+                            aria-label={t(
+                              `teacher:createLecture.courseSection.tooltips.${
+                                showEndedCourses ? 'hideEnded' : 'showEnded'
+                              }`,
+                            )}
+                            className='text-metropolia-main-orange hover:text-metropolia-secondary-orange hover:bg-metropolia-main-orange/10 transition-all'
+                            onClick={() => {
+                              const filteredCourses = showEndedCourses
+                                ? allCourses.filter(
+                                    (course) =>
+                                      new Date(course.end_date).setHours(
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                      ) >= new Date().setHours(0, 0, 0, 0),
+                                  )
+                                : allCourses;
+
+                              setShowEndedCourses(!showEndedCourses);
+                              setCourses(filteredCourses);
+                            }}>
+                            {showEndedCourses ? (
+                              <VisibilityOffIcon />
+                            ) : (
+                              <VisibilityIcon />
+                            )}
+                          </IconButton>
+                        </Tooltip>
+                        <div
+                          className={`ml-1 text-sm ${
+                            showEndedCourses
+                              ? 'text-metropolia-support-red'
+                              : 'text-metropolia-trend-green'
+                          }`}></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Topic selection with enhanced styling */}
+                  <div className='relative'>
+                    <select
+                      title={t(
+                        'teacher:createLecture.courseSection.tooltips.pickTopic',
+                      )}
+                      id='topic'
+                      className='w-full px-4 py-3 bg-white border rounded-lg cursor-pointer border-metropolia-main-grey/20 focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-secondary-orange/20 focus:outline-none transition-all'
+                      value={selectedTopic}
+                      onChange={(e) => {
+                        const index = e.target.selectedIndex;
+                        setSelectedIndex(index);
+                        setSelectedTopic(e.target.value);
+                      }}
+                      aria-label={t(
+                        'teacher:createLecture.courseSection.topicLabel',
+                      )}>
+                      {selectedCourse &&
+                        selectedCourse.topic_names &&
+                        selectedCourse.topic_names
+                          .split(',')
+                          .map((topic: string) => (
+                            <option key={topic} value={topic}>
+                              {topic}
+                            </option>
+                          ))}
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div className='flex flex-col w-3/4 gap-3 sm:w-4/5 lg:w-11/12 '>
-                <select
-                  title={t(
-                    'teacher:createLecture.courseSection.tooltips.pickCourse',
-                  )}
-                  id='course'
-                  className='block h-8 mt-1 ml-1 mr-3 cursor-pointer sm:ml-5 border-1 border-black/20 rounded-xl p-1'
-                  value={selectedSession}
-                  onClick={() => {
-                    if (courses.length === 0) {
-                      toast.error(
-                        t(
-                          'teacher:createLecture.courseSection.errors.noCourses',
-                        ),
-                      );
-                    }
-                  }}
-                  onChange={(e) => {
-                    const selectedIndex = e.target.value;
-                    console.log(
-                      '🚀 ~ file: TeacherCreateLecture.tsx:205 ~ selectedIndex:',
-                      selectedIndex,
-                    );
-                    setSelectedSession(selectedIndex);
-                    setSelectedCourse(courses[selectedIndex] || null);
-                    setSelectedTopic(
-                      courses[selectedIndex] &&
-                        courses[selectedIndex].topic_names
-                        ? courses[selectedIndex].topic_names.split(',')[0]
-                        : '',
-                    );
-                    console.log(
-                      '🚀 ~ file: TeacherCreateLecture.tsx:208 ~ courses[selectedIndex]:',
-                      courses[selectedIndex],
-                    );
-                  }}>
-                  {Array.isArray(courses) &&
-                    courses.map((course, index) => {
-                      const courseId =
-                        typeof course.courseid === 'function'
-                          ? course.courseid()
-                          : course.courseid;
+            </div>
 
-                      const courseName = course.name || 'No Name';
-                      const courseCode = course.code || 'No Code';
-
-                      if (!courseId || !courseName || !courseCode) {
-                        console.error('Invalid course data:', course);
-                        return null;
+            {/* Date & Time Section */}
+            <div className='w-full p-6 mb-8 bg-metropolia-support-white rounded-lg shadow-sm'>
+              <h2 className='pb-4 mb-4 text-xl font-semibold border-b-2 border-metropolia-main-orange text-metropolia-main-grey'>
+                {t('teacher:createLecture.dateSection.heading')}
+              </h2>
+              <div className='flex flex-col gap-6 md:flex-row md:items-start'>
+                <div className='w-full md:w-1/2'>
+                  <div className='relative'>
+                    <label
+                      className='flex items-center gap-2 mb-2 text-lg font-medium text-metropolia-main-grey'
+                      htmlFor='calendar'>
+                      <CalendarMonthIcon className='text-metropolia-main-orange' />
+                      {t('teacher:createLecture.dateSection.calendar.label')}
+                    </label>
+                    <input
+                      title={t(
+                        'teacher:createLecture.dateSection.calendar.tooltip',
+                      )}
+                      ref={inputRef}
+                      type='text'
+                      aria-label='Date'
+                      className='w-full px-4 py-3 text-center cursor-pointer bg-white border rounded-lg border-metropolia-main-grey/20 focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-secondary-orange/20 focus:outline-none transition-all'
+                      value={
+                        Array.isArray(date)
+                          ? t(
+                              'teacher:createLecture.dateSection.calendar.multipleDates',
+                            )
+                          : date.toDateString()
                       }
+                      onClick={toggleCalendar}
+                      onChange={(e) => setDate(new Date(e.target.value))}
+                      id='calendar'
+                    />
+                    {calendarOpen && (
+                      <div className='absolute left-0 right-0 z-20 p-1 mt-1 bg-white rounded-lg shadow-lg'>
+                        <Calendar
+                          onChange={handleDateChangeCalendar}
+                          tileClassName={tileClassName}
+                          onClickDay={(date) => setDate(date)}
+                          className='border-0 rounded-lg'
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-                      return (
-                        <option key={index} value={index}>
-                          {courseName + ' | ' + courseCode}
-                        </option>
-                      );
-                    })}
-                </select>
-                <select
-                  title={t(
-                    'teacher:createLecture.courseSection.tooltips.pickTopic',
-                  )}
-                  id='topic'
-                  className='block h-8 ml-1 mr-3 cursor-pointer sm:ml-5 sm:mt-2 mt-none border-1 border-black/20 rounded-xl p-1'
-                  value={selectedTopic}
-                  onChange={(e) => {
-                    const index = e.target.selectedIndex;
-                    setSelectedIndex(index);
-                    setSelectedTopic(e.target.value);
-                  }}>
-                  {selectedCourse &&
-                    selectedCourse.topic_names &&
-                    selectedCourse.topic_names
-                      .split(',')
-                      .map((topic: string) => (
-                        <option key={topic} value={topic}>
-                          {topic}
+                <div className='w-full md:w-1/2'>
+                  <div className='relative'>
+                    <label
+                      className='flex items-center gap-2 mb-2 text-lg font-medium text-metropolia-main-grey'
+                      htmlFor='timeofday'>
+                      <AccessTimeIcon className='text-metropolia-main-orange' />
+                      {t('teacher:createLecture.dateSection.timeOfDay.label')}
+                    </label>
+                    <select
+                      id='timeofday'
+                      aria-label={t(
+                        'teacher:createLecture.dateSection.timeOfDay.label',
+                      )}
+                      title={t(
+                        'teacher:createLecture.dateSection.timeOfDay.tooltip',
+                      )}
+                      value={selectedTimeOfDay}
+                      onChange={(e) => setSelectedTimeOfDay(e.target.value)}
+                      className='w-full px-4 py-3 text-center bg-white cursor-pointer border rounded-lg border-metropolia-main-grey/20 focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-secondary-orange/20 focus:outline-none transition-all'>
+                      {timeOfDay.map((option) => (
+                        <option key={option} value={option}>
+                          {option.toUpperCase()}
                         </option>
                       ))}
-                </select>
-              </div>
-            </div>
-
-            <div className='w-4/5 h-1 mt-10 rounded-xl bg-metropolia-main-orange'></div>
-            <h2 className='p-4 mt-2 text-xl'>
-              {t('teacher:createLecture.dateSection.heading')}
-            </h2>
-            <div className='mb-5 text-md sm:text-xl'>
-              <div className='relative'>
-                <label
-                  className='flex justify-center p-1 m-1 underline sm:text-xl text-md'
-                  htmlFor='calendar'>
-                  {t('teacher:createLecture.dateSection.calendar.label')}
-                </label>
-                <input
-                  title={t(
-                    'teacher:createLecture.dateSection.calendar.tooltip',
-                  )}
-                  ref={inputRef}
-                  type='text'
-                  aria-label='Date'
-                  className='py-2 pl-4 pr-4 text-center  cursor-pointer rounded-xl focus:ring-3 focus:ring-metropolia-secondary-orange focus:outline-hidden border-1 border-black/20  '
-                  value={
-                    Array.isArray(date)
-                      ? t(
-                          'teacher:createLecture.dateSection.calendar.multipleDates',
-                        )
-                      : date.toDateString()
-                  }
-                  onClick={toggleCalendar}
-                  onChange={(e) => setDate(new Date(e.target.value))}
-                  id='calendar'
-                />
-                {calendarOpen && (
-                  <div className='absolute left-0 right-0 z-10 text-lg top-15 sm:text-sm'>
-                    <Calendar
-                      onChange={handleDateChangeCalendar}
-                      tileClassName={tileClassName}
-                      onClickDay={(date) => setDate(date)}
-                    />
+                    </select>
                   </div>
-                )}
-              </div>
-
-              <div className='relative mt-5'>
-                <label
-                  className='flex justify-center p-1 m-1 underline sm:text-xl text-md'
-                  htmlFor='timeofday'>
-                  {t('teacher:createLecture.dateSection.timeOfDay.label')}
-                </label>
-                <select
-                  aria-label={t(
-                    'teacher:createLecture.dateSection.timeOfDay.label',
-                  )}
-                  title={t(
-                    'teacher:createLecture.dateSection.timeOfDay.tooltip',
-                  )}
-                  value={selectedTimeOfDay}
-                  onChange={(e) => setSelectedTimeOfDay(e.target.value)}
-                  className='block w-full px-4 py-2 pr-8 leading-tight text-center bg-white   border-1 border-black/20 rounded-xl p-1 shadow-sm appearance-none cursor-pointer hover:border-gray-400 focus:outline-hidden focus:shadow-outline'>
-                  {timeOfDay.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                </div>
               </div>
             </div>
-            <h3 className=' text-md'>
-              {t('teacher:createLecture.doubleCheckMessage')}
-            </h3>
 
-            <button
-              aria-label={t('teacher:createLecture.buttons.open')}
-              title={`${t('teacher:createLecture.buttons.open')} ${
-                selectedCourse?.name
-              } - ${selectedCourse?.code} - ${selectedTopic}`}
-              className='w-2/4 px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'
-              onClick={handleOpenAttendance}>
-              {t('teacher:createLecture.buttons.open')}
-            </button>
-            {/* {openDataText ? (
-							<>
-								<div className="p-1 m-1">
-									<h2 className="p-1 mt-1 text-lg">
-										Open data result selected course's current or next subject:
-									</h2>
-									<p className="p-1">{openDataText}</p>
-								</div>
-							</>
-						) : (
-							<p></p>
-						)} */}
+            <div className='w-full text-center'>
+              <h3 className='mb-4 text-lg font-medium text-metropolia-main-grey'>
+                {t('teacher:createLecture.doubleCheckMessage')}
+              </h3>
+
+              <button
+                aria-label={t('teacher:createLecture.buttons.open')}
+                title={`${t('teacher:createLecture.buttons.open')} ${
+                  selectedCourse?.name
+                } - ${selectedCourse?.code} - ${selectedTopic}`}
+                className='px-6 py-3 m-4 text-lg font-medium text-white transition-all rounded-md shadow-md font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-none focus:ring-2 focus:ring-metropolia-secondary-orange focus:ring-offset-2'
+                onClick={handleOpenAttendance}>
+                {t('teacher:createLecture.buttons.open')}
+              </button>
+            </div>
           </div>
         </>
       )}
