@@ -242,6 +242,9 @@ const CounselorLateEnrollment: React.FC = () => {
       {/* Enrollment mode selection */}
       {!enrollmentMode ? (
         <div className='flex flex-col items-center justify-center gap-6 p-8 bg-white rounded-lg shadow-md'>
+          <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
+            {t('common:newStudent.title')}
+          </h1>
           <h2 className='text-xl font-heading text-metropolia-main-grey'>
             {t('common:lateEnrollment.selectMode')}
           </h2>
@@ -249,13 +252,13 @@ const CounselorLateEnrollment: React.FC = () => {
           <div className='flex flex-col gap-4 sm:flex-row sm:gap-8'>
             <button
               onClick={() => setEnrollmentMode('new')}
-              className='px-6 py-3 text-lg font-medium text-white transition-colors duration-200 rounded-lg shadow-md font-body bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
+              className='px-6 py-3 text-lg font-bold text-white transition-colors duration-200 rounded-lg shadow-md font-body bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
               {t('common:lateEnrollment.newStudent')}
             </button>
 
             <button
               onClick={() => setEnrollmentMode('existing')}
-              className='px-6 py-3 text-lg font-medium transition-colors duration-200 rounded-lg shadow-md font-body text-metropolia-main-grey bg-metropolia-trend-light-blue hover:bg-metropolia-trend-light-blue-dark'>
+              className='px-6 py-3 text-lg font-bold transition-colors duration-200 rounded-lg shadow-md font-body text-metropolia-main-grey bg-metropolia-trend-light-blue hover:bg-metropolia-trend-light-blue-dark '>
               {t('common:lateEnrollment.existingStudent')}
             </button>
           </div>
