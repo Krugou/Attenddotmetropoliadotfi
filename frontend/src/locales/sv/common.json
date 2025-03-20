@@ -360,7 +360,7 @@
   "lateEnrollment": {
     "selectMode": "Välj läge",
     "newStudent": "Nystudent",
-    "existingStudent": "Befintlig student",
+    "existingStudent": "Befintlig student.",
     "backToOptions": "Tillbaka till alternativ",
     "findExistingStudent": "Hitta befintlig student",
     "noStudentsFound": "Inga studenter hittades.",

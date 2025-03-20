@@ -399,7 +399,7 @@
   "lateEnrollment": {
     "selectMode": "Select Mode",
     "newStudent": "New student",
-    "existingStudent": "Existing Student",
+    "existingStudent": "Existing Student.",
     "backToOptions": "Back to options",
     "findExistingStudent": "Find Existing Student",
     "noStudentsFound": "No students found.",

@@ -377,7 +377,7 @@
   "lateEnrollment": {
     "selectMode": "Valitse tila",
     "newStudent": "Uusi opiskelija",
-    "existingStudent": "Opiskelija",
+    "existingStudent": "Nykyinen opiskelija.",
     "backToOptions": "Takaisin vaihtoehtoihin",
     "findExistingStudent": "Löydä nykyinen opiskelija",
     "noStudentsFound": "Ei oppilaita löytänyt.",
