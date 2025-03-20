@@ -320,6 +320,7 @@ const lectureModel: LectureModel = {
    * @param state - The state of the lecture.
    * @param teacherid - The ID of the teacher.
    * @returns A promise that resolves to the result of the insertion.
+   * @throws Error if date validation fails or insertion fails
    */
   async insertIntoLecture(
     start_date: Date,
@@ -330,13 +331,61 @@ const lectureModel: LectureModel = {
     state: string,
     teacherid: number | undefined,
   ): Promise<ResultSetHeader> {
-    const [result] = await pool
-      .promise()
-      .query<ResultSetHeader>(
-        'INSERT INTO lecture (start_date, end_date, timeofday, topicid, courseid, state, teacherid) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [start_date, end_date, timeofday, topicid, courseid, state, teacherid],
-      );
-    return result;
+    console.log('🚀 ~ start_date:', start_date);
+    console.log('🚀 ~ end_date:', end_date);
+    try {
+      // Validate dates
+      if (!(start_date instanceof Date) || isNaN(start_date.getTime())) {
+        throw new Error('Invalid start date format');
+      }
+      if (!(end_date instanceof Date) || isNaN(end_date.getTime())) {
+        throw new Error('Invalid end date format');
+      }
+      if (start_date >= end_date) {
+        throw new Error('Start date must be before end date');
+      }
+
+      // Format dates for MySQL (YYYY-MM-DD HH:MM:SS)
+      const formattedStartDate = start_date
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
+      const formattedEndDate = end_date
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
+
+      // Validate timeofday
+      if (timeofday !== 'am' && timeofday !== 'pm') {
+        throw new Error('Invalid timeofday value. Expected "am" or "pm"');
+      }
+
+      // Validate state
+      if (state !== 'open' && state !== 'closed') {
+        throw new Error('Invalid state value. Expected "open" or "closed"');
+      }
+
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO lecture (start_date, end_date, timeofday, topicid, courseid, state, teacherid) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          [
+            formattedStartDate,
+            formattedEndDate,
+            timeofday,
+            topicid,
+            courseid,
+            state,
+            teacherid,
+          ],
+        );
+      return result;
+    } catch (error) {
+      console.error('Failed to insert lecture:', error);
+      throw error instanceof Error
+        ? error
+        : new Error('An unknown error occurred while inserting lecture');
+    }
   },
   /**
    * Gets a lecture with its course and topic.
