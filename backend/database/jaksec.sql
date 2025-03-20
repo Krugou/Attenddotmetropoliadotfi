@@ -294,12 +294,15 @@ INSERT INTO `serversettings` (`speedofhash`, `leewayspeed`, `timeouttime`, `atte
    CREATE TABLE IF NOT EXISTS `work_log_practicum` (
      `work_log_practicum_id` INT(11) NOT NULL AUTO_INCREMENT,
      `name` VARCHAR(100) NOT NULL,
+     `userid` INT(11) NULL,
      `start_date` DATE NOT NULL,
      `end_date` DATE NOT NULL,
      `description` TEXT NOT NULL,
      `required_hours` INT(11) NOT NULL,
      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-     PRIMARY KEY (`work_log_practicum_id`)
+     PRIMARY KEY (`work_log_practicum_id`),
+     CONSTRAINT `work_log_practicum_ibfk_1`
+     FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE SET NULL;
    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- Creating a table to manage instructors for work log practicums
 CREATE TABLE IF NOT EXISTS `work_log_practicum_instructors` (
@@ -313,6 +316,7 @@ CREATE TABLE IF NOT EXISTS `work_log_practicum_instructors` (
   CONSTRAINT `work_log_practicum_instructors_ibfk_2` FOREIGN KEY (`work_log_practicum_id`)
       REFERENCES `work_log_practicum`(`work_log_practicum_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
    -- Creating a new table to record work log entries specific to work log courses
 CREATE TABLE IF NOT EXISTS `work_log_entries` (
     `entry_id` INT(11) NOT NULL AUTO_INCREMENT,
