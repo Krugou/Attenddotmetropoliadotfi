@@ -28,7 +28,7 @@ const practicumEntry = {
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
-          'INSERT INTO work_log_practicum_entries (work_log_practicum_id, userid, start_time, end_time, description, status) VALUES (?, ?, ?, ?, ?, ?)',
+          'INSERT INTO work_log_entries (work_log_practicum_id, userid, start_time, end_time, description, status) VALUES (?, ?, ?, ?, ?, ?)',
           [practicumId, userId, startTime, endTime, description, status],
         );
       return result;

@@ -30,7 +30,7 @@ const work_log_practicum_instructors = {
             await pool
               .promise()
               .query(
-                'INSERT INTO work_log_course_instructors (userid, work_log_course_id) VALUES (?, ?)',
+                'INSERT INTO work_log_practicum_instructors (userid, work_log_course_id) VALUES (?, ?)',
                 [userId,practicumId],
               );
           } else {
