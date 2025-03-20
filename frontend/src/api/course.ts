@@ -164,14 +164,27 @@ export const CreateLecture = async (
   state: string,
   token: string,
 ) => {
-  const formattedStart_date = new Date(start_date)
+  // Validate dates before formatting
+  if (!(start_date instanceof Date) || isNaN(start_date.getTime())) {
+    throw new Error('Invalid start date format');
+  }
+  if (!(end_date instanceof Date) || isNaN(end_date.getTime())) {
+    throw new Error('Invalid end date format');
+  }
+  if (start_date >= end_date) {
+    throw new Error('Start date must be before end date');
+  }
+
+  // Format dates for MySQL (YYYY-MM-DD HH:MM:SS)
+  const formattedStart_date = start_date
     .toISOString()
-    .replace('T', ' ')
-    .replace('Z', '');
-  const formattedEnd_date = new Date(end_date)
+    .slice(0, 19)
+    .replace('T', ' ');
+  const formattedEnd_date = end_date
     .toISOString()
-    .replace('T', ' ')
-    .replace('Z', '');
+    .slice(0, 19)
+    .replace('T', ' ');
+
   const coursecode = course.code;
   const options: RequestInit = {
     method: 'POST',
@@ -564,10 +577,7 @@ export const getStudentsByInstructorId = async (
     },
   };
 
-  return await doFetch(
-    `${baseUrl}courses/students/${instructorId}`,
-    options
-  );
+  return await doFetch(`${baseUrl}courses/students/${instructorId}`, options);
 };
 
 export const courseApi = {
