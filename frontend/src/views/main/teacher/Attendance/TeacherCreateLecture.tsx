@@ -247,14 +247,11 @@ const CreateLecture: React.FC = () => {
         toast.error('No token available');
         throw new Error('No token available');
       }
+
+      // Check for open lectures first
       const responseOpenLectures = await apihooks.getOpenLecturesByCourseid(
         selectedCourse?.courseid,
-
         token,
-      );
-      console.log(
-        '🚀 ~ file: TeacherCreateLecture.tsx:139 ~ handleOpenAttendance ~ responseOpenLectures:',
-        responseOpenLectures,
       );
 
       if (responseOpenLectures.length > 0) {
@@ -262,6 +259,8 @@ const CreateLecture: React.FC = () => {
         setDeleteModalOpen(true);
         return;
       }
+
+      // Validate date input
       if (Array.isArray(date)) {
         toast.error(`Cannot create attendance for multiple dates`);
         return;
@@ -277,40 +276,68 @@ const CreateLecture: React.FC = () => {
         return;
       }
 
-      const start_date = new Date(date);
-      start_date.setHours(selectedTimeOfDay === 'am' ? 10 : 14, 30, 0, 0);
+      // Properly construct and validate Date objects
+      try {
+        // Set hours based on time of day (am/pm)
+        const start_date = new Date(date);
+        start_date.setHours(selectedTimeOfDay === 'am' ? 10 : 14, 30, 0, 0);
 
-      const end_date = new Date(date);
-      end_date.setHours(selectedTimeOfDay === 'am' ? 13 : 17, 30, 0, 0);
+        const end_date = new Date(date);
+        end_date.setHours(selectedTimeOfDay === 'am' ? 13 : 17, 30, 0, 0);
 
-      const response = await apihooks.CreateLecture(
-        selectedTopic,
-        selectedCourse,
-        start_date,
-        end_date,
-        selectedTimeOfDay,
-        state,
-        token,
-      );
-      console.log(
-        '🚀 ~ file: TeacherCreateLecture.tsx:155 ~ handleOpenAttendance ~ response:',
-        response,
-      );
+        // Validate date objects
+        if (isNaN(start_date.getTime())) {
+          toast.error('Invalid start date');
+          return;
+        }
 
-      if (!response || !response.lectureInfo) {
-        toast.error('Error creating lecture');
-        throw new Error('Error creating lecture');
+        if (isNaN(end_date.getTime())) {
+          toast.error('Invalid end date');
+          return;
+        }
+
+        if (start_date >= end_date) {
+          toast.error('Start date must be before end date');
+          return;
+        }
+
+        const response = await apihooks.CreateLecture(
+          selectedTopic,
+          selectedCourse,
+          start_date,
+          end_date,
+          selectedTimeOfDay,
+          state,
+          token,
+        );
+
+        if (!response || !response.lectureInfo) {
+          toast.error('Error creating lecture');
+          throw new Error('Error creating lecture');
+        }
+
+        const lectureid = response.lectureInfo.lectureid;
+        navigate(`/teacher/attendance/${lectureid}`);
+        toast.success(
+          `Lecture created successfully with lectureid ${lectureid}`,
+        );
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(`Date error: ${error.message}`);
+        } else {
+          toast.error('Date error: Unknown error occurred');
+        }
       }
-
-      const lectureid = response.lectureInfo.lectureid;
-      navigate(`/teacher/attendance/${lectureid}`);
-      toast.success(`Lecture created successfully with lectureid ${lectureid}`);
-      console.log(`Lecture created successfully with lectureid ${lectureid}`);
     } catch (error) {
-      toast.error(`Error creating lecture: ${error}`);
-      console.error(`Error creating lecture: ${error}`);
+      console.error('Error creating lecture:', error);
+      if (error instanceof Error) {
+        toast.error(`Error creating lecture: ${error.message}`);
+      } else {
+        toast.error('An unknown error occurred while creating the lecture');
+      }
     }
   };
+
   interface Course {
     name: string;
     code: string;
