@@ -1,6 +1,6 @@
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import practicum from '../models/practicummodels.js';
-import practicumEntry from '../models/work_log_practicumentrymodel.js';
+import practicumEntry from '../models/work_log_entrymodel.js';
 import work_log_practicum_instructors from '../models/work_log_practicum_instructormodel.js';
 import logger from '../utils/logger.js';
 

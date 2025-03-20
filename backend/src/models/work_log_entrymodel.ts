@@ -1,5 +1,6 @@
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import createPool from '../config/createPool.js';
+import logger from '../utils/logger.js';
 
 const pool = createPool('ADMIN'); // Adjust the path to your pool file
 
@@ -7,6 +8,15 @@ export interface WorkLogEntry extends RowDataPacket {
   entry_id: number;
   userid: number;
   work_log_course_id: number;
+  start_time: Date;
+  end_time: Date;
+  description: string;
+  status: 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
+}
+export interface PracticumEntry extends RowDataPacket {
+  entry_id: number;
+  userid: number;
+  work_log_practicum_id: number;
   start_time: Date;
   end_time: Date;
   description: string;
@@ -32,7 +42,7 @@ const work_log_entries = {
         );
       return result;
     } catch (error) {
-      console.error('Error creating work log entry:', error);
+      logger.error('Error creating work log entry:', error);
       throw error;
     }
   },
@@ -46,7 +56,7 @@ const work_log_entries = {
         >('SELECT * FROM work_log_entries WHERE userid = ?', [userId]);
       return rows;
     } catch (error) {
-      console.error('Error getting work log entries:', error);
+      logger.error('Error getting work log entries:', error);
       throw error;
     }
   },
@@ -62,7 +72,7 @@ const work_log_entries = {
       );
       return rows;
     } catch (error) {
-      console.error('Error getting active work log entries:', error);
+      logger.error('Error getting active work log entries:', error);
       throw error;
     }
   },
@@ -75,7 +85,7 @@ const work_log_entries = {
         );
         return rows[0] || null;
       } catch (error) {
-        console.error('Error getting work log entry by ID:', error);
+        logger.error('Error getting work log entry by ID:', error);
         throw error;
       }
     },
@@ -90,7 +100,7 @@ const work_log_entries = {
         );
       return result;
     } catch (error) {
-      console.error('Error deleting work log entry:', error);
+      logger.error('Error deleting work log entry:', error);
       throw error;
     }
   },
@@ -148,7 +158,7 @@ const work_log_entries = {
 
       return result;
     } catch (error) {
-      console.error('Error updating work log entry:', error);
+      logger.error('Error updating work log entry:', error);
       throw error;
     }
   },
@@ -171,7 +181,7 @@ const work_log_entries = {
 
       return result;
     } catch (error) {
-      console.error('Error updating work log entry status:', error);
+      logger.error('Error updating work log entry status:', error);
       throw error;
     }
   },
@@ -191,7 +201,7 @@ const work_log_entries = {
 
       return result;
     } catch (error) {
-      console.error('Error closing work log entry:', error);
+      logger.error('Error closing work log entry:', error);
       throw error;
     }
   },
@@ -205,7 +215,7 @@ const work_log_entries = {
         >('SELECT * FROM work_log_entries WHERE work_log_course_id = ? ORDER BY start_time DESC', [courseId]);
       return rows;
     } catch (error) {
-      console.error('Error getting work log entries by course:', error);
+      logger.error('Error getting work log entries by course:', error);
       throw error;
     }
   },
@@ -228,11 +238,43 @@ const work_log_entries = {
 
       return rows;
     } catch (error) {
-      console.error('Error getting work log entries by group students:', error);
+      logger.error('Error getting work log entries by group students:', error);
       throw error;
     }
   },
-
+  async createPracticumEntry(
+    practicumId: number,
+    userId: number,
+    startTime: Date | string,
+    endTime: Date | string,
+    description: string,
+    status: 0 | 1 | 2 | 3,
+  ): Promise<ResultSetHeader> {
+    try {
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_entries (work_log_practicum_id, userid, start_time, end_time, description, status) VALUES (?, ?, ?, ?, ?, ?)',
+          [practicumId, userId, startTime, endTime, description, status],
+        );
+      return result;
+    } catch (error) {
+      logger.error('Error creating practicum entry:', error);
+      throw error;
+    }
+  },
+  async getWorkLogEntriesByPracticum(practicumId: number): Promise<PracticumEntry[]> {
+    try {
+      const [rows] = await pool.promise().query<PracticumEntry[]>(
+        'SELECT * FROM work_log_entries WHERE work_log_practicum_id = ? ORDER BY start_time DESC',
+        [practicumId],
+      );
+      return rows;
+    } catch (error) {
+      logger.error('Error getting work log entries by practicum:', error);
+      throw error;
+    }
+  },
 };
 
 export default work_log_entries;
