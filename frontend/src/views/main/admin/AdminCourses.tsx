@@ -1,5 +1,7 @@
 import SortIcon from '@mui/icons-material/Sort';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import GeneralLinkButton from '../../../components/main/buttons/GeneralLinkButton';
@@ -71,7 +73,18 @@ const AdminCourses: React.FC = () => {
   const [sortKey, setSortKey] = useState<keyof Course>('name');
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showOlderCourses, setShowOlderCourses] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  // Calculate courses that ended over a year ago
+  const isOlderCourse = (course: Course): boolean => {
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    return new Date(course.end_date) < oneYearAgo;
+  };
+
+  // Count of older courses for the toggle button
+  const olderCoursesCount = courses.filter(isOlderCourse).length;
 
   const sortedCourses = [...courses].sort((a, b) => {
     if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1;
@@ -86,6 +99,10 @@ const AdminCourses: React.FC = () => {
   const sortCourses = (key: string) => {
     setSortKey(key as keyof Course);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const toggleOlderCourses = () => {
+    setShowOlderCourses(!showOlderCourses);
   };
 
   const highlightMatch = (text: string, searchTerm: string) => {
@@ -129,13 +146,16 @@ const AdminCourses: React.FC = () => {
     {value: 'topics', label: t('admin:course.topics')},
   ];
 
-  const filteredCourses = sortedCourses.filter((course) =>
-    Object.values(course).some(
-      (value) =>
-        typeof value === 'string' &&
-        value.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
-    ),
-  );
+  // First filter by date (current courses or all if showOlderCourses is true), then by search term
+  const filteredCourses = sortedCourses
+    .filter((course) => showOlderCourses || !isOlderCourse(course))
+    .filter((course) =>
+      Object.values(course).some(
+        (value) =>
+          typeof value === 'string' &&
+          value.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
+      ),
+    );
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -161,7 +181,6 @@ const AdminCourses: React.FC = () => {
       }
 
       // Create an async function inside the effect
-
       const fetchCourses = async () => {
         const fetchedCourses = await apiHooks.getCourses(token);
         const coursesWithUniqueTopics = fetchedCourses.map((course) => ({
@@ -212,11 +231,48 @@ const AdminCourses: React.FC = () => {
         </div>
       ) : (
         <>
-          <GeneralLinkButton
-            text='Create New Course'
-            path='/teacher/courses/create'
-            className='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
-          />
+          <div className='flex justify-between items-center mb-8'>
+            <GeneralLinkButton
+              text='Create New Course'
+              path='/teacher/courses/create'
+              className='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
+            />
+
+            {olderCoursesCount > 0 && (
+              <button
+                onClick={toggleOlderCourses}
+                className={`flex items-center gap-2 px-4 py-2 ml-4 text-white rounded-md transition-colors ${
+                  showOlderCourses
+                    ? 'bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'
+                    : 'bg-metropolia-support-secondary-red hover:bg-metropolia-support-secondary-red-dark'
+                } shadow-md hover:shadow-lg`}
+                aria-label={
+                  showOlderCourses
+                    ? t('admin:course.hideOlder')
+                    : t('admin:course.showOlder')
+                }
+                title={
+                  showOlderCourses
+                    ? t('admin:course.hideOlder')
+                    : t('admin:course.showOlder')
+                }>
+                {showOlderCourses ? (
+                  <VisibilityIcon className='w-5 h-5' />
+                ) : (
+                  <VisibilityOffIcon className='w-5 h-5' />
+                )}
+                <span className='hidden sm:inline'>
+                  {showOlderCourses
+                    ? t('admin:course.hideOlder')
+                    : t('admin:course.showOlder')}
+                </span>
+                <span className='ml-1 inline-flex items-center justify-center w-6 h-6 bg-white text-metropolia-main-grey text-xs font-medium rounded-full'>
+                  {olderCoursesCount}
+                </span>
+              </button>
+            )}
+          </div>
+
           <div className='flex justify-end mb-4'>
             <button
               onClick={handleRefresh}
@@ -229,6 +285,21 @@ const AdminCourses: React.FC = () => {
               />
             </button>
           </div>
+
+          {courses.length > 0 && !showOlderCourses && olderCoursesCount > 0 && (
+            <div className='mb-4 bg-gray-50 p-4 rounded-md border border-gray-200 flex items-center justify-between'>
+              <p className='text-sm text-metropolia-main-grey'>
+                <span className='font-medium'>{olderCoursesCount}</span> older{' '}
+                {olderCoursesCount === 1 ? 'course is' : 'courses are'} hidden
+              </p>
+              <button
+                onClick={toggleOlderCourses}
+                className='text-sm text-metropolia-support-blue hover:text-metropolia-support-blue-dark underline'>
+                {t('admin:course.showAll')}
+              </button>
+            </div>
+          )}
+
           <div className='mt-6 mb-5'>
             <SearchField
               searchTerm={searchTerm}
@@ -277,7 +348,11 @@ const AdminCourses: React.FC = () => {
                   {filteredCourses.map((course, index) => (
                     <tr
                       key={index}
-                      className='hover:bg-gray-200 cursor-pointer transition-colors duration-200'
+                      className={`hover:bg-gray-200 cursor-pointer transition-colors duration-200 ${
+                        isOlderCourse(course)
+                          ? 'bg-gray-100 text-metropolia-main-grey/70'
+                          : ''
+                      }`}
                       onClick={() => navigateToCourse(course.courseid)}>
                       {[
                         'name',
@@ -305,7 +380,7 @@ const AdminCourses: React.FC = () => {
               </table>
             </div>
           </div>
-          {filteredCourses.length === 0 && debouncedSearchTerm && (
+          {filteredCourses.length === 0 && (
             <div className='mt-4 text-center py-8 bg-gray-50 rounded-lg border border-gray-200'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -324,13 +399,28 @@ const AdminCourses: React.FC = () => {
                 {t('admin:common.noResultsFound')}
               </p>
               <p className='text-sm text-metropolia-main-grey/70 mt-1'>
-                {t('admin:common.tryDifferentSearch')}
+                {debouncedSearchTerm
+                  ? t('admin:common.tryDifferentSearch')
+                  : !showOlderCourses && olderCoursesCount > 0
+                  ? t('admin:course.showOlderToSeeMore')
+                  : t('admin:common.noCoursesMatch')}
               </p>
-              <button
-                onClick={clearSearch}
-                className='mt-4 px-4 py-2 bg-metropolia-trend-light-blue text-white rounded-md hover:bg-metropolia-trend-light-blue-dark transition-colors'>
-                {t('admin:common.clearSearch')}
-              </button>
+              <div className='mt-4 flex flex-wrap justify-center gap-2'>
+                {debouncedSearchTerm && (
+                  <button
+                    onClick={clearSearch}
+                    className='px-4 py-2 bg-metropolia-trend-light-blue text-white rounded-md hover:bg-metropolia-trend-light-blue-dark transition-colors'>
+                    {t('admin:common.clearSearch')}
+                  </button>
+                )}
+                {!showOlderCourses && olderCoursesCount > 0 && (
+                  <button
+                    onClick={toggleOlderCourses}
+                    className='px-4 py-2 bg-metropolia-support-blue text-white rounded-md hover:bg-metropolia-support-blue-dark transition-colors'>
+                    {t('admin:course.showOlder')}
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </>
