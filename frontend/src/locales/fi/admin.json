@@ -62,7 +62,8 @@
     "actions": "Toimet",
     "present": "Paikalla",
     "absent": "Poissa",
-    "deleting": "Poistetaan ..."
+    "deleting": "Poistetaan ...",
+    "noCoursesMatch": "Yksikään kurssi ei vastaa nykyisiä suodattimia"
   },
   "mainView": {
     "teacherDashboard": "Opettajan hallintapaneeli",
@@ -445,7 +446,11 @@
     "name": "Nimi",
     "code": "Koodi",
     "studentGroup": "Opiskelijaryhmä",
-    "topics": "Aiheet"
+    "topics": "Aiheet",
+    "showOlder": "Näytä vanhemmat kurssit",
+    "hideOlder": "Piilota vanhemmat kurssit",
+    "showAll": "Näytä kaikki kurssit",
+    "showOlderToSeeMore": "Kokeile näyttää vanhemmat kurssit nähdäksesi enemmän tuloksia"
   },
   "users": {
     "lastName": "Sukunimi",

@@ -62,7 +62,8 @@
     "actions": "Handlingar",
     "present": "Presentera",
     "absent": "Frånvarande",
-    "deleting": "Radera ..."
+    "deleting": "Radera ...",
+    "noCoursesMatch": "Inga kurser matchar de aktuella filtren"
   },
   "mainView": {
     "teacherDashboard": "Lärarpanel",
@@ -427,7 +428,11 @@
     "name": "Namn",
     "code": "Koda",
     "studentGroup": "Studentgrupp",
-    "topics": "Ämnen"
+    "topics": "Ämnen",
+    "showOlder": "Visa äldre kurser",
+    "hideOlder": "Dölj äldre kurser",
+    "showAll": "Visa alla kurser",
+    "showOlderToSeeMore": "Försök att visa äldre kurser för att se fler resultat"
   },
   "users": {
     "lastName": "Efternamn",

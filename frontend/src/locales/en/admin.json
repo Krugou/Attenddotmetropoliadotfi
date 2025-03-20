@@ -108,7 +108,8 @@
     "course": "Course",
     "date": "Date",
     "error": "Error",
-    "actions": "Actions"
+    "actions": "Actions",
+    "noCoursesMatch": "No courses match the current filters"
   },
   "courses": {
     "delete": {
@@ -453,7 +454,11 @@
     "name": "Name",
     "code": "Code",
     "studentGroup": "Student Group",
-    "topics": "Topics"
+    "topics": "Topics",
+    "showOlder": "Show older courses",
+    "hideOlder": "Hide older courses",
+    "showAll": "Show all courses",
+    "showOlderToSeeMore": "Try showing older courses to see more results"
   },
   "users": {
     "lastName": "Last name",
