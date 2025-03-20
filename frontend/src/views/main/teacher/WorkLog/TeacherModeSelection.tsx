@@ -33,6 +33,12 @@ const ModeSelection: React.FC = () => {
             title={t('teacher:worklog.create.modes.custom.title')}
             description={t('teacher:worklog.create.modes.custom.description')}
           />
+
+          <Card
+            path='/teacher/courses/create/practicum'
+            title={t('teacher:worklog.create.modes.practicum.title')}
+            description={t('teacher:worklog.create.modes.practicum.description')}
+          />
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import TeacherMainView from '../../../views/main/teacher/TeacherMainView.tsx';
 import TeacherWorkLogCreate from '../../../views/main/teacher/WorkLog/TeacherWorklogCreate.tsx';
 import CreateWorklogEasy from '../../../components/main/course/CreateWorklogEasy.tsx';
 import CreateWorklogCustom from '../../../components/main/course/CreateWorklogCustom.tsx';
+import CreatePracticum from '../../../components/main/practicum/Createpracticum.tsx';
 /**
  * TeacherCreateCourseRoutes component.
  * This component is responsible for defining the routes for the teacher's course creation section of the application.
@@ -25,6 +26,7 @@ const TeacherCreateCourseRoutes: React.FC = () => {
       <Route path='create' element={<TeacherWorkLogCreate />} />
       <Route path='worklog-easy' element={<CreateWorklogEasy />}/>
       <Route path='worklog-custom' element={<CreateWorklogCustom />} />
+      <Route path='practicum' element={<CreatePracticum />} />
       <Route path='*' element={<TeacherMainView />} />
     </Routes>
   );

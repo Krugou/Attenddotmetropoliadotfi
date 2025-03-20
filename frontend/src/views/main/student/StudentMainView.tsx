@@ -11,6 +11,7 @@ import {
   PhotoCamera,
   Work,
   Add,
+  Apartment
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
@@ -103,6 +104,12 @@ const MainView: React.FC = () => {
               title={t('student:mainView.workLogs.title')}
               description={t('student:mainView.workLogs.description')}
               icon={Work}
+            />
+            <Card
+              path='/student/practicum'
+              title={t('student:mainView.practicum.title')}
+              description={t('student:mainView.practicum.description')}
+              icon={Apartment}
             />
           </>
         )}
