@@ -146,7 +146,8 @@
     "connection": "Palvelinyhteys",
     "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa",
     "vpnConnected": "Kytketty Metropolian sisäiseen verkkoon",
-    "vpnConnection": "Sisäinen yhteys"
+    "vpnConnection": "Sisäinen yhteys",
+    "refreshNow": "Päivitä nyt."
   },
   "successAlert": {
     "title": "Onnistui"

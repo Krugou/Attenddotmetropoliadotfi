@@ -148,7 +148,8 @@
     "connection": "Server Connection",
     "reloadNeeded": "Please reload the page until this text disappears",
     "vpnConnected": "Connected to Metropolia internal network",
-    "vpnConnection": "Internal Connection"
+    "vpnConnection": "Internal Connection",
+    "refreshNow": "refresh now."
   },
   "successAlert": {
     "title": "Success"
