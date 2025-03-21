@@ -68,9 +68,11 @@ const ServerStatus: React.FC = () => {
 
   if (import.meta.env.MODE === 'development') {
     return (
-      <p className='p-2 m-2 bg-white rounded-xl'>
-        {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
-      </p>
+      <>
+        <p className='p-2 m-2 bg-white rounded-xl'>
+          {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
+        </p>
+      </>
     );
   }
 
@@ -105,9 +107,37 @@ const ServerStatus: React.FC = () => {
         </p>
       </div>
       {!newestVersion && isServerOnline && (
-        <p className='p-2 m-2 rounded-xl'>
-          <strong>{t('common:serverStatus.reloadNeeded')}</strong>
-        </p>
+        <div
+          className='p-3 m-2 rounded-xl bg-gradient-to-r from-[#ff5000] to-[#e54b00] text-white shadow-lg transform hover:scale-105 transition-all'
+          role='alert'
+          aria-live='polite'>
+          <div className='flex flex-col items-center justify-center'>
+            <div className='animate-pulse mb-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-8 w-8'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
+                />
+              </svg>
+            </div>
+            <strong className='text-lg font-heading'>
+              {t('common:serverStatus.reloadNeeded')}
+            </strong>
+            <button
+              onClick={() => window.location.reload()}
+              className='mt-2 px-4 py-1 bg-white text-[#ff5000] rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-colors font-body'
+              aria-label={t('common:serverStatus.refreshNow')}>
+              {t('common:serverStatus.refreshNow')}
+            </button>
+          </div>
+        </div>
       )}
     </>
   );
