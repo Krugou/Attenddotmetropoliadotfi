@@ -135,7 +135,23 @@ const practicum = {
       throw error;
     }
   },
+  async assignStudentToPracticum(practicumId: number, userId: number): Promise<ResultSetHeader> {
+    try {
 
+      const [result] = await pool.promise().query<ResultSetHeader>(
+        'UPDATE work_log_practicum SET userid = ? WHERE work_log_practicum_id = ?',
+        [userId, practicumId]
+      );
+      if (result.affectedRows === 0) {
+        throw new Error('Practicum not found or student assignment failed');
+      }
+
+      return result;
+    } catch (error) {
+      logger.error('Error assigning student to practicum:', error);
+      throw error;
+    }
+  },
 };
 
 export default practicum;

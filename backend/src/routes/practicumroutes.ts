@@ -7,7 +7,7 @@ import validate from '../utils/validate.js';
 
 const router: Router = express.Router();
 
-// Create new practicum
+
 router.post(
   '/',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -30,7 +30,7 @@ router.post(
   },
 );
 
-// Get practicum details
+
 router.get(
   '/:practicumId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -46,7 +46,7 @@ router.get(
   },
 );
 
-// Update practicum
+
 router.put(
   '/:practicumId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -65,7 +65,7 @@ router.put(
   },
 );
 
-// Delete practicum
+
 router.delete(
   '/:practicumId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -85,7 +85,7 @@ router.delete(
   },
 );
 
-// Get practicums by instructor
+
 router.get(
   '/instructor/:userId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -101,6 +101,34 @@ router.get(
       res.status(500).json({error: 'Failed to get practicums'});
     }
   },
+);
+
+
+router.post(
+  '/:practicumId/assign-student',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  [
+    body('userId').isInt().withMessage('Valid user ID is required'),
+  ],
+  validate,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const practicumId = Number(req.params.practicumId);
+      const userId = Number(req.body.userId);
+
+      if (!practicumId || !userId) {
+        res.status(400).json({ error: 'Invalid practicum or user ID' });
+        return;
+      }
+      const result = await practicumController.assignStudentToPracticum(practicumId, userId);
+      res.json(result);
+    } catch (error) {
+      logger.error('Error assigning student to practicum:', error);
+      res.status(500).json({
+        error: error instanceof Error ? error.message : 'Failed to assign student'
+      });
+    }
+  }
 );
 
 export default router;

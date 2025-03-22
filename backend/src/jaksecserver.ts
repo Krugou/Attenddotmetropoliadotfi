@@ -21,6 +21,7 @@ import courseRoutes from './routes/courseroutes.js';
 import secureRoutes from './routes/secureroutes.js';
 import userRoutes from './routes/userroutes.js';
 import workLogRoutes from './routes/worklogroutes.js';
+import practiumroutes from './routes/practicumroutes.js';
 import activityRoutes from './routes/activityroutes.js';
 import feedbackRoutes from './routes/feedbackroutes.js';
 import microsoftAuthRoutes from './routes/microsoftAuthRoutes.js';
@@ -173,6 +174,12 @@ app.use(
   '/worklog',
   passport.authenticate('jwt', {session: false}),
   workLogRoutes,
+);
+
+app.use(
+  '/practicum',
+  passport.authenticate('jwt', {session: false}),
+  practiumroutes,
 );
 
 app.use(

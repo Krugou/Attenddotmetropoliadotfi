@@ -136,6 +136,19 @@ const practicumController = {
       throw error;
     }
   },
+
+  async assignStudentToPracticum(practicumId: number, userId: number) {
+    try {
+      const result = await practicum.assignStudentToPracticum(practicumId, userId);
+      if (result.affectedRows === 0) {
+        throw new Error('Failed to assign student to practicum');
+      }
+      return { success: true, message: 'Student assigned successfully' };
+    } catch (error) {
+      logger.error('Controller: Error assigning student to practicum:', error);
+      throw error;
+    }
+  },
 };
 
 export default practicumController;
