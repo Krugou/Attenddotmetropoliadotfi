@@ -256,7 +256,7 @@ const CreateWorklogCustom: React.FC = () => {
           onSubmitClick={handleSubmitWrapper}
           extrastep={false}
           isCustomGroup={isCustomGroup}
-          setIsCustomGroup={setIsCustomGroup} // Add this line
+          setIsCustomGroup={setIsCustomGroup}
           isWorklog={true}
         />
       </form>

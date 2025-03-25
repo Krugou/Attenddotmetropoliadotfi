@@ -29,6 +29,7 @@ const PracticumData: React.FC<PracticumDataProps> = ({
   const {t} = useTranslation(['teacher']);
   const [charCount, setCharCount] = useState(description.length);
   const [nameCharCount, setNameCharCount] = useState(name.length);
+  const [endDateError, setEndDateError] = useState<string>('');
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -44,6 +45,18 @@ const PracticumData: React.FC<PracticumDataProps> = ({
     if (!e || !e.target) return;
     setName(e.target.value);
     setNameCharCount(e.target.value.length);
+  };
+
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEndDate = e.target.value;
+
+    if (startDate && new Date(newEndDate) < new Date(startDate)) {
+      setEndDateError(t('teacher:practicum.form.endDateError'));
+    } else {
+      setEndDateError('');
+    }
+
+    setEndDate(newEndDate);
   };
 
   return (
@@ -113,10 +126,17 @@ const PracticumData: React.FC<PracticumDataProps> = ({
             type="date"
             id="endDate"
             value={endDate ? endDate.split('T')[0] : ''}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="p-2 border rounded-lg"
+            onChange={handleEndDateChange}
             required
+            className={`p-2 border rounded-lg ${
+              endDateError ? 'border-metropolia-support-red' : ''
+            }`}
           />
+          {endDateError && (
+            <p className="mt-1 text-sm text-metropolia-support-red">
+              {endDateError}
+            </p>
+          )}
         </div>
       </div>
 

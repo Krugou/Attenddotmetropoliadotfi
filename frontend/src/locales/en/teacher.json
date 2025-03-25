@@ -712,13 +712,24 @@
       "startDate": "Start Date",
       "endDate": "End Date",
       "requiredHours": "Required Hours",
-      "submit": "Create Practicum"
+      "submit": "Create Practicum",
+      "nameRequired": "Name is required",
+      "descriptionRequired": "Description is required",
+      "startDateRequired": "Start date is required",
+      "endDateRequired": "End date is required",
+      "endDateError": "End date must be after start date",
+      "requiredHoursError": "Required hours must be greater than 0"
     },
     "entries": {
       "title": "Practicum Entries",
       "totalEntries": "Total Entries",
       "totalHours": "Total Hours Logged",
       "studentName": "Student's name"
+    },
+    "stepButtons": {
+      "previous": "Previous",
+      "next": "Next",
+      "create": "Create Practicum"
     }
   }
 }

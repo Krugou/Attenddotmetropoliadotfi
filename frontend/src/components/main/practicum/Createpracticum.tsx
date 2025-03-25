@@ -80,7 +80,20 @@ const CreatePracticum: React.FC = () => {
   const validateFields = () => {
     switch (currentStep) {
       case 1:
-        return name && startDate && endDate && description && requiredHours > 0;
+
+        if (!name || !startDate || !endDate || !description || requiredHours <= 0) {
+          toast.error(t('teacher:practicum.fillRequiredFields'));
+          return false;
+        }
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        if (end <= start) {
+          toast.error(t('teacher:practicum.endDateMustBeAfterStartDate'));
+          return false;
+        }
+
+        return true;
       case 2:
         return students && students.length > 0;
       case 3:

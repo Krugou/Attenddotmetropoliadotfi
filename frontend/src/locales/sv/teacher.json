@@ -660,7 +660,13 @@
       "submit": "Skapa kurs",
       "startDate": "Startdatum",
       "requiredHours": "Obligatoriska timmar",
-      "endDate": "Slutdatum"
+      "endDate": "Slutdatum",
+      "nameRequired": "Namn krävs",
+      "descriptionRequired": "Beskrivning krävs",
+      "startDateRequired": "Startdatum krävs",
+      "endDateRequired": "Slutdatum krävs",
+      "endDateError": "Slutdatum måste vara efter startdatum",
+      "requiredHoursError": "Obligatoriska timmar måste vara större än 0"
     },
     "modifySuccess": "Arbetslogg ändrad framgångsrikt",
     "title": "Arbetsloggar",
@@ -694,7 +700,13 @@
       "startDate": "Startdatum",
       "endDate": "Slutdatum",
       "requiredHours": "Obligatoriska timmar",
-      "submit": "Skapa praktikum"
+      "submit": "Skapa praktikum",
+      "nameRequired": "Namn krävs",
+      "descriptionRequired": "Beskrivning krävs",
+      "startDateRequired": "Startdatum krävs",
+      "endDateRequired": "Slutdatum krävs",
+      "endDateError": "Slutdatum måste vara efter startdatum",
+      "requiredHoursError": "Obligatoriska timmar måste vara större än 0"
     },
     "details": {
       "title": "Praktikum-detaljer",
@@ -758,7 +770,8 @@
     "stepButtons": {
       "previous": "Föregående",
       "next": "Nästa",
-      "submit": "Skicka in"
+      "submit": "Skicka in",
+      "create": "Skapa praktikum"
     },
     "createMode": {
       "title": "Skapa praktikum",

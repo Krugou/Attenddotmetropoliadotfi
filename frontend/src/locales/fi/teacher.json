@@ -597,7 +597,13 @@
       "submit": "Luoda kurssi",
       "startDate": "Aloituspäivä",
       "requiredHours": "Vaadittu tunti",
-      "endDate": "Päätepäivä"
+      "endDate": "Päätepäivä",
+      "nameRequired": "Nimi on pakollinen",
+      "descriptionRequired": "Kuvaus on pakollinen",
+      "startDateRequired": "Aloituspäivä on pakollinen",
+      "endDateRequired": "Päättymispäivä on pakollinen",
+      "endDateError": "Päättymispäivän on oltava aloituspäivän jälkeen",
+      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0"
     },
     "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
     "title": "Työaikakirjaukset"
@@ -710,7 +716,13 @@
       "startDate": "Aloituspäivä",
       "endDate": "Päättymispäivä",
       "requiredHours": "Vaaditut tunnit",
-      "submit": "Luo harjoittelu"
+      "submit": "Luo harjoittelu",
+      "nameRequired": "Nimi on pakollinen",
+      "descriptionRequired": "Kuvaus on pakollinen",
+      "startDateRequired": "Aloituspäivä on pakollinen",
+      "endDateRequired": "Päättymispäivä on pakollinen",
+      "endDateError": "Päättymispäivän on oltava aloituspäivän jälkeen",
+      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0"
     },
     "details": {
       "title": "Harjoittelun tiedot",

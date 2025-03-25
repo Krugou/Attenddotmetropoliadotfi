@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import StepButton from '../buttons/StepButton';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Properties for the PracticumStepButtons component
@@ -12,6 +12,7 @@ interface PracticumStepButtonsProps {
   onSubmitClick: () => void;
   extraStep?: boolean;
   customNextLabel?: string;
+  nextDisabled?: boolean;
 }
 
 /**
@@ -27,14 +28,15 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
   onSubmitClick,
   extraStep = false,
   customNextLabel,
+  nextDisabled = false,
 }) => {
-
+  const { t } = useTranslation(['teacher']);
 
   return (
     <div className={`flex items-center ${currentStep === 1 ? 'justify-end' : 'justify-between'}`}>
       {currentStep > 1 && (
         <StepButton
-          text="Previous"
+          text={t('teacher:practicum.stepButtons.previous')}
           type="button"
           onClick={onPrevClick}
         />
@@ -42,18 +44,20 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
 
       {currentStep >= 1 && currentStep <= (extraStep ? 3 : 2) && (
         <StepButton
-          text={customNextLabel || "Next"}
+          text={customNextLabel || t('teacher:practicum.stepButtons.next')}
           type="button"
           onClick={onNextClick}
+          disabled={nextDisabled}
         />
       )}
 
       {currentStep === (extraStep ? 4 : 3) && (
         <StepButton
-          text="Create Practicum"
+          text={t('teacher:practicum.create')}
           type="submit"
           onClick={onSubmitClick}
           marginTop="mt-2"
+          disabled={nextDisabled}
         />
       )}
     </div>
