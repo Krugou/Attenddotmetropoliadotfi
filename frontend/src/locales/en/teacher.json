@@ -495,7 +495,9 @@
       "additionalInfo": "Additional Info",
       "deleteSuccess": "Worklog course deleted successfully",
       "createdAt": "Created at",
-      "viewGroups": "View Groups"
+      "viewGroups": "View Groups",
+      "viewEntries": "View Entries",
+      "viewPracticum": "View Practicum"
     },
     "modify": {
       "title": "Modify Worklog Course",
@@ -516,6 +518,10 @@
         "custom": {
           "title": "Custom mode",
           "description": "Create a worklog course manually"
+        },
+        "practicum": {
+          "title": "Practicum mode",
+          "description": "Create a practicum course"
         }
       }
     },
@@ -675,5 +681,44 @@
     "studentsNotAttending": "Students Not Attending",
     "back": "Back to mainview",
     "title": "Students with low activity in courses"
+  },
+  "practicum": {
+    "title": "Practicums",
+    "createTitle": "Create New Practicum",
+    "modifyTitle": "Modify Practicum",
+    "data": {
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "requiredHours": "Required Hours",
+      "description": "Description",
+      "practicumEnded": "Practicum has ended",
+      "modifyPracticum": "Modify this practicum",
+      "deletePracticum": "Delete this practicum",
+      "viewPracticum": "View Practicum",
+      "viewEntries": "View Entries",
+      "createdAt": "Created at",
+      "studentCount": "Student Count",
+      "instructors": "Instructors",
+      "additionalInfo": "Additional Info"
+    },
+    "addStudent": "Add Student",
+    "searchExistingStudents": "Search existing students",
+    "noStudentsFound": "No students found",
+    "selectedStudent": "Selected student",
+    "studentSelected": "Student selected successfully",
+    "form": {
+      "name": "practicum Name",
+      "description": "practicum Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "requiredHours": "Required Hours",
+      "submit": "Create Practicum"
+    },
+    "entries": {
+      "title": "Practicum Entries",
+      "totalEntries": "Total Entries",
+      "totalHours": "Total Hours Logged",
+      "studentName": "Student's name"
+    }
   }
 }

@@ -20,7 +20,6 @@ export interface PracticumCreate {
   students: Student[];
 }
 
-export interface PracticumUpdate extends Partial<PracticumCreate> {}
 
 export interface PracticumDetails extends PracticumCreate {
   id: number;

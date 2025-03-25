@@ -13,6 +13,8 @@ import TeacherCoursesRoutes from './teacher/TeacherCoursesRoutes';
 import TeacherStudentsRoutes from './teacher/TeacherStudentsRoutes';
 import TeacherWorkLogRoutes from './teacher/TeacherWorkLogRoutes.tsx';
 import TeacherLectureDetail from '../views/main/teacher/Lectures/TeacherLectureDetail.tsx';
+import TeacherPracticumRoutes from './teacher/TeacherPracticumRoutes.tsx';
+
 
 /**
  * TeacherRoutes component.
@@ -57,6 +59,7 @@ const TeacherRoutes = () => {
       <Route path='feedback' element={<Feedback />} />
       <Route path='team' element={<Team />} />
       <Route path='worklog/*' element={<TeacherWorkLogRoutes />} />
+      <Route path='practicum/*' element={<TeacherPracticumRoutes />} />
       <Route path='lateenrollment' element={<TeacherLateEnrollment />} />
 
       <Route path='*' element={<TeacherMainView />} />

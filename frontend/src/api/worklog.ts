@@ -416,6 +416,20 @@ export const removeStudentFromGroup = async (
   return await doFetch(`${baseUrl}worklog/group/${groupId}/student/${studentId}`, options);
 };
 
+export const getWorkLogEntriesByPracticum = async (
+  practicumId: number,
+  token: string,
+) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}worklog/practicum/entries/${practicumId}`, options);
+};
+
 export const worklogApi = {
   checkStudentExistingGroup,
   insertStudentToGroup,
@@ -442,4 +456,5 @@ export const worklogApi = {
   getWorkLogStats,
   addNewStudentToWorklog,
   removeStudentFromGroup,
+  getWorkLogEntriesByPracticum,
 };

@@ -558,24 +558,24 @@
   },
   "worklog": {
     "create": {
-      "title": "Lägg till ny arbetsdagbokskurs"
+      "title": "Lägg till ny arbetsdagbokskurs",
+      "subtitle": "Välj mellan alternativ",
+      "modes": {
+        "easy": {
+          "title": "Enkelt läge",
+          "description": "Skapa en arbetsdagbokskurs med Excel-fil"
+        },
+        "custom": {
+          "title": "Anpassat läge",
+          "description": "Skapa en arbetsdagbokskurs manuellt"
+        },
+        "practicum": {
+          "title": "Praktikläge",
+          "description": "Skapa ett praktikum för praktikspårning"
+        }
+      }
     },
     "errors": {
-      "createFailed": "Det gick inte att skapa arbetsloggskurs",
-      "groupNotFound": "Gruppen hittades inte"
-    },
-    "detail": {
-      "backtogroups": "Tillbaka till grupper",
-      "backToWorklog": "Tillbaka till arbetsloggen"
-    },
-    "details": {
-      "title": "Arbetsloggdetaljer",
-      "name": "Namn",
-      "code": "Kurskod",
-      "description": "Beskrivning",
-      "requiredHours": "Obligatoriska timmar",
-      "startDate": "Startdatum",
-      "endDate": "Slutdatum"
     },
     "data": {
       "courseCode": "Kurskod",
@@ -683,5 +683,92 @@
     "back": "Tillbaka till MainView",
     "title": "Studenter med låg aktivitet i kurser",
     "studentsNotAttending": "Studenter som inte deltar"
+  },
+  "practicum": {
+    "title": "Praktikum",
+    "createTitle": "Skapa nytt praktikum",
+    "modifyTitle": "Ändra praktikum",
+    "form": {
+      "name": "Kursnamn",
+      "description": "Kursbeskrivning",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum",
+      "requiredHours": "Obligatoriska timmar",
+      "submit": "Skapa praktikum"
+    },
+    "details": {
+      "title": "Praktikum-detaljer",
+      "name": "Namn",
+      "code": "Kurskod",
+      "description": "Beskrivning",
+      "requiredHours": "Obligatoriska timmar",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum"
+    },
+    "data": {
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum",
+      "requiredHours": "Obligatoriska timmar",
+      "description": "Beskrivning",
+      "practicumEnded": "Praktikum har avslutats",
+      "modifyPracticum": "Ändra detta praktikum",
+      "deletePracticum": "Radera detta praktikum",
+      "viewPracticum": "Visa praktikum",
+      "createdAt": "Skapad",
+      "studentCount": "Antal studenter",
+      "instructors": "Handledare",
+      "additionalInfo": "Ytterligare information",
+      "viewEntries": "Visa poster"
+    },
+    "steps": {
+      "details": "Praktikum-detaljer",
+      "students": "Lägg till studenter",
+      "instructors": "Lägg till handledare",
+      "next": "Nästa",
+      "previous": "Föregående",
+      "submit": "Skapa praktikum"
+    },
+    "noInstructors": "Inga handledare tilldelade",
+    "deleteSuccess": "Praktikum raderades framgångsrikt",
+    "createdSuccessfully": "Praktikum skapades framgångsrikt",
+    "studentAssigned": "Student tilldelades framgångsrikt",
+    "studentAssignmentFailed": "Misslyckades med att tilldela student",
+    "fillRequiredFields": "Vänligen fyll i alla obligatoriska fält",
+    "modifySuccess": "Praktikum ändrades framgångsrikt",
+    "addStudent": "Lägg till student",
+    "selectStudent": "Välj student",
+    "studentPlaceholder": "Skriv för att söka studenter",
+    "searchExistingStudents": "Sök efter befintliga studenter",
+    "noStudentsFound": "Inga studenter hittades",
+    "selectedStudent": "Vald student",
+    "backToPracticums": "Tillbaka till praktikum",
+    "save": "Spara ändringar",
+    "create": "Skapa praktikum",
+    "searchByName": "Sök efter namn",
+    "studentSelected": "Student valdes framgångsrikt",
+    "entryStatus": {
+      "0": "Status: Fel",
+      "1": "Status: Inloggad",
+      "2": "Status: Utloggad",
+      "3": "Status: Kontrollerad"
+    },
+    "workHours": "Arbetstimmar",
+    "studentName": "Studentens namn",
+    "studentEmail": "Studentens e-post",
+    "stepButtons": {
+      "previous": "Föregående",
+      "next": "Nästa",
+      "submit": "Skicka in"
+    },
+    "createMode": {
+      "title": "Skapa praktikum",
+      "description": "Skapa ett nytt praktikum för praktikspårning"
+    },
+    "entries": {
+      "title": "Praktikummärkningar",
+      "totalEntries": "Totalt antal märkningar",
+      "totalHours": "Totalt loggade timmar",
+      "studentName": "Studentens namn"
+    }
   }
 }

@@ -1,6 +1,6 @@
 import {API_CONFIG} from '../config';
 import {doFetch} from '../utils/doFetch';
-import type {PracticumCreate, PracticumUpdate} from '../types/practicum';
+import type {PracticumCreate} from '../types/practicum';
 
 const baseUrl = API_CONFIG.baseUrl;
 
@@ -29,7 +29,15 @@ export const getPracticumDetails = async (practicumId: number, token: string) =>
 
 export const updatePracticum = async (
   practicumId: number,
-  updateData: PracticumUpdate,
+  modifiedData: {
+    name: string;
+    code: string;
+    description: string;
+    start_date: string;
+    end_date: string;
+    required_hours: number;
+    instructors: string[];
+  },
   token: string,
 ) => {
   const options = {
@@ -38,7 +46,7 @@ export const updatePracticum = async (
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify(updateData),
+    body: JSON.stringify(modifiedData),
   };
   return await doFetch(`${baseUrl}practicum/${practicumId}`, options);
 };

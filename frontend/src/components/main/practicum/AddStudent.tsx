@@ -53,7 +53,6 @@ function AddStudent({students, setStudents}: Props) {
           userid: student.userid || undefined
         })));
       } catch (error) {
-        console.error('Error searching for students:', error);
         toast.error(t('common:errors.searchFailed'));
       }
     },

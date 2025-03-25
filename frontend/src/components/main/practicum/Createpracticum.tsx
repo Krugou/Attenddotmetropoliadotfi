@@ -3,11 +3,17 @@ import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext';
 import {createPracticumCourse, assignStudentToPracticum} from '../../../api/practicum';
-import PracticumData from './PracticumData';
+import PracticumDetailsStep from './PracticumDetailsStep';
 import AddStudent, {Student} from './AddStudent';
 import AddTeachers from '../course/createcourse/AddTeachers';
 import {useTranslation} from 'react-i18next';
 import PracticumStepButtons from './PracticumStepButtons';
+
+
+type Instructor = {
+  email: string;
+  exists?: boolean;
+};
 
 const CreatePracticum: React.FC = () => {
   const {user} = useContext(UserContext);
@@ -19,9 +25,7 @@ const CreatePracticum: React.FC = () => {
   const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
   const [requiredHours, setRequiredHours] = useState(0);
-  const [instructors, setInstructors] = useState<
-    {email: string; exists?: boolean}[]
-  >([{email: ''}]);
+  const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [instructorEmail, setInstructorEmail] = useState('');
   const [students, setStudents] = useState<Student[]>([]);
 
@@ -54,7 +58,6 @@ const CreatePracticum: React.FC = () => {
           await assignStudentToPracticum(response.insertId, students[0].userid, token);
           toast.success(t('teacher:practicum.studentAssigned'));
         } catch (assignError) {
-          console.error('Error assigning student:', assignError);
           toast.warning(t('teacher:practicum.studentAssignmentFailed'));
         }
       }
@@ -105,7 +108,7 @@ const CreatePracticum: React.FC = () => {
         onSubmit={handleSubmit}
         className='w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md'>
         {currentStep === 1 && (
-          <PracticumData
+          <PracticumDetailsStep
             name={name}
             setName={setName}
             startDate={startDate}

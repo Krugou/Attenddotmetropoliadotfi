@@ -28,13 +28,13 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
   extraStep = false,
   customNextLabel,
 }) => {
-  const { t } = useTranslation(['teacher']);
+
 
   return (
     <div className={`flex items-center ${currentStep === 1 ? 'justify-end' : 'justify-between'}`}>
       {currentStep > 1 && (
         <StepButton
-          text={t('teacher:stepButtons.previous')}
+          text="Previous"
           type="button"
           onClick={onPrevClick}
         />
@@ -42,7 +42,7 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
 
       {currentStep >= 1 && currentStep <= (extraStep ? 3 : 2) && (
         <StepButton
-          text={customNextLabel || t('teacher:stepButtons.next')}
+          text={customNextLabel || "Next"}
           type="button"
           onClick={onNextClick}
         />
@@ -50,7 +50,7 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
 
       {currentStep === (extraStep ? 4 : 3) && (
         <StepButton
-          text={t('teacher:practicum.create')}
+          text="Create Practicum"
           type="submit"
           onClick={onSubmitClick}
           marginTop="mt-2"

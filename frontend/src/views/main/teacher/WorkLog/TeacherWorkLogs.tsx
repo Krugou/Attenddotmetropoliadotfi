@@ -7,6 +7,7 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import WorklogData from '../../../../components/main/worklog/WorklogData';
+import PreacticumData from '../../../../components/main/practicum/PracticumData';
 
 interface WorkLogCourse {
   courseid: number;
@@ -21,10 +22,23 @@ interface WorkLogCourse {
   instructor_name: string;
 }
 
+interface WorkLogPracticum {
+  work_log_practicum_id: number;
+  name: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  required_hours: number;
+  created_at: string;
+  user_count?: number;
+  instructor_name?: string;
+}
+
 const TeacherWorkLogs: React.FC = () => {
   const {t} = useTranslation(['teacher', 'common']);
   const {user} = useContext(UserContext);
   const [worklogCourses, setWorklogCourses] = useState<WorkLogCourse[]>([]);
+  const [practicum, setPracticum] = useState<WorkLogPracticum[]>([]);
   const {update, setUpdate} = useContext(UserContext);
   const [showEndedCourses, setShowEndedCourses] = useState(false);
 
@@ -42,8 +56,13 @@ const TeacherWorkLogs: React.FC = () => {
           user.email,
           token,
         );
+        const practicum = await apihooks.getPracticumsByInstructor(
+          user.userid,
+          token,
+        );
 
         setWorklogCourses(courses);
+        setPracticum(practicum);
       }
     };
 
@@ -88,6 +107,13 @@ const TeacherWorkLogs: React.FC = () => {
               updateView={updateView}
               allCourses={true}
               showEndedCourses={showEndedCourses}
+            />
+          )}
+          {practicum.length > 0 && (
+            <PreacticumData
+              practicumData={practicum}
+              updateView={updateView}
+              allPracticums={true}
             />
           )}
           <div

@@ -475,6 +475,10 @@
         "custom": {
           "title": "Mukautettu tila",
           "description": "Luo työpäiväkirjakurssi manuaalisesti"
+        },
+        "practicum":{
+          "title": "Harjoittelu",
+          "description": "Luo  harjoittelijoitelu"
         }
       }
     },
@@ -512,7 +516,9 @@
       "additionalInfo": "Lisätiedot",
       "deleteSuccess": "Työpäiväkirjakurssi poistettu onnistuneesti",
       "createdAt": "Luotu",
-      "viewGroups": "Näytä ryhmät"
+      "viewGroups": "Näytä ryhmät",
+      "viewEntries": "Näytä merkinnät",
+      "viewPracticum": "Näytä harjoittelu"
     },
     "modify": {
       "title": "Muokkaa työpäiväkirjakurssia",
@@ -693,5 +699,92 @@
     "back": "Takaisin Mainview",
     "title": "Opiskelijat, joilla on vähän aktiivisuutta kursseilla",
     "studentsNotAttending": "Opiskelijat eivät osallistu"
+  },
+  "practicum": {
+    "title": "Harjoittelut",
+    "createTitle": "Luo uusi harjoittelu",
+    "modifyTitle": "Muokkaa harjoittelua",
+    "form": {
+      "name": "harjoittelun nimi",
+      "description": "harjoittelu kuvaus",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä",
+      "requiredHours": "Vaaditut tunnit",
+      "submit": "Luo harjoittelu"
+    },
+    "details": {
+      "title": "Harjoittelun tiedot",
+      "name": "Nimi",
+      "code": "Kurssikoodi",
+      "description": "Kuvaus",
+      "requiredHours": "Vaaditut tunnit",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä"
+    },
+    "data": {
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä",
+      "requiredHours": "Vaaditut tunnit",
+      "description": "Kuvaus",
+      "practicumEnded": "Harjoittelu on päättynyt",
+      "modifyPracticum": "Muokkaa tätä harjoittelua",
+      "deletePracticum": "Poista tämä harjoittelu",
+      "viewPracticum": "Näytä harjoittelu",
+      "createdAt": "Luotu",
+      "studentCount": "Opiskelijamäärä",
+      "instructors": "Ohjaajat",
+      "additionalInfo": "Lisätiedot",
+      "viewEntries": "Näytä merkinnät"
+    },
+    "steps": {
+      "details": "Harjoittelun tiedot",
+      "students": "Lisää opiskelijoita",
+      "instructors": "Lisää ohjaajia",
+      "next": "Seuraava",
+      "previous": "Edellinen",
+      "submit": "Luo harjoittelu"
+    },
+    "noInstructors": "Ei määritettyjä ohjaajia",
+    "deleteSuccess": "Harjoittelu poistettu onnistuneesti",
+    "createdSuccessfully": "Harjoittelu luotu onnistuneesti",
+    "studentAssigned": "Opiskelija lisätty onnistuneesti",
+    "studentAssignmentFailed": "Opiskelijan lisääminen epäonnistui",
+    "fillRequiredFields": "Täytä kaikki vaaditut kentät",
+    "modifySuccess": "Harjoittelu muokattu onnistuneesti",
+    "addStudent": "Lisää opiskelija",
+    "selectStudent": "Valitse opiskelija",
+    "studentPlaceholder": "Kirjoita etsiäksesi opiskelijoita",
+    "searchExistingStudents": "Etsi olemassa olevia opiskelijoita",
+    "noStudentsFound": "Opiskelijoita ei löytynyt",
+    "selectedStudent": "Valittu opiskelija",
+    "backToPracticums": "Takaisin harjoitteluihin",
+    "save": "Tallenna muutokset",
+    "create": "Luo harjoittelu",
+    "searchByName": "Etsi nimellä",
+    "studentSelected": "Opiskelija valittu onnistuneesti",
+    "entryStatus": {
+      "0": "Tila: Virhe",
+      "1": "Tila: Kirjautunut sisään",
+      "2": "Tila: Kirjautunut ulos",
+      "3": "Tila: Tarkistettu"
+    },
+    "workHours": "Työtunnit",
+    "studentName": "Opiskelijan nimi",
+    "studentEmail": "Opiskelijan sähköposti",
+    "stepButtons": {
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "submit": "Lähetä"
+    },
+    "createMode": {
+      "title": "Luo harjoittelu",
+      "description": "Luo uusi harjoittelu työharjoittelun seurantaan"
+    },
+    "entries": {
+      "title": "Harjoittelumerkinnät",
+      "totalEntries": "Merkintöjen kokonaismäärä",
+      "totalHours": "Kirjatut tunnit yhteensä",
+      "studentName": "Opiskelijan nimi"
+    }
   }
 }

@@ -597,4 +597,21 @@ router.delete(
   }
 );
 
+router.get(
+  '/practicum/entries/:practicumId',
+  checkUserRole(['admin', 'counselor', 'teacher', 'student']),
+  [param('practicumId').isInt().withMessage('Invalid practicumId')],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      const practicumId = Number(req.params.practicumId);
+      const entries = await work_log_entries.getWorkLogEntriesByPracticum(practicumId);
+      res.json(entries);
+    } catch (error) {
+      logger.error('Error getting practicum entries:', error);
+      res.status(500).json({ error: 'Failed to get practicum entries' });
+    }
+  }
+);
+
 export default router;
