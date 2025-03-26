@@ -782,6 +782,16 @@
       "totalEntries": "Totalt antal märkningar",
       "totalHours": "Totalt loggade timmar",
       "studentName": "Studentens namn"
-    }
+    },
+    "findStudent": "Hitta student",
+    "searchStudentByName": "Sök student med namn, e-post eller studentnummer",
+    "searchPlaceholder": "Ange namn, e-post eller studentnummer",
+    "matchingStudents": "Matchande studenter"
+  },
+  "buttons": {
+    "previous": "Föregående",
+    "next": "Nästa",
+    "createWorklog": "Skapa arbetslogg",
+    "createCourse": "Skapa kurs"
   }
 }

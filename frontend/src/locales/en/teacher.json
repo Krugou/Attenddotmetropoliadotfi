@@ -730,6 +730,16 @@
       "previous": "Previous",
       "next": "Next",
       "create": "Create Practicum"
-    }
+    },
+    "findStudent": "Find Student",
+    "searchStudentByName": "Search student by name, email or student number",
+    "searchPlaceholder": "Enter name, email or student number",
+    "matchingStudents": "Matching Students"
+  },
+  "buttons": {
+    "previous": "Previous",
+    "next": "Next",
+    "createWorklog": "Create Worklog",
+    "createCourse": "Create Course"
   }
 }

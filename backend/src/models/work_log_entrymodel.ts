@@ -20,7 +20,8 @@ export interface PracticumEntry extends RowDataPacket {
   start_time: Date;
   end_time: Date;
   description: string;
-  status: 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
+  status: 0 | 1 | 2 | 3;
+
 }
 
 
@@ -266,7 +267,15 @@ const work_log_entries = {
   async getWorkLogEntriesByPracticum(practicumId: number): Promise<PracticumEntry[]> {
     try {
       const [rows] = await pool.promise().query<PracticumEntry[]>(
-        'SELECT * FROM work_log_entries WHERE work_log_practicum_id = ? ORDER BY start_time DESC',
+        `SELECT
+          e.*,
+          u.first_name,
+          u.last_name,
+          u.email
+        FROM work_log_entries e
+        JOIN users u ON e.userid = u.userid
+        WHERE e.work_log_practicum_id = ?
+        ORDER BY e.start_time DESC`,
         [practicumId],
       );
       return rows;

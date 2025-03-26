@@ -8,7 +8,7 @@ import AddStudent, {Student} from './AddStudent';
 import AddTeachers from '../course/createcourse/AddTeachers';
 import {useTranslation} from 'react-i18next';
 import PracticumStepButtons from './PracticumStepButtons';
-
+import CheckStudentStep from './CheckStudentStep';
 
 type Instructor = {
   email: string;
@@ -28,6 +28,7 @@ const CreatePracticum: React.FC = () => {
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [instructorEmail, setInstructorEmail] = useState('');
   const [students, setStudents] = useState<Student[]>([]);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -35,6 +36,7 @@ const CreatePracticum: React.FC = () => {
       setInstructors([{email: user.email, exists: true}]);
     }
   }, [user]);
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -80,7 +82,8 @@ const CreatePracticum: React.FC = () => {
   const validateFields = () => {
     switch (currentStep) {
       case 1:
-
+        return selectedStudent !== null;
+      case 2:
         if (!name || !startDate || !endDate || !description || requiredHours <= 0) {
           toast.error(t('teacher:practicum.fillRequiredFields'));
           return false;
@@ -94,9 +97,9 @@ const CreatePracticum: React.FC = () => {
         }
 
         return true;
-      case 2:
-        return students && students.length > 0;
       case 3:
+        return students && students.length > 0;
+      case 4:
         return (
           instructors &&
           instructors.length > 0 &&
@@ -121,6 +124,12 @@ const CreatePracticum: React.FC = () => {
         onSubmit={handleSubmit}
         className='w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md'>
         {currentStep === 1 && (
+          <CheckStudentStep
+            student={selectedStudent}
+            setStudent={setSelectedStudent}
+          />
+        )}
+        {currentStep === 2 && (
           <PracticumDetailsStep
             name={name}
             setName={setName}
@@ -134,13 +143,13 @@ const CreatePracticum: React.FC = () => {
             setRequiredHours={setRequiredHours}
           />
         )}
-        {currentStep === 2 && (
+        {currentStep === 3 && (
           <AddStudent
             students={students}
             setStudents={setStudents}
           />
         )}
-        {currentStep === 3 && (
+        {currentStep === 4 && (
           <AddTeachers
             instructors={instructors}
             setInstructors={setInstructors}
@@ -152,6 +161,7 @@ const CreatePracticum: React.FC = () => {
           onPrevClick={() => setCurrentStep((prevStep) => prevStep - 1)}
           onNextClick={incrementStep}
           onSubmitClick={handleSubmitWrapper}
+          totalSteps={4}
         />
       </form>
     </div>

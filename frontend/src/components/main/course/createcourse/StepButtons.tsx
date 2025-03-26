@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import StepButton from '../../buttons/StepButton';
 /**
  * StepButtons component properties
@@ -34,6 +35,8 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 	isWorklog = false,
 	setIsCustomGroup,
 }) => {
+	const { t } = useTranslation('teacher');
+
 	return (
 		<div
 			className={`flex items-center ${
@@ -41,13 +44,13 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 			}`}
 		>
 			{currentStep > 1 && (
-				<StepButton text="Previous" type="button" onClick={onPrevClick} />
+				<StepButton text={t('buttons.previous')} type="button" onClick={onPrevClick} />
 			)}
 			{isWorklog ? (
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 3 : 2) && (
 						<StepButton
-							text={customNextLabel || "Next"}
+							text={customNextLabel || t('buttons.next')}
 							type="button"
 							onClick={() => {
 								if (setIsCustomGroup && currentStep === 1) {
@@ -59,7 +62,7 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 					)}
 					{currentStep === (extrastep ? 4 : 3) && (
 						<StepButton
-							text="Create Worklog"
+							text={t('buttons.createWorklog')}
 							type="submit"
 							onClick={onSubmitClick}
 							marginTop="mt-2"
@@ -70,14 +73,14 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 4 : 3) && (
 						<StepButton
-							text={"Next"}
+							text={t('buttons.next')}
 							type="button"
 							onClick={onNextClick}
 						/>
 					)}
 					{currentStep === (extrastep ? 5 : 4) && !isCustomGroup && (
 						<StepButton
-							text="Create Course"
+							text={t('buttons.createCourse')}
 							type="submit"
 							onClick={onSubmitClick}
 							marginTop="mt-2"

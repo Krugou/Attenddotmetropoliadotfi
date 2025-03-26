@@ -797,6 +797,16 @@
       "totalEntries": "Merkintöjen kokonaismäärä",
       "totalHours": "Kirjatut tunnit yhteensä",
       "studentName": "Opiskelijan nimi"
-    }
+    },
+    "findStudent": "Etsi opiskelija",
+    "searchStudentByName": "Hae opiskelijaa nimellä, sähköpostilla tai opiskelijanumerolla",
+    "searchPlaceholder": "Syötä nimi, sähköposti tai opiskelijanumero",
+    "matchingStudents": "Löydetyt opiskelijat"
+  },
+  "buttons": {
+    "previous": "Edellinen",
+    "next": "Seuraava",
+    "createWorklog": "Luo työpäiväkirja",
+    "createCourse": "Luo kurssi"
   }
 }
