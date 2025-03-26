@@ -308,7 +308,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   className={`px-4 py-2 rounded font-body ${
                     isCreatingGroup || !newGroupName.trim()
                       ? 'bg-gray-300 cursor-not-allowed'
-                      : 'bg-metropolia-main-orange text-white hover:bg-opacity-90'
+                      : 'bg-metropolia-main-orange text-white hover:opacity-90'
                   }`}>
                   {isCreatingGroup ? t('common:creating') : t('common:create')}
                 </button>
