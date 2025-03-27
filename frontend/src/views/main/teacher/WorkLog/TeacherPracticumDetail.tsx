@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import PracticumData from '../../../../components/main/practicum/practicumData';
+import PracticumData from '../../../../components/main/practicum/PracticumData';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
@@ -19,11 +19,11 @@ interface WorkLogDetail {
 }
 
 const TeacherWorklogCourseDetail: React.FC = () => {
-  const { practicumid } = useParams<{ practicumid: string }>();
+  const {practicumid} = useParams<{practicumid: string}>();
 
-
-
-  const [practicumData, setPracticumData] = useState<WorkLogDetail | null>(null);
+  const [practicumData, setPracticumData] = useState<WorkLogDetail | null>(
+    null,
+  );
   const {user} = useContext(UserContext);
   const {t} = useTranslation(['teacher']);
 
@@ -35,7 +35,10 @@ const TeacherWorklogCourseDetail: React.FC = () => {
           throw new Error('No token available');
         }
 
-        const data = await apiHooks.getPracticumDetails(Number(practicumid), token);
+        const data = await apiHooks.getPracticumDetails(
+          Number(practicumid),
+          token,
+        );
         setPracticumData(data.practicum);
       }
     };
@@ -59,11 +62,8 @@ const TeacherWorklogCourseDetail: React.FC = () => {
             text={t('teacher:worklog.detail.backToWorklog')}
             className='w-full sm:w-auto'
           />
-
         </div>
-        {practicumData && (
-          <PracticumData practicumData={[practicumData]}  />
-        )}
+        {practicumData && <PracticumData practicumData={[practicumData]} />}
       </div>
     </div>
   );
