@@ -1,6 +1,8 @@
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import practicum from '../models/practicummodels.js';
-import practicumEntry, { PracticumEntry } from '../models/work_log_entrymodel.js';
+import work_log_entries, {
+  PracticumEntry,
+} from '../models/work_log_entrymodel.js';
 import work_log_practicum_instructors from '../models/work_log_practicum_instructormodel.js';
 import logger from '../utils/logger.js';
 
@@ -76,13 +78,13 @@ const practicumController = {
   async getPracticumDetails(practicumId: number): Promise<PracticumDetails> {
     try {
       const practicumDetails = await practicum.getPracticumById(practicumId);
-      const entries = await practicumEntry.getWorkLogEntriesByPracticum(
+      const entries = await work_log_entries.getWorkLogEntriesByPracticum(
         practicumId,
       );
-      const instructors = await work_log_practicum_instructors.getInstructorsByPracticum(
-        practicumId,
-      );
-
+      const instructors =
+        await work_log_practicum_instructors.getInstructorsByPracticum(
+          practicumId,
+        );
 
       const formattedPracticum: PracticumData = {
         ...practicumDetails[0],
@@ -112,16 +114,21 @@ const practicumController = {
         throw new Error('Practicum not found');
       }
 
-      const practicumUpdateResult = await practicum.updatePracticum(practicumId, {
-        name: updates.name,
-        description: updates.description,
-        start_date: updates.start_date,
-        end_date: updates.end_date,
-        required_hours: updates.required_hours,
-      });
+      const practicumUpdateResult = await practicum.updatePracticum(
+        practicumId,
+        {
+          name: updates.name,
+          description: updates.description,
+          start_date: updates.start_date,
+          end_date: updates.end_date,
+          required_hours: updates.required_hours,
+        },
+      );
 
       if (updates.instructors && updates.instructors.length > 0) {
-        await work_log_practicum_instructors.removeAllPracticumInstructors(practicumId);
+        await work_log_practicum_instructors.removeAllPracticumInstructors(
+          practicumId,
+        );
         await work_log_practicum_instructors.addInstructorsToPracticum(
           updates.instructors.map((email) => ({email})),
           practicumId,
@@ -150,7 +157,9 @@ const practicumController = {
 
   async getPracticumsByInstructor(userId: number): Promise<RowDataPacket[]> {
     try {
-      return await work_log_practicum_instructors.getPracticumsByInstructor(userId);
+      return await work_log_practicum_instructors.getPracticumsByInstructor(
+        userId,
+      );
     } catch (error) {
       logger.error('Error in getPracticumsByInstructor:', error);
       throw error;
@@ -159,11 +168,14 @@ const practicumController = {
 
   async assignStudentToPracticum(practicumId: number, userId: number) {
     try {
-      const result = await practicum.assignStudentToPracticum(practicumId, userId);
+      const result = await practicum.assignStudentToPracticum(
+        practicumId,
+        userId,
+      );
       if (result.affectedRows === 0) {
         throw new Error('Failed to assign student to practicum');
       }
-      return { success: true, message: 'Student assigned successfully' };
+      return {success: true, message: 'Student assigned successfully'};
     } catch (error) {
       logger.error('Controller: Error assigning student to practicum:', error);
       throw error;
@@ -173,7 +185,7 @@ const practicumController = {
   async getPracticumByStudentEmail(email: string): Promise<PracticumData[]> {
     try {
       const practicums = await practicum.getPracticumByStudentEmail(email);
-      return practicums.map(p => ({
+      return practicums.map((p) => ({
         ...p,
         start_date: p.start_date.toISOString(),
         end_date: p.end_date.toISOString(),
