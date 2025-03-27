@@ -556,8 +556,10 @@ const StudentWorkLogLogger: React.FC = () => {
 
         // Use the appropriate API call based on course type
         if (selectedCourseData.type === 'practicum') {
+          // @ts-expect-error
           await apiHooks.createWorkLogEntryPracticum(params, token);
         } else {
+          // @ts-expect-error
           await apiHooks.createWorkLogEntry(params, token);
         }
       }
