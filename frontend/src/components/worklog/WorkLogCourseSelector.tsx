@@ -1,12 +1,21 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import type {WorkLogCourse, ActiveEntry} from '../../types/worklog';
+import {School as SchoolIcon, Work as WorkIcon} from '@mui/icons-material';
+
+// Define a unified course type that can handle both worklog and practicum courses
+export interface UnifiedCourse extends WorkLogCourse {
+  type: 'worklog' | 'practicum';
+  work_log_course_id: number; // From worklog courses
+  work_log_practicum_id?: number; // From practicum courses
+}
 
 interface WorkLogCourseSelectorProps {
-  courses: WorkLogCourse[];
+  courses: UnifiedCourse[];
   activeCourse: ActiveEntry | null;
   selectedCourse: number | null;
   onCourseChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  hasActiveEntry?: boolean;
 }
 
 const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
@@ -14,8 +23,18 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
   activeCourse,
   selectedCourse,
   onCourseChange,
+  hasActiveEntry = false,
 }) => {
   const {t} = useTranslation(['common']);
+
+  // Function to get course type icon
+  const CourseTypeIcon = ({type}: {type: 'worklog' | 'practicum'}) => {
+    return type === 'worklog' ? (
+      <WorkIcon fontSize='small' className='text-metropolia-main-orange' />
+    ) : (
+      <SchoolIcon fontSize='small' className='text-metropolia-support-blue' />
+    );
+  };
 
   if (courses.length === 0) {
     return (
@@ -47,33 +66,40 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
   }
 
   return (
-    <div className='relative'>
-      <select
-        title={t('common:worklog.selectCourse')}
-        value={selectedCourse || ''}
-        onChange={onCourseChange}
-        className="w-full p-4 rounded-xl font-body text-lg
-          border-2 border-metropolia-main-grey/20
-          bg-metropolia-support-white text-metropolia-main-grey
-          shadow-lg transition-all duration-300
-          hover:border-metropolia-main-orange/50
-          focus:border-metropolia-main-orange focus:ring-2
-          focus:ring-metropolia-main-orange/20
-          focus:shadow-xl appearance-none cursor-pointer
-          bg-[url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 24 24%27 stroke=%27%23666%27%3E%3Cpath stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M19 9l-7 7-7-7%27%3E%3C/path%3E%3C/svg%3E')]
-          bg-no-repeat bg-[length:20px] bg-[center_right_1rem]">
-        <option value='' disabled>
-          {t('common:worklog.selectCourse')}
-        </option>
-        {courses.map((course) => (
-          <option
-            key={course.work_log_course_id}
-            value={course.work_log_course_id}
-            className='py-2'>
-            {course.name} {course.code && `- ${course.code}`}
-          </option>
-        ))}
-      </select>
+    <div>
+      <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
+        {t('common:worklog.selectCourse')}
+      </label>
+      <div className='relative'>
+        <select
+          value={selectedCourse || ''}
+          onChange={onCourseChange}
+          disabled={hasActiveEntry}
+          className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200 appearance-none pr-10'>
+          {courses.map((course) => (
+            <option
+              key={course.work_log_course_id}
+              value={course.work_log_course_id}>
+              {course.name} {course.type === 'practicum' ? '(Practicum)' : ''}
+            </option>
+          ))}
+        </select>
+        <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+          {selectedCourse && (
+            <CourseTypeIcon
+              type={
+                courses.find((c) => c.work_log_course_id === selectedCourse)
+                  ?.type || 'worklog'
+              }
+            />
+          )}
+        </div>
+      </div>
+      {hasActiveEntry && activeCourse && (
+        <p className='mt-2 text-sm text-metropolia-main-orange'>
+          {t('common:worklog.activeEntry')}: {activeCourse.name}
+        </p>
+      )}
     </div>
   );
 };
