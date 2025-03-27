@@ -75,6 +75,8 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
           value={selectedCourse || ''}
           onChange={onCourseChange}
           disabled={hasActiveEntry}
+          aria-label={t('common:worklog.selectCourse')}
+          title={t('common:worklog.selectCourse')}
           className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200 appearance-none pr-10'>
           {courses.map((course) => (
             <option
@@ -95,11 +97,6 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
           )}
         </div>
       </div>
-      {hasActiveEntry && activeCourse && (
-        <p className='mt-2 text-sm text-metropolia-main-orange'>
-          {t('common:worklog.activeEntry')}: {activeCourse.name}
-        </p>
-      )}
     </div>
   );
 };
