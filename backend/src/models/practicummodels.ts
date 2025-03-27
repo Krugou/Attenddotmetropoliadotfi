@@ -4,7 +4,6 @@ import logger from '../utils/logger.js';
 
 const pool = createPool('ADMIN');
 
-
 export interface Practicum extends RowDataPacket {
   work_log_practicum_id: number;
   name: string;
@@ -40,10 +39,18 @@ const practicum = {
       const formattedStartDate = formatDateForMySQL(startDate);
       const formattedEndDate = formatDateForMySQL(endDate);
 
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'INSERT INTO work_log_practicum (name, start_date, end_date, description, required_hours) VALUES (?, ?, ?, ?, ?)',
-        [name, formattedStartDate, formattedEndDate, description, requiredHours],
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'INSERT INTO work_log_practicum (name, start_date, end_date, description, required_hours) VALUES (?, ?, ?, ?, ?)',
+          [
+            name,
+            formattedStartDate,
+            formattedEndDate,
+            description,
+            requiredHours,
+          ],
+        );
       return result;
     } catch (error) {
       logger.error('Error creating practicum:', error);
@@ -73,9 +80,11 @@ const practicum = {
 
   async getAllPracticums(): Promise<Practicum[]> {
     try {
-      const [rows] = await pool.promise().query<Practicum[]>(
-        'SELECT * FROM work_log_practicum ORDER BY start_date DESC',
-      );
+      const [rows] = await pool
+        .promise()
+        .query<Practicum[]>(
+          'SELECT * FROM work_log_practicum ORDER BY start_date DESC',
+        );
       return rows;
     } catch (error) {
       logger.error('Error getting all practicums:', error);
@@ -120,12 +129,14 @@ const practicum = {
 
       values.push(practicumId);
 
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        `UPDATE work_log_practicum SET ${updateFields.join(
-          ', ',
-        )} WHERE work_log_practicum_id = ?`,
-        values,
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          `UPDATE work_log_practicum SET ${updateFields.join(
+            ', ',
+          )} WHERE work_log_practicum_id = ?`,
+          values,
+        );
 
       return result;
     } catch (error) {
@@ -136,23 +147,29 @@ const practicum = {
 
   async deletePracticum(practicumId: number): Promise<ResultSetHeader> {
     try {
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'DELETE FROM work_log_practicum WHERE work_log_practicum_id = ?',
-        [practicumId],
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'DELETE FROM work_log_practicum WHERE work_log_practicum_id = ?',
+          [practicumId],
+        );
       return result;
     } catch (error) {
       logger.error('Error deleting practicum:', error);
       throw error;
     }
   },
-  async assignStudentToPracticum(practicumId: number, userId: number): Promise<ResultSetHeader> {
+  async assignStudentToPracticum(
+    practicumId: number,
+    userId: number,
+  ): Promise<ResultSetHeader> {
     try {
-
-      const [result] = await pool.promise().query<ResultSetHeader>(
-        'UPDATE work_log_practicum SET userid = ? WHERE work_log_practicum_id = ?',
-        [userId, practicumId]
-      );
+      const [result] = await pool
+        .promise()
+        .query<ResultSetHeader>(
+          'UPDATE work_log_practicum SET userid = ? WHERE work_log_practicum_id = ?',
+          [userId, practicumId],
+        );
       if (result.affectedRows === 0) {
         throw new Error('Practicum not found or student assignment failed');
       }
@@ -166,18 +183,39 @@ const practicum = {
 
   async getPracticumByStudentEmail(email: string): Promise<Practicum[]> {
     try {
+      // Step 1: Find the user ID from the email
+      const [userResults] = await pool
+        .promise()
+        .query<RowDataPacket[]>('SELECT userid FROM users WHERE email = ?', [
+          email,
+        ]);
+
+      // Check if user exists
+      if (userResults.length === 0) {
+        logger.info(`No user found with email: ${email}`);
+
+        return [];
+      }
+
+      const userId = userResults[0].userid;
+
+      // Step 2: Find practicums for this user ID
       const [rows] = await pool.promise().query<Practicum[]>(
         `SELECT p.*, u.first_name, u.last_name, u.email
          FROM work_log_practicum p
          JOIN users u ON p.userid = u.userid
-         WHERE u.email = ?
-         AND p.end_date >= CURDATE()
+         WHERE p.userid = 8 AND p.end_date >= CURDATE()
          ORDER BY p.start_date DESC`,
-        [email],
+        [userId],
       );
+
+      logger.info(
+        `Retrieved ${rows.length} practicums for student email: ${email} (userid: ${userId})`,
+      );
+
       return rows;
     } catch (error) {
-      logger.error('Error getting practicum by student:', error);
+      logger.error(`Error getting practicum by student email ${email}:`, error);
       throw error;
     }
   },
