@@ -44,6 +44,8 @@ export interface WorkLogEntryCreate {
   endTime: Date;
   description: string;
   status: 0 | 1 | 2 | 3;
+  work_log_practicum_id?: number;
+  work_log_course_id?: number;
 }
 
 export interface CreateGroupData {
@@ -124,7 +126,9 @@ export interface WorkLogController {
   createWorkLogEntry: (
     entryData: WorkLogEntryCreate,
   ) => Promise<ResultSetHeader>;
-
+  createWorkLogEntryPracticum: (
+    entryData: WorkLogEntryCreate,
+  ) => Promise<ResultSetHeader>;
   /**
    * Gets all worklog entries for a user
    * @param userId The user ID to get entries for
@@ -154,7 +158,10 @@ export interface WorkLogController {
     userId: number,
     courseId: number,
   ) => Promise<ResultSetHeader>;
-  getWorkLogStats: (userId: number, courseId?: number) => Promise<RowDataPacket[]>;
+  getWorkLogStats: (
+    userId: number,
+    courseId?: number,
+  ) => Promise<RowDataPacket[]>;
   getWorkLogCoursesByInstructor: (email: string) => Promise<WorkLogCourse[]>;
   deleteWorkLog: (worklogId: number) => Promise<ResultSetHeader>;
 
@@ -267,7 +274,10 @@ export interface WorkLogController {
    * @returns Promise with delete result
    * @throws Error if student not found in group or removal fails
    */
-  removeStudentFromGroup(groupId: number, studentId: number): Promise<ResultSetHeader>;
+  removeStudentFromGroup(
+    groupId: number,
+    studentId: number,
+  ): Promise<ResultSetHeader>;
 }
 
 const workLogController: WorkLogController = {
@@ -371,6 +381,25 @@ const workLogController: WorkLogController = {
       console.error('Error in createWorkLogEntry:', error);
       throw error;
     }
+  },
+
+  // Similar to createWorkLogEntry but for practicums
+  async createWorkLogEntryPracticum(params) {
+    // Additional validation
+    if (!params.userId) {
+      throw new Error('User ID is required');
+    }
+    if (!params.work_log_practicum_id) {
+      throw new Error('Practicum ID is required');
+    }
+    return await work_log_entries.createPracticumEntry(
+      params.userId,
+      params.work_log_practicum_id,
+      params.startTime,
+      params.endTime,
+      params.description,
+      params.status,
+    );
   },
 
   /**
@@ -530,7 +559,10 @@ const workLogController: WorkLogController = {
    */
   async getWorkLogStats(userId: number, courseId?: number) {
     try {
-      const stats = await work_log_courses.getWorkLogStatsByUser(userId, courseId);
+      const stats = await work_log_courses.getWorkLogStatsByUser(
+        userId,
+        courseId,
+      );
       return stats;
     } catch (error) {
       console.error('Error in getWorkLogStats:', error);
@@ -895,16 +927,26 @@ const workLogController: WorkLogController = {
     }
   },
 
-  async removeStudentFromGroup(groupId: number, studentId: number): Promise<ResultSetHeader> {
+  async removeStudentFromGroup(
+    groupId: number,
+    studentId: number,
+  ): Promise<ResultSetHeader> {
     try {
-      const groupMembers = await student_group_assignments.getGroupMembers(groupId);
-      const studentExists = groupMembers.some(member => member.userid === studentId);
+      const groupMembers = await student_group_assignments.getGroupMembers(
+        groupId,
+      );
+      const studentExists = groupMembers.some(
+        (member) => member.userid === studentId,
+      );
 
       if (!studentExists) {
         throw new Error('Student not found in group');
       }
 
-      const result = await student_group_assignments.removeStudentFromGroup(groupId, studentId);
+      const result = await student_group_assignments.removeStudentFromGroup(
+        groupId,
+        studentId,
+      );
 
       if (result.affectedRows === 0) {
         throw new Error('Failed to remove student from group');
