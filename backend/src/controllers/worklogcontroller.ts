@@ -12,7 +12,7 @@ import {WorkLogEntry} from '../models/work_log_entrymodel.js';
 import {WorkLogCourseGroup} from '../models/work_log_groupmodel.js';
 import {WorkLogCourseUser} from '../models/work_log_usermodel.js';
 import logger from '../utils/logger.js';
-
+import practicummodels from '../models/practicummodels.js';
 // Define interfaces for input data
 export interface Student {
   email: string;
@@ -807,17 +807,36 @@ const workLogController: WorkLogController = {
 
       const entriesWithCourses = await Promise.all(
         entries.map(async (entry) => {
-          const courseDetails = await work_log_courses.getWorkLogCourseById(
-            entry.work_log_course_id,
-          );
+          // Check if this is a practicum entry or a regular course entry
+          if (entry.work_log_practicum_id) {
+            // Handle practicum entries
+            const practicumDetails = await practicummodels.getPracticumById(
+              entry.work_log_practicum_id,
+            );
 
-          return {
-            ...entry,
-            course: {
-              name: courseDetails[0]?.name || '',
-              code: courseDetails[0]?.code || '',
-            },
-          };
+            return {
+              ...entry,
+              isPracticum: true,
+              course: {
+                name: practicumDetails[0]?.name || 'Practicum',
+                code: practicumDetails[0]?.code || '',
+              },
+            };
+          } else {
+            // Handle regular course entries
+            const courseDetails = await work_log_courses.getWorkLogCourseById(
+              entry.work_log_course_id,
+            );
+
+            return {
+              ...entry,
+              isPracticum: false,
+              course: {
+                name: courseDetails[0]?.name || '',
+                code: courseDetails[0]?.code || '',
+              },
+            };
+          }
         }),
       );
 
@@ -833,9 +852,6 @@ const workLogController: WorkLogController = {
   async updateWorkLogEntry(entryId: number, updatedData: any) {
     try {
       const entry = await work_log_entries.getWorkLogEntryById(entryId);
-      if (!entry) {
-        throw new Error('Worklog entry not found');
-      }
 
       const updates = {
         description: updatedData.description,
