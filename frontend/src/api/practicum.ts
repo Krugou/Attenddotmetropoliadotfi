@@ -89,6 +89,17 @@ export const assignStudentToPracticum = async (
   return await doFetch(`${baseUrl}practicum/${practicumId}/assign-student`, options);
 };
 
+export const getStudentPracticum = async (email: string, token: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  return await doFetch(`${baseUrl}practicum/student/${email}`, options);
+};
+
 export const practicumApi = {
   createPracticumCourse,
   getPracticumDetails,
@@ -96,6 +107,7 @@ export const practicumApi = {
   deletePracticum,
   getPracticumsByInstructor,
   assignStudentToPracticum,
+  getStudentPracticum,
 };
 
 

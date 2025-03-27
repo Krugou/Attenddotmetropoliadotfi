@@ -131,4 +131,18 @@ router.post(
   }
 );
 
+router.get(
+  '/student/:email',
+  async (req: Request, res: Response) => {
+    try {
+      const email = req.params.email;
+      const result = await practicumController.getPracticumByStudentEmail(email);
+      res.json(result);
+    } catch (error) {
+      logger.error('Error getting student practicum:', error);
+      res.status(500).json({error: 'Failed to get student practicum'});
+    }
+  }
+);
+
 export default router;

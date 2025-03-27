@@ -163,6 +163,24 @@ const practicum = {
       throw error;
     }
   },
+
+  async getPracticumByStudentEmail(email: string): Promise<Practicum[]> {
+    try {
+      const [rows] = await pool.promise().query<Practicum[]>(
+        `SELECT p.*, u.first_name, u.last_name, u.email
+         FROM work_log_practicum p
+         JOIN users u ON p.userid = u.userid
+         WHERE u.email = ?
+         AND p.end_date >= CURDATE()
+         ORDER BY p.start_date DESC`,
+        [email],
+      );
+      return rows;
+    } catch (error) {
+      logger.error('Error getting practicum by student:', error);
+      throw error;
+    }
+  },
 };
 
 export default practicum;

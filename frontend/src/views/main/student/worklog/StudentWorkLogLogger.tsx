@@ -53,7 +53,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
   // Generate days of the current week
   const getDaysOfWeek = useCallback(() => {
-    const days = [];
+    const days: Date[] = [];
     const startDate = new Date(currentWeekStart);
 
     for (let i = 0; i < 7; i++) {

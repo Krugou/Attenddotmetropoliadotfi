@@ -169,6 +169,21 @@ const practicumController = {
       throw error;
     }
   },
+
+  async getPracticumByStudentEmail(email: string): Promise<PracticumData[]> {
+    try {
+      const practicums = await practicum.getPracticumByStudentEmail(email);
+      return practicums.map(p => ({
+        ...p,
+        start_date: p.start_date.toISOString(),
+        end_date: p.end_date.toISOString(),
+        created_at: p.created_at?.toISOString(),
+      }));
+    } catch (error) {
+      logger.error('Error in getPracticumByStudentEmail:', error);
+      throw error;
+    }
+  },
 };
 
 export default practicumController;
