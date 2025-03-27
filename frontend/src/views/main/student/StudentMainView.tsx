@@ -43,11 +43,16 @@ const MainView: React.FC = () => {
         const token = localStorage.getItem('userToken');
         if (!token || !user?.email) return;
 
-        const courses = await apiHooks.getActiveCoursesByStudentEmail(
-          user.email,
-          token,
+        // Check for both worklog courses and practicum courses
+        const [worklogCourses, practicumCourses] = await Promise.all([
+          apiHooks.getActiveCoursesByStudentEmail(user.email, token),
+          apiHooks.getStudentPracticum(user.email, token),
+        ]);
+
+        // Show worklog UI if either type of course exists
+        setHasWorkLogCourses(
+          worklogCourses.length > 0 || practicumCourses.length > 0,
         );
-        setHasWorkLogCourses(courses.length > 0);
       } catch (error) {
         console.error('Error checking worklog courses:', error);
         setHasWorkLogCourses(false);
