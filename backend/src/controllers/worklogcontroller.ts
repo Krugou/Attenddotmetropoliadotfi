@@ -851,7 +851,7 @@ const workLogController: WorkLogController = {
 
   async updateWorkLogEntry(entryId: number, updatedData: any) {
     try {
-      const entry = await work_log_entries.getWorkLogEntryById(entryId);
+      // const entry = await work_log_entries.getWorkLogEntryById(entryId);
 
       const updates = {
         description: updatedData.description,
