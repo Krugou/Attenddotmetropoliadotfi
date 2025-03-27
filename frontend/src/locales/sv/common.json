@@ -255,8 +255,8 @@
     },
     "delete": {
       "confirm": "Är du säker på att du vill radera denna post?",
-      "success": "Posten raderades framgångsrikt",
-      "error": "Misslyckades med att radera posten"
+      "success": "Posten har raderats framgångsrikt",
+      "error": "Det gick inte att radera posten"
     },
     "filter": {
       "course": "Välj en kurs",
@@ -295,6 +295,17 @@
       "submit": "Lägg till valda poster",
       "submitting": "Lägger till poster...",
       "hoursTooltip": "Arbetade timmar"
+    },
+    "confirmation": {
+      "duplicateEntryWarning": "Du har redan en post för denna kurs idag. Vill du fortfarande lägga till en ny post?",
+      "title": "Bekräftelse"
+    },
+    "tooltips": {
+      "modify": "Modifiera post",
+      "delete": "Radera post"
+    },
+    "logger": {
+      "title": "Arbetsloggsregistrering"
     }
   },
   "lectures": {

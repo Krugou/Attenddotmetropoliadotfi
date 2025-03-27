@@ -264,6 +264,10 @@
       "massEntriesAdded": "{{count}} merkintää lisätty onnistuneesti",
       "failedToAddEntries": "Merkintöjen lisääminen epäonnistui"
     },
+    "confirmation": {
+      "duplicateEntryWarning": "Sinulla on jo kirjaus tälle kurssille tänään. Haluatko silti lisätä uuden kirjauksen?",
+      "title": "Vahvistus"
+    },
     "name": "Nimi",
     "code": "Koodi",
     "startDate": "Aloituspäivä",

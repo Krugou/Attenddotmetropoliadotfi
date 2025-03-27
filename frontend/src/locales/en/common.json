@@ -316,6 +316,10 @@
       "submit": "Add Selected Entries",
       "submitting": "Adding Entries...",
       "hoursTooltip": "Hours worked"
+    },
+    "confirmation": {
+      "duplicateEntryWarning": "You already have an entry for this course today. Do you still want to add a new entry?",
+      "title": "Confirmation"
     }
   },
   "lectures": {
