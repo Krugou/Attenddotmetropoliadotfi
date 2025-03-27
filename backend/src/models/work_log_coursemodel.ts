@@ -15,8 +15,16 @@ export interface WorkLogCourse extends RowDataPacket {
   required_hours: number;
 }
 
-type WorkLogCourseUpdateValue = string | number | Date;
+export type QueryValue = string | number | Date | boolean;
 
+interface WorkLogCourseUpdate {
+  name?: string;
+  code?: string;
+  description?: string;
+  start_date?: string;
+  end_date?: string;
+  required_hours?: number;
+}
 
 const formatDateForMySQL = (date: Date | string): string => {
   if (typeof date === 'string') {
@@ -86,19 +94,12 @@ const work_log_courses = {
   },
   async updateWorkLogCourse(
     courseId: number,
-    updates: {
-      name?: string;
-      code?: string;
-      description?: string;
-      start_date?: string;
-      end_date?: string;
-      required_hours?: number;
-    },
+    updates: WorkLogCourseUpdate
   ): Promise<ResultSetHeader> {
     try {
       // Build the update query dynamically based on provided fields
       const updateFields: string[] = [];
-      const values: WorkLogCourseUpdateValue[] = [];
+      const values: QueryValue[] = [];
 
       if (updates.name) {
         updateFields.push('name = ?');
@@ -195,9 +196,8 @@ const work_log_courses = {
                    JOIN work_log_entries wle ON wlc.work_log_course_id = wle.work_log_course_id
                    WHERE wle.userid = ?`;
 
-      const params: any[] = [userId];
+      const params: QueryValue[] = [userId];
 
-      // Add course filter if provided
       if (courseId !== undefined) {
         query += ` AND wlc.work_log_course_id = ?`;
         params.push(courseId);

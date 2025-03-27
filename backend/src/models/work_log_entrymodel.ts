@@ -4,6 +4,8 @@ import logger from '../utils/logger.js';
 
 const pool = createPool('ADMIN'); // Adjust the path to your pool file
 
+export type WorkLogStatus = 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
+
 export interface WorkLogEntry extends RowDataPacket {
   entry_id: number;
   userid: number;
@@ -11,19 +13,24 @@ export interface WorkLogEntry extends RowDataPacket {
   start_time: Date;
   end_time: Date;
   description: string;
-  status: 0 | 1 | 2 | 3; // 0=pending, 1=approved, 2=rejected, 3=submitted
+  status: WorkLogStatus;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
 }
-export interface PracticumEntry extends RowDataPacket {
-  entry_id: number;
-  userid: number;
+
+export interface PracticumEntry extends WorkLogEntry {
   work_log_practicum_id: number;
-  start_time: Date;
-  end_time: Date;
-  description: string;
-  status: 0 | 1 | 2 | 3;
-
 }
 
+export interface WorkLogEntryUpdate {
+  description?: string;
+  start_time?: string | Date;
+  end_time?: string | Date;
+  status?: WorkLogStatus;
+}
+
+export type QueryValue = string | number | Date | boolean;
 
 const work_log_entries = {
   async createWorkLogEntry(
@@ -32,7 +39,7 @@ const work_log_entries = {
     startTime: Date,
     endTime: Date,
     description: string,
-    status: 0 | 1 | 2 | 3,
+    status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
       const [result] = await pool
@@ -108,27 +115,20 @@ const work_log_entries = {
 
   async updateWorkLogEntry(
     entryId: number,
-    updates: Partial<{
-      description: string;
-      start_time: string | Date;
-      end_time: string | Date;
-      status: 0 | 1 | 2 | 3;
-    }>,
+    updates: WorkLogEntryUpdate,
   ): Promise<ResultSetHeader> {
     try {
       // Validate entry exists first
       const [entry] = await pool
         .promise()
-        .query<
-          WorkLogEntry[]
-        >('SELECT * FROM work_log_entries WHERE entry_id = ?', [entryId]);
+        .query<WorkLogEntry[]>('SELECT * FROM work_log_entries WHERE entry_id = ?', [entryId]);
 
       if (!entry || !entry[0]) {
         throw new Error('Work log entry not found');
       }
 
       const updateFields: string[] = [];
-      const values: any[] = [];
+      const values: QueryValue[] = [];
 
       if (updates.description !== undefined) {
         updateFields.push('description = ?');
@@ -166,7 +166,7 @@ const work_log_entries = {
 
   async updateWorkLogEntryStatus(
     entryId: number,
-    status: 0 | 1 | 2 | 3,
+    status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
       const [result] = await pool
@@ -249,7 +249,7 @@ const work_log_entries = {
     startTime: Date | string,
     endTime: Date | string,
     description: string,
-    status: 0 | 1 | 2 | 3,
+    status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
       const [result] = await pool

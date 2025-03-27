@@ -1,9 +1,12 @@
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
 import practicum from '../models/practicummodels.js';
-import practicumEntry from '../models/work_log_entrymodel.js';
+import practicumEntry, { PracticumEntry } from '../models/work_log_entrymodel.js';
 import work_log_practicum_instructors from '../models/work_log_practicum_instructormodel.js';
 import logger from '../utils/logger.js';
 
+interface Instructor {
+  email: string;
+}
 
 export interface PracticumCreate {
   name: string;
@@ -11,7 +14,7 @@ export interface PracticumCreate {
   endDate: Date | string;
   description: string;
   requiredHours: number;
-  instructors?: {email: string}[];
+  instructors?: Instructor[];
 }
 
 export interface PracticumUpdate {
@@ -23,14 +26,25 @@ export interface PracticumUpdate {
   instructors?: string[];
 }
 
-export interface PracticumDetails {
-  practicum?: {
-    instructor_name?: string;
-    [key: string]: any;
-  };
-  entries?: any[];
-};
+export interface PracticumData extends RowDataPacket {
+  work_log_practicum_id: number;
+  name: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  created_at?: string;
+  required_hours: number;
+  instructor_name?: string;
+  userid?: number;
+  first_name?: string | null;
+  last_name?: string | null;
+  email?: string | null;
+}
 
+export interface PracticumDetails {
+  practicum?: PracticumData;
+  entries?: PracticumEntry[];
+}
 
 const practicumController = {
   async createPracticum(practicumData: PracticumCreate) {
@@ -69,11 +83,17 @@ const practicumController = {
         practicumId,
       );
 
+
+      const formattedPracticum: PracticumData = {
+        ...practicumDetails[0],
+        start_date: practicumDetails[0].start_date.toISOString(),
+        end_date: practicumDetails[0].end_date.toISOString(),
+        created_at: practicumDetails[0].created_at?.toISOString(),
+        instructor_name: instructors.map((i) => i.email).join(','),
+      };
+
       return {
-        practicum: {
-          ...practicumDetails[0],
-          instructor_name: instructors.map((i) => i.email).join(','),
-        },
+        practicum: formattedPracticum,
         entries,
       };
     } catch (error) {

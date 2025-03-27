@@ -42,6 +42,8 @@ interface GroupDetails {
     description: string;
     status: number;
     user_id: number;
+    first_name: string;
+    last_name: string;
   }[];
 }
 
@@ -334,6 +336,9 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                   <thead>
                     <tr className='text-gray-600 border-b font-body'>
                       <th className='p-3 text-left'>
+                        {t('teacher:worklog.entries.name')}
+                      </th>
+                      <th className='p-3 text-left'>
                         {t('teacher:worklog.entries.date')}
                       </th>
                       <th className='p-3 text-left'>
@@ -352,6 +357,9 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       <tr
                         key={entry.entry_id}
                         className='border-b hover:bg-gray-50 font-body'>
+                        <td className='p-3'>
+                          {`${entry.first_name} ${entry.last_name}`}
+                        </td>
                         <td className='p-3'>
                           {new Date(entry.start_time).toLocaleDateString()}
                         </td>

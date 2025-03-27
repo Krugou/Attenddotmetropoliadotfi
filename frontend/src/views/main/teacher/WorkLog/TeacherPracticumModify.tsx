@@ -11,6 +11,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PracticumData from '../../../../components/main/practicum/PracticumDetailsStep';
 
+interface Instructor {
+  email: string;
+}
+
 interface PracticumDetail {
   work_log_practicum_id: string;
   name: string;
@@ -19,20 +23,30 @@ interface PracticumDetail {
   end_date: string;
   required_hours: number;
   instructor_name: string;
-  instructors?: {email: string}[];
+  instructors?: Instructor[];
+}
+
+interface PracticumUpdateData {
+  name: string;
+  code: string;
+  description: string;
+  required_hours: number;
+  start_date: string;
+  end_date: string;
+  instructors: string[];
 }
 
 const TeacherPracticumModify: React.FC = () => {
   const {t} = useTranslation(['translation']);
   const [practicumData, setPracticumData] = useState<PracticumDetail | null>(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [requiredHours, setRequiredHours] = useState(0);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [instructors, setInstructors] = useState<{email: string}[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [instructorEmail, setInstructorEmail] = useState('');
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [requiredHours, setRequiredHours] = useState<number>(0);
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [instructors, setInstructors] = useState<Instructor[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [instructorEmail, setInstructorEmail] = useState<string>('');
 
   const navigate = useNavigate();
   const {practicumid} = useParams<{practicumid: string}>();
@@ -106,7 +120,7 @@ const TeacherPracticumModify: React.FC = () => {
     }
 
     try {
-      const modifiedData = {
+      const modifiedData: PracticumUpdateData = {
         name,
         code: practicumData?.name || name,
         description,
