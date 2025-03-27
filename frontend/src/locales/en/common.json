@@ -426,5 +426,6 @@
     "addToCourse": "Add to course",
     "studentAddedToCourse": "Student added to course",
     "noAvailableCourses": "No available courses"
-  }
+  },
+  "practicum": "Practicum Entry"
 }

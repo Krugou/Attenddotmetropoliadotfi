@@ -387,5 +387,6 @@
     "addToCourse": "Lägga till kursen",
     "studentAddedToCourse": "Student läggs till kursen",
     "noAvailableCourses": "Inga tillgängliga kurser"
-  }
+  },
+  "practicum": "Praktikinträde"
 }

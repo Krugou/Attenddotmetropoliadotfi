@@ -405,5 +405,6 @@
     "addToCourse": "Lisätä",
     "studentAddedToCourse": "Opiskelija lisätty kurssille",
     "noAvailableCourses": "Ei käytettävissä olevia kursseja"
-  }
+  },
+  "practicum": "Harjoittelu"
 }
