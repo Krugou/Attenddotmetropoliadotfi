@@ -252,7 +252,8 @@
       "failedToFetch": "Misslyckades med att hämta kurser",
       "massEntriesAdded": "{{count}} poster har lagts till",
       "failedToAddEntries": "Misslyckades med att lägga till poster",
-      "entryAdded": "Post tillagd framgångsrikt."
+      "entryAdded": "Post tillagd framgångsrikt.",
+      "entryClosed": "Post stängd."
     },
     "delete": {
       "confirm": "Är du säker på att du vill radera denna post?",

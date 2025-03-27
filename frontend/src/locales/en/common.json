@@ -251,7 +251,8 @@
       "failedToFetch": "Failed to fetch courses",
       "massEntriesAdded": "{{count}} entries added successfully",
       "failedToAddEntries": "Failed to add entries",
-      "entryAdded": "Entry added successfully."
+      "entryAdded": "Entry added successfully.",
+      "entryClosed": "Entry Closed."
     },
     "name": "Name",
     "code": "Code",

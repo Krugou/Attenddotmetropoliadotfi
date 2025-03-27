@@ -263,7 +263,8 @@
       "failedToFetch": "Kurssien haku epäonnistui",
       "massEntriesAdded": "{{count}} merkintää lisätty onnistuneesti",
       "failedToAddEntries": "Merkintöjen lisääminen epäonnistui",
-      "entryAdded": " Syöttö lisättiin onnistuneesti."
+      "entryAdded": " Syöttö lisättiin onnistuneesti.",
+      "entryClosed": "Syöttö suljettu."
     },
     "confirmation": {
       "duplicateEntryWarning": "Sinulla on jo kirjaus tälle kurssille tänään. Haluatko silti lisätä uuden kirjauksen?",
