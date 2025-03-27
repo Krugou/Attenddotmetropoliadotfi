@@ -251,7 +251,8 @@
       "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
       "failedToFetch": "Misslyckades med att hämta kurser",
       "massEntriesAdded": "{{count}} poster har lagts till",
-      "failedToAddEntries": "Misslyckades med att lägga till poster"
+      "failedToAddEntries": "Misslyckades med att lägga till poster",
+      "entryAdded": "Post tillagd framgångsrikt."
     },
     "delete": {
       "confirm": "Är du säker på att du vill radera denna post?",

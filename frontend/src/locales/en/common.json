@@ -250,7 +250,8 @@
       "failedToCheck": "Failed to check active work entries",
       "failedToFetch": "Failed to fetch courses",
       "massEntriesAdded": "{{count}} entries added successfully",
-      "failedToAddEntries": "Failed to add entries"
+      "failedToAddEntries": "Failed to add entries",
+      "entryAdded": "Entry added successfully."
     },
     "name": "Name",
     "code": "Code",

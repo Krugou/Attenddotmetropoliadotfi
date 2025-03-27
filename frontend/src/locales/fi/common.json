@@ -262,7 +262,8 @@
       "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
       "failedToFetch": "Kurssien haku epäonnistui",
       "massEntriesAdded": "{{count}} merkintää lisätty onnistuneesti",
-      "failedToAddEntries": "Merkintöjen lisääminen epäonnistui"
+      "failedToAddEntries": "Merkintöjen lisääminen epäonnistui",
+      "entryAdded": " Syöttö lisättiin onnistuneesti."
     },
     "confirmation": {
       "duplicateEntryWarning": "Sinulla on jo kirjaus tälle kurssille tänään. Haluatko silti lisätä uuden kirjauksen?",
