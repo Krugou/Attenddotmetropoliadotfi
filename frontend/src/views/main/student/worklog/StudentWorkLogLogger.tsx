@@ -94,6 +94,14 @@ const StudentWorkLogLogger: React.FC = () => {
     return monday;
   }
 
+  // Helper function to format date to YYYY-MM-DD for comparison
+  const formatDateToString = (date: Date): string => {
+    return date.toISOString().split('T')[0];
+  };
+
+  // Get today's date as YYYY-MM-DD for comparison
+  const todayString = formatDateToString(new Date());
+
   // Generate days of the current week
   const getDaysOfWeek = useCallback(() => {
     const days: Date[] = [];
@@ -107,6 +115,22 @@ const StudentWorkLogLogger: React.FC = () => {
 
     return days;
   }, [currentWeekStart]);
+
+  // Check if a date is today
+  const isToday = useCallback(
+    (date: Date): boolean => {
+      return formatDateToString(date) === todayString;
+    },
+    [todayString],
+  );
+
+  // Check if a date is past (before today)
+  const isPastDate = useCallback(
+    (date: Date): boolean => {
+      return formatDateToString(date) < todayString;
+    },
+    [todayString],
+  );
 
   // Navigate to previous week
   const goToPreviousWeek = () => {
@@ -474,6 +498,29 @@ const StudentWorkLogLogger: React.FC = () => {
       return;
     }
 
+    // Check if any selected date is today and already has an entry
+    const todayEntry = selectedEntries.find(
+      (entry) => formatDateToString(entry.date) === todayString,
+    );
+
+    if (todayEntry && (await checkForExistingEntryToday())) {
+      // Show confirmation dialog for duplicate entry
+      const executeAction = async () => {
+        await processMassEntries(selectedEntries);
+      };
+
+      setPendingAction(() => executeAction);
+      setShowConfirmation(true);
+      return;
+    }
+
+    await processMassEntries(selectedEntries);
+  };
+
+  // Process the mass entries after validation
+  const processMassEntries = async (
+    selectedEntries: {date: Date; hours: number}[],
+  ) => {
     setIsSubmitting(true);
 
     try {
@@ -483,7 +530,9 @@ const StudentWorkLogLogger: React.FC = () => {
       }
 
       const selectedCourseData = courses.find(
-        (course) => course.work_log_course_id === selectedCourse,
+        (course) =>
+          course.work_log_course_id === selectedCourse ||
+          course.work_log_practicum_id === selectedCourse,
       );
       if (!selectedCourseData) {
         throw new Error('Selected course not found');
@@ -520,6 +569,7 @@ const StudentWorkLogLogger: React.FC = () => {
       );
       setSelectedDays({});
       setMassDescription('');
+      setShowConfirmation(false);
 
       await checkActiveEntry();
     } catch (error) {
@@ -624,12 +674,12 @@ const StudentWorkLogLogger: React.FC = () => {
 
               <div className='grid grid-cols-7 gap-1'>
                 {getDaysOfWeek().map((day) => {
-                  const dateString = day.toISOString().split('T')[0];
+                  const dateString = formatDateToString(day);
                   const isSelected =
                     selectedDays[dateString]?.selected || false;
                   const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-                  const isPast =
-                    day < new Date(new Date().setHours(0, 0, 0, 0));
+                  const isPast = isPastDate(day);
+                  const isTodayDate = isToday(day);
                   const hasEntry = daysWithEntries.has(dateString);
 
                   return (
@@ -641,6 +691,8 @@ const StudentWorkLogLogger: React.FC = () => {
                         ${
                           isSelected
                             ? 'bg-metropolia-main-orange text-white'
+                            : isTodayDate
+                            ? 'bg-metropolia-main-orange bg-opacity-20 border-2 border-metropolia-main-orange text-metropolia-main-grey'
                             : isWeekend
                             ? 'bg-gray-100 text-gray-500'
                             : 'bg-white border text-metropolia-main-grey'
