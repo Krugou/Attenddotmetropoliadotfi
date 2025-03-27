@@ -48,17 +48,25 @@ const StudentWorklogs: React.FC = () => {
           user.userid,
           token,
         );
+
         if (response.entries) {
           setEntries(response.entries);
           const courses = new Map();
+
           response.entries.forEach((entry: WorkLogEntry) => {
-            if (entry.course?.code && !courses.has(entry.course.code)) {
+            if (entry.course?.code) {
               courses.set(entry.course.code, {
                 code: entry.course.code,
                 name: entry.course.name,
               });
+            } else {
+              courses.set('practicum', {
+                code: 'practicum',
+                name: entry.course.name,
+              });
             }
           });
+
           setUniqueCourses(Array.from(courses.values()));
         }
       } catch (error) {
