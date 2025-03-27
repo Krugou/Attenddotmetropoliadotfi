@@ -4,7 +4,9 @@ import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import apiHooks from '../../../../api';
 import {UserContext} from '../../../../contexts/UserContext';
-import WorkLogCourseSelector from '../../../../components/worklog/WorkLogCourseSelector';
+import WorkLogCourseSelector, {
+  UnifiedCourse,
+} from '../../../../components/worklog/WorkLogCourseSelector';
 import WorkLogActionButtons from '../../../../components/worklog/WorkLogActionButtons';
 import WorkLogModal from '../../../../components/worklog/WorkLogModal';
 import type {WorkLogCourse, ActiveEntry} from '../../../../types/worklog';
@@ -14,16 +16,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Add as AddIcon,
-  School as SchoolIcon,
-  Work as WorkIcon,
 } from '@mui/icons-material';
-
-// Define a unified course type that can handle both worklog and practicum courses
-interface UnifiedCourse extends WorkLogCourse {
-  type: 'worklog' | 'practicum';
-  work_log_course_id: number; // From worklog courses
-  work_log_practicum_id?: number; // From practicum courses
-}
 
 const StudentWorkLogLogger: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -126,7 +119,11 @@ const StudentWorkLogLogger: React.FC = () => {
       setHasActiveEntry(activeEntries.length > 0);
       if (activeEntries.length > 0) {
         setActiveCourse(activeEntries[0]);
-        setSelectedCourse(activeEntries[0].work_log_course_id);
+        if (activeEntries[0].work_log_practicum_id) {
+          setSelectedCourse(activeEntries[0].work_log_practicum_id);
+        } else {
+          setSelectedCourse(activeEntries[0].work_log_course_id);
+        }
       } else {
         setActiveCourse(null);
       }
@@ -229,7 +226,9 @@ const StudentWorkLogLogger: React.FC = () => {
       }
 
       const selectedCourseData = courses.find(
-        (course) => course.work_log_course_id === selectedCourse,
+        (course) =>
+          course.work_log_course_id === selectedCourse ||
+          course.work_log_practicum_id === selectedCourse,
       );
       if (!selectedCourseData) {
         throw new Error('Selected course not found');
@@ -248,8 +247,7 @@ const StudentWorkLogLogger: React.FC = () => {
         // Handle differently based on course type
         if (selectedCourseData.type === 'practicum') {
           // For practicum courses, we need to use a different endpoint or parameter
-          // This is hypothetical - you'll need to implement the actual API call
-          await apiHooks.createWorkLogEntry(params, token);
+          await apiHooks.createWorkLogEntryPracticum(params, token);
         } else {
           // Regular worklog entry
           await apiHooks.createWorkLogEntry(params, token);
@@ -335,11 +333,15 @@ const StudentWorkLogLogger: React.FC = () => {
           startTime: startTime,
           endTime: endTime,
           description: massDescription,
-          status: '1',
+          status: '2',
         };
 
         // Use the appropriate API call based on course type
-        await apiHooks.createWorkLogEntry(params, token);
+        if (selectedCourseData.type === 'practicum') {
+          await apiHooks.createWorkLogEntryPracticum(params, token);
+        } else {
+          await apiHooks.createWorkLogEntry(params, token);
+        }
       }
 
       toast.success(
@@ -358,54 +360,6 @@ const StudentWorkLogLogger: React.FC = () => {
     }
   };
 
-  // Function to get course type icon
-  const CourseTypeIcon = ({type}: {type: 'worklog' | 'practicum'}) => {
-    return type === 'worklog' ? (
-      <WorkIcon fontSize='small' className='text-metropolia-main-orange' />
-    ) : (
-      <SchoolIcon fontSize='small' className='text-metropolia-support-blue' />
-    );
-  };
-
-  // Custom course selector that shows course type
-  const EnhancedCourseSelector = () => (
-    <div>
-      <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
-        {t('common:worklog.selectCourse')}
-      </label>
-      <div className='relative'>
-        <select
-          value={selectedCourse || ''}
-          onChange={handleCourseChange}
-          disabled={hasActiveEntry}
-          className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200 appearance-none pr-10'>
-          {courses.map((course) => (
-            <option
-              key={course.work_log_course_id}
-              value={course.work_log_course_id}>
-              {course.name} {course.type === 'practicum' ? '(Practicum)' : ''}
-            </option>
-          ))}
-        </select>
-        <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
-          {selectedCourse && (
-            <CourseTypeIcon
-              type={
-                courses.find((c) => c.work_log_course_id === selectedCourse)
-                  ?.type || 'worklog'
-              }
-            />
-          )}
-        </div>
-      </div>
-      {hasActiveEntry && activeCourse && (
-        <p className='mt-2 text-sm text-metropolia-main-orange'>
-          {t('common:worklog.activeEntry')}: {activeCourse.course.name}
-        </p>
-      )}
-    </div>
-  );
-
   return (
     <div className='flex flex-col items-center justify-center min-h-[50vh] p-4 sm:p-6 md:p-8'>
       <div className='w-full max-w-md bg-white rounded-2xl shadow-xl p-6 space-y-6'>
@@ -414,7 +368,13 @@ const StudentWorkLogLogger: React.FC = () => {
             {t('common:worklog.logger.title')}
           </h2>
 
-          {EnhancedCourseSelector()}
+          <WorkLogCourseSelector
+            courses={courses}
+            activeCourse={activeCourse}
+            selectedCourse={selectedCourse}
+            onCourseChange={handleCourseChange}
+            hasActiveEntry={hasActiveEntry}
+          />
 
           <div className='flex justify-end'>
             <button
