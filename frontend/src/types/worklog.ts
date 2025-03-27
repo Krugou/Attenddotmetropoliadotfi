@@ -8,6 +8,8 @@ export interface WorkLogEntry {
     code: string;
   };
   status: number;
+  work_log_course_id?: number;
+  work_log_practicum_id?: number;
 }
 
 export interface WorkLogCourse {
