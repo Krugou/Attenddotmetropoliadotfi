@@ -9,7 +9,7 @@ import WorkLogCourseSelector, {
 } from '../../../../components/worklog/WorkLogCourseSelector';
 import WorkLogActionButtons from '../../../../components/worklog/WorkLogActionButtons';
 import WorkLogModal from '../../../../components/worklog/WorkLogModal';
-import type {WorkLogCourse, ActiveEntry} from '../../../../types/worklog';
+import type {ActiveEntry} from '../../../../types/worklog';
 import dayjs from 'dayjs';
 import {
   CalendarToday as CalendarIcon,
@@ -375,17 +375,19 @@ const StudentWorkLogLogger: React.FC = () => {
             onCourseChange={handleCourseChange}
             hasActiveEntry={hasActiveEntry}
           />
-
-          <div className='flex justify-end'>
-            <button
-              onClick={() => setShowMassEntry(!showMassEntry)}
-              className='flex items-center gap-2 px-4 py-2 bg-metropolia-support-blue text-white rounded-lg transition-all hover:bg-metropolia-support-blue-dark text-sm'>
-              <CalendarIcon fontSize='small' />
-              {showMassEntry
-                ? t('common:worklog.actions.hideMassEntry')
-                : t('common:worklog.actions.showMassEntry')}
-            </button>
-          </div>
+          {/* if activeentries dont show */}
+          {hasActiveEntry ? null : (
+            <div className='flex justify-end'>
+              <button
+                onClick={() => setShowMassEntry(!showMassEntry)}
+                className='flex items-center gap-2 px-4 py-2 bg-metropolia-support-blue text-white rounded-lg transition-all hover:bg-metropolia-support-blue-dark text-sm'>
+                <CalendarIcon fontSize='small' />
+                {showMassEntry
+                  ? t('common:worklog.actions.hideMassEntry')
+                  : t('common:worklog.actions.showMassEntry')}
+              </button>
+            </div>
+          )}
         </div>
 
         {showMassEntry ? (
@@ -418,6 +420,8 @@ const StudentWorkLogLogger: React.FC = () => {
                 <div className='flex items-center'>
                   <button
                     onClick={goToPreviousWeek}
+                    aria-label={t('common:worklog.massEntry.previousWeek')}
+                    title={t('common:worklog.massEntry.previousWeek')}
                     className='p-1 text-metropolia-main-grey hover:text-metropolia-main-orange'>
                     <ChevronLeftIcon />
                   </button>
@@ -429,6 +433,8 @@ const StudentWorkLogLogger: React.FC = () => {
                   </span>
                   <button
                     onClick={goToNextWeek}
+                    aria-label={t('common:worklog.massEntry.nextWeek')}
+                    title={t('common:worklog.massEntry.nextWeek')}
                     className='p-1 text-metropolia-main-grey hover:text-metropolia-main-orange'>
                     <ChevronRightIcon />
                   </button>
