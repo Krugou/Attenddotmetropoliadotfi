@@ -9,14 +9,45 @@ import WorkLogCourseSelector, {
 } from '../../../../components/worklog/WorkLogCourseSelector';
 import WorkLogActionButtons from '../../../../components/worklog/WorkLogActionButtons';
 import WorkLogModal from '../../../../components/worklog/WorkLogModal';
-import type {ActiveEntry} from '../../../../types/worklog';
+import type {ActiveEntry, WorkLogEntry} from '../../../../types/worklog';
 import dayjs from 'dayjs';
 import {
   CalendarToday as CalendarIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Add as AddIcon,
+  Info as InfoIcon,
 } from '@mui/icons-material';
+
+// Additional confirmation dialog component
+const ConfirmationDialog: React.FC<{
+  isOpen: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+  message: string;
+}> = ({isOpen, onConfirm, onCancel, message}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+      <div className='bg-white rounded-lg p-6 max-w-md w-full mx-4'>
+        <p className='text-metropolia-main-grey mb-4'>{message}</p>
+        <div className='flex justify-end space-x-3'>
+          <button
+            onClick={onCancel}
+            className='px-4 py-2 text-metropolia-main-grey bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors'>
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            className='px-4 py-2 text-white bg-metropolia-main-orange hover:bg-metropolia-secondary-orange rounded-lg transition-colors'>
+            Still Add Entry
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const StudentWorkLogLogger: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -40,6 +71,16 @@ const StudentWorkLogLogger: React.FC = () => {
     [key: string]: {selected: boolean; hours: number};
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Track days with existing entries
+  const [daysWithEntries, setDaysWithEntries] = useState<Set<string>>(
+    new Set(),
+  );
+
+  // Confirmation dialog state
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [pendingAction, setPendingAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
 
   // Helper function to get the start of the week (Monday)
   function getWeekStart(date: Date): Date {
@@ -199,6 +240,45 @@ const StudentWorkLogLogger: React.FC = () => {
     fetchCourses();
   }, [user?.email, hasActiveEntry, selectedCourse, navigate, t]);
 
+  useEffect(() => {
+    const fetchDaysWithEntries = async () => {
+      try {
+        const token = localStorage.getItem('userToken');
+        if (!token || !selectedCourse || !user?.userid) {
+          return;
+        }
+
+        const response = await apiHooks.getAllWorkLogEntries(
+          user.userid,
+          token,
+        );
+
+        if (response.entries) {
+          // Filter entries by the selected course
+          const courseEntries = response.entries.filter(
+            (entry: WorkLogEntry) =>
+              entry.work_log_course_id === selectedCourse ||
+              entry.work_log_practicum_id === selectedCourse,
+          );
+
+          // Create a Set of dates that already have entries for this course
+          const entryDates = new Set(
+            courseEntries.map(
+              (entry: WorkLogEntry) =>
+                new Date(entry.start_time).toISOString().split('T')[0],
+            ),
+          ) as Set<string>;
+
+          setDaysWithEntries(entryDates);
+        }
+      } catch (error) {
+        console.error('Failed to fetch days with entries:', error);
+      }
+    };
+
+    fetchDaysWithEntries();
+  }, [selectedCourse, user?.userid]);
+
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(Number(event.target.value));
   };
@@ -213,10 +293,94 @@ const StudentWorkLogLogger: React.FC = () => {
     setIsModalOpen(false);
   }, []);
 
+  const checkForExistingEntryToday = useCallback(async () => {
+    if (!selectedCourse || !user?.userid) return false;
+
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token) return false;
+
+      const response = await apiHooks.getAllWorkLogEntries(user.userid, token);
+
+      if (response.entries) {
+        const today = dayjs().format('YYYY-MM-DD');
+
+        const hasTodayEntry = response.entries.some((entry: WorkLogEntry) => {
+          const entryDate = dayjs(entry.start_time).format('YYYY-MM-DD');
+          return (
+            entryDate === today &&
+            (entry.work_log_course_id === selectedCourse ||
+              entry.work_log_practicum_id === selectedCourse)
+          );
+        });
+
+        return hasTodayEntry;
+      }
+    } catch (error) {
+      console.error('Error checking for existing entries:', error);
+    }
+
+    return false;
+  }, [selectedCourse, user?.userid]);
+
   const handleConfirmAction = useCallback(async () => {
     if (!selectedCourse) {
       toast.error(t('common:worklog.error.requiredFields'));
       return;
+    }
+
+    // For 'in' action, check if there's already an entry for today
+    if (actionType === 'in') {
+      const hasExistingEntry = await checkForExistingEntryToday();
+
+      if (hasExistingEntry) {
+        // Store the action to execute later if confirmed
+        const executeAction = async () => {
+          try {
+            const token = localStorage.getItem('userToken');
+            if (!token) {
+              throw new Error('No token found');
+            }
+
+            const selectedCourseData = courses.find(
+              (course) =>
+                course.work_log_course_id === selectedCourse ||
+                course.work_log_practicum_id === selectedCourse,
+            );
+            if (!selectedCourseData) {
+              throw new Error('Selected course not found');
+            }
+
+            const params = {
+              userId: user?.userid || 0,
+              courseId: selectedCourse,
+              startTime: new Date(),
+              endTime: new Date(),
+              description,
+              status: '1',
+            };
+
+            // Handle differently based on course type
+            if (selectedCourseData.type === 'practicum') {
+              await apiHooks.createWorkLogEntryPracticum(params, token);
+            } else {
+              await apiHooks.createWorkLogEntry(params, token);
+            }
+
+            toast.success(t('common:worklog.messages.entryAdded'));
+            await checkActiveEntry();
+          } catch (error) {
+            toast.error(t('common:worklog.messages.failedToLog'));
+          }
+
+          setIsModalOpen(false);
+          setShowConfirmation(false);
+        };
+
+        setPendingAction(() => executeAction);
+        setShowConfirmation(true);
+        return;
+      }
     }
 
     try {
@@ -252,12 +416,16 @@ const StudentWorkLogLogger: React.FC = () => {
           // Regular worklog entry
           await apiHooks.createWorkLogEntry(params, token);
         }
+
+        toast.success(t('common:worklog.messages.entryAdded'));
       } else {
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
           token,
           description,
         );
+
+        toast.success(t('common:worklog.messages.entryClosed'));
       }
 
       await checkActiveEntry();
@@ -275,6 +443,7 @@ const StudentWorkLogLogger: React.FC = () => {
     activeCourse,
     t,
     courses,
+    checkForExistingEntryToday,
   ]);
 
   const handleEdit = useCallback(() => {
@@ -461,12 +630,13 @@ const StudentWorkLogLogger: React.FC = () => {
                   const isWeekend = day.getDay() === 0 || day.getDay() === 6;
                   const isPast =
                     day < new Date(new Date().setHours(0, 0, 0, 0));
+                  const hasEntry = daysWithEntries.has(dateString);
 
                   return (
                     <div key={dateString} className='mb-4'>
                       <button
                         onClick={() => toggleDaySelection(dateString)}
-                        disabled={isPast}
+                        disabled={isPast || hasEntry}
                         className={`w-full aspect-square flex flex-col items-center justify-center rounded-md text-sm
                         ${
                           isSelected
@@ -476,11 +646,17 @@ const StudentWorkLogLogger: React.FC = () => {
                             : 'bg-white border text-metropolia-main-grey'
                         }
                         ${
-                          isPast
+                          isPast || hasEntry
                             ? 'opacity-40 cursor-not-allowed'
                             : 'hover:bg-metropolia-main-orange/20'
                         }`}>
                         <span>{day.getDate()}</span>
+                        {hasEntry && (
+                          <InfoIcon
+                            fontSize='small'
+                            className='text-metropolia-main-orange'
+                          />
+                        )}
                       </button>
 
                       {isSelected && (
@@ -543,6 +719,18 @@ const StudentWorkLogLogger: React.FC = () => {
         onDescriptionChange={setDescription}
         onConfirm={handleConfirmAction}
         onClose={handleCloseModal}
+      />
+
+      <ConfirmationDialog
+        isOpen={showConfirmation}
+        message={t('common:worklog.confirmation.duplicateEntryWarning')}
+        onConfirm={() => {
+          if (pendingAction) pendingAction();
+        }}
+        onCancel={() => {
+          setShowConfirmation(false);
+          setIsModalOpen(false);
+        }}
       />
     </div>
   );
