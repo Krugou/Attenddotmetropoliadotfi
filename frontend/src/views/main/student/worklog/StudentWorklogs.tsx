@@ -50,19 +50,44 @@ const StudentWorklogs: React.FC = () => {
         );
 
         if (response.entries) {
-          setEntries(response.entries);
+          // Normalize entries by ensuring all have a course.code property
+          // This makes filtering consistent
+          const normalizedEntries = response.entries.map(
+            (entry: WorkLogEntry) => {
+              if (!entry.course?.code) {
+                return {
+                  ...entry,
+                  course: {
+                    ...entry.course,
+                    code: 'practicum',
+                    name: entry.course?.name,
+                  },
+                };
+              }
+              return entry;
+            },
+          );
+
+          setEntries(normalizedEntries);
           const courses = new Map();
 
-          response.entries.forEach((entry: WorkLogEntry) => {
-            if (entry.course?.code) {
+          // Add a "practicum" option
+          courses.set('practicum', {
+            code: 'practicum',
+            name: t('common:worklog.practicum'),
+          });
+
+          // Add all courses with codes
+          normalizedEntries.forEach((entry: WorkLogEntry) => {
+            if (entry.course?.code && entry.course.code !== 'practicum') {
               courses.set(entry.course.code, {
                 code: entry.course.code,
-                name: entry.course.name,
+                name: entry.course?.name || '',
               });
             } else {
               courses.set('practicum', {
                 code: 'practicum',
-                name: entry.course.name,
+                name: entry.course?.name || '',
               });
             }
           });
