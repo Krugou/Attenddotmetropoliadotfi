@@ -210,7 +210,9 @@
       "view": "Visa poster",
       "edit": "Redigera poster",
       "in": "In",
-      "out": "Ut"
+      "out": "Ut",
+      "showMassEntry": "Veckovis poster",
+      "hideMassEntry": "Dölj veckovis poster"
     },
     "notifications": {
       "clockedIn": "Stämplat in kl {{time}}",
@@ -236,7 +238,9 @@
     "error": {
       "fetchFailed": "Kunde inte hämta data",
       "requiredFields": "Vänligen fyll i alla obligatoriska fält",
-      "codeExists": "Koden finns redan"
+      "codeExists": "Koden finns redan",
+      "descriptionRequired": "Beskrivning är obligatorisk",
+      "noDaysSelected": "Välj minst en dag"
     },
     "selectCourse": "Välj kurs",
     "clockIn": "Stämpla in",
@@ -245,7 +249,9 @@
     "messages": {
       "failedToLog": "Misslyckades med att logga arbetstid",
       "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
-      "failedToFetch": "Misslyckades med att hämta kurser"
+      "failedToFetch": "Misslyckades med att hämta kurser",
+      "massEntriesAdded": "{{count}} poster har lagts till",
+      "failedToAddEntries": "Misslyckades med att lägga till poster"
     },
     "delete": {
       "confirm": "Är du säker på att du vill radera denna post?",
@@ -279,7 +285,17 @@
       "description": "Sortera efter beskrivning"
     },
     "requiredDescription": "Obligatorisk beskrivning",
-    "description": "Beskrivning"
+    "description": "Beskrivning",
+    "massEntry": {
+      "title": "Veckovis poster",
+      "descriptionPlaceholder": "Vad arbetade du med den här veckan?",
+      "selectDays": "Välj dagar",
+      "previousWeek": "Föregående vecka",
+      "nextWeek": "Nästa vecka",
+      "submit": "Lägg till valda poster",
+      "submitting": "Lägger till poster...",
+      "hoursTooltip": "Arbetade timmar"
+    }
   },
   "lectures": {
     "table": {

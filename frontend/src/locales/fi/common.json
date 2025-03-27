@@ -203,8 +203,11 @@
       "clockIn": "Kirjaudu sisään",
       "clockOut": "Kirjaudu ulos",
       "view": "Näytä merkinnät",
+      "edit": "Muokkaa merkintöjä",
       "in": "Sisään",
-      "out": "Ulos"
+      "out": "Ulos",
+      "showMassEntry": "Viikkomerkinnät",
+      "hideMassEntry": "Piilota viikkomerkinnät"
     },
     "notifications": {
       "clockedIn": "Kirjauduttu sisään klo {{time}}",
@@ -230,7 +233,9 @@
     "error": {
       "fetchFailed": "Tietojen haku epäonnistui",
       "requiredFields": "Täytä kaikki pakolliset kentät",
-      "codeExists": "Koodi on jo käytössä"
+      "codeExists": "Koodi on jo käytössä",
+      "descriptionRequired": "Kuvaus on pakollinen",
+      "noDaysSelected": "Valitse vähintään yksi päivä"
     },
     "selectCourse": "Valitse kurssi",
     "clockIn": "Kirjaudu sisään",
@@ -255,7 +260,9 @@
     "messages": {
       "failedToLog": "Työajan kirjaaminen epäonnistui",
       "failedToCheck": "Aktiivisten työaikakirjausten tarkistus epäonnistui",
-      "failedToFetch": "Kurssien haku epäonnistui"
+      "failedToFetch": "Kurssien haku epäonnistui",
+      "massEntriesAdded": "{{count}} merkintää lisätty onnistuneesti",
+      "failedToAddEntries": "Merkintöjen lisääminen epäonnistui"
     },
     "name": "Nimi",
     "code": "Koodi",
@@ -295,6 +302,16 @@
       "course": "Lajittele kurssin mukaan",
       "duration": " Lajittele keston mukaan",
       "description": " Lajittele kuvauksen mukaan"
+    },
+    "massEntry": {
+      "title": "Viikkomerkinnät",
+      "descriptionPlaceholder": "Mitä työstit tällä viikolla?",
+      "selectDays": "Valitse päivät",
+      "previousWeek": "Edellinen viikko",
+      "nextWeek": "Seuraava viikko",
+      "submit": "Lisää valitut merkinnät",
+      "submitting": "Lisätään merkintöjä...",
+      "hoursTooltip": "Tehdyt tunnit"
     }
   },
   "lectures": {

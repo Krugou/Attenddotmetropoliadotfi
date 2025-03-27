@@ -207,7 +207,9 @@
       "view": "View Entries",
       "edit": "Edit Entries",
       "in": "In",
-      "out": "Out"
+      "out": "Out",
+      "showMassEntry": "Weekly Entries",
+      "hideMassEntry": "Hide Weekly Entries"
     },
     "notifications": {
       "clockedIn": "Clocked in at {{time}}",
@@ -227,7 +229,9 @@
     "error": {
       "fetchFailed": "Failed to fetch data",
       "requiredFields": "Please fill all required fields",
-      "codeExists": "Code already exists"
+      "codeExists": "Code already exists",
+      "descriptionRequired": "Description is required",
+      "noDaysSelected": "Please select at least one day"
     },
     "requiredDescription": "Required description",
     "tooltips": {
@@ -244,7 +248,9 @@
     "messages": {
       "failedToLog": "Failed to log work entry",
       "failedToCheck": "Failed to check active work entries",
-      "failedToFetch": "Failed to fetch courses"
+      "failedToFetch": "Failed to fetch courses",
+      "massEntriesAdded": "{{count}} entries added successfully",
+      "failedToAddEntries": "Failed to add entries"
     },
     "name": "Name",
     "code": "Code",
@@ -300,6 +306,16 @@
       "course": "Sort by Course",
       "duration": "Sort by Duration",
       "description": "Sort by Description"
+    },
+    "massEntry": {
+      "title": "Weekly Entries",
+      "descriptionPlaceholder": "What did you work on this week?",
+      "selectDays": "Select Days",
+      "previousWeek": "Previous Week",
+      "nextWeek": "Next Week",
+      "submit": "Add Selected Entries",
+      "submitting": "Adding Entries...",
+      "hoursTooltip": "Hours worked"
     }
   },
   "lectures": {
