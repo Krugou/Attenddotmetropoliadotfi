@@ -209,10 +209,6 @@ const practicum = {
         [userId],
       );
 
-      logger.info(
-        `Retrieved ${rows.length} practicums for student email: ${email} (userid: ${userId})`,
-      );
-
       return rows;
     } catch (error) {
       logger.error(`Error getting practicum by student email ${email}:`, error);
