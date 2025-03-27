@@ -267,6 +267,28 @@ export const createWorkLogEntry = async (
   return await doFetch(`${baseUrl}worklog/entries/create`, options);
 };
 
+export const createWorkLogEntryPracticum = async (
+  params: {
+    userId: number | string;
+    courseId: number; // This will be the practicum ID
+    startTime: Date;
+    endTime: Date;
+    description: string;
+    status?: number | string;
+  },
+  token: string,
+) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(params),
+  };
+  return await doFetch(`${baseUrl}worklog/practicum/entries/create`, options);
+};
+
 export const getActiveCoursesByStudentEmail = async (
   email: string,
   token: string,
@@ -356,7 +378,11 @@ export const updateWorkLogEntry = async (
   return await doFetch(`${baseUrl}worklog/entries/${entryId}`, options);
 };
 
-export const getWorkLogStats = async (userId: number, token: string ,courseId?: number) => {
+export const getWorkLogStats = async (
+  userId: number,
+  token: string,
+  courseId?: number,
+) => {
   try {
     const options = {
       method: 'GET',
@@ -387,7 +413,7 @@ export const addNewStudentToWorklog = async (
     last_name: string;
     studentnumber: string;
     studentGroupId: number | null;
-  }
+  },
 ) => {
   const options = {
     method: 'POST',
@@ -413,7 +439,10 @@ export const removeStudentFromGroup = async (
       'Authorization': 'Bearer ' + token,
     },
   };
-  return await doFetch(`${baseUrl}worklog/group/${groupId}/student/${studentId}`, options);
+  return await doFetch(
+    `${baseUrl}worklog/group/${groupId}/student/${studentId}`,
+    options,
+  );
 };
 
 export const getWorkLogEntriesByPracticum = async (
@@ -427,7 +456,10 @@ export const getWorkLogEntriesByPracticum = async (
       'Authorization': 'Bearer ' + token,
     },
   };
-  return await doFetch(`${baseUrl}worklog/practicum/entries/${practicumId}`, options);
+  return await doFetch(
+    `${baseUrl}worklog/practicum/entries/${practicumId}`,
+    options,
+  );
 };
 
 export const worklogApi = {
@@ -447,6 +479,7 @@ export const worklogApi = {
   getWorkLogGroupStudents,
   getWorkLogGroupDetails,
   createWorkLogEntry,
+  createWorkLogEntryPracticum,
   getActiveCoursesByStudentEmail,
   getActiveWorkLogEntries,
   closeWorkLogEntry,
