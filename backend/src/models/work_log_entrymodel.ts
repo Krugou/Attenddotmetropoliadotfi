@@ -57,14 +57,16 @@ const work_log_entries = {
 
   async getWorkLogEntriesByUserId(userId: number): Promise<WorkLogEntry[]> {
     try {
-      const [rows] = await pool
-        .promise()
-        .query<
-          WorkLogEntry[]
-        >('SELECT * FROM work_log_entries WHERE userid = ?', [userId]);
+      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+        `SELECT *
+         FROM work_log_entries
+         WHERE userid = ?
+         ORDER BY start_time DESC`,
+        [userId],
+      );
       return rows;
     } catch (error) {
-      logger.error('Error getting work log entries:', error);
+      logger.error('Error getting work log entries by user id:', error);
       throw error;
     }
   },
@@ -75,28 +77,31 @@ const work_log_entries = {
         `SELECT * FROM work_log_entries
              WHERE userid = ?
              AND status = '1'
+             AND (work_log_course_id IS NOT NULL OR work_log_practicum_id IS NOT NULL)
              ORDER BY start_time DESC`,
         [userId],
       );
       return rows;
     } catch (error) {
-      logger.error('Error getting active work log entries:', error);
+      logger.error('Error getting active work log entries by user id:', error);
       throw error;
     }
   },
 
-    async getWorkLogEntryById(entryId: number): Promise<WorkLogEntry | null> {
-      try {
-        const [rows] = await pool.promise().query<WorkLogEntry[]>(
+  async getWorkLogEntryById(entryId: number): Promise<WorkLogEntry | null> {
+    try {
+      const [rows] = await pool
+        .promise()
+        .query<WorkLogEntry[]>(
           'SELECT * FROM work_log_entries WHERE entry_id = ?',
-          [entryId]
+          [entryId],
         );
-        return rows[0] || null;
-      } catch (error) {
-        logger.error('Error getting work log entry by ID:', error);
-        throw error;
-      }
-    },
+      return rows[0] || null;
+    } catch (error) {
+      logger.error('Error getting work log entry by ID:', error);
+      throw error;
+    }
+  },
 
   async deleteWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
     try {
@@ -121,7 +126,10 @@ const work_log_entries = {
       // Validate entry exists first
       const [entry] = await pool
         .promise()
-        .query<WorkLogEntry[]>('SELECT * FROM work_log_entries WHERE entry_id = ?', [entryId]);
+        .query<WorkLogEntry[]>(
+          'SELECT * FROM work_log_entries WHERE entry_id = ?',
+          [entryId],
+        );
 
       if (!entry || !entry[0]) {
         throw new Error('Work log entry not found');
@@ -153,7 +161,9 @@ const work_log_entries = {
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
-          `UPDATE work_log_entries SET ${updateFields.join(', ')} WHERE entry_id = ?`,
+          `UPDATE work_log_entries SET ${updateFields.join(
+            ', ',
+          )} WHERE entry_id = ?`,
           values,
         );
 
@@ -211,15 +221,17 @@ const work_log_entries = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          WorkLogEntry[]
-        >('SELECT * FROM work_log_entries WHERE work_log_course_id = ? ORDER BY start_time DESC', [courseId]);
+        .query<WorkLogEntry[]>(
+          'SELECT * FROM work_log_entries WHERE work_log_course_id = ? ORDER BY start_time DESC',
+          [courseId],
+        );
       return rows;
     } catch (error) {
       logger.error('Error getting work log entries by course:', error);
       throw error;
     }
   },
+
   async getWorkLogEntriesByGroupStudents(
     courseId: number,
     studentIds: number[],
@@ -243,9 +255,10 @@ const work_log_entries = {
       throw error;
     }
   },
+
   async createPracticumEntry(
-    practicumId: number,
     userId: number,
+    practicumId: number,
     startTime: Date | string,
     endTime: Date | string,
     description: string,
@@ -264,23 +277,22 @@ const work_log_entries = {
       throw error;
     }
   },
-  async getWorkLogEntriesByPracticum(practicumId: number): Promise<PracticumEntry[]> {
+
+  async getWorkLogEntriesByPracticum(
+    practicumId: number,
+  ): Promise<WorkLogEntry[]> {
     try {
-      const [rows] = await pool.promise().query<PracticumEntry[]>(
-        `SELECT
-          e.*,
-          u.first_name,
-          u.last_name,
-          u.email
-        FROM work_log_entries e
-        JOIN users u ON e.userid = u.userid
-        WHERE e.work_log_practicum_id = ?
-        ORDER BY e.start_time DESC`,
+      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+        `SELECT e.*, u.first_name, u.last_name, u.email
+         FROM work_log_entries e
+         JOIN users u ON e.userid = u.userid
+         WHERE e.work_log_practicum_id = ?
+         ORDER BY e.start_time DESC`,
         [practicumId],
       );
       return rows;
     } catch (error) {
-      logger.error('Error getting work log entries by practicum:', error);
+      logger.error('Error getting work log entries by practicum id:', error);
       throw error;
     }
   },
