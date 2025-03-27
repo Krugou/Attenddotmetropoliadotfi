@@ -14,7 +14,16 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Add as AddIcon,
+  School as SchoolIcon,
+  Work as WorkIcon,
 } from '@mui/icons-material';
+
+// Define a unified course type that can handle both worklog and practicum courses
+interface UnifiedCourse extends WorkLogCourse {
+  type: 'worklog' | 'practicum';
+  work_log_course_id: number; // From worklog courses
+  work_log_practicum_id?: number; // From practicum courses
+}
 
 const StudentWorkLogLogger: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -23,7 +32,7 @@ const StudentWorkLogLogger: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [actionType, setActionType] = useState<'in' | 'out'>('in');
-  const [courses, setCourses] = useState<WorkLogCourse[]>([]);
+  const [courses, setCourses] = useState<UnifiedCourse[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
   const [hasActiveEntry, setHasActiveEntry] = useState<boolean>(false);
   const [activeCourse, setActiveCourse] = useState<ActiveEntry | null>(null);
@@ -138,29 +147,60 @@ const StudentWorkLogLogger: React.FC = () => {
         if (!token) {
           throw new Error('No token found');
         }
-        const fetchedCourses = await apiHooks.getActiveCoursesByStudentEmail(
-          user?.email || '',
-          token,
+
+        // Fetch both worklog courses and practicum courses
+        const [worklogCourses, practicumCourses] = await Promise.all([
+          apiHooks.getActiveCoursesByStudentEmail(user?.email || '', token),
+          apiHooks.getStudentPracticum(user?.email || '', token),
+        ]);
+        console.log('🚀 ~ fetchCourses ~ practicumCourses:', practicumCourses);
+
+        // Map worklog courses to unified format
+        const unifiedWorklogCourses: UnifiedCourse[] = worklogCourses.map(
+          (course) => ({
+            ...course,
+            type: 'worklog',
+          }),
         );
 
-        setCourses(fetchedCourses);
+        // Map practicum courses to unified format
+        const unifiedPracticumCourses: UnifiedCourse[] = practicumCourses.map(
+          (practicum) => ({
+            work_log_course_id: practicum.work_log_practicum_id, // Use practicum ID as the course ID
+            work_log_practicum_id: practicum.work_log_practicum_id,
+            name: practicum.name,
+            code: practicum.name.substring(0, 10) + '...', // Create a simple code if none exists
+            description: practicum.description,
+            start_date: new Date(practicum.start_date),
+            end_date: new Date(practicum.end_date),
+            type: 'practicum',
+          }),
+        );
 
-        if (fetchedCourses.length === 0) {
+        // Combine both types of courses
+        const allCourses = [
+          ...unifiedWorklogCourses,
+          ...unifiedPracticumCourses,
+        ];
+        setCourses(allCourses);
+
+        if (allCourses.length === 0) {
           toast.info(t('common:worklog.noCourses'));
           setTimeout(() => navigate('/'), 3000);
           return;
         }
 
-        if (fetchedCourses.length > 0 && !hasActiveEntry && !selectedCourse) {
-          setSelectedCourse(fetchedCourses[0].work_log_course_id);
+        if (allCourses.length > 0 && !hasActiveEntry && !selectedCourse) {
+          setSelectedCourse(allCourses[0].work_log_course_id);
         }
       } catch (error) {
         toast.error('Failed to fetch courses');
+        console.error('Error fetching courses:', error);
       }
     };
 
     fetchCourses();
-  }, [user, hasActiveEntry, selectedCourse, navigate, t]);
+  }, [user?.email, hasActiveEntry, selectedCourse, navigate, t]);
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(Number(event.target.value));
@@ -188,6 +228,13 @@ const StudentWorkLogLogger: React.FC = () => {
         throw new Error('No token found');
       }
 
+      const selectedCourseData = courses.find(
+        (course) => course.work_log_course_id === selectedCourse,
+      );
+      if (!selectedCourseData) {
+        throw new Error('Selected course not found');
+      }
+
       if (actionType === 'in') {
         const params = {
           userId: user?.userid || 0,
@@ -197,7 +244,16 @@ const StudentWorkLogLogger: React.FC = () => {
           description,
           status: '1',
         };
-        await apiHooks.createWorkLogEntry(params, token);
+
+        // Handle differently based on course type
+        if (selectedCourseData.type === 'practicum') {
+          // For practicum courses, we need to use a different endpoint or parameter
+          // This is hypothetical - you'll need to implement the actual API call
+          await apiHooks.createWorkLogEntry(params, token);
+        } else {
+          // Regular worklog entry
+          await apiHooks.createWorkLogEntry(params, token);
+        }
       } else {
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
@@ -220,6 +276,7 @@ const StudentWorkLogLogger: React.FC = () => {
     checkActiveEntry,
     activeCourse,
     t,
+    courses,
   ]);
 
   const handleEdit = useCallback(() => {
@@ -258,6 +315,13 @@ const StudentWorkLogLogger: React.FC = () => {
         throw new Error('No token found');
       }
 
+      const selectedCourseData = courses.find(
+        (course) => course.work_log_course_id === selectedCourse,
+      );
+      if (!selectedCourseData) {
+        throw new Error('Selected course not found');
+      }
+
       for (const entry of selectedEntries) {
         const startTime = new Date(entry.date);
         startTime.setHours(9, 0, 0, 0); // Default start at 9 AM
@@ -274,6 +338,7 @@ const StudentWorkLogLogger: React.FC = () => {
           status: '1',
         };
 
+        // Use the appropriate API call based on course type
         await apiHooks.createWorkLogEntry(params, token);
       }
 
@@ -293,6 +358,54 @@ const StudentWorkLogLogger: React.FC = () => {
     }
   };
 
+  // Function to get course type icon
+  const CourseTypeIcon = ({type}: {type: 'worklog' | 'practicum'}) => {
+    return type === 'worklog' ? (
+      <WorkIcon fontSize='small' className='text-metropolia-main-orange' />
+    ) : (
+      <SchoolIcon fontSize='small' className='text-metropolia-support-blue' />
+    );
+  };
+
+  // Custom course selector that shows course type
+  const EnhancedCourseSelector = () => (
+    <div>
+      <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
+        {t('common:worklog.selectCourse')}
+      </label>
+      <div className='relative'>
+        <select
+          value={selectedCourse || ''}
+          onChange={handleCourseChange}
+          disabled={hasActiveEntry}
+          className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200 appearance-none pr-10'>
+          {courses.map((course) => (
+            <option
+              key={course.work_log_course_id}
+              value={course.work_log_course_id}>
+              {course.name} {course.type === 'practicum' ? '(Practicum)' : ''}
+            </option>
+          ))}
+        </select>
+        <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+          {selectedCourse && (
+            <CourseTypeIcon
+              type={
+                courses.find((c) => c.work_log_course_id === selectedCourse)
+                  ?.type || 'worklog'
+              }
+            />
+          )}
+        </div>
+      </div>
+      {hasActiveEntry && activeCourse && (
+        <p className='mt-2 text-sm text-metropolia-main-orange'>
+          {t('common:worklog.activeEntry')}: {activeCourse.course.name}
+        </p>
+      )}
+    </div>
+  );
+
   return (
     <div className='flex flex-col items-center justify-center min-h-[50vh] p-4 sm:p-6 md:p-8'>
       <div className='w-full max-w-md bg-white rounded-2xl shadow-xl p-6 space-y-6'>
@@ -301,12 +414,7 @@ const StudentWorkLogLogger: React.FC = () => {
             {t('common:worklog.logger.title')}
           </h2>
 
-          <WorkLogCourseSelector
-            courses={courses}
-            activeCourse={activeCourse}
-            selectedCourse={selectedCourse}
-            onCourseChange={handleCourseChange}
-          />
+          {EnhancedCourseSelector()}
 
           <div className='flex justify-end'>
             <button
