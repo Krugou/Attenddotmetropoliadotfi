@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {worklogApi} from '../../../../api/worklog';
+import {practicumApi} from '../../../../api/practicum';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
 
 interface PracticumEntry {
@@ -16,14 +17,25 @@ interface PracticumEntry {
   status: 0 | 1 | 2 | 3;
 }
 
+interface PracticumDetails {
+  practicum?: {
+    first_name: string | null;
+    last_name: string | null;
+    email: string | null;
+    [key: string]: any;
+  };
+  entries?: any[];
+}
+
 const TeacherPracticumEntries: React.FC = () => {
   const {t} = useTranslation(['common', 'teacher']);
   const {practicumid} = useParams<{practicumid: string}>();
   const [entries, setEntries] = useState<PracticumEntry[]>([]);
+  const [practicumDetails, setPracticumDetails] = useState<PracticumDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchPracticumEntries = async () => {
+    const fetchData = async () => {
       const token: string | null = localStorage.getItem('userToken');
       if (!practicumid || !token) {
         setLoading(false);
@@ -32,18 +44,21 @@ const TeacherPracticumEntries: React.FC = () => {
 
       try {
         setLoading(true);
-        const Studententries = await worklogApi.getWorkLogEntriesByPracticum(
-          Number(practicumid),
-          token,
-        );
-        setEntries(Studententries);
+        const [details, worklogEntries] = await Promise.all([
+          practicumApi.getPracticumDetails(Number(practicumid), token),
+          worklogApi.getWorkLogEntriesByPracticum(Number(practicumid), token),
+        ]);
+
+        setPracticumDetails(details);
+        setEntries(worklogEntries);
         setLoading(false);
       } catch (err) {
+        console.error('Error fetching data:', err);
         setLoading(false);
       }
     };
 
-    fetchPracticumEntries();
+    fetchData();
   }, [practicumid]);
 
   const formatTime = (dateString: string): string => {
@@ -94,10 +109,12 @@ const TeacherPracticumEntries: React.FC = () => {
           </div>
           <div className='font-body md:flex-1'>
             <p className='text-gray-600'>Student's name</p>
-            {entries.length > 0 && (
+            {practicumDetails?.practicum?.first_name ? (
               <p className='font-medium'>
-                {entries[0].first_name} {entries[0].last_name}
+                {practicumDetails.practicum.first_name} {practicumDetails.practicum.last_name}
               </p>
+            ) : (
+              <p className='text-gray-500'>No student assigned</p>
             )}
           </div>
         </div>

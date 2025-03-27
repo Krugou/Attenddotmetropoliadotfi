@@ -13,6 +13,10 @@ export interface Practicum extends RowDataPacket {
   end_date: Date;
   created_at: Date;
   required_hours: number;
+  userid: number;
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
 }
 
 type PracticumUpdateValue = string | number | Date;
@@ -50,7 +54,14 @@ const practicum = {
   async getPracticumById(practicumId: number): Promise<Practicum[]> {
     try {
       const [rows] = await pool.promise().query<Practicum[]>(
-        'SELECT * FROM work_log_practicum WHERE work_log_practicum_id = ?',
+        `SELECT
+        p.*,
+        u.first_name,
+        u.last_name,
+        u.email
+      FROM work_log_practicum p
+      LEFT JOIN users u ON p.userid = u.userid
+      WHERE p.work_log_practicum_id = ?`,
         [practicumId],
       );
       return rows;

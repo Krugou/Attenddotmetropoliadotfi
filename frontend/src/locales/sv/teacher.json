@@ -786,7 +786,9 @@
     "findStudent": "Hitta student",
     "searchStudentByName": "Sök student med namn, e-post eller studentnummer",
     "searchPlaceholder": "Ange namn, e-post eller studentnummer",
-    "matchingStudents": "Matchande studenter"
+    "matchingStudents": "Matchande studenter",
+    "checkStudentGuide": "Kontrollera om studenten finns i systemet baserat på namn, e-post eller studentnummer.",
+    "lateEnrollmentLink": "Om studenten inte hittas kan du lägga till studenten i systemet här"
   },
   "buttons": {
     "previous": "Föregående",

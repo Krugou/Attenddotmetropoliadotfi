@@ -801,7 +801,9 @@
     "findStudent": "Etsi opiskelija",
     "searchStudentByName": "Hae opiskelijaa nimellä, sähköpostilla tai opiskelijanumerolla",
     "searchPlaceholder": "Syötä nimi, sähköposti tai opiskelijanumero",
-    "matchingStudents": "Löydetyt opiskelijat"
+    "matchingStudents": "Löydetyt opiskelijat",
+    "checkStudentGuide": "Tarkista, onko opiskelija järjestelmässä nimen, sähköpostin tai opiskelijanumeron perusteella.",
+    "lateEnrollmentLink": "Jos opiskelijaa ei löydy, voit lisätä opiskelijan järjestelmään täältä"
   },
   "buttons": {
     "previous": "Edellinen",

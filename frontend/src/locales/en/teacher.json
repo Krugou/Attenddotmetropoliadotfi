@@ -734,7 +734,9 @@
     "findStudent": "Find Student",
     "searchStudentByName": "Search student by name, email or student number",
     "searchPlaceholder": "Enter name, email or student number",
-    "matchingStudents": "Matching Students"
+    "matchingStudents": "Matching Students",
+    "checkStudentGuide": "Check if student exists in the system based on name, email or student number.",
+    "lateEnrollmentLink": "If not found, you can add the student to the system here"
   },
   "buttons": {
     "previous": "Previous",

@@ -4,7 +4,8 @@ import {toast} from 'react-toastify';
 import apiHooks from '../../../api';
 import {Student} from './AddStudent';
 import {UserContext} from '../../../contexts/UserContext';
-  import {CheckCircleOutline, Cancel} from '@mui/icons-material';
+import {CheckCircleOutline, Cancel} from '@mui/icons-material';
+import {Link} from 'react-router-dom';
 
 type Props = {
   student: Student | null;
@@ -104,6 +105,15 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
           <label className='block text-sm font-medium text-metropolia-main-grey'>
             {t('teacher:practicum.searchStudentByName')}
           </label>
+          <p className="text-sm text-metropolia-main-grey mb-4">
+            {t('teacher:practicum.checkStudentGuide')}{' '}
+            <Link
+              to='/teacher/lateenrollment'
+              className="text-metropolia-support-blue hover:text-metropolia-support-blue-dark underline"
+            >
+              {t('teacher:practicum.lateEnrollmentLink')}
+            </Link>
+          </p>
           <div className='flex flex-col gap-2'>
             <div className='relative flex-1'>
               <input
@@ -121,7 +131,6 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
                 disabled={isSearching}
               />
             </div>
-
             <button
               type='button'
               onClick={checkStudent}
@@ -139,7 +148,7 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
               )}
             </button>
           </div>
-
+          <div></div>
           {searchStatus === 'found' && matchingStudents.length > 0 && (
             <div className='mt-4'>
               <h3 className='text-lg font-medium text-metropolia-main-grey mb-2'>
