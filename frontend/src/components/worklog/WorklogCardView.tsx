@@ -30,7 +30,11 @@ const WorklogCardView: React.FC<WorklogCardViewProps> = ({entries}) => {
           <div className='p-4 pt-10'>
             <div className='flex items-center justify-between mb-4'>
               <div className='text-lg font-semibold text-metropolia-main-grey'>
-                {entry.course?.name} - {entry.course?.code}
+                {/* if code is '' then show practicum on where code is from translation */}
+                {entry.course?.name} -{' '}
+                {entry.course?.code === ''
+                  ? t('common:practicum')
+                  : entry.course?.code}
               </div>
               <div className='text-sm text-metropolia-main-grey'>
                 {dayjs(entry.start_time).format('YYYY-MM-DD')}

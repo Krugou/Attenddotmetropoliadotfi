@@ -48,7 +48,10 @@ const WorklogTableView: React.FC<WorklogTableViewProps> = ({entries}) => {
                 {dayjs(entry.start_time).format('YYYY-MM-DD')}
               </TableCell>
               <TableCell>
-                {entry.course?.name} - {entry.course?.code}
+                {entry.course?.name} -{' '}
+                {entry.course?.code === ''
+                  ? t('common:practicum')
+                  : entry.course?.code}
               </TableCell>
               <TableCell>
                 {dayjs(entry.start_time).format('HH:mm')} -{' '}
