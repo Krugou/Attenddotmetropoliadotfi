@@ -69,9 +69,10 @@ const work_log_courses = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          WorkLogCourse[]
-        >('SELECT * FROM work_log_courses WHERE work_log_course_id = ?', [courseId]);
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE work_log_course_id = ?',
+          [courseId],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log course:', error);
@@ -94,7 +95,7 @@ const work_log_courses = {
   },
   async updateWorkLogCourse(
     courseId: number,
-    updates: WorkLogCourseUpdate
+    updates: WorkLogCourseUpdate,
   ): Promise<ResultSetHeader> {
     try {
       // Build the update query dynamically based on provided fields
@@ -148,9 +149,9 @@ const work_log_courses = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          WorkLogCourse[]
-        >('SELECT * FROM work_log_courses ORDER BY start_date DESC');
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses ORDER BY start_date DESC',
+        );
       return rows;
     } catch (error) {
       console.error('Error getting all work log courses:', error);
@@ -164,9 +165,10 @@ const work_log_courses = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          WorkLogCourse[]
-        >('SELECT * FROM work_log_courses WHERE start_date >= ? AND end_date <= ? ORDER BY start_date', [startDate, endDate]);
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE start_date >= ? AND end_date <= ? ORDER BY start_date',
+          [startDate, endDate],
+        );
       return rows;
     } catch (error) {
       console.error('Error getting work log courses by date range:', error);
@@ -177,16 +179,20 @@ const work_log_courses = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          WorkLogCourse[]
-        >('SELECT * FROM work_log_courses WHERE name LIKE ? OR code LIKE ?', [`%${searchTerm}%`, `%${searchTerm}%`]);
+        .query<WorkLogCourse[]>(
+          'SELECT * FROM work_log_courses WHERE name LIKE ? OR code LIKE ?',
+          [`%${searchTerm}%`, `%${searchTerm}%`],
+        );
       return rows;
     } catch (error) {
       console.error('Error searching work log courses:', error);
       throw error;
     }
   },
-  async getWorkLogStatsByUser(userId: number, courseId?: number): Promise<RowDataPacket[]> {
+  async getWorkLogStatsByUser(
+    userId: number,
+    courseId?: number,
+  ): Promise<RowDataPacket[]> {
     try {
       let query = `SELECT
                     wlc.name as course_name,
@@ -216,9 +222,10 @@ const work_log_courses = {
     try {
       const [rows] = await pool
         .promise()
-        .query<
-          RowDataPacket[]
-        >('SELECT 1 FROM work_log_courses WHERE code = ?', [code]);
+        .query<RowDataPacket[]>(
+          'SELECT 1 FROM work_log_courses WHERE code = ?',
+          [code],
+        );
       return rows;
     } catch (error) {
       console.error('Error checking worklog code:', error);
