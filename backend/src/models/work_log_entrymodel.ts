@@ -280,9 +280,9 @@ const work_log_entries = {
 
   async getWorkLogEntriesByPracticum(
     practicumId: number,
-  ): Promise<WorkLogEntry[]> {
+  ): Promise<PracticumEntry[]> {
     try {
-      const [rows] = await pool.promise().query<WorkLogEntry[]>(
+      const [rows] = await pool.promise().query<PracticumEntry[]>(
         `SELECT e.*, u.first_name, u.last_name, u.email
          FROM work_log_entries e
          JOIN users u ON e.userid = u.userid
