@@ -251,7 +251,9 @@ router.get(
     try {
       const userId = Number(req.params.userId);
       // Get optional courseId from query params
-      const courseId = req.query.courseId ? Number(req.query.courseId) : undefined;
+      const courseId = req.query.courseId
+        ? Number(req.query.courseId)
+        : undefined;
       const stats = await workLogController.getWorkLogStats(userId, courseId);
       res.send(stats);
     } catch (error) {
@@ -370,33 +372,58 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = Number(req.params.userId);
+
+      // Get both regular worklog entries and practicum entries
       const activeEntries = await work_log_entries.getActiveEntriesByUserId(
         userId,
       );
-      // console.log('🚀 ~ activeEntries:', activeEntries);
 
       if (activeEntries.length === 0) {
         res.send([]);
         return;
       }
 
-      // Get course details for each active entry
-      const entriesWithCourses = await Promise.all(
+      // Get course or practicum details for each active entry
+      const entriesWithDetails = await Promise.all(
         activeEntries.map(async (entry) => {
-          const courseDetails = await work_log_courses.getWorkLogCourseById(
-            entry.work_log_course_id,
-          );
+          // If entry has work_log_course_id, get course details
+          if (entry.work_log_course_id) {
+            const courseDetails = await work_log_courses.getWorkLogCourseById(
+              entry.work_log_course_id,
+            );
 
+            return {
+              ...entry,
+              course: courseDetails[0],
+              entryType: 'course',
+            };
+          }
+          // If entry has work_log_practicum_id, get practicum details
+          else if (entry.work_log_practicum_id) {
+            // Import practicum model if not already imported
+            const practicum = (await import('../models/practicummodels.js'))
+              .default;
+            const practicumDetails = await practicum.getPracticumById(
+              entry.work_log_practicum_id,
+            );
+
+            return {
+              ...entry,
+              course: practicumDetails[0],
+              entryType: 'practicum',
+            };
+          }
+          // If neither, just return the entry as is
           return {
             ...entry,
-            course: courseDetails[0],
+            entryType: 'unknown',
           };
         }),
       );
 
-      res.send(entriesWithCourses);
+      res.send(entriesWithDetails);
     } catch (error) {
-      logger.error('Error fetching active entries with courses:', error);
+      logger.error('Error fetching active entries with details:', error);
       res.status(500).json({error: 'Failed to fetch active entries'});
     }
   },
@@ -576,7 +603,7 @@ router.delete(
   checkUserRole(['admin', 'counselor', 'teacher']),
   [
     param('groupId').isInt().withMessage('Invalid groupId'),
-    param('studentId').isInt().withMessage('Invalid studentId')
+    param('studentId').isInt().withMessage('Invalid studentId'),
   ],
   validate,
   async (req: Request, res: Response) => {
@@ -588,13 +615,13 @@ router.delete(
 
       res.json({
         success: true,
-        message: 'Student removed from group successfully'
+        message: 'Student removed from group successfully',
       });
     } catch (error) {
       logger.error('Error removing student from group:', error);
-      res.status(500).json({ error: 'Failed to remove student from group' });
+      res.status(500).json({error: 'Failed to remove student from group'});
     }
-  }
+  },
 );
 
 router.get(
@@ -605,13 +632,66 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const practicumId = Number(req.params.practicumId);
-      const entries = await work_log_entries.getWorkLogEntriesByPracticum(practicumId);
+      const entries = await work_log_entries.getWorkLogEntriesByPracticum(
+        practicumId,
+      );
       res.json(entries);
     } catch (error) {
       logger.error('Error getting practicum entries:', error);
-      res.status(500).json({ error: 'Failed to get practicum entries' });
+      res.status(500).json({error: 'Failed to get practicum entries'});
     }
-  }
+  },
+);
+
+router.post(
+  '/practicum/entries/create',
+  [
+    body('userId').isInt({gt: 0}).withMessage('Invalid userId'),
+    body('courseId').isInt({gt: 0}).withMessage('Invalid practicum ID'), // This will be the practicum ID
+    body('startTime').isISO8601().toDate().withMessage('Invalid startTime'),
+    body('endTime').isISO8601().toDate().withMessage('Invalid endTime'),
+    body('description')
+      .isString()
+      .trim()
+      .notEmpty()
+      .withMessage('Invalid description'),
+    body('status').optional().isIn([0, 1, 2, 3]).withMessage('Invalid status'),
+  ],
+  validate,
+  async (req: Request, res: Response) => {
+    try {
+      // Transform request to use work_log_practicum_id instead of courseId
+      const params = {
+        ...req.body,
+        work_log_practicum_id: req.body.courseId,
+        work_log_course_id: null, // Ensure course ID is null for practicum entries
+      };
+      delete params.courseId; // Remove the courseId parameter
+
+      const result = await workLogController.createWorkLogEntryPracticum(
+        params,
+      );
+      res.send(result);
+    } catch (error) {
+      logger.error('Error creating practicum entry:', error);
+      res.status(500).json({error: 'Failed to create practicum entry'});
+    }
+  },
+);
+
+router.put(
+  '/practicum/entries/close/:entryId',
+  checkUserRole(['admin', 'teacher', 'student']),
+  async (req: Request, res: Response) => {
+    try {
+      const entryId = Number(req.params.entryId);
+      const result = await workLogController.closeWorkLogEntry(entryId);
+      res.send(result);
+    } catch (error) {
+      logger.error('Error closing practicum entry:', error);
+      res.status(500).json({error: 'Failed to close practicum entry'});
+    }
+  },
 );
 
 export default router;
