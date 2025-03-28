@@ -73,10 +73,12 @@ const work_log_practicum_instructors = {
   async getPracticumsByInstructor(userId: number): Promise<RowDataPacket[]> {
     try {
       const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT wp.*
+        `SELECT wp.*, u.first_name, u.last_name, u.email
          FROM work_log_practicum wp
          JOIN work_log_practicum_instructors wpi ON wp.work_log_practicum_id = wpi.work_log_practicum_id
-         WHERE wpi.userid = ?`,
+         LEFT JOIN users u ON wp.userid = u.userid
+         WHERE wpi.userid = ?
+         ORDER BY wp.start_date DESC`,
         [userId],
       );
       return rows;

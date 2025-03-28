@@ -19,6 +19,8 @@ interface WorkLogPracticum {
   created_at: string;
   user_count?: number;
   instructor_name?: string;
+  first_name?: string;
+  last_name?: string;
 }
 
 interface PracticumDataProps {
@@ -154,6 +156,10 @@ const PracticumData: React.FC<PracticumDataProps> = ({
                   <div className="flex justify-between">
                     <p>{t('teacher:practicum.data.requiredHours')}</p>
                     <p>{practicum.required_hours}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p>{t('teacher:practicum.data.studentName')}</p>
+                    <p>{practicum.first_name}{practicum.last_name}</p>
                   </div>
                   <div className="">
                     <p className="text-sm font-heading mt-2">

@@ -518,7 +518,8 @@
       "createdAt": "Luotu",
       "viewGroups": "Näytä ryhmät",
       "viewEntries": "Näytä merkinnät",
-      "viewPracticum": "Näytä harjoittelu"
+      "viewPracticum": "Näytä harjoittelu",
+      "studentName": "Oppilaan nimi"
     },
     "modify": {
       "title": "Muokkaa työpäiväkirjakurssia",
@@ -746,7 +747,8 @@
       "studentCount": "Opiskelijamäärä",
       "instructors": "Ohjaajat",
       "additionalInfo": "Lisätiedot",
-      "viewEntries": "Näytä merkinnät"
+      "viewEntries": "Näytä merkinnät",
+      "studentName": "Oppilaan nimi"
     },
     "steps": {
       "details": "Harjoittelun tiedot",

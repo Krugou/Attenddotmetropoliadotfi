@@ -82,6 +82,10 @@ const TeacherPracticumEntries: React.FC = () => {
     }
   };
 
+  const calculatePercentage = (total: number, required: number): number => {
+    return Math.min((total / (required || 1)) * 100, 100);
+  };
+
   const totalHours = entries.reduce((total, entry) => {
     const start = new Date(entry.start_time);
     const end = new Date(entry.end_time);
@@ -100,11 +104,17 @@ const TeacherPracticumEntries: React.FC = () => {
   const getClampedPercentage = (percentage: number): number =>
     Math.min(Math.max(percentage, 0), 100);
 
-  const getProgressColor = (percentage: number): string => {
-    if (percentage >= 100) return 'bg-metropolia-trend-green';
-    if (percentage >= 75) return 'bg-metropolia-main-orange';
-    if (percentage >= 50) return 'bg-metropolia-support-yellow';
-    return 'bg-metropolia-support-red';
+  const getProgressGradient = (percentage: number): string => {
+    if (percentage >= 100) {
+      return 'bg-gradient-to-r from-metropolia-trend-green to-metropolia-trend-green-dark';
+    }
+    if (percentage >= 70) {
+      return 'bg-gradient-to-r from-metropolia-support-yellow-dark via-metropolia-support-yellow to-metropolia-trend-green';
+    }
+    if (percentage >= 40) {
+      return 'bg-gradient-to-r from-metropolia-support-red via-metropolia-support-yellow-dark to-metropolia-support-yellow';
+    }
+    return 'bg-gradient-to-r from-metropolia-support-secondary-red via-metropolia-support-red to-metropolia-support-yellow-dark';
   };
 
   return (
@@ -144,25 +154,30 @@ const TeacherPracticumEntries: React.FC = () => {
       <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
         <div className='flex justify-between mb-1'>
           <span className='text-sm text-gray-600 font-body'>Progress</span>
-          <span className='text-sm text-gray-600 font-body'>
-            {practicumDetails?.practicum?.required_hours}h required
-          </span>
+          <div className='flex gap-2'>
+            <span className='text-sm text-gray-600 font-body'>
+              {Math.round(calculatePercentage(totalHours, practicumDetails?.practicum?.required_hours || 1))}%
+            </span>
+            <span className='text-sm text-gray-600 font-body'>
+              ({practicumDetails?.practicum?.required_hours}h required)
+            </span>
+          </div>
         </div>
         <div className='relative w-full h-2 bg-gray-200 rounded-full mt-4'>
           <div
-            className={`relative h-2 transition-all duration-300 ${getProgressColor(
-              (totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100
+            className={`relative h-2 transition-all duration-300 ${getProgressGradient(
+              calculatePercentage(totalHours, practicumDetails?.practicum?.required_hours || 1)
             )} rounded-full`}
             style={{
               width: `${getClampedPercentage(
-                (totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100
+                calculatePercentage(totalHours, practicumDetails?.practicum?.required_hours || 1)
               )}%`,
             }}
           />
           <span
             className='absolute -bottom-6 text-sm font-medium text-gray-600 transform -translate-x-1/2'
             style={{
-              left: `${Math.min((totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100, 100)}%`,
+              left: `${calculatePercentage(totalHours, practicumDetails?.practicum?.required_hours || 1)}%`,
             }}
           >
             {totalHours.toFixed(1)}h

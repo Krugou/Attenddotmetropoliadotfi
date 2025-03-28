@@ -476,7 +476,8 @@
       "description": "Description",
       "requiredHours": "Required Hours",
       "startDate": "Start Date",
-      "endDate": "End Date"
+      "endDate": "End Date",
+      "studentName": "Student Name"
     },
     "data": {
       "courseCode": "Course Code",
@@ -497,7 +498,8 @@
       "createdAt": "Created at",
       "viewGroups": "View Groups",
       "viewEntries": "View Entries",
-      "viewPracticum": "View Practicum"
+      "viewPracticum": "View Practicum",
+      "studentName": "Student Name"
     },
     "modify": {
       "title": "Modify Worklog Course",
@@ -699,7 +701,8 @@
       "createdAt": "Created at",
       "studentCount": "Student Count",
       "instructors": "Instructors",
-      "additionalInfo": "Additional Info"
+      "additionalInfo": "Additional Info",
+      "studentName": "Student Name"
     },
     "addStudent": "Add Student",
     "searchExistingStudents": "Search existing students",

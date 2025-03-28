@@ -594,7 +594,8 @@
       "additionalInfo": "Ytterligare information",
       "deleteSuccess": "Arbetsloggskurs raderades framgångsrikt",
       "createdAt": "Skapad",
-      "viewGroups": "Visa grupper"
+      "viewGroups": "Visa grupper",
+      "studentName": "Studentens namn"
     },
     "modify": {
       "title": "Ändra arbetsloggskurs",
@@ -730,7 +731,8 @@
       "studentCount": "Antal studenter",
       "instructors": "Handledare",
       "additionalInfo": "Ytterligare information",
-      "viewEntries": "Visa poster"
+      "viewEntries": "Visa poster",
+      "studentName": "Studentens namn"
     },
     "steps": {
       "details": "Praktikum-detaljer",
