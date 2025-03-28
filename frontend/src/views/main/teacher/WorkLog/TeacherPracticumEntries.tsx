@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {worklogApi} from '../../../../api/worklog';
 import {practicumApi} from '../../../../api/practicum';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
@@ -17,21 +21,29 @@ interface PracticumEntry {
   status: 0 | 1 | 2 | 3;
 }
 
-interface PracticumDetails {
+interface DetailedPracticumInfo {
   practicum?: {
     first_name: string | null;
     last_name: string | null;
     email: string | null;
-    [key: string]: any;
+    id: number;
+    name: string;
+    startDate: string;
+    endDate: string;
+    description: string;
+    required_hours: number;
+    createdAt: string;
+    updatedAt: string;
   };
-  entries?: any[];
+  entries?: PracticumEntry[];
 }
 
 const TeacherPracticumEntries: React.FC = () => {
   const {t} = useTranslation(['common', 'teacher']);
   const {practicumid} = useParams<{practicumid: string}>();
   const [entries, setEntries] = useState<PracticumEntry[]>([]);
-  const [practicumDetails, setPracticumDetails] = useState<PracticumDetails | null>(null);
+  const [practicumDetails, setPracticumDetails] =
+    useState<DetailedPracticumInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -85,7 +97,15 @@ const TeacherPracticumEntries: React.FC = () => {
     );
   }
 
-  console.log(entries);
+  const getClampedPercentage = (percentage: number): number =>
+    Math.min(Math.max(percentage, 0), 100);
+
+  const getProgressColor = (percentage: number): string => {
+    if (percentage >= 100) return 'bg-metropolia-trend-green';
+    if (percentage >= 75) return 'bg-metropolia-main-orange';
+    if (percentage >= 50) return 'bg-metropolia-support-yellow';
+    return 'bg-metropolia-support-red';
+  };
 
   return (
     <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
@@ -111,7 +131,8 @@ const TeacherPracticumEntries: React.FC = () => {
             <p className='text-gray-600'>Student's name</p>
             {practicumDetails?.practicum?.first_name ? (
               <p className='font-medium'>
-                {practicumDetails.practicum.first_name} {practicumDetails.practicum.last_name}
+                {practicumDetails.practicum.first_name}{' '}
+                {practicumDetails.practicum.last_name}
               </p>
             ) : (
               <p className='text-gray-500'>No student assigned</p>
@@ -120,57 +141,94 @@ const TeacherPracticumEntries: React.FC = () => {
         </div>
       </div>
 
-      <div className='bg-white rounded-lg shadow p-4 mb-6'>
-        <h2 className='text-2xl font-heading mb-4'>All Entries</h2>
-        {entries.length === 0 ? (
-          <div className='text-center p-8 bg-gray-50 rounded-lg'>
-            <p className='text-lg text-gray-500'>
-              No entries found for this practicum
-            </p>
-          </div>
-        ) : (
-          <div className='overflow-x-auto'>
-            <table className='w-full table-auto'>
-              <thead>
-                <tr className='text-gray-600 border-b font-body'>
-                  <th className='p-3 text-left'>User ID</th>
-                  <th className='p-3 text-left'>Date</th>
-                  <th className='p-3 text-left'>Start Time</th>
-                  <th className='p-3 text-left'>End Time</th>
-                  <th className='p-3 text-left'>Hours</th>
-                  <th className='p-3 text-left'>Description</th>
-                  <th className='p-3 text-left'>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {entries.map((entry) => {
-                  const start = new Date(entry.start_time);
-                  const end = new Date(entry.end_time);
-                  const hours =
-                    (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+      <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
+        <div className='flex justify-between mb-1'>
+          <span className='text-sm text-gray-600 font-body'>Progress</span>
+          <span className='text-sm text-gray-600 font-body'>
+            {practicumDetails?.practicum?.required_hours}h required
+          </span>
+        </div>
+        <div className='relative w-full h-2 bg-gray-200 rounded-full mt-4'>
+          <div
+            className={`relative h-2 transition-all duration-300 ${getProgressColor(
+              (totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100
+            )} rounded-full`}
+            style={{
+              width: `${getClampedPercentage(
+                (totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100
+              )}%`,
+            }}
+          />
+          <span
+            className='absolute -bottom-6 text-sm font-medium text-gray-600 transform -translate-x-1/2'
+            style={{
+              left: `${Math.min((totalHours / (practicumDetails?.practicum?.required_hours || 1)) * 100, 100)}%`,
+            }}
+          >
+            {totalHours.toFixed(1)}h
+          </span>
+        </div>
+      </div>
 
-                  return (
-                    <tr
-                      key={entry.entry_id}
-                      className='border-b hover:bg-gray-50 font-body'>
-                      <td className='p-3'>{entry.userid}</td>
-                      <td className='p-3'>
-                        {new Date(entry.start_time).toLocaleDateString()}
-                      </td>
-                      <td className='p-3'>{formatTime(entry.start_time)}</td>
-                      <td className='p-3'>{formatTime(entry.end_time)}</td>
-                      <td className='p-3'>{hours.toFixed(2)}h</td>
-                      <td className='p-3 max-w-xs truncate'>
-                        {entry.description}
-                      </td>
-                      <td className='p-3'>{entry.status}</td>
+      <div className='bg-white rounded-lg shadow p-4 mb-6'>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls='entries-content'
+            id='entries-header'
+            className='bg-white rounded-t-lg'>
+            <h2 className='text-2xl font-heading'>All Entries</h2>
+          </AccordionSummary>
+          <AccordionDetails className='bg-white rounded-b-lg'>
+            {entries.length === 0 ? (
+              <div className='text-center p-8 bg-gray-50 rounded-lg'>
+                <p className='text-lg text-gray-500'>
+                  No entries found for this practicum
+                </p>
+              </div>
+            ) : (
+              <div className='overflow-x-auto'>
+                <table className='w-full table-auto'>
+                  <thead>
+                    <tr className='text-gray-600 border-b font-body'>
+                      <th className='p-3 text-left'>Date</th>
+                      <th className='p-3 text-left'>Start Time</th>
+                      <th className='p-3 text-left'>End Time</th>
+                      <th className='p-3 text-left'>Hours</th>
+                      <th className='p-3 text-left'>Description</th>
+                      <th className='p-3 text-left'>Status</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+                  </thead>
+                  <tbody>
+                    {entries.map((entry) => {
+                      const start = new Date(entry.start_time);
+                      const end = new Date(entry.end_time);
+                      const hours =
+                        (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+
+                      return (
+                        <tr
+                          key={entry.entry_id}
+                          className='border-b hover:bg-gray-50 font-body'>
+                          <td className='p-3'>
+                            {new Date(entry.start_time).toLocaleDateString()}
+                          </td>
+                          <td className='p-3'>{formatTime(entry.start_time)}</td>
+                          <td className='p-3'>{formatTime(entry.end_time)}</td>
+                          <td className='p-3'>{hours.toFixed(2)}h</td>
+                          <td className='p-3 max-w-xs truncate'>
+                            {entry.description}
+                          </td>
+                          <td className='p-3'>{entry.status}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
       </div>
     </div>
   );

@@ -204,7 +204,7 @@ const practicum = {
         `SELECT p.*, u.first_name, u.last_name, u.email
          FROM work_log_practicum p
          JOIN users u ON p.userid = u.userid
-         WHERE p.userid = 8 AND p.end_date >= CURDATE()
+         WHERE p.userid = ? AND p.end_date >= CURDATE()
          ORDER BY p.start_date DESC`,
         [userId],
       );
