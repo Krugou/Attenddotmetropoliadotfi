@@ -11,7 +11,6 @@ import {
   PhotoCamera,
   Work,
   Add,
-  Apartment,
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
