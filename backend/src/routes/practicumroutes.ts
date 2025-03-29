@@ -7,6 +7,19 @@ import validate from '../utils/validate.js';
 
 const router: Router = express.Router();
 
+router.get(
+  '/',
+  checkUserRole(['admin', 'counselor', 'teacher']),
+  async (_req: Request, res: Response) => {
+    try {
+      const practicums = await practicumController.getAllPracticums();
+      res.json(practicums);
+    } catch (error) {
+      logger.error('Error getting all practicums:', error);
+      res.status(500).json({error: 'Failed to get practicums'});
+    }
+  },
+);
 
 router.post(
   '/',
@@ -30,7 +43,6 @@ router.post(
   },
 );
 
-
 router.get(
   '/:practicumId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -45,7 +57,6 @@ router.get(
     }
   },
 );
-
 
 router.put(
   '/:practicumId',
@@ -64,7 +75,6 @@ router.put(
     }
   },
 );
-
 
 router.delete(
   '/:practicumId',
@@ -85,7 +95,6 @@ router.delete(
   },
 );
 
-
 router.get(
   '/instructor/:userId',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -102,7 +111,6 @@ router.get(
     }
   },
 );
-
 
 router.post(
   '/:practicumId/assign-student',

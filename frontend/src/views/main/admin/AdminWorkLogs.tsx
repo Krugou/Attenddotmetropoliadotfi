@@ -15,10 +15,11 @@ interface WorkLogCourse {
   name: string;
   start_date: string;
   end_date: string;
-  code: string;
+  code?: string;
   description: string;
   required_hours: number;
   created_at: string;
+  type?: 'practicum' | 'worklog';
 }
 
 // Add custom hook for debounced value
@@ -113,8 +114,9 @@ const AdminWorkLogs: React.FC = () => {
     );
   };
 
-  const handleRowClick = (courseId: number) => {
-    navigate(`/admin/worklog/${courseId}`);
+  const handleRowClick = (course: WorkLogCourse) => {
+    const path = course.type === 'practicum' ? 'practicum' : 'worklog';
+    navigate(`/admin/${path}/${course.work_log_course_id}`);
   };
 
   const clearSearch = () => {
@@ -127,10 +129,31 @@ const AdminWorkLogs: React.FC = () => {
     const token = localStorage.getItem('userToken');
     if (token) {
       try {
-        const fetchedWorkLogs = await apiHooks.getWorkLogCourses(token);
-        setWorkLogs(fetchedWorkLogs);
+        const [fetchedWorkLogs, fetchedPracticums] = await Promise.all([
+          apiHooks.getWorkLogCourses(token),
+          apiHooks.getAllPracticums(token),
+        ]);
+
+        const formattedPracticums = fetchedPracticums.map((p) => ({
+          work_log_course_id: p.work_log_practicum_id,
+          name: p.name,
+          code: 'practicum',
+          start_date: p.start_date,
+          end_date: p.end_date,
+          description: p.description,
+          required_hours: p.required_hours,
+          created_at: p.created_at,
+          type: 'practicum' as const,
+        }));
+
+        const formattedWorkLogs = fetchedWorkLogs.map((w) => ({
+          ...w,
+          type: 'worklog' as const,
+        }));
+
+        setWorkLogs([...formattedWorkLogs, ...formattedPracticums]);
       } catch (error) {
-        console.error('Error fetching worklog courses:', error);
+        console.error('Error fetching courses:', error);
       }
     }
     setIsRefreshing(false);
@@ -152,18 +175,39 @@ const AdminWorkLogs: React.FC = () => {
         throw new Error('No token available');
       }
 
-      const fetchWorkLogs = async () => {
+      const fetchData = async () => {
         try {
-          const fetchedWorkLogs = await apiHooks.getWorkLogCourses(token);
-          setWorkLogs(fetchedWorkLogs);
+          const [fetchedWorkLogs, fetchedPracticums] = await Promise.all([
+            apiHooks.getWorkLogCourses(token),
+            apiHooks.getAllPracticums(token),
+          ]);
+
+          const formattedPracticums = fetchedPracticums.map((p) => ({
+            work_log_course_id: p.work_log_practicum_id,
+            name: p.name,
+            code: 'practicum',
+            start_date: p.start_date,
+            end_date: p.end_date,
+            description: p.description,
+            required_hours: p.required_hours,
+            created_at: p.created_at,
+            type: 'practicum' as const,
+          }));
+
+          const formattedWorkLogs = fetchedWorkLogs.map((w) => ({
+            ...w,
+            type: 'worklog' as const,
+          }));
+
+          setWorkLogs([...formattedWorkLogs, ...formattedPracticums]);
         } catch (error) {
-          console.error('Error fetching worklog courses:', error);
+          console.error('Error fetching data:', error);
         } finally {
           setIsLoading(false);
         }
       };
 
-      fetchWorkLogs();
+      fetchData();
     }
   }, [user]);
 
@@ -269,12 +313,12 @@ const AdminWorkLogs: React.FC = () => {
                     <tr
                       key={course.work_log_course_id}
                       className='hover:bg-gray-200 cursor-pointer transition-colors duration-200'
-                      onClick={() => handleRowClick(course.work_log_course_id)}
+                      onClick={() => handleRowClick(course)}
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
-                          handleRowClick(course.work_log_course_id);
+                          handleRowClick(course);
                         }
                       }}
                       role='button'
@@ -283,7 +327,7 @@ const AdminWorkLogs: React.FC = () => {
                         {highlightMatch(course.name, debouncedSearchTerm)}
                       </td>
                       <td className='px-2 py-2 border'>
-                        {highlightMatch(course.code, debouncedSearchTerm)}
+                        {highlightMatch(course.code || '', debouncedSearchTerm)}
                       </td>
                       <td className='px-2 py-2 border'>
                         {new Date(course.start_date).toLocaleDateString()}

@@ -13,6 +13,7 @@ import AdminSettingsRoutes from './admin/AdminSettingsRoutes.tsx';
 import AdminUserRoutes from './admin/AdminUserRoutes';
 import AdminWorkLogRoutes from './admin/AdminWorkLogRoutes.tsx';
 import AdminOtherDashboards from '../views/main/admin/AdminOtherDashboards';
+import AdminPracticumRoutes from './admin/AdminPracticumRoutes.tsx';
 /**
  * AdminRoutes component.
  * This component is responsible for defining the routes for the admin section of the application.
@@ -54,6 +55,7 @@ const AdminRoutes = () => {
       <Route path='mainview' element={<AdminMainView />} />
       <Route path='courses/*' element={<AdminCoursesRoutes />} />
       <Route path='worklog/*' element={<AdminWorkLogRoutes />} />
+      <Route path='practicum/*' element={<AdminPracticumRoutes />} />
       <Route path='users/*' element={<AdminUserRoutes />} />
       <Route path='profile' element={<AdminProfile />} />
       <Route path='settings/*' element={<AdminSettingsRoutes />} />
