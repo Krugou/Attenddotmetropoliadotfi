@@ -560,7 +560,14 @@
       "description": "Kuvaus",
       "status": "Tila",
       "time": "Aika",
-      "duration": "Kesto"
+      "duration": "Kesto",
+      "actions": "Toiminnot",
+      "deleted": "Merkintä poistettu onnistuneesti",
+      "confirmDelete": "Poista merkintä",
+      "confirmDeleteMessage": "Haluatko varmasti poistaa tämän merkinnän päivältä {{date}}?",
+      "errors": {
+        "failedToDelete": "Merkinnän poistaminen epäonnistui"
+      }
     },
     "status": {
       "0": "Status: Virhe",

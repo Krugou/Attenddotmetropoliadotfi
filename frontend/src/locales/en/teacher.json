@@ -580,7 +580,14 @@
       "description": "Description",
       "status": "Status",
       "time": "Time",
-      "duration": "Duration"
+      "duration": "Duration",
+      "actions": "Actions",
+      "deleted": "Entry deleted successfully",
+      "confirmDelete": "Delete Entry",
+      "confirmDeleteMessage": "Are you sure you want to delete this entry from {{date}}?",
+      "errors": {
+        "failedToDelete": "Failed to delete entry"
+      }
     },
     "status": {
       "0": "Status: Error",

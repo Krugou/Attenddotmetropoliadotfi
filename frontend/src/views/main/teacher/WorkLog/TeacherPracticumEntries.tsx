@@ -8,6 +8,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {worklogApi} from '../../../../api/worklog';
 import {practicumApi} from '../../../../api/practicum';
 import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {toast} from 'react-toastify';
 
 interface PracticumEntry {
   entry_id: number;
@@ -45,6 +53,15 @@ const TeacherPracticumEntries: React.FC = () => {
   const [practicumDetails, setPracticumDetails] =
     useState<DetailedPracticumInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [deleteDialog, setDeleteDialog] = useState<{
+    open: boolean;
+    entryId: number | null;
+    entryDate: string;
+  }>({
+    open: false,
+    entryId: null,
+    entryDate: '',
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,14 +110,6 @@ const TeacherPracticumEntries: React.FC = () => {
     return total + diffInHours;
   }, 0);
 
-  if (loading) {
-    return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-xl font-body'>Loading...</div>
-      </div>
-    );
-  }
-
   const getClampedPercentage = (percentage: number): number =>
     Math.min(Math.max(percentage, 0), 100);
 
@@ -116,6 +125,62 @@ const TeacherPracticumEntries: React.FC = () => {
     }
     return 'bg-gradient-to-r from-metropolia-support-secondary-red via-metropolia-support-red to-metropolia-support-yellow-dark';
   };
+
+  const handleDeleteEntry = (entryId: number, date: string) => {
+    setDeleteDialog({
+      open: true,
+      entryId,
+      entryDate: new Date(date).toLocaleDateString(),
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token || !deleteDialog.entryId) {
+        throw new Error('Missing required data');
+      }
+
+      await worklogApi.deleteWorkLogEntry(deleteDialog.entryId, token);
+      toast.success(t('teacher:worklog.entries.deleted'));
+      const fetchData = async () => {
+        const token: string | null = localStorage.getItem('userToken');
+        if (!practicumid || !token) {
+          setLoading(false);
+          return;
+        }
+
+        try {
+          setLoading(true);
+          const [details, worklogEntries] = await Promise.all([
+            practicumApi.getPracticumDetails(Number(practicumid), token),
+            worklogApi.getWorkLogEntriesByPracticum(Number(practicumid), token),
+          ]);
+
+          setPracticumDetails(details);
+          setEntries(worklogEntries);
+          setLoading(false);
+        } catch (err) {
+          console.error('Error fetching data:', err);
+          setLoading(false);
+        }
+      };
+      await fetchData();
+    } catch (error) {
+      console.error('Error deleting entry:', error);
+      toast.error(t('teacher:worklog.entries.errors.failedToDelete'));
+    } finally {
+      setDeleteDialog({ open: false, entryId: null, entryDate: '' });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className='flex items-center justify-center min-h-screen'>
+        <div className='text-xl font-body'>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className='container max-w-6xl px-4 py-8 mx-auto bg-gray-100 rounded-lg'>
@@ -212,6 +277,7 @@ const TeacherPracticumEntries: React.FC = () => {
                       <th className='p-3 text-left'>Hours</th>
                       <th className='p-3 text-left'>Description</th>
                       <th className='p-3 text-left'>Status</th>
+                      <th className='p-3 text-left'>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -235,6 +301,14 @@ const TeacherPracticumEntries: React.FC = () => {
                             {entry.description}
                           </td>
                           <td className='p-3'>{entry.status}</td>
+                          <td className='p-3'>
+                            <button
+                              onClick={() => handleDeleteEntry(entry.entry_id, entry.start_time)}
+                              className='text-red-600 hover:text-red-800 transition-colors p-1'
+                              title={t('common:delete')}>
+                              <DeleteIcon fontSize="small" />
+                            </button>
+                          </td>
                         </tr>
                       );
                     })}
@@ -245,6 +319,33 @@ const TeacherPracticumEntries: React.FC = () => {
           </AccordionDetails>
         </Accordion>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialog.open}
+        onClose={() => setDeleteDialog({ open: false, entryId: null, entryDate: '' })}
+        aria-labelledby="delete-dialog-title"
+        aria-describedby="delete-dialog-description"
+      >
+        <DialogTitle id="delete-dialog-title">
+          {t('teacher:worklog.entries.confirmDelete')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="delete-dialog-description">
+            {t('teacher:worklog.entries.confirmDeleteMessage', { date: deleteDialog.entryDate })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDeleteDialog({ open: false, entryId: null, entryDate: '' })}
+          >
+            {t('common:cancel')}
+          </Button>
+          <Button onClick={handleConfirmDelete} color="error" autoFocus>
+            {t('common:delete')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
