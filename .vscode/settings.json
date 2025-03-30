@@ -1,0 +1,68 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "jaksec",
+      "database": "jaksec",
+      "username": "root",
+      "password": "root"
+    }
+  ],
+  "i18n-ally.localesPaths": [
+    "frontend/src/locales"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.namespace": true,
+  "i18n-ally.pathMatcher": "{locale}/{namespace}.json",
+  "i18n-ally.enabledFrameworks": [
+    "react",
+    "i18next"
+  ],
+  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.displayLanguage": "fi",
+  "i18n-ally.extract.autoDetect": true,
+  "i18n-ally.extract.parsers.html": {
+    "attributes": [
+      "text",
+      "title",
+      "alt",
+      "placeholder",
+      "label",
+      "aria-label"
+    ],
+    "ignoredTags": [
+      "script",
+      "style"
+    ],
+    "vBind": true,
+    "inlineText": true
+  },
+  // Make sure that particular refactoring templates would be picked up be the bulk extraction depending on the context
+  "i18n-ally.refactor.templates": [
+    {
+      // affect scope (optional)
+      // see https://github.com/lokalise/i18n-ally/blob/master/src/core/types.ts#L156-L156
+      "source": "html-attribute",
+      "templates": [
+        "i18n.t('{key}'{args})",
+        "custom.t('{key}'{args})",
+      ],
+      // accept globs, resolved to project root (optional)
+      "include": [
+        "src/**/*.{vue,ts,js}",
+        "index.html"
+      ],
+      "exclude": [
+        "src/config/**"
+      ]
+    },
+    // ...
+  ]
+}
