@@ -678,7 +678,14 @@
       "hours": "Timmar",
       "description": "Beskrivning",
       "time": "Tid",
-      "duration": "Varaktighet"
+      "duration": "Varaktighet",
+      "actions": "Åtgärder",
+      "deleted": "Inlägg raderat framgångsrikt",
+      "confirmDelete": "Radera inlägg",
+      "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg från {{date}}?",
+      "errors": {
+        "failedToDelete": "Misslyckades med att radera inlägget"
+      }
     }
   },
   "courseStudents": {

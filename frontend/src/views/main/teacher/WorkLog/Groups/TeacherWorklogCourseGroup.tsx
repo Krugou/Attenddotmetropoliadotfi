@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContentText from '@mui/material/DialogContentText';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface GroupDetails {
   group: {
@@ -70,6 +71,15 @@ const TeacherWorklogCourseGroup: React.FC = () => {
     open: false,
     studentId: null,
     studentName: '',
+  });
+  const [deleteEntryDialog, setDeleteEntryDialog] = useState<{
+    open: boolean;
+    entryId: number | null;
+    entryDate: string;
+  }>({
+    open: false,
+    entryId: null,
+    entryDate: '',
   });
 
   const fetchGroupDetails = async () => {
@@ -179,6 +189,32 @@ const TeacherWorklogCourseGroup: React.FC = () => {
       toast.error(t('teacher:worklog.groups.errors.failedToRemove'));
     } finally {
       setConfirmDialog({open: false, studentId: null, studentName: ''});
+    }
+  };
+
+  const handleDeleteEntry = (entryId: number, date: string) => {
+    setDeleteEntryDialog({
+      open: true,
+      entryId,
+      entryDate: new Date(date).toLocaleDateString(),
+    });
+  };
+
+  const handleConfirmDeleteEntry = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (!token || !deleteEntryDialog.entryId) {
+        throw new Error('Missing required data');
+      }
+
+      await apiHooks.deleteWorkLogEntry(deleteEntryDialog.entryId, token);
+      toast.success(t('teacher:worklog.entries.deleted'));
+      await fetchGroupDetails();
+    } catch (error) {
+      console.error('Error deleting entry:', error);
+      toast.error(t('teacher:worklog.entries.errors.failedToDelete'));
+    } finally {
+      setDeleteEntryDialog({ open: false, entryId: null, entryDate: '' });
     }
   };
 
@@ -350,6 +386,9 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                       <th className='p-3 text-left'>
                         {t('teacher:worklog.entries.status')}
                       </th>
+                      <th className='p-3 text-left'>
+                        {t('teacher:worklog.entries.actions')}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -373,6 +412,14 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                         <td className='p-3'>{entry.description}</td>
                         <td className='p-3'>
                           {t(`teacher:worklog.status.${entry.status}`)}
+                        </td>
+                        <td className='p-3'>
+                          <button
+                            onClick={() => handleDeleteEntry(entry.entry_id, entry.start_time)}
+                            className='text-red-600 hover:text-red-800 transition-colors p-1'
+                            title={t('common:delete')}>
+                            <DeleteIcon fontSize="small" />
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -491,6 +538,31 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           </Button>
           <Button onClick={handleConfirmRemove} color='error' autoFocus>
             {t('teacher:studentList.buttons.delete')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={deleteEntryDialog.open}
+        onClose={() => setDeleteEntryDialog({ open: false, entryId: null, entryDate: '' })}
+        aria-labelledby="delete-entry-dialog-title"
+        aria-describedby="delete-entry-dialog-description"
+      >
+        <DialogTitle id="delete-entry-dialog-title">
+          {t('teacher:worklog.entries.confirmDelete')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="delete-entry-dialog-description">
+            {t('teacher:worklog.entries.confirmDeleteMessage', { date: deleteEntryDialog.entryDate })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDeleteEntryDialog({ open: false, entryId: null, entryDate: '' })}
+          >
+            {t('common:cancel')}
+          </Button>
+          <Button onClick={handleConfirmDeleteEntry} color="error" autoFocus>
+            {t('common:delete')}
           </Button>
         </DialogActions>
       </Dialog>

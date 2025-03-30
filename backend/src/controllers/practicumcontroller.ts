@@ -196,6 +196,21 @@ const practicumController = {
       throw error;
     }
   },
+
+  async getAllPracticums(): Promise<PracticumData[]> {
+    try {
+      const practicums = await practicum.getAllPracticums();
+      return practicums.map((p) => ({
+        ...p,
+        start_date: p.start_date.toISOString(),
+        end_date: p.end_date.toISOString(),
+        created_at: p.created_at?.toISOString(),
+      }));
+    } catch (error) {
+      logger.error('Error in getAllPracticums:', error);
+      throw error;
+    }
+  },
 };
 
 export default practicumController;
