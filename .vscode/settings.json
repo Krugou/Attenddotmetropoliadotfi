@@ -24,7 +24,7 @@
   "i18n-ally.enabledFrameworks": [
     "react",
     "i18next",
-      "general"
+    "general"
   ],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "fi",
