@@ -61,7 +61,11 @@
     "searchFailed": "Sökningen misslyckades.",
     "selectionRequired": "Urval krävs",
     "fetchFailed": "Hämtning",
-    "enrollmentFailed": "Anmälan misslyckades"
+    "enrollmentFailed": "Anmälan misslyckades",
+    "fetchCourseDetailsFailed": "Misslyckades med att hämta kursinformation",
+    "coursesNotLoaded": "Kurser kunde inte laddas",
+    "fetchStudentsFailed": "Misslyckades med att hämta studentdata",
+    "fetchWorklogCoursesFailed": "Misslyckades med att hämta arbetsloggkurser"
   },
   "email": "E-post",
   "firstName": "Förnamn",

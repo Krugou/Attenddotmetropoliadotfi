@@ -58,7 +58,11 @@
     "searchFailed": "Search failed.",
     "selectionRequired": "Selection required",
     "fetchFailed": "Fetch failed",
-    "enrollmentFailed": "Enrollment failed"
+    "enrollmentFailed": "Enrollment failed",
+    "fetchCourseDetailsFailed": "Failed to fetch course details",
+    "coursesNotLoaded": "Courses could not be loaded",
+    "fetchStudentsFailed": "Failed to fetch students data",
+    "fetchWorklogCoursesFailed": "Failed to fetch worklog courses"
   },
   "email": "Email",
   "firstName": "First Name",

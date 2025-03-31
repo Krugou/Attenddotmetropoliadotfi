@@ -109,7 +109,8 @@
     "date": "Date",
     "error": "Error",
     "actions": "Actions",
-    "noCoursesMatch": "No courses match the current filters"
+    "noCoursesMatch": "No courses match the current filters",
+    "noUsersMatch": "No users match the current filters"
   },
   "courses": {
     "delete": {
@@ -123,6 +124,9 @@
       "permissionDenied": "You don't have permission to modify this course",
       "saveFailed": "Failed to save changes",
       "unknown": "An unknown error occurred"
+    },
+    "error": {
+      "modifyError": "Error modifying course"
     },
     "finish": "Finish",
     "info": {
@@ -471,6 +475,7 @@
     "activeStatus": "Active Status",
     "showInactive": "Show Inactive",
     "hideInactive": "Hide Inactive",
-    "showAll": "Show All Users"
+    "showAll": "Show All Users",
+    "showInactiveToSeeMore": "Try showing inactive users to see more results"
   }
 }

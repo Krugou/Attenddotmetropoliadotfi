@@ -63,7 +63,8 @@
     "present": "Presentera",
     "absent": "Frånvarande",
     "deleting": "Radera ...",
-    "noCoursesMatch": "Inga kurser matchar de aktuella filtren"
+    "noCoursesMatch": "Inga kurser matchar de aktuella filtren",
+    "noUsersMatch": "Inga användare matchar de aktuella filtren"
   },
   "mainView": {
     "teacherDashboard": "Lärarpanel",
@@ -110,6 +111,9 @@
       "loadFailed": "Misslyckades med att ladda kursdetaljer",
       "saveFailed": "Misslyckades med att spara ändringar",
       "permissionDenied": "Du har inte tillstånd att ändra den här kursen",
+      "modifyError": "Fel vid ändring av kurs"
+    },
+    "error": {
       "modifyError": "Fel vid ändring av kurs"
     },
     "info": {
@@ -445,6 +449,7 @@
     "activeStatus": "Aktivitetsstatus",
     "showInactive": "Visa inaktiva",
     "hideInactive": "Dölj inaktiva",
-    "showAll": "Visa alla användare"
+    "showAll": "Visa alla användare",
+    "showInactiveToSeeMore": "Försök att visa inaktiva användare för att se fler resultat"
   }
 }

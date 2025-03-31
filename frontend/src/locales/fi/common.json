@@ -58,7 +58,11 @@
     "searchFailed": "Haku epäonnistui.",
     "selectionRequired": "Valinta vaaditaan",
     "fetchFailed": "Hae epäonnistui",
-    "enrollmentFailed": "Ilmoittautuminen epäonnistui"
+    "enrollmentFailed": "Ilmoittautuminen epäonnistui",
+    "fetchCourseDetailsFailed": "Kurssin tietojen hakeminen epäonnistui",
+    "coursesNotLoaded": "Kursseja ei voitu ladata",
+    "fetchStudentsFailed": "Opiskelijoiden tietojen hakeminen epäonnistui",
+    "fetchWorklogCoursesFailed": "Työaikakirjauskurssien hakeminen epäonnistui"
   },
   "email": "Sähköposti",
   "firstName": "Etunimi",
