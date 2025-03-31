@@ -851,7 +851,7 @@
   "buttons": {
     "previous": "Edellinen",
     "next": "Seuraava",
-    "createWorklog": "Luo työpäiväkirja",
-    "createCourse": "Luo kurssi"
+    "createCourse": "Luo kurssi",
+    "createWorklog": "Luo työpäiväkirja"
   }
 }

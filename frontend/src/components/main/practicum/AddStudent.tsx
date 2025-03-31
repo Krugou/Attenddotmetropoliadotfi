@@ -106,7 +106,7 @@ function AddStudent({students, setStudents}: Props) {
             type="text"
             value={searchTerm}
             onChange={e => handleSearch(e.target.value)}
-            placeholder={t('common:searchByName')}
+            placeholder={t('teacher:practicum.searchByName')}
             className="w-full p-2 border rounded focus:ring-2 focus:ring-metropolia-main-orange focus:outline-none"
             aria-required="true"
           />

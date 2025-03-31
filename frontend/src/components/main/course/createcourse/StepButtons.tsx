@@ -44,13 +44,13 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 			}`}
 		>
 			{currentStep > 1 && (
-				<StepButton text={t('buttons.previous')} type="button" onClick={onPrevClick} />
+				<StepButton text={t('teacher:buttons.previous')} type="button" onClick={onPrevClick} />
 			)}
 			{isWorklog ? (
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 3 : 2) && (
 						<StepButton
-							text={customNextLabel || t('buttons.next')}
+							text={customNextLabel || t('teacher:buttons.next')}
 							type="button"
 							onClick={() => {
 								if (setIsCustomGroup && currentStep === 1) {
@@ -62,7 +62,7 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 					)}
 					{currentStep === (extrastep ? 4 : 3) && (
 						<StepButton
-							text={t('buttons.createWorklog')}
+							text={t('teacher:buttons.createWorklog')}
 							type="submit"
 							onClick={onSubmitClick}
 							marginTop="mt-2"
@@ -73,14 +73,14 @@ const StepButtons: React.FC<StepButtonsProps> = ({
 				<>
 					{currentStep >= 1 && currentStep <= (extrastep ? 4 : 3) && (
 						<StepButton
-							text={t('buttons.next')}
+							text={t('teacher:buttons.next')}
 							type="button"
 							onClick={onNextClick}
 						/>
 					)}
 					{currentStep === (extrastep ? 5 : 4) && !isCustomGroup && (
 						<StepButton
-							text={t('buttons.createCourse')}
+							text={t('teacher:buttons.createCourse')}
 							type="submit"
 							onClick={onSubmitClick}
 							marginTop="mt-2"

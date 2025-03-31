@@ -26,7 +26,7 @@ const PracticumData: React.FC<PracticumDataProps> = ({
   requiredHours,
   setRequiredHours,
 }) => {
-  const {t} = useTranslation(['teacher']);
+  const {t} = useTranslation(['teacher', 'common']);
   const [charCount, setCharCount] = useState(description.length);
   const [nameCharCount, setNameCharCount] = useState(name.length);
   const [endDateError, setEndDateError] = useState<string>('');
@@ -77,7 +77,7 @@ const PracticumData: React.FC<PracticumDataProps> = ({
           required
         />
         <p className="mt-1 text-sm text-gray-500 text-right font-body">
-          {nameCharCount}/100 characters
+          {nameCharCount}/100 {t('common:characters')}
         </p>
       </div>
 
@@ -96,7 +96,7 @@ const PracticumData: React.FC<PracticumDataProps> = ({
           rows={4}
         />
         <p className="mt-1 text-sm text-gray-500 text-right font-body">
-          {charCount}/500 characters
+          {charCount}/500 {t('common:characters')}
         </p>
       </div>
 

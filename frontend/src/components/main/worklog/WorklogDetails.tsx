@@ -38,7 +38,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
   codeExists = false,
   setCourseExists,
 }) => {
-  const {t} = useTranslation(['teacher']);
+  const {t} = useTranslation(['teacher', 'common']);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
   const [charCount, setCharCount] = useState(description.length);
@@ -112,7 +112,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
           maxLength={100}
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {nameCharCount}/100 characters
+          {nameCharCount}/100 {t('common:characters')}
         </p>
       </div>
 
@@ -150,7 +150,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
           className='p-2 border rounded-lg w-full'
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {charCount}/500 characters
+          {charCount}/500 {t('common:characters')}
         </p>
       </div>
 

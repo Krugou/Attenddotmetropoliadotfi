@@ -863,7 +863,7 @@
   "buttons": {
     "previous": "Föregående",
     "next": "Nästa",
-    "createWorklog": "Skapa arbetslogg",
-    "createCourse": "Skapa kurs"
+    "createCourse": "Skapa kurs",
+    "createWorklog": "Skapa arbetslogg"
   }
 }

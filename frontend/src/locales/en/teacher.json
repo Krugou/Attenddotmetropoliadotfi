@@ -749,6 +749,7 @@
     "selectedStudent": "Selected student",
     "studentSelected": "Student selected successfully",
     "endDateMustBeAfterStartDate": "End date must be after start date",
+    "searchByName": "Search by name",
     "form": {
       "name": "practicum Name",
       "description": "practicum Description",

@@ -22,7 +22,7 @@ interface WorkLogStudent {
   existingGroup?: {group_id: number; group_name: string} | null;
 }
 const TeacherWorklogCourseGroups: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher', 'common']);
   const {courseid} = useParams<{courseid: string}>();
   const {user} = useContext(UserContext);
   const [groups, setGroups] = useState<WorkLogGroup[]>([]);
