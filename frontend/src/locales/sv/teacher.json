@@ -557,6 +557,19 @@
     }
   },
   "worklog": {
+    "detail": {
+      "backtogroups": "Tillbaka till grupper",
+      "backToWorklog": "Tillbaka till arbetsdagböcker"
+    },
+    "details": {
+      "title": "Arbetsdagbokskurs",
+      "name": "Kursnamn",
+      "code": "Kurskod",
+      "description": "Beskrivning",
+      "requiredHours": "Obligatoriska timmar",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum"
+    },
     "create": {
       "title": "Lägg till ny arbetsdagbokskurs",
       "subtitle": "Välj mellan alternativ",
@@ -576,6 +589,8 @@
       }
     },
     "errors": {
+      "groupNotFound": "Grupp inte hittad",
+      "createFailed": "Det gick inte att skapa arbetsloggskursen"
     },
     "data": {
       "courseCode": "Kurskod",
@@ -606,6 +621,18 @@
       "success": "Arbetsloggskurs ändrades framgångsrikt"
     },
     "groups": {
+      "addToGroup": "Lägg till i grupp",
+      "back": "Tillbaka",
+      "addStudentsToGroup": "Lägg till studenter i gruppen",
+      "errors": {
+        "nameRequired": "Gruppnamn krävs",
+        "createFailed": "Det gick inte att skapa gruppen: {{message}}",
+        "unknown": "Ett okänt fel uppstod när gruppen skapades",
+        "failedToRemove": "Misslyckades med att ta bort studenten från gruppen"
+      },
+      "warnings": {
+        "studentsNotAdded": "Studenter har inte lagts till i gruppen"
+      },
       "students": {
         "title": "Kursens studenter",
         "select": "Välj studenter att lägga till i grupper"
@@ -613,6 +640,7 @@
       "allStudentsAssigned": "Alla studenter har tilldelats",
       "addStudents": "Lägg till valda studenter",
       "studentsAdded": "Studenter har lagts till i gruppen",
+      "studentRemoved": "Student borttagen från gruppen framgångsrikt",
       "studentCount": "{{count}} studenter",
       "title": "Kursgrupper",
       "createGroup": "Skapa grupp",
@@ -623,7 +651,8 @@
       "noGroups": "Inga grupper har skapats ännu.",
       "createSuccess": "Gruppen skapades framgångsrikt",
       "stats": "Visa statistik",
-      "entries": "Gruppposter"
+      "entries": "Gruppposter",
+      "save": ""
     },
     "status": {
       "0": "Fel",
@@ -667,25 +696,38 @@
       "startDateRequired": "Startdatum krävs",
       "endDateRequired": "Slutdatum krävs",
       "endDateError": "Slutdatum måste vara efter startdatum",
-      "requiredHoursError": "Obligatoriska timmar måste vara större än 0"
+      "requiredHoursError": "Obligatoriska timmar måste vara större än 0",
+      "errors": {
+        "codeExists": "En arbetslogg med denna kod finns redan"
+      }
     },
     "modifySuccess": "Arbetslogg ändrad framgångsrikt",
     "title": "Arbetsloggar",
     "entries": {
       "name": "Namn",
-      "status": "Status",
+      "title": "Praktikummärkningar",
+      "totalEntries": "Totalt antal märkningar",
+      "totalHours": "Totalt loggade timmar",
+      "studentName": "Studentens namn",
+      "noStudent": "Ingen student tilldelad",
+      "progress": "Framsteg",
+      "required": "krävs",
+      "allEntries": "Alla poster",
+      "noEntries": "Inga poster hittades för detta praktikum",
       "date": "Datum",
+      "startTime": "Starttid",
+      "endTime": "Sluttid",
       "hours": "Timmar",
       "description": "Beskrivning",
-      "time": "Tid",
-      "duration": "Varaktighet",
+      "status": "Status",
       "actions": "Åtgärder",
       "deleted": "Inlägg raderat framgångsrikt",
       "confirmDelete": "Radera inlägg",
       "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg från {{date}}?",
       "errors": {
         "failedToDelete": "Misslyckades med att radera inlägget"
-      }
+      },
+      "time": "Tid"
     }
   },
   "courseStudents": {
@@ -767,6 +809,7 @@
     "create": "Skapa praktikum",
     "searchByName": "Sök efter namn",
     "studentSelected": "Student valdes framgångsrikt",
+    "endDateMustBeAfterStartDate": "Slutdatum måste vara efter startdatum",
     "entryStatus": {
       "0": "Status: Fel",
       "1": "Status: Inloggad",
@@ -790,7 +833,25 @@
       "title": "Praktikummärkningar",
       "totalEntries": "Totalt antal märkningar",
       "totalHours": "Totalt loggade timmar",
-      "studentName": "Studentens namn"
+      "studentName": "Studentens namn",
+      "noStudent": "Ingen student tilldelad",
+      "progress": "Framsteg",
+      "required": "krävs",
+      "allEntries": "Alla poster",
+      "noEntries": "Inga poster hittades för detta praktikum",
+      "date": "Datum",
+      "startTime": "Starttid",
+      "endTime": "Sluttid",
+      "hours": "Timmar",
+      "description": "Beskrivning",
+      "status": "Status",
+      "actions": "Åtgärder",
+      "deleted": "Inlägg raderat framgångsrikt",
+      "confirmDelete": "Radera inlägg",
+      "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg från {{date}}?",
+      "errors": {
+        "failedToDelete": "Misslyckades med att radera inlägget"
+      }
     },
     "findStudent": "Hitta student",
     "searchStudentByName": "Sök student med namn, e-post eller studentnummer",

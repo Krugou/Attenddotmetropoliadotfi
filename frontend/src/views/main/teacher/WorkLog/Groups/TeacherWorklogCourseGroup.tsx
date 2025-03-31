@@ -319,7 +319,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                         fill='currentColor'>
                         <path
                           fillRule='evenodd'
-                          d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                          d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 010-1.414z'
                           clipRule='evenodd'
                         />
                       </svg>
@@ -435,7 +435,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           maxWidth='sm'
           fullWidth>
           <DialogTitle className='flex items-center justify-center text-center font-heading'>
-            add students to group
+            {t('teacher:worklog.groups.addStudentsToGroup')}
           </DialogTitle>
           <DialogContent className='flex flex-col items-center text-center'>
             <div className='w-full max-w-md mx-auto max-h-[400px] overflow-y-auto space-y-2 p-4'>

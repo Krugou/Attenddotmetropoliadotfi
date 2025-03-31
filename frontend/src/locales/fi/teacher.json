@@ -534,9 +534,19 @@
         "title": "Kurssin opiskelijat",
         "select": "Valitse opiskelijat lisättäväksi ryhmiin"
       },
+      "errors":{
+        "nameRequired":"Nimi on pakollinen",
+        "createFailed": "Ryhmän luominen epäonnistui: {{message}}",
+        "unknown": "Ryhmän luomisessa tapahtui tuntematon virhe",
+        "failedToRemove": "Opiskelijan poistaminen ryhmästä epäonnistui"
+      },
+      "warnings": {
+        "studentsNotAdded": "Opiskelijoita ei lisätty ryhmään"
+      },
       "allStudentsAssigned": "Kaikki opiskelijat on lisätty ryhmiin",
       "addStudents": "Lisää valitut opiskelijat",
       "studentsAdded": "Opiskelijat lisätty ryhmään onnistuneesti",
+      "studentRemoved": "Opiskelija poistettu ryhmästä onnistuneesti",
       "studentCount": "{{count}} opiskelijaa",
       "title": "Kurssin ryhmät",
       "createGroup": "Luo ryhmä",
@@ -551,7 +561,8 @@
       "back": "takaisin",
       "close": "Sulje",
       "save": "Tallenna",
-      "entries": "Ryhmämerkinnät"
+      "entries": "Ryhmämerkinnät",
+      "addStudentsToGroup": "Lisää opiskelijat ryhmään"
     },
     "entries": {
       "name": " Nimi",
@@ -611,7 +622,10 @@
       "startDateRequired": "Aloituspäivä on pakollinen",
       "endDateRequired": "Päättymispäivä on pakollinen",
       "endDateError": "Päättymispäivän on oltava aloituspäivän jälkeen",
-      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0"
+      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0",
+      "errors":{
+        "codeExists": "Työaikakirjaus tällä koodilla on jo olemassa"
+        }
     },
     "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
     "title": "Työaikakirjaukset"
@@ -783,6 +797,7 @@
     "create": "Luo harjoittelu",
     "searchByName": "Etsi nimellä",
     "studentSelected": "Opiskelija valittu onnistuneesti",
+    "endDateMustBeAfterStartDate": "Päättymispäivän on oltava aloituspäivän jälkeen",
     "entryStatus": {
       "0": "Tila: Virhe",
       "1": "Tila: Kirjautunut sisään",
@@ -795,7 +810,8 @@
     "stepButtons": {
       "previous": "Edellinen",
       "next": "Seuraava",
-      "submit": "Lähetä"
+      "submit": "Lähetä",
+      "create": "Luo harjoittelu"
     },
     "createMode": {
       "title": "Luo harjoittelu",
@@ -805,7 +821,25 @@
       "title": "Harjoittelumerkinnät",
       "totalEntries": "Merkintöjen kokonaismäärä",
       "totalHours": "Kirjatut tunnit yhteensä",
-      "studentName": "Opiskelijan nimi"
+      "studentName": "Opiskelijan nimi",
+      "noStudent": "Ei opiskelijaa määritetty",
+      "progress": "Edistyminen",
+      "required": "vaadittu",
+      "allEntries": "Kaikki merkinnät",
+      "noEntries": "Tälle harjoittelulle ei löydy merkintöjä",
+      "date": "Päivämäärä",
+      "startTime": "Aloitusaika",
+      "endTime": "Lopetusaika",
+      "hours": "Tunnit",
+      "description": "Kuvaus",
+      "status": "Tila",
+      "actions": "Toiminnot",
+      "deleted": "Merkintä poistettu onnistuneesti",
+      "confirmDelete": "Poista merkintä",
+      "confirmDeleteMessage": "Haluatko varmasti poistaa tämän merkinnän päivältä {{date}}?",
+      "errors": {
+        "failedToDelete": "Merkinnän poistaminen epäonnistui"
+      }
     },
     "findStudent": "Etsi opiskelija",
     "searchStudentByName": "Hae opiskelijaa nimellä, sähköpostilla tai opiskelijanumerolla",

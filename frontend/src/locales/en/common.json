@@ -70,6 +70,11 @@
   "no": "No",
   "required": "required",
   "cancel": "Cancel",
+  "delete": "Delete",
+  "remove": "Remove",
+  "characters": "characters",
+  "check": "Check",
+  "checking": "Checking...",
   "create": "Create",
   "creating": "Creating...",
   "back": "Back",
@@ -322,6 +327,17 @@
     "confirmation": {
       "duplicateEntryWarning": "You already have an entry for this course today. Do you still want to add a new entry?",
       "title": "Confirmation"
+    },
+    "practicum": "Practicum Entry",
+    "stats": {
+      "labels": {
+        "student": "Student",
+        "hours": "Hours",
+        "progress": "Progress",
+        "required": "Required",
+        "completed": "Completed",
+        "remaining": "Remaining"
+      }
     }
   },
   "lectures": {

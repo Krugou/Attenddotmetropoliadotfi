@@ -35,7 +35,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
   courseExists,
   setCourseExists,
 }) => {
-  const {t} = useTranslation(['teacher']);
+  const {t} = useTranslation(['teacher', 'common']);
   const [isCheckingCode, setIsCheckingCode] = useState(false);
   const [firstCode] = useState(code);
   const [codeChanged, setCodeChanged] = useState(false);
@@ -112,7 +112,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           required
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {nameCharCount}/100 characters
+          {nameCharCount}/100 {t('common:characters')}
         </p>
       </div>
 
@@ -170,7 +170,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
           rows={4}
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {charCount}/500 characters
+          {charCount}/500 {t('common:characters')}
         </p>
       </div>
 

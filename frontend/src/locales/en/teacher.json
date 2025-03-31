@@ -509,6 +509,7 @@
       "save": "Save Changes",
       "success": "Worklog course modified successfully"
     },
+    "modifySuccess": "Worklog course modified successfully",
     "create": {
       "title": "Add new Work Log Course",
       "subtitle": "Choose between modes",
@@ -556,9 +557,19 @@
         "title": "Course Students",
         "select": "Select students to add to groups"
       },
+      "errors": {
+        "nameRequired": "Name is required",
+        "createFailed": "Failed to create group: {{message}}",
+        "unknown": "An unknown error occurred while creating the group",
+        "failedToRemove": "Failed to remove student from group"
+      },
+      "warnings": {
+        "studentsNotAdded": "No students have been added to this group"
+      },
       "allStudentsAssigned": "All students have been assigned to groups",
       "addStudents": "Add Selected Students",
       "studentsAdded": "Students added to group successfully",
+      "studentRemoved": "Student removed from group successfully",
       "studentCount": "{{count}} students",
       "title": "Course Groups",
       "createGroup": "Create Group",
@@ -571,7 +582,8 @@
       "entries": "Group Entries",
       "stats": "View statistics",
       "addToGroup": "add students to group",
-      "back": "back"
+      "back": "back",
+      "addStudentsToGroup": "Add students to group"
     },
     "entries": {
       "name": "Name",
@@ -604,6 +616,11 @@
       "remaining": "Remaining",
       "required": "Required",
       "totalCompleted": "Total Completed"
+    },
+    "deleteSuccess": "Worklog course deleted successfully",
+    "noInstructors": "No instructors assigned",
+    "error": {
+      "codeExists": "A worklog course with this code already exists"
     }
   },
   "attendance": {
@@ -695,6 +712,15 @@
     "title": "Practicums",
     "createTitle": "Create New Practicum",
     "modifyTitle": "Modify Practicum",
+    "details": {
+      "title": "Practicum Details",
+      "name": "Practicum Name",
+      "code": "Practicum Code",
+      "description": "Description",
+      "requiredHours": "Required Hours",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
     "data": {
       "startDate": "Start Date",
       "endDate": "End Date",
@@ -711,11 +737,18 @@
       "additionalInfo": "Additional Info",
       "studentName": "Student Name"
     },
+    "noInstructors": "No instructors assigned",
+    "studentAssigned": "Student assigned to practicum successfully",
+    "studentAssignmentFailed": "Failed to assign student to practicum",
+    "fillRequiredFields": "Please fill in all required fields",
+    "createdSuccessfully": "Practicum created successfully",
+    "deleteSuccess": "Practicum deleted successfully",
     "addStudent": "Add Student",
     "searchExistingStudents": "Search existing students",
     "noStudentsFound": "No students found",
     "selectedStudent": "Selected student",
     "studentSelected": "Student selected successfully",
+    "endDateMustBeAfterStartDate": "End date must be after start date",
     "form": {
       "name": "practicum Name",
       "description": "practicum Description",
@@ -734,7 +767,25 @@
       "title": "Practicum Entries",
       "totalEntries": "Total Entries",
       "totalHours": "Total Hours Logged",
-      "studentName": "Student's name"
+      "studentName": "Student's name",
+      "noStudent": "No student assigned",
+      "progress": "Progress",
+      "required": "required",
+      "allEntries": "All Entries",
+      "noEntries": "No entries found for this practicum",
+      "date": "Date",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "hours": "Hours",
+      "description": "Description",
+      "status": "Status",
+      "actions": "Actions",
+      "deleted": "Entry deleted successfully",
+      "confirmDelete": "Delete Entry",
+      "confirmDeleteMessage": "Are you sure you want to delete this entry from {{date}}?",
+      "errors": {
+        "failedToDelete": "Failed to delete entry"
+      }
     },
     "stepButtons": {
       "previous": "Previous",

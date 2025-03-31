@@ -246,7 +246,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   required
                 />
                 <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-                  {charCount}/100 characters
+                  {charCount}/100 {t('common:characters')}
                 </p>
               </div>
 

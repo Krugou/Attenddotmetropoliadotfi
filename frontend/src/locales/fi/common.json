@@ -318,6 +318,17 @@
       "submit": "Lisää valitut merkinnät",
       "submitting": "Lisätään merkintöjä...",
       "hoursTooltip": "Tehdyt tunnit"
+    },
+    "practicum": "Harjoittelu",
+    "stats": {
+      "labels": {
+        "student": "Opiskelija",
+        "hours": "Tunnit",
+        "progress": "Edistyminen",
+        "required": "Vaadittu",
+        "completed": "Suoritettu",
+        "remaining": "Jäljellä"
+      }
     }
   },
   "lectures": {
@@ -371,6 +382,11 @@
   },
   "save": "Tallenna muutokset",
   "cancel": "Peruuta",
+  "delete": "Poista",
+  "remove": "Poista",
+  "characters": "merkkiä",
+  "check": "Tarkista",
+  "checking": "Tarkistetaan...",
   "loading": "Ladataan...",
   "metropoliaLoading": "Metropolian läsnäolosovellus lataa...",
   "sorting": {

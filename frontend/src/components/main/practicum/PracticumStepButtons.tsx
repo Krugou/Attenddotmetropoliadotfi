@@ -57,7 +57,7 @@ const PracticumStepButtons: React.FC<PracticumStepButtonsProps> = ({
         />
       ) : (
         <StepButton
-          text={t('teacher:practicum.create')}
+          text={t('teacher:practicum.stepButtons.create')}
           type="submit"
           onClick={onSubmitClick}
           marginTop="mt-2"

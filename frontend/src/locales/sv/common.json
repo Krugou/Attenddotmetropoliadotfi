@@ -93,6 +93,11 @@
   "hideEndedCourses": "Dölj avslutade kurser",
   "required": "obligatoriskt",
   "cancel": "Avbryt",
+  "delete": "Radera",
+  "remove": "Ta bort",
+  "characters": "tecken",
+  "check": "Kontrollera",
+  "checking": "Kontrollerar...",
   "create": "Skapa",
   "creating": "Skapar...",
   "back": "Tillbaka",
@@ -308,6 +313,17 @@
     },
     "logger": {
       "title": "Arbetsloggsregistrering"
+    },
+    "practicum": "Praktikinträde",
+    "stats": {
+      "labels": {
+        "student": "Student",
+        "hours": "Timmar",
+        "progress": "Framsteg",
+        "required": "Krävt",
+        "completed": "Slutfört",
+        "remaining": "Återstående"
+      }
     }
   },
   "lectures": {

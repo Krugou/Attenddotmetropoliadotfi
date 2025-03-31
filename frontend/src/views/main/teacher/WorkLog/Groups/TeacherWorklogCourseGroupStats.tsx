@@ -97,7 +97,7 @@ const StudentPieChart = memo(
 );
 
 const TeacherWorklogCourseGroupStats = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['translation', 'common']);
   const {courseid, groupid} = useParams<{courseid: string; groupid: string}>();
   const [students, setStudents] = useState<StudentStats[]>([]);
   const [loading, setLoading] = useState(true);
@@ -226,9 +226,9 @@ const TeacherWorklogCourseGroupStats = () => {
                 <table className='w-full mb-4'>
                   <thead>
                     <tr className='border-b'>
-                      <th className='p-2 text-left'>Student</th>
-                      <th className='p-2 text-right'>Hours</th>
-                      <th className='p-2 text-right'>Progress</th>
+                      <th className='p-2 text-left'>{t('common:worklog.stats.labels.student')}</th>
+                      <th className='p-2 text-right'>{t('common:worklog.stats.labels.hours')}</th>
+                      <th className='p-2 text-right'>{t('common:worklog.stats.labels.progress')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -293,19 +293,19 @@ const TeacherWorklogCourseGroupStats = () => {
               <table className='w-full text-sm'>
                 <tbody>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>Required:</td>
+                    <td className='text-left p-1'>{t('common:worklog.stats.labels.required')}:</td>
                     <td className='text-right p-1'>{requiredHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>Completed:</td>
+                    <td className='text-left p-1'>{t('common:worklog.stats.labels.completed')}:</td>
                     <td className='text-right p-1'>{student.completedHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>Remaining:</td>
+                    <td className='text-left p-1'>{t('common:worklog.stats.labels.remaining')}:</td>
                     <td className='text-right p-1'>{student.remainingHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>Progress:</td>
+                    <td className='text-left p-1'>{t('common:worklog.stats.labels.progress')}:</td>
                     <td className='text-right p-1'>{getClampedPercentage(student.percentageCompleted)}%</td>
                   </tr>
                 </tbody>
