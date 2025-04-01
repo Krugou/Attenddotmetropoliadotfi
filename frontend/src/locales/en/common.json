@@ -380,6 +380,7 @@
   "header": {
     "developmentMode": "In Development Mode",
     "profile": "Profile",
+    "logout": "Logout",
     "sessionExpired": "Your session has expired, please login again."
   },
   "footer": {
