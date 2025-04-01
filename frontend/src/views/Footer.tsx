@@ -8,21 +8,33 @@ import {useIsMobile} from '../hooks/useIsMobile';
  * Footer link configuration
  */
 interface FooterLink {
-  label: string;
+  labelKey: string;
   url: string;
   external?: boolean;
 }
 
 const footerLinks: Record<string, FooterLink[]> = {
   metropolia: [
-    {label: 'OMA', url: 'https://oma.metropolia.fi', external: true},
-    {label: 'Wiki', url: 'https://wiki.metropolia.fi', external: true},
-    {label: 'Lukkarit', url: 'https://lukkarit.metropolia.fi', external: true},
+    {
+      labelKey: 'footer.links.oma',
+      url: 'https://oma.metropolia.fi',
+      external: true,
+    },
+    {
+      labelKey: 'footer.links.wiki',
+      url: 'https://wiki.metropolia.fi',
+      external: true,
+    },
+    {
+      labelKey: 'footer.links.lukkarit',
+      url: 'https://lukkarit.metropolia.fi',
+      external: true,
+    },
   ],
   navigation: [
-    {label: 'About', url: '/about'},
-    {label: 'Team', url: '/team'},
-    {label: 'Help', url: '/help'},
+    {labelKey: 'footer.links.about', url: '/about'},
+    {labelKey: 'footer.links.team', url: '/team'},
+    {labelKey: 'footer.links.help', url: '/help'},
   ],
 };
 
@@ -76,13 +88,13 @@ const Footer: React.FC = () => {
               target='_blank'
               rel='noopener noreferrer'
               className='text-white transition-colors duration-200 hover:text-gray-200'>
-              {link.label}
+              {t(`common:${link.labelKey}`)}
             </a>
           ) : (
             <Link
               to={link.url}
               className='text-white transition-colors duration-200 hover:text-gray-200'>
-              {link.label}
+              {t(`common:${link.labelKey}`)}
             </Link>
           )}
         </li>
