@@ -48,10 +48,10 @@ const CounselorMainView: React.FC = () => {
           icon={PersonAdd}
         />
         <Card
-        path='/counselor/activity'
-        title='Activity'
-        description='View activity'
-        icon={Assessment}
+          path='/counselor/activity'
+          title={t('counselor:mainView.activity')}
+          description={t('counselor:mainView.activityDesc')}
+          icon={Assessment}
         />
         <FeedbackCard role='counselor' />
       </div>

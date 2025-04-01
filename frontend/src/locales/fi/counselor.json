@@ -10,7 +10,9 @@
     "attendanceStatistics": "Läsnäolotilastot",
     "attendanceStatisticsDesc": "Katso kaikkien kurssien läsnäolotilastot",
     "lateEnrollment": "Myöhäinen ilmoittautuminen",
-    "lateEnrollmentDesc": "Ilmoita opiskelijat kursseille"
+    "lateEnrollmentDesc": "Ilmoita opiskelijat kursseille",
+    "activity": "Aktiivisuus",
+    "activityDesc": "Tarkastele aktiivisuutta"
   },
   "profile": {
     "noDataAvailable": "Ei käyttäjätietoja saatavilla.",

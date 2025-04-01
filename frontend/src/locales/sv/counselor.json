@@ -10,7 +10,9 @@
     "attendanceStatistics": "Närvarostatistik",
     "attendanceStatisticsDesc": "Se närvarostatistik för alla kurser",
     "lateEnrollment": "Sen anmälan",
-    "lateEnrollmentDesc": "Registrera studenter på kurser"
+    "lateEnrollmentDesc": "Registrera studenter på kurser",
+    "activity": "Aktivitet",
+    "activityDesc": "Visa aktivitet"
   },
   "profile": {
     "noDataAvailable": "Ingen användardata tillgänglig.",

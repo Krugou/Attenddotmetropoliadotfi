@@ -10,7 +10,9 @@
     "attendanceStatistics": "Attendance Statistics",
     "attendanceStatisticsDesc": "See attendance statistics for all courses",
     "lateEnrollment": "Late Enrollment",
-    "lateEnrollmentDesc": "Enroll students in courses"
+    "lateEnrollmentDesc": "Enroll students in courses",
+    "activity": "Activity",
+    "activityDesc": "View activity"
   },
   "profile": {
     "noDataAvailable": "No user data available.",
