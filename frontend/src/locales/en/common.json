@@ -388,7 +388,15 @@
     "developedBy": "Developed by",
     "metropolia": "Metropolia",
     "about": "About:",
-    "navigation": "Navigation"
+    "navigation": "Navigation",
+    "links": {
+      "about": "About",
+      "team": "Team",
+      "help": "Help",
+      "oma": "OMA Intranet",
+      "wiki": "Metropolia Wiki",
+      "lukkarit": "Class Schedules"
+    }
   },
   "loginStart": "Login",
   "status": "Status",

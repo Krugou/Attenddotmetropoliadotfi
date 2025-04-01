@@ -378,7 +378,15 @@
     "appName": "Metropolia Läsnäolosovellus",
     "developedBy": "Kehittänyt",
     "metropolia": "Metropolia",
-    "navigation": "Navigointi"
+    "navigation": "Navigointi",
+    "links": {
+      "about": "Tietoa",
+      "team": "Tiimi",
+      "help": "Apua",
+      "oma": "OMA Intranet",
+      "wiki": "Metropolia Wiki",
+      "lukkarit": "Lukkarit"
+    }
   },
   "loginStart": "Kirjaudu",
   "status": "Tila",

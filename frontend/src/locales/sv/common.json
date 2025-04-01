@@ -374,7 +374,15 @@
     "developedBy": "Utvecklad av",
     "metropolia": "Metropolia",
     "about": "Om:",
-    "navigation": "Navigation"
+    "navigation": "Navigation",
+    "links": {
+      "about": "Om",
+      "team": "Team",
+      "help": "Hjälp",
+      "oma": "OMA Intranet",
+      "wiki": "Metropolia Wiki",
+      "lukkarit": "Scheman"
+    }
   },
   "loginStart": "Logga in",
   "status": "Status",
