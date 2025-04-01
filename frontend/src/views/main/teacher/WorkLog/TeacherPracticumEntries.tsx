@@ -177,7 +177,7 @@ const TeacherPracticumEntries: React.FC = () => {
   if (loading) {
     return (
       <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-xl font-body'>Loading...</div>
+        <div className='text-xl font-body'>{t('common:loading')}</div>
       </div>
     );
   }
@@ -192,25 +192,25 @@ const TeacherPracticumEntries: React.FC = () => {
       </div>
 
       <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
-        <h1 className='mb-4 text-3xl font-heading'>Practicum Entries</h1>
+        <h1 className='mb-4 text-3xl font-heading'>{t('teacher:practicum.entries.title')}</h1>
         <div className='flex flex-col md:flex-row gap-4 md:justify-between'>
           <div className='font-body md:flex-1'>
-            <p className='text-gray-600'>Total Entries</p>
+            <p className='text-gray-600'>{t('teacher:practicum.entries.totalEntries')}</p>
             <p className='font-medium'>{entries.length}</p>
           </div>
           <div className='font-body md:flex-1'>
-            <p className='text-gray-600'>Total Hours Logged</p>
+            <p className='text-gray-600'>{t('teacher:practicum.entries.totalHours')}</p>
             <p className='font-medium'>{totalHours.toFixed(2)}h</p>
           </div>
           <div className='font-body md:flex-1'>
-            <p className='text-gray-600'>Student's name</p>
+            <p className='text-gray-600'>{t('teacher:practicum.entries.studentName')}</p>
             {practicumDetails?.practicum?.first_name ? (
               <p className='font-medium'>
                 {practicumDetails.practicum.first_name}{' '}
                 {practicumDetails.practicum.last_name}
               </p>
             ) : (
-              <p className='text-gray-500'>No student assigned</p>
+              <p className='text-gray-500'>{t('teacher:practicum.entries.noStudent')}</p>
             )}
           </div>
         </div>
@@ -218,13 +218,13 @@ const TeacherPracticumEntries: React.FC = () => {
 
       <div className='p-6 mb-8 bg-white rounded-lg shadow-sm'>
         <div className='flex justify-between mb-1'>
-          <span className='text-sm text-gray-600 font-body'>Progress</span>
+          <span className='text-sm text-gray-600 font-body'>{t('teacher:practicum.entries.progress')}</span>
           <div className='flex gap-2'>
             <span className='text-sm text-gray-600 font-body'>
               {Math.round(calculatePercentage(totalHours, practicumDetails?.practicum?.required_hours || 1))}%
             </span>
             <span className='text-sm text-gray-600 font-body'>
-              ({practicumDetails?.practicum?.required_hours}h required)
+              ({practicumDetails?.practicum?.required_hours}h {t('teacher:practicum.entries.required')})
             </span>
           </div>
         </div>
@@ -257,13 +257,13 @@ const TeacherPracticumEntries: React.FC = () => {
             aria-controls='entries-content'
             id='entries-header'
             className='bg-white rounded-t-lg'>
-            <h2 className='text-2xl font-heading'>All Entries</h2>
+            <h2 className='text-2xl font-heading'>{t('teacher:practicum.entries.allEntries')}</h2>
           </AccordionSummary>
           <AccordionDetails className='bg-white rounded-b-lg'>
             {entries.length === 0 ? (
               <div className='text-center p-8 bg-gray-50 rounded-lg'>
                 <p className='text-lg text-gray-500'>
-                  No entries found for this practicum
+                  {t('teacher:practicum.entries.noEntries')}
                 </p>
               </div>
             ) : (
@@ -271,13 +271,13 @@ const TeacherPracticumEntries: React.FC = () => {
                 <table className='w-full table-auto'>
                   <thead>
                     <tr className='text-gray-600 border-b font-body'>
-                      <th className='p-3 text-left'>Date</th>
-                      <th className='p-3 text-left'>Start Time</th>
-                      <th className='p-3 text-left'>End Time</th>
-                      <th className='p-3 text-left'>Hours</th>
-                      <th className='p-3 text-left'>Description</th>
-                      <th className='p-3 text-left'>Status</th>
-                      <th className='p-3 text-left'>Actions</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.date')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.startTime')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.endTime')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.hours')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.description')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.status')}</th>
+                      <th className='p-3 text-left'>{t('teacher:practicum.entries.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
