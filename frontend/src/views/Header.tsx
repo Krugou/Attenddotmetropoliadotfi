@@ -182,6 +182,7 @@ const Header = () => {
 
             <FirstTimeHereGuide
               message={t(
+                'noUser:navigation.helpMessage',
                 'Need help? Click the help button above to get started!',
               )}
               position='bottom'

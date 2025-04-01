@@ -1,7 +1,8 @@
 {
   "navigation": {
     "help": "Ohje",
-    "backToLogin": "Takaisin kirjautumiseen"
+    "backToLogin": "Takaisin kirjautumiseen",
+    "helpMessage": "Tarvitsetko apua? \nNapsauta yllä olevaa ohjepainiketta aloittaaksesi!"
   },
   "help": {
     "title": "Ohjekeskus",

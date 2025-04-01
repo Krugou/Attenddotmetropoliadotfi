@@ -1,7 +1,8 @@
 {
   "navigation": {
     "help": "Hjälp",
-    "backToLogin": "Tillbaka till inloggning"
+    "backToLogin": "Tillbaka till inloggning",
+    "helpMessage": "Behöver du hjälp? \nKlicka på Hjälpknappen ovan för att komma igång!"
   },
   "help": {
     "title": "Hjälpcenter",

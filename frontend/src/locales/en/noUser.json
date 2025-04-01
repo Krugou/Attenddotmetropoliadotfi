@@ -47,7 +47,8 @@
   },
   "navigation": {
     "backToLogin": "Back to Login",
-    "help": "Help"
+    "help": "Help",
+    "helpMessage": "Need help? Click the help button above to get started!"
   },
   "team": {
     "additionalTeam": "Additional Development",
