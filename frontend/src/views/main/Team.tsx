@@ -5,6 +5,7 @@ interface TeamMember {
   name: string;
   highlight?: string;
   role: string;
+  timeline?: string;
   github: string;
 }
 
@@ -20,18 +21,21 @@ const Team: React.FC = () => {
       name: 'Joonas Lamminmäki',
       highlight: 'J',
       role: t('noUser:team.roles.originalDev'),
+      timeline: '8.2023-4.2024',
       github: 'https://github.com/Jonsson-123',
     },
     {
       name: 'Aleksi Nokelainen',
       highlight: 'A',
       role: t('noUser:team.roles.originalDev'),
+      timeline: '8.2023-4.2024',
       github: 'https://github.com/Krugou',
     },
     {
       name: 'Kaarle Häyhä',
       highlight: 'K',
       role: t('noUser:team.roles.originalDev'),
+      timeline: '8.2023-4.2024',
       github: 'https://github.com/KaarleH',
     },
   ];
@@ -40,11 +44,13 @@ const Team: React.FC = () => {
     {
       name: 'Nestori Laine',
       role: t('noUser:team.roles.additionalDev'),
+      timeline: '01.2025-03.2025',
       github: 'https://github.com/Aihki',
     },
     {
       name: 'Aleksi Nokelainen',
       role: t('noUser:team.roles.additionalDev'),
+      timeline: '01.2025-03.2025',
       github: 'https://github.com/Krugou',
     },
   ];
@@ -74,7 +80,7 @@ const Team: React.FC = () => {
                   {member.name.substring(1)}
                 </div>
                 <div className='mt-2 text-sm text-center text-gray-500'>
-                  {member.role}
+                  {member.role} • {member.timeline}
                 </div>
                 <a
                   href={member.github}
@@ -104,7 +110,7 @@ const Team: React.FC = () => {
                   {member.name}
                 </div>
                 <div className='mt-2 text-sm text-center text-gray-500'>
-                  {member.role}
+                  {member.role} • {member.timeline}
                 </div>
                 <a
                   href={member.github}
