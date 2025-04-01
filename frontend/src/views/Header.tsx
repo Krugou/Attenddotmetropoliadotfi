@@ -136,7 +136,7 @@ const Header = () => {
       <Link to={user ? `/${user.role.toLowerCase()}/mainview` : '/'}>
         <img
           src={logo}
-          alt='Logo'
+          alt='Metropolia Logo'
           className={`w-48 mb-5 sm:w-32 md:w-48 lg:w-64 h-auto mr-4 ${
             user ? '' : 'w-24'
           }`}
