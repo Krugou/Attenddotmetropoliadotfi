@@ -360,10 +360,12 @@
       "Other": "Övrigt"
     }
   },
+  "logout": {
+    "success": "Utloggad framgångsrikt!"
+  },
   "header": {
     "developmentMode": "I utvecklingsläge",
     "profile": "Profil",
-    "logout": "Logga ut",
     "sessionExpired": "Din session har löpt ut, logga in igen."
   },
   "footer": {

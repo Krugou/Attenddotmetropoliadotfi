@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../contexts/UserContext';
 import Loader from '../utils/Loader';
+import {useTranslation} from 'react-i18next';
 
 /**
  * Logout component.
@@ -13,6 +14,11 @@ import Loader from '../utils/Loader';
  * @returns {JSX.Element} The rendered Logout component.
  */
 const Logout = () => {
+  /**
+   * Hook to translate text.
+   */
+  const {t} = useTranslation();
+
   /**
    * Hook to navigate programmatically.
    *
@@ -42,8 +48,8 @@ const Logout = () => {
 
     // Delay the navigation by 1 second
     const timeoutId = setTimeout(() => {
-      // Display a success toast message
-      toast.success('Logged out successfully!');
+      // Display a success toast message with translated text
+      toast.success(t('common:logout.success', 'Logged out successfully!'));
 
       // Navigate back to the home page
       navigate('/');
@@ -53,7 +59,7 @@ const Logout = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [setUser, navigate]);
+  }, [setUser, navigate, t]);
 
   /**
    * Render a circular progress indicator while the logout operation is in progress.
