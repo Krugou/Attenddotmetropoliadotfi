@@ -218,7 +218,9 @@
       "in": "In",
       "out": "Out",
       "showMassEntry": "Weekly Entries",
-      "hideMassEntry": "Hide Weekly Entries"
+      "hideMassEntry": "Hide Weekly Entries",
+      "cancel": "Cancel",
+      "confirm": "Still Add Entry."
     },
     "notifications": {
       "clockedIn": "Clocked in at {{time}}",

@@ -26,6 +26,7 @@ const ConfirmationDialog: React.FC<{
   onCancel: () => void;
   message: string;
 }> = ({isOpen, onConfirm, onCancel, message}) => {
+  const {t} = useTranslation(['common']);
   if (!isOpen) return null;
 
   return (
@@ -36,12 +37,12 @@ const ConfirmationDialog: React.FC<{
           <button
             onClick={onCancel}
             className='px-4 py-2 text-metropolia-main-grey bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors'>
-            Cancel
+            {t('common:worklog.actions.cancel', 'Cancel')}
           </button>
           <button
             onClick={onConfirm}
             className='px-4 py-2 text-white bg-metropolia-main-orange hover:bg-metropolia-secondary-orange rounded-lg transition-colors'>
-            Still Add Entry
+            {t('common:worklog.actions.confirm', 'Still Add Entry')}
           </button>
         </div>
       </div>

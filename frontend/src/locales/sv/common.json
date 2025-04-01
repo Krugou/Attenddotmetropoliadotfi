@@ -221,7 +221,9 @@
       "in": "In",
       "out": "Ut",
       "showMassEntry": "Veckovis poster",
-      "hideMassEntry": "Dölj veckovis poster"
+      "hideMassEntry": "Dölj veckovis poster",
+      "cancel": "Avboka",
+      "confirm": "Lägg fortfarande till post."
     },
     "notifications": {
       "clockedIn": "Stämplat in kl {{time}}",

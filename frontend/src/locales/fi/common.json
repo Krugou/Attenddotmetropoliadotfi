@@ -211,7 +211,9 @@
       "in": "Sisään",
       "out": "Ulos",
       "showMassEntry": "Viikkomerkinnät",
-      "hideMassEntry": "Piilota viikkomerkinnät"
+      "hideMassEntry": "Piilota viikkomerkinnät",
+      "cancel": "Peruuta",
+      "confirm": "Lisää edelleen merkintä."
     },
     "notifications": {
       "clockedIn": "Kirjauduttu sisään klo {{time}}",
