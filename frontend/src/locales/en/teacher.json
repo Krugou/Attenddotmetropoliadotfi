@@ -615,7 +615,8 @@
       "completed": "Completed",
       "remaining": "Remaining",
       "required": "Required",
-      "totalCompleted": "Total Completed"
+      "totalCompleted": "Total Completed",
+      "noHoursCompleted": "No students have completed any hours"
     },
     "deleteSuccess": "Worklog course deleted successfully",
     "noInstructors": "No instructors assigned",
@@ -805,5 +806,20 @@
     "next": "Next",
     "createWorklog": "Create Worklog",
     "createCourse": "Create Course"
+  },
+  "toasts": {
+    "success": {
+      "saved": "Saved successfully",
+      "deleted": "Deleted successfully",
+      "updated": "Updated successfully"
+    },
+    "error": {
+      "saveFailed": "Failed to save",
+      "deleteFailed": "Failed to delete",
+      "updateFailed": "Failed to update",
+      "loadStatsFailed": "Failed to load statistics",
+      "addStudentsFailed": "Failed to add students",
+      "tokenMissing": "User token is missing"
+    }
   }
 }

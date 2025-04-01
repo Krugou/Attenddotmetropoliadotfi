@@ -56,7 +56,7 @@ interface Student {
 }
 
 const TeacherWorklogCourseGroup: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation(['teacher', 'common']);
   const {courseid, groupid} = useParams<{courseid: string; groupid: string}>();
   const [groupDetails, setGroupDetails] = useState<GroupDetails | null>(null);
   const [studentList, setStudentList] = useState<Student[]>([]);
@@ -494,11 +494,11 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                         fetchGroupDetails();
                       })
                       .catch((error) => {
-                        toast.error('Failed to add students');
+                        toast.error(t('teacher:toasts.error.addStudentsFailed'));
                         console.error(error);
                       });
                   } else {
-                    toast.error('User token is missing');
+                    toast.error(t('teacher:toasts.error.tokenMissing'));
                   }
                   handleCloseModal();
                 }}

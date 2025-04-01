@@ -18,6 +18,7 @@ interface StudentStats {
 }
 
 const SummaryPieChart = memo(({students}: {students: StudentStats[]}) => {
+  const {t} = useTranslation(['teacher', 'common']);
   const hasCompletedHours = students.some(
     (student) => student.completedHours > 0,
   );
@@ -25,7 +26,7 @@ const SummaryPieChart = memo(({students}: {students: StudentStats[]}) => {
     return (
       <div className='h-[300px] flex items-center justify-center'>
         <p className='text-gray-500 font-body'>
-          No students have completed any hours
+          {t('teacher:worklog.stats.noHoursCompleted')}
         </p>
       </div>
     );
@@ -97,7 +98,7 @@ const StudentPieChart = memo(
 );
 
 const TeacherWorklogCourseGroupStats = () => {
-  const {t} = useTranslation(['translation', 'common']);
+  const {t} = useTranslation(['teacher', 'common']);
   const {courseid, groupid} = useParams<{courseid: string; groupid: string}>();
   const [students, setStudents] = useState<StudentStats[]>([]);
   const [loading, setLoading] = useState(true);
@@ -164,7 +165,7 @@ const TeacherWorklogCourseGroupStats = () => {
     } catch (error) {
       console.error('Error fetching stats:', error);
       setError(error instanceof Error ? error.message : 'An error occurred');
-      toast.error('Failed to load statistics');
+      toast.error(t('teacher:toasts.error.loadStatsFailed'));
     } finally {
       setLoading(false);
     }

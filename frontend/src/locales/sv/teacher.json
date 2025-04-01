@@ -668,7 +668,8 @@
       "completed": "Slutfört",
       "remaining": "Återstående",
       "required": "Krävt",
-      "totalCompleted": "Totalt slutfört"
+      "totalCompleted": "Totalt slutfört",
+      "noHoursCompleted": "Inga studenter har slutfört några timmar"
     },
     "deleteSuccess": "Arbetslogg raderad framgångsrikt",
     "noInstructors": "Inga lärare tilldelade",
@@ -865,5 +866,20 @@
     "next": "Nästa",
     "createCourse": "Skapa kurs",
     "createWorklog": "Skapa arbetslogg"
+  },
+  "toasts": {
+    "success": {
+      "saved": "Sparad framgångsrikt",
+      "deleted": "Raderad framgångsrikt",
+      "updated": "Uppdaterad framgångsrikt"
+    },
+    "error": {
+      "saveFailed": "Misslyckades att spara",
+      "deleteFailed": "Misslyckades att radera",
+      "updateFailed": "Misslyckades att uppdatera",
+      "loadStatsFailed": "Misslyckades att ladda statistik",
+      "addStudentsFailed": "Misslyckades att lägga till studenter",
+      "tokenMissing": "Användartokenet saknas"
+    }
   }
 }

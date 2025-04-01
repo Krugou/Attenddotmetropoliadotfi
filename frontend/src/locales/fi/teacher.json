@@ -594,7 +594,8 @@
       "completed": "Suoritettu",
       "remaining": "Jäljellä",
       "required": "Vaadittu",
-      "totalCompleted": "Suoritettu yhteensä"
+      "totalCompleted": "Suoritettu yhteensä",
+      "noHoursCompleted": "Kukaan opiskelija ei ole suorittanut tunteja"
     },
     "deleteSuccess": "Työaikakirjaus poistettu onnistuneesti",
     "noInstructors": "Ei määritettyjä opettajia",
@@ -853,5 +854,20 @@
     "next": "Seuraava",
     "createCourse": "Luo kurssi",
     "createWorklog": "Luo työpäiväkirja"
+  },
+  "toasts": {
+    "success": {
+      "saved": "Tallennettu onnistuneesti",
+      "deleted": "Poistettu onnistuneesti",
+      "updated": "Päivitetty onnistuneesti"
+    },
+    "error": {
+      "saveFailed": "Tallentaminen epäonnistui",
+      "deleteFailed": "Poistaminen epäonnistui",
+      "updateFailed": "Päivittäminen epäonnistui",
+      "loadStatsFailed": "Tilastojen lataaminen epäonnistui",
+      "addStudentsFailed": "Opiskelijoiden lisääminen epäonnistui",
+      "tokenMissing": "Käyttäjätunniste puuttuu"
+    }
   }
 }
