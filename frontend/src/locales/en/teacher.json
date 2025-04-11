@@ -752,8 +752,8 @@
     "endDateMustBeAfterStartDate": "End date must be after start date",
     "searchByName": "Search by name",
     "form": {
-      "name": "practicum Name",
-      "description": "practicum Description",
+      "name": "Practicum Name",
+      "description": "Practicum Description",
       "startDate": "Start Date",
       "endDate": "End Date",
       "requiredHours": "Required Hours",
