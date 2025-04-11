@@ -118,20 +118,14 @@ const StudentWorkLogLogger: React.FC = () => {
   }, [currentWeekStart]);
 
   // Check if a date is today
-  const isToday = useCallback(
-    (date: Date): boolean => {
-      return formatDateToString(date) === todayString;
-    },
-    [todayString],
-  );
-
-  // Check if a date is past (before today)
-  const isPastDate = useCallback(
-    (date: Date): boolean => {
-      return formatDateToString(date) < todayString;
-    },
-    [todayString],
-  );
+  const isToday = useCallback((date: Date): boolean => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  }, []);
 
   // Navigate to previous week
   const goToPreviousWeek = () => {
@@ -664,15 +658,26 @@ const StudentWorkLogLogger: React.FC = () => {
               </div>
 
               <div className='grid grid-cols-7 gap-1 mb-4'>
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
-                  (day) => (
+                {getDaysOfWeek().map((day) => {
+                  const dayNames = [
+                    'Mon',
+                    'Tue',
+                    'Wed',
+                    'Thu',
+                    'Fri',
+                    'Sat',
+                    'Sun',
+                  ];
+                  // Convert 0-6 (Sunday to Saturday) to our display format where Monday is first
+                  const dayIndex = day.getDay() === 0 ? 6 : day.getDay() - 1;
+                  return (
                     <div
-                      key={day}
+                      key={formatDateToString(day)}
                       className='text-center text-xs font-medium text-metropolia-main-grey'>
-                      {day}
+                      {dayNames[dayIndex]}
                     </div>
-                  ),
-                )}
+                  );
+                })}
               </div>
 
               <div className='grid grid-cols-7 gap-1'>
@@ -681,7 +686,6 @@ const StudentWorkLogLogger: React.FC = () => {
                   const isSelected =
                     selectedDays[dateString]?.selected || false;
                   const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-                  const isPast = isPastDate(day);
                   const isTodayDate = isToday(day);
                   const hasEntry = daysWithEntries.has(dateString);
 
@@ -689,7 +693,7 @@ const StudentWorkLogLogger: React.FC = () => {
                     <div key={dateString} className='mb-4'>
                       <button
                         onClick={() => toggleDaySelection(dateString)}
-                        disabled={isPast || hasEntry}
+                        disabled={hasEntry}
                         className={`w-full aspect-square flex flex-col items-center justify-center rounded-md text-sm
                         ${
                           isSelected
@@ -701,7 +705,7 @@ const StudentWorkLogLogger: React.FC = () => {
                             : 'bg-white border text-metropolia-main-grey'
                         }
                         ${
-                          isPast || hasEntry
+                          hasEntry
                             ? 'opacity-40 cursor-not-allowed'
                             : 'hover:bg-metropolia-main-orange/20'
                         }`}>
