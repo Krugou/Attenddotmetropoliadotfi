@@ -593,10 +593,10 @@ const StudentWorkLogLogger: React.FC = () => {
           />
           {/* if activeentries dont show */}
           {hasActiveEntry ? null : (
-            <div className='flex justify-end'>
+            <div className='flex w-full'>
               <button
                 onClick={() => setShowMassEntry(!showMassEntry)}
-                className='flex items-center gap-2 px-4 py-2 bg-metropolia-support-blue text-white rounded-lg transition-all hover:bg-metropolia-support-blue-dark text-sm'>
+                className='flex w-full justify-center items-center gap-2 px-4 py-2 bg-metropolia-support-blue text-white rounded-lg transition-all hover:bg-metropolia-support-blue-dark text-sm'>
                 <CalendarIcon fontSize='small' />
                 {showMassEntry
                   ? t('common:worklog.actions.hideMassEntry')
