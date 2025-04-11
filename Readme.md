@@ -11,7 +11,7 @@
 
 - [Production Frontend](https://attend.metropolia.fi/)
 - [API Endpoint](https://attend.metropolia.fi/api/)
-- [TypeScript Documentation](https://krugou.github.io/attenddotmetropoliadotfi/)
+- [TypeScript Documentation](https://krugou.github.io/Attenddotmetropoliadotfi/)
 
 ## 📋 Project Overview
 
