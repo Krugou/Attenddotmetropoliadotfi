@@ -7,6 +7,9 @@
 [![React](https://img.shields.io/badge/React-18.0+-61dafb.svg)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18.0+-339933.svg)](https://nodejs.org/)
 
+## Deepwiki
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Krugou/Attenddotmetropoliadotfi)
+
 ## 🔗 Links
 
 - [Production Frontend](https://attend.metropolia.fi/)
