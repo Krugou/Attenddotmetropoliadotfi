@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm start backend and frontend",
+      "type": "shell",
+      "command": "npm start",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "npm start backend",
+      "type": "shell",
+      "command": "cd backend && npm start",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "npm start frontend",
+      "type": "shell",
+      "command": "cd frontend && npm start",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "tsc backend",
+      "type": "shell",
+      "command": "cd backend && npm run tsc --watch",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "tsc frontend",
+      "type": "shell",
+      "command": "cd frontend && npm run tsc --watch",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "build frontend",
+      "type": "shell",
+      "command": "cd frontend && npm run build",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "build backend",
+      "type": "shell",
+      "command": "cd backend && npm run build",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+
+
+  ]
+}
