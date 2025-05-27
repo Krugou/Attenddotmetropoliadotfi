@@ -8,7 +8,7 @@
     "sW": "npm i && concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon nodejs/jaksecserver.js\"",
     "notscsW": "npm i && concurrently  \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
     "test": "jest",
-    "dev": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" ",
+    "devBackend": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" ",
     "devBuild": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\"",
     "tsc": "npm i && tsc",
     "tscW": " npm i && tsc --watch",

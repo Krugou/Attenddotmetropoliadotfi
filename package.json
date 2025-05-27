@@ -2,8 +2,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.jsx,.ts,.tsx frontend/src backend/src",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx frontend/src backend/src",
-    "all": "npm i && cd backend && npm run all",
-    "alldev": "npm i && cd backend && npm run alldev",
+    "devBackend": "npm i && cd backend && npm run devBackend",
+    "devBuild": "npm i && cd backend && npm run devBuild",
     "aleksi": "concurrently \"powershell -File gitpull.ps1\" \" npm i && npm run alldev\"",
     "build": " cd frontend && npm run build",
     "newVersion": "git pull && npm run build && cd backend && npm i --force && npm run tsc && pm2 delete all && pm2 start ecosystem.config.cjs && pm2 save",
