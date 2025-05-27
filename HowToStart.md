@@ -68,7 +68,7 @@ From the project root folder:
 - **Development Mode**:
 
   ```bash
-  npm run alldev
+  npm start
   ```
 
   This starts both frontend and backend in development mode with hot-reloading.
