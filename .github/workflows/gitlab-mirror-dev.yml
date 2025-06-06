@@ -1,0 +1,52 @@
+name: Mirror GitLab Repository to dev Branch
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  mirror-gitlab-to-dev:
+    runs-on: ubuntu-latest
+    env:
+      GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+      GITLAB_REPO_URL: ${{ secrets.GITLAB_REPO_URL }}
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Remove all files except .git
+        run: |
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+
+      - name: Clone GitLab repository
+        run: |
+          git clone --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
+        continue-on-error: false
+
+      - name: Copy files from GitLab repo
+        run: |
+          shopt -s dotglob
+          cp -r gitlab-src/* .
+          rm -rf gitlab-src
+
+      - name: Commit and push changes to dev branch
+        run: |
+          git add .
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Mirror from GitLab: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git push origin dev
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+
+      - name: Log success
+        run: echo "Mirror completed successfully."
+
+    # Error handling is provided by 'continue-on-error: false' and workflow logs.
