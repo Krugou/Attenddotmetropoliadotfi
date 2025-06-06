@@ -1,0 +1,40 @@
+name: "Auto PR: dev to main"
+
+on:
+  schedule:
+    # At 00:00 on Sunday and Monday
+    - cron: '0 0 * * 0,1'
+  workflow_dispatch:
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Fetch dev branch
+        run: git fetch origin dev:dev
+
+      - name: Check for differences
+        id: diffcheck
+        run: |
+          git diff --quiet main..dev || echo "has_diff=true" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request from dev to main
+        if: steps.diffcheck.outputs.has_diff == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          head: dev
+          title: "Automated PR: Merge dev into main"
+          body: |
+            This pull request was automatically created by a scheduled workflow.
+            It merges changes from `dev` into `main`.
+          reviewers: |
+            GitHub Copilot
+          draft: false
