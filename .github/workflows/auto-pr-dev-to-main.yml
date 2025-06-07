@@ -5,7 +5,10 @@ on:
     # At 00:00 on Sunday and Monday
     - cron: '0 0 * * 0,1'
   workflow_dispatch:
-
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
 jobs:
   create-pr:
     runs-on: ubuntu-latest

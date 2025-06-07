@@ -4,7 +4,10 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
-
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
 jobs:
   mirror-gitlab-to-dev:
     runs-on: ubuntu-latest
