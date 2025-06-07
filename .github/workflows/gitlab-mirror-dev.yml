@@ -8,6 +8,8 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  pages: write
+  id-token: write
 jobs:
   mirror-gitlab-to-dev:
     runs-on: ubuntu-latest

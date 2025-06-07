@@ -9,6 +9,8 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  pages: write
+  id-token: write
 jobs:
   create-pr:
     runs-on: ubuntu-latest
