@@ -1,4 +1,4 @@
-name: Mirror GitLab Repository to dev Branch
+name: Mirror GitLab main Branch to dev Branch
 
 on:
   schedule:
@@ -11,7 +11,7 @@ permissions:
   pages: write
   id-token: write
 jobs:
-  mirror-gitlab-to-dev:
+  mirror-gitlab-main-to-dev:
     runs-on: ubuntu-latest
     env:
       GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
@@ -31,9 +31,9 @@ jobs:
         run: |
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
 
-      - name: Clone GitLab repository
+      - name: Clone GitLab main branch
         run: |
-          git clone --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
+          git clone --single-branch --branch main --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
         continue-on-error: false
 
       - name: Copy files from GitLab repo
@@ -45,13 +45,13 @@ jobs:
       - name: Commit and push changes to dev branch
         run: |
           git add .
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Mirror from GitLab: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
           git push origin dev
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
 
       - name: Log success
-        run: echo "Mirror completed successfully."
+        run: echo "Mirror from GitLab main branch completed successfully."
 
     # Error handling is provided by 'continue-on-error: false' and workflow logs.
