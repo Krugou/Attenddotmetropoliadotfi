@@ -41,6 +41,8 @@ jobs:
           shopt -s dotglob
           cp -r gitlab-src/* .
           rm -rf gitlab-src
+      - name: Name the repository that this is working on using git commands
+        run: echo "Repository name is ${{ secrets.GITHUB_REPOSITORY }}"
 
       - name: Commit and push changes to dev branch
         run: |
