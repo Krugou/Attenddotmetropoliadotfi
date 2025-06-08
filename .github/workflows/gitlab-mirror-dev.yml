@@ -42,6 +42,10 @@ jobs:
           cp -r gitlab-src/* .
           rm -rf gitlab-src
 
+      - name: Set GitHub remote
+        run: |
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+
       - name: Show repository info
         run: |
           echo "Repository name from environment: $GITHUB_REPOSITORY"
