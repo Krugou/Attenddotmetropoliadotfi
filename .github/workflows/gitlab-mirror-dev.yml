@@ -42,7 +42,7 @@ jobs:
           cp -r gitlab-src/* .
           rm -rf gitlab-src
 
-      - name: Debug: Show repository info
+      - name: Show repository info
         run: |
           echo "Repository name from environment: $GITHUB_REPOSITORY"
           git remote -v
