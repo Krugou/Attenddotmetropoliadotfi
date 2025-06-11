@@ -27,7 +27,44 @@ jobs:
       - name: Check for differences
         id: diffcheck
         run: |
-          git diff --quiet main..dev || echo "has_diff=true" >> $GITHUB_OUTPUT
+          echo "Checking for differences between main and dev branches..."
+
+          # Show current branch and fetch status
+          echo "Current branch: $(git branch --show-current)"
+          echo "Available branches:"
+          git branch -a
+
+          # Show latest commits
+          echo "Latest commit on main:"
+          git log main -1 --oneline
+          echo "Latest commit on dev:"
+          git log dev -1 --oneline
+
+          # Check for differences
+          if git diff --quiet main..dev; then
+            echo "No differences found between main and dev"
+            echo "has_diff=false" >> $GITHUB_OUTPUT
+          else
+            echo "Differences found between main and dev"
+            echo "Files that differ:"
+            git diff --name-only main..dev
+            echo "has_diff=true" >> $GITHUB_OUTPUT
+          fi
+
+          # Also check the output value
+          echo "Diff check result: $(grep has_diff $GITHUB_OUTPUT || echo 'not set')"
+
+      - name: Debug condition check
+        run: |
+          echo "Condition evaluation:"
+          echo "steps.diffcheck.outputs.has_diff = '${{ steps.diffcheck.outputs.has_diff }}'"
+          echo "Condition result: ${{ steps.diffcheck.outputs.has_diff == 'true' }}"
+
+          if [ "${{ steps.diffcheck.outputs.has_diff }}" = "true" ]; then
+            echo "Condition is TRUE - will proceed with PR creation"
+          else
+            echo "Condition is FALSE - will skip PR creation"
+          fi
 
       - name: Switch to dev branch and preserve files
         if: steps.diffcheck.outputs.has_diff == 'true'
