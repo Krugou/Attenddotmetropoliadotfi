@@ -2,8 +2,8 @@ name: "Auto PR: dev to main"
 
 on:
   schedule:
-    # At 00:00 on Sunday and Monday
-    - cron: '0 0 * * 0,1'
+    # At 03.00 monday morning UTC
+    - cron: '0 3 * * 1'
   workflow_dispatch:
 permissions:
   contents: write
@@ -106,7 +106,7 @@ jobs:
 
           **Changes included:**
           - All updates from dev branch" \
-            --reviewer krugou
+            --reviewer krugou,copilot
 
           echo "Pull request created successfully!"
         env:
