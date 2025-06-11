@@ -100,7 +100,6 @@ jobs:
         run: echo "Mirror from GitLab devmain branch to dev completed successfully via branch $MIRROR_BRANCH."
 
     # Error handling is provided by 'continue-on-error: false' and workflow logs.
-        git config --get remote.origin.url
 
       - name: Commit and push changes to dev branch
         run: |
