@@ -33,7 +33,7 @@ jobs:
 
       - name: Clone GitLab main branch
         run: |
-          git clone --single-branch --branch main --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
+          git clone --single-branch --branch devmain --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
         continue-on-error: false
 
       - name: Copy files from GitLab repo
