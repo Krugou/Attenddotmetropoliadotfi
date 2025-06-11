@@ -30,7 +30,7 @@ jobs:
 
       - name: Create date-based branch name
         run: |
-          BRANCH_DATE=$(date -u +"%d%m")
+          BRANCH_DATE=$(date -u +"%d%m%H%M")
           MIRROR_BRANCH="mirror-$BRANCH_DATE"
           echo "MIRROR_BRANCH=$MIRROR_BRANCH" >> $GITHUB_ENV
           echo "Creating mirror branch: $MIRROR_BRANCH"
@@ -59,8 +59,6 @@ jobs:
           git rev-parse HEAD
           echo "GitLab commit date:"
           git log -1 --format="%cd" --date=iso
-          GITLAB_DATE=$(git log -1 --format="%ct")
-          echo "GITLAB_TIMESTAMP=$GITLAB_DATE" >> $GITHUB_ENV
           cd ..
 
       - name: Copy files from GitLab repo
@@ -73,58 +71,39 @@ jobs:
         run: |
           git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
 
+      - name: Debug current state
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Files in current directory:"
+          ls -la
+          echo "Git status:"
+          git status
+
       - name: Commit all changes to mirror branch
         run: |
-          git add .
+          git add -A
           echo "Files to be committed:"
           git status --porcelain
           git commit -m "Mirror from GitLab devmain: $(date -u +"%Y-%m-%d %H:%M:%S UTC") - Branch: $MIRROR_BRANCH" --allow-empty
           echo "Pushing mirror branch to GitHub..."
-          git push origin $MIRROR_BRANCH
+          git push origin $MIRROR_BRANCH --force
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
 
-      - name: Merge mirror branch to dev
+      - name: Switch to dev and merge
         run: |
           git checkout dev
-          git merge $MIRROR_BRANCH --no-ff -m "Merge mirror branch $MIRROR_BRANCH into dev"
+          echo "Merging $MIRROR_BRANCH into dev..."
+          git merge $MIRROR_BRANCH --no-ff -m "Merge mirror branch $MIRROR_BRANCH into dev - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          echo "Pushing dev branch..."
           git push origin dev
 
       - name: Clean up mirror branch
         run: |
-          git branch -d $MIRROR_BRANCH
-          git push origin --delete $MIRROR_BRANCH
+          git push origin --delete $MIRROR_BRANCH || echo "Failed to delete remote branch, continuing..."
 
       - name: Log success
         run: echo "Mirror from GitLab devmain branch to dev completed successfully via branch $MIRROR_BRANCH."
 
-    # Error handling is provided by 'continue-on-error: false' and workflow logs.
 
-      - name: Commit and push changes to dev branch
-        run: |
-          git add .
-          echo "Changes to be committed:"
-          git diff --cached --name-only || echo "No staged changes"
-          echo "Force update flag: $FORCE_UPDATE"
-
-          if [ "$FORCE_UPDATE" = "true" ] || ! git diff --cached --quiet; then
-            if [ "$FORCE_UPDATE" = "true" ]; then
-              echo "Force updating due to newer GitLab changes"
-              git commit -m "Force mirror from GitLab devmain: $(date -u +"%Y-%m-%d %H:%M:%S UTC") - GitLab has newer changes" --allow-empty
-            else
-              git commit -m "Mirror from GitLab devmain: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-            fi
-            echo "Pushing to GitHub dev branch..."
-            git push origin dev --force
-          else
-            echo "No changes to commit and no force update needed"
-          fi
-        env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
-
-      - name: Log success
-        run: echo "Mirror from GitLab main branch completed successfully."
-
-    # Error handling is provided by 'continue-on-error: false' and workflow logs.
