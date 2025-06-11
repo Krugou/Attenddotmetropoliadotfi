@@ -61,11 +61,34 @@ jobs:
           git log -1 --format="%cd" --date=iso
           cd ..
 
-      - name: Copy files from GitLab repo
+      - name: Copy files from GitLab repo into github repo
         run: |
-          shopt -s dotglob
-          cp -r gitlab-src/* .
-          rm -rf gitlab-src
+          echo "Copying files from GitLab repository..."
+          # Enable dotglob to include hidden files
+          shopt -s dotglob nullglob
+
+          # Check if gitlab-src directory exists and has content
+          if [ -d "gitlab-src" ]; then
+            echo "GitLab source directory found"
+            ls -la gitlab-src/
+
+            # Copy all files and directories, including hidden ones
+            # Using find to ensure we get everything
+            find gitlab-src -mindepth 1 -maxdepth 1 -exec cp -r {} . \;
+
+            # Alternative method: use rsync for more reliable copying
+            # rsync -av --exclude='.git' gitlab-src/ ./
+
+            echo "Files copied successfully"
+            echo "Current directory contents:"
+            ls -la
+
+            # Clean up the gitlab-src directory
+            rm -rf gitlab-src
+          else
+            echo "ERROR: gitlab-src directory not found!"
+            exit 1
+          fi
 
       - name: Set GitHub remote
         run: |
