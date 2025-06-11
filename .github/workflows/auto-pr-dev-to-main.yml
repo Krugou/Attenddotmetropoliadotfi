@@ -38,8 +38,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Create unique temporary branch name with timestamp
+          BRANCH_NAME="temp-merge-$(date +%Y%m%d-%H%M%S)"
+          echo "Creating branch: $BRANCH_NAME"
+
+          # Delete any existing temp-merge-branch to avoid conflicts
+          git push origin --delete temp-merge-branch || echo "No existing temp-merge-branch to delete"
+
           # Create temporary branch from dev
-          git checkout -b temp-merge-branch dev
+          git checkout -b $BRANCH_NAME dev
 
           # Preserve workflow files from main branch
           if git ls-tree -r main --name-only | grep -q "^\.github/workflows/"; then
@@ -80,12 +87,12 @@ jobs:
           fi
 
           # Push the branch and create PR using GitHub CLI
-          git push origin temp-merge-branch
+          git push origin $BRANCH_NAME
 
           # Create PR using GitHub CLI
           gh pr create \
             --base main \
-            --head temp-merge-branch \
+            --head $BRANCH_NAME \
             --title "Automated PR: Merge dev into main (with preserved workflows)" \
             --body "This pull request was automatically created by a scheduled workflow.
           It merges changes from \`dev\` into \`main\` while preserving GitHub Actions workflows.
