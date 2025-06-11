@@ -91,17 +91,17 @@ jobs:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
 
-      - name: Switch to dev and merge
-        run: |
-          git checkout dev
-          echo "Merging $MIRROR_BRANCH into dev..."
-          git merge $MIRROR_BRANCH --no-ff -m "Merge mirror branch $MIRROR_BRANCH into dev - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          echo "Pushing dev branch..."
-          git push origin dev
+      # - name: Switch to dev and merge
+      #   run: |
+      #     git checkout dev
+      #     echo "Merging $MIRROR_BRANCH into dev..."
+      #     git merge $MIRROR_BRANCH --no-ff -m "Merge mirror branch $MIRROR_BRANCH into dev - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+      #     echo "Pushing dev branch..."
+      #     git push origin dev
 
-      - name: Clean up mirror branch
-        run: |
-          git push origin --delete $MIRROR_BRANCH || echo "Failed to delete remote branch, continuing..."
+      # - name: Clean up mirror branch
+      #   run: |
+      #     git push origin --delete $MIRROR_BRANCH || echo "Failed to delete remote branch, continuing..."
 
       - name: Log success
         run: echo "Mirror from GitLab devmain branch to dev completed successfully via branch $MIRROR_BRANCH."
