@@ -74,34 +74,77 @@ jobs:
           # Switch to dev branch
           git checkout dev
 
-          # Preserve workflow files from main branch
+          # First, let's see what files actually need to be preserved
+          echo "Checking which files need preservation..."
+
+          # Check if workflows exist in dev vs main
+          if [ -d ".github/workflows" ]; then
+            echo "Workflows directory exists in dev"
+            ls -la .github/workflows/ || echo "No workflow files in dev"
+          else
+            echo "No workflows directory in dev"
+          fi
+
+          # Preserve workflow files from main branch only if they don't exist in dev or are different
           if git ls-tree -r main --name-only | grep -q "^\.github/workflows/"; then
             echo "GitHub Actions workflows found in main branch"
 
             # Create .github/workflows directory if it doesn't exist
             mkdir -p .github/workflows/
 
-            # Copy all workflow files from main branch
+            # Only copy workflow files that don't exist in dev or are different
             git ls-tree -r main --name-only | grep "^\.github/workflows/" | while read file; do
-              echo "Preserving workflow file: $file"
-              git show main:$file > $file
+              if [ ! -f "$file" ]; then
+                echo "Preserving missing workflow file: $file"
+                git show main:$file > $file
+              elif ! git show main:$file | cmp -s - $file; then
+                echo "Preserving modified workflow file: $file (main version takes precedence)"
+                git show main:$file > $file
+              else
+                echo "Workflow file $file is identical in both branches"
+              fi
             done
 
-            echo "GitHub Actions files preserved from main branch"
+            echo "GitHub Actions files preservation check completed"
           else
             echo "No GitHub Actions workflows found in main branch to preserve"
           fi
 
-          # Preserve poem.md from main branch if it exists
+          # Check poem.md preservation
           if git show main:poem.md > /dev/null 2>&1; then
-            echo "Preserving poem.md from main branch"
-            git show main:poem.md > poem.md
+            if [ ! -f "poem.md" ]; then
+              echo "Preserving missing poem.md from main branch"
+              git show main:poem.md > poem.md
+            elif ! git show main:poem.md | cmp -s - poem.md; then
+              echo "Preserving modified poem.md from main branch (main version takes precedence)"
+              git show main:poem.md > poem.md
+            else
+              echo "poem.md is identical in both branches"
+            fi
           else
             echo "No poem.md found in main branch to preserve"
           fi
 
+          # Show what files have been modified
+          echo "Modified files after preservation:"
+          git status --porcelain
+
+      - name: Debug before PR creation
+        if: steps.diffcheck.outputs.has_diff == 'true'
+        run: |
+          echo "About to create PR..."
+          echo "Current branch: $(git branch --show-current)"
+          echo "Current working directory: $(pwd)"
+          echo "Git status:"
+          git status
+          echo "Files in current directory:"
+          ls -la
+          echo "Modified/new files:"
+          git status --porcelain
+
       - name: Create Pull Request
         if: steps.diffcheck.outputs.has_diff == 'true'
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -120,3 +163,11 @@ jobs:
           base: main
           reviewers: krugou
           draft: false
+
+      - name: Debug PR creation result
+        if: steps.diffcheck.outputs.has_diff == 'true'
+        run: |
+          echo "PR creation completed"
+          echo "PR number: ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "PR URL: ${{ steps.cpr.outputs.pull-request-url }}"
+          echo "PR operation: ${{ steps.cpr.outputs.pull-request-operation }}"
