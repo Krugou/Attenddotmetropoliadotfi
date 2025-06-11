@@ -46,6 +46,9 @@ jobs:
           git rev-parse HEAD
           echo "GitLab commit date:"
           git log -1 --format="%cd" --date=iso
+          # Store GitLab timestamp for later comparison
+          GITLAB_DATE=$(git log -1 --format="%ct")
+          echo "GITLAB_TIMESTAMP=$GITLAB_DATE" >> $GITHUB_ENV
           cd ..
 
       - name: Check current GitHub dev branch commit date
@@ -54,33 +57,28 @@ jobs:
           git log -1 --format="%cd" --date=iso || echo "No commits in dev branch"
           echo "Current GitHub dev branch hash:"
           git rev-parse HEAD || echo "No commits in dev branch"
-
-      - name: Copy files from GitLab repo
-        run: |
-          shopt -s dotglob
-          cp -r gitlab-src/* .
-          rm -rf gitlab-src
-
-      - name: Compare dates and force update if needed
-        run: |
-          # Get GitLab commit timestamp (in seconds since epoch)
-          cd gitlab-src || true
-          GITLAB_DATE=$(git log -1 --format="%ct" 2>/dev/null || echo "0")
-          cd .. || true
-
-          # Get current GitHub dev branch timestamp
+          # Store GitHub timestamp for comparison
           GITHUB_DATE=$(git log -1 --format="%ct" 2>/dev/null || echo "0")
+          echo "GITHUB_TIMESTAMP=$GITHUB_DATE" >> $GITHUB_ENV
 
-          echo "GitLab timestamp: $GITLAB_DATE"
-          echo "GitHub timestamp: $GITHUB_DATE"
+      - name: Compare dates and determine if force update is needed
+        run: |
+          echo "GitLab timestamp: $GITLAB_TIMESTAMP"
+          echo "GitHub timestamp: $GITHUB_TIMESTAMP"
 
-          if [ "$GITLAB_DATE" -gt "$GITHUB_DATE" ]; then
+          if [ "$GITLAB_TIMESTAMP" -gt "$GITHUB_TIMESTAMP" ]; then
             echo "GitLab has newer changes - will force update"
             echo "FORCE_UPDATE=true" >> $GITHUB_ENV
           else
             echo "GitHub is up to date or newer"
             echo "FORCE_UPDATE=false" >> $GITHUB_ENV
           fi
+
+      - name: Copy files from GitLab repo
+        run: |
+          shopt -s dotglob
+          cp -r gitlab-src/* .
+          rm -rf gitlab-src
 
       - name: Check for changes after copy
         run: |
@@ -109,15 +107,17 @@ jobs:
           git add .
           echo "Changes to be committed:"
           git diff --cached --name-only || echo "No staged changes"
+          echo "Force update flag: $FORCE_UPDATE"
 
           if [ "$FORCE_UPDATE" = "true" ] || ! git diff --cached --quiet; then
             if [ "$FORCE_UPDATE" = "true" ]; then
               echo "Force updating due to newer GitLab changes"
-              git commit -m "Force mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC") - GitLab has newer changes" --allow-empty
+              git commit -m "Force mirror from GitLab devmain: $(date -u +"%Y-%m-%d %H:%M:%S UTC") - GitLab has newer changes" --allow-empty
             else
-              git commit -m "Mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+              git commit -m "Mirror from GitLab devmain: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
             fi
-            git push origin dev
+            echo "Pushing to GitHub dev branch..."
+            git push origin dev --force
           else
             echo "No changes to commit and no force update needed"
           fi
