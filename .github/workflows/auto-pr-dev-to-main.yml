@@ -84,5 +84,6 @@ jobs:
             **Changes included:**
             - All updates from dev branch
           reviewers: |
+            krugou
             GitHub Copilot
           draft: false
