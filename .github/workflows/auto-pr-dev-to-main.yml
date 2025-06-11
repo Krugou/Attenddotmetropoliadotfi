@@ -29,17 +29,55 @@ jobs:
         run: |
           git diff --quiet main..dev || echo "has_diff=true" >> $GITHUB_OUTPUT
 
+      - name: Preserve GitHub Actions files
+        if: steps.diffcheck.outputs.has_diff == 'true'
+        run: |
+          echo "Preserving GitHub Actions files from main branch..."
+
+          # Create temporary branch from dev
+          git checkout -b temp-merge-branch dev
+
+          # Preserve workflow files from main branch
+          if git ls-tree -r main --name-only | grep -q "^\.github/workflows/"; then
+            echo "GitHub Actions workflows found in main branch"
+
+            # Create .github/workflows directory if it doesn't exist
+            mkdir -p .github/workflows/
+
+            # Copy all workflow files from main branch
+            git ls-tree -r main --name-only | grep "^\.github/workflows/" | while read file; do
+              echo "Preserving workflow file: $file"
+              git show main:$file > $file
+            done
+
+            echo "GitHub Actions files preserved from main branch"
+              # Commit preserved files if any changes
+            git add .github/workflows/
+            if ! git diff --cached --quiet; then
+              git commit -m "Preserve GitHub Actions workflows from main branch"
+              echo "Committed preserved workflow files"
+            fi
+          else
+            echo "No GitHub Actions workflows found in main branch to preserve"
+          fi
+
       - name: Create Pull Request from dev to main
         if: steps.diffcheck.outputs.has_diff == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          branch: temp-merge-branch
           base: main
-          head: dev
-          title: "Automated PR: Merge dev into main"
+          title: "Automated PR: Merge dev into main (with preserved workflows)"
           body: |
             This pull request was automatically created by a scheduled workflow.
-            It merges changes from `dev` into `main`.
+            It merges changes from `dev` into `main` while preserving GitHub Actions workflows.
+
+            **Preserved files:**
+            - All `.github/workflows/` files from main branch
+
+            **Changes included:**
+            - All updates from dev branch
           reviewers: |
             GitHub Copilot
           draft: false
