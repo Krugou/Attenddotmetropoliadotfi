@@ -2,21 +2,18 @@
   "name": "attendanceappbackend",
   "type": "module",
   "version": "1.0.0",
-  "module": "commonjs",
   "scripts": {
     "start": "npm run dev",
-    "sW": "npm i && concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon nodejs/jaksecserver.js\"",
-    "notscsW": "npm i && concurrently  \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
-    "test": "jest",
-    "devBackend": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" ",
-    "devBuild": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\"",
-    "tsc": "npm i && tsc",
-    "tscW": " npm i && tsc --watch",
-    "docs": " npm i && typedoc src",
-    "docs:watch": " npm i && nodemon --watch 'src/**/*.ts' --exec npm run docs",
+    "dev": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecserver.js\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\"",
+    "dev:backend": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
+    "dev:fileserver": "nodemon --delay 1s nodejs/jaksecfileserver.js",
     "build": "tsc && tsc src/jaksecbackupsql.ts --outDir nodejs",
-    "sqlBackup": "tsc src/jaksecbackupsql.ts --outDir nodejs  && node nodejs/jaksecbackupsql.js",
-    "sqltest": "node src/jaksecbackupsql.cjs"
+    "docs": "typedoc src",
+    "docs:watch": "nodemon --watch 'src/**/*.ts' --exec npm run docs",
+    "sql:backup": "tsc src/jaksecbackupsql.ts --outDir nodejs  && node nodejs/jaksecbackupsql.js",
+    "test": "jest",
+    "lint": "eslint './src/**/*.ts'"
+
   },
   "dependencies": {
     "body-parser": "^1.20.3",
