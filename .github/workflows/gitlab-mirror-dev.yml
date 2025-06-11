@@ -36,6 +36,13 @@ jobs:
           git clone --single-branch --branch devmain --depth 1 "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO_URL#https://}" gitlab-src
         continue-on-error: false
 
+      - name: Show latest merge commit from GitLab
+        run: |
+          cd gitlab-src
+          echo "Latest merge commit in GitLab:"
+          git log --merges -1 --oneline || echo "No merge commits found"
+          cd ..
+
       - name: Copy files from GitLab repo
         run: |
           shopt -s dotglob
