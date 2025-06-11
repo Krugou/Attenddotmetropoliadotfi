@@ -41,6 +41,9 @@ jobs:
           # Create temporary branch from dev
           git checkout -b temp-merge-branch dev
 
+          # Push the temp branch to remote first to avoid reset issues
+          git push origin temp-merge-branch
+
           # Preserve workflow files from main branch
           if git ls-tree -r main --name-only | grep -q "^\.github/workflows/"; then
             echo "GitHub Actions workflows found in main branch"
@@ -64,6 +67,19 @@ jobs:
             fi
           else
             echo "No GitHub Actions workflows found in main branch to preserve"
+          fi
+
+          # Preserve poem.md from main branch if it exists
+          if git show main:poem.md > /dev/null 2>&1; then
+            echo "Preserving poem.md from main branch"
+            git show main:poem.md > poem.md
+            git add poem.md
+            if ! git diff --cached --quiet; then
+              git commit -m "Preserve poem.md from main branch"
+              echo "Committed preserved poem.md"
+            fi
+          else
+            echo "No poem.md found in main branch to preserve"
           fi
 
       - name: Create Pull Request from dev to main
