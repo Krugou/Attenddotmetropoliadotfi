@@ -42,13 +42,55 @@ jobs:
           echo "Latest commit in GitLab on branch:"
           git rev-parse --abbrev-ref HEAD
           git log -1 --oneline || echo "No commits found"
+          echo "GitLab commit hash:"
+          git rev-parse HEAD
+          echo "GitLab commit date:"
+          git log -1 --format="%cd" --date=iso
           cd ..
+
+      - name: Check current GitHub dev branch commit date
+        run: |
+          echo "Current GitHub dev branch commit date:"
+          git log -1 --format="%cd" --date=iso || echo "No commits in dev branch"
+          echo "Current GitHub dev branch hash:"
+          git rev-parse HEAD || echo "No commits in dev branch"
 
       - name: Copy files from GitLab repo
         run: |
           shopt -s dotglob
           cp -r gitlab-src/* .
           rm -rf gitlab-src
+
+      - name: Compare dates and force update if needed
+        run: |
+          # Get GitLab commit timestamp (in seconds since epoch)
+          cd gitlab-src || true
+          GITLAB_DATE=$(git log -1 --format="%ct" 2>/dev/null || echo "0")
+          cd .. || true
+
+          # Get current GitHub dev branch timestamp
+          GITHUB_DATE=$(git log -1 --format="%ct" 2>/dev/null || echo "0")
+
+          echo "GitLab timestamp: $GITLAB_DATE"
+          echo "GitHub timestamp: $GITHUB_DATE"
+
+          if [ "$GITLAB_DATE" -gt "$GITHUB_DATE" ]; then
+            echo "GitLab has newer changes - will force update"
+            echo "FORCE_UPDATE=true" >> $GITHUB_ENV
+          else
+            echo "GitHub is up to date or newer"
+            echo "FORCE_UPDATE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Check for changes after copy
+        run: |
+          echo "Files changed after copy:"
+          git status --porcelain || echo "No changes detected"
+          echo "Current HEAD commit:"
+          git rev-parse HEAD
+          echo "Differences found:"
+          git diff --name-only || echo "No file differences"
+          echo "Force update flag: $FORCE_UPDATE"
 
       - name: Set GitHub remote
         run: |
@@ -65,8 +107,20 @@ jobs:
       - name: Commit and push changes to dev branch
         run: |
           git add .
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          git push origin dev
+          echo "Changes to be committed:"
+          git diff --cached --name-only || echo "No staged changes"
+
+          if [ "$FORCE_UPDATE" = "true" ] || ! git diff --cached --quiet; then
+            if [ "$FORCE_UPDATE" = "true" ]; then
+              echo "Force updating due to newer GitLab changes"
+              git commit -m "Force mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC") - GitLab has newer changes" --allow-empty
+            else
+              git commit -m "Mirror from GitLab main: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+            fi
+            git push origin dev
+          else
+            echo "No changes to commit and no force update needed"
+          fi
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
