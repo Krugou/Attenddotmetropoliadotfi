@@ -42,6 +42,7 @@ const work_log_entries = {
     status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 45, work_log_entrymodel.ts, calling createWorkLogEntry()");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -57,6 +58,7 @@ const work_log_entries = {
 
   async getWorkLogEntriesByUserId(userId: number): Promise<WorkLogEntry[]> {
     try {
+      console.log("row 61, work_log_entrymodel.ts, getting work log entries by user id");
       const [rows] = await pool.promise().query<WorkLogEntry[]>(
         `SELECT *
          FROM work_log_entries
@@ -73,6 +75,7 @@ const work_log_entries = {
 
   async getActiveEntriesByUserId(userId: number): Promise<WorkLogEntry[]> {
     try {
+      console.log("row 78, work_log_entrymodel.ts, getting active work log entries by user id");
       const [rows] = await pool.promise().query<WorkLogEntry[]>(
         `SELECT * FROM work_log_entries
              WHERE userid = ?
@@ -90,6 +93,7 @@ const work_log_entries = {
 
   async getWorkLogEntryById(entryId: number): Promise<WorkLogEntry | null> {
     try {
+      console.log("row 96, work_log_entrymodel.ts, getting work log entry by id");
       const [rows] = await pool
         .promise()
         .query<WorkLogEntry[]>(
@@ -105,6 +109,7 @@ const work_log_entries = {
 
   async deleteWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
     try {
+      console.log("row 112, work_log_entrymodel.ts, deleting work log entry by id");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -123,6 +128,7 @@ const work_log_entries = {
     updates: WorkLogEntryUpdate,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 131, work_log_entrymodel.ts, updating work log entry by id");
       // Validate entry exists first
       const [entry] = await pool
         .promise()
@@ -179,6 +185,7 @@ const work_log_entries = {
     status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 188, work_log_entrymodel.ts, updating work log entry status by id");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -199,6 +206,7 @@ const work_log_entries = {
 
   async closeWorkLogEntry(entryId: number): Promise<ResultSetHeader> {
     try {
+      console.log("row 209, work_log_entrymodel.ts, closing work log entry by id");
       const [result] = await pool.promise().query<ResultSetHeader>(
         `UPDATE work_log_entries
            SET status = '2', end_time = CURRENT_TIMESTAMP
@@ -219,6 +227,7 @@ const work_log_entries = {
 
   async getWorkLogEntriesByCourse(courseId: number): Promise<WorkLogEntry[]> {
     try {
+      console.log("row 230, work_log_entrymodel.ts, getting work log entries by course id");
       const [rows] = await pool
         .promise()
         .query<WorkLogEntry[]>(
@@ -237,6 +246,7 @@ const work_log_entries = {
     studentIds: number[],
   ): Promise<WorkLogEntry[]> {
     try {
+      console.log("row 249, work_log_entrymodel.ts, getting work log entries by group students");
       if (!studentIds.length) return [];
 
       const [rows] = await pool.promise().query<WorkLogEntry[]>(
@@ -265,6 +275,7 @@ const work_log_entries = {
     status: WorkLogStatus,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 278, work_log_entrymodel.ts, calling createPracticumEntry()");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -282,6 +293,7 @@ const work_log_entries = {
     practicumId: number,
   ): Promise<PracticumEntry[]> {
     try {
+      console.log("row 296, work_log_entrymodel.ts, getting work log entries by practicum id");
       const [rows] = await pool.promise().query<PracticumEntry[]>(
         `SELECT e.*, u.first_name, u.last_name, u.email
          FROM work_log_entries e

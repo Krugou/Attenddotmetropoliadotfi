@@ -30,6 +30,7 @@ router.get(
   checkUserRole(['admin']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 33, adminroutes.ts, getting server settings")
       const serverSettings = await adminController.getServerSettings();
 
       res.status(200).json(serverSettings[0][0]);
@@ -74,6 +75,7 @@ router.post(
     const {speedofhash, leewayspeed, timeouttime, attendancethreshold} =
       req.body;
     try {
+      console.log("row 78, adminroutes.ts, updating server settings")
       await adminController.updateServerSettings(
         speedofhash,
         leewayspeed,
@@ -99,6 +101,7 @@ router.get(
   validate,
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 104, adminroutes.ts, fetching teacher and counselor roles")
       const roles = await rolemodel.fetchTeacherAndCounselorRoles();
       res.send(roles);
     } catch (error) {
@@ -118,6 +121,7 @@ router.get(
   checkUserRole(['admin', 'teacher', 'counselor']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 124, adminroutes.ts, fetching all roles")
       const roles = await rolemodel.fetchAllRoles();
       res.send(roles);
     } catch (error) {
@@ -148,6 +152,7 @@ router.post(
     }
     const {email, roleId} = req.body;
     try {
+      console.log("row 155, adminroutes.ts, changing role of user")
       await usermodel.changeRoleId(email, roleId);
       res.send({message: 'Role changed successfully'});
     } catch (error) {
@@ -167,6 +172,7 @@ router.get(
   checkUserRole(['admin']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 175, adminroutes.ts, fetching all users")
       const users = await usermodel.fetchUsers();
       res.send(users);
     } catch (error) {
@@ -189,6 +195,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 198, adminroutes.ts, fetching user by id")
       const {userid} = req.params;
       const user = await usermodel.fetchUserById(Number(userid));
       res.send(user);

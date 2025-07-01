@@ -50,6 +50,7 @@ const roleModel: RoleModel = {
    */
   async fetchAllRoles() {
     try {
+      console.log("row 53, rolemodel.ts, fetchAllRoles()");
       const [results] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM roles');
@@ -65,6 +66,7 @@ const roleModel: RoleModel = {
    */
   async fetchTeacherAndCounselorRoles() {
     try {
+      console.log("row 69, rolemodel.ts, fetchTeacherAndCounselorRoles()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -83,6 +85,7 @@ const roleModel: RoleModel = {
    */
   async findByRoleId(id) {
     try {
+      console.log("row 88, rolemodel.ts, findByRoleId()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM roles WHERE roleid = ?', [id]);
@@ -99,6 +102,7 @@ const roleModel: RoleModel = {
    */
   async insertIntoRole(rolename) {
     try {
+      console.log("row 105, rolemodel.ts, insertIntoRole()");
       await pool
         .promise()
         .query('INSERT INTO roles (rolename) VALUES (?)', [rolename]);
