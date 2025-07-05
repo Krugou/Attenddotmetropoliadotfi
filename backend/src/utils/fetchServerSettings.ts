@@ -10,6 +10,7 @@ interface ServerSettings {
 
 const fetchServerSettings = async (): Promise<ServerSettings> => {
   try {
+    console.log("row 13, fetchServerSettings.ts - fetchServerSettings() called")
     const token = await getToken();
     const response = await doFetch('http://localhost:3002/admin/ ', {
       method: 'GET',

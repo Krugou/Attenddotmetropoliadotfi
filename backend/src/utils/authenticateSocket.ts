@@ -25,16 +25,19 @@ const authenticateSocket = (
   socket: AuthenticatedSocket,
   next: (err?: Error) => void,
 ) => {
+  console.log("Row 28, authenticateSocket.ts, authenticateSocket() called");
   const token = socket.handshake.auth.token;
   if (!token) {
+    console.log("Row 31, authenticateSocket.ts, token is missing");
     return next(
       new SocketError('Authentication token is missing', 'AUTH_ERROR'),
     );
   }
-
+  console.log("Row 36, authenticateSocket.ts");
   const req = {headers: {authorization: `Bearer ${token}`}} as Request;
   const res = {} as Response;
   passport.authenticate('jwt', {session: false}, (err, user, info) => {
+    console.log("Row 40, authenticateSocket.ts, authenticate() called");
     if (err) {
       logger.error('Socket token verification failed:', err.message);
       return next(new SocketError('Invalid token', 'AUTH_ERROR'));

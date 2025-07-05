@@ -237,10 +237,8 @@ router.post(
     }
     const {email, first_name, last_name, studentnumber, studentGroupId} =
       req.body;
-    // console.log(
-    // 	'manual student user insert start ' + email + ' ' + studentnumber,
-    // );
     try {
+      console.log("row 241, adminroutes.ts, inserting student user");
       const existingUserByNumber =
         await usermodel.checkIfUserExistsByStudentNumber(studentnumber);
       if (existingUserByNumber.length > 0) {
@@ -263,12 +261,11 @@ router.post(
         studentnumber,
         studentGroupId,
       );
+      console.log("row 264, adminroutes.ts, inserting student user");
       res
         .status(200)
         .send({message: 'Student user inserted successfully', userResult});
-      // console.log(
-      //   'manual student user insert success ' + email + ' ' + studentnumber,
-      // );
+
     } catch (error) {
       console.error(error);
       logger.error(error);
@@ -295,6 +292,7 @@ router.post(
     // 	'manual student user insert start ' + email + ' ' + studentnumber,
     // );
     try {
+      console.log("row 295, adminroutes.ts, inserting staff user");
       const existingUserByEmail = await usermodel.checkIfUserExistsByEmail(
         email,
       );
@@ -335,6 +333,7 @@ router.get(
       logger.info({useremail: req.user.email}, ' admin / alllectures / ');
     }
     try {
+      console.log("row 336, adminroutes.ts, fetching all lectures");
       const lectures = (await lectureModel.fetchAllLectures()) as Lecture[];
       for (const lecture of lectures) {
         const students = await lectureController.getStudentsInLecture(
@@ -364,6 +363,7 @@ router.get(
       );
     }
     try {
+      console.log("row 366, adminroutes.ts, fetching all lectures");
       const [lectures] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM lecture');
@@ -412,6 +412,7 @@ router.get(
       );
     }
     try {
+      console.log("row 415, adminroutes.ts, fetching all lectures with lecture id");
       const courseid = req.params.courseid;
       const lectureid = req.params.lectureid;
       const [attendanceResult] = await pool.promise().query(
@@ -470,6 +471,7 @@ router.get(
       logger.info({useremail: req.user.email}, ' admin / getcourses / ');
     }
     try {
+      console.log("row 474, adminroutes.ts, get all courses");
       const courses = await course.getCoursesWithDetails();
       res.send(courses);
     } catch (error) {
@@ -492,6 +494,7 @@ router.put(
       logger.info({useremail: req.user.email}, ' admin / updateuser / ');
     }
     try {
+      console.log("row 497, adminroutes.ts, updating user");
       const user = req.body;
       await usermodel.updateUser(user);
       res.send({message: 'User updated successfully'});
@@ -520,6 +523,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 526, adminroutes.ts, checking student number");
       const {studentnumber} = req.params;
       const existingStudentNumber = await usermodel.checkIfStudentNumberExists(
         studentnumber,
@@ -542,6 +546,7 @@ router.get(
   checkUserRole(['admin', 'teacher', 'counselor']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 549, adminroutes.ts, checking student email");
       const {email} = req.params;
       const existingStudentEmail = await usermodel.checkIfStudentEmailExists(
         email,
@@ -572,6 +577,7 @@ router.get(
       logger.info({useremail: req.user.email}, 'admin / getrolecounts / ');
     }
     try {
+      console.log("row 580, adminroutes.ts, getting role counts");
       const roleCounts = await usermodel.getRoleCounts();
       const userLoggedCount = await usermodel.getUserLoggedCount();
       const otherRoleCounts = roleCounts
@@ -601,6 +607,7 @@ router.get(
       logger.info(' admin / feedback / ', req.user?.email);
     }
     try {
+      console.log("row 610, adminroutes.ts, getting feedback");
       const feedback = await userFeedBackModel.getUserFeedback();
       res.send(feedback);
     } catch (error) {
@@ -619,6 +626,7 @@ router.delete(
       logger.info(' admin / feedback / delete ', req.user?.email);
     }
     try {
+      console.log("row 629, adminroutes.ts, deleting feedback");
       const result = await userFeedBackModel.deleteUserFeedback(
         Number(feedbackId),
       );
@@ -648,6 +656,7 @@ router.delete(
     }
     const {attendanceid} = req.params;
     try {
+      console.log("row 659, adminroutes.ts, deleting attendance");
       const result = await AttendanceModel.deleteAttendanceByAttendanceId(
         Number(attendanceid),
       );
@@ -686,6 +695,7 @@ router.get(
     }
 
     try {
+      console.log("row 698, adminroutes.ts, getting error logs");
       const errorLog = await readLogFile(errorLogFilePath, lineLimit);
       res.status(200).json(errorLog);
     } catch (error) {
@@ -715,6 +725,7 @@ router.get(
     }
 
     try {
+      console.log("row 728, adminroutes.ts, getting logs");
       const logData = await readLogFile(outLogFilePath, lineLimit);
       res.status(200).json(logData);
     } catch (error) {
@@ -733,6 +744,7 @@ router.get(
       logger.info({useremail: req.user.email}, 'admin / coursecounts / ');
     }
     try {
+      console.log("row 747, adminroutes.ts, getting course counts");
       const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
 
       // Get counts for regular courses
@@ -777,6 +789,7 @@ router.get(
       logger.info({useremail: req.user.email}, 'admin / worklogcounts / ');
     }
     try {
+      console.log("row 792, adminroutes.ts, getting worklog counts");
       const threeDaysAgo = new Date();
       threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
       const formattedDate = threeDaysAgo
@@ -822,6 +835,7 @@ router.get(
       logger.info({useremail: req.user.email}, 'admin / worklogcourses / ');
     }
     try {
+      console.log("row 838, adminroutes.ts, getting worklog courses");
       const [courses] = await pool.promise().query(`
         SELECT
           work_log_course_id,
@@ -850,6 +864,7 @@ router.get(
   checkUserRole(['admin']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 867, adminroutes.ts, getting server status");
       // Get system information
       const os = await import('os');
       const systemInfo = {
@@ -910,63 +925,5 @@ router.get(
   },
 );
 
-/**
- * Route that deactivates users created more than X years ago by setting activeStatus = 0
- *
- * @route POST /admin/maintenance/deactivate-users
- * @param {number} [years=5] - Optional query parameter defining years threshold (default: 5)
- * @returns {Promise<{success: boolean, message: string, deactivatedCount: number}>}
- * Result of the deactivation operation, including how many users were affected
- * @throws {400} - If years parameter is invalid
- * @throws {403} - If user lacks admin permission
- * @throws {500} - If server encounters an error during deactivation
- */
-// router.post(
-//   '/maintenance/deactivate-users',
-//   checkUserRole(['admin']),
-//   [
-//     query('years')
-//       .optional()
-//       .isInt({min: 1})
-//       .withMessage('Years must be a positive integer')
-//       .toInt(),
-//   ],
-//   validate,
-//   async (req: Request, res: Response) => {
-//     try {
-//       if (req.user) {
-//         logger.info(
-//           {
-//             useremail: req.user.email,
-//             action: 'manual user deactivation',
-//           },
-//           'admin/maintenance/deactivate-users',
-//         );
-//       }
-
-//       // Get years parameter (default to 5 if not provided)
-//       const years = req.query.years
-//         ? parseInt(req.query.years as string, 10)
-//         : 5;
-
-//       // Execute deactivation
-//       const result = await userDeactivationService.deactivateOldUsers(years);
-
-//       // Return results
-//       res.json({
-//         success: true,
-//         message: `Successfully deactivated ${result.deactivatedCount} users created more than ${years} years ago`,
-//         deactivatedCount: result.deactivatedCount,
-//       });
-//     } catch (error) {
-//       logger.error('Error in deactivate-users endpoint:', error);
-//       res.status(500).json({
-//         success: false,
-//         message: 'Failed to deactivate users',
-//         error: error instanceof Error ? error.message : 'Unknown error',
-//       });
-//     }
-//   },
-// );
 
 export default router;
