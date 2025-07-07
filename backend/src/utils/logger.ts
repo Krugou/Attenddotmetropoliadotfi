@@ -47,6 +47,7 @@ errorStream.on('error', (err) => {
  * @returns Sanitized object
  */
 function sanitizeObject(obj: any, depth = 0): any {
+  console.log("Row 50, logger.ts - sanitizeObject() called");
   if (depth > loggerConfig.maxObjectDepth) {
     return '[Max Depth Reached]';
   }
@@ -82,6 +83,7 @@ function sanitizeObject(obj: any, depth = 0): any {
  * Custom filter function to prevent logging for specified admin emails
  */
 const logFilter = (level: number, logProps: any): boolean => {
+  console.log("Row 86, logger.ts - logFilter() called");
   // Skip logging if the object contains an ignored email
   if (
     logProps.useremail &&

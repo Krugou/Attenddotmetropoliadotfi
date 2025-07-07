@@ -64,10 +64,12 @@ export const handleManualStudentRemove = async (
   presentStudents: AttendanceRecord,
 ): Promise<void> => {
   try {
+    console.log("row 67, handleManualStudentRemove.ts, handleManualStudentRemove()")
     // Role Check
     if (
       !['teacher', 'admin', 'counselor'].some((role) =>
         socket.user?.role.includes(role),
+        console.log("row 71, handleManualStudentRemove.ts, if teacher, admin or counselor")
       )
     ) {
       socket.emit('error', {
@@ -84,6 +86,7 @@ export const handleManualStudentRemove = async (
 
     // Validate student ID
     if (!studentId) {
+      console.log("row 89, handleManualStudentRemove.ts, if studentId")
       io.to(socket.id).emit('manualStudentRemoveFailedEmpty', lectureId);
       return;
     }
@@ -101,7 +104,7 @@ export const handleManualStudentRemove = async (
         lectureid: lectureId,
       }),
     });
-
+    console.log("row 107, handleManualStudentRemove.ts, api call");
     // Move student from present to not-yet-present
     const presentList = presentStudents[lectureId] || [];
     const idx = presentList.findIndex(
@@ -125,6 +128,7 @@ export const handleManualStudentRemove = async (
       presentStudents[lectureId],
     );
     io.to(socket.id).emit('manualStudentRemoveSuccess', lectureId);
+    console.log("row 131, handleManualStudentRemove.ts, Emit updates to affected clients");
 
     // Log successful removal
     logger.info(

@@ -47,6 +47,7 @@ export const handleLectureCanceled = async (
   listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
+    console.log("row 50, handleLectureCanceled.ts, handleLectureCanceled()")
     // Defensive check: ensure the lectureid is a non-empty string
     if (!lectureid || typeof lectureid !== 'string') {
       throw new LectureCancellationError('Invalid lecture ID');
@@ -76,6 +77,7 @@ export const handleLectureCanceled = async (
       },
       body: JSON.stringify({lectureid}),
     });
+    console.log("row 80, handleLectureCanceled.ts, doFetch()")
 
     // Notify clients that the lecture has been canceled
     io.to(lectureid).emit('lectureCanceledSuccess', lectureid);
