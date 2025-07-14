@@ -20,6 +20,7 @@ const usercoursesModel = {
    * @returns A promise that resolves to the existing user course, if any.
    */
   async checkIfUserCourseExists(userId: number, courseId: number) {
+    console.log("row 23, usercoursemodel.ts, checkIfUserCourseExists() called");
     const [existingUserCourse] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -36,6 +37,7 @@ const usercoursesModel = {
    * @returns A promise that resolves to the ID of the user course.
    */
   async getUserCourseId(studentnumber: string, courseid: number) {
+    console.log("row 40, usercoursemodel.ts, getUserCourseId() called");
     const [usercourseResult] = await pool
       .promise()
       .query(
@@ -51,6 +53,7 @@ const usercoursesModel = {
    * @returns A promise that resolves when the insertion is complete.
    */
   async insertUserCourse(userId: number, courseId: number) {
+    console.log("row 56, usercoursemodel.ts, insertUserCourse() called");
     const result = await pool
       .promise()
       .query('INSERT INTO usercourses (userid, courseid) VALUES (?, ?)', [
@@ -67,6 +70,7 @@ const usercoursesModel = {
    * @returns A promise that resolves when the deletion is complete.
    */
   async deleteUserCourse(userId: number, courseId: number) {
+    console.log("row 73, usercoursemodel.ts, deleteUserCourse() called");
     const result = await pool
       .promise()
       .query('DELETE FROM usercourses WHERE userid = ? AND courseid = ?', [
@@ -82,6 +86,7 @@ const usercoursesModel = {
    * @returns A promise that resolves to the user course.
    */
   async getUserCourseByUsercourseid(usercourseid: number) {
+    console.log("row 89, usercoursemodel.ts, getUserCourseByUsercourseid() called");
     const [usercourseResult] = await pool
       .promise()
       .query('SELECT * FROM usercourses WHERE usercourseid = ?', usercourseid);
@@ -93,6 +98,7 @@ const usercoursesModel = {
    * @returns A promise that resolves when the deletion is complete.
    */
   async deleteUserCourseByUsercourseid(usercourseid: number) {
+    console.log("row 101, usercoursemodel.ts, deleteUserCourseByUsercourseid() called");
     const result = await pool
       .promise()
       .query('DELETE FROM usercourses WHERE usercourseid = ?', usercourseid);
@@ -105,6 +111,7 @@ const usercoursesModel = {
    */
   async getStudentInfoByUsercourseid(usercourseid: number) {
     try {
+      console.log("row 114, usercoursemodel.ts, getStudentInfoByUsercourseid() called");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT
 					users.first_name,
