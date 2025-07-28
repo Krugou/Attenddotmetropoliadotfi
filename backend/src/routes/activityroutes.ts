@@ -37,6 +37,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 40, activityRoutes.ts, Get all students activity data")
       logger.info(
         {
           userId: req.user?.userid,
@@ -94,6 +95,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 98, activityRoutes.ts, Get instructor course activity data with id")
       const requestedId = parseInt(req.params.id);
       const authenticatedUserId = req.user?.userid;
       const userRole = req.user?.role;

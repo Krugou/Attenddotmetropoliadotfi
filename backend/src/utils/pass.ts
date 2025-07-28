@@ -21,6 +21,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 passport.use(
   new Strategy(async (email: string, _password: string, done: DoneFunction) => {
     try {
+      console.log("row 24, pass.ts, local strategy called");
       // Find a user in the database with the provided email
       const user: User | null = await UserModel.getAllUserInfo(email);
       // Check if the user exists
