@@ -20,6 +20,7 @@ const router: Router = express.Router();
  * Route that returns the user object from the request.
  */
 router.get('/', async (req: Request, res: Response) => {
+  console.log("row 23, secureroutes.ts, returning user object from request")
   if (req.user) {
     const user = await UserModel.getAllUserInfo(req.user.email);
     res.send(user);
@@ -33,6 +34,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 37, secureroutes.ts, getting all students")
       const users = await usermodel.fetchAllStudents();
       res.send(users);
     } catch (error) {
@@ -47,6 +49,7 @@ router.get(
  */
 router.get('/getattendancethreshold', async (_req: Request, res: Response) => {
   try {
+    console.log("row 52, secureroutes.ts, getting attendance threshold")
     const result = await serverSettingsModel.getAttentanceThreshold(pool); // replace with your actual function to get the threshold
     const threshold = result[0][0].attendancethreshold;
     res.send({attendancethreshold: threshold});
@@ -65,6 +68,7 @@ router.put(
   validate,
   async (req, res) => {
     try {
+      console.log("row 71, secureroutes.ts, updating GDPR status")
       const userId: number | undefined = req.user?.userid;
       await usermodel.updateUserGDPRStatus(userId);
       res.send({success: true});
@@ -86,6 +90,7 @@ router.get(
   async (req: Request, res: Response) => {
     const email = req.params.email;
     try {
+      console.log("row 93, secureroutes.ts, checking if user exists by email and is a staff member")
       const user = await usermodel.checkIfUserExistsByEmailAndisStaff(email);
       if (user.length > 0) {
         res.send({exists: true, user: user[0]});
@@ -109,6 +114,7 @@ router.get(
   checkUserRole(['admin', 'teacher', 'counselor']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 117, secureroutes.ts, getting all student groups")
       const groups = await studentgroupmodel.fetchAllStudentGroups();
       res.send(groups);
     } catch (error) {
@@ -145,6 +151,7 @@ router.post(
     } = req.body;
 
     try {
+      console.log("row 154, secureroutes.ts, inserting student user")
       const existingUserByNumber =
         await usermodel.checkIfUserExistsByStudentNumber(studentnumber);
       if (existingUserByNumber.length > 0) {
@@ -169,7 +176,7 @@ router.post(
         studentnumber,
         studentGroupId,
       );
-
+    console.log("row 179, secureroutes.ts, inserting student user")
       // Check if course connection exists
       const existingUserCourse = await usercoursesModel.checkIfUserCourseExists(
         userResult.insertId,
@@ -193,9 +200,7 @@ router.post(
       res
         .status(200)
         .send({message: 'Student user inserted successfully', userResult});
-      // console.log(
-      //   `Student user successfully inserted. Email: ${email}, Student Number: ${studentnumber}`,
-      // );
+
     } catch (error) {
       logger.error(error);
       console.error(error);
@@ -208,6 +213,7 @@ router.put(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 216, secureroutes.ts, updating user")
       const user = req.body;
       await usermodel.updateUser(user);
       res.send({message: 'User updated successfully'});
@@ -231,6 +237,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 240, secureroutes.ts, getting user by ID")
       const {userid} = req.params;
       const user = await usermodel.fetchUserById(Number(userid));
       res.send(user);
@@ -247,6 +254,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 257, secureroutes.ts, getting paginated students")
       const limit = Number(req.query.limit) || 10;
       const page = Number(req.query.page) || 1;
       const offset = (page - 1) * limit;
@@ -287,6 +295,7 @@ router.put(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 298, secureroutes.ts, updating language")
       const {email, language} = req.body;
 
       if (!['en', 'fi', 'sv'].includes(language)) {
@@ -318,6 +327,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 330, secureroutes.ts, getting user language")
       const {email} = req.params;
       //@ts-expect-error
       const result = await usermodel.getUserLanguage(email);
@@ -347,6 +357,7 @@ router.get(
   checkUserRole(['admin', 'teacher', 'counselor']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 360, secureroutes.ts, testing OpenData API")
       // Test with a mock realization code
       const testCode = 'TX00AA11-3001';
       const response = await openData.checkOpenDataRealization(testCode);

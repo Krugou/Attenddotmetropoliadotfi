@@ -39,6 +39,7 @@ router.post(
   '/',
   loginLimiter,
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    console.log("row 42, userroutes.ts, login path, handles user login");
     // Check if the environment variables are not undefined
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET environment variable is not set');
@@ -58,11 +59,14 @@ router.post(
     ) {
       throw new Error('One or more environment variables are not set');
     }
+    console.log("row 62, userroutes.ts, login path, dev account variables are set");
+
     let metropoliaData: ResponseData;
     // Get username and password from the request body
     const {username, password} = req.body;
 
     //  If the user is a dev account, authenticate them without calling the Metropolia API
+    console.log("row 69, userroutes.ts, checking if user is a dev account, if so, authenticate them without calling the Metropolia API");
     if (
       username === process.env.devaccount! &&
       password === process.env.devpass!
@@ -120,6 +124,7 @@ router.post(
       };
     } else {
       // If the user is not a dev account, call the Metropolia API to authenticate the user
+      console.log("row 127, userroutes.ts, user is not a dev account, call the Metropolia API to authenticate the user");
       const options = {
         method: 'POST',
         headers: {
@@ -142,6 +147,7 @@ router.post(
       // If the logged-in user is Metropolia staff and they don't exist in the DB yet, add them to the DB
       if (metropoliaData.staff === true) {
         try {
+          console.log("row 150, userroutes.ts, user is Metropolia staff, they don't exist in the DB yet, add them to the DB");
           // Check if the user exists in the database
           const userFromDB: unknown = await usermodel.getAllUserInfo(
             metropoliaData.email,
@@ -168,6 +174,7 @@ router.post(
           };
 
           if (userFromDB === null) {
+            console.log("row 177, userroutes.ts, user is Metropolia staff, they don't exist in the DB yet, add them to the DB");
             // If the staff user doesn't exist, add them to the database
             //@ts-expect-error
             const addStaffUserResponse = await usermodel.addStaffUser(userData);
@@ -204,6 +211,7 @@ router.post(
 
       // If the logged-in user is not Metropolia staff, authenticate them
       if (metropoliaData.staff === false) {
+        console.log("row 214, userroutes.ts, user is not Metropolia staff, authenticate them");
         // Call the authenticate function to handle passport authentication
         logger.info(
           `Non-staff Metropolia API login was successful for user: ${username} `,
