@@ -10,6 +10,7 @@ import work_log_entries from '../models/work_log_entrymodel.js';
 
 router.post('/', async (req: Request, res: Response) => {
   try {
+    console.log("row 13, worklogroutes.ts, creating worklog course");
     const result = await workLogController.createWorkLogCourse(req.body);
     res.send(result);
   } catch (error) {
@@ -23,6 +24,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 27, worklogroutes.ts, getting worklog course by id");
       const courseId = Number(req.params.courseId);
       const result = await workLogController.getWorkLogCourseDetails(courseId);
       res.send(result);
@@ -37,6 +39,7 @@ router.put(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 42, worklogroutes.ts, updating worklog course by id");
       const worklogId = Number(req.params.worklogId);
       const {modifiedData} = req.body;
       if (!modifiedData) {
@@ -59,13 +62,10 @@ router.delete(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 65, worklogroutes.ts, deleting worklog course by id");
       const worklogId = Number(req.params.worklogId);
       const result = await workLogController.deleteWorkLog(worklogId);
-      // Previous code was sending two responses:
-      // res.send(result);
-      // res.send({ message: 'Worklog deleted successfully' });
 
-      // Fixed version - send only one response:
       res.send({
         success: true,
         message: 'Worklog deleted successfully',
@@ -84,6 +84,7 @@ router.post(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 87, worklogroutes.ts, creating worklog entry");
       const result = await workLogController.createWorkLogEntry(req.body);
       res.send(result);
     } catch (error) {
@@ -97,6 +98,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 101, worklogroutes.ts, getting worklog entries by user id");
       const userId = Number(req.params.userId);
       const entries = await workLogController.getWorkLogEntriesByUser(userId);
       res.send(entries);
@@ -111,6 +113,7 @@ router.put(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 116, worklogroutes.ts, updating worklog entry status");
       const entryId = Number(req.params.entryId);
       const status = req.body.status as 0 | 1 | 2 | 3;
       const result = await workLogController.updateWorkLogEntryStatus(
@@ -139,6 +142,7 @@ router.post(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 145, worklogroutes.ts, creating worklog group");
       const courseId = Number(req.params.courseId);
       const {name} = req.body;
 
@@ -174,6 +178,7 @@ router.post(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 181, worklogroutes.ts, assigning students to group");
       const groupId = Number(req.params.groupId);
       const {studentIds} = req.body;
 
@@ -216,6 +221,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 224, worklogroutes.ts, getting students in group");
       const groupId = Number(req.params.groupId);
       const result = await workLogController.getWorkLogGroupStudents(groupId);
       res.send(result);
@@ -230,6 +236,7 @@ router.post(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 239, worklogroutes.ts, assigning users to course");
       const courseId = Number(req.params.courseId);
       const {userId} = req.body;
       const result = await workLogController.assignUserToCourse(
@@ -249,6 +256,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 259, worklogroutes.ts, getting worklog stats");
       const userId = Number(req.params.userId);
       // Get optional courseId from query params
       const courseId = req.query.courseId
@@ -267,6 +275,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 278, worklogroutes.ts, checking worklog code");
       const code = req.params.code;
       const exists = await workLogController.checkWorklogCodeExists(code);
       res.send({exists});
@@ -282,6 +291,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 294, worklogroutes.ts, getting worklog instructor");
       const email = req.params.email;
       const courses = await workLogController.getWorkLogCoursesByInstructor(
         email,
@@ -299,6 +309,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 312, worklogroutes.ts, getting worklog students");
       const {courseId} = req.params;
       const result = await workLogController.getWorkLogStudentsByCourse(
         courseId,
@@ -319,6 +330,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 333, worklogroutes.ts, getting worklog groups");
       const {courseId} = req.params;
       const result = await workLogController.getWorkLogGroupsByCourse(courseId);
       res.send(result);
@@ -333,6 +345,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 348, worklogroutes.ts, getting worklog group details");
       const courseId = Number(req.params.courseId);
       const groupId = Number(req.params.groupId);
       const result = await workLogController.getWorkLogGroupDetails(
@@ -353,6 +366,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 369, worklogroutes.ts, getting active courses by email");
       const {email} = req.params;
       const courses = await work_log_courses.getActiveCoursesByStudentEmail(
         email,
@@ -371,6 +385,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 388, worklogroutes.ts, getting active courses by user");
       const userId = Number(req.params.userId);
 
       // Get both regular worklog entries and practicum entries
@@ -388,6 +403,7 @@ router.get(
         activeEntries.map(async (entry) => {
           // If entry has work_log_course_id, get course details
           if (entry.work_log_course_id) {
+            console.log("row 405, worklogroutes.ts, if entry has work_log_course_id, get course details");
             const courseDetails = await work_log_courses.getWorkLogCourseById(
               entry.work_log_course_id,
             );
@@ -400,6 +416,7 @@ router.get(
           }
           // If entry has work_log_practicum_id, get practicum details
           else if (entry.work_log_practicum_id) {
+            console.log("row 419, worklogroutes.ts, if entry has work_log_practicum_id, get practicum details");
             // Import practicum model if not already imported
             const practicum = (await import('../models/practicummodels.js'))
               .default;
@@ -446,6 +463,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 466, worklogroutes.ts, creating worklog entry");
       const result = await workLogController.createWorkLogEntry(req.body);
       res.send(result);
     } catch (error) {
@@ -460,6 +478,7 @@ router.put(
   checkUserRole(['admin', 'teacher', 'student']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 481, worklogroutes.ts, closing worklog entry");
       const entryId = Number(req.params.entryId);
       const result = await workLogController.closeWorkLogEntry(entryId);
       res.send(result);
@@ -477,6 +496,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 499, worklogroutes.ts, getting all worklog entries");
       const userId = Number(req.params.userId);
       const entries = await workLogController.getWorkLogEntriesByStudentUser(
         userId,
@@ -496,6 +516,7 @@ router.delete(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 519, worklogroutes.ts, deleting worklog entry");
       const entryId = Number(req.params.entryId);
       const result = await workLogController.deleteWorkLogEntry(entryId);
       res.send({
@@ -523,6 +544,7 @@ router.put(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 547, worklogroutes.ts, updating worklog entry");
       const entryId = Number(req.params.entryId);
       const updatedData = req.body;
       const result = await workLogController.updateWorkLogEntry(
@@ -551,6 +573,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 576, worklogroutes.ts, getting student group by group id");
       const userId = Number(req.params.userId);
       const courseId = Number(req.params.courseId);
       const existingGroup = await workLogController.checkStudentExistingGroup(
@@ -585,6 +608,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 611, worklogroutes.ts, adding new student to course");
       const courseId = Number(req.params.courseId);
       const result = await workLogController.addNewStudentToWorklog(
         courseId,
@@ -608,6 +632,7 @@ router.delete(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 635, worklogroutes.ts, removing student from group");
       const groupId = Number(req.params.groupId);
       const studentId = Number(req.params.studentId);
 
@@ -631,6 +656,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 659, worklogroutes.ts, getting practicum entries");
       const practicumId = Number(req.params.practicumId);
       const entries = await work_log_entries.getWorkLogEntriesByPracticum(
         practicumId,
@@ -660,6 +686,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 689, worklogroutes.ts, creating practicum entry");
       // Transform request to use work_log_practicum_id instead of courseId
       const params = {
         ...req.body,
@@ -684,6 +711,7 @@ router.put(
   checkUserRole(['admin', 'teacher', 'student']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 714, worklogroutes.ts, closing practicum entry");
       const entryId = Number(req.params.entryId);
       const result = await workLogController.closeWorkLogEntry(entryId);
       res.send(result);

@@ -96,6 +96,7 @@ export const handleCreateAttendanceCollection = async (
   listOfIpAlreadyUsedLecture,
 ): Promise<void> => {
   try {
+    console.log("row 99, handleCreateAttendanceCollection.ts, handleCreateAttendanceCollection.ts");
     // Validate user's role
     if (
       !['teacher', 'admin', 'counselor'].some((role) =>
@@ -129,6 +130,7 @@ export const handleCreateAttendanceCollection = async (
 
     // Join lecture-specific room
     socket.join(lectureid);
+    console.log("row 133, handleCreateAttendanceCollection.ts, join lecture-specific room");
 
     // Notify clients that the lecture started
     io.to(lectureid).emit('lectureStarted', lectureid, timeout);
@@ -145,10 +147,10 @@ export const handleCreateAttendanceCollection = async (
     socket.on('pongEvent', (pongLectureId: string, unixtime: number) => {
       socket.emit('pongEvent', pongLectureId, unixtime);
     });
+    console.log("row 150, handleCreateAttendanceCollection.ts, socket.on('pongEvent')");
 
     // Ensure we have a valid token for attendance data fetching
     const token = await getToken();
-
     // If student arrays are already loaded in memory, just emit them
     if (presentStudents[lectureid] && notYetPresentStudents[lectureid]) {
       io.to(lectureid).emit(
@@ -160,6 +162,7 @@ export const handleCreateAttendanceCollection = async (
     } else {
       // Otherwise, fetch from server
       try {
+        console.log("row 165, handleCreateAttendanceCollection.ts");
         const result = await doFetch(
           'http://localhost:3002/courses/attendance/getallstudentsinlecture/',
           {
@@ -189,7 +192,7 @@ export const handleCreateAttendanceCollection = async (
 
     // Update hash for this lecture
     updateHash(lectureid, lectureData, speedOfHashChange, howMuchLeeWay);
-
+    console.log("row 195, handleCreateAttendanceCollection.ts");
     // Clear existing intervals if any
     if (lectureUpdateHashIntervals[lectureid]) {
       clearInterval(lectureUpdateHashIntervals[lectureid]);
@@ -228,6 +231,7 @@ export const handleCreateAttendanceCollection = async (
     if (lectureTimeoutIds.has(lectureid)) {
       clearTimeout(lectureTimeoutIds.get(lectureid));
     }
+    console.log("row 234, handleCreateAttendanceCollection.ts");
 
     // Schedule a timeout to finalize the lecture automatically
     const timeoutId = setTimeout(() => {

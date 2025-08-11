@@ -41,6 +41,7 @@ interface TokenData {
 // @ts-ignore
 router.get('/login', (req: Request, res: Response) => {
   try {
+    console.log("row 44, microsoftAuthRoutes.ts, login path, initiating Microsoft Entra ID authentication flow");
     // This would be configured with actual Entra ID client details in production
     const clientId = process.env.MS_CLIENT_ID;
     const redirectUri = encodeURIComponent(process.env.MS_REDIRECT_URI || '');
@@ -76,6 +77,7 @@ router.post(
   // @ts-ignore
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("row 80, microsoftAuthRoutes.ts, callback path, receives authorization code from Microsoft Entra ID and exchanges it for an access token");
       // Check if the environment variables are not undefined
       if (!process.env.JWT_SECRET) {
         throw new Error('JWT_SECRET environment variable is not set');
@@ -164,6 +166,7 @@ router.post(
           const userFromDB = await usermodel.getAllUserInfo(email);
 
           if (userFromDB === null) {
+            console.log("row 169, microsoftAuthRoutes.ts, callback path, staff user doesn't exist in the database, adding them to the database");
             // Determine role ID based on username pattern - matching userroutes.ts logic
             let roleid;
             switch (username) {
@@ -229,6 +232,7 @@ router.post(
 
       // If the logged-in user is not staff, check if they exist in database
       if (!isStaff) {
+        console.log("row 235, microsoftAuthRoutes.ts, callback path, non-staff user doesn't exist in the database, checking if they exist in the database");
         try {
           // Find user in database by email
           const userFromDB = await usermodel.getAllUserInfo(email);

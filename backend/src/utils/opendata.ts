@@ -18,6 +18,8 @@ const CheckOpenDataReservations = async (
     ...(studentGroup ? {studentGroup: [studentGroup]} : {}),
   });
 
+  console.log("row 21, opendata.ts, CheckOpenDataReservations() called");
+
   const options = {
     method: 'POST',
     headers: {
@@ -45,6 +47,7 @@ const checkOpenDataRealization = async (code: string) => {
     },
     body: JSON.stringify({codes: [code]}),
   };
+  console.log("row 50, opendata.ts, checkOpenDataRealization() called");
 
   return await doFetch(url, options as any);
 };
