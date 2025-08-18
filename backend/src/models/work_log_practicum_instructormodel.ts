@@ -18,6 +18,7 @@ const work_log_practicum_instructors = {
     practicumId: number,
   ): Promise<void> {
    try {
+     console.log("row 21, work_log_practicum_instructormodel.ts, addInstructorsToPracticum");
         for (const instructor of instructors) {
           const [userRows] = await pool
             .promise()
@@ -44,6 +45,7 @@ const work_log_practicum_instructors = {
     },
     async getInstructorsByPracticum(practicumId: number): Promise<RowDataPacket[]> {
       try {
+        console.log("row 48, work_log_practicum_instructormodel.ts, getInstructorsByPracticum");
         const [rows] = await pool.promise().query<RowDataPacket[]>(
           `SELECT u.userid, u.email, u.first_name, u.last_name
            FROM work_log_practicum_instructors wpi
@@ -60,6 +62,7 @@ const work_log_practicum_instructors = {
 
   async removeAllPracticumInstructors(practicumId: number): Promise<void> {
     try {
+      console.log("row 65, work_log_practicum_instructormodel.ts, removeAllPracticumInstructors");
         await pool.promise().query(
         'DELETE FROM work_log_practicum_instructors WHERE work_log_practicum_id = ?',
         [practicumId],
@@ -72,6 +75,7 @@ const work_log_practicum_instructors = {
 
   async getPracticumsByInstructor(userId: number): Promise<RowDataPacket[]> {
     try {
+      console.log("row 78, work_log_practicum_instructormodel.ts, getPracticumsByInstructor");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT wp.*, u.first_name, u.last_name, u.email
          FROM work_log_practicum wp

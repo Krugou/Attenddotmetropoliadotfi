@@ -1,8 +1,100 @@
 import { API_CONFIG } from '../config';
 import { doFetch } from '../utils/doFetch';
+import { createOptions } from '../utils/apiHelper';
 
+// --- Type Definitions ---
 
 export interface AttendanceData {
+  userId: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  studentNumber: string;
+  groupName: string;
+  code: string;
+  attendance: {
+    total: number;
+    attended: number;
+    percentage: number;
+    lastAttendance: string;
+  };
+}
+
+export interface CourseGroupData {
+  courseName: string;
+  courseId: number;
+  students: AttendanceData[];
+}
+
+export interface ActivityResponse {
+  success: boolean;
+  data?: CourseGroupData[];
+  error?: string;
+}
+
+const baseUrl = API_CONFIG.baseUrl;
+
+// --- API Functions ---
+
+/**
+ * Fetch attendance data for a single student by user ID.
+ * @param userid - ID of the student
+ * @param token - Authorization token
+ * @returns Attendance data or error
+ */
+export const getStudentAttendance = async (
+  userid: number,
+  token: string
+): Promise<ActivityResponse> => {
+  try {
+    if (!userid || isNaN(userid)) {
+      throw new Error('Invalid user ID');
+    }
+
+    return await doFetch(
+      `${baseUrl}activity/${userid}`,
+      createOptions('GET', token)
+    );
+  } catch (error) {
+    console.error('Error fetching student attendance:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch attendance data',
+    };
+  }
+};
+
+/**
+ * Fetch attendance data for all students.
+ * @param token - Authorization token
+ * @returns Attendance data or error
+ */
+export const getAllStudentsAttendance = async (
+  token: string
+): Promise<ActivityResponse> => {
+  try {
+    return await doFetch(
+      `${baseUrl}activity/all`,
+      createOptions('GET', token)
+    );
+  } catch (error) {
+    console.error('Error fetching all students attendance:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch attendance data',
+    };
+  }
+};
+
+export const activityApi = {
+  getStudentAttendance,
+  getAllStudentsAttendance,
+};
+
+export default activityApi;
+
+
+/*export interface AttendanceData {
   userId: number;
   email: string;
   firstName: string;
@@ -86,4 +178,4 @@ const activityApi = {
 };
 
 
-export default activityApi;
+export default activityApi;*/
