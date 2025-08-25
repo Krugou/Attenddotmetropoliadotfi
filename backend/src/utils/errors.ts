@@ -27,6 +27,7 @@ class HttpError extends Error {
  */
 const httpError = (message: string, status: number) => {
   logger.error(message);
+  console.log("Row 30, errors.ts, httpError() called");
   const err = new HttpError(message, status);
   return err;
 };

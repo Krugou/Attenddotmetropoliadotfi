@@ -184,6 +184,7 @@ const course: CourseModel = {
    */
   async fetchAllCourses() {
     try {
+      console.log("row 187, coursemodel.ts, fetching all courses");
       const [rows] = await pool.promise().query<
         RowDataPacket[]
       >(`SELECT courses.*, studentgroups.group_name AS studentgroup_name,
@@ -209,6 +210,7 @@ const course: CourseModel = {
    */
   async findByCourseId(id) {
     try {
+      console.log("row 213, coursemodel.ts, fetching course by id");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM courses WHERE courseid = ?', [
@@ -228,6 +230,7 @@ const course: CourseModel = {
    */
   async getCoursesByInstructorEmail(email) {
     try {
+      console.log("row 233, coursemodel.ts, fetching courses by instructor email");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT courses.*, studentgroups.group_name AS studentgroup_name,
               GROUP_CONCAT(topics.topicname) AS topic_names
@@ -256,6 +259,7 @@ const course: CourseModel = {
    */
   async deleteByCourseId(id) {
     try {
+      console.log("row 262, coursemodel.ts, deleting course by id");
       await pool
         .promise()
         .query('DELETE FROM courses WHERE courseid = ?', [id]);
@@ -284,6 +288,7 @@ const course: CourseModel = {
     studentgroupid,
   ) {
     try {
+      console.log("row 291, coursemodel.ts, updating course details");
       await pool
         .promise()
         .query(
@@ -302,6 +307,7 @@ const course: CourseModel = {
    */
   async countCourses() {
     try {
+      console.log("row 310, coursemodel.ts, counting courses");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT COUNT(*) as count FROM courses');
@@ -319,6 +325,7 @@ const course: CourseModel = {
    */
   async findByCode(code: string): Promise<Course | null> {
     try {
+      console.log("row 328, coursemodel.ts, fetching course by code");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM courses WHERE code = ?', [code]);
@@ -335,6 +342,7 @@ const course: CourseModel = {
    * @returns {Promise<RowDataPacket[]>} A promise that resolves with the course ID.
    */
   async findCourseIdUsingCourseCode(coursecode) {
+    console.log("row 345, coursemodel.ts, finding course id using course code");
     const [courseResult] = await pool
       .promise()
       .query<RowDataPacket[]>('SELECT courseid FROM courses WHERE code = ?', [
@@ -350,6 +358,7 @@ const course: CourseModel = {
    */
   async getCoursesByCourseId(courseId) {
     try {
+      console.log("row 361, coursemodel.ts, fetching courses by course id");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT courses.*, studentgroups.group_name AS studentgroup_name,
             GROUP_CONCAT(DISTINCT topics.topicname) AS topic_names,
@@ -389,6 +398,7 @@ const course: CourseModel = {
     code: string,
     studentGroupId: number,
   ) {
+    console.log("row 401, coursemodel.ts, inserting course");
     const [courseResult] = await pool
       .promise()
       .query<ResultSetHeader>(
@@ -406,6 +416,7 @@ const course: CourseModel = {
    */
   async getStudentsCourses(email: string) {
     try {
+      console.log("row 419, coursemodel.ts, fetching student's courses");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT
 				u.email,
@@ -459,6 +470,7 @@ const course: CourseModel = {
    */
   async deleteCourse(courseId: number): Promise<string | undefined> {
     try {
+      console.log("row 473, coursemodel.ts, deleting course");
       // Disable foreign key checks
       // Delete the course
       const [result] = await pool
@@ -503,6 +515,7 @@ const course: CourseModel = {
     await connection.beginTransaction();
 
     try {
+      console.log("row 518, coursemodel.ts, updating course info");
       // Get the topic group id if the topic group name is provided
       if (topic_names.length > 0) {
         // Delete all topics from the course
@@ -511,12 +524,14 @@ const course: CourseModel = {
         ]);
 
         // Insert the new topics into database if they don't exist
+        console.log("row 527, coursemodel.ts, inserting new topics");
         for (const topic of topic_names) {
           const [rows] = await connection.query<RowDataPacket[]>(
             `SELECT * FROM topics WHERE topicname = ?`,
             [topic],
           );
           if (rows.length === 0) {
+            console.log("row 534, coursemodel.ts, if rows.length === 0 insert topic");
             await connection.query(
               `INSERT INTO topics (topicname) VALUES (?)`,
               [topic],
@@ -524,6 +539,7 @@ const course: CourseModel = {
           }
 
           // Select the topicid for each topic name
+          console.log("row 542, coursemodel.ts, getting topicid");
           const [rows2] = await connection.query<RowDataPacket[]>(
             `SELECT topicid FROM topics WHERE topicname = ?`,
             [topic],
@@ -531,6 +547,7 @@ const course: CourseModel = {
           const topicid = rows2[0].topicid;
 
           // Insert the new topics into the course
+          console.log("row 550, coursemodel.ts, inserting topic into course");
           await connection.query(
             `INSERT INTO coursetopics (courseid, topicid) VALUES (?, ?)`,
             [courseid, topicid],
@@ -539,6 +556,7 @@ const course: CourseModel = {
       }
 
       if (instructors) {
+        console.log("row 559, coursemodel.ts, if there is instructors, delete from courseinstructors");
         // Delete all instructors from the course
         await connection.query(
           `DELETE FROM courseinstructors WHERE courseid = ?`,
@@ -546,6 +564,7 @@ const course: CourseModel = {
         );
 
         // Insert the new instructors into the course
+        console.log("row 567, coursemodel.ts, inserting new instructors");
         for (const instructor of instructors) {
           const [rows] = await connection.query<RowDataPacket[]>(
             `SELECT userid FROM users WHERE email = ? AND staff = 1`,
@@ -566,6 +585,7 @@ const course: CourseModel = {
 
       // Get the student group id if the student group name is provided
       if (studentgroupname) {
+        console.log("row 587, coursemodel.ts, if there is studentgroupname, select studentgroupid");
         const [rows] = await connection.query<RowDataPacket[]>(
           `SELECT studentgroupid FROM studentgroups WHERE group_name = ?`,
           [studentgroupname],
@@ -579,11 +599,13 @@ const course: CourseModel = {
       }
 
       // Update the course info
+      console.log("row 602, coursemodel.ts, updating course info");
       const [rows] = await connection.query<RowDataPacket[]>(
         `UPDATE courses SET name = ?, start_date = ?, end_date = ?, code = ?, studentgroupid = ? WHERE courseid = ?`,
         [name, start_date, end_date, code, studentgroupid, courseid],
       );
 
+      console.log("row 608, coursemodel.ts, committing transaction");
       await connection.commit();
 
       // q: if i return here, does the finally block still run?
@@ -603,6 +625,7 @@ const course: CourseModel = {
    */
   async getCoursesWithDetails(): Promise<CourseResults[]> {
     try {
+      console.log("row 628, coursemodel.ts, fetching courses with details");
       const [rows]: [RowDataPacket[], FieldPacket[]] = await pool.promise()
         .query<RowDataPacket[]>(`
         SELECT
@@ -630,10 +653,12 @@ const course: CourseModel = {
 
       // Transform the flat data structure into a nested one
       const courses = rows.reduce((acc: CourseResults[], row) => {
+        console.log("row 656, coursemodel.ts, reducing courses");
         const courseIndex = acc.findIndex(
           (course: CourseResults) => course.courseid === row.courseid,
         );
 
+        console.log("row 661, coursemodel.ts, if courseIndex === -1, push course");
         if (courseIndex === -1) {
           acc.push({
             courseid: row.courseid,
@@ -669,6 +694,7 @@ const course: CourseModel = {
    */
   async getAllStudentsOnCourse(courseId: string): Promise<RowDataPacket[]> {
     try {
+      console.log("row 697, coursemodel.ts, fetching all students on course");
       const [rows] = await pool.promise().query(
         `SELECT
 								users.email,
@@ -705,6 +731,7 @@ const course: CourseModel = {
    */
   async updateStudentCourses(courseid: number, studentid: number) {
     try {
+      console.log("row 734, coursemodel.ts, updating student courses");
       const [rows] = await pool
         .promise()
         .query('INSERT INTO usercourses (courseid, userid) VALUES (?, ?)', [
