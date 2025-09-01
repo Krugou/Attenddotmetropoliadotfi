@@ -9,6 +9,7 @@ import logger from './logger.js';
  */
 const checkUserRole = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log("Row 12, checkRole.ts - checkUserRole() called");
     if (!req.user) {
       logger.error({
         msg: 'Role check failed: No user logged in',

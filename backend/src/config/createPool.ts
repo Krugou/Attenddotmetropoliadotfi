@@ -35,23 +35,27 @@ const createPool = (userRole: UserRole): Pool => {
     case 'ADMIN':
       user = process.env.DB_USER_ADMIN as string;
       password = process.env.DB_PASS_ADMIN as string;
+      console.log("Row 38,  createPool.ts, role admin");
       break;
     case 'TEACHER':
       user = process.env.DB_USER_TEACHER as string;
       password = process.env.DB_PASS_TEACHER as string;
+      console.log("Row 43,  createPool.ts, role teacher");
       break;
     case 'COUNSELOR':
       user = process.env.DB_USER_COUNSELOR as string;
       password = process.env.DB_PASS_COUNSELOR as string;
+      console.log("Row 48,  createPool.ts, role counselor");
       break;
     case 'STUDENT':
       user = process.env.DB_USER_STUDENT as string;
       password = process.env.DB_PASS_STUDENT as string;
+      console.log("Row 53,  createPool.ts, role Student");
       break;
     default:
+      console.log("Row 56, createPool.ts, Error");
       throw new Error(`Invalid user role: ${userRole}`);
   }
-
   const pool = mysql.createPool({
     host: process.env.DB_HOST as string,
     user,
@@ -67,11 +71,11 @@ const createPool = (userRole: UserRole): Pool => {
       console.error('Error connecting to the database:', err);
       process.exit(1);
     } else {
-      // console.log('Successfully connected to the database');
+      console.log("Row 74, createPool.ts, Successfully connected to the database");
       connection.release();
     }
   });
-
+console.log("Row 78, createPool.ts, returning pool");
   return pool;
 };
 

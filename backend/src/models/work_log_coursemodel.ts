@@ -27,6 +27,7 @@ interface WorkLogCourseUpdate {
 }
 
 const formatDateForMySQL = (date: Date | string): string => {
+  console.log("row 30, work_log_coursemodel.ts, calling formatDateForMySQL");
   if (typeof date === 'string') {
     date = new Date(date);
   }
@@ -43,6 +44,7 @@ const work_log_courses = {
     required_hours: number,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 47, work_log_coursemodel.ts, calling createWrokLogCourse()");
       const formattedStartDate = formatDateForMySQL(startDate);
       const formattedEndDate = formatDateForMySQL(endDate);
 
@@ -67,6 +69,7 @@ const work_log_courses = {
   },
   async getWorkLogCourseById(courseId: number): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 72, work_log_coursemodel.ts, calling getWorkLogCourseById()");
       const [rows] = await pool
         .promise()
         .query<WorkLogCourse[]>(
@@ -81,6 +84,7 @@ const work_log_courses = {
   },
   async deleteWorkLogCourse(courseId: number): Promise<ResultSetHeader> {
     try {
+      console.log("row 87, work_log_coursemodel.ts, calling deleteWorkLogCourse()");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -98,6 +102,7 @@ const work_log_courses = {
     updates: WorkLogCourseUpdate,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 105, work_log_coursemodel.ts, calling updateWorkLogCourse()");
       // Build the update query dynamically based on provided fields
       const updateFields: string[] = [];
       const values: QueryValue[] = [];
@@ -147,6 +152,7 @@ const work_log_courses = {
   },
   async getAllWorkLogCourses(): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 155, work_log_coursemodel.ts, calling getAllWorkLogCourses()");
       const [rows] = await pool
         .promise()
         .query<WorkLogCourse[]>(
@@ -163,6 +169,7 @@ const work_log_courses = {
     endDate: Date,
   ): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 172, work_log_coursemodel.ts, calling getWorkLogCoursesByDateRange()");
       const [rows] = await pool
         .promise()
         .query<WorkLogCourse[]>(
@@ -177,6 +184,7 @@ const work_log_courses = {
   },
   async searchWorkLogCourses(searchTerm: string): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 187, work_log_coursemodel.ts, calling searchWorkLogCourses()");
       const [rows] = await pool
         .promise()
         .query<WorkLogCourse[]>(
@@ -194,6 +202,7 @@ const work_log_courses = {
     courseId?: number,
   ): Promise<RowDataPacket[]> {
     try {
+      console.log("row 205, work_log_coursemodel.ts, calling getWorkLogStatsByUser()");
       let query = `SELECT
                     wlc.name as course_name,
                     COUNT(wle.entry_id) as entry_count,
@@ -220,6 +229,7 @@ const work_log_courses = {
   },
   async checkWorklogCodeExists(code: string): Promise<RowDataPacket[]> {
     try {
+      console.log("row 232, work_log_coursemodel.ts, calling checkWorklogCodeExists()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -234,6 +244,7 @@ const work_log_courses = {
   },
   async getWorkLogCoursesByInstructor(email: string): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 247, work_log_coursemodel.ts, calling getWorkLogCoursesByInstructor()");
       const [rows] = await pool.promise().query<WorkLogCourse[]>(
         `SELECT wlc.*
                          FROM work_log_courses wlc
@@ -253,6 +264,7 @@ const work_log_courses = {
     email: string,
   ): Promise<WorkLogCourse[]> {
     try {
+      console.log("row 267, work_log_coursemodel.ts, calling getActiveCoursesByStudentEmail()");
       const [rows] = await pool.promise().query<WorkLogCourse[]>(
         `SELECT wlc.*
                           FROM work_log_courses wlc

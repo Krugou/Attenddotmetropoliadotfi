@@ -1,7 +1,173 @@
 import {API_CONFIG} from '../config';
 import {doFetch} from '../utils/doFetch';
+import { createOptions } from '../utils/apiHelper';
 const baseUrl = API_CONFIG.baseUrl;
-export const checkStudentExistingGroup = async (
+
+/*// Helper to construct fetch options
+const createOptions = (
+  method: string,
+  token: string,
+  body?: any,
+  contentType = 'application/json'
+): RequestInit => {
+  const headers: Record<string, string> = {
+    Authorization: 'Bearer ' + token,
+  };
+  if (contentType) headers['Content-Type'] = contentType;
+  return {
+    method,
+    headers,
+    ...(body ? { body: contentType === 'application/json' ? JSON.stringify(body) : body } : {}),
+  };
+};*/
+
+const endpoint = (path: string) => `${baseUrl}worklog/${path}`;
+
+/** Check if a student is already in a group */
+export const checkStudentExistingGroup = async (userId: number, courseId: number, token: string) => {
+  const response = await doFetch(endpoint(`student/group/${userId}/${courseId}`), createOptions('GET', token));
+  return response.existingGroup;
+};
+
+/** Insert student into a group */
+export const insertStudentToGroup = async (userId: number, groupId: number, token: string) =>
+  doFetch(endpoint(`group/${groupId}/students`), createOptions('POST', token, { userId, groupId }));
+
+/** Create new worklog course */
+export const createWorkLogCourse = async (worklog: any, token: string) =>
+  doFetch(endpoint(''), createOptions('POST', token, worklog));
+
+/** Check if a worklog code exists */
+export const checkWorklogCode = async (code: string, token: string) =>
+  doFetch(endpoint(`checkcode/${code}`), createOptions('GET', token));
+
+/** Get all worklog courses by instructor */
+export const getWorkLogCoursesByInstructor = async (email: string, token: string) =>
+  doFetch(endpoint(`instructor/${email}`), createOptions('GET', token));
+
+/** Delete a worklog course */
+export const deleteWorklog = async (worklogId: number, token: string | null) =>
+  doFetch(endpoint(`${worklogId}`), createOptions('DELETE', token!));
+
+/** Get worklog course detail */
+export const getWorkLogDetail = async (courseId: string, token: string) =>
+  doFetch(endpoint(`${courseId}`), createOptions('GET', token));
+
+export const getWorkLogCourseDetail = getWorkLogDetail;
+
+/** Modify worklog course */
+export const modifyWorkLog = async (token: string, worklogId: string | undefined, modifiedData: any) =>
+  doFetch(endpoint(`${worklogId}`), createOptions('PUT', token, { modifiedData }));
+
+/** Get all groups for a worklog course */
+export const getWorkLogGroupsByCourse = async (courseId: string, token: string) => {
+  const result = await doFetch(endpoint(`${courseId}/groups`), createOptions('GET', token));
+  return result.groups;
+};
+
+/** Create a new group for a worklog course */
+export const createWorkLogGroup = async (courseId: string, name: string, token: string) =>
+  doFetch(endpoint(`${courseId}/groups`), createOptions('POST', token, { name }));
+
+/** Get students in a worklog course */
+export const getWorkLogStudentsByCourse = async (courseId: string, token: string) =>
+  doFetch(endpoint(`${courseId}/students`), createOptions('GET', token));
+
+/** Add students to a group */
+export const addStudentsToWorkLogGroup = async (groupId: number, studentIds: number[], token: string) =>
+  doFetch(endpoint(`group/${groupId}/students`), createOptions('POST', token, { studentIds }));
+
+/** Get students in a group */
+export const getWorkLogGroupStudents = async (groupId: number, token: string) => {
+  const result = await doFetch(endpoint(`group/${groupId}/students`), createOptions('GET', token));
+  return result.students;
+};
+
+/** Get group details */
+export const getWorkLogGroupDetails = async (courseId: number, groupId: number, token: string) =>
+  doFetch(endpoint(`group/${courseId}/${groupId}`), createOptions('GET', token));
+
+/** Create a worklog entry */
+export const createWorkLogEntry = async (params: any, token: string) =>
+  doFetch(endpoint('entries/create'), createOptions('POST', token, params));
+
+/** Create a worklog practicum entry */
+export const createWorkLogEntryPracticum = async (params: any, token: string) =>
+  doFetch(endpoint('practicum/entries/create'), createOptions('POST', token, params));
+
+/** Get student's active worklog courses */
+export const getActiveCoursesByStudentEmail = async (email: string, token: string) =>
+  doFetch(endpoint(`student/active/${email}`), createOptions('GET', token));
+
+/** Get active worklog entries */
+export const getActiveWorkLogEntries = async (userid: string | number, token: string) =>
+  doFetch(endpoint(`active/${userid}`), createOptions('GET', token));
+
+/** Close a worklog entry */
+export const closeWorkLogEntry = async (worklogId: number, token: string, description?: string) =>
+  doFetch(endpoint(`entries/close/${worklogId}`), createOptions('PUT', token, description ? { description } : {}));
+
+/** Get all worklog entries */
+export const getAllWorkLogEntries = async (userId: number, token: string) =>
+  doFetch(endpoint(`entries/all/${userId}`), createOptions('GET', token));
+
+/** Delete a worklog entry */
+export const deleteWorkLogEntry = async (entryId: number, token: string) =>
+  doFetch(endpoint(`entries/${entryId}`), createOptions('DELETE', token));
+
+/** Update a worklog entry */
+export const updateWorkLogEntry = async (entryId: number, updatedData: any, token: string) =>
+  doFetch(endpoint(`entries/${entryId}`), createOptions('PUT', token, updatedData));
+
+/** Get worklog statistics */
+export const getWorkLogStats = async (userId: number, token: string, courseId?: number) => {
+  const query = courseId ? `?courseId=${courseId}` : '';
+  return doFetch(endpoint(`stats/${userId}${query}`), createOptions('GET', token));
+};
+
+/** Add a new student to worklog */
+export const addNewStudentToWorklog = async (token: string, courseId: string, studentData: any) =>
+  doFetch(endpoint(`${courseId}/students/new`), createOptions('POST', token, studentData));
+
+/** Remove student from group */
+export const removeStudentFromGroup = async (groupId: number, studentId: number, token: string) =>
+  doFetch(endpoint(`group/${groupId}/student/${studentId}`), createOptions('DELETE', token));
+
+/** Get practicum entries */
+export const getWorkLogEntriesByPracticum = async (practicumId: number, token: string) =>
+  doFetch(endpoint(`practicum/entries/${practicumId}`), createOptions('GET', token));
+
+export const worklogApi = {
+  checkStudentExistingGroup,
+  insertStudentToGroup,
+  createWorkLogCourse,
+  checkWorklogCode,
+  getWorkLogCoursesByInstructor,
+  deleteWorklog,
+  getWorkLogDetail,
+  getWorkLogCourseDetail,
+  modifyWorkLog,
+  getWorkLogGroupsByCourse,
+  createWorkLogGroup,
+  getWorkLogStudentsByCourse,
+  addStudentsToWorkLogGroup,
+  getWorkLogGroupStudents,
+  getWorkLogGroupDetails,
+  createWorkLogEntry,
+  createWorkLogEntryPracticum,
+  getActiveCoursesByStudentEmail,
+  getActiveWorkLogEntries,
+  closeWorkLogEntry,
+  getAllWorkLogEntries,
+  deleteWorkLogEntry,
+  updateWorkLogEntry,
+  getWorkLogStats,
+  addNewStudentToWorklog,
+  removeStudentFromGroup,
+  getWorkLogEntriesByPracticum,
+};
+
+/*export const checkStudentExistingGroup = async (
   userId: number,
   courseId: number,
   token: string,
@@ -490,4 +656,4 @@ export const worklogApi = {
   addNewStudentToWorklog,
   removeStudentFromGroup,
   getWorkLogEntriesByPracticum,
-};
+};*/

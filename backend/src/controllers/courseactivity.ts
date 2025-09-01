@@ -30,6 +30,7 @@ const courseActivityController = {
       const students = await courseStudentActivityModel.getStudentsFromInstructorCourses(instructorId) as SQLStudentData[];
 
       if (!students || !Array.isArray(students) || students.length === 0) {
+        console.log("row 33, courseactivity.ts, no students found");
         return {
           success: true,
           data: []
@@ -40,14 +41,16 @@ const courseActivityController = {
 
 
       students.forEach(student => {
+        console.log("row 44, courseactivity.ts, student: ", student);
         if (!courseGroups[student.courseid]) {
+          console.log("row 46, courseactivity.ts, no course found, creating new course group");
           courseGroups[student.courseid] = {
             courseName: student.course_name,
             courseId: student.courseid,
             students: []
           };
         }
-
+        console.log("row 53, courseactivity.ts, adding student to course group");
         courseGroups[student.courseid].students.push({
           userId: student.userid,
           email: student.email,
@@ -65,12 +68,14 @@ const courseActivityController = {
         });
       });
 
+      console.log("row 71, courseactivity.ts, returning course groups")
       return {
         success: true,
         data: Object.values(courseGroups)
       };
 
     } catch (error) {
+      console.log("row 78, courseactivity.ts, error: ", error);
       logger.error('Controller error:', error);
       return {
         success: false,
@@ -85,6 +90,7 @@ const courseActivityController = {
       const students = await courseStudentActivityModel.getStudentsFromAllCourses() as SQLStudentData[];
 
       if (!students || !Array.isArray(students) || students.length === 0) {
+        console.log("row 93, courseactivity.ts, no students found");
         return {
           success: true,
           data: []
@@ -94,7 +100,9 @@ const courseActivityController = {
       const courseGroups = {};
 
       students.forEach(student => {
+        console.log("row 103, courseactivity.ts, looping through students: ", student, "");
         if (!courseGroups[student.courseid]) {
+          console.log("row 105, courseactivity.ts, no course found, creating new course group");
           courseGroups[student.courseid] = {
             courseName: student.course_name,
             courseId: student.courseid,
@@ -102,6 +110,7 @@ const courseActivityController = {
           };
         }
 
+        console.log("row 113, courseactivity.ts, adding student to course group");
         courseGroups[student.courseid].students.push({
           userId: student.userid,
           email: student.email,
@@ -119,12 +128,14 @@ const courseActivityController = {
         });
       });
 
+      console.log("row 131, courseactivity.ts, returning course groups");
       return {
         success: true,
         data: Object.values(courseGroups)
       };
 
     } catch (error) {
+      console.log("row 138, courseactivity.ts, error: ", error);
       logger.error('Controller error:', error);
       return {
         success: false,

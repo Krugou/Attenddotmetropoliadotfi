@@ -124,7 +124,9 @@ interface AttendanceModel {
 const attendanceModel: AttendanceModel = {
   async updateAttendanceStatus(attendanceid: number, status: number) {
     try {
+      console.log("row 127, attendancemodel.ts, calling updateAttendanceStatus");
       if (attendanceid === 0) {
+        console.log("row 129, attendancemodel.ts, attendanceid === 0");
         throw new Error('Invalid usercourseid');
       }
 
@@ -135,6 +137,7 @@ const attendanceModel: AttendanceModel = {
           [status, attendanceid],
         );
       console.log(result);
+      console.log("row 140, attendancemodel.ts, updating attendance status  NEEDS TO BE FIXED!");
       return true;
     } catch (error) {
       console.error('Error updating attendance status:', error);
@@ -144,6 +147,7 @@ const attendanceModel: AttendanceModel = {
 
   async fetchAllAttendances() {
     try {
+      console.log("row 150, attendancemodel.ts, calling fetchAllAttendances");
       return await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM attendance');
@@ -155,12 +159,14 @@ const attendanceModel: AttendanceModel = {
 
   async findByAttendanceId(id) {
     try {
+      console.log("row 162, attendancemodel.ts, calling findByAttendanceId");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
           'SELECT * FROM attendance WHERE attendanceid = ?',
           [id],
         );
+      console.log("row 169, attendancemodel.ts, returning rows from findByAttendanceId");
       return (rows[0] as Attendance) || null;
     } catch (error) {
       console.error(error);
@@ -170,7 +176,7 @@ const attendanceModel: AttendanceModel = {
 
   async findAllAttendancesByUserCourseId(usercourseId, userid) {
     try {
-      //console.log(userid, 'USERIDDD');
+      console.log("row 179, attendancemodel.ts, calling findAllAttendancesByUserCourseId");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT
 				attendance.status,
@@ -197,6 +203,7 @@ const attendanceModel: AttendanceModel = {
 				attendance.usercourseid = ? AND usercourses.userid = ?;`,
         [usercourseId, userid],
       );
+      console.log("row 206, attendancemodel.ts, getting all attendances by usercourseid and userid");
       return rows;
     } catch (error) {
       console.error(error);
@@ -208,6 +215,7 @@ const attendanceModel: AttendanceModel = {
     usercourseid: number,
     lectureid: string,
   ) {
+    console.log("row 218, attendancemodel.ts, calling getAttendanceByUserCourseIdDateLectureId");
     const [attendanceResult] = await pool
       .promise()
       .query(
@@ -228,6 +236,7 @@ const attendanceModel: AttendanceModel = {
     }
 
     try {
+      console.log("row 239, attendancemodel.ts, calling insertAttendance");
       return await pool
         .promise()
         .query(
@@ -241,6 +250,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async checkAttendance(usercourseid: number, lectureid: number) {
+    console.log("row 253, attendancemodel.ts, calling checkAttendance");
     const [attendanceResultCheck] = await pool
       .promise()
       .query(
@@ -251,6 +261,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async getAttendanceById(insertid: number) {
+    console.log("row 264, attendancemodel.ts, calling getAttendanceById");
     const [attendanceResult] = await pool
       .promise()
       .query('SELECT * FROM attendance WHERE attendanceid = ?', [insertid]);
@@ -258,6 +269,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async getUserInfoByUserCourseId(usercourseid: number) {
+    console.log("row 272, attendancemodel.ts, calling getUserInfoByUserCourseId");
     const [userResult] = (await pool
       .promise()
       .query(
@@ -268,6 +280,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async getAttendaceByCourseId(courseid: string) {
+    console.log("row 283, attendancemodel.ts, calling getAttendaceByCourseId");
     const [attendanceResult] = await pool.promise().query(
       `SELECT
 			attendance.status,
@@ -305,6 +318,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async getLectureCountByTopic(courseid: string) {
+    console.log("row 321, attendancemodel.ts, calling getLectureCountByTopic");
     const [result] = await pool.promise().query(
       `SELECT topics.topicname, COUNT(lecture.lectureid) AS lecture_count
 			FROM coursetopics
@@ -318,6 +332,7 @@ const attendanceModel: AttendanceModel = {
   },
 
   async deleteAttendance(usercourseid: number, lectureid: number) {
+    console.log("row 335, attendancemodel.ts, calling deleteAttendance");
     const [result] = await pool
       .promise()
       .query(
@@ -328,6 +343,7 @@ const attendanceModel: AttendanceModel = {
     return result;
   },
   async deleteAttendanceByAttendanceId(attendanceId: number) {
+    console.log("row 346, attendancemodel.ts, calling deleteAttendanceByAttendanceId");
     const [result] = await pool
       .promise()
       .query('DELETE FROM attendance WHERE attendanceid = ?', [attendanceId]);

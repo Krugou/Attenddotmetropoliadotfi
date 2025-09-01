@@ -12,6 +12,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 15, practicumroutes.ts, Get all practicums");
       const practicums = await practicumController.getAllPracticums();
       res.json(practicums);
     } catch (error) {
@@ -34,6 +35,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 38, practicumroutes.ts, Post practicum");
       const result = await practicumController.createPracticum(req.body);
       res.status(201).json(result);
     } catch (error) {
@@ -48,6 +50,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 53, practicumroutes.ts, Get practicum details");
       const practicumId = Number(req.params.practicumId);
       const result = await practicumController.getPracticumDetails(practicumId);
       res.json(result);
@@ -63,6 +66,7 @@ router.put(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 69, practicumroutes.ts, Update practicum by ID");
       const practicumId = Number(req.params.practicumId);
       const result = await practicumController.updatePracticum(
         practicumId,
@@ -81,6 +85,7 @@ router.delete(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 88, practicumroutes.ts, Delete practicum by ID");
       const practicumId = Number(req.params.practicumId);
       const result = await practicumController.deletePracticum(practicumId);
       res.json({
@@ -100,6 +105,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 108, practicumroutes.ts, Get practicums by instructor");
       const userId = Number(req.params.userId);
       const practicums = await practicumController.getPracticumsByInstructor(
         userId
@@ -121,6 +127,7 @@ router.post(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 130, practicumroutes.ts, Assign student to practicum");
       const practicumId = Number(req.params.practicumId);
       const userId = Number(req.body.userId);
 
@@ -143,6 +150,7 @@ router.get(
   '/student/:email',
   async (req: Request, res: Response) => {
     try {
+      console.log("row 153, practicumroutes.ts, Get student practicum by email");
       const email = req.params.email;
       const result = await practicumController.getPracticumByStudentEmail(email);
       res.json(result);
