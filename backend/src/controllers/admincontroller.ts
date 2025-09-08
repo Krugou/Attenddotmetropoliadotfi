@@ -2,6 +2,8 @@ import createPool from '../config/createPool.js';
 import ServerSettingsModel from '../models/serversettingsmodel.js';
 
 const pool = createPool('ADMIN');
+console.log("Row 5, admincontroller.ts - Created database pool with role 'ADMIN'");
+
 /**
  * AdminController interface represents the structure of the admin controller.
  *
@@ -19,6 +21,7 @@ export interface AdminController {
    * @returns {Promise<any>} A promise that resolves to the server settings.
    */
   getServerSettings: () => Promise<any>;
+
   /**
    * Updates the server settings.
    *
@@ -37,6 +40,7 @@ export interface AdminController {
     attendancethreshold: any,
   ) => Promise<any>;
 }
+
 /**
  * `adminController` is an object that implements the AdminController interface.
  * It provides methods to get and update the server settings.
@@ -50,14 +54,17 @@ const adminController: AdminController = {
    * @returns {Promise<any>} A promise that resolves to the server settings.
    */
   async getServerSettings() {
+    console.log("Row 57, admincontroller.ts - getServerSettings() called");
     try {
       const serverSettings = await ServerSettingsModel.getServerSettings(pool);
+      console.log("Row 60, admincontroller.ts - Successfully fetched server settings:", serverSettings);
       return serverSettings; // use the serverSettings variable
     } catch (error) {
-      console.error(error);
+      console.error("Row 63, admincontroller.ts - Error fetching server settings:", error);
       throw error;
     }
   },
+
   /**
    * Updates the server settings.
    *
@@ -73,6 +80,13 @@ const adminController: AdminController = {
     timeouttime,
     attendancethreshold,
   ) {
+    console.log("Row 83, admincontroller.ts - updateServerSettings() called with parameters:", {
+      speedofhash,
+      leewayspeed,
+      timeouttime,
+      attendancethreshold,
+    });
+
     try {
       await ServerSettingsModel.updateServerSettings(
         pool,
@@ -81,8 +95,9 @@ const adminController: AdminController = {
         timeouttime,
         attendancethreshold,
       );
+      console.log("Row 98, admincontroller.ts - Server settings updated successfully");
     } catch (error) {
-      console.error(error);
+      console.error("Row 100, admincontroller.ts - Error updating server settings:", error);
       throw error;
     }
   },

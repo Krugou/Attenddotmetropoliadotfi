@@ -12,6 +12,7 @@ export interface WorkLogCourseUser extends RowDataPacket {
 const work_log_courses_users = {
   async getUserCountByCourse(courseId: number): Promise<number> {
     try {
+      console.log("row 15, work_log_usermodel.ts, getUserCountByCourse");
       const [countRows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT COUNT(DISTINCT userid) as count
            FROM work_log_course_users
@@ -30,6 +31,7 @@ const work_log_courses_users = {
     courseId: number,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 34, work_log_usermodel.ts, addUserToCourse");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -44,6 +46,7 @@ const work_log_courses_users = {
   },
   async getUserCourses(userId: number): Promise<WorkLogCourseUser[]> {
     try {
+      console.log("row 49, work_log_usermodel.ts, getUserCourses");
       const [rows] = await pool
         .promise()
         .query<
@@ -61,6 +64,7 @@ const work_log_courses_users = {
     courseId: number,
   ): Promise<{group_id: number; group_name: string} | null> {
     try {
+      console.log("row 67, work_log_usermodel.ts, checkStudentExistingGroup");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT wlcg.group_id, wlcg.group_name
            FROM work_log_course_users wlcu
@@ -86,6 +90,7 @@ const work_log_courses_users = {
     courseId: number,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 93, work_log_usermodel.ts, removeUserFromCourse");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -104,6 +109,7 @@ const work_log_courses_users = {
     courseId: number,
   ): Promise<boolean> {
     try {
+      console.log("row 112, work_log_usermodel.ts, validateUserCourseAccess");
       const [rows] = await pool
         .promise()
         .query<
@@ -120,6 +126,7 @@ const work_log_courses_users = {
     courseId: number,
   ): Promise<void> {
     try {
+      console.log("row 129, work_log_usermodel.ts, addStudentsToCourse");
       for (const studentEmail of students) {
         const email =
           typeof studentEmail === 'string'
@@ -151,6 +158,7 @@ const work_log_courses_users = {
   },
   async getStudentsByCourse(courseId: number): Promise<RowDataPacket[]> {
     try {
+      console.log("row 161, work_log_usermodel.ts, getStudentsByCourse");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT u.userid, u.email, u.first_name, u.last_name
              FROM users u
