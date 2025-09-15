@@ -39,6 +39,7 @@ const practicum = {
       const formattedStartDate = formatDateForMySQL(startDate);
       const formattedEndDate = formatDateForMySQL(endDate);
 
+      console.log("row 42, practicummodels.ts, inserting into work_log_practicum table: name, start_date, end_date, description, required_hours: ", name, formattedStartDate, formattedEndDate, description, requiredHours, "");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -60,6 +61,7 @@ const practicum = {
 
   async getPracticumById(practicumId: number): Promise<Practicum[]> {
     try {
+      console.log("row 64, practicummodels.ts, getting practicum by id: ", practicumId, "");
       const [rows] = await pool.promise().query<Practicum[]>(
         `SELECT
         p.*,
@@ -80,6 +82,7 @@ const practicum = {
 
   async getAllPracticums(): Promise<Practicum[]> {
     try {
+      console.log("row 85, practicummodels.ts, getting all practicums");
       const [rows] = await pool
         .promise()
         .query<Practicum[]>(
@@ -103,6 +106,7 @@ const practicum = {
     },
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 109, practicummodels.ts, updatingPraticum()");
       const updateFields: string[] = [];
       const values: PracticumUpdateValue[] = [];
 
@@ -129,6 +133,7 @@ const practicum = {
 
       values.push(practicumId);
 
+      console.log("row 136, practicummodels.ts, pushing values to table and pushing that table to database (work_log_practicum)");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -147,6 +152,7 @@ const practicum = {
 
   async deletePracticum(practicumId: number): Promise<ResultSetHeader> {
     try {
+      console.log("row 155, practicummodels.ts, deleting practicum by id");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -183,6 +189,7 @@ const practicum = {
 
   async getPracticumByStudentEmail(email: string): Promise<Practicum[]> {
     try {
+      console.log("row 192, practicummodels.ts, getting practicum by student email");
       // Step 1: Find the user ID from the email
       const [userResults] = await pool
         .promise()
@@ -190,7 +197,7 @@ const practicum = {
           email,
         ]);
 
-      // Check if user exists
+
       if (userResults.length === 0) {
         logger.info(`No user found with email: ${email}`);
 
@@ -199,7 +206,7 @@ const practicum = {
 
       const userId = userResults[0].userid;
 
-      // Step 2: Find practicums for this user ID
+
       const [rows] = await pool.promise().query<Practicum[]>(
         `SELECT p.*, u.first_name, u.last_name, u.email
          FROM work_log_practicum p

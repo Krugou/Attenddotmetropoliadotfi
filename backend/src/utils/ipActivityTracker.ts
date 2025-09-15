@@ -17,7 +17,7 @@ const userActivities: Record<string, Record<string, string>> = {};
  */
 export function recordActivity(ip: string, lectureId: string): boolean {
   const today = new Date().toISOString().split('T')[0];
-
+  console.log("Row 20, ipActivityTracker.ts, recordActivity() called");
   if (!userActivities[lectureId]) {
     userActivities[lectureId] = {};
   }
@@ -41,6 +41,7 @@ export function recordActivity(ip: string, lectureId: string): boolean {
 export function hasActivityToday(ip: string, lectureId: string): boolean {
   const today = new Date().toISOString().split('T')[0];
   const hasActivity = userActivities[lectureId]?.[ip] === today;
+  console.log("Row 44, ipActivityTracker.ts, hasActivityToday() called");
 
   if (hasActivity) {
     logger.info(`IP ${ip} has already performed an action for lecture ${lectureId} today`);
@@ -60,6 +61,7 @@ export function clearLectureActivity(lectureId: string): void {
   if (userActivities[lectureId]) {
     const ipAddresses = Object.keys(userActivities[lectureId]);
     const ipCount = ipAddresses.length;
+    console.log("Row 64, ipActivityTracker.ts, clearLectureActivity() called");
 
     if (ipCount > 0) {
       logger.info(`Clearing activity for the following IPs in lecture ${lectureId}: ${ipAddresses.join(', ')}`);
@@ -77,6 +79,7 @@ export function clearLectureActivity(lectureId: string): void {
  * @returns Array of IP addresses with activity for the lecture
  */
 export function getActiveIPs(lectureId: string): string[] {
+  console.log("Row 82, ipActivityTracker.ts, getActiveIPs() called");
   if (!userActivities[lectureId]) {
     return [];
   }

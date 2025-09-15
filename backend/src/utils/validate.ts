@@ -15,6 +15,7 @@ const validate: RequestHandler = (
   res: Response,
   next: NextFunction,
 ): void => {
+  console.log("Row 18, validate.ts - validate() called");
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
