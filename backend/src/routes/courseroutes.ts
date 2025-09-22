@@ -39,6 +39,7 @@ router.post(
     const {codes} = req.body;
 
     try {
+      console.log("row 42, courseroutes.ts, checking if course exists");
       const data = await openData.checkOpenDataRealization(codes);
 
       // Check if message is "No results"
@@ -79,6 +80,7 @@ router.post(
       return;
     }
     try {
+      console.log("row 83, courseroutes.ts, checking if course exists");
       const {code} = req.params;
       const exists = await course.findByCode(code);
       res.status(200).json({exists});
@@ -103,6 +105,7 @@ router.post(
     const {code = '', studentGroup = ''} = req.body;
 
     try {
+      console.log("row 108, courseroutes.ts, checking reservations");
       const reservations = await openData.CheckOpenDataReservations(
         code,
         studentGroup,
@@ -187,6 +190,7 @@ router.post(
     } = req.body;
 
     try {
+      console.log("row 193, courseroutes.ts, creating course and checking user roles");
       const response = await courseController.insertIntoCourse(
         courseName,
         startDate,
@@ -233,6 +237,7 @@ router.post(
   async (req, res) => {
     logger.info({email: req.user?.email}, 'Excel input');
     try {
+      console.log("row 240, courseroutes.ts, creating course from excel file and checking user roles");
       if (!req.file) {
         logger.error('No file uploaded');
         console.error('No file uploaded');
@@ -334,6 +339,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 342, courseroutes.ts, get all courses by instructor email");
       const courses = await course.getCoursesByInstructorEmail(
         req.params.email,
       );
@@ -360,13 +366,13 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 369, courseroutes.ts, get courses by id");
       const courseId = Number(req.params.id);
       if (isNaN(courseId)) {
         res.status(400).json('Invalid course ID');
         return;
       }
       const courses = await course.getCoursesByCourseId(courseId);
-      // console.log('🚀 ~ file: courseroutes.ts:292 ~ courses:', courses);
       res.send(courses);
     } catch (err) {
       logger.error(err);
@@ -391,6 +397,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher', 'student']),
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 400, courseroutes.ts, get all users");
       // Validate that the user is logged in
       if (!req.user) {
         res.status(403).json('User Info Unavailable');
@@ -430,6 +437,7 @@ router.delete(
     }
     // Get the course ID from the request
     try {
+      console.log("row 440, courseroutes.ts, deleting by id and checking user roles");
       const courseId = Number(req.params.id);
       if (isNaN(courseId)) {
         res.status(400).json('Invalid course ID');
@@ -463,6 +471,7 @@ router.get(
     }
 
     try {
+      console.log("row 474, courseroutes.ts, get students by id and checking user roles");
       // Get the students for the instructor
       const students = await usermodel.getStudentsByInstructorId(userid);
       res.send(students);
@@ -519,6 +528,7 @@ router.put(
     }
     // Validate that the user is logged in
     try {
+      console.log("row 531, courseroutes.ts, updating by id and checking user roles");
       // Check if the user's role is either 'teacher' or 'admin'
       if (
         req.user &&
@@ -585,9 +595,9 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 598, courseroutes.ts, get all courses");
       if (req.user?.role === 'counselor' || req.user?.role === 'admin') {
         const courses = await course.fetchAllCourses();
-        console.log('🚀 ~ courses:', courses);
         res.send(courses);
       } else if (req.user?.role === 'teacher') {
         const courses = await course.getCoursesByInstructorEmail(
@@ -621,6 +631,7 @@ router.get(
   validate,
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 634, courseroutes.ts, get details by course id");
       const courseId = req.params.courseId;
       const details = await courseController.getDetailsByCourseId(courseId);
       res.send(details);
@@ -651,6 +662,7 @@ router.post(
     const {userid, courseid} = req.params;
 
     try {
+      console.log("row 665, courseroutes.ts, update user courses with course id and user id");
       const useridNumber = parseInt(userid, 10);
       const courseidNumber = parseInt(courseid, 10);
       await courseController.updateStudentCourses(useridNumber, courseidNumber);
@@ -686,6 +698,7 @@ router.delete(
     }
     const usercourseid = Number(req.params.usercourseid);
     try {
+      console.log("row 701, courseroutes.ts, delete user course with user course id");
       await courseController.removeStudentCourses(usercourseid);
       res.status(200).json({message: 'Successfully deleted student courses'});
     } catch (error: unknown) {
@@ -713,6 +726,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 729, courseroutes.ts, get student and topics by user course id");
       const usercourseid = Number(req.params.usercourseid);
       const courses =
         await courseController.getStudentAndSelectedTopicsByUsercourseId(
@@ -739,6 +753,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 756, courseroutes.ts, get students by course id");
       const courseid = Number(req.params.courseid);
       const students = await course.getAllStudentsOnCourse(courseid.toString());
       res.send(students);
@@ -763,6 +778,7 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     const userid = req.params.userid;
     try {
+      console.log("row 781, courseroutes.ts, get user by id");
       const useridNumber = parseInt(userid, 10);
       const users = await usermodel.fetchUserById(useridNumber);
       const email = users[0].email;
@@ -783,6 +799,7 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     // Get the instructor ID from the request
     try {
+      console.log("row 802, courseroutes.ts, get students by id and checking user roles");
       const userid = Number(req.params.userid);
       const limit = Number(req.query.limit) || 10;
       const page = Number(req.query.page) || 1;

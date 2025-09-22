@@ -13,6 +13,7 @@ const userFeedBackModel = {
    * @returns An array of RowDataPacket objects containing the feedback.
    */
   async getUserFeedback() {
+    console.log("row 16, userfeedbackmodel.ts, getUserFeedback() called");
     const [rows] = await pool.promise().query<RowDataPacket[]>(
       `
       SELECT uf.*, u.email
@@ -32,6 +33,7 @@ const userFeedBackModel = {
    * @returns The result of the query.
    */
   async insertUserFeedback(userId: number, topic: string, text: string) {
+    console.log("row 36, userfeedbackmodel.ts, insertUserFeedback() called");
     const result = await pool
       .promise()
       .query(
@@ -41,6 +43,7 @@ const userFeedBackModel = {
     return result;
   },
   async deleteUserFeedback(feedbackId: number) {
+    console.log("row 46, userfeedbackmodel.ts, deleteUserFeedback() called");
     const result = await pool
       .promise()
       .query('DELETE FROM user_feedback WHERE feedbackId = ?', [feedbackId]);
@@ -53,6 +56,7 @@ const userFeedBackModel = {
    * @returns The count of feedback.
    */
   async countUserFeedback() {
+    console.log("row 59, userfeedbackmodel.ts, countUserFeedback() called");
     const [rows] = await pool
       .promise()
       .query<RowDataPacket[]>(

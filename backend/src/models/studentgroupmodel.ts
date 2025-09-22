@@ -49,6 +49,7 @@ const studentGroupModel: StudentGroupModel = {
    */
   async fetchAllStudentGroups() {
     try {
+      console.log("row 52, studentgroupmodel.ts, fetchAllStudentGroups()");
       const [results] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM studentgroups');
@@ -64,6 +65,7 @@ const studentGroupModel: StudentGroupModel = {
    * @returns A promise that resolves to the existing group, if found.
    */
   async checkIfGroupNameExists(group_name: string) {
+    console.log("row 68, studentgroupmodel.ts, checkIfGroupNameExists()");
     const [existingGroup] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -80,6 +82,7 @@ const studentGroupModel: StudentGroupModel = {
    */
   async findByStudentGroupId(id) {
     try {
+      console.log("row 85, studentgroupmodel.ts, findByStudentGroupId()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -101,6 +104,7 @@ const studentGroupModel: StudentGroupModel = {
     studentgroupname: string,
   ): Promise<{insertId: number}> {
     try {
+      console.log("row 107, studentgroupmodel.ts, insertIntoStudentGroup()");
       const [fields] = await pool
         .promise()
         .query('INSERT INTO studentgroups (group_name) VALUES (?)', [
