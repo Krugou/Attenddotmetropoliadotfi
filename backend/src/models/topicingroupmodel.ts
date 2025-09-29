@@ -13,6 +13,7 @@ const topicsingroupModel = {
    * @returns A promise that resolves to the existing topic in the group, if any.
    */
   async checkIfTopicInGroupExists(topicGroupId: number, topicId: number) {
+    console.log("row 16, topicingroupmodel.ts, checkIfTopicInGroupExists() called");
     const [existingTopicInGroup] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -20,10 +21,6 @@ const topicsingroupModel = {
         [topicGroupId, topicId],
       );
 
-    // console.log(
-    // 	'🚀 ~ file: topicingroupmodel.ts:14 ~ checkIfTopicInGroupExists ~ existingTopicInGroup:',
-    // 	existingTopicInGroup,
-    // );
     return existingTopicInGroup;
   },
   /**
@@ -33,8 +30,7 @@ const topicsingroupModel = {
    * @returns A promise that resolves when the insertion is complete.
    */
   async insertTopicInGroup(topicGroupId: number, topicId: number) {
-    // console.log('inserting topic in group');
-    // console.log(topicGroupId, topicId);
+  console.log("row 33, topicingroupmodel.ts, insertTopicInGroup() called");
     const [result] = await pool
       .promise()
       .query(

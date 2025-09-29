@@ -156,6 +156,7 @@ const lectureModel: LectureModel = {
    */
   async fetchAllLectures() {
     try {
+      console.log("row 159, lectureModel.ts, fetchAllLectures");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT lecture.*, courses.name AS coursename, courses.code AS coursecode, users.email AS teacheremail, topics.topicname,
       (SELECT COUNT(*) FROM attendance WHERE lecture.lectureid = attendance.lectureid AND attendance.status = 0) AS notattended,
@@ -184,6 +185,7 @@ const lectureModel: LectureModel = {
     lectureid: number,
   ): Promise<RowDataPacket[]> {
     try {
+      console.log("row 188, lectureModel.ts, findByLectureIdAndGetAllUserInLinkedCourse");
       const [lectureRows] = await pool
         .promise()
         .query('SELECT * FROM lecture WHERE lectureid = ?', [lectureid]);
@@ -191,7 +193,7 @@ const lectureModel: LectureModel = {
       if (!lectureData) {
         throw new Error(`Lecture with lectureid ${lectureid} not found`);
       }
-
+      console.log("row 196, lectureModel.ts, select courses where courseid");
       const [courseRows] = await pool
         .promise()
         .query('SELECT * FROM courses WHERE courseid = ?', [
@@ -204,6 +206,7 @@ const lectureModel: LectureModel = {
         );
       }
 
+      console.log("row 209, lectureModel.ts, select users where courseid");
       const [userRows] = await pool
         .promise()
         .query(
@@ -223,6 +226,7 @@ const lectureModel: LectureModel = {
    */
   async getStudentsByLectureId(lectureid: number) {
     try {
+      console.log("row 229, lectureModel.ts, getStudentsByLectureId");
       const [userRows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT u.*, c.topicid, uc.usercourseid FROM users u
             JOIN usercourses uc ON u.userid = uc.userid
@@ -230,6 +234,7 @@ const lectureModel: LectureModel = {
             WHERE c.lectureid = ? AND u.roleid = 1;`, // Assuming roleid 1 is for students
         [lectureid],
       );
+      console.log("row 237, lecturemodel.ts, unique user rows");
       const uniqueUserRows = userRows.reduce<RowDataPacket[]>((unique, o) => {
         if (!unique.some((obj) => obj.userid === o.userid)) {
           unique.push(o);
@@ -250,6 +255,7 @@ const lectureModel: LectureModel = {
    */
   async deleteByLectureId(id: string): Promise<void> {
     try {
+      console.log("row 258, lectureModel.ts, deleteByLectureId");
       await pool
         .promise()
         .query('DELETE FROM lecture WHERE lectureid = ?', [id]);
@@ -263,6 +269,7 @@ const lectureModel: LectureModel = {
    */
   async countAllLecturees(): Promise<number> {
     try {
+      console.log("row 272, lectureModel.ts, countAllLecturees");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT COUNT(*) as count FROM lecture');
@@ -279,6 +286,7 @@ const lectureModel: LectureModel = {
    */
   async findByTopicId(topicid) {
     try {
+      console.log("row 289, lectureModel.ts, findByTopicId");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM lecture WHERE topicid = ?', [
@@ -297,6 +305,7 @@ const lectureModel: LectureModel = {
    */
   async getCourseidByLectureid(lectureid) {
     try {
+      console.log("row 308, lectureModel.ts, getCourseidByLectureid");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -331,8 +340,7 @@ const lectureModel: LectureModel = {
     state: string,
     teacherid: number | undefined,
   ): Promise<ResultSetHeader> {
-    console.log('🚀 ~ start_date:', start_date);
-    console.log('🚀 ~ end_date:', end_date);
+    console.log("row 343, lectureModel.ts, insertIntoLecture");
     try {
       // Validate dates
       if (!(start_date instanceof Date) || isNaN(start_date.getTime())) {
@@ -379,6 +387,7 @@ const lectureModel: LectureModel = {
             teacherid,
           ],
         );
+      console.log("row 390, lectureModel.ts, inserting start_date, end_date, timeofday, topicid, courseid, state, teacherid to database");
       return result;
     } catch (error) {
       console.error('Failed to insert lecture:', error);
@@ -395,6 +404,7 @@ const lectureModel: LectureModel = {
    */
   async getLectureWithCourseAndTopic(lectureid: string) {
     try {
+      console.log("row 407, lectureModel.ts, getLectureWithCourseAndTopic");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -420,6 +430,7 @@ const lectureModel: LectureModel = {
    */
   async updateLectureState(lectureid: string, state: string) {
     try {
+      console.log("row 433, lectureModel.ts, updateLectureState");
       const [result] = await pool
         .promise()
         .query('UPDATE lecture SET state = ? WHERE lectureid = ?', [
@@ -441,6 +452,7 @@ const lectureModel: LectureModel = {
    */
   async getLecturesByCourseId(courseid: number) {
     try {
+      console.log("row 455, lectureModel.ts, getLecturesByCourseId");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -464,6 +476,7 @@ const lectureModel: LectureModel = {
    */
   async getCourseIDByLectureID(lectureid: string) {
     try {
+      console.log("row 479, lectureModel.ts, getCourseIDByLectureID");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -485,6 +498,7 @@ const lectureModel: LectureModel = {
    */
   async findOpenLecturesBycourseid(courseid: number) {
     try {
+      console.log("row 501, lectureModel.ts, findOpenLecturesBycourseid");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -506,6 +520,7 @@ const lectureModel: LectureModel = {
    */
   async findOpenLecturesByTeacherid(teacherid: number) {
     try {
+      console.log("row 523, lectureModel.ts, findOpenLecturesByTeacherid");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -527,6 +542,7 @@ const lectureModel: LectureModel = {
    */
   async getLectureByLectureId(lectureid: number) {
     try {
+      console.log("row 545, lectureModel.ts, getLectureByLectureId");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM lecture WHERE lectureid = ?', [
@@ -541,6 +557,7 @@ const lectureModel: LectureModel = {
   },
   async fetchLecturesByTeacherId(teacherId: number) {
     try {
+      console.log("row 560, lectureModel.ts, fetchLecturesByTeacherId");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT lecture.*, courses.name AS coursename, courses.code AS coursecode, users.email AS teacheremail, topics.topicname,
       (SELECT COUNT(*) FROM attendance WHERE lecture.lectureid = attendance.lectureid AND attendance.status = 0) AS notattended,
@@ -569,6 +586,7 @@ const lectureModel: LectureModel = {
    */
   async getPastLecturesByCourseId(courseid: number) {
     try {
+      console.log("row 589, lectureModel.ts, getPastLecturesByCourseId");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(

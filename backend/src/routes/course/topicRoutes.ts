@@ -18,6 +18,7 @@ router.get(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (_req: Request, res: Response) => {
     try {
+      console.log("row 21, topicRoutes.ts, Get all topic groups with topics")
       const topicData = await TopicGroup.fetchAllTopicGroupsWithTopics();
 
       res.send(topicData);
@@ -41,6 +42,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 45, topicRoutes.ts, Get all topic groups and topics for user with email")
       const {email} = req.body;
       const topicGroupData =
         await TopicGroupController.getAllUserTopicGroupsAndTopics(email);
@@ -74,6 +76,7 @@ router.post(
       logger.info({useremail: req.user.email}, 'User is updating topic group');
     }
     try {
+      console.log("row 79, topicRoutes.ts, Update topic group")
       const {topicGroup, topics, email} = req.body;
 
       if (!topicGroup) {
@@ -128,6 +131,7 @@ router.post(
       );
     }
     try {
+      console.log("row 134, topicRoutes.ts, Update topics for course")
       const usercourseid = parseInt(req.params.usercourseid);
       const {modifiedTopics} = req.body;
       if (!modifiedTopics) {
@@ -167,6 +171,7 @@ router.post(
       logger.info({useremail: req.user.email}, 'User is checking topic group');
     }
     try {
+      console.log("row 174, topicRoutes.ts, Check if topic group exists for user")
       const {topicGroup, email} = req.body;
 
       if (!topicGroup) {
@@ -207,13 +212,13 @@ router.delete(
       logger.info({useremail: req.user.email}, 'User is deleting topic group');
     }
     try {
+      console.log("row 215, topicRoutes.ts, Delete topic group by name")
       const topicgroupname = req.params.topicgroupname;
       if (!topicgroupname) {
         res.status(400).json({message: 'Topic group is required'});
         return;
       }
       const userid = req.user?.userid;
-      // console.log('🚀 ~ file: topicRoutes.ts:150 ~ userid:', userid);
 
       const topicGroupResult =
         await TopicGroupController.deleteTopicGroupByName(

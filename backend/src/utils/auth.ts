@@ -20,6 +20,7 @@ export const authenticate = (
   newUsername: string,
 ) => {
   passport.authenticate('local', {session: false}, (err: Error, user: User) => {
+    console.log("Row 23, auth.ts - authenticate() called");
     if (err || !user) {
       logger.info('User is not assigned to any courses');
       logger.error('User not found in database', {error: err});
@@ -29,6 +30,7 @@ export const authenticate = (
       });
     }
     req.login(user, {session: false}, async (err) => {
+      console.log("Row 33, auth.ts, login() called");
       if (err) {
         logger.info('User is not assigned to any courses', {email: user.email});
         logger.error('User found in database but login failed', {error: err});
@@ -39,6 +41,7 @@ export const authenticate = (
       }
       if (user && !user.username) {
         try {
+          console.log("Row 44, auth.ts, if (user && !user.username)");
           logger.info(
             'New login detected for user without username, updating',
             {
@@ -55,6 +58,7 @@ export const authenticate = (
       const token = jwt.sign(user as User, process.env.JWT_SECRET as string, {
         expiresIn: '2h',
       });
+      console.log("Row 61, auth.ts, token created");
       res.json({user, token});
     });
   })(req, res, next);

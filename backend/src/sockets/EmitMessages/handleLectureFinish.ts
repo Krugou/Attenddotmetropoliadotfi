@@ -77,6 +77,7 @@ export const finalizeLecture = async (
   listOfIpAlreadyUsedLecture:  Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
+    console.log("row 80, handleLectureFinish.ts, finalizeLecture()")
     if (!lectureid) {
       throw new FinishLectureError('No valid lecture ID provided.');
     }
@@ -101,6 +102,7 @@ export const finalizeLecture = async (
         body: JSON.stringify(data),
       },
     );
+    console.log("row 105, handleLectureFinish.ts, doing api call")
 
     if (!response.ok) {
       throw new FinishLectureError(
@@ -121,7 +123,7 @@ export const finalizeLecture = async (
       clearTimeout(lectureTimeout);
     }
     lectureTimeoutIds.delete(lectureid);
-
+    console.log(`Lecture with ID ${lectureid} finished successfully`)
     logger.info(`Lecture with ID ${lectureid} finished successfully.`);
   } catch (error) {
     logger.error('Error finishing lecture:', error);
@@ -183,9 +185,10 @@ export const handleLectureFinish = async (
   lectureTimeoutIds: LectureTimeoutIds,
   listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
-  if (
-    !['teacher', 'admin', 'counselor'].some((role) =>
+  console.log("row 188, handleLectureFinish.ts, handleLectureFinish()")
+  if (!['teacher', 'admin', 'counselor'].some((role) =>
       socket.user?.role.includes(role),
+    console.log("row 191, handleLectureFinish.ts, if teacher, admin or counselor")
     )
   ) {
     socket.emit('error', {

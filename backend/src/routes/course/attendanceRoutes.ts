@@ -18,6 +18,7 @@ router.get(
   checkUserRole(['admin', 'teacher', 'counselor']),
   async (res: Response) => {
     try {
+      console.log("row 21, attendanceRoutes.ts, Get all attendance records")
       const attendanceData = await attendanceModel.fetchAllAttendances();
       res.send(attendanceData);
     } catch (err) {
@@ -40,6 +41,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 44, attendanceRoutes.ts, Get attendance record by ID")
       const id = Number(req.params.id);
       const attendanceData = await attendanceModel.findByAttendanceId(id);
       if (attendanceData) {
@@ -66,6 +68,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 71, attendanceRoutes.ts, Get all attendance records for user's course")
       const id = Number(req.params.id);
       let userid = Number(req.user?.userid);
       let userinfo;
@@ -119,6 +122,7 @@ router.post(
   async (req: Request, res: Response) => {
     const {status, date, studentnumber, lectureid} = req.body;
     try {
+      console.log("row 125, attendanceRoutes.ts, Create new attendance record")
       const insertedData = await attendanceController.insertIntoAttendance(
         status,
         date,
@@ -158,6 +162,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 165, attendanceRoutes.ts, Mark all students not present in a lecture as not present")
       const {date, studentnumbers, lectureid} = req.body;
 
       await attendanceController.checkAndInsertStatusNotPresentAttendance(
@@ -188,6 +193,7 @@ router.post(
   [body('lectureid').isNumeric()],
   async (req: Request, res: Response) => {
     try {
+      console.log("row 196, attendanceRoutes.ts, Get all students in a lecture")
       const {lectureid} = req.body;
       const allStudentsInLecture = await lectureController.getStudentsInLecture(
         lectureid,
@@ -217,6 +223,7 @@ router.post(
       logger.info({useremail: req.user.email}, ' courses/attendance/delete ');
     }
     try {
+      console.log("row 226, attendanceRoutes.ts, Delete an attendance record")
       const {studentnumber} = req.body;
       const lectureid = req.body.lectureid;
       await attendanceController.deleteAttendance(studentnumber, lectureid);
@@ -246,6 +253,7 @@ router.post(
       );
     }
     try {
+      console.log("row 256, attendanceRoutes.ts, Delete a lecture by its ID")
       const {lectureid} = req.body;
       await lectureModel.deleteByLectureId(lectureid);
       res.status(201).json({message: 'Lecture deleted'});
@@ -287,6 +295,7 @@ router.post(
       );
     }
     try {
+      console.log("row 298, attendanceRoutes.ts, Create new lecture")
       const {topicname, coursecode, start_date, end_date, timeofday, state} =
         req.body;
       // console.log(req.body);
@@ -323,6 +332,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 335, attendanceRoutes.ts, Get lecture by ID")
       const {lectureid} = req.params;
 
       const lectureInfo = await lectureModel.getLectureWithCourseAndTopic(
@@ -338,18 +348,6 @@ router.get(
   },
 );
 
-// router.get('/studentsattendance', async (req: Request, res: Response) => {
-// 	try {
-// 		const id = Number(req.params.id);
-// 		const attendanceData = await attendanceModel.findAllAttendancesByUserCourseId(
-// 			id,
-// 		);
-// 		res.send(attendanceData);
-// 	} catch (err) {
-// 		console.error(err);
-// 		res.status(500).json('Server error');
-// 	}
-// });
 /**
  * Route that updates the status of an attendance record.
  *
@@ -368,8 +366,7 @@ router.put(
     const {attendanceid, status} = req.body;
 
     try {
-      // console.log('Received attendanceid:', attendanceid);
-      // console.log('Received status:', status);
+    console.log("row 369, attendanceRoutes.ts, Update attendance status")
 
       await attendanceController.updateAttendanceStatus(attendanceid, status);
 
@@ -394,6 +391,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 394, attendanceRoutes.ts, Get lectures and attendance records for a course")
       const courseid = req.params.courseid;
 
       const lecturesAndAttendancesData =
@@ -429,6 +427,7 @@ router.delete(
       // console.log('delete lecture ', req.user?.email);
     }
     try {
+      console.log("row 430, attendanceRoutes.ts, Delete a lecture by its ID")
       const lectureid = req.params.lectureid;
 
       await lectureModel.deleteByLectureId(lectureid);
@@ -460,6 +459,7 @@ router.put(
       );
     }
     try {
+      console.log("row 462, attendanceRoutes.ts, Close a lecture by its ID")
       const lectureid = req.params.lectureid;
 
       await lectureController.closeLecture(lectureid);
@@ -485,6 +485,7 @@ router.get(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 488, attendanceRoutes.ts, Get all open lectures for a course")
       const courseid = req.params.courseid;
 
       const openLectures = await lectureModel.findOpenLecturesBycourseid(
@@ -504,6 +505,7 @@ router.post(
   checkUserRole(['admin', 'counselor', 'teacher']),
   async (req: Request, res: Response) => {
     try {
+      console.log("row 508, attendanceRoutes.ts, Get all open lectures for a teacher")
       const {teacherid} = req.body;
       const openLectures = await lectureModel.findOpenLecturesByTeacherid(
         Number(teacherid),
@@ -527,6 +529,7 @@ router.get(
       );
     }
     try {
+      console.log("row 532, attendanceRoutes.ts, Get all lectures for a teacher")
       const teacherId = Number(req.params.teacherId);
       const lectures = await lectureModel.fetchLecturesByTeacherId(teacherId);
 
@@ -564,6 +567,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
+      console.log("row 570, attendanceRoutes.ts, Add late enrolling student to previous lectures as not present")
       const {studentnumber, courseid} = req.body;
       await attendanceController.markStudentAsNotPresentInPastLectures(
         studentnumber,
