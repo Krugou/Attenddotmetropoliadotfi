@@ -12,6 +12,7 @@ import logger from './logger.js';
 const readFile = (filePath: string, lineCount: number): Promise<string> => {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
+      console.log("Row 15, readLogFile.ts, readFile() called");
       if (err) {
         reject(err);
       } else {
@@ -39,6 +40,7 @@ const readLogFile = async (
   lineCount: number,
 ): Promise<Array<{line: string}> | undefined> => {
   try {
+    console.log("Row 43, readLogFile.ts, readLogFile() called");
     const logData = await readFile(logFilePath, lineCount);
     const lines = logData.split('\n');
     const jsonOutput = lines.map((line, index) => ({

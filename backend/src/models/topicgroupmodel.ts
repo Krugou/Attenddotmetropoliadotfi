@@ -89,6 +89,7 @@ const topicGroupModel: TopicGroupModel = {
    */
   async fetchAllTopicGroups() {
     try {
+      console.log("row 92, topicgroupmodel.ts, fetchAllTopicGroups()");
       return await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM topicgroups');
@@ -104,6 +105,7 @@ const topicGroupModel: TopicGroupModel = {
    */
   async fetchAllTopicGroupsWithTopics() {
     try {
+      console.log("row 108, topicgroupmodel.ts, fetchAllTopicGroupsWithTopics()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -118,6 +120,7 @@ const topicGroupModel: TopicGroupModel = {
   },
   async fetchAllTopicGroupsWithTopicsByUserId(userid: number) {
     try {
+      console.log("row 123, topicgroupmodel.ts, fetchAllTopicGroupsWithTopicsByUserId()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -139,6 +142,7 @@ const topicGroupModel: TopicGroupModel = {
    */
   async findByTopicGroupId(id) {
     try {
+      console.log("row 145, topicgroupmodel.ts, findByTopicGroupId()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -153,6 +157,7 @@ const topicGroupModel: TopicGroupModel = {
   },
 
   async checkIfTopicGroupExists(topicgroup: string, userid: number) {
+    console.log("row 160, topicgroupmodel.ts, checkIfTopicGroupExists()");
     const [existingTopic] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -163,6 +168,7 @@ const topicGroupModel: TopicGroupModel = {
     return existingTopic;
   },
   async insertTopicGroup(topicgroup: string, topicgroupowner: number) {
+    console.log("row 171, topicgroupmodel.ts, insertTopicGroup()");
     const [topicResult] = await pool
       .promise()
       .query<ResultSetHeader>(
@@ -173,6 +179,7 @@ const topicGroupModel: TopicGroupModel = {
     return topicResult;
   },
   async deleteTopicGroupByName(topicgroup: string, userid: number | undefined) {
+    console.log("row 182, topicgroupmodel.ts, deleteTopicGroupByName()");
     const [topicResult] = await pool
       .promise()
       .query<ResultSetHeader>(

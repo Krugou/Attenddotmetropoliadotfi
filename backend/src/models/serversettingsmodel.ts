@@ -9,6 +9,7 @@ const serverSettingsModel = {
    */
   async getServerSettings(pool: Pool) {
     try {
+      console.log("row 12, serversettingsmodel.ts, getServerSettings()");
       return await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM serversettings');
@@ -34,6 +35,7 @@ const serverSettingsModel = {
     attendancethreshold: number,
   ) {
     try {
+      console.log("row 38, serversettingsmodel.ts, updateServerSettings()");
       return await pool
         .promise()
         .query(
@@ -52,6 +54,7 @@ const serverSettingsModel = {
    */
   async getAttentanceThreshold(pool: Pool) {
     try {
+      console.log("row 57, serversettingsmodel.ts, getAttentanceThreshold()");
       return await pool
         .promise()
         .query<RowDataPacket[]>(

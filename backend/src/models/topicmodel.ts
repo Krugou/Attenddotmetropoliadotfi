@@ -41,6 +41,7 @@ const topicModel: TopicModel = {
    */
   async fetchAllTopics() {
     try {
+      console.log("row 44, topicmodel.ts, fetchAllTopics()");
       return await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM topics');
@@ -57,6 +58,7 @@ const topicModel: TopicModel = {
    */
   async findByTopicId(id) {
     try {
+      console.log("row 61, topicmodel.ts, findByTopicId()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM topics WHERE topicid = ?', [id]);
@@ -74,6 +76,7 @@ const topicModel: TopicModel = {
    */
   async insertIntoTopic(topicname) {
     try {
+      console.log("row 79, topicmodel.ts, insertIntoTopic()");
       await pool
         .promise()
         .query('INSERT INTO topics (topicname) VALUES (?)', [topicname]);
@@ -92,6 +95,7 @@ const topicModel: TopicModel = {
    */
   async updateTopicName(id, topicname) {
     try {
+      console.log("row 98, topicmodel.ts, updateTopicName()");
       await pool
         .promise()
         .query('UPDATE topics SET topicname = ? WHERE topicid = ?', [
@@ -111,6 +115,7 @@ const topicModel: TopicModel = {
    */
   async deleteByTopicId(id) {
     try {
+      console.log("row 118, topicmodel.ts, deleteByTopicId()");
       await pool.promise().query('DELETE FROM topics WHERE topicid = ?', [id]);
     } catch (error) {
       console.error(error);
@@ -124,6 +129,7 @@ const topicModel: TopicModel = {
    */
   async countTopics() {
     try {
+      console.log("row 132, topicmodel.ts, countTopics()");
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT COUNT(*) as count FROM topics');
@@ -139,6 +145,7 @@ const topicModel: TopicModel = {
    * @returns A promise that resolves to the existing topic, if any.
    */
   async checkIfTopicExists(topic: string) {
+    console.log("row 148, topicmodel.ts, checkIfTopicExists()");
     const [existingCourseTopic] = await pool
       .promise()
       .query<RowDataPacket[]>('SELECT * FROM topics WHERE topicname = ?', [
@@ -152,6 +159,7 @@ const topicModel: TopicModel = {
    * @returns A promise that resolves when the insertion is complete.
    */
   async insertTopic(topic: string) {
+    console.log("row 162, topicmodel.ts, insertTopic()");
     const [topicResult] = await pool
       .promise()
       .query<ResultSetHeader>('INSERT INTO topics (topicname) VALUES (?)', [
@@ -166,6 +174,7 @@ const topicModel: TopicModel = {
    * @returns A promise that resolves to the topic ID.
    */
   async findTopicIdUsingTopicName(topic: string) {
+    console.log("row 177, topicmodel.ts, findTopicIdUsingTopicName()");
     const [topicResult] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -180,6 +189,7 @@ const topicModel: TopicModel = {
    * @returns A promise that resolves to the topic names.
    */
   async getTopicNamesByUsercourseid(usercourseid: number) {
+    console.log("row 192, topicmodel.ts, getTopicNamesByUsercourseid()");
     const [topicResult] = await pool.promise().query<RowDataPacket[]>(
       `SELECT
 				topics.topicid,
