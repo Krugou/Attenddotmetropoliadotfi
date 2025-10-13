@@ -19,6 +19,7 @@ const doFetch = async (
 
   let response: Response;
   try {
+    console.log("Row 22, doFetch.ts, doFetch() called");
     // Perform the fetch request
     response = await fetch(url, options);
   } catch (error: unknown) {
@@ -39,6 +40,7 @@ const doFetch = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let data: any;
   try {
+    console.log("Row 43, doFetch.ts");
     // Parse the response data as JSON
     data = await response.json();
   } catch (error: unknown) {

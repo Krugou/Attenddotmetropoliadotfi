@@ -11,6 +11,7 @@ const courseinstructorsModel = {
    * @returns {Promise<ResultSetHeader>} A promise that resolves with the result of the insertion.
    */
   async insertCourseInstructor(instructoruserid: number, courseId: number) {
+    console.log("row 14, courseinstructorsmodel.ts, insertCourseInstructor() called");
     const [instructorResult] = await pool
       .promise()
       .query<ResultSetHeader>(

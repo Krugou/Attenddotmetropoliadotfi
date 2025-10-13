@@ -16,6 +16,7 @@ const work_log_course_groups = {
     groupName: string,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 19, work_log_groupmodel.ts, createWorkLogGroup");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -31,6 +32,7 @@ const work_log_course_groups = {
 
   async checkStudentsInWorklogGroup(groupId: number): Promise<RowDataPacket[]> {
     try {
+      console.log("row 35, work_log_groupmodel.ts, checkStudentsInWorklogGroup");
       // First verify the group exists
       const [groupCheck] = await pool
         .promise()
@@ -63,6 +65,7 @@ const work_log_course_groups = {
 
   async deleteWorkLogGroup(groupId: number): Promise<ResultSetHeader> {
     try {
+      console.log("row 68, work_log_groupmodel.ts, deleteWorkLogGroup");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -81,6 +84,7 @@ const work_log_course_groups = {
     groupName: string,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 87, work_log_groupmodel.ts, updateWorkLogGroup");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -98,6 +102,7 @@ const work_log_course_groups = {
     courseId: number,
   ): Promise<WorkLogCourseGroup[]> {
     try {
+      console.log("row 105, work_log_groupmodel.ts, getWorkLogGroupsByCourse");
       const [rows] = await pool.promise().query<WorkLogCourseGroup[]>(
         `SELECT
           wcg.*,
@@ -117,6 +122,7 @@ const work_log_course_groups = {
 
   async getUserGroups(userId: number): Promise<WorkLogCourseGroup[]> {
     try {
+      console.log("row 125, work_log_groupmodel.ts, getUserGroups");
       const [rows] = await pool.promise().query<WorkLogCourseGroup[]>(
         `SELECT g.* FROM work_log_course_groups g
          JOIN student_group_assignments sga ON g.group_id = sga.group_id

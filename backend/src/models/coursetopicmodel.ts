@@ -10,6 +10,7 @@ const coursetopicsModel = {
    * @returns A promise that resolves to the existing course-topic relation, if found.
    */
   async checkIfCourseTopicRelationExists(courseId: number, topicId: number) {
+    console.log("row 13, coursetopicmodel.ts, checkIfCourseTopicRelationExists() called");
     const [existingCourseTopicRelation] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -26,6 +27,7 @@ const coursetopicsModel = {
    * @returns A promise that resolves to the result of the insertion.
    */
   async insertCourseTopic(courseId: number, topicId: number) {
+    console.log("row 30, coursetopicmodel.ts, insertCourseTopic() called");
     const result = await pool
       .promise()
       .query('INSERT INTO coursetopics (courseid, topicid) VALUES (?, ?)', [

@@ -10,6 +10,7 @@ const courseStudentActivityModel = {
    */
   async getStudentsFromInstructorCourses(instructorId) {
     try {
+      console.log("Row 13, coursestudentactivity.ts - Getting students from instructor courses");
       const [rows] = await pool.promise().query(`
         SELECT
           u.userid,
@@ -53,6 +54,7 @@ const courseStudentActivityModel = {
   },
   async getStudentsFromAllCourses() {
     try {
+      console.log("Row 57, coursestudentactivity.ts - Getting students from all courses");
       const [rows] = await pool.promise().query(`
           SELECT
             u.userid,
