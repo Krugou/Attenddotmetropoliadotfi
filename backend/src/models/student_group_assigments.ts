@@ -10,6 +10,7 @@ const student_group_assignments = {
     userId: number,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 13, student_group_assignments.ts, assignStudentToGroup");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -28,6 +29,7 @@ const student_group_assignments = {
     userId: number,
   ): Promise<ResultSetHeader> {
     try {
+      console.log("row 32, student_group_assignments.ts, removeStudentFromGroup");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -42,6 +44,7 @@ const student_group_assignments = {
   },
   async getGroupMembers(groupId: number): Promise<RowDataPacket[]> {
     try {
+      console.log("row 47, student_group_assignments.ts, getGroupMembers");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT u.* FROM users u
          JOIN student_group_assignments sga ON u.userid = sga.userid

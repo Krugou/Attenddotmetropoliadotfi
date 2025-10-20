@@ -21,6 +21,7 @@ router.post(
   ],
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 24, feedbackRoutes.ts, Post user feedback")
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         res.status(400).json({errors: errors.array()});

@@ -85,6 +85,7 @@ const UserModel = {
     newUsername: string,
   ): Promise<boolean> => {
     try {
+      console.log("row 88, usermodel.ts, calling updateUsernameByEmail()");
       const [rows] = (await UserModel.pool
         .promise()
         .execute('UPDATE users SET username = ? WHERE email = ?', [
@@ -108,6 +109,7 @@ const UserModel = {
   getAllUserInfo: async (email: string): Promise<UserInfo | null> => {
     let userData: UserInfo | null = null;
     try {
+      console.log("row 112, usermodel.ts, calling getAllUserInfo()");
       const [userRows] = await UserModel.pool
         .promise()
         .query<RowDataPacket[]>(
@@ -124,7 +126,7 @@ const UserModel = {
             `SELECT studentgroups.group_name FROM studentgroups JOIN users ON users.studentgroupid = studentgroups.studentgroupid WHERE users.userid = ?;`,
             [userData.userid],
           );
-
+        console.log("row 129, usermodel.ts, getting all user info from database studentgroups table");
         if (groupRows.length > 0) {
           userData.group_name = groupRows[0].group_name;
         } else {
@@ -148,6 +150,7 @@ const UserModel = {
     newEmail: string,
   ): Promise<boolean> => {
     try {
+      console.log("row 153, usermodel.ts, calling updateUserInfo()");
       const [rows] = (await UserModel.pool.execute(
         'UPDATE users SET Useremail = ? WHERE Userid = ?',
         [newEmail, userId],
@@ -166,6 +169,7 @@ const UserModel = {
    */
   addStaffUser: async (user: User): Promise<User | null> => {
     try {
+      console.log("row 172, usermodel.ts, calling addStaffUser()");
       const {username, email, staff, first_name, last_name, roleid} = user;
       const language = 'en';
       const darkMode = 0;
@@ -225,6 +229,7 @@ const UserModel = {
    */
   async deleteUser(userId: number): Promise<boolean> {
     try {
+      console.log("row 232, usermodel.ts, calling deleteUser()");
       const [rows] = (await UserModel.pool.execute(
         'DELETE FROM users WHERE Userid = ?',
         [userId],
@@ -243,6 +248,7 @@ const UserModel = {
    */
   async findUsersByStaffStatus(staff: number): Promise<UserInfo[]> {
     try {
+      console.log("row 251, usermodel.ts, calling findUsersByStaffStatus()");
       const [rows] = await UserModel.pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM users WHERE staff = ?', [staff]);
@@ -260,6 +266,7 @@ const UserModel = {
    */
   async checkUsernameExists(username: string): Promise<boolean> {
     try {
+      console.log("row 269, usermodel.ts, calling checkUsernameExists()");
       const [rows] = await UserModel.pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM users WHERE username = ?', [
@@ -278,6 +285,7 @@ const UserModel = {
    * @returns A promise that resolves to the staff member, if found.
    */
   async checkIfEmailMatchesStaff(instructoremail: string) {
+    console.log("row 288, usermodel.ts, calling checkIfEmailMatchesStaff()");
     const [existingInstructor] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -293,6 +301,7 @@ const UserModel = {
    * @returns A promise that resolves to the user, if found.
    */
   async checkIfUserExistsByStudentNumber(studentnumber: string) {
+    console.log("row 304, usermodel.ts, calling checkIfUserExistsByStudentNumber()");
     const [existingUserByNumber] = await this.pool
       .promise()
       .query<RowDataPacket[]>('SELECT * FROM users WHERE studentnumber = ?', [
@@ -307,6 +316,7 @@ const UserModel = {
    * @returns A promise that resolves to the user, if found.
    */
   async checkIfUserExistsByEmail(email: string) {
+    console.log("row 319, usermodel.ts, calling checkIfUserExistsByEmail()");
     const [existingUserByEmail] = await this.pool
       .promise()
       .query<RowDataPacket[]>('SELECT * FROM users WHERE email = ?', [email]);
@@ -319,6 +329,7 @@ const UserModel = {
    * @returns A promise that resolves to the user, if found.
    */
   async checkIfUserExistsByEmailAndisStaff(email: string) {
+    console.log("row 332, usermodel.ts, calling checkIfUserExistsByEmailAndisStaff()");
     const [existingUserByEmail] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -335,6 +346,7 @@ const UserModel = {
    * @returns A promise that resolves to the result of the update.
    */
   async updateUserStudentNumber(studentnumber: string, email: string) {
+    console.log("row 349, usermodel.ts, calling updateUserStudentNumber()");
     const result = await this.pool
       .promise()
       .query('UPDATE users SET studentnumber = ? WHERE email = ?', [
@@ -359,10 +371,12 @@ const UserModel = {
     last_name: string,
     studentnumber: string,
     studentGroupId: number,
-  ) {
+  )
+  {
     const language = 'en';
     const darkMode = 0;
     const activeStatus = 1;
+    console.log("row 379, usermodel.ts, calling insertStudentUser()");
     const [userResult] = await this.pool
       .promise()
       .query<ResultSetHeader>(
@@ -391,6 +405,7 @@ const UserModel = {
   ) {
     const language = 'en';
     const darkMode = 0;
+    console.log("row 408, usermodel.ts, calling insertStaffUser()");
     const activeStatus = 1;
     const [userResult] = await this.pool
       .promise()
@@ -417,6 +432,7 @@ const UserModel = {
    */
   getStudentsByInstructorId: async (userid: number): Promise<UserInfo[]> => {
     try {
+      console.log("row 435, usermodel.ts, calling getStudentsByInstructorId()");
       const [rows] = await UserModel.pool.promise().query<RowDataPacket[]>(
         `SELECT DISTINCT u.*, studentgroups.group_name
           FROM users u
@@ -449,6 +465,7 @@ get students by instructor id with pagination
     offset: number,
   ): Promise<PaginatedStudentsResult> => {
     try {
+      console.log("row 474, usermodel.ts, calling fetchStudentsPaginationByInstructorId()");
       const [rows] = await UserModel.pool.promise().query<RowDataPacket[]>(
         `SELECT DISTINCT u.*, studentgroups.group_name
           FROM users u
@@ -492,13 +509,13 @@ get students by instructor id with pagination
    */
   changeRoleId: async (email: string, roleId: number) => {
     try {
+      console.log("row 512, usermodel.ts, calling changeRoleId()");
       const [result] = await pool
         .promise()
         .query<ResultSetHeader>('UPDATE users SET roleid = ? WHERE email = ?', [
           roleId,
           email,
         ]);
-      // console.log('🚀 ~ file: usermodel.ts:276 ~ changeRoleId: ~ result:', result);
       return result;
     } catch (error) {
       console.error(error);
@@ -520,6 +537,7 @@ get students by instructor id with pagination
     const darkMode = 0;
     const activeStatus = 1;
     try {
+      console.log("row 540, usermodel.ts, calling insertUser()");
       const [userResult] = await pool
         .promise()
         .query<ResultSetHeader>(
@@ -552,6 +570,7 @@ get students by instructor id with pagination
    */
   fetchUsers: async () => {
     try {
+      console.log("row 573, usermodel.ts, calling fetchUsers()");
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -570,6 +589,7 @@ get students by instructor id with pagination
    */
   fetchUserById: async (userid: number) => {
     try {
+      console.log("row 592, usermodel.ts, calling fetchUserById()");
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -592,6 +612,7 @@ get students by instructor id with pagination
     userId: number | undefined,
   ): Promise<boolean> => {
     try {
+      console.log("row 615, usermodel.ts, calling updateUserGDPRStatus()");
       const [rows] = (await UserModel.pool
         .promise()
         .execute('UPDATE users SET gdpr = 1 WHERE userid = ?', [
@@ -612,6 +633,7 @@ get students by instructor id with pagination
    */
   getUserGDPRStatus: async (userId: number): Promise<number> => {
     try {
+      console.log("row 636, usermodel.ts, calling getUserGDPRStatus()");
       const [rows] = await UserModel.pool
         .promise()
         .query<RowDataPacket[]>('SELECT gdpr FROM users WHERE userid = ?', [
@@ -634,6 +656,7 @@ get students by instructor id with pagination
    */
   fetchAllStudents: async () => {
     try {
+      console.log("row 659, usermodel.ts, calling fetchAllStudents()");
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(
@@ -654,6 +677,7 @@ get students by instructor id with pagination
    */
   fetchNumberOfStudents: async (limit: number, offset: number) => {
     try {
+      console.log("row 680, usermodel.ts, calling fetchNumberOfStudents()");
       // Get paginated students
       const [students] = await pool.promise().query<RowDataPacket[]>(
         `SELECT
@@ -710,6 +734,7 @@ get students by instructor id with pagination
     } = user.user;
 
     try {
+      console.log("row 737, usermodel.ts, calling updateUser()");
       const [result] = await pool.promise().query<RowDataPacket[]>(
         `UPDATE users
                 SET first_name = ?, last_name = ?, email = ?, username = ?, GDPR = ?, roleid = ?, staff = ?, studentgroupid = ?, studentnumber = ?
@@ -727,7 +752,6 @@ get students by instructor id with pagination
           userid,
         ],
       );
-      // console.log('🚀 ~ updateUser: ~ result:', result);
       return result;
     } catch (error) {
       console.error(error);
@@ -740,6 +764,7 @@ get students by instructor id with pagination
    * @returns A promise that resolves to the existing student number, if found.
    */
   checkIfStudentNumberExists: async (studentnumber: string) => {
+    console.log("row 767, usermodel.ts, calling checkIfStudentNumberExists()");
     const [existingStudentNumber] = await pool
       .promise()
       .query<RowDataPacket[]>('SELECT * FROM users WHERE studentnumber = ?', [
@@ -755,6 +780,7 @@ get students by instructor id with pagination
    * @returns A promise that resolves to the existing student email, if found.
    */
   checkIfStudentEmailExists: async (email: string) => {
+    console.log("row 783, usermodel.ts, calling checkIfStudentEmailExists()");
     const [existingStudentEmail] = await pool
       .promise()
       .query<RowDataPacket[]>('SELECT * FROM users WHERE email = ?', [email]);
@@ -767,6 +793,7 @@ get students by instructor id with pagination
    * @returns A promise that resolves to an array of role counts.
    */
   getRoleCounts: async () => {
+    console.log("row 796, usermodel.ts, calling getRoleCounts()");
     const [rows] = await pool.promise().query<RowDataPacket[]>(
       `SELECT r.name AS role_name, COUNT(*) AS user_count
        FROM users u
@@ -781,6 +808,7 @@ get students by instructor id with pagination
    * @returns A promise that resolves to the count of logged in users.
    */
   getUserLoggedCount: async () => {
+    console.log("row 811, usermodel.ts, calling getUserLoggedCount()");
     const [rows] = await pool.promise().query<RowDataPacket[]>(
       `SELECT COUNT(*) AS user_logged
      FROM users
@@ -792,6 +820,7 @@ get students by instructor id with pagination
 
   getUsersLanguage: async (email: string) => {
     try {
+      console.log("row 823, usermodel.ts, calling getUsersLanguage()");
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(`SELECT language FROM users WHERE email = ?`, [
@@ -805,6 +834,7 @@ get students by instructor id with pagination
   },
   updateUserLanguage: async (email: string, language: string) => {
     try {
+      console.log("row 837, usermodel.ts, calling updateUserLanguage()");
       const [result] = await pool
         .promise()
         .query<RowDataPacket[]>(

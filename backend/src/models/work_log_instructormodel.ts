@@ -10,6 +10,7 @@ const work_log_instructors = {
     courseId: number,
   ): Promise<void> {
     try {
+      console.log("row 13, work_log_instructormodel.ts, addInstructorsToCourse");
       for (const instructor of instructors) {
         const [userRows] = await pool
           .promise()
@@ -36,6 +37,7 @@ const work_log_instructors = {
   },
   async getInstructorsByCourse(courseId: number): Promise<RowDataPacket[]> {
     try {
+      console.log("row 40, work_log_instructormodel.ts, getInstructorsByCourse");
       const [rows] = await pool.promise().query<RowDataPacket[]>(
         `SELECT u.userid, u.email, u.first_name, u.last_name
              FROM users u
@@ -51,6 +53,7 @@ const work_log_instructors = {
   },
   async removeAllInstructors(courseId: number): Promise<void> {
     try {
+      console.log("row 56, work_log_instructormodel.ts, removeAllInstructors");
       await pool
         .promise()
         .query(

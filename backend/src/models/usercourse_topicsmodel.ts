@@ -13,6 +13,7 @@ const usercourse_topicsModel = {
    * @returns A promise that resolves to the existing user course topic, if any.
    */
   async checkIfUserCourseTopicExists(usercourseid: number, topicId: number) {
+    console.log("row 16, usercourse_topicsmodel.ts, checkIfUserCourseTopicExists() called");
     const [existingUserCourseTopic] = await pool
       .promise()
       .query<RowDataPacket[]>(
@@ -29,6 +30,7 @@ const usercourse_topicsModel = {
    * @returns A promise that resolves when the deletion is complete.
    */
   async deleteUserCourseTopic(usercourseid: number, connection: any) {
+    console.log("row 33, usercourse_topicsmodel.ts, deleteUserCourseTopic() called");
     let result;
 
     if (connection) {
@@ -59,6 +61,7 @@ const usercourse_topicsModel = {
     topicId: number,
     connection: any,
   ) {
+    console.log("row 64, usercourse_topicsmodel.ts, insertUserCourseTopic() called");
     let result;
 
     if (connection) {
@@ -83,6 +86,7 @@ const usercourse_topicsModel = {
    * @returns A promise that resolves to the user course topic, if found.
    */
   async findUserCourseTopicByUserCourseId(usercourseid: number) {
+    console.log("row 89, usercourse_topicsmodel.ts, findUserCourseTopicByUserCourseId() called");
     const [rows] = await pool
       .promise()
       .query<RowDataPacket[]>(
