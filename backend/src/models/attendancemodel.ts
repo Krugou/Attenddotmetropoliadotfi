@@ -1,353 +1,250 @@
-import {FieldPacket, RowDataPacket} from 'mysql2';
+import type { FieldPacket, RowDataPacket, ResultSetHeader } from 'mysql2';
 import createPool from '../config/createPool.js';
 
 const pool = createPool('ADMIN');
-/**
- * Interface for Attendance
- */
+
+// Helpers
+
+// For SELECT queries — returns rows
+const queryRows = async <T extends RowDataPacket[]>(
+  sql: string,
+  params: any[] = [],
+  logMsg?: string,
+): Promise<[T, FieldPacket[]]> => {
+  if (logMsg) console.log(logMsg);
+  return pool.promise().query<T>(sql, params);
+};
+
+// For data-changing queries (INSERT/UPDATE/DELETE/DDL) — returns ResultSetHeader (affectedRows, insertId, etc.)
+const exec = async (
+  sql: string,
+  params: any[] = [],
+  logMsg?: string,
+): Promise<ResultSetHeader> => {
+  if (logMsg) console.log(logMsg);
+  const [result] = await pool.promise().execute<ResultSetHeader>(sql, params);
+  return result;
+};
+
+// Types
+
 interface Attendance {
   attendanceid: number;
   studentid: number;
   courseid: number;
   attended: boolean;
 }
-/**
- * Interface for AttendanceModel
- */
+
 interface AttendanceModel {
-  /**
-   * Fetch all attendances
-   */
+  // Read
   fetchAllAttendances(): Promise<[RowDataPacket[], FieldPacket[]]>;
-  /**
-   * Find attendance by attendance id
-   * @param id - The id of the attendance
-   */
   findByAttendanceId(id: number): Promise<Attendance | null>;
-  /**
-   * Find all attendances by user course id
-   * @param usercourseId - The id of the user course
-   * @param userid - The id of the user
-   */
-  findAllAttendancesByUserCourseId(
-    usercourseId: number,
-    userid: number,
-  ): Promise<any>;
+  findAllAttendancesByUserCourseId(usercourseId: number, userid: number): Promise<RowDataPacket[]>;
+  getUserInfoByUserCourseId(usercourseid: number): Promise<RowDataPacket | null>;
+  getAttendaceByCourseId(courseid: string): Promise<RowDataPacket[]>;
+  getAttendanceById(insertid: number): Promise<RowDataPacket[]>;
+  getAttendanceByUserCourseIdDateLectureId(usercourseid: number, lectureid: string): Promise<RowDataPacket[]>;
+  checkAttendance(usercourseid: number, lectureid: number): Promise<RowDataPacket[]>;
+  getLectureCountByTopic(courseid: string): Promise<RowDataPacket[]>;
 
-  /**
-   * Updates the attendance status for a user course.
-   *
-   * @param {number} usercourseid - The ID of the user course.
-   * @param {number} status - The new attendance status.
-   * @returns {Promise<any>} A promise that resolves when the update is complete.
-   */
-  updateAttendanceStatus: (
-    usercourseid: number,
-    status: number,
-  ) => Promise<any>;
-  /**
-   * Gets the user info for a user course.
-   *
-   * @param {number} usercourseid - The ID of the user course.
-   * @returns {Promise<any>} A promise that resolves with the user info.
-   */
-  getUserInfoByUserCourseId: (usercourseid: number) => Promise<any>;
-  /**
-   * Gets the attendance by course ID.
-   *
-   * @param {string} courseid - The ID of the course.
-   * @returns {Promise<any>} The attendance details for the course.
-   */
-  getAttendaceByCourseId: (courseid: string) => Promise<any>;
-  /**
-   * Gets the attendance by its ID.
-   *
-   * @param {number} insertid - The ID of the attendance.
-   * @returns {Promise<any>} The attendance details.
-   */
-  getAttendanceById: (insertid: number) => Promise<any>;
-  /**
-   * Gets the attendance by user course ID, date, and lecture ID.
-   *
-   * @param {number} usercourseid - The ID of the user course.
-   * @param {string} lectureid - The ID of the lecture.
-   * @returns {Promise<any>} The attendance details.
-   */
-  getAttendanceByUserCourseIdDateLectureId: (
-    usercourseid: number,
-    lectureid: string,
-  ) => Promise<any>;
-
-  /**
-   * Checks if an attendance record exists for a specific user course and lecture.
-   * @param usercourseid - The ID of the user course.
-   * @param lectureid - The ID of the lecture.
-   * @returns A promise that resolves to the attendance record if it exists, null otherwise.
-   */
-  checkAttendance: (usercourseid: number, lectureid: number) => Promise<any>;
-
-  /**
-   * Retrieves the count of lectures for each topic in a specific course.
-   * @param courseid - The ID of the course.
-   * @returns A promise that resolves to the count of lectures for each topic.
-   */
-  getLectureCountByTopic: (courseid: string) => Promise<any>;
-
-  /**
-   * Deletes an attendance record for a specific user course and lecture.
-   * @param usercourseid - The ID of the user course.
-   * @param lectureid - The ID of the lecture.
-   * @returns A promise that resolves when the deletion is complete.
-   */
-  deleteAttendance: (usercourseid: number, lectureid: number) => Promise<any>;
-
-  /**
-   * Inserts a new attendance record.
-   * @param status - The status of the attendance.
-   * @param date - The date of the attendance.
-   * @param usercourseid - The ID of the user course.
-   * @param lectureid - The ID of the lecture.
-   * @returns A promise that resolves when the insertion is complete.
-   */
-  insertAttendance: (
-    status: number,
-    date: string,
-    usercourseid: string,
-    lectureid: string,
-  ) => Promise<any>;
-  deleteAttendanceByAttendanceId: (attendanceId: number) => Promise<any>;
+  // Write
+  insertAttendance(status: number, date: string, usercourseid: string, lectureid: string): Promise<ResultSetHeader>;
+  updateAttendanceStatus(attendanceid: number, status: number): Promise<boolean>;
+  deleteAttendance(usercourseid: number, lectureid: number): Promise<ResultSetHeader>;
+  deleteAttendanceByAttendanceId(attendanceId: number): Promise<ResultSetHeader>;
 }
 
-/**
- * The implementation of the AttendanceModel interface.
- */
-const attendanceModel: AttendanceModel = {
-  async updateAttendanceStatus(attendanceid: number, status: number) {
-    try {
-      console.log("row 127, attendancemodel.ts, calling updateAttendanceStatus");
-      if (attendanceid === 0) {
-        console.log("row 129, attendancemodel.ts, attendanceid === 0");
-        throw new Error('Invalid usercourseid');
-      }
+// Model
 
-      const result = await pool
-        .promise()
-        .query(
-          'UPDATE attendance SET status = ? WHERE attendanceid = ? ORDER BY date DESC LIMIT 1',
-          [status, attendanceid],
-        );
-      console.log(result);
-      console.log("row 140, attendancemodel.ts, updating attendance status  NEEDS TO BE FIXED!");
-      return true;
-    } catch (error) {
-      console.error('Error updating attendance status:', error);
+const attendanceModel: AttendanceModel = {
+  // Return all attendance rows (admin/staff use)
+  async fetchAllAttendances() {
+    console.log('row 52, attendancemodel.ts, calling fetchAllAttendances');
+    return queryRows('SELECT * FROM attendance', [], 'fetchAllAttendances()');
+  },
+
+  // Find a single attendance by its ID (or null if not found)
+  async findByAttendanceId(id) {
+    console.log('row 56, attendancemodel.ts, calling findByAttendanceId');
+    const [rows] = await queryRows(
+      'SELECT * FROM attendance WHERE attendanceid = ?',
+      [id],
+      'findByAttendanceId()',
+    );
+    return (rows[0] as Attendance) || null;
+  },
+
+  // Attendance records for a specific usercourse + user (joins metadata)
+  async findAllAttendancesByUserCourseId(usercourseId, userid) {
+    console.log('row 65, attendancemodel.ts, calling findAllAttendancesByUserCourseId');
+    const [rows] = await queryRows(
+      `SELECT
+         attendance.status,
+         attendance.attendanceid,
+         lecture.start_date,
+         lecture.timeofday,
+         topics.topicname,
+         courses.name,
+         courses.code,
+         teachers.email AS teacher
+       FROM attendance
+              JOIN lecture   ON attendance.lectureid = lecture.lectureid
+              JOIN topics    ON lecture.topicid     = topics.topicid
+              JOIN courses   ON lecture.courseid    = courses.courseid
+              JOIN usercourses ON attendance.usercourseid = usercourses.usercourseid
+              JOIN users AS teachers ON lecture.teacherid = teachers.userid
+       WHERE attendance.usercourseid = ? AND usercourses.userid = ?;`,
+      [usercourseId, userid],
+      'findAllAttendancesByUserCourseId()',
+    );
+    return rows;
+  },
+
+  // Update the status (e.g., present/absent) for a single attendance row
+  async updateAttendanceStatus(attendanceid, status) {
+    console.log('row 89, attendancemodel.ts, calling updateAttendanceStatus');
+    if (!attendanceid) return false;
+    try {
+      const result = await exec(
+        'UPDATE attendance SET status = ? WHERE attendanceid = ?',
+        [status, attendanceid],
+        'updateAttendanceStatus()',
+      );
+      console.log('updateAttendanceStatus() success');
+      return result.affectedRows > 0;
+    } catch (err) {
+      console.error('Error updating attendance status:', err);
       return false;
     }
   },
 
-  async fetchAllAttendances() {
-    try {
-      console.log("row 150, attendancemodel.ts, calling fetchAllAttendances");
-      return await pool
-        .promise()
-        .query<RowDataPacket[]>('SELECT * FROM attendance');
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
+  // Get attendance row by usercourse + lecture (used to check duplicates)
+  async getAttendanceByUserCourseIdDateLectureId(usercourseid, lectureid) {
+    console.log('row 107, attendancemodel.ts, calling getAttendanceByUserCourseIdDateLectureId');
+    const [rows] = await queryRows(
+      'SELECT * FROM attendance WHERE usercourseid = ? AND lectureid = ?',
+      [usercourseid, lectureid],
+      'getAttendanceByUserCourseIdDateLectureId()',
+    );
+    return rows;
   },
 
-  async findByAttendanceId(id) {
-    try {
-      console.log("row 162, attendancemodel.ts, calling findByAttendanceId");
-      const [rows] = await pool
-        .promise()
-        .query<RowDataPacket[]>(
-          'SELECT * FROM attendance WHERE attendanceid = ?',
-          [id],
-        );
-      console.log("row 169, attendancemodel.ts, returning rows from findByAttendanceId");
-      return (rows[0] as Attendance) || null;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  },
-
-  async findAllAttendancesByUserCourseId(usercourseId, userid) {
-    try {
-      console.log("row 179, attendancemodel.ts, calling findAllAttendancesByUserCourseId");
-      const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT
-				attendance.status,
-				attendance.attendanceid,
-				lecture.start_date,
-				lecture.timeofday,
-				topics.topicname,
-				courses.name,
-        courses.code,
-				teachers.email AS teacher
-			FROM
-				attendance
-			JOIN
-				lecture ON attendance.lectureid = lecture.lectureid
-			JOIN
-				topics ON lecture.topicid = topics.topicid
-			JOIN
-				courses ON lecture.courseid = courses.courseid
-			JOIN
-				usercourses ON attendance.usercourseid = usercourses.usercourseid
-			JOIN
-				users AS teachers ON lecture.teacherid = teachers.userid
-			WHERE
-				attendance.usercourseid = ? AND usercourses.userid = ?;`,
-        [usercourseId, userid],
-      );
-      console.log("row 206, attendancemodel.ts, getting all attendances by usercourseid and userid");
-      return rows;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  },
-
-  async getAttendanceByUserCourseIdDateLectureId(
-    usercourseid: number,
-    lectureid: string,
-  ) {
-    console.log("row 218, attendancemodel.ts, calling getAttendanceByUserCourseIdDateLectureId");
-    const [attendanceResult] = await pool
-      .promise()
-      .query(
-        'SELECT * FROM attendance WHERE usercourseid = ? AND lectureid = ?',
-        [usercourseid, lectureid],
-      );
-    return attendanceResult;
-  },
-
-  async insertAttendance(
-    status: number,
-    date: string,
-    usercourseid: string,
-    lectureid: string,
-  ) {
+  // Insert a new attendance row (returns ResultSetHeader with insertId)
+  async insertAttendance(status, date, usercourseid, lectureid) {
+    console.log('row 116, attendancemodel.ts, calling insertAttendance');
     if (!date || !usercourseid || !lectureid) {
       throw new Error('Invalid parameters');
     }
-
-    try {
-      console.log("row 239, attendancemodel.ts, calling insertAttendance");
-      return await pool
-        .promise()
-        .query(
-          'INSERT INTO attendance (status, date, usercourseid, lectureid) VALUES (?, ?, ?, ?)',
-          [status, date, usercourseid, lectureid],
-        );
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to insert attendance');
-    }
+    const result = await exec(
+      'INSERT INTO attendance (status, date, usercourseid, lectureid) VALUES (?, ?, ?, ?)',
+      [status, date, usercourseid, lectureid],
+      'insertAttendance()',
+    );
+    return [result] as any;
   },
 
-  async checkAttendance(usercourseid: number, lectureid: number) {
-    console.log("row 253, attendancemodel.ts, calling checkAttendance");
-    const [attendanceResultCheck] = await pool
-      .promise()
-      .query(
-        'SELECT * FROM attendance WHERE usercourseid = ? AND lectureid = ?',
-        [usercourseid, lectureid],
-      );
-    return attendanceResultCheck;
+  // Lightweight existence check for a given (usercourse, lecture) pair
+  async checkAttendance(usercourseid, lectureid) {
+    console.log('row 128, attendancemodel.ts, calling checkAttendance');
+    const [rows] = await queryRows(
+      'SELECT * FROM attendance WHERE usercourseid = ? AND lectureid = ?',
+      [usercourseid, lectureid],
+      'checkAttendance()',
+    );
+    return rows;
   },
 
-  async getAttendanceById(insertid: number) {
-    console.log("row 264, attendancemodel.ts, calling getAttendanceById");
-    const [attendanceResult] = await pool
-      .promise()
-      .query('SELECT * FROM attendance WHERE attendanceid = ?', [insertid]);
-    return attendanceResult;
+  // Fetch one attendance row by its ID (often used right after insertion)
+  async getAttendanceById(insertid) {
+    console.log('row 137, attendancemodel.ts, calling getAttendanceById');
+    const [rows] = await queryRows(
+      'SELECT * FROM attendance WHERE attendanceid = ?',
+      [insertid],
+      'getAttendanceById()',
+    );
+    return rows;
   },
 
-  async getUserInfoByUserCourseId(usercourseid: number) {
-    console.log("row 272, attendancemodel.ts, calling getUserInfoByUserCourseId");
-    const [userResult] = (await pool
-      .promise()
-      .query(
-        'SELECT * FROM users WHERE userid IN (SELECT userid FROM usercourses WHERE usercourseid = ?)',
-        [usercourseid],
-      )) as RowDataPacket[];
-    return userResult[0];
+  // Resolve user info for a given usercourse ID
+  async getUserInfoByUserCourseId(usercourseid) {
+    console.log('row 146, attendancemodel.ts, calling getUserInfoByUserCourseId');
+    const [rows] = await queryRows(
+      'SELECT * FROM users WHERE userid IN (SELECT userid FROM usercourses WHERE usercourseid = ?)',
+      [usercourseid],
+      'getUserInfoByUserCourseId()',
+    );
+    return rows[0] ?? null;
   },
 
-  async getAttendaceByCourseId(courseid: string) {
-    console.log("row 283, attendancemodel.ts, calling getAttendaceByCourseId");
-    const [attendanceResult] = await pool.promise().query(
+  // Attendance view for an entire course (rich join with lecture/topic/course/user data)
+  async getAttendaceByCourseId(courseid) {
+    console.log('row 155, attendancemodel.ts, calling getAttendaceByCourseId');
+    const [rows] = await queryRows(
       `SELECT
-			attendance.status,
-			attendance.attendanceid,
-			usercourses.usercourseid,
-			lecture.start_date,
-			lecture.timeofday,
-			topics.topicname,
-			courses.name,
-			teachers.email AS teacher,
-			attendingUsers.first_name,
-			attendingUsers.last_name,
-			attendingUsers.studentnumber,
-			attendingUsers.email,
-			attendingUsers.userid
-		FROM
-			attendance
-		JOIN
-			lecture ON attendance.lectureid = lecture.lectureid
-		JOIN
-			topics ON lecture.topicid = topics.topicid
-		JOIN
-			courses ON lecture.courseid = courses.courseid
-		JOIN
-			usercourses ON attendance.usercourseid = usercourses.usercourseid
-		JOIN
-			users AS teachers ON lecture.teacherid = teachers.userid
-		JOIN
-			users AS attendingUsers ON usercourses.userid = attendingUsers.userid
-		WHERE
-			lecture.courseid = ?;`,
+         attendance.status,
+         attendance.attendanceid,
+         usercourses.usercourseid,
+         lecture.start_date,
+         lecture.timeofday,
+         topics.topicname,
+         courses.name,
+         teachers.email AS teacher,
+         attendingUsers.first_name,
+         attendingUsers.last_name,
+         attendingUsers.studentnumber,
+         attendingUsers.email,
+         attendingUsers.userid
+       FROM attendance
+              JOIN lecture   ON attendance.lectureid = lecture.lectureid
+              JOIN topics    ON lecture.topicid     = topics.topicid
+              JOIN courses   ON lecture.courseid    = courses.courseid
+              JOIN usercourses ON attendance.usercourseid = usercourses.usercourseid
+              JOIN users AS teachers   ON lecture.teacherid = teachers.userid
+              JOIN users AS attendingUsers ON usercourses.userid = attendingUsers.userid
+       WHERE lecture.courseid = ?;`,
       [courseid],
+      'getAttendaceByCourseId()',
     );
-    return attendanceResult;
+    return rows;
   },
 
-  async getLectureCountByTopic(courseid: string) {
-    console.log("row 321, attendancemodel.ts, calling getLectureCountByTopic");
-    const [result] = await pool.promise().query(
+  // Count number of lectures per topic for a course (used for summaries/dashboards)
+  async getLectureCountByTopic(courseid) {
+    console.log('row 185, attendancemodel.ts, calling getLectureCountByTopic');
+    const [rows] = await queryRows(
       `SELECT topics.topicname, COUNT(lecture.lectureid) AS lecture_count
-			FROM coursetopics
-			JOIN topics ON coursetopics.topicid = topics.topicid
-			LEFT JOIN lecture ON lecture.topicid = topics.topicid AND lecture.courseid = coursetopics.courseid
-			WHERE coursetopics.courseid = ?
-			GROUP BY topics.topicname;`,
+       FROM coursetopics
+              JOIN topics ON coursetopics.topicid = topics.topicid
+              LEFT JOIN lecture
+                        ON lecture.topicid = topics.topicid
+                          AND lecture.courseid = coursetopics.courseid
+       WHERE coursetopics.courseid = ?
+       GROUP BY topics.topicname;`,
       [courseid],
+      'getLectureCountByTopic()',
+    );
+    return rows;
+  },
+
+  // Delete attendance by composite key (usercourse + lecture)
+  async deleteAttendance(usercourseid, lectureid) {
+    console.log('row 201, attendancemodel.ts, calling deleteAttendance');
+    const result = await exec(
+      'DELETE FROM attendance WHERE usercourseid = ? AND lectureid = ?',
+      [usercourseid, lectureid],
+      'deleteAttendance()',
     );
     return result;
   },
 
-  async deleteAttendance(usercourseid: number, lectureid: number) {
-    console.log("row 335, attendancemodel.ts, calling deleteAttendance");
-    const [result] = await pool
-      .promise()
-      .query(
-        'DELETE FROM attendance WHERE usercourseid = ? AND lectureid = ?',
-        [usercourseid, lectureid],
-      );
-
-    return result;
-  },
-  async deleteAttendanceByAttendanceId(attendanceId: number) {
-    console.log("row 346, attendancemodel.ts, calling deleteAttendanceByAttendanceId");
-    const [result] = await pool
-      .promise()
-      .query('DELETE FROM attendance WHERE attendanceid = ?', [attendanceId]);
-
+  // Delete attendance by primary key (attendanceid)
+  async deleteAttendanceByAttendanceId(attendanceId) {
+    console.log('row 210, attendancemodel.ts, calling deleteAttendanceByAttendanceId');
+    const result = await exec(
+      'DELETE FROM attendance WHERE attendanceid = ?',
+      [attendanceId],
+      'deleteAttendanceByAttendanceId()',
+    );
     return result;
   },
 };

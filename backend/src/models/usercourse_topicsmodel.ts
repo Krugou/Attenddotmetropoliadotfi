@@ -1,99 +1,57 @@
-import {RowDataPacket} from 'mysql2';
+//model
+import { RowDataPacket } from 'mysql2';
 import createPool from '../config/createPool.js';
 
 const pool = createPool('ADMIN');
-/**
- * Model for managing user course topics.
- */
+
+// SQL statements
+const SQL = {
+  // Does a relation exist for this usercourse + topic?
+  exists: 'SELECT * FROM usercourse_topics WHERE usercourseid = ? AND topicid = ?',
+
+  // Remove all topic relations for a usercourse
+  deleteByUsercourse: 'DELETE FROM usercourse_topics WHERE usercourseid = ?',
+
+  // Create a new usercourse ↔ topic relation
+  insert: 'INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (?, ?)',
+
+  // List topics (id + name) linked to a usercourse
+  findByUsercourse: `
+    SELECT t.topicname, t.topicid
+    FROM topics t
+           JOIN usercourse_topics uct ON uct.topicid = t.topicid
+    WHERE uct.usercourseid = ?`,
+} as const;
+
+// Helpers
+// Use provided transaction connection if present, otherwise the pool
+const useConn = (connection?: any) => (connection ? connection : pool.promise());
+
+// model
 const usercourse_topicsModel = {
-  /**
-   * Checks if a user course topic exists.
-   * @param usercourseid - The ID of the user course.
-   * @param topicId - The ID of the topic.
-   * @returns A promise that resolves to the existing user course topic, if any.
-   */
+  // Check if a specific usercourse-topic relation exists
   async checkIfUserCourseTopicExists(usercourseid: number, topicId: number) {
-    console.log("row 16, usercourse_topicsmodel.ts, checkIfUserCourseTopicExists() called");
-    const [existingUserCourseTopic] = await pool
-      .promise()
-      .query<RowDataPacket[]>(
-        'SELECT * FROM usercourse_topics WHERE usercourseid = ? AND topicid = ?',
-        [usercourseid, topicId],
-      );
-
-    return existingUserCourseTopic;
+    console.log('row 25, usercourse_topicsmodel.ts, checkIfUserCourseTopicExists() called');
+    const [rows] = await pool.promise().query<RowDataPacket[]>(SQL.exists, [usercourseid, topicId]);
+    return rows;
   },
-  /**
-   * Deletes a user course topic.
-   * @param usercourseid - The ID of the user course.
-   * @param connection - The database connection.
-   * @returns A promise that resolves when the deletion is complete.
-   */
-  async deleteUserCourseTopic(usercourseid: number, connection: any) {
-    console.log("row 33, usercourse_topicsmodel.ts, deleteUserCourseTopic() called");
-    let result;
 
-    if (connection) {
-      result = await connection.query(
-        'DELETE FROM usercourse_topics WHERE usercourseid = ?',
-        [usercourseid],
-      );
-    } else {
-      result = await pool
-        .promise()
-        .query('DELETE FROM usercourse_topics WHERE usercourseid = ?', [
-          usercourseid,
-        ]);
-    }
-
-    return result;
+  // Delete all topic relations for a usercourse (optionally within a tx)
+  async deleteUserCourseTopic(usercourseid: number, connection?: any) {
+    console.log('row 32, usercourse_topicsmodel.ts, deleteUserCourseTopic() called');
+    return useConn(connection).query(SQL.deleteByUsercourse, [usercourseid]);
   },
-  /**
-   * Inserts a user course topic.
-   * @param usercourseid - The ID of the user course.
-   * @param topicId - The ID of the topic.
-   * @param connection - The database connection.
-   * @returns A promise that resolves when the insertion is complete.
-   */
 
-  async insertUserCourseTopic(
-    usercourseid: number,
-    topicId: number,
-    connection: any,
-  ) {
-    console.log("row 64, usercourse_topicsmodel.ts, insertUserCourseTopic() called");
-    let result;
-
-    if (connection) {
-      result = await connection.query(
-        'INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (?, ?)',
-        [usercourseid, topicId],
-      );
-    } else {
-      result = await pool
-        .promise()
-        .query(
-          'INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (?, ?)',
-          [usercourseid, topicId],
-        );
-    }
-
-    return result;
+  // Insert a usercourse-topic relation (optionally within a tx)
+  async insertUserCourseTopic(usercourseid: number, topicId: number, connection?: any) {
+    console.log('row 45, usercourse_topicsmodel.ts, insertUserCourseTopic() called');
+    return useConn(connection).query(SQL.insert, [usercourseid, topicId]);
   },
-  /**
-   * Finds a user course topic by user course ID.
-   * @param usercourseid - The ID of the user course.
-   * @returns A promise that resolves to the user course topic, if found.
-   */
+
+  // Fetch topics linked to a given usercourse
   async findUserCourseTopicByUserCourseId(usercourseid: number) {
-    console.log("row 89, usercourse_topicsmodel.ts, findUserCourseTopicByUserCourseId() called");
-    const [rows] = await pool
-      .promise()
-      .query<RowDataPacket[]>(
-        'SELECT topics.topicname, topics.topicid from topics JOIN usercourse_topics ON usercourse_topics.topicid = topics.topicid WHERE usercourseid = ?',
-        [usercourseid],
-      );
-
+    console.log('row 52, usercourse_topicsmodel.ts, findUserCourseTopicByUserCourseId() called');
+    const [rows] = await pool.promise().query<RowDataPacket[]>(SQL.findByUsercourse, [usercourseid]);
     return rows;
   },
 };

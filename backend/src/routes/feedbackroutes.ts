@@ -3,15 +3,10 @@ import {body, validationResult} from 'express-validator';
 import userFeedBackModel from '../models/userfeedbackmodel.js';
 import logger from '../utils/logger.js';
 
-/**
- * Router for feedback routes.
- */
 const router: Router = express.Router();
 
-/**
- * Route that handles user feedback submission.
- * @route POST /feedback
- */
+
+ // Route that handles user feedback submission.
 router.post(
   '/',
   [

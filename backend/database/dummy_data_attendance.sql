@@ -1,3 +1,5 @@
+USE jaksec;
+
 INSERT INTO studentgroups (studentgroupid, group_name) VALUES (1, 'Group 1');
 INSERT INTO studentgroups (studentgroupid, group_name) VALUES (2, 'Group 2');
 INSERT INTO studentgroups (studentgroupid, group_name) VALUES (3, 'Group 3');

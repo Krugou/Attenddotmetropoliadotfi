@@ -1,12 +1,8 @@
 import fetch, {RequestInit, Response} from 'node-fetch';
 
-/**
- * Function to perform a fetch request and return the response data.
- * @param {string} url - The URL to fetch.
- * @param {RequestInit} [options={}] - The options for the fetch request.
- * @returns {Promise<any>} The response data.
- * @throws {Error} If the URL is not provided, the fetch fails, or the response status is not ok.
- */
+
+ //Function to perform a fetch request and return the response data.
+
 const doFetch = async (
   url: string,
   options: RequestInit = {},

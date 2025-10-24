@@ -1,20 +1,13 @@
-/**
- * @file ipActivityTracker.ts
- * @description Simple utility for tracking user actions by IP and lecture ID
- */
+//Simple utility for tracking user actions by IP and lecture ID
 
 import logger from './logger.js';
 
 
 const userActivities: Record<string, Record<string, string>> = {};
 
-/**
- * Records an IP address performing an action for a lecture
- *
- * @param ip - The IP address of the user
- * @param lectureId - The lecture ID associated with the activity
- * @returns Whether this is the first activity for this IP and lecture today
- */
+
+ // Records an IP address performing an action for a lecture
+
 export function recordActivity(ip: string, lectureId: string): boolean {
   const today = new Date().toISOString().split('T')[0];
   console.log("Row 20, ipActivityTracker.ts, recordActivity() called");
@@ -31,13 +24,9 @@ export function recordActivity(ip: string, lectureId: string): boolean {
   return isFirstToday;
 }
 
-/**
- * Checks if an IP has performed an action for a lecture today
- *
- * @param ip - The IP address to check
- * @param lectureId - The lecture ID to check
- * @returns True if the IP performed an action for this lecture today, false otherwise
- */
+
+ // Checks if an IP has performed an action for a lecture today
+
 export function hasActivityToday(ip: string, lectureId: string): boolean {
   const today = new Date().toISOString().split('T')[0];
   const hasActivity = userActivities[lectureId]?.[ip] === today;
@@ -52,11 +41,9 @@ export function hasActivityToday(ip: string, lectureId: string): boolean {
   return hasActivity;
 }
 
-/**
- * Clear all activity records for a specific lecture
- *
- * @param lectureId - The lecture ID to clear activities for
- */
+
+ // Clear all activity records for a specific lecture
+
 export function clearLectureActivity(lectureId: string): void {
   if (userActivities[lectureId]) {
     const ipAddresses = Object.keys(userActivities[lectureId]);
@@ -72,12 +59,9 @@ export function clearLectureActivity(lectureId: string): void {
   }
 }
 
-/**
- * List all IPs that have activity for a specific lecture
- *
- * @param lectureId - The lecture ID to get IPs for
- * @returns Array of IP addresses with activity for the lecture
- */
+
+// List all IPs that have activity for a specific lecture
+
 export function getActiveIPs(lectureId: string): string[] {
   console.log("Row 82, ipActivityTracker.ts, getActiveIPs() called");
   if (!userActivities[lectureId]) {

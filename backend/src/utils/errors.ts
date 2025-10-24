@@ -1,30 +1,23 @@
 import logger from './logger.js';
 
-/**
- * Class representing an HTTP error.
- */
+
+ // Class representing an HTTP error.
+
 class HttpError extends Error {
   status: number;
 
-  /**
-   * Create an HTTP error.
-   *
-   * @param {string} message - The error message.
-   * @param {number} status - The HTTP status code.
-   */
+
+   // Create an HTTP error.
+
   constructor(message: string, status: number) {
     super(message); // Call the parent constructor with the message parameter
     this.status = status; // Add the status property
   }
 }
 
-/**
- * Create and log an HTTP error.
- *
- * @param {string} message - The error message.
- * @param {number} status - The HTTP status code.
- * @returns {HttpError} The created HTTP error.
- */
+
+ // Create and log an HTTP error.
+
 const httpError = (message: string, status: number) => {
   logger.error(message);
   console.log("Row 30, errors.ts, httpError() called");

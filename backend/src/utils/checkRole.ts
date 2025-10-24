@@ -1,12 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
 import logger from './logger.js';
 
-/**
- * Middleware to check if the user's role is authorized.
- *
- * @param {string[]} roles - The list of authorized roles.
- * @returns {Function} Middleware function that checks the user's role.
- */
+
+ // Middleware to check if the user's role is authorized.
+
 const checkUserRole = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     console.log("Row 12, checkRole.ts - checkUserRole() called");
