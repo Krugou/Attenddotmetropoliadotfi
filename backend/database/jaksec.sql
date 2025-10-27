@@ -302,7 +302,7 @@ INSERT INTO `serversettings` (`speedofhash`, `leewayspeed`, `timeouttime`, `atte
      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
      PRIMARY KEY (`work_log_practicum_id`),
      CONSTRAINT `work_log_practicum_ibfk_1`
-     FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE SET NULL;
+     FOREIGN KEY (`userid`) REFERENCES `users`(`userid`) ON DELETE SET NULL
    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- Creating a table to manage instructors for work log practicums
 CREATE TABLE IF NOT EXISTS `work_log_practicum_instructors` (
