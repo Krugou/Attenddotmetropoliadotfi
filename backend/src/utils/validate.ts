@@ -3,18 +3,15 @@ import {NextFunction, Request, Response} from 'express';
 import {validationResult} from 'express-validator';
 
 import {RequestHandler} from 'express-serve-static-core';
-/**
- * Middleware to validate the request using express-validator.
- *
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @param {NextFunction} next - The next middleware function.
- */
+
+ // Middleware to validate the request using express-validator.
+
 const validate: RequestHandler = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
+  console.log("Row 18, validate.ts - validate() called");
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
