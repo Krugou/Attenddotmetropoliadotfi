@@ -2,9 +2,8 @@ import {createStream} from 'rotating-file-stream';
 import pino from 'pino';
 import {Request} from 'express';
 
-/**
- * Configuration interface for the logger
- */
+
+ // Configuration interface for the logger
 interface LoggerConfig {
   ignoreEmails: string[];
   sensitiveFields: string[];
@@ -40,13 +39,11 @@ errorStream.on('error', (err) => {
   console.error('Error with error log stream:', err);
 });
 
-/**
- * Sanitizes an object by removing sensitive fields and limiting depth
- * @param obj The object to sanitize
- * @param depth Current recursion depth
- * @returns Sanitized object
- */
+
+ // Sanitizes an object by removing sensitive fields and limiting depth
+
 function sanitizeObject(obj: any, depth = 0): any {
+  console.log("Row 50, logger.ts - sanitizeObject() called");
   if (depth > loggerConfig.maxObjectDepth) {
     return '[Max Depth Reached]';
   }
@@ -78,10 +75,11 @@ function sanitizeObject(obj: any, depth = 0): any {
   return sanitized;
 }
 
-/**
- * Custom filter function to prevent logging for specified admin emails
- */
+
+ // Custom filter function to prevent logging for specified admin emails
+
 const logFilter = (level: number, logProps: any): boolean => {
+  console.log("Row 86, logger.ts - logFilter() called");
   // Skip logging if the object contains an ignored email
   if (
     logProps.useremail &&
@@ -171,12 +169,8 @@ const logger = pino(
 const enhancedLogger = {
   ...logger,
 
-  /**
-   * Log info level message with context and optional error
-   * @param context Context object or message
-   * @param message Message string
-   * @param error Optional error object
-   */
+   // Log info level message with context and optional error
+
   info: (
     context: object | string,
     message?: string | Error,
@@ -209,11 +203,9 @@ const enhancedLogger = {
     }
   },
 
-  /**
-   * Log error level message with context and optional error
-   * @param error Error object or message
-   * @param context Optional context object or message
-   */
+
+   // Log error level message with context and optional error
+
   error: (error: Error | string | object, context?: object | string): void => {
     // Handle different input types
     if (error instanceof Error) {
