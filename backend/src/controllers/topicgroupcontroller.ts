@@ -1,4 +1,4 @@
-import {RowDataPacket} from 'mysql2';
+import { RowDataPacket } from 'mysql2';
 import createPool from '../config/createPool.js';
 import TopicGroupModel from '../models/topicgroupmodel.js';
 import TopicInGroupModel from '../models/topicingroupmodel.js';
@@ -7,218 +7,153 @@ import usercourse_topicsModel from '../models/usercourse_topicsmodel.js';
 import UserModel from '../models/usermodel.js';
 
 const pool = createPool('ADMIN');
+
+// Helper: resolve user id by email or throw
+async function getUserIdByEmail(email: string) {
+  const user = await UserModel.getAllUserInfo(email);
+  if (!user?.userid) {
+    console.log('topicgroupcontroller.ts user not found or userid missing');
+    throw new Error('User not found');
+  }
+  return user.userid as number;
+}
+
 const TopicGroupController = {
-  /**
-   * Fetches all topic groups and topics for a user.
-   *
-   * @param {string} email - The email of the user.
-   * @returns {Promise<any>} The topic groups and topics of the user.
-   */
+  // Fetch all topic groups and topics for a user
   async getAllUserTopicGroupsAndTopics(email: string) {
     try {
+      console.log('topicgroupcontroller.ts getAllUserTopicGroupsAndTopics start');
       const user = await UserModel.getAllUserInfo(email);
-      if (!user) {
+      if (!user?.userid) {
+        console.log('topicgroupcontroller.ts user not found');
         throw new Error('User not found');
       }
-      const userid = user.userid;
-      if (userid === undefined) {
-        throw new Error('User id is undefined');
-      }
-      const topicGroups =
-        await TopicGroupModel.fetchAllTopicGroupsWithTopicsByUserId(userid);
+      const topicGroups = await TopicGroupModel.fetchAllTopicGroupsWithTopicsByUserId(user.userid);
+      console.log('topicgroupcontroller.ts fetched topic groups');
       return topicGroups;
     } catch (error) {
+      console.log('topicgroupcontroller.ts error in getAllUserTopicGroupsAndTopics');
       console.error(error);
       return Promise.reject(error);
     }
   },
-  /**
-   * Updates a topic group.
-   *
-   * @param {string} topicGroup - The name of the topic group.
-   * @param {string[]} topics - The topics in the topic group.
-   * @param {string} email - The email of the user.
-   * @returns {Promise<any>} The result of the update operation.
-   */
+
+  // Create/update a topic group and ensure topics & relations
   async updateTopicGroup(topicGroup: string, topics: string[], email: string) {
     try {
-      let instructorUserId;
-      if (email) {
-        const user = await UserModel.getAllUserInfo(email);
-        if (!user) {
-          throw new Error('User not found');
-        }
-        instructorUserId = user.userid;
-      }
-      if (topicGroup) {
-        let topicGroupId;
-        if (instructorUserId !== undefined) {
-          const newTopicGroup = await TopicGroupModel.insertTopicGroup(
-            topicGroup,
-            instructorUserId,
-          );
-          topicGroupId = newTopicGroup.insertId;
-        } else {
-          throw new Error('Instructor user ID is undefined');
-        }
+      console.log('topicgroupcontroller.ts updateTopicGroup start');
+      if (!email) throw new Error('Email is required');
+      if (!topicGroup) throw new Error('Topic group is required');
 
-        if (topics) {
-          for (const topic of topics) {
-            let topicId;
-            const existingTopic = await TopicModel.checkIfTopicExists(topic);
+      const instructorUserId = await getUserIdByEmail(email);
 
-            if (existingTopic && existingTopic.length > 0) {
-              console.error('Topic already exists');
-              topicId = existingTopic[0].topicid;
-            } else {
-              const newTopic = await TopicModel.insertTopic(topic);
-              if (!newTopic) {
-                throw new Error('Failed to insert new topic');
-              }
-              topicId = newTopic.insertId;
+      // Create topic group
+      const newTopicGroup = await TopicGroupModel.insertTopicGroup(topicGroup, instructorUserId);
+      const topicGroupId = newTopicGroup.insertId;
+      console.log(`topicgroupcontroller.ts created topic group '${topicGroup}' (id=${topicGroupId})`);
+
+      // Upsert topics and relations
+      if (topics?.length) {
+        for (const topic of topics) {
+          const existing = await TopicModel.checkIfTopicExists(topic);
+          let topicId: number;
+          if (existing && existing.length > 0) {
+            console.warn(`topicgroupcontroller.ts topic '${topic}' already exists`);
+            topicId = existing[0].topicid;
+          } else {
+            const created = await TopicModel.insertTopic(topic);
+            if (!created) {
+              console.log('topicgroupcontroller.ts failed to insert new topic');
+              throw new Error('Failed to insert new topic');
             }
+            topicId = created.insertId;
+            console.log(`topicgroupcontroller.ts created topic '${topic}' (id=${topicId})`);
+          }
 
-            const topicGroupTopicRelationExists =
-              await TopicInGroupModel.checkIfTopicInGroupExists(
-                topicGroupId,
-                topicId,
-              );
-
-            if (
-              topicGroupTopicRelationExists &&
-              topicGroupTopicRelationExists.length > 0
-            ) {
-              console.error('Topic group relation exists');
-            } else {
-              await TopicInGroupModel.insertTopicInGroup(topicGroupId, topicId);
-            }
+          const rel = await TopicInGroupModel.checkIfTopicInGroupExists(topicGroupId, topicId);
+          if (!rel || rel.length === 0) {
+            await TopicInGroupModel.insertTopicInGroup(topicGroupId, topicId);
+            console.log(`topicgroupcontroller.ts linked topic '${topic}' to group '${topicGroup}'`);
+          } else {
+            console.warn('topicgroupcontroller.ts topic group relation exists');
           }
         }
       }
+
+      console.log('topicgroupcontroller.ts updateTopicGroup done');
       return {
         state: 'success',
-        message:
-          'Topic group entered for userid: ' +
-          instructorUserId +
-          ' with topicgroupname: ' +
-          topicGroup,
-        email: email,
+        message: `Topic group entered for userid: ${instructorUserId} with topicgroupname: ${topicGroup}`,
+        email,
       };
     } catch (error) {
+      console.log('topicgroupcontroller.ts error in updateTopicGroup');
       console.error(error);
       return Promise.reject(error);
     }
   },
-  /**
-   * Updates the topics for a user course.
-   *
-   * @param {number} usercourseid - The ID of the user course.
-   * @param {string[]} topics - The topics for the user course.
-   * @returns {Promise<any>} The result of the update operation.
-   */
-  async updateUserCourseTopics(usercourseid: number, topics: string[]) {
-    // Get a connection from the pool
-    const connection = await pool.promise().getConnection();
 
+  // Replace topics for a usercourse inside a transaction
+  async updateUserCourseTopics(usercourseid: number, topics: string[]) {
+    console.log('topicgroupcontroller.ts updateUserCourseTopics start');
+    const connection = await pool.promise().getConnection();
     try {
       await connection.beginTransaction();
+      console.log('topicgroupcontroller.ts transaction begun');
 
-      // Delete all existing topics for the usercourseid
-      await usercourse_topicsModel.deleteUserCourseTopic(
-        usercourseid,
-        connection,
-      );
-      // Insert the new topics for the usercourseid
+      await usercourse_topicsModel.deleteUserCourseTopic(usercourseid, connection);
+
       for (const topic of topics) {
-        let topicId;
         const [existingTopic] = await connection.query<RowDataPacket[]>(
           'SELECT * FROM topics WHERE topicname = ?',
           [topic],
         );
-        // If the topic exists, get the topicid
-        if (existingTopic && existingTopic.length > 0) {
-          topicId = existingTopic[0].topicid;
-        } else {
+        if (!existingTopic || existingTopic.length === 0) {
+          console.log('topicgroupcontroller.ts topic does not exist');
           throw new Error('Topic does not exist');
         }
-        // Insert the topic for the usercourseid
-        await usercourse_topicsModel.insertUserCourseTopic(
-          usercourseid,
-          topicId,
-          connection,
-        );
+        await usercourse_topicsModel.insertUserCourseTopic(usercourseid, existingTopic[0].topicid, connection);
       }
-      // Commit the transaction
+
       await connection.commit();
-      // Return a success message
-      return {
-        state: 'success',
-        message: 'Topics updated for usercourseid: ' + usercourseid,
-      };
+      console.log('topicgroupcontroller.ts transaction committed');
+      return { state: 'success', message: `Topics updated for usercourseid: ${usercourseid}` };
     } catch (error) {
-      // Rollback the transaction if there is an error
+      console.log('topicgroupcontroller.ts error in updateUserCourseTopics, rolling back');
       await connection.rollback();
       console.error(error);
       return Promise.reject(error);
     } finally {
       connection.release();
+      console.log('topicgroupcontroller.ts connection released');
     }
   },
-  /**
-   * Checks if a topic group exists for a user.
-   *
-   * @param {string} topicGroup - The name of the topic group.
-   * @param {string} email - The email of the user.
-   * @returns {Promise<boolean>} Whether the topic group exists for the user.
-   */
+
+  // Check if a topic group exists by email
   async checkIfTopicGroupExistsWithEmail(topicGroup: string, email: string) {
     try {
-      let instructorUserId;
-      if (email) {
-        const user = await UserModel.getAllUserInfo(email);
-        if (!user) {
-          throw new Error('User not found');
-        }
-        instructorUserId = user.userid;
-      }
-      if (topicGroup && instructorUserId) {
-        const existingTopicGroup =
-          await TopicGroupModel.checkIfTopicGroupExists(
-            topicGroup,
-            instructorUserId,
-          );
-        if (existingTopicGroup && existingTopicGroup.length > 0) {
-          return true;
-        }
-      }
-      return false;
+      console.log('topicgroupcontroller.ts checkIfTopicGroupExistsWithEmail start');
+      if (!topicGroup) return false;
+      const instructorUserId = await getUserIdByEmail(email);
+      const existing = await TopicGroupModel.checkIfTopicGroupExists(topicGroup, instructorUserId);
+      const exists = !!(existing && existing.length > 0);
+      console.log(`topicgroupcontroller.ts topicGroup exists = ${exists}`);
+      return exists;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   },
-  /**
-   * Deletes a topic group by its name.
-   *
-   * @param {string} topicGroup - The name of the topic group.
-   * @param {number | undefined} userid - The ID of the user.
-   * @returns {Promise<any>} The result of the delete operation.
-   */
+
+  // Delete a topic group by name
   async deleteTopicGroupByName(topicGroup: string, userid: number | undefined) {
     try {
-      const topicGroupData = await TopicGroupModel.deleteTopicGroupByName(
-        topicGroup,
-        userid,
-      );
-      // console.log(
-      // 	'🚀 ~ file: topicgroupcontroller.ts:172 ~ deleteTopicGroupByName ~ topicGroupData:',
-      // 	topicGroupData,
-      // );
+      const topicGroupData = await TopicGroupModel.deleteTopicGroupByName(topicGroup, userid);
       if (topicGroupData.affectedRows === 0) {
+        console.log('topicgroupcontroller.ts topic group not found');
         throw new Error('Topic group not found');
       }
-
-      // console.log('scucessfully deleted topic group');
+      console.log('topicgroupcontroller.ts topic group deleted');
       return topicGroupData;
     } catch (error) {
       console.error(error);

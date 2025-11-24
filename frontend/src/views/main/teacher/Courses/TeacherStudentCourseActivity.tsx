@@ -83,6 +83,7 @@ const TeacherStudentCourseActivity: React.FC = () => {
         let response;
         if (user.role === 'teacher') {
           response = await apihook.getStudentAttendance(user.userid, token);
+
         } else if (user.role === 'counselor' || user.role === 'admin') {
           response = await apihook.getAllStudentsAttendance(token);
         } else {
@@ -95,8 +96,8 @@ const TeacherStudentCourseActivity: React.FC = () => {
 
         const combinedStudents = response.data.flatMap((course) =>
           course.students.map((student) => ({
-            ...student,
-            courseName: course.courseName,
+            ...student, //Takes all the properties of the student object
+            courseName: course.courseName, //Adds the course name property
           })),
         );
 
