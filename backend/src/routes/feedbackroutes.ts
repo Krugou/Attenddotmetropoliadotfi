@@ -3,15 +3,10 @@ import {body, validationResult} from 'express-validator';
 import userFeedBackModel from '../models/userfeedbackmodel.js';
 import logger from '../utils/logger.js';
 
-/**
- * Router for feedback routes.
- */
 const router: Router = express.Router();
 
-/**
- * Route that handles user feedback submission.
- * @route POST /feedback
- */
+
+ // Route that handles user feedback submission.
 router.post(
   '/',
   [
@@ -21,6 +16,7 @@ router.post(
   ],
   async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("row 24, feedbackRoutes.ts, Post user feedback")
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         res.status(400).json({errors: errors.array()});
