@@ -200,7 +200,7 @@ async function upsertAndEnrollStudent(student: Student, studentGroupId: number, 
       console.log(`[coursecontroller.ts] Enrolled student ${student.studentnumber} to course ${courseId}`);
     }
 
-    // Mark past lectures as "not present" for late-enrolled student
+    // Mark past TeacherLectures as "not present" for late-enrolled student
     await courseController.addLateEnrollingStudentToPreviousLectures(student.studentnumber, courseId);
   } catch (error) {
     console.error('[coursecontroller.ts]', error);

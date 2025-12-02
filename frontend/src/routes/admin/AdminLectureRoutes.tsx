@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import AdminLectures from '../../views/main/admin/AdminLectures';
+import AdminLectures from '../../views/main/admin/lectures/AdminLectures.tsx';
 import AdminMainView from '../../views/main/admin/AdminMainView';
-import AdminLectureDetail from '../../views/main/admin/Lectures/AdminLectureDetail';
+import AdminLectureDetail from '../../views/main/admin/lectures/AdminLectureDetail';
 
 const AdminLecturesRoutes: React.FC = () => {
   return (

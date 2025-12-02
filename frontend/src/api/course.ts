@@ -85,7 +85,7 @@ export const getCourseReservations = async (
   token: string,
 ) => doFetch(endpoint('checkreservations/'), createOptions('POST', token, { code: inputs.code }));
 
-/** Get open lectures by teacher ID */
+/** Get open TeacherLectures by teacher ID */
 export const getOpenLecturesByTeacher = async (
   teacherId: number,
   token: string,
@@ -159,7 +159,7 @@ export const updateAttendanceStatus = async (
   token: string | null,
 ) => doFetch(endpoint('attendance/update'), createOptions('PUT', token!, { attendanceid, status }));
 
-/** Fetch teacher's own lectures */
+/** Fetch teacher's own TeacherLectures */
 export const fetchTeacherOwnLectures = async (teacherId: string, token: string) =>
   doFetch(endpoint(`attendance/lecture/teacher/${teacherId}`), createOptions('GET', token));
 
@@ -167,7 +167,7 @@ export const fetchTeacherOwnLectures = async (teacherId: string, token: string) 
 export const getLectureInfo = async (lectureid: string, token: string) =>
   doFetch(endpoint(`attendance/lectureinfo/${lectureid}`), createOptions('GET', token));
 
-/** Get lectures and attendances */
+/** Get TeacherLectures and attendances */
 export const getLecturesAndAttendances = async (
   courseId: string | undefined,
   token: string,
@@ -223,7 +223,7 @@ export const closeLectureByLectureId = async (
   token: string,
 ) => doFetch(endpoint(`attendance/lecture/close/${lectureid}`), createOptions('PUT', token));
 
-/** Get open lectures by course ID */
+/** Get open TeacherLectures by course ID */
 export const getOpenLecturesByCourseid = async (
   courseid: string | (() => string) | undefined,
   token: string,

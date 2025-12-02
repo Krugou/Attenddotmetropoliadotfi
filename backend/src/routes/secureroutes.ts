@@ -183,7 +183,7 @@ router.post(
       try {
         await attendanceController.markStudentAsNotPresentInPastLectures(studentnumber, courseId);
       } catch (error) {
-        logger.error('Error adding student to previous lectures:', error);
+        logger.error('Error adding student to previous TeacherLectures:', error);
       }
 
       res.status(200).send({ message: 'Student user inserted successfully', userResult });

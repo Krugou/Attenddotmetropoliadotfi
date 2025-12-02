@@ -34,14 +34,15 @@ export interface ActivityResponse {
 
 const baseUrl = API_CONFIG.baseUrl;
 
-// --- API Functions ---
+// --- API Endpoints ---
 
 /**
- * Fetch attendance data for a single student by user ID.
+ * Fetch attendance data for a specific student.
  * @param userid - ID of the student
  * @param token - Authorization token
- * @returns Attendance data or error
+ * @returns Object containing success state and attendance data or error
  */
+
 export const getStudentAttendance = async (
   userid: number,
   token: string
@@ -54,7 +55,7 @@ export const getStudentAttendance = async (
     return await doFetch(
       `${baseUrl}activity/${userid}`,
       createOptions('GET', token)
-    );
+  );
   } catch (error) {
     console.error('Error fetching student attendance:', error);
     return {
@@ -67,8 +68,29 @@ export const getStudentAttendance = async (
 /**
  * Fetch attendance data for all students.
  * @param token - Authorization token
- * @returns Attendance data or error
+ * @returns Object containing success state and all attendance data or error
  */
+/*export const getAllStudentsAttendance = async (
+  token: string
+): Promise<ActivityResponse> => {
+  try {
+    const response = await doFetch(
+      `${baseUrl}activity/all`,
+      createOptions('GET', token)
+    );
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error) {
+    console.error('Error fetching all students attendance:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch attendance data',
+    };
+  }
+};*/
+
 export const getAllStudentsAttendance = async (
   token: string
 ): Promise<ActivityResponse> => {
@@ -76,7 +98,7 @@ export const getAllStudentsAttendance = async (
     return await doFetch(
       `${baseUrl}activity/all`,
       createOptions('GET', token)
-    );
+  );
   } catch (error) {
     console.error('Error fetching all students attendance:', error);
     return {
@@ -85,6 +107,8 @@ export const getAllStudentsAttendance = async (
     };
   }
 };
+
+// --- Export API object ---
 
 export const activityApi = {
   getStudentAttendance,

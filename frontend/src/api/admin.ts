@@ -205,7 +205,7 @@ export const fetchUsers = async (token: string) =>
   doFetch(`${baseUrl}admin/getusers`, createOptions('GET', token));
 
 /**
- * Fetch all lectures.
+ * Fetch all TeacherLectures.
  */
 export const fetchAllLectures = async (token: string) =>
   doFetch(`${baseUrl}admin/alllectures/`, createOptions('GET', token));
@@ -239,7 +239,7 @@ export const updateUser = async (token: string, user: any) =>
   );
 
 /**
- * Get total lectures and attendances.
+ * Get total TeacherLectures and attendances.
  */
 export const getLectureAndAttendanceCount = async (token: string) =>
   doFetch(`${baseUrl}admin/lectureandattendancecount/`, createOptions('GET', token));
@@ -291,7 +291,7 @@ const baseUrl = API_CONFIG.baseUrl;
 export const addNewStudentUser = async (
   token: string,
   email: string,
-  studentnumber: string,
+  student_number: string,
   firstname: string,
   lastname: string,
   studentGroupId: number | undefined | null,
@@ -306,7 +306,7 @@ export const addNewStudentUser = async (
       email,
       first_name: firstname,
       last_name: lastname,
-      studentnumber,
+      student_number,
       studentGroupId,
     }),
   };
@@ -406,7 +406,7 @@ export const fetchErrorLogs = async (token: string, lineLimit: number) => {
   return await doFetch(`${baseUrl}admin/errorlogs/${lineLimit}`, options);
 };
 export const checkStudentNumberExists = async (
-  studentnumber: string,
+  student_number: string,
   token: string,
 ) => {
   const options = {
@@ -415,7 +415,7 @@ export const checkStudentNumberExists = async (
       Authorization: 'Bearer ' + token,
     },
   };
-  const url = `${baseUrl}admin/checkstudentnumber/${studentnumber}`;
+  const url = `${baseUrl}admin/checkstudentnumber/${student_number}`;
   return doFetch(url, options);
 };
 export const checkStudentEmailExists = async (email: string, token: string) => {

@@ -15,7 +15,7 @@ export interface Lecture {
 
 // Public API
 export interface LectureModel {
-  // Fetch all lectures
+  // Fetch all TeacherLectures
   fetchAllLectures(): Promise<RowDataPacket[]>;
 
   // Fetch a lecture and all users linked to its course
@@ -27,10 +27,10 @@ export interface LectureModel {
   // Delete a lecture by id
   deleteByLectureId(id: string): Promise<void>;
 
-  // Count all lectures
+  // Count all TeacherLectures
   countAllLecturees(): Promise<number>;
 
-  // Fetch lectures by topic id
+  // Fetch TeacherLectures by topic id
   findByTopicId(topicid: number): Promise<Lecture[]>;
 
   // Fetch course id by lecture id
@@ -53,25 +53,25 @@ export interface LectureModel {
   // Update lecture state
   updateLectureState(lectureid: string, state: string): Promise<unknown>;
 
-  // Fetch lectures by course id
+  // Fetch TeacherLectures by course id
   getLecturesByCourseId(courseid: number): Promise<RowDataPacket[] | null>;
 
   // Fetch course id by lecture id (nullable)
   getCourseIDByLectureID(lectureid: string): Promise<number | null>;
 
-  // Fetch open lectures by course id
+  // Fetch open TeacherLectures by course id
   findOpenLecturesBycourseid(courseid: number): Promise<RowDataPacket[] | null>;
 
-  // Fetch open lectures by teacher id
+  // Fetch open TeacherLectures by teacher id
   findOpenLecturesByTeacherid(teacherid: number): Promise<RowDataPacket[] | null>;
 
   // Fetch lecture by lecture id
   getLectureByLectureId(lectureid: number): Promise<RowDataPacket[] | null>;
 
-  // Fetch lectures by teacher id with aggregates
+  // Fetch TeacherLectures by teacher id with aggregates
   fetchLecturesByTeacherId(teacherId: number): Promise<RowDataPacket[]>;
 
-  // Fetch past lectures by course id
+  // Fetch past TeacherLectures by course id
   getPastLecturesByCourseId(courseid: number): Promise<RowDataPacket[]>;
 }
 
@@ -124,7 +124,7 @@ const SELECT_WITH_COUNTS = `
          INNER JOIN topics  ON lecture.topicid  = topics.topicid
 `;
 
-// Open lectures (lightweight select)
+// Open TeacherLectures (lightweight select)
 const OPEN_LECTURES_SELECT = `
   SELECT lecture.*, users.email AS teacher, courses.code, topics.topicname
   FROM lecture
@@ -134,7 +134,7 @@ const OPEN_LECTURES_SELECT = `
 `;
 
 const lectureModel: LectureModel = {
-  // List all lectures with counts and metadata
+  // List all TeacherLectures with counts and metadata
   async fetchAllLectures() {
     try {
       console.log('row 159, lectureModel.ts, fetchAllLectures');
@@ -207,7 +207,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // Count total lectures
+  // Count total TeacherLectures
   async countAllLecturees() {
     try {
       console.log('row 272, lectureModel.ts, countAllLecturees');
@@ -219,7 +219,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // List lectures by topic
+  // List TeacherLectures by topic
   async findByTopicId(topicid: number) {
     try {
       console.log('row 289, lectureModel.ts, findByTopicId');
@@ -332,7 +332,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // List all lectures for a course
+  // List all TeacherLectures for a course
   async getLecturesByCourseId(courseid: number) {
     try {
       console.log('row 455, lectureModel.ts, getLecturesByCourseId');
@@ -361,7 +361,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // List open lectures for a course
+  // List open TeacherLectures for a course
   async findOpenLecturesBycourseid(courseid: number) {
     try {
       console.log('row 501, lectureModel.ts, findOpenLecturesBycourseid');
@@ -376,7 +376,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // List open lectures by teacher
+  // List open TeacherLectures by teacher
   async findOpenLecturesByTeacherid(teacherid: number) {
     try {
       console.log('row 523, lectureModel.ts, findOpenLecturesByTeacherid');
@@ -403,7 +403,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // List lectures taught by a specific teacher (with counts)
+  // List TeacherLectures taught by a specific teacher (with counts)
   async fetchLecturesByTeacherId(teacherId: number) {
     try {
       console.log('row 560, lectureModel.ts, fetchLecturesByTeacherId');
@@ -418,7 +418,7 @@ const lectureModel: LectureModel = {
     }
   },
 
-  // Past lectures for a course (ended already)
+  // Past TeacherLectures for a course (ended already)
   async getPastLecturesByCourseId(courseid: number) {
     try {
       console.log('row 589, lectureModel.ts, getPastLecturesByCourseId');

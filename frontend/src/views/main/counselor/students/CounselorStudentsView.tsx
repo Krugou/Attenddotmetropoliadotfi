@@ -1,5 +1,5 @@
 import React from 'react';
-import TeacherStudentsView from '../../teacher/Students/TeacherStudentsView';
+import TeacherStudentsView from '../../teacher/students/TeacherStudentsView';
 const CounselorStudentsView: React.FC = () => {
   return <TeacherStudentsView />;
 };

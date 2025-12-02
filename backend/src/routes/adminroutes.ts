@@ -224,11 +224,11 @@ interface Lecture extends RowDataPacket {
   actualStudentCount?: number;
 }
 
-// GET: Fetch all lectures with actual student counts
+// GET: Fetch all TeacherLectures with actual student counts
 router.get(
   '/alllectures/',
   checkUserRole(ADMIN as unknown as string[]),
-  handle('row 336, adminroutes.ts, fetching all lectures', async (req, res) => {
+  handle('row 336, adminroutes.ts, fetching all TeacherLectures', async (req, res) => {
     if (req.user) {
       logger.info({ useremail: req.user.email }, ' admin / alllectures / ');
     }

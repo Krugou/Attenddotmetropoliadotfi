@@ -1,6 +1,6 @@
 // weekly-attendance-report.ts
 // Weekly report: lists students with attendance% below THRESHOLD per course,
-// only if total lectures >= MIN_TOTAL_LECTURES, then emails counselor.
+// only if total TeacherLectures >= MIN_TOTAL_LECTURES, then emails counselor.
 // Uses mysql2/promise + nodemailer. Safe to run with read-only DB user.
 
 import 'dotenv/config';
@@ -45,7 +45,7 @@ async function main() {
     connectionLimit: 5
   });
 
-  // SQL mirrors your existing logic and adds HAVING for threshold + min lectures
+  // SQL mirrors your existing logic and adds HAVING for threshold + min TeacherLectures
   // English comments as requested
   const sql = `
     SELECT

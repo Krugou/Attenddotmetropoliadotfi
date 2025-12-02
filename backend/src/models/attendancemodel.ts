@@ -208,7 +208,7 @@ const attendanceModel: AttendanceModel = {
     return rows;
   },
 
-  // Count number of lectures per topic for a course (used for summaries/dashboards)
+  // Count number of TeacherLectures per topic for a course (used for summaries/dashboards)
   async getLectureCountByTopic(courseid) {
     console.log('row 185, attendancemodel.ts, calling getLectureCountByTopic');
     const [rows] = await queryRows(

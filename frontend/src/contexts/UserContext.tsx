@@ -6,26 +6,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { User } from '../types/user';
 import i18n from '../utils/i18n';
-/**
- * User interface represents the structure of a user object.
- * It includes properties for the user's role, username, first name, last name, email, group name, creation date, user ID, student number, and GDPR consent.
- */
-export interface User {
-  role: string;
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  group_name?: string;
-  created_at: string;
-  userid: number;
-  studentnumber?: number;
-  gdpr?: number;
-  activeStatus: number;
-  language: string;
-  darkMode: number;
-}
+
 /**
  * UserContextProps interface represents the structure of the UserContext.
  * It includes properties for the current user, a function to update the user, the update state, and a function to update the update state.

@@ -155,7 +155,7 @@ export const finalizeLecture = async (
  *   if (!['teacher', 'admin', 'counselor'].some(role => socket.user?.role.includes(role))) {
  *     socket.emit('error', {
  *       code: 'UNAUTHORIZED',
- *       message: 'Only teachers, admins, or counselors can finish lectures',
+ *       message: 'Only teachers, admins, or counselors can finish TeacherLectures',
  *     });
  *     return;
  *   }
@@ -193,7 +193,7 @@ export const handleLectureFinish = async (
   ) {
     socket.emit('error', {
       code: 'UNAUTHORIZED',
-      message: 'Only teachers, admins, or counselors can finish lectures',
+      message: 'Only teachers, admins, or counselors can finish TeacherLectures',
     });
     return;
   }

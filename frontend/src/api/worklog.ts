@@ -577,7 +577,7 @@ export const addNewStudentToWorklog = async (
     email: string;
     first_name: string;
     last_name: string;
-    studentnumber: string;
+    student_number: string;
     studentGroupId: number | null;
   },
 ) => {

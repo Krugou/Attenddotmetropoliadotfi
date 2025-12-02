@@ -296,7 +296,7 @@ router.get(
   asyncHandler(async (req, res) => {
     try {
       console.log(
-        'row 394, attendanceRoutes.ts, Get lectures and attendance records for a course',
+        'row 394, attendanceRoutes.ts, Get TeacherLectures and attendance records for a course',
       );
       const { courseid } = req.params;
       const data = await attendanceController.getLecturesAndAttendancesByCourseId(courseid);
@@ -351,7 +351,7 @@ router.put(
   }),
 );
 
-// GET: Open lectures by course ID
+// GET: Open TeacherLectures by course ID
 router.get(
   '/lecture/open/:courseid',
   checkUserRole(['admin', 'counselor', 'teacher']),
@@ -359,7 +359,7 @@ router.get(
   validate,
   asyncHandler(async (req, res) => {
     try {
-      console.log('row 488, attendanceRoutes.ts, Get all open lectures for a course');
+      console.log('row 488, attendanceRoutes.ts, Get all open TeacherLectures for a course');
       const { courseid } = req.params;
       const openLectures = await lectureModel.findOpenLecturesBycourseid(toNum(courseid));
       res.status(200).json(openLectures);
@@ -371,13 +371,13 @@ router.get(
   }),
 );
 
-// POST: Open lectures by teacher ID
+// POST: Open TeacherLectures by teacher ID
 router.post(
   '/lecture/teacheropen/',
   checkUserRole(['admin', 'counselor', 'teacher']),
   asyncHandler(async (req, res) => {
     try {
-      console.log('row 508, attendanceRoutes.ts, Get all open lectures for a teacher');
+      console.log('row 508, attendanceRoutes.ts, Get all open TeacherLectures for a teacher');
       const { teacherid } = req.body;
       const openLectures = await lectureModel.findOpenLecturesByTeacherid(toNum(teacherid));
       res.status(200).json(openLectures);
@@ -394,9 +394,9 @@ router.get(
   '/lecture/teacher/:teacherId',
   checkUserRole(['admin', 'teacher', 'counselor']),
   asyncHandler(async (req, res) => {
-    if (req.user) logger.info({ useremail: req.user.email }, ' courses/attendance/ own lectures view ');
+    if (req.user) logger.info({ useremail: req.user.email }, ' courses/attendance/ own TeacherLectures view ');
     try {
-      console.log('row 532, attendanceRoutes.ts, Get all lectures for a teacher');
+      console.log('row 532, attendanceRoutes.ts, Get all TeacherLectures for a teacher');
       const teacherId = toNum(req.params.teacherId);
       const lectures: any[] = await lectureModel.fetchLecturesByTeacherId(teacherId);
 
@@ -413,7 +413,7 @@ router.get(
   }),
 );
 
-// POST: Add late enrolling student to previous lectures
+// POST: Add late enrolling student to previous TeacherLectures
 router.post(
   '/addLateEnrollingStudentToPreviousLectures',
   checkUserRole(['admin', 'teacher', 'counselor']),
@@ -425,11 +425,11 @@ router.post(
   asyncHandler(async (req, res) => {
     try {
       console.log(
-        'row 570, attendanceRoutes.ts, Add late enrolling student to previous lectures as not present',
+        'row 570, attendanceRoutes.ts, Add late enrolling student to previous TeacherLectures as not present',
       );
       const { studentnumber, courseid } = req.body;
       await attendanceController.markStudentAsNotPresentInPastLectures(studentnumber, courseid);
-      res.status(200).json('Student added to previous lectures as not present');
+      res.status(200).json('Student added to previous TeacherLectures as not present');
     } catch (err) {
       logger.error(err);
       console.error(err);

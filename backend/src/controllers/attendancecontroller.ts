@@ -117,7 +117,7 @@ const attendanceController: AttendanceController = {
     }
   },
 
-  // Get lectures & attendances for a course
+  // Get TeacherLectures & attendances for a course
   async getLecturesAndAttendancesByCourseId(courseid: string) {
     try {
       console.log("row 273, attendanceController.ts, courseid: ",courseid);
@@ -170,7 +170,7 @@ const attendanceController: AttendanceController = {
     }
   },
 
-  // Backfill "not present" for late-enrolled students on past lectures
+  // Backfill "not present" for late-enrolled students on past TeacherLectures
   async markStudentAsNotPresentInPastLectures(studentnumber: string | number, courseid: number): Promise<void> {
     try {
       const studentNumberString = studentnumber.toString();

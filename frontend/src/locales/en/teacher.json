@@ -820,6 +820,26 @@
       "loadStatsFailed": "Failed to load statistics",
       "addStudentsFailed": "Failed to add students",
       "tokenMissing": "User token is missing"
+    },
+    "topNav": {
+      "lectures": "Lectures",
+      "courses": "Courses",
+      "stats": "Stats",
+      "students": "Students",
+      "help": "Help",
+      "feedback": "Feedback",
+      "lecturesHome": "Home (lectures)"
+    },
+    "mainView": {
+      "greeting": "Hello!",
+      "greetingWithName": "Hello {{name}}!",
+      "todayIs": "It is {{date}}",
+      "cards": {
+        "createLecture": {
+          "title": "Create new lecture",
+          "description": "Open new lecture and start collecting attendances."
+        }
+      }
     }
   }
 }

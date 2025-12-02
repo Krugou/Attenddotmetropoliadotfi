@@ -61,7 +61,7 @@ export const handleLectureCanceled = async (
     ) {
       socket.emit('error', {
         code: 'UNAUTHORIZED',
-        message: 'Only teachers, admins, or counselors can cancel lectures',
+        message: 'Only teachers, admins, or counselors can cancel TeacherLectures',
       });
       return;
     }

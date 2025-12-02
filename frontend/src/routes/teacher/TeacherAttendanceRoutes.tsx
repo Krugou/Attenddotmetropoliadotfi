@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import TeacherAttendanceRoom from '../../views/main/teacher/Attendance/TeacherAttendanceRoom.tsx';
-import TeacherAttendanceRoomReload from '../../views/main/teacher/Attendance/TeacherAttendanceRoomReload.tsx';
-import TeacherCreateLecture from '../../views/main/teacher/Attendance/TeacherCreateLecture.tsx';
+import TeacherAttendanceRoom from '../../views/main/teacher/attendance/TeacherAttendanceRoom.tsx';
+import TeacherAttendanceRoomReload from '../../views/main/teacher/attendance/TeacherAttendanceRoomReload.tsx';
+import TeacherCreateLecture from '../../views/main/teacher/attendance/TeacherCreateLecture.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView.tsx';
 /**
  * TeacherAttendanceRoutes component.
