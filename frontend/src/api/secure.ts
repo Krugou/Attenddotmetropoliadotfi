@@ -4,9 +4,9 @@ const baseUrl = API_CONFIG.baseUrl;
 export const addNewStudentUserCourse = async (
   token: string,
   email: string,
-  studentnumber: string,
-  firstname: string,
-  lastname: string,
+  studentNumber: string,
+  firstName: string,
+  lastName: string,
   studentGroupId: number | undefined | null,
   courseId: number | undefined | null,
 ) => {
@@ -18,9 +18,9 @@ export const addNewStudentUserCourse = async (
     },
     body: JSON.stringify({
       email,
-      first_name: firstname,
-      last_name: lastname,
-      studentnumber,
+      first_name: firstName,
+      last_name: lastName,
+      studentnumber: studentNumber,
       studentGroupId,
       courseId,
     }),

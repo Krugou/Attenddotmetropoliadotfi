@@ -1,6 +1,6 @@
 import {useTranslation} from 'react-i18next';
 import React from 'react';
-import Card from '../../../../components/main/cards/Card';
+import NavigationCard from '../../../../components/features/navigation/NavigationCard.tsx';
 
 /**
  * TeacherCreateCourse component.
@@ -22,19 +22,19 @@ const ModeSelection: React.FC = () => {
           {t('teacher:worklog.create.subtitle')}
         </p>
         <div className='flex flex-wrap justify-center space-x-4'>
-          <Card
+          <NavigationCard
             path='/teacher/courses/create/worklog-easy'
             title={t('teacher:worklog.create.modes.easy.title')}
             description={t('teacher:worklog.create.modes.easy.description')}
           />
 
-          <Card
+          <NavigationCard
             path='/teacher/courses/create/worklog-custom'
             title={t('teacher:worklog.create.modes.custom.title')}
             description={t('teacher:worklog.create.modes.custom.description')}
           />
 
-          <Card
+          <NavigationCard
             path='/teacher/courses/create/practicum'
             title={t('teacher:worklog.create.modes.practicum.title')}
             description={t('teacher:worklog.create.modes.practicum.description')}

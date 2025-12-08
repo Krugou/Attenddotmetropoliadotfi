@@ -19,7 +19,7 @@ const collectStructure = (dir, level = 0, result = []) => {
       const itemPath = path.join(dir, item);
       const stats = fs.statSync(itemPath);
 
-      // Skip node_modules, .git, other common directories, md and excalidraw files
+      // Skip node_modules, .git, other ui directories, md and excalidraw files
       if (
         [
           'node_modules',

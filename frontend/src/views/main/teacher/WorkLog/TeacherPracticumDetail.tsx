@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import PracticumData from '../../../../components/main/practicum/PracticumData';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
+import PracticumList from '../../../../components/features/practicum/PracticumList.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
@@ -63,7 +63,7 @@ const TeacherWorklogCourseDetail: React.FC = () => {
             className='w-full sm:w-auto'
           />
         </div>
-        {practicumData && <PracticumData practicumData={[practicumData]} />}
+        {practicumData && <PracticumList practicumData={[practicumData]} />}
       </div>
     </div>
   );

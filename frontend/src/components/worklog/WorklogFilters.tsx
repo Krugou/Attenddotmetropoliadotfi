@@ -42,12 +42,12 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
       <div className='flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto'>
         <div className='w-full md:w-auto'>
           <select
-            title={t('common:worklog.filter.course')}
+            title={t('ui:worklog.filter.course')}
             id='courseFilter'
             className='w-full md:w-auto p-2 border rounded-md bg-white text-metropolia-main-grey'
             value={selectedCourse}
             onChange={(e) => setSelectedCourse(e.target.value)}>
-            <option value='all'>{t('common:worklog.filter.allCourses')}</option>
+            <option value='all'>{t('ui:worklog.filter.allCourses')}</option>
             {uniqueCourses.map((course) => (
               <option key={course.code} value={course.code}>
                 {course.name} - {course.code}
@@ -62,14 +62,14 @@ const WorklogFilters: React.FC<WorklogFiltersProps> = ({
               className='p-2 text-metropolia-main-orange hover:text-metropolia-secondary-orange rounded-full transition-colors duration-200 hover:bg-gray-100'
               title={t(
                 showCalendar
-                  ? 'common:worklog.filter.hideCalendar'
-                  : 'common:worklog.filter.showCalendar',
+                  ? 'ui:worklog.filter.hideCalendar'
+                  : 'ui:worklog.filter.showCalendar',
               )}>
               <CalendarTodayIcon />
             </button>
             {selectedDate && (
               <button
-                title={t('common:worklog.filter.clearDate')}
+                title={t('ui:worklog.filter.clearDate')}
                 onClick={() => {
                   setSelectedDate(null);
                   setShowCalendar(false);

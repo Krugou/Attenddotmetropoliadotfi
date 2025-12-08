@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import WorklogData from '../../../../components/main/worklog/WorklogData';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
+import WorklogData from '../../../../components/features/worklogs/WorklogData.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';

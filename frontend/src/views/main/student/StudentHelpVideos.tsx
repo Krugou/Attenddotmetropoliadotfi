@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import StudentAttendance from '../../../assets/videos/StudentCourseAndAttendance.mp4';
 import StudentLecture from '../../../assets/videos/StudentLecture.mp4';
-import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // Import the VideoDropdown component
+import VideoDropdown from '../../../components/ui/VideoDropdown.tsx'; // Import the VideoDropdown component
 /**
  * StudentHelpVideos component.
  * This component is responsible for rendering the help videos for students.

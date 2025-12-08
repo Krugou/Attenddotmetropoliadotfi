@@ -37,12 +37,12 @@ const ConfirmationDialog: React.FC<{
           <button
             onClick={onCancel}
             className='px-4 py-2 text-metropolia-main-grey bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors'>
-            {t('common:worklog.actions.cancel', 'Cancel')}
+            {t('ui:worklog.actions.cancel', 'Cancel')}
           </button>
           <button
             onClick={onConfirm}
             className='px-4 py-2 text-white bg-metropolia-main-orange hover:bg-metropolia-secondary-orange rounded-lg transition-colors'>
-            {t('common:worklog.actions.confirm', 'Still Add Entry')}
+            {t('ui:worklog.actions.confirm', 'Still Add Entry')}
           </button>
         </div>
       </div>
@@ -242,7 +242,7 @@ const StudentWorkLogLogger: React.FC = () => {
         setCourses(allCourses);
 
         if (allCourses.length === 0) {
-          toast.info(t('common:worklog.noCourses'));
+          toast.info(t('ui:worklog.noCourses'));
           setTimeout(() => navigate('/'), 3000);
           return;
         }
@@ -344,7 +344,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
   const handleConfirmAction = useCallback(async () => {
     if (!selectedCourse) {
-      toast.error(t('common:worklog.error.requiredFields'));
+      toast.error(t('ui:worklog.error.requiredFields'));
       return;
     }
 
@@ -386,10 +386,10 @@ const StudentWorkLogLogger: React.FC = () => {
               await apiHooks.createWorkLogEntry(params, token);
             }
 
-            toast.success(t('common:worklog.messages.entryAdded'));
+            toast.success(t('ui:worklog.messages.entryAdded'));
             await checkActiveEntry();
           } catch (error) {
-            toast.error(t('common:worklog.messages.failedToLog'));
+            toast.error(t('ui:worklog.messages.failedToLog'));
           }
 
           setIsModalOpen(false);
@@ -436,7 +436,7 @@ const StudentWorkLogLogger: React.FC = () => {
           await apiHooks.createWorkLogEntry(params, token);
         }
 
-        toast.success(t('common:worklog.messages.entryAdded'));
+        toast.success(t('ui:worklog.messages.entryAdded'));
       } else {
         await apiHooks.closeWorkLogEntry(
           activeCourse?.entry_id || 0,
@@ -444,12 +444,12 @@ const StudentWorkLogLogger: React.FC = () => {
           description,
         );
 
-        toast.success(t('common:worklog.messages.entryClosed'));
+        toast.success(t('ui:worklog.messages.entryClosed'));
       }
 
       await checkActiveEntry();
     } catch (error) {
-      toast.error(t('common:worklog.messages.failedToLog'));
+      toast.error(t('ui:worklog.messages.failedToLog'));
     }
 
     setIsModalOpen(false);
@@ -472,12 +472,12 @@ const StudentWorkLogLogger: React.FC = () => {
   // Submit mass entries
   const handleMassEntrySubmit = async () => {
     if (!selectedCourse) {
-      toast.error(t('common:worklog.error.requiredFields'));
+      toast.error(t('ui:worklog.error.requiredFields'));
       return;
     }
 
     if (!massDescription.trim()) {
-      toast.error(t('common:worklog.error.descriptionRequired'));
+      toast.error(t('ui:worklog.error.descriptionRequired'));
       return;
     }
 
@@ -489,7 +489,7 @@ const StudentWorkLogLogger: React.FC = () => {
       }));
 
     if (selectedEntries.length === 0) {
-      toast.error(t('common:worklog.error.noDaysSelected'));
+      toast.error(t('ui:worklog.error.noDaysSelected'));
       return;
     }
 
@@ -551,16 +551,14 @@ const StudentWorkLogLogger: React.FC = () => {
 
         // Use the appropriate API call based on course type
         if (selectedCourseData.type === 'practicum') {
-          // @ts-expect-error
           await apiHooks.createWorkLogEntryPracticum(params, token);
         } else {
-          // @ts-expect-error
           await apiHooks.createWorkLogEntry(params, token);
         }
       }
 
       toast.success(
-        t('common:worklog.messages.massEntriesAdded', {
+        t('ui:worklog.messages.massEntriesAdded', {
           count: selectedEntries.length,
         }),
       );
@@ -570,7 +568,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
       await checkActiveEntry();
     } catch (error) {
-      toast.error(t('common:worklog.messages.failedToAddEntries'));
+      toast.error(t('ui:worklog.messages.failedToAddEntries'));
     } finally {
       setIsSubmitting(false);
     }
@@ -581,7 +579,7 @@ const StudentWorkLogLogger: React.FC = () => {
       <div className='w-full max-w-md bg-white rounded-2xl shadow-xl p-6 space-y-6'>
         <div className='space-y-4'>
           <h2 className='text-2xl font-heading font-bold text-gray-800 mb-4'>
-            {t('common:worklog.logger.title')}
+            {t('ui:worklog.logger.title')}
           </h2>
 
           <WorkLogCourseSelector
@@ -599,8 +597,8 @@ const StudentWorkLogLogger: React.FC = () => {
                 className='flex w-full justify-center items-center gap-2 px-4 py-2 bg-metropolia-support-blue text-white rounded-lg transition-all hover:bg-metropolia-support-blue-dark text-sm'>
                 <CalendarIcon fontSize='small' />
                 {showMassEntry
-                  ? t('common:worklog.actions.hideMassEntry')
-                  : t('common:worklog.actions.showMassEntry')}
+                  ? t('ui:worklog.actions.hideMassEntry')
+                  : t('ui:worklog.actions.showMassEntry')}
               </button>
             </div>
           )}
@@ -609,18 +607,18 @@ const StudentWorkLogLogger: React.FC = () => {
         {showMassEntry ? (
           <div className='space-y-6 border-t pt-4 mt-4'>
             <h3 className='text-xl font-heading font-semibold text-metropolia-main-grey'>
-              {t('common:worklog.massEntry.title')}
+              {t('ui:worklog.massEntry.title')}
             </h3>
 
             <div>
               <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
-                {t('common:worklog.description')} *
+                {t('ui:worklog.description')} *
               </label>
               <textarea
                 value={massDescription}
                 onChange={(e) => setMassDescription(e.target.value)}
                 placeholder={t(
-                  'common:worklog.massEntry.descriptionPlaceholder',
+                  'ui:worklog.massEntry.descriptionPlaceholder',
                 )}
                 className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200'
                 rows={3}
@@ -631,13 +629,13 @@ const StudentWorkLogLogger: React.FC = () => {
             <div>
               <div className='flex items-center justify-between mb-2'>
                 <h4 className='font-medium text-metropolia-main-grey'>
-                  {t('common:worklog.massEntry.selectDays')}
+                  {t('ui:worklog.massEntry.selectDays')}
                 </h4>
                 <div className='flex items-center'>
                   <button
                     onClick={goToPreviousWeek}
-                    aria-label={t('common:worklog.massEntry.previousWeek')}
-                    title={t('common:worklog.massEntry.previousWeek')}
+                    aria-label={t('ui:worklog.massEntry.previousWeek')}
+                    title={t('ui:worklog.massEntry.previousWeek')}
                     className='p-1 text-metropolia-main-grey hover:text-metropolia-main-orange'>
                     <ChevronLeftIcon />
                   </button>
@@ -649,8 +647,8 @@ const StudentWorkLogLogger: React.FC = () => {
                   </span>
                   <button
                     onClick={goToNextWeek}
-                    aria-label={t('common:worklog.massEntry.nextWeek')}
-                    title={t('common:worklog.massEntry.nextWeek')}
+                    aria-label={t('ui:worklog.massEntry.nextWeek')}
+                    title={t('ui:worklog.massEntry.nextWeek')}
                     className='p-1 text-metropolia-main-grey hover:text-metropolia-main-orange'>
                     <ChevronRightIcon />
                   </button>
@@ -733,7 +731,7 @@ const StudentWorkLogLogger: React.FC = () => {
                               )
                             }
                             className='w-full text-center text-xs p-1 border rounded'
-                            title={t('common:worklog.massEntry.hoursTooltip')}
+                            title={t('ui:worklog.massEntry.hoursTooltip')}
                           />
                         </div>
                       )}
@@ -757,8 +755,8 @@ const StudentWorkLogLogger: React.FC = () => {
                 transition-colors duration-200'>
               <AddIcon />
               {isSubmitting
-                ? t('common:worklog.massEntry.submitting')
-                : t('common:worklog.massEntry.submit')}
+                ? t('ui:worklog.massEntry.submitting')
+                : t('ui:worklog.massEntry.submit')}
             </button>
           </div>
         ) : (
@@ -782,7 +780,7 @@ const StudentWorkLogLogger: React.FC = () => {
 
       <ConfirmationDialog
         isOpen={showConfirmation}
-        message={t('common:worklog.confirmation.duplicateEntryWarning')}
+        message={t('ui:worklog.confirmation.duplicateEntryWarning')}
         onConfirm={() => {
           if (pendingAction) pendingAction();
         }}

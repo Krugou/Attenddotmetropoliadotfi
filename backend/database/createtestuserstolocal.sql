@@ -1,6 +1,6 @@
 -- Create 100 fake student users for testing purposes
 -- This script is compatible with MariaDB and follows jaksec.sql schema
-
+USE jaksec2;
 -- Set client_encoding for PostgreSQL/MySQL compatibility
 SET NAMES utf8mb4;
 
@@ -9,7 +9,7 @@ SET NAMES utf8mb4;
 DELIMITER //
 CREATE PROCEDURE create_test_users()
 BEGIN
-  -- Define common Finnish first and last names for realistic test data
+  -- Define ui Finnish first and last names for realistic test data
   DECLARE i INT DEFAULT 1;
   DECLARE random_first_name VARCHAR(100);
   DECLARE random_last_name VARCHAR(100);

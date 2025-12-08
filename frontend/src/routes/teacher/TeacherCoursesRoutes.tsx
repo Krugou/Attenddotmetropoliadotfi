@@ -1,13 +1,13 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import TeacherCourseAttendances from '../../views/main/teacher/Courses/TeacherCourseAttendances.tsx';
-import TeacherCourseDetail from '../../views/main/teacher/Courses/TeacherCourseDetail.tsx';
-import TeacherCourseModify from '../../views/main/teacher/Courses/TeacherCourseModify.tsx';
-import TeacherCourses from '../../views/main/teacher/Courses/TeacherCourses.tsx';
-import TeacherCourseStats from '../../views/main/teacher/Courses/TeacherCourseStats.tsx';
+import TeacherCourseAttendances from '../../views/main/teacher/courses/TeacherCourseAttendances.tsx';
+import TeacherCourseDetail from '../../views/main/teacher/courses/TeacherCourseDetail.tsx';
+import TeacherCourseModify from '../../views/main/teacher/courses/TeacherCourseModify.tsx';
+import TeacherCourses from '../../views/main/teacher/courses/TeacherCourses.tsx';
+import TeacherCourseStats from '../../views/main/teacher/courses/TeacherCourseStats.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView.tsx';
 import TeacherCreateCourseRoutes from './create/TeacherCreateCourseRoutes.tsx';
-import TeacherStudentCourseActivity from '../../views/main/teacher/Courses/TeacherStudentCourseActivity.tsx';
+import TeacherStudentCourseActivity from '../../views/main/teacher/courses/TeacherStudentCourseActivity.tsx';
 /**
  * TeacherCoursesRoutes component.
  * This component is responsible for defining the routes for the teacher's courses section of the application.
