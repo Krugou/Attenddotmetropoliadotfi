@@ -1,5 +1,5 @@
 /**
- * @fileoverview Main server setup and configuration for the Metropolia Attendance Application.
+ * @fileoverview Main server setup and configuration for the Metropolia attendance Application.
  * This file handles Express setup, middleware configuration, route integration, and server initialization.
  *
  * @module JakSecServer
@@ -210,7 +210,7 @@ app.use(
  *
  * @example
  * // Server startup log
- * "Metropolia Attendance App REST + DATABASE SERVER Started at: http://localhost:3002/"
+ * "Metropolia attendance App REST + DATABASE SERVER Started at: http://localhost:3002/"
  */
 http.listen(port, () => {
   logger.info(

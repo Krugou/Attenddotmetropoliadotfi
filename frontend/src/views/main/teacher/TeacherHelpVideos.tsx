@@ -8,7 +8,7 @@ import RoleChange from '../../../assets/videos/RoleChange.mp4';
 import StudentDetail from '../../../assets/videos/StudentDetail.mp4';
 import StudentLecture from '../../../assets/videos/StudentLecture.mp4';
 import TeacherAttendance from '../../../assets/videos/TeacherAttendance.mp4';
-import VideoDropdown from '../../../components/main/dropdown/VideoDropdown'; // Import the VideoDropdown component
+import VideoDropdown from '../../../components/ui/VideoDropdown.tsx'; // Import the VideoDropdown component
 
 /**
  * TeacherHelpVideos component.

@@ -116,7 +116,12 @@
     "notInSystem": "Ei vielä järjestelmässä"
   },
   "mainViewTitle": {
-    "dashboard": "Hallintapaneeli"
+    "dashboard": "Hallintapaneeli",
+    "teacher": "Opettajan hallintapaneeli",
+    "student": "Opiskelijan hallintapaneeli",
+    "admin": "Ylläpidon hallintapaneeli",
+    "counselor": "Opinto-ohjaajan hallintapaneeli",
+    "default": "Hallintapaneeli"
   },
   "errorAlert": {
     "title": "Virhe",

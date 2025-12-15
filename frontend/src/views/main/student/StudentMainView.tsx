@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import Card from '../../../components/main/cards/Card';
-import FeedbackCard from '../../../components/main/cards/FeedbackCard';
-import MainViewTitle from '../../../components/main/titles/MainViewTitle';
+import NavigationCard from '../../../components/features/navigation/NavigationCard.tsx';
+import FeedbackCard from '../../../components/features/feedback/FeedbackCard.tsx';
+import MainViewTitle from '../../../components/ui/titles/MainViewTitle.tsx';
 import {
   QrCode,
   Person,
@@ -14,7 +14,7 @@ import {
 } from '@mui/icons-material';
 import {UserContext} from '../../../contexts/UserContext';
 import apiHooks from '../../../api';
-import WelcomeModal from '../../../components/main/modals/WelcomeModal';
+import WelcomeModal from '../../../components/ui/modals/WelcomeModal';
 
 /**
  * MainView component.
@@ -22,12 +22,12 @@ import WelcomeModal from '../../../components/main/modals/WelcomeModal';
  * This component is responsible for rendering the main view for a student. It performs the following operations:
  *
  * 1. Renders a title for the main view using the MainViewTitle component.
- * 2. Renders a grid of cards using the Card component. Each card represents a different feature available to the student:
- *    - Attendance QR Scanner: Allows the student to scan a QR code to mark attendance.
+ * 2. Renders a grid of cards using the NavigationCard component. Each cards represents a different feature available to the student:
+ *    - attendance QR Scanner: Allows the student to scan a QR code to mark attendance.
  *    - Your Profile: Allows the student to view their own profile.
- *    - Your Courses: Allows the student to view their own courses.
+ *    - Your courses: Allows the student to view their own courses.
  *
- * Each card includes a path to the corresponding feature, a title, and a description.
+ * Each cards includes a path to the corresponding feature, a title, and a description.
  *
  * @returns A JSX element representing the main view component.
  */
@@ -63,33 +63,33 @@ const MainView: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <MainViewTitle role={t('student:mainView.title')} />
+      <MainViewTitle />
       <div className='grid items-center justify-center grid-cols-1 gap-4 p-5 m-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
-        <Card
+        <NavigationCard
           path='/student/qr'
           title={t('student:mainView.qrScanner.title')}
           description={t('student:mainView.qrScanner.description')}
           icon={QrCode}
         />
-        <Card
+        <NavigationCard
           path='/student/profile'
           title={t('student:mainView.profile.title')}
           description={t('student:mainView.profile.description')}
           icon={Person}
         />
-        <Card
+        <NavigationCard
           path='/student/courses'
           title={t('student:mainView.courses.title')}
           description={t('student:mainView.courses.description')}
           icon={School}
         />
-        <Card
+        <NavigationCard
           path='/student/helpvideos'
           title={t('student:mainView.instructions.title')}
           description={t('student:mainView.instructions.description')}
           icon={Help}
         />
-        <Card
+        <NavigationCard
           path='/student/aqr'
           title={t('student:mainView.qrScannerCamera.title')}
           description={t('student:mainView.qrScannerCamera.description')}
@@ -97,13 +97,13 @@ const MainView: React.FC = () => {
         />
         {(import.meta.env.MODE === 'development' || hasWorkLogCourses) && (
           <>
-            <Card
+            <NavigationCard
               path='/student/worklog'
               title={t('student:mainView.workLog.title')}
               description={t('student:mainView.workLog.description')}
               icon={Add}
             />
-            <Card
+            <NavigationCard
               path='/student/worklogs'
               title={t('student:mainView.workLogs.title')}
               description={t('student:mainView.workLogs.description')}

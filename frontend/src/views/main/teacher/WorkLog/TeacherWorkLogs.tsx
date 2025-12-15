@@ -2,12 +2,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apihooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
-import WorklogData from '../../../../components/main/worklog/WorklogData';
-import PreacticumData from '../../../../components/main/practicum/PracticumData';
+import WorklogData from '../../../../components/features/worklogs/WorklogData.tsx';
+import PreacticumData from '../../../../components/features/practicum/PracticumList.tsx';
 
 interface WorkLogCourse {
   courseid: number;
@@ -97,7 +97,7 @@ const TeacherWorkLogs: React.FC = () => {
                 color='primary'
               />
             }
-            label={t('common:showEndedCourses')}
+            label={t('ui:showEndedCourses')}
           />
         </div>
         <div className='grid max-h-[30em] mt-5 2xl:max-h-[50em] overflow-y-scroll w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 m-auto'>

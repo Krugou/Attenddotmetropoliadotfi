@@ -4,18 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "npm i & node build-date.cjs",
-    "dev": " npm i & vite --port 8080  --host",
-    "dev2": " npm i & vite --port 8080 --open",
-    "devBrutal": "npm i & vite --port 8080 --open -d --force --host",
-    "devDebug": "npm i & vite --port 8080 --open -d --host",
-    "build": "npm i --force & tsc && vite build --outDir ../backend/jaksec --emptyOutDir --base /",
-    "buildWatch": "npm i & tsc --watch & vite build --outDir ../backend/jaksec --emptyOutDir --base / --watch",
-    "lint": "npm i & eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "npm i & vite preview",
-    "all": " npm i & tsc --watch & vite build --outDir ../backend/jaksec --emptyOutDir  --base / --watch",
-    "alldev": "npm i &  vite --port 8080",
-    "start": "npm run dev",
+    "prebuild": "node build-date.cjs",
+    "dev": "vite --port 8080 --host",
+    "dev:open": "vite --port 8080 --open",
+    "dev:force": "vite --port 8080 --open --force --host --debug",
+    "build": "tsc && vite build --outDir ../backend/jaksec --emptyOutDir --base /",
+    "build:watch": "concurrently \"tsc --watch\" \"vite build --watch --outDir ../backend/jaksec --emptyOutDir --base /\"",
+    "dev:watch": "concurrently \"tsc --watch\" \"vite --port 8080 --host\"",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
     "docs": "typedoc src",
     "docs:watch": "nodemon --watch 'src/**/*.ts*' --exec npm run docs"
   },
@@ -71,6 +68,7 @@
     "typedoc": "^0.27.6",
     "typescript": "^5.7.3",
     "vite": "^6.1.0",
-    "vite-plugin-pwa": "^0.21.1"
+    "vite-plugin-pwa": "^0.21.1",
+    "concurrently": "^8.2.2"
   }
 }

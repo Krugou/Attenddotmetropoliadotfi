@@ -1,9 +1,9 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import AdminCourses from '../../views/main/admin/AdminCourses';
+import AdminCourses from '../../views/main/admin/courses/AdminCourses.tsx';
 import AdminMainView from '../../views/main/admin/AdminMainView';
-import AdminCourseDetail from '../../views/main/admin/Courses/AdminCourseDetail';
-import AdminCourseModify from '../../views/main/admin/Courses/AdminCourseModify';
+import AdminCourseDetail from '../../views/main/admin/courses/AdminCourseDetail';
+import AdminCourseModify from '../../views/main/admin/courses/AdminCourseModify';
 /**
  * AdminCoursesRoutes component.
  * This component is responsible for defining the routes for the admin's courses section of the application.

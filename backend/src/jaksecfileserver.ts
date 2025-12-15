@@ -1,5 +1,5 @@
 /**
- * @fileoverview Static file server for the Metropolia Attendance Application.
+ * @fileoverview Static file server for the Metropolia attendance Application.
  * Serves static files and handles single-page application routing.
  *
  * @module JakSecFileServer
