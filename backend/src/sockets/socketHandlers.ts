@@ -63,6 +63,7 @@ const SocketHandlers = (io: Server) => {
     socket.on('disconnect', () => {});
     socket.on('createAttendanceCollection', async (lectureid: string) => {
       try {
+        console.log("row 66, socketHandlers.ts, socketHandlers")
         await handleCreateAttendanceCollection(
           socket,
           io,
@@ -79,6 +80,7 @@ const SocketHandlers = (io: Server) => {
     });
     socket.on('lectureFinishedWithButton', async (lectureid: string) => {
       try {
+        console.log("row 83, socketHandlers.ts, handleLectureFinish()")
         await handleLectureFinish(
           socket,
           lectureid,
@@ -104,6 +106,7 @@ const SocketHandlers = (io: Server) => {
         lectureid: number,
       ) => {
         try {
+          console.log("row 110, socketHandlers.ts, handleStudentArrival()")
           await handleStudentArrival(
             socket,
             io,
@@ -127,6 +130,7 @@ const SocketHandlers = (io: Server) => {
       'manualStudentInsert',
       async (studentId: string, lectureid: number) => {
         try {
+          console.log("row 133, socketHandlers.ts, handleManualStudentInsert()")
           await handleManualStudentInsert(
             socket,
             io,
@@ -145,6 +149,7 @@ const SocketHandlers = (io: Server) => {
       'manualStudentRemove',
       async (studentId: string, lectureId: number) => {
         try {
+          console.log("row 152, socketHandlers.ts, handleManualStudentRemove()")
           await handleManualStudentRemove(
             socket,
             io,
@@ -161,6 +166,7 @@ const SocketHandlers = (io: Server) => {
 
     // Handle the 'lecturecanceled' event
     socket.on('lectureCanceled', async (lectureid) => {
+      console.log("row 169, socketHandlers.ts, handleLectureCanceled()");
       handleLectureCanceled(
         socket,
         io,

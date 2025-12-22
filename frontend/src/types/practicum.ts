@@ -20,19 +20,20 @@ export interface PracticumCreate {
   students: Student[];
 }
 
-
+//UNUSED
 export interface PracticumDetails extends PracticumCreate {
   id: number;
   createdAt: string;
   updatedAt: string;
 }
-
+//UNUSED
 export interface AssignStudentRequest {
   userId: number;
 }
-
+//UNUSED
 export interface PracticumStudent {
   userId: number;
   practicumId: number;
   assignedAt: string;
 }
+

@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 /**
  * NoUserHelp component that displays help sections for users who haven't logged in.
- * Includes sections about getting started, common issues, and contact information.
+ * Includes sections about getting started, ui issues, and contact information.
  *
  * @returns {JSX.Element} The rendered NoUserHelp component
  */

@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import apiHooks from '../../api';
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../contexts/UserContext';
-import LanguageSwitcher from '../common/LanguageSwitcher';
+import LanguageSwitcher from '../ui/LanguageSwitcher';
 
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.
@@ -73,7 +73,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         setSelectedRole(roles[0]?.roleid || '');
       } catch (error) {
         console.error('Failed to fetch roles:', error);
-        toast.error(t('common:profileInfo.errors.roleFetchFailed'));
+        toast.error(t('ui:profileInfo.errors.roleFetchFailed'));
       }
     };
 
@@ -117,7 +117,7 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   const handleLanguageChange = async (newLanguage: string) => {
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('common:languages.errors.noToken'));
+      toast.error(t('ui:languages.errors.noToken'));
       return;
     }
 
@@ -131,13 +131,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       if (response.ok) {
         await i18n.changeLanguage(newLanguage);
         setUser((prev) => (prev ? {...prev, language: newLanguage} : null));
-        toast.success(t('common:languages.success.changed'));
+        toast.success(t('ui:languages.success.changed'));
       } else {
-        toast.error(t('common:languages.errors.changeFailed'));
+        toast.error(t('ui:languages.errors.changeFailed'));
       }
     } catch (error) {
       console.error('Language update error:', error);
-      toast.error(t('common:languages.errors.changeFailed'));
+      toast.error(t('ui:languages.errors.changeFailed'));
     }
   };
 
@@ -146,20 +146,20 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Personal Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('common:profileInfo.sections.personal')}:
+          {t('ui:profileInfo.sections.personal')}:
         </h3>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.name')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.name')}:</strong>{' '}
           <span className='profileStat'>
             {user.first_name + ' ' + user.last_name}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.username')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.username')}:</strong>{' '}
           <span className='profileStat'>{user.username}</span>
         </p>
         <p className='flex flex-wrap items-center justify-between gap-1 items-base'>
-          <strong>{t('common:profileInfo.labels.email')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.email')}:</strong>{' '}
           <span className='profileStat w-fit'>{user.email}</span>
         </p>
       </div>
@@ -167,23 +167,23 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Account Information Section */}
       <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('common:profileInfo.sections.account')}:
+          {t('ui:profileInfo.sections.account')}:
         </h3>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.accountCreated')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.accountCreated')}:</strong>{' '}
           <span className='profileStat'>
             {new Date(user.created_at).toLocaleDateString()}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.role')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.role')}:</strong>{' '}
           <div className='flex items-center gap-2'>
             <span className='profileStat'>{user.role}</span>
             {['counselor', 'teacher'].includes(user.role) && (
               <button
                 className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-grey hover:bg-metropolia-trend-light-blue focus:outline-hidden focus:shadow-outline'
                 onClick={handleOpen}>
-                {t('common:profileInfo.buttons.change')}
+                {t('ui:profileInfo.buttons.change')}
               </button>
             )}
           </div>
@@ -193,25 +193,25 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {/* Preferences Section */}
       <div className='p-4 space-y-4'>
         <h3 className='mb-3 text-lg font-heading'>
-          {t('common:profileInfo.sections.preferences')}:
+          {t('ui:profileInfo.sections.preferences')}:
         </h3>
         <div className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.language')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.language')}:</strong>{' '}
           <LanguageSwitcher
             currentLanguage={user.language}
             onLanguageChange={handleLanguageChange}
           />
         </div>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.activeStatus')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.activeStatus')}:</strong>{' '}
           <span className='profileStat'>
-            {user.activeStatus === 1 ? t('common:yes') : t('common:no')}
+            {user.activeStatus === 1 ? t('ui:yes') : t('ui:no')}
           </span>
         </p>
         <p className='flex items-center justify-between gap-2'>
-          <strong>{t('common:profileInfo.labels.darkMode')}:</strong>{' '}
+          <strong>{t('ui:profileInfo.labels.darkMode')}:</strong>{' '}
           <span className='profileStat'>
-            {user.darkMode === 1 ? t('common:yes') : t('common:no')}
+            {user.darkMode === 1 ? t('ui:yes') : t('ui:no')}
           </span>
         </p>
       </div>
@@ -220,10 +220,10 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
       {open && ['counselor', 'teacher'].includes(user.role) && (
         <div className='pb-10 mt-5 border-y-4 border-metropolia-main-orange pt-7'>
           <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
-            {t('common:profileInfo.roleChange.title')}
+            {t('ui:profileInfo.roleChange.title')}
           </h2>
           <select
-            title={t('common:profileInfo.roleChange.selectTitle')}
+            title={t('ui:profileInfo.roleChange.selectTitle')}
             className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded-sm appearance-none cursor-pointer focus:outline-hidden focus:bg-white focus:border-gray-500'
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}>
@@ -238,13 +238,13 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
               type='button'
               className='px-2 py-1 text-sm text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleClose}>
-              {t('common:cancel')}
+              {t('ui:cancel')}
             </button>
             <button
               type='button'
               className='px-2 py-1 text-sm text-white transition bg-green-500 rounded-sm font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
               onClick={handleRoleChange}>
-              {t('common:profileInfo.buttons.changeRole')}
+              {t('ui:profileInfo.buttons.changeRole')}
             </button>
           </div>
         </div>

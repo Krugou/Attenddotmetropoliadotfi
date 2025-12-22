@@ -11,16 +11,13 @@ import UserModel from '../models/usermodel.js'; // Import the UserModel without 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
-/**
- * Local strategy for email and password login.
- * @param {string} email - The email of the user.
- * @param {string} _password - The password of the user.
- * @param {DoneFunction} done - The callback to be executed after the function finishes.
- * @returns {void}
- */
+
+ // Local strategy for email and password login.
+
 passport.use(
   new Strategy(async (email: string, _password: string, done: DoneFunction) => {
     try {
+      console.log("row 24, pass.ts, local strategy called");
       // Find a user in the database with the provided email
       const user: User | null = await UserModel.getAllUserInfo(email);
       // Check if the user exists
@@ -35,12 +32,9 @@ passport.use(
   }),
 );
 
-/**
- * JWT strategy for handling JSON Web Tokens.
- * @param {JwtPayload} jwtPayload - The payload of the JWT.
- * @param {DoneJwtFunction} done - The callback to be executed after the function finishes.
- * @returns {void}
- */
+
+ // JWT strategy for handling JSON Web Tokens.
+
 passport.use(
   new JWTStrategy(
     {

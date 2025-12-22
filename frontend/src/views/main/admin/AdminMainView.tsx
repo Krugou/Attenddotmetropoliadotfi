@@ -1,5 +1,28 @@
 import React from 'react';
-import Card from '../../../components/main/cards/Card';
+import MainViewTitle from '../../../components/ui/titles/MainViewTitle.tsx';
+import WelcomeModal from '../../../components/ui/modals/WelcomeModal';
+import OpenDataTest from '../../../components/features/system/OpenDataTest.tsx';
+import AdminCardGrid from '../../../components/internal/admin/AdminMainView/AdminCardGrid';
+
+/**
+ * AdminMainView component.
+ * Renders the admin home view with cards and utilities.
+ */
+const AdminMainView: React.FC = () => {
+  return (
+    <>
+      <MainViewTitle />
+      <OpenDataTest token={localStorage.getItem('userToken') || ''} />
+      <AdminCardGrid />
+      <WelcomeModal storageKey='welcomeModal.v1' />
+    </>
+  );
+};
+
+export default AdminMainView;
+
+/* OLD CODE STARTS HERE import React from 'react';
+import NavigationCard from '../../../components/main/cards/NavigationCard';
 import FeedbackCard from '../../../components/main/cards/FeedbackCard';
 import MainViewTitle from '../../../components/main/titles/MainViewTitle';
 import {
@@ -17,11 +40,11 @@ import OpenDataTest from '../../../components/main/utils/OpenDataTest';
  * AdminMainView component.
  * This component is responsible for rendering the main view for an admin.
  * It displays a grid of cards, each of which represents a different admin task.
- * Each card includes a path to the task, a title, and a description.
+ * Each cards includes a path to the task, a title, and a description.
  *
  * @returns {JSX.Element} The rendered AdminMainView component.
  */
-const AdminMainView: React.FC = () => {
+/*const AdminMainView: React.FC = () => {
   const {t} = useTranslation(['admin']);
   return (
     <>
@@ -29,50 +52,50 @@ const AdminMainView: React.FC = () => {
       <OpenDataTest token={localStorage.getItem('userToken') || ''} />
 
       <div className='grid grid-cols-1 gap-4 p-5 ml-auto mr-auto sm:grid-cols-2 lg:grid-cols-3 w-fit'>
-        <Card
+        <NavigationCard
           path='/admin/other-dashboards/'
           title={t('admin:mainView.otherDashboards')}
           description={t('admin:mainView.otherDashboardsDesc')}
           icon={Dashboard}
         />
 
-        <Card
+        <NavigationCard
           path='/admin/users/'
           title={t('admin:mainView.userManagement')}
           description={t('admin:mainView.userManagementDesc')}
           icon={People}
         />
-        <Card
+        <NavigationCard
           path='/admin/newuser/'
           title={t('admin:mainView.userRegistration')}
           description={t('admin:mainView.userRegistrationDesc')}
           icon={PersonAdd}
         />
-        <Card
-          path='/admin/lectures/'
+        <NavigationCard
+          path='/admin/TeacherLectures/'
           title={t('admin:mainView.lectureManagement')}
           description={t('admin:mainView.lectureManagementDesc')}
           icon={Event}
         />
-        <Card
+        <NavigationCard
           path='/admin/courses/'
           title={t('admin:mainView.courseManagement')}
           description={t('admin:mainView.courseManagementDesc')}
           icon={Event}
         />
-        <Card
+        <NavigationCard
           path='/admin/worklog/'
           title={t('admin:mainView.workLog')}
           description={t('admin:mainView.workLogDesc')}
           icon={Event}
         />
-        <Card
+        <NavigationCard
           path='/admin/settings/'
           title={t('admin:mainView.serverConfiguration')}
           description={t('admin:mainView.serverConfigurationDesc')}
           icon={Settings}
         />
-        <Card
+        <NavigationCard
           path='/admin/dashboard/'
           title={t('admin:mainView.serverDashboard')}
           description={t('admin:mainView.serverDashboardDesc')}
@@ -86,4 +109,4 @@ const AdminMainView: React.FC = () => {
   );
 };
 
-export default AdminMainView;
+export default AdminMainView;*/

@@ -120,7 +120,7 @@ export const exportToPDF = (filteredAttendanceData, student?, sortOption?) => {
         filteredAttendanceData[0].start_date,
       ).toLocaleDateString()} .pdf`,
     );
-    toast.success('Attendance PDF downloaded successfully.', {
+    toast.success('attendance PDF downloaded successfully.', {
       position: 'top-center', // position the toast at the top center
       autoClose: 7000, // Display the toast for 7 seconds
     });
@@ -168,7 +168,7 @@ export const exportToExcel = (
         filteredAttendanceData[0].start_date,
       ).toLocaleDateString()}.xlsx`,
     );
-    toast.success('Attendance EXCEL downloaded successfully.', {
+    toast.success('attendance EXCEL downloaded successfully.', {
       position: 'top-center', // position the toast at the top center
       autoClose: 7000, // Display the toast for 7 seconds
     });
@@ -238,9 +238,9 @@ export const exportStatsTableToPdf = (allAttendanceCounts, selectedCourse) => {
       ) {
         studentData.push('N/A');
       }
-      // If there were no lectures for this topic, add 'No lectures'.
-      else if (item.attendanceCounts[i]?.percentage === 'No lectures') {
-        studentData.push('No lectures');
+      // If there were no TeacherLectures for this topic, add 'No TeacherLectures'.
+      else if (item.attendanceCounts[i]?.percentage === 'No TeacherLectures') {
+        studentData.push('No TeacherLectures');
       }
       // Otherwise, add the student's attendance percentage for this topic.
       else {
@@ -286,8 +286,8 @@ export const exportStatsTableToExcel = (
         !student.selectedTopics.includes(item.topicname)
       ) {
         studentData.push('N/A');
-      } else if (item.attendanceCounts[i]?.percentage === 'No lectures') {
-        studentData.push('No lectures');
+      } else if (item.attendanceCounts[i]?.percentage === 'No TeacherLectures') {
+        studentData.push('No TeacherLectures');
       } else {
         studentData.push(`${item.attendanceCounts[i]?.percentage}%`);
       }
