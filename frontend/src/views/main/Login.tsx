@@ -1,7 +1,7 @@
 import React, {useContext, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import ErrorAlert from '../../components/main/ErrorAlert.tsx';
+import ErrorAlert from '../../components/ui/modals/ErrorAlert.tsx';
 import ServerStatus from '../../components/main/ServerStatus.tsx';
 import {UserContext} from '../../contexts/UserContext.tsx';
 import apiHooks from '../../api';
@@ -136,7 +136,7 @@ const Login: React.FC = () => {
   return (
     <div className='w-full' role='main'>
       <h1 className='mb-6 font-semibold text-center text-gray-800 text-md sm:text-2xl'>
-        {t('common:login.title', 'Sign in using your Metropolia Account')}
+        {t('ui:login.title', 'Sign in using your Metropolia Account')}
       </h1>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
       <div className='w-full px-8 pt-6 pb-8 mx-auto mb-4 bg-white shadow-md md:w-2/4 xl:w-1/4 sm:w-2/3 rounded-xl'>
@@ -145,17 +145,17 @@ const Login: React.FC = () => {
           className='flex items-center justify-center w-full px-4 py-2 mb-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-xl focus:outline-hidden'
           type='button'
           aria-label={t(
-            'common:login.microsoftSignIn',
+            'ui:login.microsoftSignIn',
             'Sign In with Microsoft',
           )}>
           <MicrosoftIcon className='mr-2' />
-          {t('common:login.microsoftSignIn', 'Sign In with Microsoft')}
+          {t('ui:login.microsoftSignIn', 'Sign In with Microsoft')}
         </button>
 
         <div className='flex items-center my-4'>
           <hr className='flex-grow border-gray-300' />
           <span className='px-3 text-gray-500'>
-            {t('common:login.or', 'OR')}
+            {t('ui:login.or', 'OR')}
           </span>
           <hr className='flex-grow border-gray-300' />
         </div>
@@ -169,8 +169,8 @@ const Login: React.FC = () => {
           <label
             className='block mb-2 text-sm text-gray-700 font-heading sm:text-lg'
             htmlFor='username'>
-            {t('common:login.username')} <span aria-hidden='true'>*</span>
-            <span className='sr-only'>({t('common:required')})</span>
+            {t('ui:login.username')} <span aria-hidden='true'>*</span>
+            <span className='sr-only'>({t('ui:required')})</span>
           </label>
           <input
             className={`w-full px-3 py-2 leading-tight text-gray-700 border shadow appearance-none rounded-3xl focus:outline-hidden focus:shadow-outline ${
@@ -179,7 +179,7 @@ const Login: React.FC = () => {
             id='username'
             type='text'
             ref={usernameRef}
-            placeholder={t('common:login.usernamePlaceholder')}
+            placeholder={t('ui:login.usernamePlaceholder')}
             aria-label='Metropolia username'
             aria-required='true'
             aria-invalid={!!validationErrors.username}
@@ -201,8 +201,8 @@ const Login: React.FC = () => {
           <label
             className='block mb-2 text-sm text-gray-700 font-heading sm:text-lg'
             htmlFor='password'>
-            {t('common:login.password')} <span aria-hidden='true'>*</span>
-            <span className='sr-only'>({t('common:required')})</span>
+            {t('ui:login.password')} <span aria-hidden='true'>*</span>
+            <span className='sr-only'>({t('ui:required')})</span>
           </label>
           <div
             className='relative flex items-center justify-between gap-1'
@@ -221,11 +221,11 @@ const Login: React.FC = () => {
               aria-describedby={
                 validationErrors.password ? 'password-error' : undefined
               }
-              placeholder={t('common:login.passwordPlaceholder')}
+              placeholder={t('ui:login.passwordPlaceholder')}
             />
             <IconButton
               aria-label={t(
-                'common:login.togglePassword',
+                'ui:login.togglePassword',
                 `${showPassword ? 'Hide' : 'Show'} password`,
               )}
               onClick={handleClickShowPassword}
@@ -248,8 +248,8 @@ const Login: React.FC = () => {
           <button
             className='w-1/2 px-4 py-2 text-white font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:ring-2 focus:ring-offset-2 focus:ring-metropolia-main-orange rounded-xl focus:outline-hidden'
             type='submit'
-            aria-label={t('common:login.signIn', 'Sign In')}>
-            {t('common:login.signIn', 'Sign In')}
+            aria-label={t('ui:login.signIn', 'Sign In')}>
+            {t('ui:login.signIn', 'Sign In')}
           </button>
         </div>
         <div className='mt-10 text-center'>
@@ -258,8 +258,8 @@ const Login: React.FC = () => {
             className='font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
             target='_blank'
             rel='noopener noreferrer'
-            aria-label={t('common:login.forgotPassword')}>
-            {t('common:login.forgotPasswordLink', 'Forgot your password?')}
+            aria-label={t('ui:login.forgotPassword')}>
+            {t('ui:login.forgotPasswordLink', 'Forgot your password?')}
           </a>
         </div>
       </form>

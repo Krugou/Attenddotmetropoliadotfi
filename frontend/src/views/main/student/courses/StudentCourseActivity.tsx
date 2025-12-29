@@ -1,5 +1,5 @@
 import React from 'react'
-import TeacherStudentCourseActivity from '../../teacher/Courses/TeacherStudentCourseActivity'
+import TeacherStudentCourseActivity from '../../teacher/courses/TeacherStudentCourseActivity'
 
 const StudentCourseActivity = () => {
   return (

@@ -89,7 +89,7 @@ const ServerStatus: React.FC = () => {
             href='https://wiki.metropolia.fi/display/itservices/VPN+Connection+via+GlobalProtect+Service'
             target='_blank'
             rel='noopener noreferrer'>
-            {t('common:serverStatus.vpnNotConnected')}
+            {t('ui:serverStatus.vpnNotConnected')}
           </a>
         )}
       </p>
@@ -97,12 +97,12 @@ const ServerStatus: React.FC = () => {
       <div className='p-2 m-2 rounded-xl'>
         {isServerOnline && (
           <p className='p-2 m-2'>
-            {t('common:serverStatus.version')}:{' '}
+            {t('ui:serverStatus.version')}:{' '}
             {newestVersion ? <DoneIcon /> : <DangerousIcon />}
           </p>
         )}
         <p className='p-2 m-2'>
-          {t('common:serverStatus.connection')}:{' '}
+          {t('ui:serverStatus.connection')}:{' '}
           {isServerOnline ? <DoneIcon /> : <DangerousIcon />}
         </p>
       </div>
@@ -128,13 +128,13 @@ const ServerStatus: React.FC = () => {
               </svg>
             </div>
             <strong className='text-lg font-heading'>
-              {t('common:serverStatus.reloadNeeded')}
+              {t('ui:serverStatus.reloadNeeded')}
             </strong>
             <button
               onClick={() => window.location.reload()}
               className='mt-2 px-4 py-1 bg-white text-[#ff5000] rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-colors font-body'
-              aria-label={t('common:serverStatus.refreshNow')}>
-              {t('common:serverStatus.refreshNow')}
+              aria-label={t('ui:serverStatus.refreshNow')}>
+              {t('ui:serverStatus.refreshNow')}
             </button>
           </div>
         </div>

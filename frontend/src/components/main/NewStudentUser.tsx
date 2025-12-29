@@ -8,10 +8,10 @@ import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext';
 import apiHooks from '../../api';
-import CourseSelect from './newUser/CourseSelect';
-import FormInput from './newUser/FormInput';
-import StudentGroupSelect from './newUser/StudentGroupSelect';
-import SubmitButton from './newUser/SubmitButton';
+import CourseSelect from '../ui/inputs/CourseSelect.tsx';
+import FormInput from '../ui/inputs/FormInput.tsx';
+import StudentGroupSelect from '../ui/inputs/StudentGroupSelect.tsx';
+import SubmitButton from '../ui/buttons/SubmitButton.tsx';
 
 const NewStudentUser: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -179,7 +179,7 @@ const NewStudentUser: React.FC = () => {
           setWorklogCourses(courses);
         } catch (error) {
           console.error('Failed to fetch worklog courses:', error);
-          toast.error(t('common:errors.fetchWorklogCoursesFailed'));
+          toast.error(t('ui:errors.fetchWorklogCoursesFailed'));
         }
       }
     };
@@ -234,20 +234,20 @@ const NewStudentUser: React.FC = () => {
           );
         }
 
-        toast.success(t('common:newStudent.success.userAdded'));
+        toast.success(t('ui:newStudent.success.userAdded'));
       } catch (error) {
         console.error('Failed to add student:', error);
-        toast.error(t('common:newStudent.errors.addFailed'));
+        toast.error(t('ui:newStudent.errors.addFailed'));
       }
     } else if (isStudentNumberTaken) {
-      toast.error(t('common:newStudent.errors.studentNumberTaken'));
+      toast.error(t('ui:newStudent.errors.studentNumberTaken'));
     }
   };
 
   return (
     <>
       <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-        {t('common:newStudent.title')}
+        {t('ui:newStudent.title')}
       </h1>
 
       <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
@@ -255,40 +255,40 @@ const NewStudentUser: React.FC = () => {
           <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
             <div className='flex flex-col'>
               <h2 className='m-2 text-xl text-center font-heading'>
-                {t('common:newStudent.studentDetails')}
+                {t('ui:newStudent.studentDetails')}
               </h2>
               <FormInput
-                label={t('common:email')}
+                label={t('ui:email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
               />
               {isEmailTaken && (
                 <h2 className='text-red-500'>
-                  {t('common:errors.emailTaken')}
+                  {t('ui:errors.emailTaken')}
                 </h2>
               )}
               <FormInput
-                label={t('common:firstName')}
+                label={t('ui:firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label={t('common:lastName')}
+                label={t('ui:lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}
               />
               <FormInput
-                label={t('common:studentNumber')}
+                label={t('ui:studentNumber')}
                 placeholder='123456'
                 value={studentNumber}
                 onChange={setStudentNumber}
               />
               {isStudentNumberTaken && (
                 <h2 className='text-red-500'>
-                  {t('common:errors.studentNumberTaken')}
+                  {t('ui:errors.studentNumberTaken')}
                 </h2>
               )}
               <StudentGroupSelect
@@ -303,8 +303,8 @@ const NewStudentUser: React.FC = () => {
                     onClick={() => setShowWorklogSelect(!showWorklogSelect)}
                     className='w-full px-4 py-2 text-sm font-body text-metropolia-support-black hover:bg-metropolia-trend-green/50 transition-colors duration-200 rounded flex items-center justify-center gap-2 '>
                     {showWorklogSelect
-                      ? t('common:worklog.enrollment.switchToRegular')
-                      : t('common:worklog.enrollment.switchToWorklog')}
+                      ? t('ui:worklog.enrollment.switchToRegular')
+                      : t('ui:worklog.enrollment.switchToWorklog')}
                   </button>
 
                   {showWorklogSelect ? (
@@ -320,7 +320,7 @@ const NewStudentUser: React.FC = () => {
                           }
                           className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl'>
                           <option value=''>
-                            {t('common:worklog.selectCourse')}
+                            {t('ui:worklog.selectCourse')}
                           </option>
                           {worklogCourses.map((course) => (
                             <option
@@ -345,8 +345,8 @@ const NewStudentUser: React.FC = () => {
                         <Tooltip
                           title={t(
                             showEndedCourses
-                              ? 'common:hideEndedCourses'
-                              : 'common:showEndedCourses',
+                              ? 'ui:hideEndedCourses'
+                              : 'ui:showEndedCourses',
                           )}
                           placement='top'>
                           <IconButton
@@ -369,10 +369,10 @@ const NewStudentUser: React.FC = () => {
             </div>
             <div className='mt-4 w-fit'>
               <h2 className='text-lg font-heading'>
-                {t('common:newStudent.note.title')}
+                {t('ui:newStudent.note.title')}
               </h2>
-              <p className='mt-2'>{t('common:newStudent.note.checkDetails')}</p>
-              <p className='mt-4'>{t('common:newStudent.note.contactAdmin')}</p>
+              <p className='mt-2'>{t('ui:newStudent.note.checkDetails')}</p>
+              <p className='mt-4'>{t('ui:newStudent.note.contactAdmin')}</p>
             </div>
             <div className='flex justify-center pb-3'>
               <SubmitButton disabled={isEmailTaken || isStudentNumberTaken} />

@@ -11,7 +11,7 @@ interface TeamMember {
 
 /**
  * Team component displays information about the development team
- * using a responsive and animated card layout
+ * using a responsive and animated cards layout
  */
 const Team: React.FC = () => {
   const {t} = useTranslation(['noUser']);
