@@ -21,6 +21,12 @@ export interface WorkLogCourse {
   end_date: Date;
 }
 
+export interface AdminWorkLogCourse extends WorkLogCourse {
+  required_hours: number;
+  type: 'practicum' | 'worklog';
+  created_at: string;
+}
+
 export interface ActiveEntry {
   entry_id: number;
   userid: number;

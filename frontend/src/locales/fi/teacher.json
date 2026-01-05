@@ -273,19 +273,19 @@
       },
       "createLecture": {
         "title": "Luo uusi luento",
-        "description": "Avaa läsnäolon kerääminen"
+        "description": "Aloita läsnäolojen kerääminen"
       },
       "attendanceStats": {
-        "title": "Näytä läsnäolotilastot",
-        "description": "Avaa läsnäolotilastojen sivu"
+        "title": "Kurssikohtaiset läsnäolot",
+        "description": "Näytä kurssikohtaiset läsnäolotilastot"
       },
       "lateEnrollment": {
         "title": "Myöhäinen ilmoittautuminen",
         "description": "Ilmoita opiskelijat kursseille"
       },
       "lectureStats": {
-        "title": "Luentotilastosi",
-        "description": "Näytä luentojesi tilastot"
+        "title": "Luentotilastot",
+        "description": "Näytä luentotilastot"
       },
       "createWorkLogCourse": {
         "title": "Luo työpäiväkirjakurssi",
@@ -296,7 +296,7 @@
         "description": "Näytä kaikki työpäiväkirjakurssisi"
       },
       "studentActivity": {
-        "title": "Opiskelija aktiivisuus",
+        "title": "Opiskelija-aktiivisuus",
         "description": "Näytä opiskelijoiden alhaiset toiminnan yksityiskohdat"
       }
     }
@@ -859,7 +859,26 @@
     "success": {
       "saved": "Tallennettu onnistuneesti",
       "deleted": "Poistettu onnistuneesti",
-      "updated": "Päivitetty onnistuneesti"
+      "updated": "Päivitetty onnistuneesti",
+      "mainView": {
+        "greeting": "Hei!",
+        "greetingWithName": "Hei {{name}}!",
+        "todayIs": "Tänään on {{date}}",
+        "cards": {
+          "createLecture": {
+            "title": "Luo uusi luento",
+            "description": "Avaa uusi luento ja aloita läsnäolojen kerääminen."
+          }
+        }
+      },
+      "topNav": {
+        "lectures": "Luennot",
+        "courses": "Kurssit",
+        "students": "Opiskelijat",
+        "help": "Tuki",
+        "feedback": "Palaute",
+        "lecturesHome": "Etusivu (luennot)"
+      }
     },
     "error": {
       "saveFailed": "Tallentaminen epäonnistui",
@@ -868,6 +887,31 @@
       "loadStatsFailed": "Tilastojen lataaminen epäonnistui",
       "addStudentsFailed": "Opiskelijoiden lisääminen epäonnistui",
       "tokenMissing": "Käyttäjätunniste puuttuu"
+    },
+    "topNav": {
+      "lectures": "Luennot",
+      "courses": "Kurssit",
+      "students": "Opiskelijat",
+      "help": "Tuki",
+      "feedback": "Palaute",
+      "lecturesHome": "Etusivu"
+    },
+    "mainViewTitle": {
+      "dashboard": "Opettajan hallintapaneeli"
+    },
+    "mainView": {
+      "greeting": "Hei!",
+      "greetingWithName": "Hei {{name}}!",
+      "todayIs": "Tänään on {{date}}",
+      "cards": {
+        "createLecture": {
+          "title": "Luo uusi luento",
+          "description": "Avaa uusi luento ja aloita läsnäolojen kerääminen."
+        }
+      }
     }
+  },
+  "mainViewTitle": {
+    "dashboard": "Opettajan hallintapaneeli"
   }
 }

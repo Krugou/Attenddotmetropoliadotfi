@@ -92,6 +92,7 @@ export const handleStudentArrival = async (
   listOfIpAlreadyUsedLecture: Map<number, Map<string, IpStudentRecord>>,
 ): Promise<void> => {
   try {
+    console.log("row 95, handleStudentArrival.ts, handleStudentArrival()")
     const ip =
       (socket.handshake.headers['x-forwarded-for'] as string) ||
       socket.handshake.address ||
@@ -107,6 +108,7 @@ export const handleStudentArrival = async (
       !unixtime ||
       !lectureData[lectureid]
     ) {
+      console.log("row 111, handleStudentArrival.ts, invalid input details for student")
       io.to(socket.id).emit('NoCorrectInputDetails', lectureid);
       logger.error(
         `Missing or invalid input details for student ${studentId} in lecture ${lectureid}`,
@@ -121,7 +123,7 @@ export const handleStudentArrival = async (
         new Map<string, IpStudentRecord>(),
       );
     }
-
+      console.log("row 126, handleStudentArrival.ts")
     // Check if the student is already present
     if (
       presentStudents[lectureid]?.some(
@@ -136,6 +138,7 @@ export const handleStudentArrival = async (
     // with incoming studentid as studentId2 and add duplicateFound as true
     const existingRecord = listOfIpAlreadyUsedLecture.get(lectureid)?.get(ip);
     if (existingRecord) {
+      console.log("row 141, handleStudentArrival.ts, if existingRecord")
       // Update existing record with duplicate information
       existingRecord.studentId2 = studentId; // Keep for backward compatibility
       existingRecord.duplicateFound = true;
@@ -160,6 +163,7 @@ export const handleStudentArrival = async (
       }
     }
 
+    console.log("row 166, handleStudentArrival.ts")
     // Find matching timestamp
     const timestamps = lectureData[lectureid].timestamps;
     const timestamp = timestamps.find(
@@ -168,6 +172,7 @@ export const handleStudentArrival = async (
     );
 
     if (!timestamp) {
+      console.log("row 175, handleStudentArrival.ts, if !timestamp")
       // No valid timestamp found, emit too slow event
       io.to(socket.id).emit(
         'inputThatStudentHasArrivedToLectureTooSlow',
@@ -199,6 +204,7 @@ export const handleStudentArrival = async (
           lectureid,
         }),
       });
+      console.log("row 207, handleStudentArrival.ts, api call");
     } catch (fetchError) {
       // If insertion fails, handle gracefully
       io.to(socket.id).emit('youHaveBeenSavedIntoLectureAlready', lectureid);
@@ -214,6 +220,7 @@ export const handleStudentArrival = async (
     );
 
     if (studentIndex !== -1) {
+      console.log("row 223, handleStudentArrival.ts, if studentIndex !== -1")
       const [arrivedStudent] = notYetPresentStudents[lectureid].splice(
         studentIndex,
         1,
@@ -234,8 +241,10 @@ export const handleStudentArrival = async (
       return;
     }
 
+    console.log("row 244, handleStudentArrival.ts");
     // Store the IP directly in the used IPs map for this lecture - only when successfully saved
     if (listOfIpAlreadyUsedLecture.has(lectureid)) {
+      console.log("row 246, handleStudentArrival.ts, if listOfIpAlreadyUsedLecture.has(lectureid)")
       // Initialize the new record with extended tracking capability
       const newRecord = {
         ip,
@@ -253,6 +262,7 @@ export const handleStudentArrival = async (
             }
           : {}),
       };
+      console.log("row 265, handleStudentArrival.ts, newRecord")
 
       listOfIpAlreadyUsedLecture.get(lectureid)?.set(ip, newRecord);
 
@@ -275,7 +285,7 @@ export const handleStudentArrival = async (
     );
 
     io.to(socket.id).emit('youHaveBeenSavedIntoLecture', lectureid);
-
+    console.log("row 288, handleStudentArrival.ts, Emit the IP tracking information directly to everyone in the lecture room");
     logger.info(
       `Student ${studentId} from IP ${ip} successfully saved into lecture ${lectureid}`,
     );

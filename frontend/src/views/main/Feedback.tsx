@@ -65,7 +65,7 @@ const Feedback: React.FC = () => {
 
         toast.success(
           t(
-            'common:feedback.submitSuccess',
+            'ui:feedback.submitSuccess',
             'Your feedback has been submitted successfully!',
           ),
         );
@@ -73,7 +73,7 @@ const Feedback: React.FC = () => {
       } catch (error) {
         toast.error(
           t(
-            'common:feedback.submitError',
+            'ui:feedback.submitError',
             'An error occurred while submitting your feedback.',
           ),
         );
@@ -91,31 +91,31 @@ const Feedback: React.FC = () => {
     student: [
       'Qr Code Scanning',
       'User Interface / Accessibility',
-      'Attendance info',
+      'attendance info',
       'Other',
     ],
     teacher: [
       'User Interface / Accessibility',
       'Course Creation',
       'Lecture Creation',
-      'Attendance gathering',
+      'attendance gathering',
       'Course/Student info',
-      'Attendance info',
+      'attendance info',
       'Other',
     ],
     counselor: [
       'User Interface / Accessibility',
       'Course/Student info',
-      'Attendance info',
+      'attendance info',
       'Other',
     ],
     admin: [
       'User Interface / Accessibility',
       'Course Creation',
       'Lecture Creation',
-      'Attendance gathering',
+      'attendance gathering',
       'Course/Student info',
-      'Attendance info',
+      'attendance info',
       'Qr Code Scanning',
       'Other',
     ],
@@ -131,7 +131,7 @@ const Feedback: React.FC = () => {
       <div className='p-4 bg-white rounded-lg shadow-md'>
         <h2 className='mb-4 text-xl font-heading'>
           {t(
-            'common:feedback.header',
+            'ui:feedback.header',
             'Help us improve, {{username}} by sharing your feedback.',
             {
               username: user?.username,
@@ -140,7 +140,7 @@ const Feedback: React.FC = () => {
         </h2>
         <form onSubmit={handleSubmit} className='flex flex-col mb-4'>
           <label htmlFor='feedback-topic' className='sr-only'>
-            {t('common:feedback.topicLabel', 'Feedback Topic')}
+            {t('ui:feedback.topicLabel', 'Feedback Topic')}
           </label>
           <select
             id='feedback-topic'
@@ -149,7 +149,7 @@ const Feedback: React.FC = () => {
             className='p-2 m-2 border rounded-sm'
             required>
             <option value=''>
-              {t('common:feedback.selectTopic', 'Select a topic')}
+              {t('ui:feedback.selectTopic', 'Select a topic')}
             </option>
             {feedbackTopics.map((topic, index) => (
               <option key={index} value={topic}>
@@ -158,7 +158,7 @@ const Feedback: React.FC = () => {
             ))}
           </select>
           <label htmlFor='feedback-text' className='sr-only'>
-            {t('common:feedback.textLabel', 'Feedback Text')}
+            {t('ui:feedback.textLabel', 'Feedback Text')}
           </label>
           <textarea
             id='feedback-text'
@@ -167,7 +167,7 @@ const Feedback: React.FC = () => {
             className='p-2 m-2 border rounded-sm'
             rows={8}
             placeholder={t(
-              'common:feedback.placeholder',
+              'ui:feedback.placeholder',
               'Enter your feedback here...',
             )}
             required
@@ -175,7 +175,7 @@ const Feedback: React.FC = () => {
           <button
             type='submit'
             className='px-4 py-2 m-4 text-white transition rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:shadow-outline'>
-            {t('common:feedback.submit', 'Submit')}
+            {t('ui:feedback.submit', 'Submit')}
           </button>
         </form>
       </div>

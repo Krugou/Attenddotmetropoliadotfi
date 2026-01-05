@@ -1,13 +1,13 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import CreateCourseCustom from '../../../components/main/course/CreateCourseCustom.tsx';
-import CreateCourseEasy from '../../../components/main/course/CreateCourseEasy.tsx';
-import TeacherCreateCourse from '../../../views/main/teacher/Courses/TeacherCreateCourse.tsx';
+import CreateCourseCustom from '../../../components/features/courses/CreateCourseCustom.tsx';
+import CreateCourseEasy from '../../../components/features/courses/CreateCourseEasy.tsx';
+import TeacherCreateCourse from '../../../views/main/teacher/courses/TeacherCreateCourse.tsx';
 import TeacherMainView from '../../../views/main/teacher/TeacherMainView.tsx';
 import TeacherWorkLogCreate from '../../../views/main/teacher/WorkLog/TeacherWorklogCreate.tsx';
-import CreateWorklogEasy from '../../../components/main/course/CreateWorklogEasy.tsx';
-import CreateWorklogCustom from '../../../components/main/course/CreateWorklogCustom.tsx';
-import CreatePracticum from '../../../components/main/practicum/Createpracticum.tsx';
+import CreateWorklogEasy from '../../../components/features/courses/CreateWorklogEasy.tsx';
+import CreateWorklogCustom from '../../../components/features/courses/CreateWorklogCustom.tsx';
+import CreatePracticum from '../../../components/features/practicum/Createpracticum.tsx';
 /**
  * TeacherCreateCourseRoutes component.
  * This component is responsible for defining the routes for the teacher's course creation section of the application.

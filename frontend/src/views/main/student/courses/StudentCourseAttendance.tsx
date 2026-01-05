@@ -1,8 +1,8 @@
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import StudentAttendanceTable from '../../../../components/main/course/attendance/StudentAttendanceTable';
-import StudentAttendanceStatsTable from '../../../../components/main/course/attendance/StudentAttendanceStatsTable';
+import StudentAttendanceTable from '../../../../components/features/courses/attendance/StudentAttendanceTable.tsx';
+import StudentAttendanceStatsTable from '../../../../components/features/courses/attendance/StudentAttendanceStatsTable.tsx';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import {motion} from 'framer-motion';
@@ -64,7 +64,7 @@ const StudentCourseAttendance: React.FC = () => {
       try {
         const token = localStorage.getItem('userToken');
         if (!token) {
-          throw new Error(t('common:noToken'));
+          throw new Error(t('ui:noToken'));
         }
         const response = await apiHooks.getAttendanceThreshold(token);
         if (!response?.attendancethreshold) {
@@ -106,7 +106,7 @@ const StudentCourseAttendance: React.FC = () => {
     return (
       <div className='flex items-center justify-center min-h-[400px]'>
         <div className='text-xl text-metropolia-main-grey animate-pulse'>
-          {t('admin:common.loading')}
+          {t('admin:ui.loading')}
         </div>
       </div>
     );
@@ -189,7 +189,7 @@ const StudentCourseAttendance: React.FC = () => {
           <div className='flex flex-row items-center justify-between  w-full space-x-4 bg-metropolia-support-white p-4 rounded'>
             <div className='w-full max-w-md '>
               <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
-                {t('admin:common.searchByDate')}:
+                {t('admin:ui.searchByDate')}:
               </label>
               <input
                 type='text'
@@ -249,7 +249,7 @@ const StudentCourseAttendance: React.FC = () => {
 
   return (
     <div className='p-6 m-10 text-3xl text-center bg-white rounded-lg font-heading text-metropolia-main-grey'>
-      {t('admin:common.noDataAvailable')}
+      {t('admin:ui.noDataAvailable')}
     </div>
   );
 };

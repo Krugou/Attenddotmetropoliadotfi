@@ -108,10 +108,10 @@ const Footer: React.FC = () => {
         // Logged in view or mobile view
         <div className='text-center'>
           <p className='mb-2 font-bold font-heading'>
-            © {new Date().getFullYear()} {t('common:footer.appName')}
+            © {new Date().getFullYear()} {t('ui:footer.appName')}
           </p>
           <p title={buildInfo}>
-            {t('common:footer.developedBy')}{' '}
+            {t('ui:footer.developedBy')}{' '}
             <Link to={`/${user?.role || ''}/team`}>JAK</Link>
           </p>
         </div>
@@ -120,19 +120,19 @@ const Footer: React.FC = () => {
         <div className='flex justify-between mx-auto'>
           <div>
             <h3 className='mb-4 text-lg font-bold font-heading'>
-              {t('common:footer.metropolia')}
+              {t('ui:footer.metropolia')}
             </h3>
             {renderLinks(footerLinks.metropolia)}
           </div>
           <div className='mb-4 text-center'>
             <p className='mb-2 font-bold font-heading'>
-              © {new Date().getFullYear()} {t('common:footer.appName')}
+              © {new Date().getFullYear()} {t('ui:footer.appName')}
             </p>
-            <p title={buildInfo}>{t('common:footer.developedBy')} JAK</p>
+            <p title={buildInfo}>{t('ui:footer.developedBy')} JAK</p>
           </div>
           <div>
             <h3 className='mb-4 text-lg font-bold font-heading'>
-              {t('common:footer.navigation')}
+              {t('ui:footer.navigation')}
             </h3>
             {renderLinks(footerLinks.navigation)}
           </div>

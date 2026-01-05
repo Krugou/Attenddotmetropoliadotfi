@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import AddTeachers from '../../../../components/main/course/createcourse/AddTeachers';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
+import AddTeachers from '../../../../components/features/courses/create/AddTeachers';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PracticumData from '../../../../components/main/practicum/PracticumDetailsStep';
+import PracticumDetailsStep from '../../../../components/features/practicum/PracticumDetailsStep.tsx';
 
 interface Instructor {
   email: string;
@@ -76,7 +76,7 @@ const TeacherPracticumModify: React.FC = () => {
 
           setIsLoading(false);
         } catch (error) {
-          toast.error(t('common:worklog.error.fetchFailed'));
+          toast.error(t('ui:worklog.error.fetchFailed'));
           setIsLoading(false);
         }
       }
@@ -115,7 +115,7 @@ const TeacherPracticumModify: React.FC = () => {
     if (!token) throw new Error('No token available');
 
     if (!name || !startDate || !endDate || requiredHours <= 0) {
-      toast.error(t('common:worklog.error.requiredFields'));
+      toast.error(t('ui:worklog.error.requiredFields'));
       return;
     }
 
@@ -156,7 +156,7 @@ const TeacherPracticumModify: React.FC = () => {
           />
         </div>
 
-        <PracticumData
+        <PracticumDetailsStep
           name={name}
           setName={setName}
           description={description}

@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import dayjs from 'dayjs';
-import EditWorklogModal from '../../../../components/modals/EditWorklogModal';
+import EditWorklogModal from '../../../../components/features/worklogs/EditWorklogModal.tsx';
 import {ViewList, ViewModule, Search, Sort} from '@mui/icons-material';
 import WorklogFilters from '../../../../components/worklog/WorklogFilters';
 import WorklogCardView from '../../../../components/worklog/WorklogCardView';
@@ -26,7 +26,7 @@ const StudentWorklogs: React.FC = () => {
     Array<{code: string; name: string}>
   >([]);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortConfig, setSortConfig] = useState<{
     key: 'date' | 'course' | 'duration' | 'description';
@@ -74,7 +74,7 @@ const StudentWorklogs: React.FC = () => {
           // Add a "practicum" option
           courses.set('practicum', {
             code: 'practicum',
-            name: t('common:worklog.practicum'),
+            name: t('ui:worklog.practicum'),
           });
 
           // Add all courses with codes
@@ -96,7 +96,7 @@ const StudentWorklogs: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching worklog entries:', error);
-        toast.error(t('common:worklog.error.fetchFailed'));
+        toast.error(t('ui:worklog.error.fetchFailed'));
       } finally {
         setLoading(false);
       }
@@ -125,10 +125,10 @@ const StudentWorklogs: React.FC = () => {
         ),
       );
 
-      toast.success(t('common:worklog.edit.success'));
+      toast.success(t('ui:worklog.edit.success'));
     } catch (error) {
       console.error('Error updating entry:', error);
-      toast.error(t('common:worklog.edit.error'));
+      toast.error(t('ui:worklog.edit.error'));
     }
   };
 
@@ -205,17 +205,17 @@ const StudentWorklogs: React.FC = () => {
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
           <h1 className='text-2xl font-heading text-metropolia-main-orange'>
-            {t('common:worklog.entries.title')}
+            {t('ui:worklog.entries.title')}
           </h1>
           <div className='flex items-center gap-2 bg-metropolia-support-white rounded-lg p-1 shadow-sm'>
             <button
-              onClick={() => setViewMode('card')}
+              onClick={() => setViewMode('cards')}
               className={`p-2 rounded-md transition-colors ${
-                viewMode === 'card'
+                viewMode === 'cards'
                   ? 'bg-metropolia-main-orange text-white'
                   : 'text-metropolia-main-grey hover:bg-gray-100'
               }`}
-              title={t('common:worklog.view.card')}>
+              title={t('ui:worklog.view.cards')}>
               <ViewModule />
             </button>
             <button
@@ -225,7 +225,7 @@ const StudentWorklogs: React.FC = () => {
                   ? 'bg-metropolia-main-orange text-white'
                   : 'text-metropolia-main-grey hover:bg-gray-100'
               }`}
-              title={t('common:worklog.view.table')}>
+              title={t('ui:worklog.view.table')}>
               <ViewList />
             </button>
           </div>
@@ -236,7 +236,7 @@ const StudentWorklogs: React.FC = () => {
             <div className='relative'>
               <input
                 type='text'
-                placeholder={t('common:worklog.search.placeholder')}
+                placeholder={t('ui:worklog.search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className='w-full pl-10 pr-4 py-2 border-2 border-metropolia-main-grey/20 rounded-lg focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20'
@@ -282,7 +282,7 @@ const StudentWorklogs: React.FC = () => {
         </div>
       </div>
 
-      {viewMode === 'card' ? (
+      {viewMode === 'cards' ? (
         <WorklogCardView
           entries={filteredAndSortedEntries}
           setSelectedEntry={setSelectedEntry}

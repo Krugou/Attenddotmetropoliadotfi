@@ -7,7 +7,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {worklogApi} from '../../../../api/worklog';
 import {practicumApi} from '../../../../api/practicum';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -177,7 +177,7 @@ const TeacherPracticumEntries: React.FC = () => {
   if (loading) {
     return (
       <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-xl font-body'>{t('common:loading')}</div>
+        <div className='text-xl font-body'>{t('ui:loading')}</div>
       </div>
     );
   }
@@ -305,7 +305,7 @@ const TeacherPracticumEntries: React.FC = () => {
                             <button
                               onClick={() => handleDeleteEntry(entry.entry_id, entry.start_time)}
                               className='text-red-600 hover:text-red-800 transition-colors p-1'
-                              title={t('common:delete')}>
+                              title={t('ui:delete')}>
                               <DeleteIcon fontSize="small" />
                             </button>
                           </td>
@@ -339,10 +339,10 @@ const TeacherPracticumEntries: React.FC = () => {
           <Button
             onClick={() => setDeleteDialog({ open: false, entryId: null, entryDate: '' })}
           >
-            {t('common:cancel')}
+            {t('ui:cancel')}
           </Button>
           <Button onClick={handleConfirmDelete} color="error" autoFocus>
-            {t('common:delete')}
+            {t('ui:delete')}
           </Button>
         </DialogActions>
       </Dialog>

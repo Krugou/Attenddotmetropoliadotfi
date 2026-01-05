@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import AdminMainView from '../../views/main/admin/AdminMainView';
-import AdminUsers from '../../views/main/admin/AdminUsers';
-import AdminUserModify from '../../views/main/admin/Users/AdminUserModify';
+import AdminUsers from '../../views/main/admin/users/AdminUsers.tsx';
+import AdminUserModify from '../../views/main/admin/users/AdminUserModify';
 /**
  * AdminUserRoutes component.
  * This component is responsible for defining the routes for the admin's user management section of the application.

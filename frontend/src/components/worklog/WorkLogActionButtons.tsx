@@ -45,9 +45,9 @@ const WorkLogActionButtons: React.FC<WorkLogActionButtonsProps> = ({
                 ? 'bg-gray-400'
                 : 'bg-metropolia-main-orange hover:bg-metropolia-secondary-orange'
             }`}
-            aria-label={t('common:worklog.clockIn')}>
+            aria-label={t('ui:worklog.clockIn')}>
             <LoginIcon className='w-6 h-6' />
-            <span>{t('common:worklog.actions.in')}</span>
+            <span>{t('ui:worklog.actions.in')}</span>
           </button>
         )}
         {hasActiveEntry && (
@@ -59,9 +59,9 @@ const WorkLogActionButtons: React.FC<WorkLogActionButtonsProps> = ({
                 ? 'bg-gray-400'
                 : 'bg-metropolia-support-red hover:bg-metropolia-support-secondary-red'
             }`}
-            aria-label={t('common:worklog.clockOut')}>
+            aria-label={t('ui:worklog.clockOut')}>
             <LogoutIcon className='w-6 h-6' />
-            <span>{t('common:worklog.actions.out')}</span>
+            <span>{t('ui:worklog.actions.out')}</span>
           </button>
         )}
       </div>
@@ -69,9 +69,9 @@ const WorkLogActionButtons: React.FC<WorkLogActionButtonsProps> = ({
         onClick={onEdit}
         className={`${buttonBaseStyle}
           bg-metropolia-trend-green hover:bg-metropolia-trend-green/90`}
-        aria-label={t('common:worklog.actions.view')}>
+        aria-label={t('ui:worklog.actions.view')}>
         <AssignmentIcon className='w-6 h-6' />
-        <span>{t('common:worklog.actions.view')}</span>
+        <span>{t('ui:worklog.actions.view')}</span>
       </button>
     </div>
   );

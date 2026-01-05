@@ -33,7 +33,7 @@ const WorklogCardView: React.FC<WorklogCardViewProps> = ({entries}) => {
                 {/* if code is '' then show practicum on where code is from translation */}
                 {entry.course?.name} -{' '}
                 {entry.course?.code === ''
-                  ? t('common:practicum')
+                  ? t('ui:practicum')
                   : entry.course?.code}
               </div>
               <div className='text-sm text-metropolia-main-grey'>
@@ -44,7 +44,7 @@ const WorklogCardView: React.FC<WorklogCardViewProps> = ({entries}) => {
             <div className='space-y-2'>
               <div className='flex justify-between'>
                 <span className='text-sm text-metropolia-main-grey'>
-                  {t('common:worklog.entries.time')}:
+                  {t('ui:worklog.entries.time')}:
                 </span>
                 <span className='text-sm font-medium'>
                   {dayjs(entry.start_time).format('HH:mm')} -{' '}
@@ -54,7 +54,7 @@ const WorklogCardView: React.FC<WorklogCardViewProps> = ({entries}) => {
 
               <div className='flex justify-between'>
                 <span className='text-sm text-metropolia-main-grey'>
-                  {t('common:worklog.entries.duration')}:
+                  {t('ui:worklog.entries.duration')}:
                 </span>
                 <span className='text-sm font-medium'>
                   {calculateDuration(entry.start_time, entry.end_time)}
