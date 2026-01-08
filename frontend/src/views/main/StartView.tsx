@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../../components/Logo';
-import ServerStatus from '../../components/main/ServerStatus';
+import ServerStatus from '../../components/features/system/ServerStatus.tsx';
 import StartViewButton from '../../components/ui/buttons/StartViewButton.tsx';
 
 /**

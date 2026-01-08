@@ -16,7 +16,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({disabled}) => {
         className={`mt-5 mb-2 p-2 w-fit bg-metropolia-trend-green hover:bg-green-600 transition text-white rounded-md ${
           disabled ? 'opacity-50 cursor-not-allowed' : ''
         }`}>
-        {t('ui:newStudent.addButton')}
+        {t('newStudent.addButton')}
       </button>
     </div>
   );

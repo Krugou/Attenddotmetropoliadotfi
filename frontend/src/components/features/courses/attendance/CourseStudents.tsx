@@ -31,16 +31,16 @@ interface Props {
  * @returns {React.FC<Props>} The CourseStudents component.
  */
 const CourseStudents: React.FC<Props> = ({
-  coursestudents,
-  socket,
-  lectureid,
-  isAnimationStopped,
-  setLectureSuccess,
-  lectureSuccess,
-  loading,
-  scrollTabToggle,
-  widerNamesToggle,
-}) => {
+                                           coursestudents,
+                                           socket,
+                                           lectureid,
+                                           isAnimationStopped,
+                                           setLectureSuccess,
+                                           lectureSuccess,
+                                           loading,
+                                           scrollTabToggle,
+                                           widerNamesToggle,
+                                         }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   // Define state and refs const
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -55,6 +55,15 @@ const CourseStudents: React.FC<Props> = ({
   const scrollInterval = useRef<number | null>(null);
   const scrollDirectionRef = useRef(1);
   const {t} = useTranslation('teacher');
+
+  // New: menu choosing status
+  const [showStatusMenu, setShowStatusMenu] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<{
+    first_name: string;
+    last_name: string;
+    userid: number;
+    studentnumber: string;
+  } | null>(null);
 
   // Use an effect hook to handle countdown and lecture finish
   useEffect(() => {
@@ -180,7 +189,7 @@ const CourseStudents: React.FC<Props> = ({
         clearInterval(scrollInterval.current);
       }
     };
-  }, [coursestudents]);
+  }, [coursestudents, isAnimationStopped]);
 
   useEffect(() => {
     if (!loading) {
@@ -192,13 +201,45 @@ const CourseStudents: React.FC<Props> = ({
         setShowSuccessModal(false);
       }
     }
-  }, [coursestudents]);
+  }, [coursestudents, loading, setLectureSuccess]);
 
   const handleFinishNow = () => {
     if (socket) {
       socket.emit('lectureFinishedWithButton', lectureid);
     }
     setShowSuccessModal(false);
+  };
+
+  // New: Clicking student's name opens menu with options to mark student as present or excused.
+  const handleStudentClick = (student: {
+    first_name: string;
+    last_name: string;
+    userid: number;
+    studentnumber: string;
+  }) => {
+    setSelectedStudent(student);
+    setShowStatusMenu(true);
+  };
+
+  // New: sends socket status (1=present, 2=excused)
+  const handleSetStatus = (status: number) => {
+    if (socket && selectedStudent) {
+      console.log('emit manualStudentInsert', {
+        lectureid,
+        asNumber: Number(lectureid),
+        studentnumber: selectedStudent.studentnumber,
+        status,
+      });
+      socket.emit(
+        'manualStudentInsert',
+        selectedStudent.studentnumber,
+        Number(lectureid),
+        status,
+      );
+      console.log('emitistä poistuttu');
+    }
+    setShowStatusMenu(false);
+    setSelectedStudent(null);
   };
 
   return (
@@ -246,12 +287,12 @@ const CourseStudents: React.FC<Props> = ({
           <p className=''>
             {remainingTime > 0
               ? t('teacher:courseStudents.allStudentsHere', {
-                  seconds: remainingTime,
-                })
+                seconds: remainingTime,
+              })
               : t('teacher:courseStudents.finishingLecture')}
           </p>
         ) : (
-          <div className={`   whitespace-nowrap `}>
+          <div className='whitespace-nowrap'>
             {coursestudents.map((student, index) => {
               const formattedName = widerNamesToggle
                 ? `${student.first_name} ${student.last_name}`
@@ -264,38 +305,24 @@ const CourseStudents: React.FC<Props> = ({
               const bgColorClass = isFirst
                 ? 'bg-metropolia-support-red'
                 : isLast
-                ? 'bg-metropolia-trend-green'
-                : index % 2 === 0
-                ? 'bg-metropolia-main-orange'
-                : 'bg-metropolia-main-grey';
+                  ? 'bg-metropolia-trend-green'
+                  : index % 2 === 0
+                    ? 'bg-metropolia-main-orange'
+                    : 'bg-metropolia-main-grey';
               const shapeClass = isFirst
                 ? 'rounded-l-lg rounded-r-none'
                 : isLast
-                ? 'rounded-r-lg rounded-l-none'
-                : 'rounded';
+                  ? 'rounded-r-lg rounded-l-none'
+                  : 'rounded';
               return (
                 <p
                   ref={isFirst ? firstItemRef : isLast ? lastItemRef : null}
                   key={student.userid}
-                  className={`inline-block  cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
+                  className={`inline-block cursor-pointer p-2 m-2 text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold ${bgColorClass} ${shapeClass} ${
                     isBouncing ? 'motion-safe:animate-bounce' : ''
                   }`}
                   title={`${student.first_name} ${student.last_name}`}
-                  onClick={() => {
-                    if (socket) {
-                      console.log('emit manualStudentInsert', {
-                        lectureid,
-                        asNumber: Number(lectureid),
-                        studentnumber: student.studentnumber,
-                      });
-                      socket.emit(
-                        'manualStudentInsert',
-                        student.studentnumber,
-                        lectureid,
-                      );
-                      console.log("emitistä poistuttu");
-                    }
-                  }}>
+                  onClick={() => handleStudentClick(student)}>
                   {formattedName}
                 </p>
               );
@@ -303,6 +330,50 @@ const CourseStudents: React.FC<Props> = ({
           </div>
         )}
       </div>
+
+      {/* New: status menu*/}
+      {showStatusMenu && selectedStudent && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40'>
+          <div className='bg-white rounded-lg shadow-xl p-4 max-w-sm w-full'>
+            <h3 className='text-lg font-semibold mb-2'>
+              {t(
+                'teacher:courseStudents.chooseStatus',
+                'Valitse tila opiskelijalle',
+              )}
+            </h3>
+            <p className='mb-4'>
+              {selectedStudent.first_name} {selectedStudent.last_name}
+            </p>
+            <div className='flex flex-col gap-2 sm:flex-row'>
+              <button
+                className='flex-1 px-3 py-2 rounded-md bg-metropolia-trend-green text-white font-semibold hover:bg-green-600 transition'
+                onClick={() => handleSetStatus(1)}>
+                {t(
+                  'teacher:courseStudents.markPresent',
+                  'Merkitse paikalla',
+                )}
+              </button>
+              <button
+                className='flex-1 px-3 py-2 rounded-md bg-metropolia-support-blue text-white font-semibold hover:bg-blue-600 transition'
+                onClick={() => handleSetStatus(2)}>
+                {t(
+                  'teacher:courseStudents.markExcused',
+                  'Hyväksytty poissaolo',
+                )}
+              </button>
+            </div>
+            <button
+              className='mt-3 w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition text-sm'
+              onClick={() => {
+                setShowStatusMenu(false);
+                setSelectedStudent(null);
+              }}>
+              {t('teacher:courseStudents.cancel', 'Peruuta')}
+            </button>
+          </div>
+        </div>
+      )}
+
       <ConfirmDialog
         title={t('teacher:attendance.dialogs.success.title')}
         open={showSuccessModal}
@@ -317,8 +388,8 @@ const CourseStudents: React.FC<Props> = ({
           <p>
             {remainingTime > 0
               ? t('teacher:attendance.dialogs.success.options', {
-                  seconds: remainingTime,
-                })
+                seconds: remainingTime,
+              })
               : t('teacher:attendance.dialogs.success.finishing')}
           </p>
         </div>

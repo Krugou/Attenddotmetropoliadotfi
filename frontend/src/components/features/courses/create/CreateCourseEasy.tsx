@@ -1,37 +1,25 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import {UserContext} from '../../../contexts/UserContext.tsx';
-import apiHooks from '../../../api';
-import AddTeachers from './create/AddTeachers.tsx';
-import CourseDetails from './create/CourseDetails.tsx';
-import CreateCourseProgress from './create/CreateCourseProgress.tsx';
-import StepButtons from './create/StepButtons.tsx';
-import StudentList from './create/StudentList.tsx';
-import TopicGroupAndTopicsSelector from './create/TopicsGroupAndTopics.tsx';
+import {UserContext} from '../../../../contexts/UserContext.tsx';
+import apiHooks from '../../../../api';
+import AddTeachers from './AddTeachers.tsx';
+import CourseDetails from './CourseDetails.tsx';
+import ProgressRibbon from '../../../ui/ProgressRibbon.tsx';
+import StepButtons from './StepButtons.tsx';
+import StudentList from './StudentList.tsx';
+import TopicGroupAndTopicsSelector from './TopicsGroupAndTopics.tsx';
 import {useTranslation} from 'react-i18next';
 
 /**
  * CreateCourseEasy component.
  * This component is responsible for displaying a form that allows teachers to create a course.
- * It uses the useState hook from React to manage the state of the current step, course name, file, course code, student group, start date, selected file, upload file, instructor email, instructors, student list, end date, topics form data, and course exists.
- * The component also uses the useContext hook from React to access the user context, and the useNavigate hook from React Router to navigate between pages.
- * The handleFileChange function is used to handle the change event of the file input.
- * The changeDateToBetterFormat function is used to format the date string to a more readable format.
- * The handleExcelInput function is used to handle the submission of the excel file.
- * The handleSubmit function is used to submit the form and create the course.
- * The handleSubmitWrapper function is used to wrap the handleSubmit function.
- * The validateFields function is used to validate the fields of the form based on the current step.
- * The getFormClassName function is used to get the class name for the form based on the current step.
- * The incrementStep function is used to increment the current step if the fields are valid and the course does not exist.
- * The useEffect hook is used to set the instructors when the instructor email changes.
- *
- * @returns {JSX.Element} The rendered CreateCourseEasy component.
  */
 const CreateCourseEasy: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
-  const {t} = useTranslation(['teacher']);
+  const {t} = useTranslation(['common']);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [courseName, setCourseName] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -52,13 +40,16 @@ const CreateCourseEasy: React.FC = () => {
     email: string;
     exists?: boolean;
   };
+
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
 
-  const [studentList, setStudentList] = useState<string[]>([]);
+  // HUOM: annetaan backendin datan tulla läpi sellaisenaan (objektit, joissa monta saraketta)
+  const [studentList, setStudentList] = useState<any[]>([]);
   const [endDate, setEndDate] = useState('');
   const [topicsFormData, setTopicsFormData] = useState<any>([]);
   const [courseExists, setCourseExists] = useState(false);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
@@ -72,6 +63,7 @@ const CreateCourseEasy: React.FC = () => {
   };
 
   const [shouldCheckDetails, setShouldCheckDetails] = useState(true);
+
   const changeDateToBetterFormat = (date: string) => {
     const dateObj = new Date(date);
     return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(
@@ -81,44 +73,71 @@ const CreateCourseEasy: React.FC = () => {
       dateObj.getHours(),
     ).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
   };
+
   const handleExcelInput = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (file) {
-      const formDataFile = new FormData();
-      formDataFile.append('file', file);
-      if (user) {
-        formDataFile.append('instructorEmail', user.email); // get email from userContext
-      }
-      formDataFile.append('checkCourseDetails', shouldCheckDetails.toString());
-      const token: string | null = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token available');
-      }
-      try {
-        const response = await apiHooks.excelInput({formDataFile}, token);
+    if (!file) return;
 
-        if (response) {
-          toast.success('Excel file uploaded');
-          setCourseName(response.courseName);
-          setStudentGroup(response.studentGroup);
-          setCourseCode(response.courseCode);
+    const formDataFile = new FormData();
+    formDataFile.append('file', file);
 
-          setStartDate(changeDateToBetterFormat(response.startDate));
-          setEndDate(changeDateToBetterFormat(response.endDate));
-          setInstructorEmail(response.instructorEmail);
-          setStudentList(response.studentList);
+    if (user) {
+      formDataFile.append('instructorEmail', user.email); // get email from userContext
+    }
 
-          setCurrentStep((prevStep) => prevStep + 1);
-        } else {
-          toast.error('Excel file upload failed');
-          console.error('Excel file upload failed');
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          toast.error('Excel file upload failed, check your file');
-        }
+    formDataFile.append('checkCourseDetails', shouldCheckDetails.toString());
+
+    const token: string | null = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No token available');
+    }
+
+    try {
+      const response = await apiHooks.excelInput({formDataFile}, token);
+
+      if (!response) {
+        toast.error('Excel file upload failed');
+        console.error('Excel file upload failed');
+        return;
       }
+
+      toast.success('Excel file uploaded');
+
+      setCourseName(response.courseName);
+      setStudentGroup(response.studentGroup);
+      setCourseCode(response.courseCode);
+
+      setStartDate(changeDateToBetterFormat(response.startDate));
+      setEndDate(changeDateToBetterFormat(response.endDate));
+      setInstructorEmail(response.instructorEmail);
+
+      /**
+       * 🔍 TÄRKEÄ KOHTA:
+       *  - ÄLÄ muokkaa backendin palauttamien opiskelijaobjektien rakennetta
+       *  - Poista vain täysin tyhjät rivit (joissa kaikki kentät ovat null/tyhjiä)
+       */
+      const rawStudents = Array.isArray(response.studentList)
+        ? response.studentList
+        : [];
+
+      const cleanedStudents = rawStudents.filter((row: any) => {
+        if (!row || typeof row !== 'object') return false;
+
+        // Pidä rivi, jos VÄHINTÄÄN yhdessä sarakkeessa on sisältöä
+        return Object.values(row).some(
+          (v) => v !== null && v !== '' && v !== undefined,
+        );
+      });
+
+      setStudentList(cleanedStudents);
+
+      setCurrentStep((prevStep) => prevStep + 1);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+      }
+      toast.error('Excel file upload failed, check your file');
     }
   };
 
@@ -136,7 +155,7 @@ const CreateCourseEasy: React.FC = () => {
         startDate: startDate,
         endDate: endDate,
         instructors: instructors,
-        studentList: studentList,
+        studentList: studentList, // viedään backendille sama rakenne takaisin
         topicGroup: topicsFormData.topicgroup,
         topics: topicsFormData.topics,
         instructorEmail: email, // get email from userContext
@@ -196,20 +215,29 @@ const CreateCourseEasy: React.FC = () => {
   };
 
   const getFormClassName = () => {
-    switch (currentStep) {
-      case 1:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/5 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 2:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 3:
-        return 'w-full 2xl:w-2/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 4:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 5:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      default:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
+    // STEP 3 = opiskelijalista → leveämpi kortti
+    if (currentStep === 3) {
+      return `
+      w-full
+      max-w-[900px]
+      mx-auto
+      bg-white
+      p-6
+      rounded-xl
+      shadow-md
+    `;
     }
+
+    // Muut stepit: 1, 2, 4, 5
+    return `
+    w-full
+    max-w-[600px]
+    mx-auto
+    bg-white
+    p-6
+    rounded-xl
+    shadow-md
+  `;
   };
 
   const incrementStep = () => {
@@ -232,55 +260,52 @@ const CreateCourseEasy: React.FC = () => {
       setInstructors([{email: instructorEmail, exists: true}]);
     }
   }, [instructorEmail]);
+
   return (
-    <div className='w-full'>
-      {currentStep && (
-        <CreateCourseProgress
-          currentStep={currentStep}
-          createCourseMode='easy'
-        />
-      )}
+    <div className="w-full">
+      {currentStep && <ProgressRibbon currentStep={currentStep} totalSteps={5} />}
 
       <form onSubmit={handleSubmit} className={getFormClassName()}>
         {currentStep === 1 && (
           <fieldset>
-            <legend className='mb-3 text-xl'>
-              {t('teacher:createCourseEasy.title')}
+            <legend className="mb-3 text-xl">
+              {t('common:createCourseEasy.title')}
             </legend>
-            <label className='flex flex-col items-center w-full px-4 py-6 mb-2 tracking-wide uppercase transition-colors duration-300 ease-in-out bg-white border rounded-lg shadow-lg cursor-pointer text-blue border-blue hover:bg-blue hover:text-white'>
-              <svg className='w-8 h-8 fill-current' viewBox='0 0 20 20'>
-                <path d='M10 4a2 2 0 00-2 2v4a2 2 0 104 0V6a2 2 0 00-2-2zm0 12a6 6 0 100-12 6 6 0 000 12z' />
+            <label className="flex flex-col items-center w-full px-4 py-6 mb-2 tracking-wide uppercase transition-colors duration-300 ease-in-out bg-white border rounded-lg shadow-lg cursor-pointer text-blue border-blue hover:bg-blue hover:text-white">
+              <svg className="w-8 h-8 fill-current" viewBox="0 0 20 20">
+                <path d="M10 4a2 2 0 00-2 2v4a2 2 0 104 0V6a2 2 0 00-2-2zm0 12a6 6 0 100-12 6 6 0 000 12z" />
               </svg>
-              <span className='mt-2 text-base font-medium leading-normal'>
+              <span className="mt-2 text-base font-medium leading-normal">
                 {uploadFile}
               </span>
               <input
-                type='file'
-                accept='.xlsx, .xls'
-                className='hidden'
+                type="file"
+                accept=".xlsx, .xls"
+                className="hidden"
                 onChange={handleFileChange}
               />
-              <div className='w-full p-2 mt-2 text-gray-500 bg-gray-100 rounded-lg'>
+              <div className="w-full p-2 mt-2 text-gray-500 bg-gray-100 rounded-lg">
                 {selectedFile}
               </div>
             </label>
-            <label className='flex items-center mt-2 mb-3 space-x-3'>
+            <label className="flex items-center mt-2 mb-3 space-x-3">
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={shouldCheckDetails}
                 onChange={() => setShouldCheckDetails((prev) => !prev)}
-                className='w-5 h-5 text-blue-600 form-checkbox'
+                className="w-5 h-5 text-blue-600 form-checkbox"
               />
-              <span className='font-medium text-gray-900'>
-                {t('teacher:createCourseEasy.fileUpload.checkDetails')}
+              <span className="font-medium text-gray-900">
+                {t('common:createCourseEasy.fileUpload.checkDetails')}
               </span>
             </label>
-            <div className='flex justify-end'>
+            <div className="flex justify-end">
               <button
-                type='button'
-                className='w-40 p-2 mt-2 text-white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
-                onClick={handleExcelInput}>
-                {t('teacher:createCourseEasy.buttons.next')}
+                type="button"
+                className="w-40 p-2 mt-2 text:white rounded-sm font-heading bg-metropolia-main-orange hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange"
+                onClick={handleExcelInput}
+              >
+                {t('common:createCourseEasy.buttons.next')}
               </button>
             </div>
           </fieldset>

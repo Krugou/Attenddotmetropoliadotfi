@@ -5,7 +5,7 @@ import {useParams, useLocation} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
 import StudentCourseGrid from '../../../../components/features/courses/StudentCourseGrid.tsx';
-import ProfileInfo from '../../../../components/profiles/ProfileInfo';
+import ProfileInfo from '../../../../components/features/users/ProfileInfo.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 

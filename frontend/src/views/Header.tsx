@@ -60,10 +60,10 @@ const Header = () => {
     clearCloseTimeout();
     closeTimeoutRef.current = window.setTimeout(() => {
       setMenuOpen(false);
-    }, 200); // 200 ms viive – voit säätää makusi mukaan
+    }, 200);
   };
 
-  // Klikkaus nimestä / hampurilaisesta → toggle
+  // Klikkaus nimestä / hampurilaisesta
   const handleToggleMenu = (e: ReactMouseEvent) => {
     e.stopPropagation();
     clearCloseTimeout();

@@ -9,6 +9,7 @@ import studentGroupModel from '../models/studentgroupmodel.js';
 import userModel from '../models/usermodel.js';
 import logger from '../utils/logger.js';
 import practicummodels from '../models/practicummodels.js';
+import courseModel from '../models/coursemodel.js';
 
 // Types
 export interface Student {
@@ -299,12 +300,19 @@ const workLogController: WorkLogController = {
     }
   },
 
-  // Check if a worklog course code already exists
+  // Check if a code already exists (checks both work_log_courses and courses)
   async checkWorklogCodeExists(code: string) {
     if (!code) throw new Error('Worklog code is required');
     try {
-      const records = await work_log_courses.checkWorklogCodeExists(code);
-      return records.length > 0;
+      const [worklogRecords, courseRecords] = await Promise.all([
+        work_log_courses.checkWorklogCodeExists(code),
+        courseModel.findByCode(code),
+      ]);
+
+      const existsInWorklogs = worklogRecords?.length > 0;
+      const existsInCourses = Array.isArray(courseRecords) ? courseRecords.length > 0 : Boolean(courseRecords);
+
+      return existsInWorklogs || existsInCourses;
     } catch (error) {
       console.error('worklogcontroller.ts Error checking worklog code:', error);
       throw error;

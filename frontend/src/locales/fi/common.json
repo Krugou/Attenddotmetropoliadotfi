@@ -131,6 +131,10 @@
   "newStudent": {
     "title": "Myöhäinen ilmoittautuminen",
     "studentDetails": "Opiskelijan tiedot",
+    "selection": {
+      "title": "Kurssimuoto",
+      "modeHelp": "Valitse lisätäänkö opiskelija kurssille vai työpäiväkirjaan."
+    },
     "errors": {
       "fillAllFields": "Täytä kaikki kentät",
       "addFailed": "Uuden opiskelijakäyttäjän lisääminen epäonnistui",
@@ -192,8 +196,9 @@
     }
   },
   "worklog": {
+    "selectCourseLabel": "Työpäiväkirjan kurssi",
     "enrollment": {
-      "switchToRegular": "kurssi",
+      "switchToRegular": "Kurssi",
       "switchToWorklog": "Työpäiväkirja"
     },
     "entries": {
@@ -352,6 +357,145 @@
       }
     }
   },
+  "attendanceTable": {
+    "headers": {
+      "student": "Opiskelija",
+      "selectedTopics": "Kurssiosiot"
+    },
+    "values": {
+      "na": "Ei läsnäolotietoja",
+      "all": "Kaikki"
+    },
+    "tooltips": {
+      "noLectures": "Ei luentoja saatavilla tästä aiheesta"
+    }
+  },
+  "createCourse": {
+    "title": "Luo kurssi",
+    "subtitle": "Valitse reitti",
+    "modes": {
+      "easy": {
+        "title": "Helppo tila",
+        "description": "Luo kurssi helposti opiskelijatiedoillasi"
+      },
+      "custom": {
+        "title": "Mukautettu tila",
+        "description": "Luo kurssi omilla tiedoillasi"
+      }
+    }
+  },
+  "createCourseEasy": {
+    "title": "Lisää kurssi Metropolian Excel-tiedoston avulla",
+    "fileUpload": {
+      "checkDetails": "Tarkista kurssin tiedot avoimista tiedoista"
+    },
+    "buttons": {
+      "next": "Seuraava"
+    },
+    "students": {
+      "title": "Tarkista opiskelijalista",
+      "description": "Tarkista että Excelistä tuodut opiskelijatiedot ovat oikein."
+    }
+  },
+  "addTeachers": {
+    "title": "Kurssin opettajat",
+    "addAnother": "Lisää opettaja",
+    "emailLabel": "Sähköposti",
+    "description": "Lisää opettajat kurssille sähköpostiosoitteella",
+    "errors": {
+      "notFound": "Tällä sähköpostilla ei löydy henkilöstöä järjestelmästä.",
+      "checkFailed": "Sähköpostin tarkistus epäonnistui."},
+    "aria": {
+      "deleteInstructor": "Poista opettaja"
+    }
+  },
+  "courseDetails": {
+    "title": "Täytä kurssisi tiedot",
+    "labels": {
+      "courseCode": "Kurssin koodi",
+      "courseName": "Kurssin nimi",
+      "studentGroup": "Opiskelijaryhmä",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä"
+    },
+    "errors": {
+      "codeExists": "Kurssilla tällä koodilla on jo olemassa."
+    },
+    "success": {
+      "codeRestored": "Ensimmäinen kurssikoodi on palautettu."
+    }
+  },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Näytä kaikki sarakkeet",
+      "hideExtraColumns": "Piilota ylimääräiset sarakkeet",
+      "addStudent": "Lisää opiskelija",
+      "sortColumn": "Lajittele sarake",
+      "deleteStudent": "Poista opiskelija",
+      "cancel": "Peruuta",
+      "delete": "Poista"
+    },
+    "headers": {
+      "lastName": "Sukunimi",
+      "firstName": "Etunimi",
+      "email": "Sähköposti",
+      "studentnumber": "Opiskelijanumero",
+      "admingroups": "Hallinnollinen ryhmä",
+      "arrivalgroup": "Saapumisryhmä",
+      "educationform": "Toteutusmuoto",
+      "evaluation": "Arviointi",
+      "program": "Ohjelma",
+      "registration": "Ilmoittautuminen",
+      "name": "Nimi",
+      "actions": "Toiminnot"
+    },
+    "dialog": {
+      "title": "Poista opiskelija",
+      "message": "Haluatko varmasti poistaa opiskelijan {{name}}?"
+    },
+    "aria": {
+      "sortColumn": "Lajittele sarake",
+      "deleteStudent": "Poista opiskelija",
+      "confirmNewStudent": "Hyväksy uusi opiskelija",
+      "cancelNewStudent": "Peruuta uuden opiskelijan lisääminen"
+    }
+  },
+  "topicsGroup": {
+    "title": "Aiheen tiedot",
+    "buttons": {
+      "deleteGroup": "Poista valittu ryhmä",
+      "createCustom": "Luo mukautettu ryhmä",
+      "selectExisting": "Valitse olemassa oleva ryhmä",
+      "apply": "Käytä",
+      "addNewTopic": "Lisää uusi aihe",
+      "removeTopic": "Poista mukautettu aihe"
+    },
+    "labels": {
+      "customTopicGroup": "Mukautettu aihealue",
+      "customTopics": "Mukautetut aiheet"
+    },
+    "placeholders": {
+      "customTopicGroup": "Mukautettu aihealue",
+      "customTopic": "Mukautettu aihe"
+    },
+    "dialog": {
+      "title": "Poista aihealue",
+      "message": "Haluatko varmasti poistaa aihealueen?"
+    },
+    "errors": {
+      "groupExists": "Tämä aihealue on jo olemassa.",
+      "emptyTopics": "Täytä kaikki tyhjät mukautetut aiheet ennen kuin käytät."
+    },
+    "success": {
+      "groupSaved": "Aihealue tallennettu onnistuneesti käyttäjälle {{email}}"
+    },
+    "tooltips": {
+      "customGroup": "lisää mukautettu aihealue tähän, esimerkki: \"customGroup\"",
+      "customTopic": "lisää mukautetut aiheet tähän, esimerkki: \"exam\"",
+      "removeTopic": "Poista mukautettu aihe",
+      "selectCourseGroup": "Valitse kurssiryhmä"
+    }
+  },
   "feedback": {
     "header": "Auta meitä kehittymään, {{username}}, antamalla palautetta.",
     "topicLabel": "Palautteen aihe",
@@ -382,7 +526,7 @@
     "sessionExpired": "Istunto on vanhentunut, kirjaudu uudelleen."
   },
   "footer": {
-    "appName": "Metropolia Läsnäolosovellus",
+    "appName": "Metropolia Attend",
     "developedBy": "Kehittänyt",
     "metropolia": "Metropolia",
     "navigation": "Navigointi",
@@ -399,8 +543,9 @@
   "status": "Tila",
   "instructors": "Ohjaajat",
   "openLectureCard": {
-    "title": "Avointa luentoa löydetty, koodi: {{code}} aihe: {{topic}} !",
-    "description": "Klikkaa jatkaaksesi"
+    "title": "Läsnäolojen keräys käynnissä",
+    "subtitle": "{{code}}, {{topic}}",
+    "description": "{{code}}, {{topic}}"
   },
   "save": "Tallenna muutokset",
   "cancel": "Peruuta",
@@ -448,7 +593,11 @@
     "viewDetails": "Katso yksityiskohdat",
     "addToCourse": "Lisätä",
     "studentAddedToCourse": "Opiskelija lisätty kurssille",
-    "noAvailableCourses": "Ei käytettävissä olevia kursseja"
+    "noAvailableCourses": "Ei käytettävissä olevia kursseja",
+    "selectModeHelp": "Valitse lisätäänkö uusi opiskelija vai ilmoitetaanko jo olemassa oleva.",
+    "newStudentShort": "Lisää opiskelija, jota ei vielä ole järjestelmässä.",
+    "existingStudentShort": "Etsi järjestelmästä ja ilmoita kurssille.",
+    "recommended": "Suositus"
   },
   "practicum": "Harjoittelu"
 }

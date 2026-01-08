@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import NavigationCard from '../../../features/navigation/NavigationCard.tsx';
+import NavigationCard from '../../../ui/cards/NavigationCard.tsx';
 import FeedbackCard from '../../../features/feedback/FeedbackCard.tsx';
 import { adminCardData } from './adminCardData.ts';
 

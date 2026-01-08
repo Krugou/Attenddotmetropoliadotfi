@@ -2,33 +2,42 @@ import React, {useContext, useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {UserContext} from '../../../contexts/UserContext.tsx';
-import {createPracticumCourse, assignStudentToPracticum} from '../../../api/practicum.ts';
+import {
+  createPracticumCourse,
+  assignStudentToPracticum,
+} from '../../../api/practicum.ts';
 import PracticumDetailsStep from './PracticumDetailsStep.tsx';
 import AddStudent, {Student} from './AddStudent.tsx';
 import AddTeachers from '../courses/create/AddTeachers.tsx';
 import {useTranslation} from 'react-i18next';
 import PracticumStepButtons from './PracticumStepButtons.tsx';
-import CheckStudentStep from './CheckStudentStep.tsx';
+import ProgressRibbon from '../../ui/ProgressRibbon.tsx';
 
 type Instructor = {
   email: string;
   exists?: boolean;
 };
 
+const TOTAL_STEPS = 3;
+
 const CreatePracticum: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
   const {t} = useTranslation(['teacher']);
+
   const [currentStep, setCurrentStep] = useState(1);
+
   const [name, setName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
   const [requiredHours, setRequiredHours] = useState(0);
+
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [instructorEmail, setInstructorEmail] = useState('');
+
+  // opiskelija(t) valitaan jo stepissä 1
   const [students, setStudents] = useState<Student[]>([]);
-  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -36,7 +45,6 @@ const CreatePracticum: React.FC = () => {
       setInstructors([{email: user.email, exists: true}]);
     }
   }, [user]);
-
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -55,23 +63,27 @@ const CreatePracticum: React.FC = () => {
       if (!token) throw new Error('No token available');
 
       const response = await createPracticumCourse(practicumData, token);
-      if (response && students.length > 0 && students[0].userid) {
+
+      // jos opiskelija valittu, assignataan heti
+      if (response?.insertId && students.length > 0 && students[0].userid) {
         try {
-          await assignStudentToPracticum(response.insertId, students[0].userid, token);
+          await assignStudentToPracticum(
+            response.insertId,
+            students[0].userid,
+            token,
+          );
           toast.success(t('teacher:practicum.studentAssigned'));
-        } catch (assignError) {
+        } catch {
           toast.warning(t('teacher:practicum.studentAssignmentFailed'));
         }
       }
 
-      if (response) {
+      if (response?.insertId) {
         toast.success(t('teacher:practicum.createdSuccessfully'));
         navigate(`/teacher/practicum/${response.insertId}`);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
+      if (error instanceof Error) toast.error(error.message);
     }
   };
 
@@ -82,8 +94,14 @@ const CreatePracticum: React.FC = () => {
   const validateFields = () => {
     switch (currentStep) {
       case 1:
-        return selectedStudent !== null;
-      case 2:
+        // Step 1 = opiskelija valittu listalle
+        if (!students || students.length === 0) {
+          toast.error(t('teacher:practicum.fillRequiredFields'));
+          return false;
+        }
+        return true;
+
+      case 2: {
         if (!name || !startDate || !endDate || !description || requiredHours <= 0) {
           toast.error(t('teacher:practicum.fillRequiredFields'));
           return false;
@@ -97,71 +115,77 @@ const CreatePracticum: React.FC = () => {
         }
 
         return true;
+      }
+
       case 3:
-        return students && students.length > 0;
-      case 4:
         return (
           instructors &&
           instructors.length > 0 &&
           instructors.every((instructor) => instructor.email)
         );
+
       default:
         return false;
     }
   };
 
   const incrementStep = () => {
-    if (validateFields()) {
-      setCurrentStep((prevStep) => prevStep + 1);
-    } else {
-      toast.error(t('teacher:practicum.fillRequiredFields'));
-    }
+    if (!validateFields()) return;
+    setCurrentStep((prev) => prev + 1);
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
+      {currentStep && (
+        <ProgressRibbon currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+      )}
+
       <form
         onSubmit={handleSubmit}
-        className='w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md'>
+        className="w-full max-w-[900px] mx-auto bg-white p-6 rounded-xl shadow-md"
+      >
+        {/* STEP 1: opiskelijan haku + valinta (yhdistetty) */}
         {currentStep === 1 && (
-          <CheckStudentStep
-            student={selectedStudent}
-            setStudent={setSelectedStudent}
-          />
+          <div className="w-full max-w-[600px] mx-auto">
+            <AddStudent students={students} setStudents={setStudents} />
+          </div>
         )}
+
+        {/* STEP 2: perustiedot */}
         {currentStep === 2 && (
-          <PracticumDetailsStep
-            name={name}
-            setName={setName}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            description={description}
-            setDescription={setDescription}
-            requiredHours={requiredHours}
-            setRequiredHours={setRequiredHours}
-          />
+          <div className="w-full max-w-[600px] mx-auto">
+            <PracticumDetailsStep
+              name={name}
+              setName={setName}
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              description={description}
+              setDescription={setDescription}
+              requiredHours={requiredHours}
+              setRequiredHours={setRequiredHours}
+            />
+          </div>
         )}
+
+        {/* STEP 3: ohjaajat */}
         {currentStep === 3 && (
-          <AddStudent
-            students={students}
-            setStudents={setStudents}
-          />
+          <div className="w-full max-w-[600px] mx-auto">
+            <AddTeachers
+              instructors={instructors}
+              setInstructors={setInstructors}
+              instructorEmail={instructorEmail}
+            />
+          </div>
         )}
-        {currentStep === 4 && (
-          <AddTeachers
-            instructors={instructors}
-            setInstructors={setInstructors}
-            instructorEmail={instructorEmail}
-          />
-        )}
+
         <PracticumStepButtons
           currentStep={currentStep}
-          onPrevClick={() => setCurrentStep((prevStep) => prevStep - 1)}
+          onPrevClick={() => setCurrentStep((prev) => prev - 1)}
           onNextClick={incrementStep}
           onSubmitClick={handleSubmitWrapper}
-          totalSteps={4}
+          totalSteps={TOTAL_STEPS}
         />
       </form>
     </div>

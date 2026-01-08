@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import NewStudentUser from '../../../../components/main/NewStudentUser';
+import NewStudentUser from '../../../../components/features/students/NewStudentUser.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {toast} from 'react-toastify';
@@ -189,53 +189,121 @@ const CounselorLateEnrollment: React.FC = () => {
     }
   };
 
-  // Search for existing students in the database
+// Search for existing students in the database
   const searchStudents = async (searchQuery: string): Promise<void> => {
+    // -----------------------------
+    // 1. Store search term in state
+    // -----------------------------
     setSearchTerm(searchQuery);
+
+    // If user info is missing, stop
     if (!user?.userid) return;
 
+    // -----------------------------
+    // 2. Read auth token
+    // -----------------------------
     const token = localStorage.getItem('userToken');
     if (!token) {
       toast.error(t('ui:errors.noToken'));
       return;
     }
 
-    if (searchQuery.trim() === '') {
+    // -----------------------------
+    // 3. Normalize search input
+    // -----------------------------
+    const raw = searchQuery;
+    const q = raw.trim().toLowerCase();
+
+    // If input is empty, clear results
+    if (q === '') {
       setStudents([]);
       return;
     }
 
     setLoading(true);
+
     try {
       let fetchedStudents: Student[] = [];
 
-      // Use role-based student fetching as provided
-      if (user.role === 'teacher') {
-        fetchedStudents = await apiHooks.getStudentsByInstructorId(
-          user.userid,
-          token,
-        );
-      } else if (['counselor', 'admin'].includes(user.role)) {
-        fetchedStudents = await apiHooks.fetchUsers(token);
+      // ---------------------------------------
+      // 4. Fetch students from backend (role-based)
+      // ---------------------------------------
+      // This view is intended for counselor/admin only
+      if (['counselor', 'admin'].includes(user.role)) {
+        fetchedStudents = await apiHooks.fetchStudents(token, raw);
+      } else {
+        setStudents([]);
+        return;
       }
 
-      const filtered = fetchedStudents.filter((student) =>
-        Object.values(student).some(
-          (value) =>
-            typeof value === 'string' &&
-            value.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            student.roleid === 1,
-        ),
-      );
+      // ---------------------------------------
+      // 5. Detect numeric search (student number)
+      // ---------------------------------------
+      const isNumeric = /^\d+$/.test(q);
+      const minDigits = 1;
 
+      // ---------------------------------------
+      // 6. Filter students locally
+      // ---------------------------------------
+      const filtered = fetchedStudents.filter((student) => {
+        // Only allow students (roleid = 1)
+        if (student.roleid !== 1) return false;
+
+        // -----------------------------
+        // 6a. Name matching (prefix only)
+        // -----------------------------
+        const first = (student.first_name ?? '').toLowerCase();
+        const last = (student.last_name ?? '').toLowerCase();
+        const fullName = `${first} ${last}`.trim();
+
+        const nameMatch =
+          first.startsWith(q) ||
+          last.startsWith(q) ||
+          fullName.startsWith(q);
+
+        // -----------------------------
+        // 6b. Student number matching (prefix)
+        // -----------------------------
+        const rawDigits = raw.trim();
+        const studentNoRaw = String(student.studentnumber ?? '').trim();
+
+        // Remove leading zeros from both values
+        const queryNoLeadingZeros = rawDigits.replace(/^0+/, '');
+        const studentNoNoLeadingZeros = studentNoRaw.replace(/^0+/, '');
+
+        const numberMatch =
+          isNumeric &&
+          rawDigits.length >= minDigits &&
+          (
+            studentNoRaw.startsWith(rawDigits) ||
+            (
+              queryNoLeadingZeros.length >= minDigits &&
+              studentNoNoLeadingZeros.startsWith(queryNoLeadingZeros)
+            )
+          );
+
+        // -----------------------------
+        // 6c. Accept if either matches
+        // -----------------------------
+        return nameMatch || numberMatch;
+      });
+
+      // -----------------------------
+      // 7. Save filtered results
+      // -----------------------------
       setStudents(filtered);
+
     } catch (error) {
       console.error('Error searching students:', error);
       toast.error(t('ui:errors.searchFailed'));
     } finally {
+      // -----------------------------
+      // 8. Stop loading indicator
+      // -----------------------------
       setLoading(false);
     }
   };
+
 
   return (
     <div className='w-full mx-auto 2xl:w-9/12'>

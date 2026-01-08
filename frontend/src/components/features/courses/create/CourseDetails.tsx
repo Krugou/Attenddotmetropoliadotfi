@@ -83,7 +83,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
     setCourseName(e.target.value);
     setCourseNameCharCount(e.target.value.length);
   };
-
+ //TODO tee tähän valinta, jossa jos kurssiryhmää ei ole saatavilla, inserttaa tyhjän tilalle jokin ennaltasovittu merkkijono
   const handleGroupChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -100,12 +100,12 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
         <></>
       ) : (
         <legend className='mb-5 ml-1 text-xl'>
-          {t('teacher:courseDetails.title')}
+          {t('common:courseDetails.title')}
         </legend>
       )}
 
       <TextInputField
-        label={t('teacher:courseDetails.labels.courseCode')}
+        label={t('common:courseDetails.labels.courseCode')}
         type='text'
         name='courseCode'
         value={courseCode}
@@ -119,24 +119,24 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
       />
       {!modify && courseExists && (
         <p className='text-red-400'>
-          {t('teacher:courseDetails.errors.codeExists')}
+          {t('common:courseDetails.errors.codeExists')}
         </p>
       )}
       {modify && courseExists && courseCode !== firstCourseCode && (
         <p className='text-red-400'>
-          {t('teacher:courseDetails.errors.codeExists')}
+          {t('common:courseDetails.errors.codeExists')}
         </p>
       )}
 
       {modify && courseCode === firstCourseCode && courseCodeChanged && (
         <p className='text-green-400'>
-          {t('teacher:courseDetails.success.codeRestored')}
+          {t('common:courseDetails.success.codeRestored')}
         </p>
       )}
 
       <div>
         <TextInputField
-          label={t('teacher:courseDetails.labels.courseName')}
+          label={t('common:courseDetails.labels.courseName')}
           type='text'
           name='courseName'
           value={courseName}
@@ -150,7 +150,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
 
       <div>
         <TextInputField
-          label={t('teacher:courseDetails.labels.studentGroup')}
+          label={t('common:courseDetails.labels.studentGroup')}
           type='text'
           name='studentGroup'
           value={studentGroup}
@@ -163,14 +163,14 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
       </div>
 
       <TextInputField
-        label={t('teacher:courseDetails.labels.startDate')}
+        label={t('common:courseDetails.labels.startDate')}
         type='date'
         name='startDate'
         value={startDate ? startDate.split('T')[0] : ''}
         onChange={(e) => setStartDate(e.target.value)}
       />
       <TextInputField
-        label={t('teacher:courseDetails.labels.endDate')}
+        label={t('common:courseDetails.labels.endDate')}
         type='date'
         name='endDate'
         value={endDate ? endDate.split('T')[0] : ''}

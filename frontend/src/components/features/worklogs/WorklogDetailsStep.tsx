@@ -95,133 +95,157 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
     setNameCharCount(e.target.value.length);
   };
   return (
-    <div className='space-y-4'>
-      <div className='flex flex-col'>
-        <label
-          htmlFor='name'
-          className='mb-2 text-sm font-medium text-gray-700'>
-          {t('teacher:worklog.form.name')} *
-        </label>
-        <input
-          type='text'
-          id='name'
-          value={name}
-          onChange={handleNameChange}
-          maxLength={100}
-          className='p-2 border rounded-lg'
-          required
-        />
-        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {nameCharCount}/100 {t('ui:characters')}
-        </p>
+    <div className="grid grid-cols-12 gap-x-6 gap-y-3">
+      {/* Kurssin nimi */}
+      <div className="col-span-12">
+        <div className="flex flex-col">
+          <label
+            htmlFor="name"
+            className="mb-1 text-sm font-medium text-gray-700"
+          >
+            {t('teacher:worklog.form.name')} *
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+            maxLength={100}
+            className="p-2 border rounded-lg"
+            required
+          />
+          <p className="mt-0.5 text-xs text-gray-500 text-right font-body">
+            {nameCharCount}/100 {t('ui:characters')}
+          </p>
+        </div>
       </div>
 
-      <div className='flex flex-col'>
-        <label
-          htmlFor='code'
-          className='mb-2 text-sm font-medium text-gray-700'>
-          {t('teacher:worklog.form.code')} *
-        </label>
-        <input
-          type='text'
-          id='code'
-          value={code}
-          onChange={(e) => {
-            setCode(e.target.value);
-            setCourseExists?.(false);
-            if (e.target.value !== firstCode) {
-              setCodeChanged(true);
-            }
-          }}
-          className={`p-2 border rounded-lg ${
-            courseExists ? 'border-red-500' : ''
-          }`}
-          required
-        />
-        {isCheckingCode && (
-          <span className='mt-1 text-sm text-gray-500'>
+      {/* Kurssikoodi */}
+      <div className="col-span-12">
+        <div className="flex flex-col">
+          <label
+            htmlFor="code"
+            className="mb-1 text-sm font-medium text-gray-700"
+          >
+            {t('teacher:worklog.form.code')} *
+          </label>
+          <input
+            type="text"
+            id="code"
+            value={code}
+            onChange={(e) => {
+              setCode(e.target.value);
+              setCourseExists?.(false);
+              if (e.target.value !== firstCode) {
+                setCodeChanged(true);
+              }
+            }}
+            className={`p-2 border rounded-lg ${
+              courseExists ? 'border-red-500' : ''
+            }`}
+            required
+          />
+
+          {isCheckingCode && (
+            <span className="mt-1 text-sm text-gray-500">
             {t('teacher:worklog.form.checking')}...
           </span>
-        )}
-        {courseExists && (
-          <p className='text-red-400'>
-            {t('teacher:worklog.form.errors.codeExists')}
-          </p>
-        )}
-        {code === firstCode && codeChanged && (
-          <p className='text-green-400'>
-            {t('teacher:worklog.form.success.codeRestored')}
-          </p>
-        )}
-      </div>
+          )}
 
-      <div className='flex flex-col'>
-        <label
-          htmlFor='description'
-          className='mb-2 text-sm font-medium text-gray-700'>
-          {t('teacher:worklog.form.description')} *
-        </label>
-        <textarea
-          id='description'
-          value={description}
-          onChange={handleDescriptionChange}
-          maxLength={500}
-          className='p-2 border rounded-lg'
-          rows={4}
-        />
-        <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {charCount}/500 {t('ui:characters')}
-        </p>
-      </div>
+          {courseExists && (
+            <p className="text-red-400">
+              {t('teacher:worklog.form.errors.codeExists')}
+            </p>
+          )}
 
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-        <div className='flex flex-col'>
-          <label
-            htmlFor='startDate'
-            className='mb-2 text-sm font-medium text-gray-700'>
-            {t('teacher:worklog.form.startDate')} *
-          </label>
-          <input
-            type='date'
-            id='startDate'
-            value={startDate ? startDate.split('T')[0] : ''}
-            onChange={(e) => setStartDate(e.target.value)}
-            className='p-2 border rounded-lg'
-            required
-          />
-        </div>
-        <div className='flex flex-col'>
-          <label
-            htmlFor='endDate'
-            className='mb-2 text-sm font-medium text-gray-700'>
-            {t('teacher:worklog.form.endDate')} *
-          </label>
-          <input
-            type='date'
-            id='endDate'
-            value={endDate ? endDate.split('T')[0] : ''}
-            onChange={(e) => setEndDate(e.target.value)}
-            className='p-2 border rounded-lg'
-            required
-          />
+          {code === firstCode && codeChanged && (
+            <p className="text-green-400">
+              {t('teacher:worklog.form.success.codeRestored')}
+            </p>
+          )}
         </div>
       </div>
 
-      <div className='flex flex-col'>
-        <label
-          htmlFor='requiredHours'
-          className='mb-2 text-sm font-medium text-gray-700'>
-          {t('teacher:worklog.form.requiredHours')} *
-        </label>
-        <input
-          type='number'
-          id='requiredHours'
-          value={requiredHours}
-          onChange={(e) => setRequiredHours(Number(e.target.value))}
-          className='p-2 border rounded-lg'
-          min='0'
-          required
-        />
+      {/* Kuvaus */}
+      <div className="col-span-12">
+        <div className="flex flex-col">
+          <label
+            htmlFor="description"
+            className="mb-1 text-sm font-medium text-gray-700"
+          >
+            {t('teacher:worklog.form.description')} *
+          </label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={handleDescriptionChange}
+            maxLength={500}
+            className="p-2 border rounded-lg"
+            rows={4}
+          />
+          <p className="mt-0.5 text-xs text-gray-500 text-right font-body">
+            {charCount}/500 {t('ui:characters')}
+          </p>
+        </div>
+      </div>
+
+      {/* Aikajakso + vaaditut tunnit */}
+      <div className="col-span-12 grid grid-cols-12 gap-6">
+        {/* Päivät allekkain */}
+        <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
+          <div className="flex flex-col">
+            <label
+              htmlFor="startDate"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              {t('teacher:worklog.form.startDate')} *
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate ? startDate.split('T')[0] : ''}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="p-2 border rounded-lg"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label
+              htmlFor="endDate"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
+              {t('teacher:worklog.form.endDate')} *
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate ? endDate.split('T')[0] : ''}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="p-2 border rounded-lg"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Vaaditut tunnit oikealla */}
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-start">
+          <label
+            htmlFor="requiredHours"
+            className="mb-1 text-sm font-medium text-gray-700"
+          >
+            {t('teacher:worklog.form.requiredHours')} *
+          </label>
+          <input
+            type="number"
+            id="requiredHours"
+            value={requiredHours}
+            onChange={(e) => setRequiredHours(Number(e.target.value))}
+            className="p-2 border rounded-lg"
+            min="0"
+            required
+          />
+        </div>
       </div>
     </div>
   );

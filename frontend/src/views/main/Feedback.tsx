@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {toast} from 'react-toastify';
-import ServerStatus from '../../components/main/ServerStatus';
+import ServerStatus from '../../components/features/system/ServerStatus.tsx';
 import {UserContext} from '../../contexts/UserContext';
 import apiHooks from '../../api';
 import {useTranslation} from 'react-i18next';

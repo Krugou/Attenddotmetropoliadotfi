@@ -42,7 +42,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
   isCustomGroup,
   setIsCustomGroup,
 }) => {
-  const {t} = useTranslation(['teacher']);
+  const {t} = useTranslation(['common']);
   const {user} = useContext(UserContext);
   const [topicData, setTopicData] = useState<TopicGroup[]>([]);
   const [courseTopicGroup, setCourseTopicGroup] = useState('');
@@ -265,7 +265,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
   return (
     <fieldset>
       <div className='flex justify-between items-center'>
-        <h2 className='text-xl mb-3'>{t('teacher:topicsGroup.title')}</h2>
+        <h2 className='text-xl mb-3'>{t('common:topicsGroup.title')}</h2>
 
         {topicData.length > 0 && (
           <>
@@ -274,25 +274,25 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                 type='button'
                 onClick={() => setConfirmOpen(true)}
                 className='mb-3 w-fit text-sm p-2 bg-red-500 transition text-white rounded-3xl hover:bg-red-700'>
-                {t('teacher:topicsGroup.buttons.deleteGroup')}
+                {t('common:topicsGroup.buttons.deleteGroup')}
               </button>
             )}
             <ConfirmDialog
-              title={t('teacher:topicsGroup.dialog.title')}
+              title={t('common:topicsGroup.dialog.title')}
               open={confirmOpen}
               setOpen={setConfirmOpen}
               onConfirm={() => {
                 handleDeleteGroup();
               }}>
-              {t('teacher:topicsGroup.dialog.message')}: {courseTopicGroup}?
+              {t('common:topicsGroup.dialog.message')}: {courseTopicGroup}?
             </ConfirmDialog>
             <button
               type='button'
               onClick={() => setIsCustomGroup(!isCustomGroup)}
               className='mb-3 w-fit text-sm p-2 bg-metropolia-main-orange transition text-white rounded-3xl hover:bg-metropolia-secondary-orange mr-2'>
               {isCustomGroup
-                ? t('teacher:topicsGroup.buttons.selectExisting')
-                : t('teacher:topicsGroup.buttons.createCustom')}
+                ? t('common:topicsGroup.buttons.selectExisting')
+                : t('common:topicsGroup.buttons.createCustom')}
             </button>
           </>
         )}
@@ -305,37 +305,37 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
               <label
                 htmlFor='customTopicGroup'
                 className='block font-semibold mb-1'>
-                {t('teacher:topicsGroup.labels.customTopicGroup')}
+                {t('common:topicsGroup.labels.customTopicGroup')}
               </label>
               <input
                 required
                 id='customTopicGroup'
                 type='text'
                 placeholder={t(
-                  'teacher:topicsGroup.placeholders.customTopicGroup',
+                  'common:topicsGroup.placeholders.customTopicGroup',
                 )}
                 value={customTopicGroup}
                 onChange={(e) => setCustomTopicGroup(e.target.value)}
                 className='w-full mb-3 p-2 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
-                title={t('teacher:topicsGroup.tooltips.customGroup')}
+                title={t('common:topicsGroup.tooltips.customGroup')}
               />
               {topicGroupExists && (
                 <p className='text-red-500'>
-                  {t('teacher:topicsGroup.errors.groupExists')}
+                  {t('common:topicsGroup.errors.groupExists')}
                 </p>
               )}
               <button
                 className='mb-3 w-fit p-2 bg-metropolia-main-orange transition text-white text-sm rounded-3xl hover:bg-metropolia-secondary-orange'
                 onClick={handleApply}
                 disabled={topicGroupExists}>
-                {t('teacher:topicsGroup.buttons.apply')}
+                {t('common:topicsGroup.buttons.apply')}
               </button>
             </div>
             <div>
               <label
                 htmlFor='customTopics'
                 className='block font-semibold mb-1'>
-                {t('teacher:topicsGroup.labels.customTopics')}
+                {t('common:topicsGroup.labels.customTopics')}
               </label>
               <div className='flex flex-col gap-4 w-full'>
                 {customTopics.map((topic, index) => (
@@ -345,14 +345,14 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                       id={`customTopics-${index}`}
                       type='text'
                       placeholder={t(
-                        'teacher:topicsGroup.placeholders.customTopic',
+                        'common:topicsGroup.placeholders.customTopic',
                       )}
                       value={topic}
                       onChange={(e) =>
                         handleCustomTopicChange(index, e.target.value)
                       }
                       className='w-full p-2 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange mr-2'
-                      title={t('teacher:topicsGroup.tooltips.customTopic')}
+                      title={t('common:topicsGroup.tooltips.customTopic')}
                     />
                     {customTopics.length > 1 && (
                       <button
@@ -363,7 +363,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                           );
                         }}
                         className='p-2 bg-red-500 text-white rounded-sm hover:bg-red-600'
-                        title={t('teacher:topicsGroup.tooltips.removeTopic')}>
+                        title={t('common:topicsGroup.tooltips.removeTopic')}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           viewBox='0 0 20 20'
@@ -389,7 +389,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
                     setCustomTopic('');
                   }}
                   className='mb-3 w-fit p-2 bg-metropolia-main-orange transition text-white text-sm rounded-3xl hover:bg-metropolia-secondary-orange'>
-                  {t('teacher:topicsGroup.buttons.addNewTopic')}
+                  {t('common:topicsGroup.buttons.addNewTopic')}
                 </button>
               </div>
             </div>
@@ -399,7 +399,7 @@ const TopicGroupAndTopicsSelector: React.FC<Props> = ({
         // Form fields for selecting an existing group
         <>
           <select
-            title={t('teacher:topicsGroup.tooltips.selectCourseGroup')}
+            title={t('common:topicsGroup.tooltips.selectCourseGroup')}
             value={courseTopicGroup}
             onChange={(e) => setCourseTopicGroup(e.target.value)}
             className='w-full mb-3 p-2 border rounded-sm focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'>

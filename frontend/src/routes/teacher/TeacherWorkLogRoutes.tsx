@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import TeacherWorkLogs from '../../views/main/teacher/WorkLog/TeacherWorkLogs';
-import TeacherModeSelection from '../../views/main/teacher/WorkLog/TeacherModeSelection';
+import TeacherCreateWorklog from '../../views/main/teacher/WorkLog/TeacherCreateWorklog.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView';
 import TeacherWorklogCourseModify from '../../views/main/teacher/WorkLog/TeacherWorklogCourseModify';
 import TeacherWorklogCourseStats from '../../views/main/teacher/WorkLog/TeacherWorklogCourseStats';
@@ -28,7 +28,7 @@ const TeacherWorkLogRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path='/' element={<TeacherWorkLogs />} />
-      <Route path='create' element={<TeacherModeSelection />} />
+      <Route path='create' element={<TeacherCreateWorklog />} />
       <Route path=':courseid/modify' element={<TeacherWorklogCourseModify />} />
       <Route path='stats/:courseid?' element={<TeacherWorklogCourseStats />} />
       <Route path=':courseid' element={<TeacherWorklogCourseDetail />} />

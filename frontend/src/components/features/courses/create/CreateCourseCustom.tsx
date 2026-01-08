@@ -1,14 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import {UserContext} from '../../../contexts/UserContext.tsx';
-import apiHooks from '../../../api';
-import AddTeachers from './create/AddTeachers.tsx';
-import CreateWorklogProgress from './create/CreateWorklogProgress.tsx';
-import StepButtons from './create/StepButtons.tsx';
-import StudentList from './create/StudentList.tsx';
-import WorklogDetailsStep from '../worklogs/WorklogDetailsStep.tsx';
-
+import {UserContext} from '../../../../contexts/UserContext.tsx';
+import apiHooks from '../../../../api';
+import AddTeachers from './AddTeachers.tsx';
+import CourseDetails from './CourseDetails.tsx';
+import ProgressRibbon from '../../../ui/ProgressRibbon.tsx';
+import StepButtons from './StepButtons.tsx';
+import StudentList from './StudentList.tsx';
+import TopicGroupAndTopicsSelector from './TopicsGroupAndTopics.tsx';
 /**
  * CreateCourseCustom component.
  * This component is responsible for displaying a form that allows teachers to create a course.
@@ -23,8 +23,7 @@ import WorklogDetailsStep from '../worklogs/WorklogDetailsStep.tsx';
  *
  * @returns {JSX.Element} The rendered CreateCourseCustom component.
  */
-
-const CreateWorklogCustom: React.FC = () => {
+const CreateCourseCustom: React.FC = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -38,15 +37,16 @@ const CreateWorklogCustom: React.FC = () => {
     exists?: boolean;
   };
   const [courseCode, setCourseCode] = useState('');
+  const [studentGroup, setStudentGroup] = useState('');
   const [startDate, setStartDate] = useState('');
+
   const [instructorEmail, setInstructorEmail] = useState('');
   const [instructors, setInstructors] = useState<Instructor[]>([{email: ''}]);
   const [isCustomGroup, setIsCustomGroup] = useState(false);
   const [studentList, setStudentList] = useState<string[]>([]);
   const [endDate, setEndDate] = useState('');
+  const [topicsFormData, setTopicsFormData] = useState<any>([]);
   const [courseExists, setCourseExists] = useState(false);
-  const [description, setDescription] = useState('');
-  const [requiredHours, setRequiredHours] = useState(0);
   /**
    * validateFields function.
    * This function is used to validate the fields of the form based on the current step.
@@ -60,14 +60,7 @@ const CreateWorklogCustom: React.FC = () => {
   const validateFields = () => {
     switch (currentStep) {
       case 1:
-        return (
-          courseCode &&
-          courseName &&
-          startDate &&
-          endDate &&
-          description &&
-          requiredHours > 0
-        );
+        return courseCode && courseName && studentGroup && startDate && endDate;
       case 2:
         return studentList && studentList.length > 0;
       case 3:
@@ -75,6 +68,14 @@ const CreateWorklogCustom: React.FC = () => {
           instructors &&
           instructors.length > 0 &&
           instructors.every((instructor) => instructor.email)
+        );
+
+      case 4:
+        return (
+          topicsFormData &&
+          topicsFormData.topicgroup &&
+          topicsFormData.topics &&
+          topicsFormData.topics.length > 0
         );
       default:
         return false;
@@ -87,16 +88,12 @@ const CreateWorklogCustom: React.FC = () => {
    * @returns {string} The class name for the form.
    */
   const getFormClassName = () => {
-    switch (currentStep) {
-      case 1:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/5 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 2:
-        return 'w-full 2xl:w-2/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      case 3:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
-      default:
-        return 'w-full md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 mx-auto bg-white p-4 rounded-sm shadow-md';
+    // STEP 2 = opiskelijalista → leveämpi kortti (customissa studentlist on step 2)
+    if (currentStep === 2) {
+      return `w-full max-w-[900px] mx-auto bg-white p-6 rounded-xl shadow-md`;
     }
+    // Muut stepit: 1, 3, 4
+    return `w-full max-w-[600px] mx-auto bg-white p-6 rounded-xl shadow-md`;
   };
   /**
    * incrementStep function.
@@ -118,17 +115,6 @@ const CreateWorklogCustom: React.FC = () => {
     }
   };
   /**
-   * skipStep function.
-   * This function is used to skip one step forward if the fields are valid.
-   */
-  const skipStep = () => {
-    if (validateFields()) {
-      setCurrentStep((prevStep) => prevStep + 2);
-    } else {
-      alert('Please fill all required fields.');
-    }
-  };
-  /**
    * handleSubmit function.
    * This function is used to submit the form and create the course.
    * It uses the createCourse function from the apiHooks file to create the course.
@@ -141,41 +127,43 @@ const CreateWorklogCustom: React.FC = () => {
    */
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      let email = '';
-      if (user) {
-        email = user.email;
-      }
+    let email = '';
+    if (user) {
+      email = user.email;
+    }
+    const courseData = {
+      courseName: courseName,
+      courseCode: courseCode,
+      studentGroup: studentGroup,
+      startDate: startDate,
+      endDate: endDate,
+      instructors: instructors,
+      studentList: studentList,
+      topicGroup: topicsFormData.topicgroup,
+      topics: topicsFormData.topics,
+      instructorEmail: email, // get email from userContext
+    };
+    const token: string | null = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No token available');
+    }
+    const response = await apiHooks.createCourse(courseData, token);
 
-      const worklogCourse = {
-        name: courseName,
-        code: courseCode,
-        startDate: startDate,
-        endDate: endDate,
-        description: description,
-        studentList: studentList,
-        requiredHours: requiredHours,
-        instructors: instructors,
-        instructorEmail: email,
-      };
-
-      const token = localStorage.getItem('userToken');
-      if (!token) throw new Error('No token available');
-
-      const response = await apiHooks.createWorkLogCourse(worklogCourse, token);
-      if (response && response.insertId) {
-        toast.success('Worklog course created');
-        navigate(`/teacher/worklog/${response.insertId}`); //
-      } else {
-        toast.error('Worklog course creation failed - no ID returned');
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
+    if (response) {
+      toast.success('Course created');
+      navigate(`/teacher/courses/${response.courseId}`);
+      console.log('Course created');
+    } else {
+      toast.error('Course creation failed');
+      console.error('Course creation failed');
     }
   };
-
+  /**
+   * handleSubmitWrapper function.
+   * This function is used to wrap the handleSubmit function.
+   *
+   * @returns {Promise<void>} A promise that resolves when the handleSubmit function is called.
+   */
   const handleSubmitWrapper = async () => {
     await handleSubmit({} as React.FormEvent);
   };
@@ -195,53 +183,33 @@ const CreateWorklogCustom: React.FC = () => {
   }, [instructorEmail, user]);
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {currentStep && (
-        <CreateWorklogProgress
-          currentStep={currentStep}
-          createCourseMode='custom'
-        />
+        <ProgressRibbon currentStep={currentStep} totalSteps={4} />
       )}
 
-      <form
-        onSubmit={(e) => handleSubmit(e)} // Direct event handling
-        className={getFormClassName()}>
+      <form onSubmit={handleSubmit} className={getFormClassName()}>
         {currentStep === 1 && (
-          <>
-            <StepButtons
-              currentStep={currentStep}
-              onPrevClick={() => setCurrentStep((prevStep) => prevStep - 1)}
-              onNextClick={skipStep}
-              onSubmitClick={handleSubmitWrapper}
-              extrastep={false}
-              isCustomGroup={isCustomGroup}
-              customNextLabel='Skip'
-              isWorklog={true}
-            />
-            <WorklogDetailsStep
-              name={courseName}
-              setName={setCourseName}
-              code={courseCode}
-              setCode={setCourseCode}
-              startDate={startDate}
-              setStartDate={setStartDate}
-              endDate={endDate}
-              setEndDate={setEndDate}
-              description={description}
-              setDescription={setDescription}
-              requiredHours={requiredHours}
-              setRequiredHours={setRequiredHours}
-              courseExists={courseExists}
-              setCourseExists={setCourseExists}
-            />
-          </>
-        )}
-        {currentStep === 2 && (
-          <StudentList
-            studentList={studentList}
-            setStudentList={setStudentList}
+          <CourseDetails
+            courseCode={courseCode}
+            setCourseCode={setCourseCode}
+            courseName={courseName}
+            setCourseName={setCourseName}
+            studentGroup={studentGroup}
+            setStudentGroup={setStudentGroup}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            courseExists={courseExists}
+            setCourseExists={setCourseExists}
           />
         )}
+
+        {currentStep === 2 && (
+          <StudentList studentList={studentList} setStudentList={setStudentList} />
+        )}
+
         {currentStep === 3 && (
           <AddTeachers
             instructors={instructors}
@@ -249,6 +217,15 @@ const CreateWorklogCustom: React.FC = () => {
             instructorEmail={instructorEmail}
           />
         )}
+
+        {currentStep === 4 && (
+          <TopicGroupAndTopicsSelector
+            setTopicsFormData={setTopicsFormData}
+            isCustomGroup={isCustomGroup}
+            setIsCustomGroup={setIsCustomGroup}
+          />
+        )}
+
         <StepButtons
           currentStep={currentStep}
           onPrevClick={() => setCurrentStep((prevStep) => prevStep - 1)}
@@ -256,12 +233,11 @@ const CreateWorklogCustom: React.FC = () => {
           onSubmitClick={handleSubmitWrapper}
           extrastep={false}
           isCustomGroup={isCustomGroup}
-          setIsCustomGroup={setIsCustomGroup}
-          isWorklog={true}
         />
       </form>
     </div>
   );
+
 };
 
-export default CreateWorklogCustom;
+export default CreateCourseCustom;

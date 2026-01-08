@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import EditUserView from '../../../../components/features/EditUserView.tsx';
+import EditUserView from '../../../../components/features/users/EditUserView.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 /**

@@ -1,6 +1,6 @@
 -- Create 100 fake student users for testing purposes
 -- This script is compatible with MariaDB and follows jaksec.sql schema
-USE jaksec2;
+USE jaksec;
 -- Set client_encoding for PostgreSQL/MySQL compatibility
 SET NAMES utf8mb4;
 

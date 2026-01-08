@@ -1,6 +1,68 @@
 import React, {useContext, useEffect} from 'react';
 import {Route, Routes, useNavigate} from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext.tsx';
+
+import Feedback from '../../views/main/Feedback.tsx';
+import Team from '../../views/main/Team.tsx';
+
+import TeacherLectures from '../../views/main/teacher/lectures/TeacherLectures.tsx';
+import TeacherLateEnrollment from '../../views/main/teacher/students/TeacherLateEnrollment.tsx';
+import TeacherHelpVideos from '../../views/main/teacher/TeacherHelpVideos.tsx';
+import TeacherMainView from '../../views/main/teacher/TeacherMainView.tsx';
+import TeacherProfile from '../../views/main/teacher/TeacherProfile.tsx';
+import TeacherLectureDetail from '../../views/main/teacher/lectures/TeacherLectureDetail.tsx';
+
+import TeacherAttendanceRoutes from './TeacherAttendanceRoutes.tsx';
+import TeacherCoursesRoutes from './TeacherCoursesRoutes.tsx';
+import TeacherStudentsRoutes from './TeacherStudentsRoutes.tsx';
+import TeacherWorkLogRoutes from './TeacherWorkLogRoutes.tsx';
+import TeacherPracticumRoutes from './TeacherPracticumRoutes.tsx';
+
+import TeacherLayout from '../../components/internal/teacher/TeacherLayout';
+
+const TeacherRoutes = () => {
+  const {user} = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      if (user?.role === 'student') navigate('/student', {replace: true});
+      else if (user?.role === 'counselor') navigate('/counselor', {replace: true});
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  }, [user, navigate]);
+
+  if (user?.role === 'student' || user?.role === 'counselor') return null;
+
+  return (
+    <Routes>
+      <Route element={<TeacherLayout />}>
+        <Route path="mainview" element={<TeacherMainView />} />
+        <Route path="helpvideos" element={<TeacherHelpVideos />} />
+        <Route path="courses/*" element={<TeacherCoursesRoutes />} />
+        <Route path="students/*" element={<TeacherStudentsRoutes />} />
+        <Route path="attendance/*" element={<TeacherAttendanceRoutes />} />
+        <Route path="lectures" element={<TeacherLectures />} />
+        <Route path="lectures/:lectureid" element={<TeacherLectureDetail />} />
+        <Route path="profile" element={<TeacherProfile />} />
+        <Route path="feedback" element={<Feedback />} />
+        <Route path="team" element={<Team />} />
+        <Route path="worklog/*" element={<TeacherWorkLogRoutes />} />
+        <Route path="practicum/*" element={<TeacherPracticumRoutes />} />
+        <Route path="lateenrollment" element={<TeacherLateEnrollment />} />
+
+        <Route path="*" element={<TeacherMainView />} />
+      </Route>
+    </Routes>
+  );
+};
+
+export default TeacherRoutes;/*import React, {useContext, useEffect} from 'react';
+
+
+import {Route, Routes, useNavigate} from 'react-router-dom';
+import {UserContext} from '../../contexts/UserContext.tsx';
 import Feedback from '../../views/main/Feedback.tsx';
 import Team from '../../views/main/Team.tsx';
 import TeacherLectures from '../../views/main/teacher/lectures/TeacherLectures.tsx';
@@ -25,7 +87,7 @@ import TeacherPracticumRoutes from './TeacherPracticumRoutes.tsx';
  *
  * @returns {JSX.Element} The rendered TeacherRoutes component.
  */
-const TeacherRoutes = () => {
+/*const TeacherRoutes = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -67,4 +129,4 @@ const TeacherRoutes = () => {
   );
 };
 
-export default TeacherRoutes;
+export default TeacherRoutes;*/

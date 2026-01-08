@@ -21,85 +21,85 @@ INSERT INTO studentgroups (studentgroupid, group_name) VALUES (18, 'Group 18');
 INSERT INTO studentgroups (studentgroupid, group_name) VALUES (19, 'Group 19');
 INSERT INTO studentgroups (studentgroupid, group_name) VALUES (20, 'Group 20');
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (3, 'user3', 'user3@example.com', 0, 'Juhani', 'Rantanen', 100003, 5, 1, 1, 1, 'fi', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (3, 'user3', 'user3@example.com', 0, 'Juhani', 'Rantanen', 100003, 5, 1, 1, 1, 'fi', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (4, 'user4', 'user4@example.com', 1, 'Heidi', 'Kokkonen', 100004, 7, 1, 1, 0, 'fi', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (5, 'user5', 'user5@example.com', 0, 'Antti', 'Niemi', 100005, 10, 4, 1, 0, 'fi', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (4, 'user4', 'user4@example.com', 1, 'Heidi', 'Kokkonen', 100004, 7, 1, 1, 0, 'fi', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (6, 'user6', 'user6@example.com', 1, 'Maarit', 'Rissanen', 100006, 10, 2, 1, 0, 'sv', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (7, 'user7', 'user7@example.com', 1, 'Jouko', 'Aro', 100007, 12, 1, 1, 1, 'en', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (5, 'user5', 'user5@example.com', 0, 'Antti', 'Niemi', 100005, 10, 4, 1, 0, 'fi', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (8, 'user8', 'user8@example.com', 0, 'Johanna', 'Karhunen', 100008, 5, 4, 1, 1, 'en', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (9, 'user9', 'user9@example.com', 0, 'Helena', 'Koskela', 100009, 3, 1, 1, 0, 'sv', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (6, 'user6', 'user6@example.com', 1, 'Maarit', 'Rissanen', 100006, 10, 2, 1, 0, 'sv', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (10, 'user10', 'user10@example.com', 1, 'Tapio', 'Seppälä', 100010, 15, 3, 1, 0, 'fi', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (11, 'user11', 'user11@example.com', 0, 'Lotta', 'Kujala', 100011, 2, 3, 1, 0, 'sv', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (7, 'user7', 'user7@example.com', 1, 'Jouko', 'Aro', 100007, 12, 1, 1, 1, 'en', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (12, 'user12', 'user12@example.com', 0, 'Antero', 'Koistinen', 100012, 5, 1, 1, 0, 'sv', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (13, 'user13', 'user13@example.com', 0, 'Paavo', 'Asikainen', 100013, 9, 3, 1, 1, 'fi', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (8, 'user8', 'user8@example.com', 0, 'Johanna', 'Karhunen', 100008, 5, 4, 1, 1, 'en', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (14, 'user14', 'user14@example.com', 0, 'Jenni', 'Jääskeläinen', 100014, 7, 1, 1, 0, 'sv', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (15, 'user15', 'user15@example.com', 1, 'Arvo', 'Holappa', 100015, 12, 3, 1, 1, 'sv', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (9, 'user9', 'user9@example.com', 0, 'Helena', 'Koskela', 100009, 3, 1, 1, 0, 'sv', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (16, 'user16', 'user16@example.com', 0, 'Marita', 'Salo', 100016, 19, 4, 1, 0, 'fi', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (17, 'user17', 'user17@example.com', 0, 'Tapani', 'Koistinen', 100017, 17, 4, 1, 1, 'en', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (10, 'user10', 'user10@example.com', 1, 'Tapio', 'Seppälä', 100010, 15, 3, 1, 0, 'fi', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (18, 'user18', 'user18@example.com', 0, 'Anneli', 'Heinonen', 100018, 17, 4, 1, 1, 'fi', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (19, 'user19', 'user19@example.com', 1, 'Seppo', 'Aro', 100019, 8, 3, 1, 0, 'fi', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (11, 'user11', 'user11@example.com', 0, 'Lotta', 'Kujala', 100011, 2, 3, 1, 0, 'sv', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (20, 'user20', 'user20@example.com', 1, 'Sinikka', 'Kortelainen', 100020, 13, 1, 1, 1, 'en', 1);
-    
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (21, 'user21', 'user21@example.com', 1, 'Päivi', 'Nurminen', 100021, 17, 2, 1, 1, 'fi', 1);
-    
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (12, 'user12', 'user12@example.com', 0, 'Antero', 'Koistinen', 100012, 5, 1, 1, 0, 'sv', 1);
 
-    INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
-    VALUES (22, 'user22', 'user22@example.com', 1, 'Kaarina', 'Lammi', 100022, 2, 1, 1, 0, 'sv', 1);
-    
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (13, 'user13', 'user13@example.com', 0, 'Paavo', 'Asikainen', 100013, 9, 3, 1, 1, 'fi', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (14, 'user14', 'user14@example.com', 0, 'Jenni', 'Jääskeläinen', 100014, 7, 1, 1, 0, 'sv', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (15, 'user15', 'user15@example.com', 1, 'Arvo', 'Holappa', 100015, 12, 3, 1, 1, 'sv', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (16, 'user16', 'user16@example.com', 0, 'Marita', 'Salo', 100016, 19, 4, 1, 0, 'fi', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (17, 'user17', 'user17@example.com', 0, 'Tapani', 'Koistinen', 100017, 17, 4, 1, 1, 'en', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (18, 'user18', 'user18@example.com', 0, 'Anneli', 'Heinonen', 100018, 17, 4, 1, 1, 'fi', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (19, 'user19', 'user19@example.com', 1, 'Seppo', 'Aro', 100019, 8, 3, 1, 0, 'fi', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (20, 'user20', 'user20@example.com', 1, 'Sinikka', 'Kortelainen', 100020, 13, 1, 1, 1, 'en', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (21, 'user21', 'user21@example.com', 1, 'Päivi', 'Nurminen', 100021, 17, 2, 1, 1, 'fi', 1);
+
+
+INSERT INTO users (userid, username, email, staff, first_name, last_name, studentnumber, studentgroupid, roleid, GDPR, darkMode, language, activeStatus)
+VALUES (22, 'user22', 'user22@example.com', 1, 'Kaarina', 'Lammi', 100022, 2, 1, 1, 0, 'sv', 1);
+
 INSERT INTO topics (topicid, topicname) VALUES (1, 'Topic 1');
 INSERT INTO topics (topicid, topicname) VALUES (2, 'Topic 2');
 INSERT INTO topics (topicid, topicname) VALUES (3, 'Topic 3');
@@ -161,85 +161,85 @@ INSERT INTO topicsingroup (topicgroupid, topicid) VALUES (7, 18);
 INSERT INTO topicsingroup (topicgroupid, topicid) VALUES (7, 19);
 INSERT INTO topicsingroup (topicgroupid, topicid) VALUES (9, 20);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (1, 'Course 1', '2025-05-05', '2025-08-03', 'C001', 17);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (1, 'Course 1', '2025-05-05', '2025-08-03', 'C001', 17);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (2, 'Course 2', '2025-05-03', '2025-08-01', 'C002', 9);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (3, 'Course 3', '2025-04-11', '2025-07-10', 'C003', 4);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (2, 'Course 2', '2025-05-03', '2025-08-01', 'C002', 9);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (4, 'Course 4', '2025-05-13', '2025-08-11', 'C004', 12);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (5, 'Course 5', '2025-04-01', '2025-06-30', 'C005', 4);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (3, 'Course 3', '2025-04-11', '2025-07-10', 'C003', 4);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (6, 'Course 6', '2025-04-26', '2025-07-25', 'C006', 18);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (7, 'Course 7', '2025-04-20', '2025-07-19', 'C007', 12);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (4, 'Course 4', '2025-05-13', '2025-08-11', 'C004', 12);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (8, 'Course 8', '2025-05-16', '2025-08-14', 'C008', 2);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (9, 'Course 9', '2025-05-18', '2025-08-16', 'C009', 13);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (5, 'Course 5', '2025-04-01', '2025-06-30', 'C005', 4);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (10, 'Course 10', '2025-04-22', '2025-07-21', 'C010', 20);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (11, 'Course 11', '2025-04-22', '2025-07-21', 'C011', 20);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (6, 'Course 6', '2025-04-26', '2025-07-25', 'C006', 18);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (12, 'Course 12', '2025-05-03', '2025-08-01', 'C012', 7);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (13, 'Course 13', '2025-05-24', '2025-08-22', 'C013', 12);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (7, 'Course 7', '2025-04-20', '2025-07-19', 'C007', 12);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (14, 'Course 14', '2025-05-18', '2025-08-16', 'C014', 16);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (15, 'Course 15', '2025-04-22', '2025-07-21', 'C015', 6);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (8, 'Course 8', '2025-05-16', '2025-08-14', 'C008', 2);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (16, 'Course 16', '2025-05-28', '2025-08-26', 'C016', 14);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (17, 'Course 17', '2025-04-13', '2025-07-12', 'C017', 17);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (9, 'Course 9', '2025-05-18', '2025-08-16', 'C009', 13);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (18, 'Course 18', '2025-04-19', '2025-07-18', 'C018', 15);
-    
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (19, 'Course 19', '2025-05-22', '2025-08-20', 'C019', 3);
-    
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (10, 'Course 10', '2025-04-22', '2025-07-21', 'C010', 20);
 
-    INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
-    VALUES (20, 'Course 20', '2025-04-29', '2025-07-28', 'C020', 15);
-    
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (11, 'Course 11', '2025-04-22', '2025-07-21', 'C011', 20);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (12, 'Course 12', '2025-05-03', '2025-08-01', 'C012', 7);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (13, 'Course 13', '2025-05-24', '2025-08-22', 'C013', 12);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (14, 'Course 14', '2025-05-18', '2025-08-16', 'C014', 16);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (15, 'Course 15', '2025-04-22', '2025-07-21', 'C015', 6);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (16, 'Course 16', '2025-05-28', '2025-08-26', 'C016', 14);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (17, 'Course 17', '2025-04-13', '2025-07-12', 'C017', 17);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (18, 'Course 18', '2025-04-19', '2025-07-18', 'C018', 15);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (19, 'Course 19', '2025-05-22', '2025-08-20', 'C019', 3);
+
+
+INSERT INTO courses (courseid, name, start_date, end_date, code, studentgroupid)
+VALUES (20, 'Course 20', '2025-04-29', '2025-07-28', 'C020', 15);
+
 INSERT INTO coursetopics (courseid, topicid) VALUES (13, 1);
 INSERT INTO coursetopics (courseid, topicid) VALUES (4, 2);
 INSERT INTO coursetopics (courseid, topicid) VALUES (9, 3);
@@ -321,85 +321,85 @@ INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (7, 7);
 INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (17, 10);
 INSERT INTO usercourse_topics (usercourseid, topicid) VALUES (12, 5);
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (1, '2025-06-16', '2025-06-17', 21, 'pm', 4, 13, 'closed');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (1, '2025-06-16', '2025-06-17', 21, 'pm', 4, 13, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (2, '2025-06-13', '2025-06-14', 3, 'pm', 11, 7, 'open');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (3, '2025-06-13', '2025-06-14', 3, 'pm', 18, 16, 'closed');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (2, '2025-06-13', '2025-06-14', 3, 'pm', 11, 7, 'open');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (4, '2025-06-05', '2025-06-06', 19, 'am', 10, 19, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (5, '2025-06-13', '2025-06-14', 7, 'am', 13, 20, 'closed');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (3, '2025-06-13', '2025-06-14', 3, 'pm', 18, 16, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (6, '2025-05-23', '2025-05-24', 19, 'pm', 3, 1, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (7, '2025-06-10', '2025-06-11', 13, 'am', 18, 11, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (4, '2025-06-05', '2025-06-06', 19, 'am', 10, 19, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (8, '2025-05-29', '2025-05-30', 4, 'am', 2, 15, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (9, '2025-05-21', '2025-05-22', 18, 'am', 20, 2, 'closed');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (5, '2025-06-13', '2025-06-14', 7, 'am', 13, 20, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (10, '2025-05-27', '2025-05-28', 18, 'am', 12, 7, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (11, '2025-05-24', '2025-05-25', 15, 'pm', 11, 8, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (6, '2025-05-23', '2025-05-24', 19, 'pm', 3, 1, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (12, '2025-06-08', '2025-06-09', 8, 'am', 3, 7, 'open');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (13, '2025-06-06', '2025-06-07', 7, 'am', 18, 15, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (7, '2025-06-10', '2025-06-11', 13, 'am', 18, 11, 'open');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (14, '2025-05-24', '2025-05-25', 5, 'pm', 19, 20, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (15, '2025-05-18', '2025-05-19', 12, 'pm', 19, 3, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (8, '2025-05-29', '2025-05-30', 4, 'am', 2, 15, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (16, '2025-06-03', '2025-06-04', 17, 'am', 14, 10, 'open');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (17, '2025-05-31', '2025-06-01', 7, 'am', 20, 18, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (9, '2025-05-21', '2025-05-22', 18, 'am', 20, 2, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (18, '2025-06-06', '2025-06-07', 12, 'am', 5, 20, 'closed');
-    
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (19, '2025-05-15', '2025-05-16', 7, 'am', 2, 5, 'open');
-    
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (10, '2025-05-27', '2025-05-28', 18, 'am', 12, 7, 'closed');
 
-    INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
-    VALUES (20, '2025-06-09', '2025-06-10', 18, 'pm', 10, 14, 'closed');
-    
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (11, '2025-05-24', '2025-05-25', 15, 'pm', 11, 8, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (12, '2025-06-08', '2025-06-09', 8, 'am', 3, 7, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (13, '2025-06-06', '2025-06-07', 7, 'am', 18, 15, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (14, '2025-05-24', '2025-05-25', 5, 'pm', 19, 20, 'closed');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (15, '2025-05-18', '2025-05-19', 12, 'pm', 19, 3, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (16, '2025-06-03', '2025-06-04', 17, 'am', 14, 10, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (17, '2025-05-31', '2025-06-01', 7, 'am', 20, 18, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (18, '2025-06-06', '2025-06-07', 12, 'am', 5, 20, 'closed');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (19, '2025-05-15', '2025-05-16', 7, 'am', 2, 5, 'open');
+
+
+INSERT INTO lecture (lectureid, start_date, end_date, teacherid, timeofday, topicid, courseid, state)
+VALUES (20, '2025-06-09', '2025-06-10', 18, 'pm', 10, 14, 'closed');
+
 INSERT INTO attendance (attendanceid, status, date, usercourseid, lectureid) VALUES (1, 0, '2025-06-27', 14, 13);
 INSERT INTO attendance (attendanceid, status, date, usercourseid, lectureid) VALUES (2, 0, '2025-06-26', 18, 14);
 INSERT INTO attendance (attendanceid, status, date, usercourseid, lectureid) VALUES (3, 0, '2025-06-25', 1, 14);
@@ -441,85 +441,85 @@ INSERT INTO user_feedback (feedbackId, userid, topic, text) VALUES (18, 4, 'Feed
 INSERT INTO user_feedback (feedbackId, userid, topic, text) VALUES (19, 16, 'Feedback 19', 'This is feedback 19');
 INSERT INTO user_feedback (feedbackId, userid, topic, text) VALUES (20, 22, 'Feedback 20', 'This is feedback 20');
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (1, 'WorkLog Course 1', '2025-06-23', '2025-09-21', 'WLC001', 'Description 1', 100);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (1, 'WorkLog Course 1', '2025-06-23', '2025-09-21', 'WLC001', 'Description 1', 100);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (2, 'WorkLog Course 2', '2025-06-18', '2025-09-16', 'WLC002', 'Description 2', 45);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (3, 'WorkLog Course 3', '2025-06-13', '2025-09-11', 'WLC003', 'Description 3', 91);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (2, 'WorkLog Course 2', '2025-06-18', '2025-09-16', 'WLC002', 'Description 2', 45);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (4, 'WorkLog Course 4', '2025-06-08', '2025-09-06', 'WLC004', 'Description 4', 98);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (5, 'WorkLog Course 5', '2025-06-03', '2025-09-01', 'WLC005', 'Description 5', 90);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (3, 'WorkLog Course 3', '2025-06-13', '2025-09-11', 'WLC003', 'Description 3', 91);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (6, 'WorkLog Course 6', '2025-05-29', '2025-08-27', 'WLC006', 'Description 6', 69);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (7, 'WorkLog Course 7', '2025-05-24', '2025-08-22', 'WLC007', 'Description 7', 62);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (4, 'WorkLog Course 4', '2025-06-08', '2025-09-06', 'WLC004', 'Description 4', 98);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (8, 'WorkLog Course 8', '2025-05-19', '2025-08-17', 'WLC008', 'Description 8', 51);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (9, 'WorkLog Course 9', '2025-05-14', '2025-08-12', 'WLC009', 'Description 9', 77);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (5, 'WorkLog Course 5', '2025-06-03', '2025-09-01', 'WLC005', 'Description 5', 90);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (10, 'WorkLog Course 10', '2025-05-09', '2025-08-07', 'WLC010', 'Description 10', 88);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (11, 'WorkLog Course 11', '2025-05-04', '2025-08-02', 'WLC011', 'Description 11', 55);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (6, 'WorkLog Course 6', '2025-05-29', '2025-08-27', 'WLC006', 'Description 6', 69);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (12, 'WorkLog Course 12', '2025-04-29', '2025-07-28', 'WLC012', 'Description 12', 99);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (13, 'WorkLog Course 13', '2025-04-24', '2025-07-23', 'WLC013', 'Description 13', 73);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (7, 'WorkLog Course 7', '2025-05-24', '2025-08-22', 'WLC007', 'Description 7', 62);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (14, 'WorkLog Course 14', '2025-04-19', '2025-07-18', 'WLC014', 'Description 14', 82);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (15, 'WorkLog Course 15', '2025-04-14', '2025-07-13', 'WLC015', 'Description 15', 77);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (8, 'WorkLog Course 8', '2025-05-19', '2025-08-17', 'WLC008', 'Description 8', 51);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (16, 'WorkLog Course 16', '2025-04-09', '2025-07-08', 'WLC016', 'Description 16', 98);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (17, 'WorkLog Course 17', '2025-04-04', '2025-07-03', 'WLC017', 'Description 17', 94);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (9, 'WorkLog Course 9', '2025-05-14', '2025-08-12', 'WLC009', 'Description 9', 77);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (18, 'WorkLog Course 18', '2025-03-30', '2025-06-28', 'WLC018', 'Description 18', 54);
-    
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (19, 'WorkLog Course 19', '2025-03-25', '2025-06-23', 'WLC019', 'Description 19', 63);
-    
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (10, 'WorkLog Course 10', '2025-05-09', '2025-08-07', 'WLC010', 'Description 10', 88);
 
-    INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
-    VALUES (20, 'WorkLog Course 20', '2025-03-20', '2025-06-18', 'WLC020', 'Description 20', 81);
-    
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (11, 'WorkLog Course 11', '2025-05-04', '2025-08-02', 'WLC011', 'Description 11', 55);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (12, 'WorkLog Course 12', '2025-04-29', '2025-07-28', 'WLC012', 'Description 12', 99);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (13, 'WorkLog Course 13', '2025-04-24', '2025-07-23', 'WLC013', 'Description 13', 73);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (14, 'WorkLog Course 14', '2025-04-19', '2025-07-18', 'WLC014', 'Description 14', 82);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (15, 'WorkLog Course 15', '2025-04-14', '2025-07-13', 'WLC015', 'Description 15', 77);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (16, 'WorkLog Course 16', '2025-04-09', '2025-07-08', 'WLC016', 'Description 16', 98);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (17, 'WorkLog Course 17', '2025-04-04', '2025-07-03', 'WLC017', 'Description 17', 94);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (18, 'WorkLog Course 18', '2025-03-30', '2025-06-28', 'WLC018', 'Description 18', 54);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (19, 'WorkLog Course 19', '2025-03-25', '2025-06-23', 'WLC019', 'Description 19', 63);
+
+
+INSERT INTO work_log_courses (work_log_course_id, name, start_date, end_date, code, description, required_hours)
+VALUES (20, 'WorkLog Course 20', '2025-03-20', '2025-06-18', 'WLC020', 'Description 20', 81);
+
 INSERT INTO work_log_course_users (user_course_id, userid, work_log_course_id) VALUES (1, 20, 5);
 INSERT INTO work_log_course_users (user_course_id, userid, work_log_course_id) VALUES (2, 14, 11);
 INSERT INTO work_log_course_users (user_course_id, userid, work_log_course_id) VALUES (3, 11, 6);
@@ -581,85 +581,85 @@ INSERT INTO student_group_assignments (assignment_id, group_id, userid) VALUES (
 INSERT INTO student_group_assignments (assignment_id, group_id, userid) VALUES (19, 18, 10);
 INSERT INTO student_group_assignments (assignment_id, group_id, userid) VALUES (20, 13, 3);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (1, 'Practicum 1', 19, '2025-06-25', '2025-08-24', 'Practicum description 1', 29);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (1, 'Practicum 1', 19, '2025-06-25', '2025-08-24', 'Practicum description 1', 29);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (2, 'Practicum 2', 4, '2025-06-22', '2025-08-21', 'Practicum description 2', 51);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (3, 'Practicum 3', 13, '2025-06-19', '2025-08-18', 'Practicum description 3', 77);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (2, 'Practicum 2', 4, '2025-06-22', '2025-08-21', 'Practicum description 2', 51);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (4, 'Practicum 4', 15, '2025-06-16', '2025-08-15', 'Practicum description 4', 70);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (5, 'Practicum 5', 6, '2025-06-13', '2025-08-12', 'Practicum description 5', 42);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (3, 'Practicum 3', 13, '2025-06-19', '2025-08-18', 'Practicum description 3', 77);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (6, 'Practicum 6', 5, '2025-06-10', '2025-08-09', 'Practicum description 6', 73);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (7, 'Practicum 7', 11, '2025-06-07', '2025-08-06', 'Practicum description 7', 67);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (4, 'Practicum 4', 15, '2025-06-16', '2025-08-15', 'Practicum description 4', 70);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (8, 'Practicum 8', 6, '2025-06-04', '2025-08-03', 'Practicum description 8', 78);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (9, 'Practicum 9', 3, '2025-06-01', '2025-07-31', 'Practicum description 9', 62);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (5, 'Practicum 5', 6, '2025-06-13', '2025-08-12', 'Practicum description 5', 42);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (10, 'Practicum 10', 12, '2025-05-29', '2025-07-28', 'Practicum description 10', 20);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (11, 'Practicum 11', 18, '2025-05-26', '2025-07-25', 'Practicum description 11', 38);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (6, 'Practicum 6', 5, '2025-06-10', '2025-08-09', 'Practicum description 6', 73);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (12, 'Practicum 12', 12, '2025-05-23', '2025-07-22', 'Practicum description 12', 48);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (13, 'Practicum 13', 18, '2025-05-20', '2025-07-19', 'Practicum description 13', 66);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (7, 'Practicum 7', 11, '2025-06-07', '2025-08-06', 'Practicum description 7', 67);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (14, 'Practicum 14', 6, '2025-05-17', '2025-07-16', 'Practicum description 14', 61);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (15, 'Practicum 15', 17, '2025-05-14', '2025-07-13', 'Practicum description 15', 36);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (8, 'Practicum 8', 6, '2025-06-04', '2025-08-03', 'Practicum description 8', 78);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (16, 'Practicum 16', 20, '2025-05-11', '2025-07-10', 'Practicum description 16', 72);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (17, 'Practicum 17', 3, '2025-05-08', '2025-07-07', 'Practicum description 17', 35);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (9, 'Practicum 9', 3, '2025-06-01', '2025-07-31', 'Practicum description 9', 62);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (18, 'Practicum 18', 11, '2025-05-05', '2025-07-04', 'Practicum description 18', 29);
-    
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (19, 'Practicum 19', 21, '2025-05-02', '2025-07-01', 'Practicum description 19', 23);
-    
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (10, 'Practicum 10', 12, '2025-05-29', '2025-07-28', 'Practicum description 10', 20);
 
-    INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
-    VALUES (20, 'Practicum 20', 4, '2025-04-29', '2025-06-28', 'Practicum description 20', 47);
-    
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (11, 'Practicum 11', 18, '2025-05-26', '2025-07-25', 'Practicum description 11', 38);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (12, 'Practicum 12', 12, '2025-05-23', '2025-07-22', 'Practicum description 12', 48);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (13, 'Practicum 13', 18, '2025-05-20', '2025-07-19', 'Practicum description 13', 66);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (14, 'Practicum 14', 6, '2025-05-17', '2025-07-16', 'Practicum description 14', 61);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (15, 'Practicum 15', 17, '2025-05-14', '2025-07-13', 'Practicum description 15', 36);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (16, 'Practicum 16', 20, '2025-05-11', '2025-07-10', 'Practicum description 16', 72);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (17, 'Practicum 17', 3, '2025-05-08', '2025-07-07', 'Practicum description 17', 35);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (18, 'Practicum 18', 11, '2025-05-05', '2025-07-04', 'Practicum description 18', 29);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (19, 'Practicum 19', 21, '2025-05-02', '2025-07-01', 'Practicum description 19', 23);
+
+
+INSERT INTO work_log_practicum (work_log_practicum_id, name, userid, start_date, end_date, description, required_hours)
+VALUES (20, 'Practicum 20', 4, '2025-04-29', '2025-06-28', 'Practicum description 20', 47);
+
 INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_practicum_id) VALUES (1, 12, 7);
 INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_practicum_id) VALUES (2, 17, 4);
 INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_practicum_id) VALUES (3, 22, 13);
@@ -681,85 +681,85 @@ INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_prac
 INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_practicum_id) VALUES (19, 8, 9);
 INSERT INTO work_log_practicum_instructors (instructor_id, userid, work_log_practicum_id) VALUES (20, 8, 9);
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (1, 21, NULL, 20, 
-    '2025-06-21 09:54:13', '2025-06-26 09:54:13', 'Work entry 1', '1');
-    
+VALUES (1, 21, NULL, 20,
+        '2025-06-21 09:54:13', '2025-06-26 09:54:13', 'Work entry 1', '1');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (2, 14, 6, NULL, 
-    '2025-06-22 09:54:13', '2025-06-27 09:54:13', 'Work entry 2', '0');
-    
+VALUES (2, 14, 6, NULL,
+        '2025-06-22 09:54:13', '2025-06-27 09:54:13', 'Work entry 2', '0');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (3, 15, NULL, 12, 
-    '2025-06-18 09:54:13', '2025-06-24 09:54:13', 'Work entry 3', '2');
-    
+VALUES (3, 15, NULL, 12,
+        '2025-06-18 09:54:13', '2025-06-24 09:54:13', 'Work entry 3', '2');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (4, 5, 20, NULL, 
-    '2025-06-27 09:54:13', '2025-06-25 09:54:13', 'Work entry 4', '0');
-    
+VALUES (4, 5, 20, NULL,
+        '2025-06-27 09:54:13', '2025-06-25 09:54:13', 'Work entry 4', '0');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (5, 20, NULL, 5, 
-    '2025-06-27 09:54:13', '2025-06-24 09:54:13', 'Work entry 5', '3');
-    
+VALUES (5, 20, NULL, 5,
+        '2025-06-27 09:54:13', '2025-06-24 09:54:13', 'Work entry 5', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (6, 11, 10, NULL, 
-    '2025-06-25 09:54:13', '2025-06-27 09:54:13', 'Work entry 6', '3');
-    
+VALUES (6, 11, 10, NULL,
+        '2025-06-25 09:54:13', '2025-06-27 09:54:13', 'Work entry 6', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (7, 5, NULL, 11, 
-    '2025-06-20 09:54:13', '2025-06-28 09:54:13', 'Work entry 7', '1');
-    
+VALUES (7, 5, NULL, 11,
+        '2025-06-20 09:54:13', '2025-06-28 09:54:13', 'Work entry 7', '1');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (8, 6, 16, NULL, 
-    '2025-06-24 09:54:13', '2025-06-24 09:54:13', 'Work entry 8', '3');
-    
+VALUES (8, 6, 16, NULL,
+        '2025-06-24 09:54:13', '2025-06-24 09:54:13', 'Work entry 8', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (9, 21, NULL, 4, 
-    '2025-06-23 09:54:13', '2025-06-27 09:54:13', 'Work entry 9', '3');
-    
+VALUES (9, 21, NULL, 4,
+        '2025-06-23 09:54:13', '2025-06-27 09:54:13', 'Work entry 9', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (10, 12, 20, NULL, 
-    '2025-06-22 09:54:13', '2025-06-23 09:54:13', 'Work entry 10', '3');
-    
+VALUES (10, 12, 20, NULL,
+        '2025-06-22 09:54:13', '2025-06-23 09:54:13', 'Work entry 10', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (11, 7, NULL, 3, 
-    '2025-06-22 09:54:13', '2025-06-25 09:54:13', 'Work entry 11', '0');
-    
+VALUES (11, 7, NULL, 3,
+        '2025-06-22 09:54:13', '2025-06-25 09:54:13', 'Work entry 11', '0');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (12, 9, 7, NULL, 
-    '2025-06-25 09:54:13', '2025-06-26 09:54:13', 'Work entry 12', '2');
-    
+VALUES (12, 9, 7, NULL,
+        '2025-06-25 09:54:13', '2025-06-26 09:54:13', 'Work entry 12', '2');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (13, 22, NULL, 18, 
-    '2025-06-23 09:54:13', '2025-06-25 09:54:13', 'Work entry 13', '3');
-    
+VALUES (13, 22, NULL, 18,
+        '2025-06-23 09:54:13', '2025-06-25 09:54:13', 'Work entry 13', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (14, 9, 13, NULL, 
-    '2025-06-26 09:54:13', '2025-06-24 09:54:13', 'Work entry 14', '3');
-    
+VALUES (14, 9, 13, NULL,
+        '2025-06-26 09:54:13', '2025-06-24 09:54:13', 'Work entry 14', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (15, 19, NULL, 15, 
-    '2025-06-21 09:54:13', '2025-06-28 09:54:13', 'Work entry 15', '1');
-    
+VALUES (15, 19, NULL, 15,
+        '2025-06-21 09:54:13', '2025-06-28 09:54:13', 'Work entry 15', '1');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (16, 20, 4, NULL, 
-    '2025-06-24 09:54:13', '2025-06-28 09:54:13', 'Work entry 16', '2');
-    
+VALUES (16, 20, 4, NULL,
+        '2025-06-24 09:54:13', '2025-06-28 09:54:13', 'Work entry 16', '2');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (17, 9, NULL, 3, 
-    '2025-06-21 09:54:13', '2025-06-24 09:54:13', 'Work entry 17', '3');
-    
+VALUES (17, 9, NULL, 3,
+        '2025-06-21 09:54:13', '2025-06-24 09:54:13', 'Work entry 17', '3');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (18, 10, 8, NULL, 
-    '2025-06-26 09:54:13', '2025-06-25 09:54:13', 'Work entry 18', '0');
-    
+VALUES (18, 10, 8, NULL,
+        '2025-06-26 09:54:13', '2025-06-25 09:54:13', 'Work entry 18', '0');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (19, 19, NULL, 8, 
-    '2025-06-24 09:54:13', '2025-06-27 09:54:13', 'Work entry 19', '0');
-    
+VALUES (19, 19, NULL, 8,
+        '2025-06-24 09:54:13', '2025-06-27 09:54:13', 'Work entry 19', '0');
+
 INSERT INTO work_log_entries (entry_id, userid, work_log_course_id, work_log_practicum_id, start_time, end_time, description, status)
-    VALUES (20, 20, 18, NULL, 
-    '2025-06-22 09:54:13', '2025-06-25 09:54:13', 'Work entry 20', '1');
-    
+VALUES (20, 20, 18, NULL,
+        '2025-06-22 09:54:13', '2025-06-25 09:54:13', 'Work entry 20', '1');
+
 INSERT INTO work_log_course_instructors (instructor_id, userid, work_log_course_id) VALUES (1, 6, 15);
 INSERT INTO work_log_course_instructors (instructor_id, userid, work_log_course_id) VALUES (2, 8, 20);
 INSERT INTO work_log_course_instructors (instructor_id, userid, work_log_course_id) VALUES (3, 17, 7);

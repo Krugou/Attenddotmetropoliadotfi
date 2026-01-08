@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import NavigationCard from '../../../components/features/navigation/NavigationCard.tsx';
+import NavigationCard from '../../../components/ui/cards/NavigationCard.tsx';
 import FeedbackCard from '../../../components/features/feedback/FeedbackCard.tsx';
 import MainViewTitle from '../../../components/ui/titles/MainViewTitle.tsx';
 import {

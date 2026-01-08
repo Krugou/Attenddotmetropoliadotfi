@@ -1,4 +1,69 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import WorklogData from '../../../../components/features/worklogs/WorklogData.tsx';
+import {UserContext} from '../../../../contexts/UserContext';
+import apiHooks from '../../../../api';
+import {useTranslation} from 'react-i18next';
+import DetailPageLayout from '../../../../components/ui/layouts/DetailPageLayout.tsx';
+
+interface WorkLogDetail {
+  courseid: number;
+  name: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  code: string;
+  required_hours: number;
+  created_at: string;
+  user_count: number;
+  instructor_name: string;
+}
+
+const TeacherWorklogCourseDetail: React.FC = () => {
+  const {courseid} = useParams<{courseid: string}>();
+  const [worklogData, setWorklogData] = useState<WorkLogDetail | null>(null);
+
+  const {user} = useContext(UserContext);
+  const {t} = useTranslation(['teacher']);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchWorklog = async () => {
+      if (!courseid) return;
+
+      const token = localStorage.getItem('userToken');
+      if (!token) throw new Error('No token available');
+
+      const data = await apiHooks.getWorkLogCourseDetail(courseid, token);
+      setWorklogData(data.course);
+    };
+
+    fetchWorklog();
+  }, [courseid]);
+
+  return (
+    <DetailPageLayout
+      title={t('teacher:worklog.detail.title')} // lisää i18n avain tai käytä worklogData?.name
+      backLabel={t('teacher:worklog.detail.backToWorklog')}
+      onBack={() =>
+        navigate(user?.role === 'admin' ? '/teacher/worklog' : `/${user?.role}/worklog`)
+      }
+    >
+      <div className="flex justify-center">
+        <div className="w-full max-w-[520px]">
+
+          {worklogData && (
+            <WorklogData worklogData={[worklogData]} allCourses={false} disableHover />
+          )}
+        </div>
+      </div>
+    </DetailPageLayout>
+  );
+};
+
+export default TeacherWorklogCourseDetail;
+
+/*OLD CODE import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
 import WorklogData from '../../../../components/features/worklogs/WorklogData.tsx';
@@ -79,4 +144,4 @@ const TeacherWorklogCourseDetail: React.FC = () => {
   );
 };
 
-export default TeacherWorklogCourseDetail;
+export default TeacherWorklogCourseDetail;*/

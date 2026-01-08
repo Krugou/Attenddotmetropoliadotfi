@@ -35,14 +35,14 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({storageKey}) => {
       <div className='fixed bottom-2 right-0 z-50 max-w-xs p-6 m-6 bg-white rounded-lg shadow-lg sm:max-w-md md:max-w-lg lg:max-w-xl'>
         <div>
           <h2 className='mb-2 text-2xl font-heading'>
-            {t('ui:welcome.title')}
+            {t('welcome.title')}
           </h2>
-          <p className='mb-4'>{t('ui:welcome.description')}</p>
+          <p className='mb-4'>{t('welcome.description')}</p>
           <div className='flex justify-end'>
             <button
               className='px-4 py-2 text-white font-bold bg-metropolia-main-orange rounded-sm'
               onClick={() => setShowModal(false)}>
-              {t('ui:close')}
+              {t('close')}
             </button>
           </div>
         </div>

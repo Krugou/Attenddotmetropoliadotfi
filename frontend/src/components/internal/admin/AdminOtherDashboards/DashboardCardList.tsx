@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationCard from '../../../features/navigation/NavigationCard.tsx';
+import NavigationCard from '../../../ui/cards/NavigationCard.tsx';
 import { School, SupervisorAccount, People } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 

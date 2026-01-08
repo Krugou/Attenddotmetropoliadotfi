@@ -24,7 +24,7 @@ interface Lecture {
 }
 
 const TeacherLectures: React.FC = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation('teacher'); // ✅ teacher namespace
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const {user} = useContext(UserContext);
@@ -34,28 +34,31 @@ const TeacherLectures: React.FC = () => {
   const getLectures = async () => {
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
-      toast.error('No token available');
+      toast.error(t('errors.noToken'));
       setIsLoading(false);
       return;
     }
-    if (user) {
-      try {
-        const result = await apiHooks.fetchTeacherOwnLectures(
-          user.userid.toString(),
-          token,
-        );
-        const sortedLectures = result.sort((a, b) => {
-          return sortOrder === 'asc'
-            ? a.lectureid - b.lectureid
-            : b.lectureid - a.lectureid;
-        });
-        setLectures(sortedLectures);
-        setIsLoading(false);
-      } catch (error) {
-        const message = (error as Error).message;
-        toast.error('Failed to fetch TeacherLectures: ' + message);
-        setIsLoading(false);
-      }
+
+    if (!user) return;
+
+    try {
+      const result = await apiHooks.fetchTeacherOwnLectures(
+        user.userid.toString(),
+        token,
+      );
+
+      const sortedLectures = result.sort((a, b) => {
+        return sortOrder === 'asc'
+          ? a.lectureid - b.lectureid
+          : b.lectureid - a.lectureid;
+      });
+
+      setLectures(sortedLectures);
+    } catch (error) {
+      const message = (error as Error).message;
+      toast.error(t('lectures.errors.fetchFailed', {message}));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,46 +67,49 @@ const TeacherLectures: React.FC = () => {
       setIsLoading(true);
       getLectures();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  // Calculate total TeacherLectures count
   const totalLectures = lectures.length;
+  const totalAttended = lectures.reduce((sum, lecture) => sum + lecture.attended, 0);
+  const totalNotAttended = lectures.reduce((sum, lecture) => sum + lecture.notattended, 0);
 
-  // Calculate ratio of TeacherLectures attendance
-  const totalAttended = lectures.reduce(
-    (sum, lecture) => sum + lecture.attended,
-    0,
-  );
-  const totalNotAttended = lectures.reduce(
-    (sum, lecture) => sum + lecture.notattended,
-    0,
-  );
   const attendanceRatio =
-    totalLectures > 0
-      ? (totalAttended / (totalAttended + totalNotAttended)) * 100
-      : 0;
+    totalLectures > 0 ? (totalAttended / (totalAttended + totalNotAttended)) * 100 : 0;
 
   return (
-    <div className='relative w-full p-5 bg-white rounded-lg xl:w-fit'>
-      <div className='flex flex-col justify-between md:flex-row'>
-        <h1 className='mb-4 text-2xl font-heading'>
-          {t('teacher:TeacherLectures.title')}
-        </h1>
-        <h2 className='mb-2 text-xl'>
-          {t('teacher:TeacherLectures.stats.totalLectures')}: {totalLectures} |{' '}
-          {t('teacher:TeacherLectures.stats.attendanceRatio')}:{' '}
-          {attendanceRatio.toFixed(2)}%
-        </h2>
+    <div className="w-full flex justify-center">
+      <div className="w-full max-w-[1250px] px-2 sm:px-4 lg:px-6">
+        <section className="w-full bg-gray-100 rounded-2xl p-3 sm:p-4 lg:p-6 shadow-sm">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
+            <h1 className="text-2xl sm:text-3xl font-heading text-metropolia-main-grey">
+              {t('lectures.title')}
+            </h1>
+
+            <div className="text-sm sm:text-base text-metropolia-main-grey">
+              {t('lectures.stats.totalLectures')}: {totalLectures}
+              {'  '}|{'  '}
+              {t('lectures.stats.attendanceRatio')}: {attendanceRatio.toFixed(2)}%
+            </div>
+          </div>
+
+          <div className="p-2 sm:p-3">
+            {isLoading ? (
+              <div className="flex items-center justify-center min-h-[45vh]">
+                <Loader />
+              </div>
+            ) : (
+              <>
+                {isMobile ? (
+                  <MobileLectures lectures={lectures} />
+                ) : (
+                  <DesktopLectures lectures={lectures} />
+                )}
+              </>
+            )}
+          </div>
+        </section>
       </div>
-      {isMobile ? (
-        <MobileLectures lectures={lectures} />
-      ) : (
-        <DesktopLectures lectures={lectures} />
-      )}
     </div>
   );
 };

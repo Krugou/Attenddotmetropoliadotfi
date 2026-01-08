@@ -61,9 +61,10 @@ const SocketHandlers = (io: Server) => {
       `Authenticated user ${socket.user?.username} connected via websocket connection `,
     );
     socket.on('disconnect', () => {});
+
     socket.on('createAttendanceCollection', async (lectureid: string) => {
       try {
-        console.log("row 66, socketHandlers.ts, socketHandlers")
+        console.log('row 66, socketHandlers.ts, socketHandlers');
         await handleCreateAttendanceCollection(
           socket,
           io,
@@ -78,9 +79,10 @@ const SocketHandlers = (io: Server) => {
         logger.error('Error creating attendance collection:', err);
       }
     });
+
     socket.on('lectureFinishedWithButton', async (lectureid: string) => {
       try {
-        console.log("row 83, socketHandlers.ts, handleLectureFinish()")
+        console.log('row 83, socketHandlers.ts, handleLectureFinish()');
         await handleLectureFinish(
           socket,
           lectureid,
@@ -95,6 +97,7 @@ const SocketHandlers = (io: Server) => {
         logger.error('Error finalizing lecture:', err);
       }
     });
+
     // Handle the 'inputThatStudentHasArrivedToLecture' event
     // This event is emitted when the student inputs the secure hash and unixtime
     socket.on(
@@ -106,7 +109,7 @@ const SocketHandlers = (io: Server) => {
         lectureid: number,
       ) => {
         try {
-          console.log("row 110, socketHandlers.ts, handleStudentArrival()")
+          console.log('row 110, socketHandlers.ts, handleStudentArrival()');
           await handleStudentArrival(
             socket,
             io,
@@ -124,13 +127,16 @@ const SocketHandlers = (io: Server) => {
         }
       },
     );
-    // Handle the 'manualstudentinsert' event
-    // This event is emitted when the teacher inputs the student id
+
+    // Handle the 'manualStudentInsert' event
+    // This event is emitted when the teacher selects the student and a status (present / excused)
     socket.on(
       'manualStudentInsert',
-      async (studentId: string, lectureid: number) => {
+      async (studentId: string, lectureid: number, status: number = 1) => {
         try {
-          console.log("row 133, socketHandlers.ts, handleManualStudentInsert()")
+          console.log(
+            'row 133, socketHandlers.ts, handleManualStudentInsert()',
+          );
           await handleManualStudentInsert(
             socket,
             io,
@@ -138,6 +144,7 @@ const SocketHandlers = (io: Server) => {
             lectureid,
             notYetPresentStudents,
             presentStudents,
+            status,
           );
         } catch (error) {
           logger.error('Manual student insertion failed:', error);
@@ -149,7 +156,9 @@ const SocketHandlers = (io: Server) => {
       'manualStudentRemove',
       async (studentId: string, lectureId: number) => {
         try {
-          console.log("row 152, socketHandlers.ts, handleManualStudentRemove()")
+          console.log(
+            'row 152, socketHandlers.ts, handleManualStudentRemove()',
+          );
           await handleManualStudentRemove(
             socket,
             io,
@@ -166,7 +175,7 @@ const SocketHandlers = (io: Server) => {
 
     // Handle the 'lecturecanceled' event
     socket.on('lectureCanceled', async (lectureid) => {
-      console.log("row 169, socketHandlers.ts, handleLectureCanceled()");
+      console.log('row 169, socketHandlers.ts, handleLectureCanceled()');
       handleLectureCanceled(
         socket,
         io,

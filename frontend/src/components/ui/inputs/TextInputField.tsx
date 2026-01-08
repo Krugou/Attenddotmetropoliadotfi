@@ -35,9 +35,11 @@ const TextInputField: React.FC<TextInputFieldProps> = ({
   maxLength,
 }) => (
   <>
-    <label className='mb-2 font-heading text-gray-900' htmlFor={name}>
-      {label}:
-    </label>
+    {label && (
+      <label className="mb-2 font-heading text-gray-900" htmlFor={name}>
+        {label}
+      </label>
+    )}
     {type === 'textarea' ? (
       <textarea
         className={className}

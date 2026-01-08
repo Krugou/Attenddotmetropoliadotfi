@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 interface Lecture {
   lectureid: number;
@@ -32,14 +34,21 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
 
   return (
     <div className='space-y-4'>
-      <div className='flex justify-end'>
-        <button
-          onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-          className='px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:ring-2 focus:ring-gray-300'>
-          {showTechnicalDetails
-            ? t('teacher:lectures.table.buttons.hideTechnical')
-            : t('teacher:lectures.table.buttons.showTechnical')}
-        </button>
+      <div className="flex justify-end">
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showTechnicalDetails}
+              onChange={() => setShowTechnicalDetails((prev) => !prev)}
+              color="primary"
+            />
+          }
+          label={
+            showTechnicalDetails
+              ? t('teacher:lectures.table.buttons.hideTechnical')
+              : t('teacher:lectures.table.buttons.showTechnical')
+          }
+        />
       </div>
 
       <div className='relative overflow-auto bg-white shadow-lg rounded-xl'>

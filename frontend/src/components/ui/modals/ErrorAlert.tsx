@@ -78,7 +78,7 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({
           <h2
             id='error-title'
             className='text-xl font-bold text-metropolia-support-red font-heading'>
-            {t('ui:errorAlert.title')}
+            {t('errorAlert.title')}
           </h2>
         </div>
 
@@ -96,13 +96,13 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({
                 onClose();
               }}
               className='px-4 py-2 text-sm font-medium text-white transition-colors bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark focus:outline-none focus:ring-2 focus:ring-metropolia-support-blue focus:ring-offset-2 rounded-md'>
-              {t('ui:errorAlert.backToLogin')}
+              {t('errorAlert.backToLogin')}
             </button>
           )}
           <button
             onClick={onClose}
             className='px-4 py-2 text-sm font-medium text-white transition-colors bg-metropolia-support-red hover:bg-metropolia-support-red-dark focus:outline-none focus:ring-2 focus:ring-metropolia-support-red focus:ring-offset-2 rounded-md'>
-            {t('ui:errorAlert.close')}
+            {t('errorAlert.close')}
           </button>
         </div>
       </div>

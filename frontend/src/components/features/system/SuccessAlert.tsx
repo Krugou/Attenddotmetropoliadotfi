@@ -1,3 +1,6 @@
+// FILE IS NOT BEING USED
+// Revaluate need for this component
+
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 

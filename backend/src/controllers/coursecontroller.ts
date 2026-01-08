@@ -12,7 +12,7 @@ import userCourseModel from '../models/usercoursemodel.js';
 import userModel from '../models/usermodel.js';
 import lectureModel from '../models/lecturemodel.js';
 import attendanceController from './attendancecontroller.js';
-
+import work_log_courses from '../models/work_log_coursemodel.js';
 
 // Types
 export interface Student {
@@ -61,6 +61,7 @@ export interface CourseController {
   removeStudentCourses: (usercourseid: number) => Promise<void>;
   getStudentAndSelectedTopicsByUsercourseId: (usercourseid: number) => Promise<any>;
   addLateEnrollingStudentToPreviousLectures: (studentnumber: string, courseid: number) => Promise<void>;
+  assertCourseNotExists: (code: string) => Promise<boolean>;
 }
 
 //Helpers
@@ -94,11 +95,18 @@ async function ensureStudentGroup(group_name: string) {
   return newStudentGroup.insertId;
 }
 
-// Throw if course with given code already exists (guard against duplicates)
+// Throw if code already exists in either courses OR work_log_courses (guard against duplicates)
 async function assertCourseNotExists(code: string) {
-  const existingCourse = await courseModel.findByCode(code);
-  if (existingCourse) {
-    throw new Error(`[coursecontroller.ts] Course with code '${code}' already exists`);
+  const [existingCourse, existingWorklog] = await Promise.all([
+    courseModel.findByCode(code),
+    work_log_courses.checkWorklogCodeExists(code),
+  ]);
+
+  const existsInCourses = Array.isArray(existingCourse) ? existingCourse.length > 0 : Boolean(existingCourse);
+  const existsInWorklogs = Array.isArray(existingWorklog) ? existingWorklog.length > 0 : Boolean(existingWorklog);
+
+  if (existsInCourses || existsInWorklogs) {
+    throw new Error(`[coursecontroller.ts] Code '${code}' already exists in courses or worklogs`);
   }
 }
 
@@ -210,6 +218,17 @@ async function upsertAndEnrollStudent(student: Student, studentGroupId: number, 
 //Controller implementation
 
 const courseController: CourseController = {
+
+  //checks if course code / worklog code exists
+  assertCourseNotExists: async (code: string) => {
+    try {
+      await assertCourseNotExists(code);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
+
   // Create a course with instructors, topics, and enroll all students
   async insertIntoCourse(name, start_date, end_date, code, group_name, students, instructors, topics?, topicgroup?) {
     let courseId = 0;
@@ -279,8 +298,8 @@ const courseController: CourseController = {
 
       return {
         users: usersAttendanceWithParts, // users with attendance + topics
-        lectures: [...lectureCount],     // array spread to detach driver references
-        allUsers: allUsersWithParts,     // all enrolled users + topics
+        lectures: [...lectureCount], // array spread to detach driver references
+        allUsers: allUsersWithParts, // all enrolled users + topics
       };
     } catch (error) {
       console.error('[coursecontroller.ts]', error);
@@ -357,7 +376,9 @@ const courseController: CourseController = {
       for (const lecture of pastLectures) {
         await attendanceController.markStudentAsNotPresentInPastLectures(studentnumber, lecture.lectureid);
       }
-      console.log(`[coursecontroller.ts] Marked late-enrolled student ${studentnumber} absent in past lectures for course ${courseid}`);
+      console.log(
+        `[coursecontroller.ts] Marked late-enrolled student ${studentnumber} absent in past lectures for course ${courseid}`,
+      );
     } catch (error) {
       console.error('[coursecontroller.ts]', error);
       throw error;

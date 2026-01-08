@@ -53,7 +53,7 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [backend/src/routes/secureroutes.ts](/backend/src/routes/secureroutes.ts) | TypeScript | 190 | 32 | 6 | 228 |
 | [backend/src/routes/userroutes.ts](/backend/src/routes/userroutes.ts) | TypeScript | 213 | 28 | 10 | 251 |
 | [backend/src/sockets/socketHandlers.ts](/backend/src/sockets/socketHandlers.ts) | TypeScript | 486 | 126 | 36 | 648 |
-| [backend/src/tests/checkRole.test.ts](/backend/src/tests/checkRole.test.ts) | TypeScript | 43 | 2 | 6 | 51 |
+| [backend/src/tests/checkRole.test.ts](/backend/src/tests/Middleware/checkRole.test.ts) | TypeScript | 43 | 2 | 6 | 51 |
 | [backend/src/lecture.ts](/backend/src/types.ts) | TypeScript | 86 | 117 | 8 | 211 |
 | [backend/src/utils/auth.ts](/backend/src/utils/auth.ts) | TypeScript | 58 | 8 | 1 | 67 |
 | [backend/src/utils/checkRole.ts](/backend/src/utils/checkRole.ts) | TypeScript | 10 | 6 | 2 | 18 |
@@ -78,22 +78,22 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [frontend/src/components/Logo.tsx](/frontend/src/components/Logo.tsx) | TypeScript JSX | 19 | 9 | 3 | 31 |
 | [frontend/src/components/main/ErrorAlert.tsx](/frontend/src/components/ui/modals/ErrorAlert.tsx) | TypeScript JSX | 43 | 16 | 4 | 63 |
 | [frontend/src/components/main/MovingLogo.tsx](/frontend/src/components/ui/logo/MovingLogo.tsx) | TypeScript JSX | 9 | 0 | 3 | 12 |
-| [frontend/src/components/main/NewStudentUser.tsx](/frontend/src/components/main/NewStudentUser.tsx) | TypeScript JSX | 245 | 5 | 26 | 276 |
-| [frontend/src/components/main/ServerStatus.tsx](/frontend/src/components/main/ServerStatus.tsx) | TypeScript JSX | 73 | 33 | 6 | 112 |
-| [frontend/src/components/main/SuccessAlert.tsx](/frontend/src/components/main/SuccessAlert.tsx) | TypeScript JSX | 30 | 16 | 2 | 48 |
+| [frontend/src/components/main/NewStudentUser.tsx](/frontend/src/components/features/students/NewStudentUser.tsx) | TypeScript JSX | 245 | 5 | 26 | 276 |
+| [frontend/src/components/main/ServerStatus.tsx](/frontend/src/components/features/system/ServerStatus.tsx) | TypeScript JSX | 73 | 33 | 6 | 112 |
+| [frontend/src/components/main/SuccessAlert.tsx](/frontend/src/components/features/system/SuccessAlert.tsx) | TypeScript JSX | 30 | 16 | 2 | 48 |
 | [frontend/src/components/main/admin/AdminLogsTable.tsx](/frontend/src/components/internal/admin/AdminLogs/AdminLogsTable.tsx) | TypeScript JSX | 87 | 0 | 4 | 91 |
-| [frontend/src/components/main/admin/EditUserView.tsx](/frontend/src/components/features/EditUserView.tsx) | TypeScript JSX | 289 | 35 | 24 | 348 |
+| [frontend/src/components/main/admin/EditUserView.tsx](/frontend/src/components/features/users/EditUserView.tsx) | TypeScript JSX | 289 | 35 | 24 | 348 |
 | [frontend/src/components/main/admin/LecturesByDayChart.tsx](/frontend/src/components/internal/admin/AdminStats/LecturesByDayChart.tsx) | TypeScript JSX | 78 | 0 | 7 | 85 |
 | [frontend/src/components/main/background/BackgroundContainer.tsx](/frontend/src/components/features/layout/BackgroundContainer.tsx) | TypeScript JSX | 38 | 9 | 5 | 52 |
 | [frontend/src/components/main/buttons/GeneralLinkButton.tsx](/frontend/src/components/ui/buttons/GeneralLinkButton.tsx) | TypeScript JSX | 18 | 6 | 2 | 26 |
 | [frontend/src/components/main/buttons/NavigationButton.tsx](/frontend/src/components/ui/buttons/NavigationButton.tsx) | TypeScript JSX | 22 | 7 | 4 | 33 |
 | [frontend/src/components/main/buttons/StartViewButton.tsx](/frontend/src/components/ui/buttons/StartViewButton.tsx) | TypeScript JSX | 14 | 3 | 3 | 20 |
 | [frontend/src/components/main/buttons/StepButton.tsx](/frontend/src/components/ui/buttons/StepButton.tsx) | TypeScript JSX | 27 | 7 | 2 | 36 |
-| [frontend/src/components/main/cards/NavigationCard.tsx](/frontend/src/components/features/navigation/NavigationCard.tsx) | TypeScript JSX | 29 | 9 | 3 | 41 |
+| [frontend/src/components/main/cards/NavigationCard.tsx](/frontend/src/components/ui/cards/NavigationCard.tsx) | TypeScript JSX | 29 | 9 | 3 | 41 |
 | [frontend/src/components/main/cards/FeedbackCard.tsx](/frontend/src/components/features/feedback/FeedbackCard.tsx) | TypeScript JSX | 15 | 0 | 4 | 19 |
 | [frontend/src/components/main/course/CourseData.tsx](/frontend/src/components/features/courses/CourseData.tsx) | TypeScript JSX | 196 | 27 | 14 | 237 |
-| [frontend/src/components/main/course/CreateCourseCustom.tsx](/frontend/src/components/features/courses/CreateCourseCustom.tsx) | TypeScript JSX | 178 | 60 | 7 | 245 |
-| [frontend/src/components/main/course/CreateCourseEasy.tsx](/frontend/src/components/features/courses/CreateCourseEasy.tsx) | TypeScript JSX | 293 | 21 | 20 | 334 |
+| [frontend/src/components/main/course/CreateCourseCustom.tsx](/frontend/src/components/features/courses/create/CreateCourseCustom.tsx) | TypeScript JSX | 178 | 60 | 7 | 245 |
+| [frontend/src/components/main/course/CreateCourseEasy.tsx](/frontend/src/components/features/courses/create/CreateCourseEasy.tsx) | TypeScript JSX | 293 | 21 | 20 | 334 |
 | [frontend/src/components/main/course/StudentCourseGrid.tsx](/frontend/src/components/features/courses/StudentCourseGrid.tsx) | TypeScript JSX | 390 | 37 | 17 | 444 |
 | [frontend/src/components/main/course/attendance/AttendanceStatsTable.tsx](/frontend/src/components/features/courses/attendance/AttendanceStatsTable.tsx) | TypeScript JSX | 208 | 25 | 12 | 245 |
 | [frontend/src/components/main/course/attendance/AttendanceTable.tsx](/frontend/src/components/features/courses/attendance/AttendanceTable.tsx) | TypeScript JSX | 164 | 19 | 11 | 194 |
@@ -119,7 +119,7 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [frontend/src/components/main/newUser/StudentGroupSelect.tsx](/frontend/src/components/ui/inputs/StudentGroupSelect.tsx) | TypeScript JSX | 36 | 1 | 3 | 40 |
 | [frontend/src/components/main/newUser/SubmitButton.tsx](/frontend/src/components/ui/buttons/SubmitButton.tsx) | TypeScript JSX | 18 | 0 | 4 | 22 |
 | [frontend/src/components/main/titles/MainViewTitle.tsx](/frontend/src/components/ui/titles/MainViewTitle.tsx) | TypeScript JSX | 12 | 13 | 4 | 29 |
-| [frontend/src/components/profiles/ProfileInfo.tsx](/frontend/src/components/profiles/ProfileInfo.tsx) | TypeScript JSX | 130 | 27 | 10 | 167 |
+| [frontend/src/components/profiles/ProfileInfo.tsx](/frontend/src/components/features/users/ProfileInfo.tsx) | TypeScript JSX | 130 | 27 | 10 | 167 |
 | [frontend/src/contexts/UserContext.tsx](/frontend/src/contexts/UserContext.tsx) | TypeScript JSX | 41 | 25 | 3 | 69 |
 | [frontend/src/css/index.css](/frontend/src/css/index.css) | CSS | 29 | 0 | 5 | 34 |
 | [frontend/src/css/logo.css](/frontend/src/css/logo.css) | CSS | 67 | 0 | 11 | 78 |

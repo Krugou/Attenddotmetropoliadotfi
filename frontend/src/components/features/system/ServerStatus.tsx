@@ -1,11 +1,11 @@
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import DoneIcon from '@mui/icons-material/Done';
 import React, {useEffect, useState} from 'react';
-import {API_CONFIG} from '../../config';
+import {API_CONFIG} from '../../../config';
 
 const baseUrl = API_CONFIG.baseUrl;
 import {useTranslation} from 'react-i18next';
-import Loader from '../../utils/Loader';
+import Loader from '../../../utils/Loader.tsx';
 
 interface ServerResponse {
   builddate: string;

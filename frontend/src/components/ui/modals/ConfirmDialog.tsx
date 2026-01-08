@@ -54,13 +54,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-main-orange sm:w-fit h-fit hover:bg-metropolia-secondary-orange'
           onClick={handleClose}>
-          {cancelText || t('ui:dialog.cancel')}
+          {cancelText || t('dialog.cancel')}
         </button>
         <button
           className='w-full p-2 mt-4 text-sm font-heading text-white transition rounded-sm bg-metropolia-support-red sm:w-fit h-fit hover:bg-metropolia-support-red'
           onClick={handleConfirm}
           autoFocus>
-          {confirmText || t('ui:dialog.confirm')}
+          {confirmText || t('dialog.confirm')}
         </button>
       </DialogActions>
     </Dialog>

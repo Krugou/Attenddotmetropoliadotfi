@@ -6,12 +6,12 @@ import Tooltip from '@mui/material/Tooltip';
 import React, {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'react-toastify';
-import {UserContext} from '../../contexts/UserContext';
-import apiHooks from '../../api';
-import CourseSelect from '../ui/inputs/CourseSelect.tsx';
-import FormInput from '../ui/inputs/FormInput.tsx';
-import StudentGroupSelect from '../ui/inputs/StudentGroupSelect.tsx';
-import SubmitButton from '../ui/buttons/SubmitButton.tsx';
+import {UserContext} from '../../../contexts/UserContext.tsx';
+import apiHooks from '../../../api';
+import CourseSelect from '../../ui/inputs/CourseSelect.tsx';
+import FormInput from '../../ui/inputs/FormInput.tsx';
+import StudentGroupSelect from '../../ui/inputs/StudentGroupSelect.tsx';
+import SubmitButton from '../../ui/buttons/SubmitButton.tsx';
 
 const NewStudentUser: React.FC = () => {
   const {t} = useTranslation(['common']);
@@ -246,135 +246,180 @@ const NewStudentUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-        {t('ui:newStudent.title')}
+      <h1 className="p-3 mb-1 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit">
+        {t('newStudent.title')}
       </h1>
 
-      <div className='relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4'>
+      <div className="relative w-11/12 m-auto bg-white rounded-lg sm:w-3/4">
         <Container>
-          <form onSubmit={handleSubmit} className='mt-4 mb-4 '>
-            <div className='flex flex-col'>
-              <h2 className='m-2 text-xl text-center font-heading'>
-                {t('ui:newStudent.studentDetails')}
+          <form onSubmit={handleSubmit} className="mb-1">
+            <div className="flex flex-col">
+              <h2 className="mb-1 text-xl text-center font-heading">
+                {t('newStudent.studentDetails')}
               </h2>
+
               <FormInput
-                label={t('ui:email')}
-                placeholder='Matti.Meikäläinen@metropolia.fi'
+                label={t('email')}
+                placeholder="Etunimi.Sukunimi@metropolia.fi"
                 value={email}
                 onChange={setEmail}
               />
               {isEmailTaken && (
-                <h2 className='text-red-500'>
-                  {t('ui:errors.emailTaken')}
-                </h2>
+                <h2 className="text-red-500">{t('errors.emailTaken')}</h2>
               )}
+
               <FormInput
-                label={t('ui:firstName')}
-                placeholder='Matti'
+                label={t('firstName')}
+                placeholder="Etunimi"
                 value={firstName}
                 onChange={setFirstName}
               />
+
               <FormInput
-                label={t('ui:lastName')}
-                placeholder='Meikäläinen'
+                label={t('lastName')}
+                placeholder="Sukunimi"
                 value={lastName}
                 onChange={setLastName}
               />
+
               <FormInput
-                label={t('ui:studentNumber')}
-                placeholder='123456'
+                label={t('studentNumber')}
+                placeholder="123456"
                 value={studentNumber}
                 onChange={setStudentNumber}
               />
               {isStudentNumberTaken && (
-                <h2 className='text-red-500'>
-                  {t('ui:errors.studentNumberTaken')}
-                </h2>
+                <h2 className="text-red-500">{t('errors.studentNumberTaken')}</h2>
               )}
+
               <StudentGroupSelect
                 studentGroups={studentGroups}
                 selectedGroup={studentGroupId}
                 onChange={setStudentGroupId}
               />
-              <div className='flex flex-col gap-4'>
-                <div className='flex flex-col items-center gap-2'>
-                  <button
-                    type='button'
-                    onClick={() => setShowWorklogSelect(!showWorklogSelect)}
-                    className='w-full px-4 py-2 text-sm font-body text-metropolia-support-black hover:bg-metropolia-trend-green/50 transition-colors duration-200 rounded flex items-center justify-center gap-2 '>
-                    {showWorklogSelect
-                      ? t('ui:worklog.enrollment.switchToRegular')
-                      : t('ui:worklog.enrollment.switchToWorklog')}
-                  </button>
 
-                  {showWorklogSelect ? (
-                    <div className='w-full'>
-                      <label className='block mt-4'>
-                        <span className='font-heading text-gray-700'>
-                          worklog course
-                        </span>
-                        <select
-                          value={selectedWorklogId || ''}
-                          onChange={(e) =>
-                            setSelectedWorklogId(Number(e.target.value) || null)
-                          }
-                          className='w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl'>
-                          <option value=''>
-                            {t('ui:worklog.selectCourse')}
-                          </option>
-                          {worklogCourses.map((course) => (
-                            <option
-                              key={course.work_log_course_id}
-                              value={course.work_log_course_id}>
-                              {course.name} ({course.code})
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+              {/* Kurssimuoto (label-tyylinen, sama hierarkia kuin muut kenttäotsikot) */}
+              <div className="mt-1">
+              <span className="block mb-2 text-base font-heading font-semibold text-gray-700">
+                {t('newStudent.selection.title')}
+              </span>
+
+                <span className="block mb-1 text-sm text-metropolia-main-grey/70 font-body">
+                {t('newStudent.selection.modeHelp')}
+              </span>
+
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowWorklogSelect(!showWorklogSelect)}
+                      className="w-full p-1 transition-colors duration-200 rounded-xl bg-gray-100 hover:bg-gray-200"
+                      aria-pressed={showWorklogSelect}
+                    >
+                    <span className="relative grid grid-cols-2 items-center">
+                      {/* pill indicator */}
+                      <span
+                        className={[
+                          'absolute top-0 bottom-0 m-1 rounded-lg bg-white shadow-sm transition-transform duration-200',
+                          'w-[calc(50%-0.5rem)]',
+                          showWorklogSelect ? 'translate-x-full' : 'translate-x-0',
+                        ].join(' ')}
+                      />
+                      <span
+                        className={[
+                          'relative z-10 py-2 text-sm font-semibold font-body rounded-lg',
+                          !showWorklogSelect
+                            ? 'text-metropolia-main-orange'
+                            : 'text-metropolia-main-grey',
+                        ].join(' ')}
+                      >
+                        {t('worklog.enrollment.switchToRegular')}
+                      </span>
+                      <span
+                        className={[
+                          'relative z-10 py-2 text-sm font-semibold font-body rounded-lg',
+                          showWorklogSelect
+                            ? 'text-metropolia-main-orange'
+                            : 'text-metropolia-main-grey',
+                        ].join(' ')}
+                      >
+                        {t('worklog.enrollment.switchToWorklog')}
+                      </span>
+                    </span>
+                    </button>
+
+                    <div className=" w-full">
+                      {showWorklogSelect ? (
+                        <div className="w-full">
+                          <label className="mt-2 block">
+                          <span className='font-heading text-gray-700'>
+                            {t('worklog.selectCourseLabel')}
+                          </span>
+                            <select
+                              value={selectedWorklogId || ''}
+                              onChange={(e) =>
+                                setSelectedWorklogId(Number(e.target.value) || null)
+                              }
+                              className="w-full px-3 py-2 mt-1 mb-3 leading-tight text-gray-700 border shadow-sm appearance-none cursor-pointer rounded-3xl"
+                            >
+                              <option value="">{t('worklog.selectCourse')}</option>
+                              {worklogCourses.map((course) => (
+                                <option
+                                  key={course.work_log_course_id}
+                                  value={course.work_log_course_id}
+                                >
+                                  {course.name} ({course.code})
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        </div>
+                      ) : (
+                        <div className="flex justify-center w-full">
+                          <div className="w-full mt-2">
+                            <CourseSelect
+                              courses={showEndedCourses ? allCourses : courses}
+                              selectedCourse={selectedCourseId}
+                              onChange={setSelectedCourseId}
+                            />
+                          </div>
+
+                          <div className="flex items-end mb-3 ml-2">
+                            <Tooltip
+                              title={t(
+                                showEndedCourses
+                                  ? 'hideEndedCourses'
+                                  : 'showEndedCourses',
+                              )}
+                              placement="top"
+                            >
+                              <IconButton
+                                className="h-fit"
+                                onClick={() => setShowEndedCourses(!showEndedCourses)}
+                              >
+                                {showEndedCourses ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
+                              </IconButton>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className='flex justify-center w-full'>
-                      <div className='w-full'>
-                        <CourseSelect
-                          courses={showEndedCourses ? allCourses : courses}
-                          selectedCourse={selectedCourseId}
-                          onChange={setSelectedCourseId}
-                        />
-                      </div>
-                      <div className='flex items-end mb-3 ml-2'>
-                        <Tooltip
-                          title={t(
-                            showEndedCourses
-                              ? 'ui:hideEndedCourses'
-                              : 'ui:showEndedCourses',
-                          )}
-                          placement='top'>
-                          <IconButton
-                            className='h-fit'
-                            onClick={() =>
-                              setShowEndedCourses(!showEndedCourses)
-                            }>
-                            {showEndedCourses ? (
-                              <VisibilityOffIcon />
-                            ) : (
-                              <VisibilityIcon />
-                            )}
-                          </IconButton>
-                        </Tooltip>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className='mt-4 w-fit'>
-              <h2 className='text-lg font-heading'>
-                {t('ui:newStudent.note.title')}
-              </h2>
-              <p className='mt-2'>{t('ui:newStudent.note.checkDetails')}</p>
-              <p className='mt-4'>{t('ui:newStudent.note.contactAdmin')}</p>
+
+            <div className="mt-4 w-fit">
+              <h2 className="text-lg font-heading">{t('newStudent.note.title')}</h2>
+              <p className="mt-2">{t('newStudent.note.checkDetails')}</p>
+              <p className="mt-4">{t('newStudent.note.contactAdmin')}</p>
             </div>
-            <div className='flex justify-center pb-3'>
+
+            <div className="flex justify-center pb-3">
               <SubmitButton disabled={isEmailTaken || isStudentNumberTaken} />
             </div>
           </form>

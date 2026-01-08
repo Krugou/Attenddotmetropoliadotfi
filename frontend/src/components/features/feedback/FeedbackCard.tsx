@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationCard from '../../features/navigation/NavigationCard';
+import NavigationCard from '../../ui/cards/NavigationCard.tsx';
 import {Support} from '@mui/icons-material';
 import {useTranslation} from 'react-i18next';
 

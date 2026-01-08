@@ -8,9 +8,10 @@
     "dev:backend": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
     "dev:fileserver": "nodemon --delay 1s nodejs/jaksecfileserver.js",
     "build": "tsc && tsc src/jaksecbackupsql.ts --outDir nodejs",
+    "start:prod": "node nodejs/jaksecserver.js",
     "docs": "typedoc src",
     "docs:watch": "nodemon --watch 'src/**/*.ts' --exec npm run docs",
-    "sql:backup": "tsc src/jaksecbackupsql.ts --outDir nodejs  && node nodejs/jaksecbackupsql.js",
+    "sql:backup": "tsc src/jaksecbackupsql.ts --outDir nodejs && node nodejs/jaksecbackupsql.js",
     "test": "jest",
     "lint": "eslint './src/**/*.ts'",
     "testReport": "node --loader ts-node/esm src/jobs/weekly-attendance-report.ts"
@@ -20,6 +21,7 @@
     "cors": "^2.8.5",
     "docdash": "^2.0.2",
     "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
@@ -49,27 +51,13 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@types/socket.io": "^3.0.2",
-    "@types/supertest": "^6.0.2",
+    "@types/supertest": "^6.0.3",
     "concurrently": "^9.1.2",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.14",
     "typescript": "^5.9.3"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   }
 }

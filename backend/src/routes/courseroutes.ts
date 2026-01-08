@@ -63,17 +63,24 @@ router.post(
   })
 );
 
-// POST: Check if a specific course code exists in DB
+// POST: Check if a specific course/worklog code exists in DB
 router.post(
   '/checkcode/:code',
   checkUserRole(['admin', 'counselor', 'teacher']),
   param('code').isString().notEmpty().withMessage('Code must be a non-empty string'),
-  handle(async (req: Request, res: Response): Promise<void> => {
-    console.log("row 83, courseroutes.ts, checking if course exists");
-    const { code } = req.params;
-    const exists = await course.findByCode(code);
-    res.status(200).json({ exists });
-  }, /*useValidationResult*/ true)
+  handle(
+    async (req: Request, res: Response): Promise<void> => {
+      console.log('row 83, courseroutes.ts, checking if course exists');
+      const { code } = req.params;
+
+      const notExists = await courseController.assertCourseNotExists(code);
+
+      const exists = !notExists;
+
+      res.status(200).json({ exists });
+    },
+    /* useValidationResult */ true,
+  ),
 );
 
 // POST: Check reservations for a course
@@ -201,7 +208,7 @@ router.post(
       const studentGroup = data.realizations[0].studentGroups[0];
       courseDetails.studentGroup = studentGroup ? studentGroup.code : '';
     } else {
-      courseDetails.studentGroup = 'please enter student group';
+      courseDetails.studentGroup = '';
       courseDetails.startDate = new Date();
       courseDetails.endDate = new Date();
     }
@@ -289,9 +296,12 @@ router.delete(
 );
 
 // GET: Fetch students by instructor user ID
+// Supports search: /students/:userid?q=matti or /students/:userid?q=0123456
 router.get(
   '/students/:userid',
   checkUserRole(['admin', 'counselor', 'teacher']),
+  param('userid').isNumeric().withMessage('User ID must be a number'),
+  validate,
   handle(async (req: Request, res: Response): Promise<void> => {
     const userid = Number(req.params.userid);
     if (isNaN(userid)) {
@@ -299,7 +309,16 @@ router.get(
       return;
     }
 
+    const q = String(req.query.q ?? '').trim();
+
     console.log("row 474, courseroutes.ts, get students by id and checking user roles");
+
+    if (q) {
+      const students = await usermodel.searchStudentsByInstructor(userid, q);
+      res.send(students);
+      return;
+    }
+
     const students = await usermodel.getStudentsByInstructorId(userid);
     res.send(students);
   })

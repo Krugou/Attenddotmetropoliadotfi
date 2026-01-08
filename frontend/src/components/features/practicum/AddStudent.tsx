@@ -37,7 +37,7 @@ function AddStudent({students, setStudents}: Props) {
       try {
         const token = localStorage.getItem('userToken');
         if (!token) {
-          toast.error(t('ui:errors.noToken'));
+          toast.error(t('common:errors.noToken'));
           return;
         }
 
@@ -53,7 +53,7 @@ function AddStudent({students, setStudents}: Props) {
           userid: student.userid || undefined
         })));
       } catch (error) {
-        toast.error(t('ui:errors.searchFailed'));
+        toast.error(t('common:errors.searchFailed'));
       }
     },
     [user?.userid, t]

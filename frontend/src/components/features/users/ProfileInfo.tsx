@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import apiHooks from '../../api';
+import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
-import {UserContext} from '../../contexts/UserContext';
-import LanguageSwitcher from '../ui/LanguageSwitcher';
+import {UserContext} from '../../../contexts/UserContext.tsx';
+import LanguageSwitcher from '../../ui/LanguageSwitcher.tsx';
 
 /**
  * ProfileInfoPros interface represents the structure of the ProfileInfo props.

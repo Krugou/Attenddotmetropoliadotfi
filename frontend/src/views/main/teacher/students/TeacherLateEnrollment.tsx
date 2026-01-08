@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import NewStudentUser from '../../../../components/main/NewStudentUser';
+import NewStudentUser from '../../../../components/features/students/NewStudentUser.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {toast} from 'react-toastify';
@@ -186,51 +186,118 @@ const TeacherLateEnrollment: React.FC = () => {
 
   // Search for existing students in the database
   const searchStudents = async (searchQuery: string): Promise<void> => {
+    // -----------------------------
+    // 1. Store search term in state
+    // -----------------------------
     setSearchTerm(searchQuery);
+
+    // Stop if user information is missing
     if (!user?.userid) return;
 
+    // -----------------------------
+    // 2. Read auth token
+    // -----------------------------
     const token = localStorage.getItem('userToken');
     if (!token) {
       toast.error(t('ui:errors.noToken'));
       return;
     }
 
-    if (searchQuery.trim() === '') {
+    // -----------------------------
+    // 3. Normalize search input
+    // -----------------------------
+    const q = searchQuery.trim();
+
+    // If input is empty, clear results and stop
+    if (q === '') {
       setStudents([]);
       return;
     }
 
+    // -----------------------------
+    // 4. Enable loading indicator
+    // -----------------------------
     setLoading(true);
+
     try {
       let fetchedStudents: Student[] = [];
 
-      // Use role-based student fetching as provided
+      // ---------------------------------------
+      // 5. Fetch students based on user role
+      // ---------------------------------------
+      // Teacher: only students taught by the teacher
       if (user.role === 'teacher') {
         fetchedStudents = await apiHooks.getStudentsByInstructorId(
           user.userid,
           token,
         );
-      } else if (['counselor', 'admin'].includes(user.role)) {
+      }
+      // Counselor/Admin: fetch all users
+      else if (['counselor', 'admin'].includes(user.role)) {
         fetchedStudents = await apiHooks.fetchUsers(token);
       }
 
-      const filtered = fetchedStudents.filter((student) =>
-        Object.values(student).some(
-          (value) =>
-            typeof value === 'string' &&
-            value.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            student.roleid === 1,
-        ),
-      );
+      // ---------------------------------------
+      // 6. Filter fetched students locally
+      // ---------------------------------------
+      const filtered = fetchedStudents.filter((student) => {
+        // Only allow students (roleid === 1)
+        if (student.roleid !== 1) return false;
 
+        // -----------------------------
+        // 6a. Prepare search values
+        // -----------------------------
+        const qTrim = searchQuery.trim();
+        const qLower = qTrim.toLowerCase();
+        if (!qTrim) return false;
+
+        // Detect numeric-only search (student number)
+        const isNumericQuery = /^\d+$/.test(qTrim);
+
+        // -----------------------------
+        // 6b. Normalize student name fields
+        // -----------------------------
+        const first = String(student.first_name ?? '').trim().toLowerCase();
+        const last = String(student.last_name ?? '').trim().toLowerCase();
+        const full = `${first} ${last}`.trim();
+
+        // -----------------------------
+        // 6c. Name prefix matching
+        // -----------------------------
+        // Example: "ma" matches "matti", "maija"
+        const nameMatch =
+          first.startsWith(qLower) ||
+          last.startsWith(qLower) ||
+          full.startsWith(qLower);
+
+        // -----------------------------
+        // 6d. Student number prefix matching
+        // -----------------------------
+        // Only applied if search query is numeric
+        const studentNo = String(student.studentnumber ?? '');
+        const studentNoMatch = isNumericQuery && studentNo.startsWith(qTrim);
+
+        // -----------------------------
+        // 6e. Accept if either matches
+        // -----------------------------
+        return nameMatch || studentNoMatch;
+      });
+
+      // -----------------------------
+      // 7. Save filtered results
+      // -----------------------------
       setStudents(filtered);
     } catch (error) {
       console.error('Error searching students:', error);
       toast.error(t('ui:errors.searchFailed'));
     } finally {
+      // -----------------------------
+      // 8. Disable loading indicator
+      // -----------------------------
       setLoading(false);
     }
   };
+
 
   return (
     <div className='w-full mx-auto 2xl:w-9/12'>
@@ -393,14 +460,14 @@ const TeacherLateEnrollment: React.FC = () => {
                             </span>{' '}
                             {selectedCourse?.topic_names
                               ? Array.from(
-                                  new Set(
-                                    selectedCourse.topic_names
-                                      .split(',')
-                                      .map((topic) => topic.trim()),
-                                  ),
-                                )
-                                  .filter(Boolean)
-                                  .join(', ')
+                                new Set(
+                                  selectedCourse.topic_names
+                                    .split(',')
+                                    .map((topic) => topic.trim()),
+                                ),
+                              )
+                                .filter(Boolean)
+                                .join(', ')
                               : ''}
                           </p>
                           <p className='mt-2 text-sm'>

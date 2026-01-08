@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import type {WorkLogCourse, ActiveEntry} from '../../types/worklog';
+import type {WorkLogCourse, ActiveEntry} from '../../../types/worklog.ts';
 import {School as SchoolIcon, Work as WorkIcon} from '@mui/icons-material';
 
 // Define a unified course type that can handle both worklog and practicum courses

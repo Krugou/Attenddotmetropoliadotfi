@@ -2,115 +2,156 @@ import React, {useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import apiHooks from '../../../../api';
 import TextInputField from '../../../ui/inputs/TextInputField.tsx';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {IconButton} from '@mui/material';
 
-/**
- * Component for adding teachers to a course.
- *
- * @param {Object} props - Component props
- * @param {Array} props.instructors - List of instructors
- * @param {Function} props.setInstructors - Setter for instructors
- * @param {string} props.instructorEmail - Email of the instructor
- * @param {boolean} props.modify - Flag indicating whether the component is in modify mode
- */
-const AddTeachers = ({
-  instructors,
-  setInstructors,
-  instructorEmail,
-  modify = false,
-}) => {
-  const {t} = useTranslation(['teacher']);
+type Instructor = {
+  email: string;
+  exists?: boolean;
+};
+
+interface AddTeachersProps {
+  instructors: Instructor[];
+  setInstructors: React.Dispatch<React.SetStateAction<Instructor[]>>;
+  instructorEmail: string;
+  modify?: boolean;
+}
+
+const AddTeachers: React.FC<AddTeachersProps> = ({
+                                                   instructors,
+                                                   setInstructors,
+                                                   instructorEmail,
+                                                   modify = false,
+                                                 }) => {
+  const {t} = useTranslation(['common']);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const timeouts = useRef<(number | null)[]>([]);
 
-  // Function to remove an instructor from the list
-  const deleteInstructor = (index) => {
-    const newInstructors = [...instructors];
-    newInstructors.splice(index, 1);
-    setInstructors(newInstructors);
+  const deleteInstructor = (index: number) => {
+    setInstructors((prev) => prev.filter((_, i) => i !== index));
+    setErrorMessages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Function to add a new instructor to the list
-  const addInstructor = () => {
-    setInstructors([...instructors, {email: ''}]);
+  const addInstructor = (
+    event?: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event?.preventDefault();
+    setInstructors((prev) => [...prev, {email: ''}]);
   };
 
-  // Function to handle changes to the instructor email input field
   const handleInputChange = (
     index: number,
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const values = [...instructors];
-    values[index].email = event.target.value;
-    setInstructors(values);
+    const value = event.target.value;
 
-    // Clear the previous timeout if it exists
+    // Päivitä email heti
+    setInstructors((prev) => {
+      const next = [...prev];
+      next[index] = {...next[index], email: value};
+      return next;
+    });
+
+    // Clear previous debounce
     if (timeouts.current[index] !== null) {
       window.clearTimeout(timeouts.current[index] as number);
     }
 
-    // Set a new timeout to check if the instructor exists after the user has stopped typing for 2 seconds
+    // Debounce check
     timeouts.current[index] = window.setTimeout(async () => {
-      const token: string | null = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token available');
-      }
-      const response = await apiHooks.checkStaffByEmail(
-        event.target.value,
-        token,
-      );
-      const exists = response.exists;
-      values[index].exists = exists;
-      setInstructors(values);
+      const token = localStorage.getItem('userToken');
+      if (!token) return;
 
-      const newErrorMessages = [...errorMessages];
-      if (!exists) {
-        newErrorMessages[index] =
-          'A staff member with this email doesnt exist in database.';
-      } else {
-        newErrorMessages[index] = '';
+      try {
+        const response = await apiHooks.checkStaffByEmail(value, token);
+        const exists = Boolean(response?.exists);
+
+        setInstructors((prev) => {
+          const next = [...prev];
+          next[index] = {...next[index], exists};
+          return next;
+        });
+
+        setErrorMessages((prev) => {
+          const next = [...prev];
+          next[index] = exists
+            ? ''
+            : t('common:addTeachers.errors.notFound');
+          return next;
+        });
+      } catch {
+        setErrorMessages((prev) => {
+          const next = [...prev];
+          next[index] = t('common:addTeachers.errors.checkFailed');
+          return next;
+        });
       }
-      setErrorMessages(newErrorMessages);
     }, 500);
   };
 
   return (
-    <fieldset className='mb-5'>
-      {!modify ? (
-        <legend className='mb-3 text-xl'>
-          {t('teacher:addTeachers.title')}
-        </legend>
-      ) : (
-        <></>
+    <fieldset className="mb-5">
+      {!modify && (
+        <>
+          <legend className="mb-1 text-xl font-heading text-metropolia-main-grey">
+            {t('common:addTeachers.title')}
+          </legend>
+          <p className="text-sm text-gray-600 mb-4">
+            {t('common:addTeachers.description')}
+          </p>
+        </>
       )}
-      {instructors.map((instructor, index) => (
-        <div key={index} className='flex items-center mb-3'>
-          <div className='flex flex-col mb-3'>
-            <TextInputField
-              type='text'
-              name='email'
-              label={t('teacher:addTeachers.emailLabel')}
-              value={instructor.email}
-              /* @ts-ignore */
-              onChange={(event) => handleInputChange(index, event)}
-            />
-            {errorMessages[index] && (
-              <p className='text-red-500'>{errorMessages[index]}</p>
-            )}
-          </div>
-          {instructors.length > 1 && instructor.email !== instructorEmail && (
-            <button
-              className='w-8 p-2 mt-5 ml-2 text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-red-500'
-              onClick={() => deleteInstructor(index)}>
-              x
-            </button>
-          )}
+
+      {/* Yksi yhteinen "lista-kortti" */}
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="divide-y divide-gray-100">
+          {instructors.map((instructor, index) => {
+            const canDelete =
+              instructors.length > 1 && instructor.email !== instructorEmail;
+
+            return (
+              <div key={index} className="flex gap-3 p-4">
+                <div className="flex-1">
+                  <TextInputField
+                    type="text"
+                    name="email"
+                    label={index === 0 ? t('common:addTeachers.emailLabel') : undefined}
+                    value={instructor.email}
+                    /* @ts-ignore */
+                    onChange={(event) => handleInputChange(index, event)}
+                  />
+
+                  {errorMessages[index] && (
+                    <p className="mt-2 text-sm text-red-600">{errorMessages[index]}</p>
+                  )}
+                </div>
+
+                {canDelete && (
+                  <div className="flex items-center">
+                    <IconButton
+                      aria-label={t('common:addTeachers.aria.deleteInstructor')}
+                      onClick={() => deleteInstructor(index)}
+                      size="small"
+                      className="mt-6"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-      ))}
-      <button
-        className='w-48 p-1 mt-2 text-white transition rounded-sm bg-metropolia-main-orange font-heading hover:bg-metropolia-secondary-orange focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange'
-        onClick={addInstructor}>
-        {t('teacher:addTeachers.addAnother')}
-      </button>
+
+        {/* "Lisää opettaja" osana samaa korttia */}
+        <button
+          type="button"
+          onClick={(event) => addInstructor(event)}
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-heading text-metropolia-main-orange hover:bg-orange-50 transition border-t border-gray-100">
+          <span className="text-lg leading-none">+</span>
+          {t('common:addTeachers.addAnother')}
+        </button>
+      </div>
     </fieldset>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import dayjs from 'dayjs';
-import {WorkLogEntry} from '../../types/worklog';
-import {calculateDuration} from '../../utils/timeUtils';
+import {WorkLogEntry} from '../../../types/worklog.ts';
+import {calculateDuration} from '../../../utils/timeUtils.ts';
 import {
   Table,
   TableBody,

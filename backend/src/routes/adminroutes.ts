@@ -42,6 +42,8 @@ const handle = (
 const ADMIN = ['admin'] as const;
 const STAFF = ['admin', 'teacher', 'counselor'] as const;
 
+
+
 // Routes
 
 // GET: Fetch server settings
@@ -126,6 +128,25 @@ router.get(
     res.send(users);
   }),
 );
+
+// GET: Search students (counselor/admin)
+router.get(
+  '/getstudents',
+  checkUserRole(['admin', 'counselor']),
+  handle('row XXX, adminroutes.ts, searching students', async (req, res) => {
+    const q = String(req.query.q ?? '').trim()
+
+    if (!q) {
+      res.send([])
+      return
+    }
+
+    const students = await usermodel.searchStudents(q)
+    res.send(students)
+  }),
+)
+
+
 
 // GET: Fetch user by ID
 router.get(

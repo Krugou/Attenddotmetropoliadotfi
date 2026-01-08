@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/* WAITING FOR DELETION import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextInputField from '../../ui/inputs/TextInputField.tsx';
 
@@ -119,4 +119,4 @@ const PracticumDetails: React.FC<PracticumDetailsProps> = ({
   );
 };
 
-export default PracticumDetails;
+export default PracticumDetails;*/

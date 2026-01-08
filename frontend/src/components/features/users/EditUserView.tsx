@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import apihooks from '../../api';
+import apihooks from '../../../api';
 
 /**
  * Represents a user in the system.

@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationCard from '../../../components/features/navigation/NavigationCard.tsx';
+import NavigationCard from '../../../components/ui/cards/NavigationCard.tsx';
 import FeedbackCard from '../../../components/features/feedback/FeedbackCard.tsx';
 import MainViewTitle from '../../../components/ui/titles/MainViewTitle.tsx';
 import {People, Help, Assessment, PersonAdd} from '@mui/icons-material';

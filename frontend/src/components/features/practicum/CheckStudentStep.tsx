@@ -12,16 +12,10 @@ type Props = {
   setStudent: (student: Student | null) => void;
 };
 
-/**
- * CheckStudentStep component allows checking if a student exists in the system
- * as the first step in practicum creation process.
- *
- * @param props - Component props containing student state and setter
- * @returns React component for checking student existence
- */
 const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
   const {t} = useTranslation(['teacher', 'common']);
   const {user} = useContext(UserContext);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchStatus, setSearchStatus] = useState<
@@ -29,13 +23,8 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
   >('initial');
   const [matchingStudents, setMatchingStudents] = useState<Student[]>([]);
 
-  /**
-   * Check if student exists in the system based on name or email
-   */
   const checkStudent = async () => {
-    if (!searchTerm.trim() || !user?.userid) {
-      return;
-    }
+    if (!searchTerm.trim() || !user?.userid) return;
 
     setIsSearching(true);
     setSearchStatus('initial');
@@ -58,9 +47,7 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
         (s) =>
           (s.first_name &&
             s.last_name &&
-            `${s.first_name} ${s.last_name}`
-              .toLowerCase()
-              .includes(searchLower)) ||
+            `${s.first_name} ${s.last_name}`.toLowerCase().includes(searchLower)) ||
           (s.email && s.email.toLowerCase().includes(searchLower)) ||
           (s.studentnumber && String(s.studentnumber).includes(searchLower)),
       );
@@ -80,10 +67,10 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
       } else {
         setSearchStatus('notFound');
       }
-      setIsSearching(false);
     } catch (error) {
-      setIsSearching(false);
       toast.error(t('ui:errors.searchFailed'));
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -95,97 +82,106 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
   };
 
   return (
-    <div className='space-y-6'>
-      <h2 className='text-xl font-bold text-metropolia-main-grey mb-4'>
-        {t('teacher:practicum.findStudent')}
-      </h2>
+    <div className="space-y-6">
+      {/* Otsikko */}
+      <div>
+        <h2 className="text-xl font-heading text-gray-800">
+          {t('teacher:practicum.findStudent')}
+        </h2>
 
-      <div className='space-y-4'>
-        <div className='space-y-2'>
-          <label className='block text-sm font-medium text-metropolia-main-grey'>
-            {t('teacher:practicum.searchStudentByName')}
-          </label>
-          <p className="text-sm text-metropolia-main-grey mb-4">
-            {t('teacher:practicum.checkStudentGuide')}{' '}
-            <Link
-              to='/teacher/lateenrollment'
-              className="text-metropolia-support-blue hover:text-metropolia-support-blue-dark underline"
-            >
-              {t('teacher:practicum.lateEnrollmentLink')}
-            </Link>
-          </p>
-          <div className='flex flex-col gap-2'>
-            <div className='relative flex-1'>
-              <input
-                type='text'
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  if (searchStatus !== 'initial') {
-                    setSearchStatus('initial');
-                  }
-                }}
-                onKeyDown={handleKeyDown}
-                placeholder={t('teacher:practicum.searchPlaceholder')}
-                className='w-full p-2 border rounded focus:ring-2 focus:ring-metropolia-main-orange focus:outline-none'
-                disabled={isSearching}
-              />
-            </div>
-            <button
-              type='button'
-              onClick={checkStudent}
-              disabled={isSearching || !searchTerm.trim()}
-              className='px-4 py-2 bg-metropolia-main-orange text-white rounded
-                hover:bg-metropolia-main-orange-dark transition disabled:opacity-50
-                disabled:cursor-not-allowed whitespace-nowrap'>
-              {isSearching ? (
-                <span className='flex items-center justify-center'>
-                  <span className='animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2'></span>
-                  {t('ui:checking')}
-                </span>
-              ) : (
-                t('ui:check')
-              )}
-            </button>
-          </div>
-          <div></div>
-          {searchStatus === 'found' && matchingStudents.length > 0 && (
-            <div className='mt-4'>
-              <h3 className='text-lg font-medium text-metropolia-main-grey mb-2'>
-                {t('teacher:practicum.matchingStudents')}
-              </h3>
-              <div className='space-y-2'>
-                {matchingStudents.map((student) => (
-                  <div
-                    key={student.userid}
-                    className='w-full p-3 border rounded hover:bg-gray-50 flex justify-between items-center
-            text-left transition-colors duration-200'>
-                    <div>
-                      <div className='font-medium'>
-                        {student.first_name} {student.last_name}
-                      </div>
-                      <div className='text-sm text-gray-600'>
-                        {student.studentnumber} • {student.email}
-                      </div>
-                    </div>
-                    <CheckCircleOutline className='text-metropolia-trend-green' />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {searchStatus === 'notFound' && (
-            <div className='mt-4'>
-              <div
-                className='w-full p-3 border rounded bg-metropolia-support-red text-white flex justify-between items-center
-            text-left transition-colors duration-200'>
-                <div>{t('teacher:practicum.noStudentsFound')}</div>
-                <Cancel />
-              </div>
-            </div>
-          )}
+        <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+          {t('teacher:practicum.checkStudentGuide')}{' '}
+          <Link
+            to="/teacher/lateenrollment"
+            className="text-metropolia-support-blue hover:text-metropolia-support-blue-dark underline"
+          >
+            {t('teacher:practicum.lateEnrollmentLink')}
+          </Link>
+        </p>
+      </div>
+
+      {/* Haku */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-gray-700">
+          {t('teacher:practicum.searchStudentByName')}
+        </label>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              if (searchStatus !== 'initial') setSearchStatus('initial');
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder={t('teacher:practicum.searchPlaceholder')}
+            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-metropolia-main-orange focus:outline-none"
+            disabled={isSearching}
+          />
+
+          <button
+            type="button"
+            onClick={checkStudent}
+            disabled={isSearching || !searchTerm.trim()}
+            className="w-full sm:w-32 p-2 text-white rounded-sm font-heading
+                     bg-metropolia-main-orange hover:bg-metropolia-secondary-orange
+                     focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange
+                     disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSearching ? (
+              <span className="inline-flex items-center justify-center">
+              <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                {t('ui:checking')}
+            </span>
+            ) : (
+              t('ui:check')
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Tulokset */}
+      {searchStatus === 'found' && matchingStudents.length > 0 && (
+        <div className="space-y-3">
+          <h3 className="text-sm font-medium text-gray-700">
+            {t('teacher:practicum.matchingStudents')}
+          </h3>
+
+          <div className="space-y-3">
+            {matchingStudents.map((student) => (
+              <div
+                key={student.userid}
+                className="w-full p-4 border rounded-xl bg-white hover:bg-gray-50
+                         flex justify-between items-center transition-colors"
+              >
+                <div>
+                  <div className="font-medium text-gray-800">
+                    {student.first_name} {student.last_name}
+                  </div>
+                  <div className="text-sm text-gray-500 mt-1">
+                    {student.studentnumber} • {student.email}
+                  </div>
+                </div>
+                <CheckCircleOutline className="text-metropolia-trend-green" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {searchStatus === 'notFound' && (
+        <div className="mt-2">
+          <div className="w-full p-4 border rounded-xl bg-metropolia-support-red text-white
+                        flex justify-between items-center"
+          >
+            <div className="text-sm font-medium">
+              {t('teacher:practicum.noStudentsFound')}
+            </div>
+            <Cancel />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

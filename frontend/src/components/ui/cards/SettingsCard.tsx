@@ -7,7 +7,7 @@ interface CardProps {
   fullWidth?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ title, value, suffix, fullWidth = false }) => {
+const SettingsCard: React.FC<CardProps> = ({ title, value, suffix, fullWidth = false }) => {
   const baseClasses =
     'bg-white p-4 rounded-md shadow-sm border border-gray-100 transition-all hover:shadow-md';
 
@@ -22,4 +22,4 @@ const Card: React.FC<CardProps> = ({ title, value, suffix, fullWidth = false }) 
   );
 };
 
-export default Card;
+export default SettingsCard;

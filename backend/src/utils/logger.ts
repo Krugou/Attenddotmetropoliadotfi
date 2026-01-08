@@ -1,9 +1,10 @@
-import {createStream} from 'rotating-file-stream';
+import { createStream } from 'rotating-file-stream';
 import pino from 'pino';
-import {Request} from 'express';
+import { Request } from 'express';
 
+//helpers
 
- // Configuration interface for the logger
+// Configuration interface for the logger
 interface LoggerConfig {
   ignoreEmails: string[];
   sensitiveFields: string[];
@@ -39,11 +40,9 @@ errorStream.on('error', (err) => {
   console.error('Error with error log stream:', err);
 });
 
-
- // Sanitizes an object by removing sensitive fields and limiting depth
-
+// Sanitizes an object by removing sensitive fields and limiting depth
 function sanitizeObject(obj: any, depth = 0): any {
-  console.log("Row 50, logger.ts - sanitizeObject() called");
+  console.log('Row 50, logger.ts - sanitizeObject() called');
   if (depth > loggerConfig.maxObjectDepth) {
     return '[Max Depth Reached]';
   }
@@ -75,50 +74,26 @@ function sanitizeObject(obj: any, depth = 0): any {
   return sanitized;
 }
 
-
- // Custom filter function to prevent logging for specified admin emails
-
-const logFilter = (level: number, logProps: any): boolean => {
-  console.log("Row 86, logger.ts - logFilter() called");
-  // Skip logging if the object contains an ignored email
-  if (
-    logProps.useremail &&
-    loggerConfig.ignoreEmails.includes(logProps.useremail)
-  ) {
-    return false;
-  }
-
-  // Skip if req.user contains an ignored email
-  if (
-    logProps.req?.user?.email &&
-    loggerConfig.ignoreEmails.includes(logProps.req.user.email)
-  ) {
-    return false;
-  }
-
-  return true;
-};
-
 // Configure multistream with level-based routing
 const streams = [
   // Console streams
-  {stream: process.stdout, level: 'info'},
-  {stream: process.stderr, level: 'error'},
+  { stream: process.stdout, level: 'info' },
+  { stream: process.stderr, level: 'error' },
 
   // File streams
-  {stream: infoStream, level: 'info'},
-  {stream: errorStream, level: 'error'},
+  { stream: infoStream, level: 'info' },
+  { stream: errorStream, level: 'error' },
 ];
 
 // Create the logger instance
-//@ts-ignore - pino does not have types for multistream
+// @ts-ignore - pino does not have types for multistream
 const logger = pino(
   {
     level: 'info',
     timestamp: pino.stdTimeFunctions.isoTime,
     formatters: {
       level: (label) => {
-        return {level: label};
+        return { level: label };
       },
       bindings: () => {
         return {};
@@ -130,7 +105,6 @@ const logger = pino(
         // Ensure all fields are included in the output
         return {
           ...sanitized,
-          // If msg is an Error object, serialize it
           msg:
             sanitized.msg instanceof Error
               ? pino.stdSerializers.err(sanitized.msg)
@@ -155,71 +129,155 @@ const logger = pino(
       }),
     },
     messageKey: 'msg',
-    base: null, // Remove pid and hostname from logs,
-
-    // Apply log filtering
-    customLevels: {
-      filter: logFilter,
-    },
+    base: null, // Remove pid and hostname from logs
   },
-  pino.multistream(streams),
+  pino.multistream(streams)
 );
 
-// Enhance logger with custom methods for better type safety
+// ---- helpers for type-safe-ish runtime behavior ----
+
+type LogMeta = Record<string, unknown>;
+
+const isRecord = (v: unknown): v is LogMeta =>
+  typeof v === 'object' && v !== null && !Array.isArray(v);
+
+const toMeta = (v: unknown): LogMeta => {
+  if (isRecord(v)) return v;
+  if (v instanceof Error) return { err: v };
+  if (v === undefined) return {};
+  return { value: v };
+};
+
+const shouldSkipByEmail = (meta: unknown): boolean => {
+  if (!isRecord(meta)) return false;
+
+  const possible = meta.useremail ?? meta.userEmail ?? (meta as any).email;
+  if (typeof possible === 'string' && loggerConfig.ignoreEmails.includes(possible)) {
+    return true;
+  }
+
+  const req = (meta as any).req;
+  const reqEmail = req?.user?.email;
+  if (typeof reqEmail === 'string' && loggerConfig.ignoreEmails.includes(reqEmail)) {
+    return true;
+  }
+
+  return false;
+};
+
+// Enhance logger with flexible methods that accept unknown safely
 const enhancedLogger = {
   ...logger,
 
-   // Log info level message with context and optional error
+  // info supports:
+  // - info('message')
+  // - info('message', {meta})
+  // - info({meta}, 'message')
+  // - info({meta}, Error)
+  // - info('message', Error)
+  info: (a: unknown, b?: unknown, c?: unknown): void => {
+    // Normalize to: meta + message + optional err
+    let meta: LogMeta = {};
+    let msg = '';
+    let err: Error | undefined;
 
-  info: (
-    context: object | string,
-    message?: string | Error,
-    error?: Error,
-  ): void => {
-    // Skip logging if context contains ignored email
-    if (
-      typeof context === 'object' &&
-      'useremail' in context &&
-      typeof context.useremail === 'string' &&
-      loggerConfig.ignoreEmails.includes(context.useremail)
-    ) {
-      return;
+    if (typeof a === 'string') {
+      msg = a;
+
+      if (b instanceof Error) {
+        err = b;
+      } else if (isRecord(b)) {
+        meta = b;
+      } else if (b !== undefined) {
+        meta = toMeta(b);
+      }
+
+      if (c instanceof Error) err = c;
+    } else if (isRecord(a)) {
+      meta = a;
+
+      if (typeof b === 'string') {
+        msg = b;
+      } else if (b instanceof Error) {
+        err = b;
+      } else if (b !== undefined) {
+        msg = String(b);
+      }
+
+      if (c instanceof Error) err = c;
+    } else {
+      // a is primitive/unknown
+      msg = typeof a === 'string' ? a : String(a);
+      if (b instanceof Error) err = b;
+      if (isRecord(b)) meta = b;
+      if (c instanceof Error) err = c;
     }
 
-    if (typeof context === 'object') {
-      if (message instanceof Error) {
-        logger.info({...context, err: message});
-      } else if (typeof message === 'string') {
-        logger.info({...context}, message);
-      } else {
-        logger.info(context);
-      }
-    } else if (message instanceof Error) {
-      logger.info({err: message}, context);
-    } else if (error) {
-      logger.info({err: error}, context + (message ? ` ${message}` : ''));
+    if (shouldSkipByEmail(meta)) return;
+
+    if (err) {
+      logger.info({ ...meta, err }, msg);
+    } else if (Object.keys(meta).length > 0) {
+      logger.info({ ...meta }, msg || undefined);
     } else {
-      logger.info(context + (message ? ` ${message}` : ''));
+      logger.info(msg);
     }
   },
 
+  // error supports:
+  // - error(Error)
+  // - error('message')
+  // - error('message', err)
+  // - error(err, 'message')
+  // - error({meta}, 'message')
+  // - error({meta}, 'message', err)
+  error: (a: unknown, b?: unknown, c?: unknown): void => {
+    let meta: LogMeta = {};
+    let msg = '';
+    let err: Error | undefined;
 
-   // Log error level message with context and optional error
+    if (a instanceof Error) {
+      err = a;
 
-  error: (error: Error | string | object, context?: object | string): void => {
-    // Handle different input types
-    if (error instanceof Error) {
-      if (typeof context === 'object') {
-        logger.error({...context, err: error}, error.message);
-      } else if (typeof context === 'string') {
-        logger.error({err: error}, context);
-      } else {
-        logger.error({err: error});
-      }
-    } else if (typeof error === 'object') {
-      logger.error(error, context as string);
+      if (typeof b === 'string') msg = b;
+      else if (isRecord(b)) meta = b;
+      else if (b !== undefined) msg = String(b);
+    } else if (typeof a === 'string') {
+      msg = a;
+
+      if (b instanceof Error) err = b;
+      else if (isRecord(b)) meta = b;
+      else if (b !== undefined) meta = toMeta(b);
+
+      if (c instanceof Error) err = c;
+    } else if (isRecord(a)) {
+      meta = a;
+
+      if (typeof b === 'string') msg = b;
+      else if (b instanceof Error) err = b;
+      else if (b !== undefined) msg = String(b);
+
+      if (c instanceof Error) err = c;
     } else {
-      logger.error(context ? {context} : {}, error);
+      // a is unknown primitive/object/number/status etc.
+      meta = toMeta(a);
+      if (typeof b === 'string') msg = b;
+      if (b instanceof Error) err = b;
+      if (c instanceof Error) err = c;
+    }
+
+    if (shouldSkipByEmail(meta)) return;
+
+    if (!err && meta.err instanceof Error) {
+      err = meta.err;
+    }
+
+    if (err) {
+      logger.error({ ...meta, err }, msg || err.message);
+    } else if (Object.keys(meta).length > 0) {
+      logger.error({ ...meta }, msg || undefined);
+    } else {
+      logger.error(msg || 'Unknown error');
     }
   },
 };

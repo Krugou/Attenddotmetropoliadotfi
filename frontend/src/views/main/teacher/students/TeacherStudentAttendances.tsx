@@ -47,7 +47,6 @@ interface StudentInfo {
  * Additionally, it provides functionality for the teacher to export the attendance data to PDF or Excel.
  */
 const TeacherStudentCourseAttendance: React.FC = () => {
-  console.log("täällä ollaan");
   const {t} = useTranslation(['translation']);
   // Get the usercourseid from the url
   const {usercourseid} = useParams<{usercourseid}>();

@@ -1,5 +1,5 @@
-import GetAppIcon from '@mui/icons-material/GetApp';
-import PrintIcon from '@mui/icons-material/Print';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import TableChartIcon from '@mui/icons-material/TableChart';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
@@ -15,21 +15,13 @@ import {
   exportStatsTableToPdf,
 } from '../../../../utils/exportData';
 import {useTranslation} from 'react-i18next';
-/**
- * Course interface.
- * This interface defines the shape of a Course object.
- */
+
 interface Course {
   name: string;
   code: string;
   courseid: number;
-
-  // Include other properties of course here
 }
-/**
- * AttendanceCount interface.
- * This interface defines the shape of an AttendanceCount object.
- */
+
 interface AttendanceCount {
   name: string;
   selectedTopics: string | string[];
@@ -38,38 +30,25 @@ interface AttendanceCount {
   topicname: string;
   userid: number;
 }
-/**
- * TopicAttendance interface.
- * This interface defines the shape of a TopicAttendance object.
- */
+
 interface TopicAttendance {
   topicname: string;
   attendanceCounts: AttendanceCount[];
 }
-/**
- * TeacherCourseStats component.
- * This component is responsible for rendering the attendance statistics for a course for a teacher.
- * It fetches the attendance data for the course and provides functionality for the teacher to sort the attendance data by topic and search by date.
- * Additionally, it provides functionality for the teacher to export the attendance data to PDF or Excel.
- */
+
 const TeacherCourseStats = () => {
-  const {t} = useTranslation(['translation']);
+  const {t} = useTranslation('teacher'); // ✅ teacher namespace (ei arrayta)
   const [showTable, setShowTable] = useState(false);
   const {courseid} = useParams<{courseid: string}>();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const {threshold} = useCourses();
-
-  const {courses} = useCourses();
+  const {threshold, courses} = useCourses();
 
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
-  const [allAttendanceCounts, setAllAttendanceCounts] = useState<
-    TopicAttendance[]
-  >([]);
+  const [allAttendanceCounts, setAllAttendanceCounts] = useState<TopicAttendance[]>(
+    [],
+  );
 
-  console.log(courses, 'courses');
-
-  // This function calculates the attendance for a single user on a single topic
   const sumUserAttendanceOnTopic = (users, userid, topicname) => {
     return users.filter(
       (user) =>
@@ -77,15 +56,14 @@ const TeacherCourseStats = () => {
         (user.status === 1 || user.status === 2) &&
         (user.selectedParts && user.selectedParts.length > 0
           ? user.selectedParts.some(
-              (part) =>
-                part.topicname === topicname && user.topicname === topicname,
-            )
+            (part) =>
+              part.topicname === topicname && user.topicname === topicname,
+          )
           : (!user.selectedParts || user.selectedParts.length === 0) &&
-            user.topicname === topicname),
+          user.topicname === topicname),
     ).length;
   };
 
-  // This function calculates the attendance for all users on a single topic
   const calculateAttendanceForAllUsers = (
     users,
     allUsers,
@@ -96,25 +74,25 @@ const TeacherCourseStats = () => {
     const lecture = lectures.find((lecture) => lecture.topicname === topicname);
     const lecture_count = lecture ? lecture.lecture_count : 0;
 
-    // Calculate the attendance for each user
     const attendanceCounts = uniqueUserIds.map((userid) => {
       const count = sumUserAttendanceOnTopic(users, userid, topicname);
       let user = users.find((user) => user.userid === userid);
       if (!user) {
         user = allUsers.find((user) => user.userid === userid);
       }
-      const name = user
-        ? `${user.last_name} ${user.first_name}`
-        : 'Unknown User';
-      // Get the selected topics for the user
+
+      const name = user ? `${user.last_name} ${user.first_name}` : 'Unknown User';
+
       const selectedTopics =
         user && user.selectedParts && user.selectedParts.length > 0
           ? user.selectedParts.map((part) => part.topicname)
           : 'all';
+
       const percentage =
         lecture_count > 0
           ? parseFloat(((count / lecture_count) * 100).toFixed(1))
-          : 'No TeacherLectures'; // Calculate the percentage of attendance for the user on the topic if there are TeacherLectures
+          : 'No TeacherLectures';
+
       return {
         name,
         count,
@@ -124,9 +102,10 @@ const TeacherCourseStats = () => {
         userid,
       };
     });
+
     return attendanceCounts;
   };
-  // This function calculates the attendance for all users on all topics
+
   const calculateAttendanceForAllTopics = (users, allUsers, lectures) => {
     return lectures.map((lecture) => {
       const attendanceCounts = calculateAttendanceForAllUsers(
@@ -142,17 +121,13 @@ const TeacherCourseStats = () => {
     });
   };
 
-  // This function is called when a course is selected
   const handleCourseSelect = async (value: string | null) => {
-    if (!value) {
-      return;
-    }
-    // Find the selected course from the courses array
+    if (!value) return;
 
     const selected: Course | undefined = courses.find(
       (course: Course) => `${course.name} ${course.code}` === value,
     );
-    // If the selected course is found, fetch the course details
+
     if (selected) {
       const course = selected as Course;
       try {
@@ -166,20 +141,16 @@ const TeacherCourseStats = () => {
           navigate(`/counselor/courses/stats/${course?.courseid}`);
         }
 
-        setSelectedCourse(course); // Add this line
+        setSelectedCourse(course);
 
         const token: string | null = localStorage.getItem('userToken');
-        if (!token) {
-          throw new Error('No token available');
-        }
+        if (!token) throw new Error('No token available');
+
         const courseDetails = await apiHooks.getDetailsByCourseId(
           course.courseid.toString(),
           token,
         );
 
-        console.log(courseDetails);
-
-        // Calculate the attendance for all users on all topics for the selected course
         const allAttendanceCounts = calculateAttendanceForAllTopics(
           courseDetails.users,
           courseDetails.allUsers,
@@ -187,9 +158,7 @@ const TeacherCourseStats = () => {
         );
 
         setAllAttendanceCounts(allAttendanceCounts);
-
         setShowTable(true);
-        console.log(allAttendanceCounts, 'all attendancescounts');
       } catch (error) {
         toast.error('Error fetching course details');
         console.log(error);
@@ -197,83 +166,175 @@ const TeacherCourseStats = () => {
     }
   };
 
-  // This function is called when the courseid changes in the url (when a course is selected)
   useEffect(() => {
-    if (courseid) {
-      const selectedCourse: Course | undefined = courses.find(
-        (course: Course) => course.courseid?.toString() === courseid,
-      );
-      if (selectedCourse) {
-        const course = selectedCourse as Course;
-        handleCourseSelect(`${course.name} ${course.code}`);
-      }
+    if (!courseid) {
+      setSelectedCourse(null);
+      setAllAttendanceCounts([]);
+      setShowTable(false);
+      return;
+    }
+
+    const selectedCourse: Course | undefined = courses.find(
+      (course: Course) => course.courseid?.toString() === courseid,
+    );
+
+    if (selectedCourse) {
+      const course = selectedCourse as Course;
+      handleCourseSelect(`${course.name} ${course.code}`);
     }
   }, [courseid, courses]);
 
   const handlePdfExport = () => {
     if (!selectedCourse) {
-      toast.error('No course selected');
+      toast.error(t('courseStats.errors.noCourseSelected'));
       return;
     }
     exportStatsTableToPdf(allAttendanceCounts, selectedCourse);
   };
+
   const handleExcelExport = () => {
+    if (!selectedCourse) {
+      toast.error(t('courseStats.errors.noCourseSelected'));
+      return;
+    }
     exportStatsTableToExcel(allAttendanceCounts, selectedCourse);
   };
+
+  const handleClearCourse = () => {
+    setSelectedCourse(null);
+    setAllAttendanceCounts([]);
+    setShowTable(false);
+
+    if (user?.role === 'teacher') navigate('/teacher/courses/stats', {replace: true});
+    else if (user?.role === 'counselor') navigate('/counselor/courses/stats', {replace: true});
+    else if (user?.role === 'admin') navigate('/counselor/courses/stats', {replace: true});
+  };
+
+  const exportDisabled =
+    !selectedCourse || !showTable || allAttendanceCounts.length === 0;
+
   return (
-    <>
-      <h1 className='p-3 mb-2 text-2xl text-center bg-white rounded-md font-heading'>
-        {t('teacher:courseStats.title')}
-      </h1>
-      <div className='w-full p-4 bg-white rounded-lg 2xl:w-3/4'>
-        <div className='flex justify-between sm:justify-around'>
-          <Tooltip title={t('teacher:courseStats.buttons.printPdf')}>
-            <button
-              aria-label={t('teacher:courseStats.buttons.printPdf')}
-              onClick={handlePdfExport}
-              className='p-2 text-white rounded-sm bg-metropolia-main-orange'>
-              <PrintIcon fontSize='large' />
-            </button>
-          </Tooltip>
-          <Autocomplete
-            className='sm:w-[30em] mr-3 ml-3 w-1/2'
-            freeSolo
-            options={courses.map(
-              (course: Course) => `${course.name} ${course.code}`,
-            )}
-            onChange={(_, value) => handleCourseSelect(value)}
-            value={
-              selectedCourse
-                ? `${selectedCourse.name} ${selectedCourse.code}`
-                : null
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t('teacher:courseStats.search.label')}
-                margin='normal'
-                variant='outlined'
-              />
-            )}
-          />
-          <Tooltip title={t('teacher:courseStats.buttons.exportExcel')}>
-            <button
-              onClick={handleExcelExport}
-              className='p-2 text-white rounded-sm bg-metropolia-main-orange'
-              aria-label={t('teacher:courseStats.buttons.exportExcel')}>
-              <GetAppIcon fontSize='large' />
-            </button>
-          </Tooltip>
-        </div>
-        {showTable && (
-          <AttendanceStatsTable
-            allAttendanceCounts={allAttendanceCounts}
-            threshold={threshold}
-            currentCourseId={courseid}
-          />
-        )}
+    <div className="w-full flex justify-center">
+      <div className="w-full max-w-[1250px] px-2 sm:px-4 lg:px-6">
+        <section className="w-full bg-gray-100 rounded-2xl p-3 sm:p-4 lg:p-6 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
+            <h1 className="text-2xl sm:text-3xl font-heading text-metropolia-main-grey">
+              {t('courseStats.title')}
+            </h1>
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Tooltip
+                title={t('courseStats.buttons.printPdf')}
+                disableHoverListener={exportDisabled}
+                disableFocusListener={exportDisabled}
+                disableTouchListener={exportDisabled}
+              >
+                <span>
+                  <button
+                    type="button"
+                    aria-label={t('courseStats.buttons.printPdf')}
+                    onClick={handlePdfExport}
+                    disabled={exportDisabled}
+                    className={[
+                      'inline-flex items-center justify-center',
+                      'h-10 w-10 sm:h-11 sm:w-11',
+                      'rounded-xl shadow-sm',
+                      'focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange',
+                      exportDisabled
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-metropolia-main-orange text-white hover:bg-metropolia-secondary-orange',
+                    ].join(' ')}
+                  >
+                    <PictureAsPdfIcon fontSize="medium" />
+                  </button>
+                </span>
+              </Tooltip>
+
+              <Tooltip
+                title={t('courseStats.buttons.exportExcel')}
+                disableHoverListener={exportDisabled}
+                disableFocusListener={exportDisabled}
+                disableTouchListener={exportDisabled}
+              >
+                <span>
+                  <button
+                    type="button"
+                    aria-label={t('courseStats.buttons.exportExcel')}
+                    onClick={handleExcelExport}
+                    disabled={exportDisabled}
+                    className={[
+                      'inline-flex items-center justify-center',
+                      'h-10 w-10 sm:h-11 sm:w-11',
+                      'rounded-xl shadow-sm',
+                      'focus:outline-hidden focus:ring-2 focus:ring-metropolia-main-orange',
+                      exportDisabled
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-metropolia-main-orange text-white hover:bg-metropolia-secondary-orange',
+                    ].join(' ')}
+                  >
+                    <TableChartIcon fontSize="medium" />
+                  </button>
+                </span>
+              </Tooltip>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-3 sm:p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="w-full sm:max-w-[520px]">
+                <Autocomplete
+                  className="sm:w-[30em] mr-3 ml-3 w-1/2"
+                  freeSolo
+                  options={courses.map(
+                    (course: Course) => `${course.name} ${course.code}`,
+                  )}
+                  onChange={(_, value) => {
+                    if (value === null) {
+                      handleClearCourse();
+                      return;
+                    }
+                    handleCourseSelect(value);
+                  }}
+                  value={
+                    selectedCourse
+                      ? `${selectedCourse.name} ${selectedCourse.code}`
+                      : null
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('courseStats.search.label')}
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  )}
+                />
+              </div>
+
+              {selectedCourse && (
+                <div className="text-sm text-gray-600">
+                  {`${selectedCourse.name} (${selectedCourse.code})`}
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4">
+              {showTable ? (
+                <AttendanceStatsTable
+                  allAttendanceCounts={allAttendanceCounts}
+                  threshold={threshold}
+                  currentCourseId={courseid}
+                />
+              ) : (
+                <div className="py-10 text-center text-gray-500">
+                  {t('courseStats.search.noCourse')}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
-    </>
+    </div>
   );
 };
 

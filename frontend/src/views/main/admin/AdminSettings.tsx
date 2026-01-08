@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import apiHooks from '../../../api';
 
 import Spinner from '../../../components/ui/Spinner.tsx';
-import Card from '../../../components/ui/cards/Card.tsx';
+import SettingsCard from '../../../components/ui/cards/SettingsCard.tsx';
 import ErrorBox from '../../../components/ui/ErrorBox.tsx';
 import NumberInputField from '../../../components/ui/inputs/NumberInputField.tsx';
 
@@ -103,30 +103,30 @@ const AdminSettings: React.FC = () => {
       <ErrorBox errors={validationErrors} />
 
       <div className='grid md:grid-cols-2 gap-4 mb-10'>
-        <Card
+        <SettingsCard
           title={t('admin:settings.speedOfHash')}
           value={(speedofhash / 1000).toFixed(2)}
           suffix='seconds'
         />
-        <Card
+        <SettingsCard
           title={t('admin:settings.hashSpeedMultiplier')}
           value={leewayspeed.toString()}
         />
-        <Card
+        <SettingsCard
           title={t('admin:settings.leeway')}
           value={
             `${Math.floor((speedofhash * leewayspeed) / 60000)}m ` +
             `${(((speedofhash * leewayspeed) % 60000) / 1000).toFixed(2)}s`
           }
         />
-        <Card
+        <SettingsCard
           title={t('admin:settings.timeOut')}
           value={
             `${Math.floor(timeouttime / 60000)}m ` +
             `${((timeouttime % 60000) / 1000).toFixed(2)}s`
           }
         />
-        <Card
+        <SettingsCard
           title={t('admin:settings.attendanceThreshold')}
           value={`${attendancethreshold}%`}
         />
