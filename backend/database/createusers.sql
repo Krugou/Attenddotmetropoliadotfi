@@ -1,4 +1,3 @@
-
 CREATE USER 'student'@localhost IDENTIFIED BY 'xstudentx';
 CREATE USER 'teacher'@localhost IDENTIFIED BY 'xteacherx';
 CREATE USER 'admin'@localhost IDENTIFIED BY 'xadminx';

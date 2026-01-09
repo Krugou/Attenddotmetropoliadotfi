@@ -13,7 +13,7 @@ import DashboardCardList from '../../../../components/internal/admin/AdminOtherD
 const AdminOtherDashboards: React.FC = () => {
   return (
     <>
-      <MainViewTitle role="Admin" />
+      <MainViewTitle />
       <DashboardCardList />
     </>
   );
