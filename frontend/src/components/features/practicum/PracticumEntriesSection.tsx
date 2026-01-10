@@ -175,7 +175,7 @@ const PracticumEntriesSection: React.FC<PracticumEntriesSectionProps> = ({
   if (loading) {
     return (
       <div className={variant === 'embedded' ? 'py-2' : 'flex items-center justify-center min-h-screen'}>
-        <div className="text-xl font-body">{t('ui:loading')}</div>
+        <div className="text-xl font-body">{t('loading')}</div>
       </div>
     );
   }

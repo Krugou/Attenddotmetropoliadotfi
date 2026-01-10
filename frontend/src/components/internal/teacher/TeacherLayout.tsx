@@ -27,35 +27,3 @@ export default TeacherLayout;
 
 
 
-/*import React, {ReactNode} from 'react';
-import TeacherTopNav from './TeacherTopNav';
-
-type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
-
-type TeacherLayoutProps = {
-  t: TranslateFn;
-  children: ReactNode;
-};
-
-/**
- * Yhteinen layout kaikille opettajan näkymille:
- * - yläpalkin TeacherTopNav
- * - yhtenäiset paddingit ja keskitys
- */
-/*const TeacherLayout: React.FC<TeacherLayoutProps> = ({t, children}) => {
-  return (
-    <div className="flex flex-col items-center w-full px-1 sm:px-3 pt-3 sm:pt-4 pb-10">
-
-      <TeacherTopNav t={t} />
-
-
-      <div className="mt-6 w-full flex flex-col items-center">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-export default TeacherLayout;*/
-
-

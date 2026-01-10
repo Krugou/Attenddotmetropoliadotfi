@@ -32,7 +32,7 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
     const token = localStorage.getItem('userToken');
     if (!token) {
       setIsSearching(false);
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -68,7 +68,7 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
         setSearchStatus('notFound');
       }
     } catch (error) {
-      toast.error(t('ui:errors.searchFailed'));
+      toast.error(t('errors.searchFailed'));
     } finally {
       setIsSearching(false);
     }
@@ -132,10 +132,10 @@ const CheckStudentStep: React.FC<Props> = ({setStudent}) => {
             {isSearching ? (
               <span className="inline-flex items-center justify-center">
               <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                {t('ui:checking')}
+                {t('checking')}
             </span>
             ) : (
-              t('ui:check')
+              t('check')
             )}
           </button>
         </div>

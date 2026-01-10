@@ -27,7 +27,15 @@ export const TableBody: React.FC<TableBodyProps> = ({
           {columns
             .filter((column) => visibleColumns.has(column.key))
             .map(({key}) => (
-              <td key={key} className='px-4 py-2'>
+              <td
+                key={key}
+                className={[
+                  'px-3 py-2 align-middle text-sm text-gray-800',
+                  'whitespace-nowrap',
+                  key === 'name' ? 'max-w-[180px] truncate font-medium text-gray-900' : '',
+                  key.toLowerCase().includes('email') ? 'max-w-[260px] truncate' : '',
+                ].join(' ')}
+              >
                 {(() => {
                   if (key === 'name') {
                     return `${student.firstName} ${student.lastName}`;
@@ -40,7 +48,7 @@ export const TableBody: React.FC<TableBodyProps> = ({
                             parseISO(student.attendance.lastAttendance),
                             'dd.MM.yyyy HH:mm',
                           )
-                        : t('ui:never');
+                        : t('never');
                     }
                     if (key === 'attendance.percentage') {
                       return `${student.attendance.percentage}%`;
@@ -52,7 +60,7 @@ export const TableBody: React.FC<TableBodyProps> = ({
                 })()}
               </td>
             ))}
-          <td className='px-4 py-2'>
+          <td className="px-3 py-2 whitespace-nowrap text-right align-middle">
             {threshold && typeof threshold === 'number' && (
               <span
                 className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
@@ -62,8 +70,8 @@ export const TableBody: React.FC<TableBodyProps> = ({
                       : 'bg-red-100 text-red-800'
                   } transition-colors duration-200`}>
                 {student.attendance.percentage >= threshold
-                  ? t('ui:passing')
-                  : t('ui:failing')}
+                  ? t('passing')
+                  : t('failing')}
               </span>
             )}
           </td>

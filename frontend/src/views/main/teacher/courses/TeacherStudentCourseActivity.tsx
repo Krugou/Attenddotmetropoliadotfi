@@ -4,11 +4,11 @@ import {UserContext} from '../../../../contexts/UserContext';
 import {useCourses} from '../../../../hooks/courseHooks';
 import apihook from '../../../../api';
 import Loader from '../../../../utils/Loader';
-import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton';
+//import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton';
 import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 import {subDays, parseISO, isBefore} from 'date-fns';
 
-// Import new components
+
 import {useColumnConfig} from '../../../../components/internal/teacher/courseActivity/ColumnConfig';
 import {FilterButtons} from '../../../../components/internal/teacher/courseActivity/FilterButtons';
 import {SearchInput} from '../../../../components/internal/teacher/courseActivity/SearchInput';
@@ -22,6 +22,9 @@ import {
   SortField,
   SortOrder,
 } from '../../../../components/internal/teacher/courseActivity/types';
+import { Link } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 const TeacherStudentCourseActivity: React.FC = () => {
   const {t} = useTranslation();
@@ -229,103 +232,148 @@ const TeacherStudentCourseActivity: React.FC = () => {
   }
 
   return (
-    <div className='max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6'>
-      <h1 className='text-2xl sm:text-3xl font-heading text-center bg-white rounded-xl shadow-sm p-4 mb-6'>
-        {t('teacher:courseActivity.title')}
-      </h1>
+    <div className="w-full">
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8 py-6">
+        {/* Page card */}
+        <section className="bg-gray-50/70 rounded-2xl border border-gray-200 shadow-sm p-5 sm:p-6 md:p-8">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <Tooltip title={t('teacher:courseActivity.back')} arrow>
+                <Link
+                  to={user?.role === 'teacher' ? '/teacher/mainView' : '/counselor/mainView'}
+                  aria-label={t('teacher:courseActivity.back')}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full text-metropolia-main-orange hover:bg-metropolia-main-orange/10 transition-colors shrink-0"
+                >
+                  <ArrowBackRoundedIcon fontSize="medium" />
+                </Link>
+              </Tooltip>
 
-      <div className='bg-white rounded-xl shadow-lg p-4 sm:p-6'>
-        <div className='mb-6'>
-          <div className='flex justify-between items-center'>
-            <GeneralLinkButton
-              path={
-                user?.role === 'teacher'
-                  ? '/teacher/mainView'
-                  : '/counselor/mainView'
-              }
-              text={t('teacher:courseActivity.back')}
-            />
-            <button
-              onClick={handleMenuOpen}
-              className='px-4 py-2 hidden md:block text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
-              <ViewColumnIcon className='w-5 h-5 mr-2' />
-              {t('ui:columns')}
-            </button>
+              <h1 className="text-2xl sm:text-3xl font-heading truncate">
+                {t('teacher:courseActivity.title')}
+              </h1>
+            </div>
+
+            {/* Right side actions (desktop) */}
+            <div className="hidden md:flex items-center gap-2 shrink-0">
+              <button
+                onClick={handleMenuOpen}
+                className="inline-flex h-10 items-center gap-2 rounded-xl border border-metropolia-main-orange bg-white px-4 text-sm font-body text-metropolia-main-orange shadow-sm hover:bg-orange-50 transition-colors"
+              >
+                <ViewColumnIcon className="w-5 h-5" />
+                {t('columns')}
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className='flex flex-col lg:flex-row justify-between gap-6 mb-6'>
-          <FilterButtons
-            filterPeriod={filterPeriod}
-            setFilterPeriod={setFilterPeriod}
-            threshold={threshold ?? undefined}
-          />
-          <SearchInput
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-        </div>
-
-        <div className='p-4 mb-6 bg-gray-50 rounded-lg border border-gray-100'>
-          <p className='font-body text-gray-700'>
-            {t('teacher:courseActivity.studentsNotAttending')}
-            {filteredStudents.length > 0
-              ? ` ${filteredStudents.length}`
-              : ' 0'}{' '}
-            {''}
-            {filterPeriod === 'all'
-              ? t('ui:total')
-              : filterPeriod === 'week'
-              ? t('ui:inLastWeek')
-              : filterPeriod === 'month'
-              ? t('ui:inLastMonth')
-              : t('ui:belowThreshold', {threshold})}
-          </p>
-        </div>
-
-        {/* Desktop Table View */}
-        <div className='hidden md:block overflow-x-auto rounded-xl border border-gray-200'>
-          <table className='min-w-full divide-y divide-gray-200'>
-            <thead className='bg-gray-50'>
-              <tr>
-                {columns
-                  .filter((column) => visibleColumns.has(column.key))
-                  .map(({key, label}) => (
-                    <SortableHeader
-                      key={key}
-                      field={key as SortField}
-                      label={label}
-                      sortField={sortField}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
+          {/* Content card */}
+          <div className="mt-5 rounded-2xl border border-gray-200 bg-white/70 shadow-sm">
+            {/* Toolbar */}
+            <div className="p-4 sm:p-5 border-b border-gray-200">
+              <div className="flex flex-col gap-4">
+                {/* Filters + Search row */}
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                  <div className="min-w-0">
+                    <FilterButtons
+                      filterPeriod={filterPeriod}
+                      setFilterPeriod={setFilterPeriod}
+                      threshold={threshold ?? undefined}
                     />
-                  ))}
-                <th className='px-4 py-2'>{t('ui:status')}</th>
-              </tr>
-            </thead>
-            <TableBody
-              students={filteredStudents}
-              visibleColumns={visibleColumns}
+                  </div>
+
+                  <div className="w-full lg:w-[380px]">
+                    <SearchInput
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                    />
+                  </div>
+                </div>
+
+                {/* Mobile-only columns button */}
+                <div className="flex md:hidden">
+                  <button
+                    onClick={handleMenuOpen}
+                    className="inline-flex h-10 items-center gap-2 rounded-xl border border-metropolia-main-orange bg-white px-4 text-sm font-body text-metropolia-main-orange shadow-sm hover:bg-orange-50 transition-colors"
+                  >
+                    <ViewColumnIcon className="w-5 h-5" />
+                    {t('columns')}
+                  </button>
+                </div>
+
+                {/* Info banner */}
+                <div className="flex items-start justify-between gap-4 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+                  <p className="font-body text-gray-700">
+                  <span className="font-medium text-gray-900">
+                    {t('teacher:courseActivity.studentsNotAttending')}
+                  </span>
+                    <span className="ml-2 inline-flex items-center rounded-full bg-white px-2 py-0.5 text-sm font-semibold text-gray-900 border border-gray-200">
+                    {filteredStudents.length > 0 ? filteredStudents.length : 0}
+                  </span>
+                    <span className="ml-2 text-gray-600">
+                    {filterPeriod === 'all'
+                      ? t('total')
+                      : filterPeriod === 'week'
+                        ? t('inLastWeek')
+                        : filterPeriod === 'month'
+                          ? t('inLastMonth')
+                          : t('belowThreshold', { threshold })}
+                  </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="p-4 sm:p-5">
+              {/* Desktop Table View */}
+              <div className="hidden md:block overflow-x-auto rounded-xl border border-gray-200">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                  <tr className="[&>th]:whitespace-nowrap">
+                    {columns
+                      .filter((column) => visibleColumns.has(column.key))
+                      .map(({ key, label }) => (
+                        <SortableHeader
+                          key={key}
+                          field={key as SortField}
+                          label={label}
+                          sortField={sortField}
+                          sortOrder={sortOrder}
+                          onSort={handleSort}
+                        />
+                      ))}
+                    <th className="px-3 py-2 text-[11px] font-semibold tracking-wider text-gray-500 uppercase text-right">
+                      {t('status')}
+                    </th>
+                  </tr>
+                  </thead>
+
+                  <TableBody
+                    students={filteredStudents}
+                    visibleColumns={visibleColumns}
+                    columns={columns}
+                    threshold={threshold ?? undefined}
+                  />
+                </table>
+              </div>
+
+              {/* Mobile NavigationCard View */}
+              <MobileCardList
+                students={filteredStudents}
+                threshold={threshold ?? undefined}
+              />
+            </div>
+
+            {/* Column Visibility Menu */}
+            <ColumnVisibilityMenu
+              anchorEl={anchorEl}
               columns={columns}
-              threshold={threshold ?? undefined}
+              visibleColumns={visibleColumns}
+              onColumnToggle={handleColumnToggle}
+              onClose={handleMenuClose}
             />
-          </table>
-        </div>
-
-        {/* Mobile NavigationCard View */}
-        <MobileCardList
-          students={filteredStudents}
-          threshold={threshold ?? undefined}
-        />
-
-        {/* Column Visibility Menu */}
-        <ColumnVisibilityMenu
-          anchorEl={anchorEl}
-          columns={columns}
-          visibleColumns={visibleColumns}
-          onColumnToggle={handleColumnToggle}
-          onClose={handleMenuClose}
-        />
+          </div>
+        </section>
       </div>
     </div>
   );

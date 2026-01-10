@@ -19,7 +19,7 @@ export const SortableHeader: React.FC<SortableHeaderProps> = ({
 }) => (
   <th
     onClick={() => onSort(field)}
-    className='px-4 py-2 cursor-pointer select-none'>
+    className='px-4 py-2 cursor-pointer select-none text-[13px] font-semibold tracking-wider text-gray-500 uppercase whitespace-nowrap"'>
     <div className='flex items-center justify-between'>
       <span>{label}</span>
       <div className='flex items-center'>

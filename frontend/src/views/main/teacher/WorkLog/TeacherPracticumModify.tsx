@@ -76,7 +76,7 @@ const TeacherPracticumModify: React.FC = () => {
 
           setIsLoading(false);
         } catch (error) {
-          toast.error(t('ui:worklog.error.fetchFailed'));
+          toast.error(t('worklog.error.fetchFailed'));
           setIsLoading(false);
         }
       }
@@ -115,7 +115,7 @@ const TeacherPracticumModify: React.FC = () => {
     if (!token) throw new Error('No token available');
 
     if (!name || !startDate || !endDate || requiredHours <= 0) {
-      toast.error(t('ui:worklog.error.requiredFields'));
+      toast.error(t('worklog.error.requiredFields'));
       return;
     }
 

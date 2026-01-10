@@ -64,7 +64,7 @@ const StudentCourseAttendance: React.FC = () => {
       try {
         const token = localStorage.getItem('userToken');
         if (!token) {
-          throw new Error(t('ui:noToken'));
+          throw new Error(t('noToken'));
         }
         const response = await apiHooks.getAttendanceThreshold(token);
         if (!response?.attendancethreshold) {

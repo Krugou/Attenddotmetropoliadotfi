@@ -30,7 +30,7 @@ const Loader = () => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}>
-          {t('ui:metropoliaLoading')}
+          {t('metropoliaLoading')}
         </motion.h1>
       </div>
     </div>

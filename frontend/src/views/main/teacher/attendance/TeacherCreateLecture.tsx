@@ -670,7 +670,7 @@ const CreateLecture: React.FC = () => {
                       >
                         {timeOfDay.map((option) => (
                           <option key={option} value={option}>
-                            {option.toUpperCase()}
+                            {t(`teacher:createLecture.dateSection.timeOfDay.options.${option}`)}
                           </option>
                         ))}
                       </select>

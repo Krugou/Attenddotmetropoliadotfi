@@ -33,12 +33,12 @@ const WorklogTableView: React.FC<WorklogTableViewProps> = ({entries}) => {
       <Table>
         <TableHead>
           <TableRow className='bg-metropolia-support-white'>
-            <TableCell>{t('ui:worklog.table.date')}</TableCell>
-            <TableCell>{t('ui:worklog.table.course')}</TableCell>
-            <TableCell>{t('ui:worklog.table.time')}</TableCell>
-            <TableCell>{t('ui:worklog.table.duration')}</TableCell>
-            <TableCell>{t('ui:worklog.table.description')}</TableCell>
-            <TableCell>{t('ui:worklog.table.status')}</TableCell>
+            <TableCell>{t('worklog.table.date')}</TableCell>
+            <TableCell>{t('worklog.table.course')}</TableCell>
+            <TableCell>{t('worklog.table.time')}</TableCell>
+            <TableCell>{t('worklog.table.duration')}</TableCell>
+            <TableCell>{t('worklog.table.description')}</TableCell>
+            <TableCell>{t('worklog.table.status')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,7 +50,7 @@ const WorklogTableView: React.FC<WorklogTableViewProps> = ({entries}) => {
               <TableCell>
                 {entry.course?.name} -{' '}
                 {entry.course?.code === ''
-                  ? t('ui:practicum')
+                  ? t('practicum')
                   : entry.course?.code}
               </TableCell>
               <TableCell>

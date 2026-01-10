@@ -77,7 +77,7 @@ const PracticumDetailsStep: React.FC<PracticumDataProps> = ({
           required
         />
         <p className="mt-1 text-sm text-gray-500 text-right font-body">
-          {nameCharCount}/100 {t('ui:characters')}
+          {nameCharCount}/100 {t('characters')}
         </p>
       </div>
 
@@ -96,7 +96,7 @@ const PracticumDetailsStep: React.FC<PracticumDataProps> = ({
           rows={4}
         />
         <p className="mt-1 text-sm text-gray-500 text-right font-body">
-          {charCount}/500 {t('ui:characters')}
+          {charCount}/500 {t('characters')}
         </p>
       </div>
 

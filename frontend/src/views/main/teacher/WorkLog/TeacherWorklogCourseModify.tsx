@@ -66,7 +66,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching worklog:', error);
-          toast.error(t('ui:worklog.error.fetchFailed'));
+          toast.error(t('worklog.error.fetchFailed'));
           setIsLoading(false);
         }
       }
@@ -108,12 +108,12 @@ const TeacherWorklogCourseModify: React.FC = () => {
     if (!token) throw new Error('No token available');
 
     if (!name || !code || !startDate || !endDate || requiredHours <= 0) {
-      toast.error(t('ui:worklog.error.requiredFields'));
+      toast.error(t('worklog.error.requiredFields'));
       return;
     }
 
     if (codeExists && code !== worklogData?.code) {
-      toast.error(t('ui:worklog.error.codeExists'));
+      toast.error(t('worklog.error.codeExists'));
       return;
     }
 

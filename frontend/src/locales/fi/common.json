@@ -170,6 +170,8 @@
       "name": "Nimi",
       "username": "Käyttäjänimi",
       "email": "Sähköposti",
+      "studentNumber": "Opiskelijanumero",
+      "studentGroup": "Opiskelijaryhmä",
       "accountCreated": "Tili luotu",
       "role": "Rooli",
       "language": "Kieli",
@@ -206,6 +208,8 @@
       "date": "Päivämäärä",
       "startTime": "Aloitusaika",
       "endTime": "Lopetusaika",
+      "start": "Aloitus",
+      "end": "Lopetus",
       "duration": "Kesto",
       "course": "Kurssi",
       "description": "Kuvaus",
@@ -497,7 +501,7 @@
     }
   },
   "feedback": {
-    "header": "Auta meitä kehittymään, {{username}}, antamalla palautetta.",
+    "header": "Auta meitä kehittymään antamalla palautetta.",
     "topicLabel": "Palautteen aihe",
     "textLabel": "Palautteen teksti",
     "selectTopic": "Valitse aihe",
@@ -565,18 +569,19 @@
     "desc": "laskeva"
   },
   "noToken": "Ei merkki",
-  "total": "Kokonais",
+  "total": "kpl",
   "inLastWeek": "Viime viikolla",
   "inLastMonth": "Viime kuussa",
   "belowThreshold": "Kynnyksen alapuolella",
-  "columns": "Pylväät",
+  "allTime": "Kaikki",
+  "columns": "Kolumnit",
   "name": "Nimi",
   "course": "Kurssi",
   "courseCode": "Kurssikoodi",
   "group": "Ryhmä",
   "totalLectures": "Kokonaisluennot",
-  "attendedLectures": "Osallistui luentoihin",
-  "lastAttendance": "Viimeinen osallistuminen",
+  "attendedLectures": "Osallistutut",
+  "lastAttendance": "Viimeisin osallistuminen",
   "attendancePercentage": "Osallistumisprosentti",
   "labels": {
     "userAccessInformation": "Käyttäjän käyttötiedot"
@@ -584,7 +589,7 @@
   "lateEnrollment": {
     "selectMode": "Valitse tila",
     "newStudent": "Uusi opiskelija",
-    "existingStudent": "Nykyinen opiskelija.",
+    "existingStudent": "Nykyinen opiskelija",
     "backToOptions": "Takaisin vaihtoehtoihin",
     "findExistingStudent": "Löydä nykyinen opiskelija",
     "noStudentsFound": "Ei oppilaita löytänyt.",
@@ -599,5 +604,7 @@
     "existingStudentShort": "Etsi järjestelmästä ja ilmoita kurssille.",
     "recommended": "Suositus"
   },
-  "practicum": "Harjoittelu"
+  "practicum": "Harjoittelu",
+  "passing": "Hyväksytty",
+  "failing": "Alle rajan"
 }

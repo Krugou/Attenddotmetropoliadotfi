@@ -115,7 +115,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
             required
           />
           <p className="mt-0.5 text-xs text-gray-500 text-right font-body">
-            {nameCharCount}/100 {t('ui:characters')}
+            {nameCharCount}/100 {t('characters')}
           </p>
         </div>
       </div>
@@ -184,7 +184,7 @@ const WorklogDetailsStep: React.FC<WorklogDetailsStepProps> = ({
             rows={4}
           />
           <p className="mt-0.5 text-xs text-gray-500 text-right font-body">
-            {charCount}/500 {t('ui:characters')}
+            {charCount}/500 {t('characters')}
           </p>
         </div>
       </div>

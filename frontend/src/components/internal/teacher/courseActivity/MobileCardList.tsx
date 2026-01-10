@@ -33,18 +33,18 @@ export const MobileCardList: React.FC<MobileCardListProps> = ({
                       : 'bg-red-100 text-red-800'
                   } transition-colors duration-200`}>
                 {student.attendance.percentage >= threshold
-                  ? t('ui:passing')
-                  : t('ui:failing')}
+                  ? t('passing')
+                  : t('failing')}
               </span>
             )}
           </div>
 
           <div className='grid grid-cols-2 gap-4 text-sm'>
-            <InfoField label={t('ui:course')} value={student.courseName} />
-            <InfoField label={t('ui:courseCode')} value={student.code} />
-            <InfoField label={t('ui:group')} value={student.groupName} />
+            <InfoField label={t('course')} value={student.courseName} />
+            <InfoField label={t('courseCode')} value={student.code} />
+            <InfoField label={t('group')} value={student.groupName} />
             <InfoField
-              label={t('ui:studentNumber')}
+              label={t('studentNumber')}
               value={student.studentNumber}
             />
           </div>
@@ -52,26 +52,26 @@ export const MobileCardList: React.FC<MobileCardListProps> = ({
           <div className='border-t border-gray-100 pt-4 mt-4'>
             <div className='grid grid-cols-2 gap-4 text-sm'>
               <InfoField
-                label={t('ui:totalLectures')}
+                label={t('totalLectures')}
                 value={student.attendance.total.toString()}
               />
               <InfoField
-                label={t('ui:attendedLectures')}
+                label={t('attendedLectures')}
                 value={student.attendance.attended.toString()}
               />
               <InfoField
-                label={t('ui:attendancePercentage')}
+                label={t('attendancePercentage')}
                 value={`${student.attendance.percentage}%`}
               />
               <InfoField
-                label={t('ui:lastAttendance')}
+                label={t('lastAttendance')}
                 value={
                   student.attendance.lastAttendance
                     ? format(
                         parseISO(student.attendance.lastAttendance),
                         'dd.MM.yyyy HH:mm',
                       )
-                    : t('ui:never')
+                    : t('never')
                 }
               />
             </div>

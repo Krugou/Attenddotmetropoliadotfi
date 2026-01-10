@@ -179,7 +179,7 @@ const NewStudentUser: React.FC = () => {
           setWorklogCourses(courses);
         } catch (error) {
           console.error('Failed to fetch worklog courses:', error);
-          toast.error(t('ui:errors.fetchWorklogCoursesFailed'));
+          toast.error(t('errors.fetchWorklogCoursesFailed'));
         }
       }
     };
@@ -234,13 +234,13 @@ const NewStudentUser: React.FC = () => {
           );
         }
 
-        toast.success(t('ui:newStudent.success.userAdded'));
+        toast.success(t('newStudent.success.userAdded'));
       } catch (error) {
         console.error('Failed to add student:', error);
-        toast.error(t('ui:newStudent.errors.addFailed'));
+        toast.error(t('newStudent.errors.addFailed'));
       }
     } else if (isStudentNumberTaken) {
-      toast.error(t('ui:newStudent.errors.studentNumberTaken'));
+      toast.error(t('newStudent.errors.studentNumberTaken'));
     }
   };
 

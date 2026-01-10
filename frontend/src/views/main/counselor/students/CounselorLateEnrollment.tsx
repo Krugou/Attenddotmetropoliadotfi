@@ -113,7 +113,7 @@ const CounselorLateEnrollment: React.FC = () => {
   const fetchStudentCourses = async (studentId: number) => {
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -125,7 +125,7 @@ const CounselorLateEnrollment: React.FC = () => {
       setStudentCourses(response.courses || []);
     } catch (error) {
       console.error('Error fetching student courses:', error);
-      toast.error(t('ui:errors.fetchFailed'));
+      toast.error(t('errors.fetchFailed'));
     }
   };
 
@@ -156,13 +156,13 @@ const CounselorLateEnrollment: React.FC = () => {
   // Add student to selected course
   const handleAddStudentToCourse = async () => {
     if (!selectedStudent || !selectedCourse) {
-      toast.error(t('ui:errors.selectionRequired'));
+      toast.error(t('errors.selectionRequired'));
       return;
     }
 
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -173,7 +173,7 @@ const CounselorLateEnrollment: React.FC = () => {
         selectedCourse.courseid,
       );
 
-      toast.success(t('ui:lateEnrollment.studentAddedToCourse'));
+      toast.success(t('lateEnrollment.studentAddedToCourse'));
       handleCloseEditCourse();
 
       // Navigate to student detail page after adding to course
@@ -185,7 +185,7 @@ const CounselorLateEnrollment: React.FC = () => {
       navigate(path);
     } catch (error) {
       console.error('Error adding student to course:', error);
-      toast.error(t('ui:errors.enrollmentFailed'));
+      toast.error(t('errors.enrollmentFailed'));
     }
   };
 
@@ -204,7 +204,7 @@ const CounselorLateEnrollment: React.FC = () => {
     // -----------------------------
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -295,7 +295,7 @@ const CounselorLateEnrollment: React.FC = () => {
 
     } catch (error) {
       console.error('Error searching students:', error);
-      toast.error(t('ui:errors.searchFailed'));
+      toast.error(t('errors.searchFailed'));
     } finally {
       // -----------------------------
       // 8. Stop loading indicator
@@ -311,23 +311,23 @@ const CounselorLateEnrollment: React.FC = () => {
       {!enrollmentMode ? (
         <div className='flex flex-col items-center justify-center gap-6 p-8 bg-white rounded-lg shadow-md'>
           <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-            {t('ui:newStudent.title')}
+            {t('newStudent.title')}
           </h1>
           <h2 className='text-xl font-heading text-metropolia-main-grey'>
-            {t('ui:lateEnrollment.selectMode')}
+            {t('lateEnrollment.selectMode')}
           </h2>
 
           <div className='flex flex-col gap-4 sm:flex-row sm:gap-8'>
             <button
               onClick={() => setEnrollmentMode('new')}
               className='px-6 py-3 text-lg font-bold text-white transition-colors duration-200 rounded-lg shadow-md font-body bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
-              {t('ui:lateEnrollment.newStudent')}
+              {t('lateEnrollment.newStudent')}
             </button>
 
             <button
               onClick={() => setEnrollmentMode('existing')}
               className='px-6 py-3 text-lg font-bold transition-colors duration-200 rounded-lg shadow-md font-body text-metropolia-main-grey bg-metropolia-trend-light-blue hover:bg-metropolia-trend-light-blue-dark '>
-              {t('ui:lateEnrollment.existingStudent')}
+              {t('lateEnrollment.existingStudent')}
             </button>
           </div>
         </div>
@@ -337,7 +337,7 @@ const CounselorLateEnrollment: React.FC = () => {
           <button
             onClick={() => setEnrollmentMode(null)}
             className='px-4 py-2 mb-4 font-medium transition-colors duration-200 rounded-lg font-body text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-            {t('ui:lateEnrollment.backToOptions')}
+            {t('lateEnrollment.backToOptions')}
           </button>
           <NewStudentUser />
         </div>
@@ -345,16 +345,16 @@ const CounselorLateEnrollment: React.FC = () => {
         /* Existing student search and enrollment */
         <div className='p-6 bg-white rounded-lg shadow-md'>
           <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-            {t('ui:newStudent.title')}
+            {t('newStudent.title')}
           </h1>
           <button
             onClick={() => setEnrollmentMode(null)}
             className='px-4 py-2 mb-6 font-medium transition-colors duration-200 rounded-lg font-body text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-            {t('ui:lateEnrollment.backToOptions')}
+            {t('lateEnrollment.backToOptions')}
           </button>
 
           <h2 className='mb-6 text-xl font-heading text-metropolia-main-grey'>
-            {t('ui:lateEnrollment.findExistingStudent')}
+            {t('lateEnrollment.findExistingStudent')}
           </h2>
 
           {/* Search input */}
@@ -366,7 +366,7 @@ const CounselorLateEnrollment: React.FC = () => {
               className='w-full bg-white'
               fullWidth
               variant='outlined'
-              placeholder={t('ui:lateEnrollment.searchPlaceholder')}
+              placeholder={t('lateEnrollment.searchPlaceholder')}
             />
           </div>
 
@@ -377,7 +377,7 @@ const CounselorLateEnrollment: React.FC = () => {
           <div className='mt-4'>
             {!loading && searchTerm && students.length === 0 ? (
               <p className='text-metropolia-support-red'>
-                {t('ui:lateEnrollment.noStudentsFound')}
+                {t('lateEnrollment.noStudentsFound')}
               </p>
             ) : (
               <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
@@ -404,7 +404,7 @@ const CounselorLateEnrollment: React.FC = () => {
                         <button
                           onClick={() => handleOpenEditCourse(student)}
                           className='px-3 py-1.5 text-sm font-medium transition-colors duration-200 text-white rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
-                          {t('ui:lateEnrollment.addToCourse')}
+                          {t('lateEnrollment.addToCourse')}
                         </button>
 
                         <Link
@@ -414,7 +414,7 @@ const CounselorLateEnrollment: React.FC = () => {
                               : `/${user?.role}/students/${student.userid}`
                           }
                           className='px-3 py-1.5 text-sm font-medium transition-colors duration-200 rounded-md text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-                          {t('ui:lateEnrollment.viewDetails')}
+                          {t('lateEnrollment.viewDetails')}
                         </Link>
                       </div>
                     </div>
@@ -429,7 +429,7 @@ const CounselorLateEnrollment: React.FC = () => {
             <div className='flex items-center justify-center'>
               <div className='absolute max-w-xl p-8 m-4 mx-auto transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2'>
                 <h3 className='mb-4 text-xl font-heading text-metropolia-main-grey'>
-                  {t('ui:lateEnrollment.selectCourse')} -{' '}
+                  {t('lateEnrollment.selectCourse')} -{' '}
                   {selectedStudent?.first_name} {selectedStudent?.last_name}
                 </h3>
 
@@ -508,7 +508,7 @@ const CounselorLateEnrollment: React.FC = () => {
                         <button
                           className='px-4 py-2 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300'
                           onClick={handleCloseEditCourse}>
-                          {t('ui:cancel')}
+                          {t('cancel')}
                         </button>
                         <button
                           className='px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
@@ -521,12 +521,12 @@ const CounselorLateEnrollment: React.FC = () => {
                   ) : (
                     <div className='p-4 text-center bg-gray-50 rounded-md'>
                       <p className='text-metropolia-support-red'>
-                        {t('ui:lateEnrollment.noAvailableCourses')}
+                        {t('lateEnrollment.noAvailableCourses')}
                       </p>
                       <button
                         className='px-4 py-2 mt-4 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300'
                         onClick={handleCloseEditCourse}>
-                        {t('ui:close')}
+                        {t('close')}
                       </button>
                     </div>
                   )}

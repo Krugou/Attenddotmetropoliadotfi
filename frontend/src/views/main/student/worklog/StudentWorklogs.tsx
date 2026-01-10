@@ -74,7 +74,7 @@ const StudentWorklogs: React.FC = () => {
           // Add a "practicum" option
           courses.set('practicum', {
             code: 'practicum',
-            name: t('ui:worklog.practicum'),
+            name: t('worklog.practicum'),
           });
 
           // Add all courses with codes
@@ -96,7 +96,7 @@ const StudentWorklogs: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching worklog entries:', error);
-        toast.error(t('ui:worklog.error.fetchFailed'));
+        toast.error(t('worklog.error.fetchFailed'));
       } finally {
         setLoading(false);
       }
@@ -125,10 +125,10 @@ const StudentWorklogs: React.FC = () => {
         ),
       );
 
-      toast.success(t('ui:worklog.edit.success'));
+      toast.success(t('worklog.edit.success'));
     } catch (error) {
       console.error('Error updating entry:', error);
-      toast.error(t('ui:worklog.edit.error'));
+      toast.error(t('worklog.edit.error'));
     }
   };
 
@@ -205,7 +205,7 @@ const StudentWorklogs: React.FC = () => {
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
           <h1 className='text-2xl font-heading text-metropolia-main-orange'>
-            {t('ui:worklog.entries.title')}
+            {t('worklog.entries.title')}
           </h1>
           <div className='flex items-center gap-2 bg-metropolia-support-white rounded-lg p-1 shadow-sm'>
             <button
@@ -215,7 +215,7 @@ const StudentWorklogs: React.FC = () => {
                   ? 'bg-metropolia-main-orange text-white'
                   : 'text-metropolia-main-grey hover:bg-gray-100'
               }`}
-              title={t('ui:worklog.view.cards')}>
+              title={t('worklog.view.cards')}>
               <ViewModule />
             </button>
             <button
@@ -225,7 +225,7 @@ const StudentWorklogs: React.FC = () => {
                   ? 'bg-metropolia-main-orange text-white'
                   : 'text-metropolia-main-grey hover:bg-gray-100'
               }`}
-              title={t('ui:worklog.view.table')}>
+              title={t('worklog.view.table')}>
               <ViewList />
             </button>
           </div>
@@ -236,7 +236,7 @@ const StudentWorklogs: React.FC = () => {
             <div className='relative'>
               <input
                 type='text'
-                placeholder={t('ui:worklog.search.placeholder')}
+                placeholder={t('worklog.search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className='w-full pl-10 pr-4 py-2 border-2 border-metropolia-main-grey/20 rounded-lg focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20'

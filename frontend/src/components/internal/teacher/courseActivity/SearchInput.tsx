@@ -16,7 +16,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     <div className='relative w-full lg:w-72 xl:w-96'>
       <input
         type='text'
-        placeholder={t('ui:search')}
+        placeholder={t('search')}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className='w-full px-11 py-2.5 border-2 border-gray-200 rounded-lg

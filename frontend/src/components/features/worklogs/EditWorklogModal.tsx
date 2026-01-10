@@ -55,15 +55,15 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
       <div className='p-6'>
         <h2 className='mb-4 text-xl font-heading text-metropolia-main-orange'>
-          {t('ui:worklog.edit.title')}
+          {t('worklog.edit.title')}
         </h2>
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('ui:worklog.entries.startTime')}
+              {t('worklog.entries.startTime')}
             </label>
             <input
-              title={t('ui:worklog.entries.startTime')}
+              title={t('worklog.entries.startTime')}
               type='datetime-local'
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
@@ -72,10 +72,10 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
           </div>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('ui:worklog.entries.endTime')}
+              {t('worklog.entries.endTime')}
             </label>
             <input
-              title={t('ui:worklog.entries.endTime')}
+              title={t('worklog.entries.endTime')}
               type='datetime-local'
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
@@ -84,10 +84,10 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
           </div>
           <div>
             <label className='block mb-1 text-sm text-metropolia-main-grey'>
-              {t('ui:worklog.entries.description')}
+              {t('worklog.entries.description')}
             </label>
             <textarea
-              title={t('ui:worklog.entries.description')}
+              title={t('worklog.entries.description')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className='w-full p-2 border rounded-sm'
@@ -112,12 +112,12 @@ const EditWorklogModal: React.FC<EditWorklogModalProps> = ({
               type='button'
               onClick={onClose}
               className='px-4 py-2 text-sm text-gray-600 border rounded-sm hover:bg-gray-50'>
-              {t('ui:cancel')}
+              {t('cancel')}
             </button>
             <button
               type='submit'
               className='px-4 py-2 text-sm text-white rounded-sm bg-metropolia-main-orange hover:bg-metropolia-main-orange/90'>
-              {t('ui:save')}
+              {t('save')}
             </button>
           </div>
         </form>

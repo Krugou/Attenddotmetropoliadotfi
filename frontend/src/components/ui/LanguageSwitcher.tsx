@@ -68,21 +68,30 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   }
 
   return (
-    <div className='flex gap-2'>
-      {languages.map(({code, Flag}) => (
-        <button
-          key={code}
-          onClick={() => onLanguageChange(code)}
-          className={`${buttonClassName} ${
-            currentLanguage === code
-              ? activeButtonClassName
-              : inactiveButtonClassName
-          }`}
-          title={t(`common:languages.flags.${code}`)}
-          aria-label={t(`common:languages.flags.${code}`)}>
-          <Flag className='w-6 h-4' aria-hidden='true' />
-        </button>
-      ))}
+    <div className="flex gap-2">
+      {languages.map(({code, Flag}) => {
+        const isActive = currentLanguage === code;
+
+        return (
+          <button
+            key={code}
+            onClick={() => onLanguageChange(code)}
+            className={[
+              buttonClassName,
+              isActive ? activeButtonClassName : inactiveButtonClassName,
+
+              // Grayscale vain inaktiivisille
+              !isActive
+                ? 'filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition'
+                : 'transition',
+            ].join(' ')}
+            title={t(`common:languages.flags.${code}`)}
+            aria-label={t(`common:languages.flags.${code}`)}
+          >
+            <Flag className="w-6 h-4" aria-hidden="true" />
+          </button>
+        );
+      })}
     </div>
   );
 };

@@ -191,7 +191,7 @@ const TeacherWorklogCourseGroupStats = () => {
         <div className='flex gap-4 mb-6'>
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}/${groupid}`}
-          text={t('ui:back')}
+          text={t('back')}
         />
         <GeneralLinkButton
           path={`/teacher/worklog/group/${courseid}`}
@@ -227,9 +227,9 @@ const TeacherWorklogCourseGroupStats = () => {
                 <table className='w-full mb-4'>
                   <thead>
                     <tr className='border-b'>
-                      <th className='p-2 text-left'>{t('ui:worklog.stats.labels.student')}</th>
-                      <th className='p-2 text-right'>{t('ui:worklog.stats.labels.hours')}</th>
-                      <th className='p-2 text-right'>{t('ui:worklog.stats.labels.progress')}</th>
+                      <th className='p-2 text-left'>{t('worklog.stats.labels.student')}</th>
+                      <th className='p-2 text-right'>{t('worklog.stats.labels.hours')}</th>
+                      <th className='p-2 text-right'>{t('worklog.stats.labels.progress')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -294,19 +294,19 @@ const TeacherWorklogCourseGroupStats = () => {
               <table className='w-full text-sm'>
                 <tbody>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>{t('ui:worklog.stats.labels.required')}:</td>
+                    <td className='text-left p-1'>{t('worklog.stats.labels.required')}:</td>
                     <td className='text-right p-1'>{requiredHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>{t('ui:worklog.stats.labels.completed')}:</td>
+                    <td className='text-left p-1'>{t(':worklog.stats.labels.completed')}:</td>
                     <td className='text-right p-1'>{student.completedHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>{t('ui:worklog.stats.labels.remaining')}:</td>
+                    <td className='text-left p-1'>{t('worklog.stats.labels.remaining')}:</td>
                     <td className='text-right p-1'>{student.remainingHours}h</td>
                   </tr>
                   <tr className='border-b'>
-                    <td className='text-left p-1'>{t('ui:worklog.stats.labels.progress')}:</td>
+                    <td className='text-left p-1'>{t('worklog.stats.labels.progress')}:</td>
                     <td className='text-right p-1'>{getClampedPercentage(student.percentageCompleted)}%</td>
                   </tr>
                 </tbody>

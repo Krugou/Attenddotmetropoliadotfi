@@ -57,7 +57,7 @@ const AdminUserModify: React.FC = () => {
       // Get token from local storage
       const token: string | null = localStorage.getItem('userToken');
       if (!token) {
-        toast.error(t('ui:notifications.error'));
+        toast.error(t('notifications.error'));
         return;
       }
 
@@ -71,7 +71,7 @@ const AdminUserModify: React.FC = () => {
           setModifyUser(modifyUser[0]);
           console.log(modifyUser[0]);
         } catch (error) {
-          toast.error(t('ui:notifications.loadingError'));
+          toast.error(t('notifications.loadingError'));
         }
       };
 
@@ -89,20 +89,20 @@ const AdminUserModify: React.FC = () => {
     // Get token from local storage
     const token: string | null = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:notifications.sessionExpired'));
+      toast.error(t('notifications.sessionExpired'));
       return;
     }
 
     try {
-      toast.info(t('ui:notifications.savingChanges'));
+      toast.info(t('notifications.savingChanges'));
       const response = await apiHooks.updateUser(token, editedUser);
       if (!response) {
         throw new Error('Failed to save the user data');
       }
 
-      toast.success(t('ui:notifications.saveSuccess'));
+      toast.success(t('notifications.saveSuccess'));
     } catch (error) {
-      toast.error(t('ui:notifications.saveError'));
+      toast.error(t('notifications.saveError'));
     }
   };
   /**

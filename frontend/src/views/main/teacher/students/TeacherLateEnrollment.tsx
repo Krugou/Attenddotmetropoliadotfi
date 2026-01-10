@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import NewStudentUser from '../../../../components/features/students/NewStudentUser.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
@@ -93,7 +94,6 @@ const TeacherLateEnrollment: React.FC = () => {
     }
   }, [selectedStudent]);
 
-  // Effect to filter out courses the student is already enrolled in
   useEffect(() => {
     if (editCourses && studentCourses.length > 0) {
       const filtered = editCourses.filter(
@@ -113,7 +113,7 @@ const TeacherLateEnrollment: React.FC = () => {
   const fetchStudentCourses = async (studentId: number) => {
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -125,7 +125,7 @@ const TeacherLateEnrollment: React.FC = () => {
       setStudentCourses(response.courses || []);
     } catch (error) {
       console.error('Error fetching student courses:', error);
-      toast.error(t('ui:errors.fetchFailed'));
+      toast.error(t('errors.fetchFailed'));
     }
   };
 
@@ -156,13 +156,13 @@ const TeacherLateEnrollment: React.FC = () => {
   // Add student to selected course
   const handleAddStudentToCourse = async () => {
     if (!selectedStudent || !selectedCourse) {
-      toast.error(t('ui:errors.selectionRequired'));
+      toast.error(t('errors.selectionRequired'));
       return;
     }
 
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -173,14 +173,14 @@ const TeacherLateEnrollment: React.FC = () => {
         selectedCourse.courseid,
       );
 
-      toast.success(t('ui:lateEnrollment.studentAddedToCourse'));
+      toast.success(t('lateEnrollment.studentAddedToCourse'));
       handleCloseEditCourse();
 
       // Navigate to student detail page after adding to course
       navigate(`/teacher/students/${selectedStudent.userid}`);
     } catch (error) {
       console.error('Error adding student to course:', error);
-      toast.error(t('ui:errors.enrollmentFailed'));
+      toast.error(t('errors.enrollmentFailed'));
     }
   };
 
@@ -199,7 +199,7 @@ const TeacherLateEnrollment: React.FC = () => {
     // -----------------------------
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -289,7 +289,7 @@ const TeacherLateEnrollment: React.FC = () => {
       setStudents(filtered);
     } catch (error) {
       console.error('Error searching students:', error);
-      toast.error(t('ui:errors.searchFailed'));
+      toast.error(t('errors.searchFailed'));
     } finally {
       // -----------------------------
       // 8. Disable loading indicator
@@ -298,69 +298,111 @@ const TeacherLateEnrollment: React.FC = () => {
     }
   };
 
-
   return (
-    <div className='w-full mx-auto 2xl:w-9/12'>
+    <div className="w-full px-4 mx-auto max-w-[600px]">
       {/* Enrollment mode selection */}
       {!enrollmentMode ? (
-        <div className='flex flex-col items-center justify-center gap-6 p-8 bg-white rounded-lg shadow-md'>
-          <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-            {t('ui:newStudent.title')}
-          </h1>
-          <h2 className='text-xl font-heading text-metropolia-main-grey'>
-            {t('ui:lateEnrollment.selectMode')}
-          </h2>
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+          <div className="flex flex-col items-center gap-6">
+            <h1 className="text-2xl text-center font-heading text-gray-800">
+              {t('newStudent.title')}
+            </h1>
 
-          <div className='flex flex-col gap-4 sm:flex-row sm:gap-8'>
-            <button
-              onClick={() => setEnrollmentMode('new')}
-              className='px-6 py-3 text-lg font-bold text-white transition-colors duration-200 rounded-lg shadow-md font-body bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
-              {t('ui:lateEnrollment.newStudent')}
-            </button>
+            <div className="text-center">
+              <p className="mt-2 text-lg font-body font-medium text-metropolia-main-grey">
+                {t('lateEnrollment.selectMode')}
+              </p>
+            </div>
 
-            <button
-              onClick={() => setEnrollmentMode('existing')}
-              className='px-6 py-3 text-lg font-bold transition-colors duration-200 rounded-lg shadow-md font-body text-metropolia-main-grey bg-metropolia-trend-light-blue hover:bg-metropolia-trend-light-blue-dark'>
-              {t('ui:lateEnrollment.existingStudent')}
-            </button>
+            <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* Uusi opiskelija (primary) */}
+              <button
+                type="button"
+                onClick={() => setEnrollmentMode('new')}
+                className={[
+                  'w-full rounded-xl border p-4 text-left transition-all',
+                  'border-metropolia-main-orange/30 bg-orange-50/50',
+                  'hover:border-metropolia-main-orange/60 hover:bg-orange-50',
+                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-metropolia-main-orange/30',
+                ].join(' ')}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-base font-heading font-semibold text-gray-700">
+                      {t('lateEnrollment.newStudent')}
+                    </div>
+                    <div className="mt-1 text-sm text-metropolia-main-grey/70 font-body">
+                      {t('lateEnrollment.newStudentShort')}
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* Nykyinen opiskelija (neutral) */}
+              <button
+                type="button"
+                onClick={() => setEnrollmentMode('existing')}
+                className={[
+                  'w-full rounded-xl border p-4 text-left transition-all',
+                  'border-gray-200 bg-white',
+                  'hover:border-gray-300 hover:bg-gray-50',
+                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-metropolia-main-orange/30',
+                ].join(' ')}
+              >
+                <div className="text-base font-heading font-semibold text-gray-700">
+                  {t('lateEnrollment.existingStudent')}
+                </div>
+                <div className="mt-1 text-sm text-metropolia-main-grey/70 font-body">
+                  {t('lateEnrollment.existingStudentShort')}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       ) : enrollmentMode === 'new' ? (
         /* New student enrollment form */
-        <div>
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
           <button
+            type="button"
             onClick={() => setEnrollmentMode(null)}
-            className='px-4 py-2 mb-4 font-medium transition-colors duration-200 rounded-lg font-body text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-            {t('ui:lateEnrollment.backToOptions')}
+            className="mb-2 flex items-center gap-1 text-sm font-medium text-metropolia-main-grey hover:underline"
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+            {t('lateEnrollment.backToOptions')}
           </button>
+
           <NewStudentUser />
         </div>
       ) : (
         /* Existing student search and enrollment */
-        <div className='p-6 bg-white rounded-lg shadow-md'>
-          <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-            {t('ui:newStudent.title')}
-          </h1>
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
           <button
+            type="button"
             onClick={() => setEnrollmentMode(null)}
-            className='px-4 py-2 mb-6 font-medium transition-colors duration-200 rounded-lg font-body text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-            {t('ui:lateEnrollment.backToOptions')}
+            className="mb-2 flex items-center gap-1 text-sm font-medium text-metropolia-main-grey hover:underline"
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+            {t('lateEnrollment.backToOptions')}
           </button>
 
-          <h2 className='mb-6 text-xl font-heading text-metropolia-main-grey'>
-            {t('ui:lateEnrollment.findExistingStudent')}
+          <h1 className="p-3 mb-2 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit text-metropolia-main-grey">
+            {t('newStudent.title')}
+          </h1>
+
+          <h2 className="mb-2 text-l font-heading text-metropolia-main-grey">
+            {t('lateEnrollment.findExistingStudent')}
           </h2>
 
           {/* Search input */}
-          <div className='mb-6'>
+          <div className="mb-6">
             <TextField
               value={searchTerm}
               onChange={(e) => searchStudents(e.target.value)}
               label={t('teacher:studentsView.search.byName')}
-              className='w-full bg-white'
+              className="w-full bg-white"
               fullWidth
-              variant='outlined'
-              placeholder={t('ui:lateEnrollment.searchPlaceholder')}
+              variant="outlined"
+              placeholder={t('lateEnrollment.searchPlaceholder')}
             />
           </div>
 
@@ -368,43 +410,50 @@ const TeacherLateEnrollment: React.FC = () => {
           {loading && <Loader />}
 
           {/* Search results */}
-          <div className='mt-4'>
+          <div className="mt-4">
             {!loading && searchTerm && students.length === 0 ? (
-              <p className='text-metropolia-support-red'>
-                {t('ui:lateEnrollment.noStudentsFound')}
+              <p className="text-metropolia-support-red">
+                {t('lateEnrollment.noStudentsFound')}
               </p>
             ) : (
-              <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {students.map((student) => (
                   <div
                     key={student.userid}
-                    className='p-4 transition-all duration-300 bg-white border rounded-lg shadow-sm border-metropolia-main-orange hover:shadow-lg hover:bg-gray-50'>
-                    <div className='flex flex-col gap-2'>
-                      <h3 className='text-lg font-semibold font-heading text-metropolia-main-grey'>
+                    className="p-4 bg-white border border-gray-100 rounded-xl shadow-sm transition-shadow duration-200 hover:shadow-md"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-lg font-semibold font-heading text-metropolia-main-grey">
                         {student.first_name} {student.last_name}
                       </h3>
-                      <p className='text-sm break-all text-metropolia-main-grey'>
+
+                      <p className="text-sm break-all text-metropolia-main-grey">
                         {student.email}
                       </p>
-                      <p className='text-sm text-metropolia-main-grey'>
+
+                      <p className="text-sm text-metropolia-main-grey">
                         {t('teacher:studentsView.studentCard.studentNumber')}{' '}
                         {student.studentnumber}
                       </p>
-                      <p className='text-sm text-metropolia-main-grey'>
+
+                      <p className="text-sm text-metropolia-main-grey">
                         {t('teacher:studentsView.studentCard.studentGroup')}{' '}
                         {student.group_name}
                       </p>
-                      <div className='flex flex-wrap mt-3 gap-2'>
+
+                      <div className="flex flex-wrap mt-3 gap-2">
                         <button
                           onClick={() => handleOpenEditCourse(student)}
-                          className='px-3 py-1.5 text-sm font-medium transition-colors duration-200 text-white rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
-                          {t('ui:lateEnrollment.addToCourse')}
+                          className="px-3 py-1.5 text-sm font-medium transition-colors duration-200 text-white rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark"
+                        >
+                          {t('lateEnrollment.addToCourse')}
                         </button>
 
                         <Link
                           to={`/teacher/students/${student.userid}`}
-                          className='px-3 py-1.5 text-sm font-medium transition-colors duration-200 rounded-md text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark'>
-                          {t('ui:lateEnrollment.viewDetails')}
+                          className="px-3 py-1.5 text-sm font-medium transition-colors duration-200 rounded-md text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark"
+                        >
+                          {t('lateEnrollment.viewDetails')}
                         </Link>
                       </div>
                     </div>
@@ -416,18 +465,18 @@ const TeacherLateEnrollment: React.FC = () => {
 
           {/* Course selection modal */}
           <Modal open={editCourseOpen} onClose={handleCloseEditCourse}>
-            <div className='flex items-center justify-center'>
-              <div className='absolute max-w-xl p-8 m-4 mx-auto transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2'>
-                <h3 className='mb-4 text-xl font-heading text-metropolia-main-grey'>
-                  {t('ui:lateEnrollment.selectCourse')} -{' '}
-                  {selectedStudent?.first_name} {selectedStudent?.last_name}
+            <div className="flex items-center justify-center min-h-screen px-4">
+              <div className="w-full max-w-xl bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+                <h3 className="mb-4 text-xl font-heading text-metropolia-main-grey">
+                  {t('lateEnrollment.selectCourse')} - {selectedStudent?.first_name}{' '}
+                  {selectedStudent?.last_name}
                 </h3>
 
                 <div>
                   {filteredCourses.length > 0 ? (
                     <>
                       <Autocomplete
-                        className='sm:w-[20em] w-full'
+                        className="sm:w-[20em] w-full"
                         freeSolo
                         options={filteredCourses.map(
                           (course) => `${course.name} ${course.code}`,
@@ -441,21 +490,21 @@ const TeacherLateEnrollment: React.FC = () => {
                         renderInput={(params) => (
                           <TextField
                             {...params}
-                            label={t(
-                              'teacher:studentCourse.labels.searchCourses',
-                            )}
-                            margin='normal'
-                            variant='outlined'
+                            label={t('teacher:studentCourse.labels.searchCourses')}
+                            margin="normal"
+                            variant="outlined"
                           />
                         )}
                       />
+
                       {selectedCourse && (
-                        <div className='mt-4 p-4 bg-gray-50 rounded-md'>
-                          <h4 className='font-medium text-metropolia-main-grey'>
+                        <div className="mt-4 p-4 bg-gray-50 rounded-xl">
+                          <h4 className="font-medium text-metropolia-main-grey">
                             {selectedCourse?.name} {selectedCourse?.code}
                           </h4>
-                          <p className='mt-2 text-sm'>
-                            <span className='font-medium'>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
                               {t('teacher:studentCourse.labels.topics')}:
                             </span>{' '}
                             {selectedCourse?.topic_names
@@ -470,53 +519,62 @@ const TeacherLateEnrollment: React.FC = () => {
                                 .join(', ')
                               : ''}
                           </p>
-                          <p className='mt-2 text-sm'>
-                            <span className='font-medium'>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
                               {t('teacher:studentCourse.labels.startDate')}:
                             </span>{' '}
                             {new Date(
                               selectedCourse?.start_date,
                             ).toLocaleDateString()}
                           </p>
-                          <p className='mt-2 text-sm'>
-                            <span className='font-medium'>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
                               {t('teacher:studentCourse.labels.endDate')}:
                             </span>{' '}
                             {new Date(
                               selectedCourse?.end_date,
                             ).toLocaleDateString()}
                           </p>
-                          <p className='mt-2 text-sm'>
-                            <span className='font-medium'>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
                               {t('teacher:studentCourse.labels.studentGroup')}:
                             </span>{' '}
                             {selectedCourse?.studentgroup_name}
                           </p>
                         </div>
                       )}
-                      <div className='flex justify-between mt-6'>
+
+                      <div className="flex justify-between mt-6">
                         <button
-                          className='px-4 py-2 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300'
-                          onClick={handleCloseEditCourse}>
-                          {t('ui:cancel')}
+                          className="px-4 py-2 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300"
+                          onClick={handleCloseEditCourse}
+                        >
+                          {t('cancel')}
                         </button>
+
                         <button
-                          className='px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
+                          className="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark disabled:opacity-50 disabled:cursor-not-allowed"
                           onClick={handleAddStudentToCourse}
-                          disabled={!selectedCourse}>
+                          disabled={!selectedCourse}
+                        >
                           {t('teacher:studentCourse.buttons.addToCourse')}
                         </button>
                       </div>
                     </>
                   ) : (
-                    <div className='p-4 text-center bg-gray-50 rounded-md'>
-                      <p className='text-metropolia-support-red'>
-                        {t('ui:lateEnrollment.noAvailableCourses')}
+                    <div className="p-4 text-center bg-gray-50 rounded-xl">
+                      <p className="text-metropolia-support-red">
+                        {t('lateEnrollment.noAvailableCourses')}
                       </p>
+
                       <button
-                        className='px-4 py-2 mt-4 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300'
-                        onClick={handleCloseEditCourse}>
-                        {t('ui:close')}
+                        className="px-4 py-2 mt-4 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300"
+                        onClick={handleCloseEditCourse}
+                      >
+                        {t('close')}
                       </button>
                     </div>
                   )}

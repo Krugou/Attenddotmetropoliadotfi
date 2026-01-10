@@ -5,11 +5,8 @@ import apiHooks from '../../../api';
 import {useTranslation} from 'react-i18next';
 import {UserContext} from '../../../contexts/UserContext.tsx';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.tsx';
+import EditRounded from '@mui/icons-material/EditRounded';
 
-/**
- * ProfileInfoPros interface represents the structure of the ProfileInfo props.
- * It includes a property for the user's information.
- */
 interface ProfileInfoPros {
   user: {
     username: string;
@@ -21,51 +18,34 @@ interface ProfileInfoPros {
     activeStatus: number;
     darkMode: number;
     language: string;
+    studentnumber?: string;
+    group_name?: string;
   };
 }
 
-/**
- * Role interface represents the structure of a role object.
- * It includes properties for the role's ID and name.
- */
 interface Role {
   roleid: string;
   name: string;
 }
-/**
- * ProfileInfo component.
- * This component is responsible for displaying the user's profile information and allowing the user to change their role.
- * It uses the useState and useEffect hooks from React to manage state and side effects.
- * The user's information is passed in as a prop.
- * The component fetches the roles from the API when it is mounted and stores them in a state variable.
- * The user can open a modal to change their role, and the component will call the API to make the change.
- *
- * @param {ProfileInfoPros} props The props that define the user's information.
- * @returns {JSX.Element} The rendered ProfileInfo component.
- */
+
 const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   const {t, i18n} = useTranslation(['common']);
-  const {setUser} = useContext(UserContext);
-  // Define navigate
-  const Navigate = useNavigate();
-  // Define state variables for the modal
+  const {user: currentUser, setUser} = useContext(UserContext);
+  const canChangeRole = currentUser?.role === 'admin';
+
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
-  // Define state variables for the roles
   const [roles, setRoles] = useState<Role[]>([]);
-  // Define state variable for the selected role
   const [selectedRole, setSelectedRole] = useState('');
 
-  // Fetch the roles when the component is mounted, but only if user is counselor or teacher
+
   useEffect(() => {
     const fetchRoles = async () => {
-      if (!['counselor', 'teacher'].includes(user.role)) {
-        return;
-      }
+      if (!canChangeRole) return;
 
       const token: string | null = localStorage.getItem('userToken');
-      if (!token) {
-        throw new Error('No token available');
-      }
+      if (!token) throw new Error('No token available');
 
       try {
         const roles = await apiHooks.fetchAllRolesSpecial(token);
@@ -73,40 +53,29 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
         setSelectedRole(roles[0]?.roleid || '');
       } catch (error) {
         console.error('Failed to fetch roles:', error);
-        toast.error(t('ui:profileInfo.errors.roleFetchFailed'));
+        toast.error(t('profileInfo.errors.roleFetchFailed'));
       }
     };
 
     fetchRoles();
-  }, [user.role, t]); // Add user.role as dependency
+  }, [canChangeRole, t]);
 
-  const handleOpen = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // Handle the role change
   const handleRoleChange = async () => {
     const token: string | null = localStorage.getItem('userToken');
-    if (!token) {
-      throw new Error('No token available');
-    }
+    if (!token) throw new Error('No token available');
+
     try {
-      // Call the API to change the role
-      const response = await apiHooks.changeRoleId(
-        user.email,
-        selectedRole,
-        token,
-      );
+      const response = await apiHooks.changeRoleId(user.email, selectedRole, token);
       if (!response.ok) {
         toast.error(response.error);
+        return;
       }
 
       toast.success(response.message + ' please log in again');
-      Navigate('/logout');
+      navigate('/logout');
       handleClose();
     } catch (error) {
       toast.error((error as Error).toString());
@@ -117,138 +86,227 @@ const ProfileInfo: React.FC<ProfileInfoPros> = ({user}) => {
   const handleLanguageChange = async (newLanguage: string) => {
     const token = localStorage.getItem('userToken');
     if (!token) {
-      toast.error(t('ui:languages.errors.noToken'));
+      toast.error(t('languages.errors.noToken'));
       return;
     }
 
     try {
-      const response = await apiHooks.updateUserLanguage(
-        user.email,
-        newLanguage,
-        token,
-      );
+      const response = await apiHooks.updateUserLanguage(user.email, newLanguage, token);
 
       if (response.ok) {
         await i18n.changeLanguage(newLanguage);
         setUser((prev) => (prev ? {...prev, language: newLanguage} : null));
-        toast.success(t('ui:languages.success.changed'));
+        toast.success(t('languages.success.changed'));
       } else {
-        toast.error(t('ui:languages.errors.changeFailed'));
+        toast.error(t('languages.errors.changeFailed'));
       }
     } catch (error) {
       console.error('Language update error:', error);
-      toast.error(t('ui:languages.errors.changeFailed'));
+      toast.error(t('languages.errors.changeFailed'));
     }
   };
 
+  // ---- UI helper “row” ----
+  const Row = ({
+                 label,
+                 value,
+                 right,
+               }: {
+    label: React.ReactNode;
+    value?: React.ReactNode;
+    right?: React.ReactNode;
+  }) => (
+    <div className="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-1 sm:gap-4 py-3 border-b border-gray-100">
+      <div className="text-sm text-gray-600 font-heading">{label}</div>
+      <div className="min-w-0 flex items-center justify-between gap-3">
+        <div className="min-w-0 text-sm text-gray-900 font-body break-words">{value}</div>
+        {right ? <div className="shrink-0">{right}</div> : null}
+      </div>
+    </div>
+  );
+
   return (
-    <div className='space-y-5'>
-      {/* Personal Information Section */}
-      <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
-        <h3 className='mb-3 text-lg font-heading'>
-          {t('ui:profileInfo.sections.personal')}:
-        </h3>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.name')}:</strong>{' '}
-          <span className='profileStat'>
-            {user.first_name + ' ' + user.last_name}
-          </span>
-        </p>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.username')}:</strong>{' '}
-          <span className='profileStat'>{user.username}</span>
-        </p>
-        <p className='flex flex-wrap items-center justify-between gap-1 items-base'>
-          <strong>{t('ui:profileInfo.labels.email')}:</strong>{' '}
-          <span className='profileStat w-fit'>{user.email}</span>
-        </p>
-      </div>
-
-      {/* Account Information Section */}
-      <div className='p-4 space-y-4 border-b-2 border-metropolia-main-orange'>
-        <h3 className='mb-3 text-lg font-heading'>
-          {t('ui:profileInfo.sections.account')}:
-        </h3>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.accountCreated')}:</strong>{' '}
-          <span className='profileStat'>
-            {new Date(user.created_at).toLocaleDateString()}
-          </span>
-        </p>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.role')}:</strong>{' '}
-          <div className='flex items-center gap-2'>
-            <span className='profileStat'>{user.role}</span>
-            {['counselor', 'teacher'].includes(user.role) && (
-              <button
-                className='px-2 py-1 text-white transition rounded-sm font-heading bg-metropolia-main-grey hover:bg-metropolia-trend-light-blue focus:outline-hidden focus:shadow-outline'
-                onClick={handleOpen}>
-                {t('ui:profileInfo.buttons.change')}
-              </button>
-            )}
+    <div>
+      {/* Outer card */}
+      <div className="w-full mx-auto px-3 sm:px-0 max-w-3xl min-w-80 lg:max-w-4xl bg-white rounded-2xl shadow-md border border-metropolia-main-orange/20 overflow-hidden">
+        {/* Content */}
+        <div className="px-4 py-5 sm:px-6 sm:py-8">
+          {/* Personal */}
+          <div>
+            <h3 className="text-base font-heading text-gray-900">
+              {t('profileInfo.sections.personal')}
+            </h3>
+            <div className="mt-2">
+              <Row
+                label={t('profileInfo.labels.name')}
+                value={`${user.first_name} ${user.last_name}`}
+              />
+              <Row label={t('profileInfo.labels.username')} value={user.username} />
+              <Row label={t('profileInfo.labels.email')} value={user.email} />
+              {user.role === 'student' && user.studentnumber ? (
+                <p className="flex items-center justify-between gap-2">
+                  <Row label={t('profileInfo.labels.studentNumber')} value={user.studentnumber} />
+                </p>
+              ) : null}
+              {user.role === 'student' && user.group_name ? (
+                <p className="flex items-center justify-between gap-2">
+                  <Row label={t('profileInfo.labels.studentGroup')} value={user.group_name} />
+                </p>
+              ) : null}
+            </div>
           </div>
-        </p>
+
+          {/* Account */}
+          <div className="mt-7">
+            <h3 className="text-base font-heading text-gray-900">
+              {t('profileInfo.sections.account')}
+            </h3>
+            <div className="mt-2">
+              <Row
+                label={t('profileInfo.labels.accountCreated')}
+                value={new Date(user.created_at).toLocaleDateString()}
+              />
+              <Row
+                label={t('profileInfo.labels.role')}
+                value={
+                  <span className="inline-flex items-center gap-2">
+                    <span className="px-2 py-1 rounded-md bg-gray-100 text-gray-800 text-sm font-heading">
+                      {user.role}
+                    </span>
+                  </span>
+                }
+                right={
+                  canChangeRole ? (
+                    <button
+                      onClick={handleOpen}
+                      type="button"
+                      title={t('profileInfo.buttons.change')}
+                      aria-label={t('profileInfo.buttons.change')}
+                      className="inline-flex items-center justify-center w-8 h-8 rounded-full text-metropolia-main-orange hover:bg-metropolia-main-orange/10 transition">
+                      <EditRounded fontSize="small" />
+                    </button>
+                  ) : null
+                }
+              />
+            </div>
+          </div>
+
+          {/* Preferences */}
+          <div className="mt-7">
+            <h3 className="text-base font-heading text-gray-900">
+              {t('profileInfo.sections.preferences')}
+            </h3>
+            <div className="mt-2">
+              <Row
+                label={t('profileInfo.labels.language')}
+                value={
+                  <LanguageSwitcher
+                    currentLanguage={user.language}
+                    onLanguageChange={handleLanguageChange}
+                  />
+                }
+              />
+              <Row
+                label={t('profileInfo.labels.activeStatus')}
+                value={
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className={[
+                        'inline-flex items-center px-2 py-1 rounded-md text-sm font-heading',
+                        user.activeStatus === 1
+                          ? 'bg-green-50 text-metropolia-trend-green'
+                          : 'bg-gray-100 text-gray-700',
+                      ].join(' ')}
+                    >
+                      {user.activeStatus === 1 ? t('yes') : t('no')}
+                    </span>
+                  </span>
+                }
+              />
+              <Row
+                label={t('profileInfo.labels.darkMode')}
+                value={
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className={[
+                        'inline-flex items-center px-2 py-1 rounded-md text-sm font-heading',
+                        user.darkMode === 1
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-gray-100 text-gray-700',
+                      ].join(' ')}
+                    >
+                      {user.darkMode === 1 ? t('yes') : t('no')}
+                    </span>
+                  </span>
+                }
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Preferences Section */}
-      <div className='p-4 space-y-4'>
-        <h3 className='mb-3 text-lg font-heading'>
-          {t('ui:profileInfo.sections.preferences')}:
-        </h3>
-        <div className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.language')}:</strong>{' '}
-          <LanguageSwitcher
-            currentLanguage={user.language}
-            onLanguageChange={handleLanguageChange}
+      {/* Modal: Role change */}
+      {open && canChangeRole ? (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center px-4">
+          {/* backdrop */}
+          <button
+            aria-label="Close"
+            className="absolute inset-0 bg-black/30"
+            onClick={handleClose}
           />
-        </div>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.activeStatus')}:</strong>{' '}
-          <span className='profileStat'>
-            {user.activeStatus === 1 ? t('ui:yes') : t('ui:no')}
-          </span>
-        </p>
-        <p className='flex items-center justify-between gap-2'>
-          <strong>{t('ui:profileInfo.labels.darkMode')}:</strong>{' '}
-          <span className='profileStat'>
-            {user.darkMode === 1 ? t('ui:yes') : t('ui:no')}
-          </span>
-        </p>
-      </div>
 
-      {/* Role Change Modal */}
-      {open && ['counselor', 'teacher'].includes(user.role) && (
-        <div className='pb-10 mt-5 border-y-4 border-metropolia-main-orange pt-7'>
-          <h2 className='mb-3 text-lg font-heading sm:text-2xl'>
-            {t('ui:profileInfo.roleChange.title')}
-          </h2>
-          <select
-            title={t('ui:profileInfo.roleChange.selectTitle')}
-            className='block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-white border border-gray-200 rounded-sm appearance-none cursor-pointer focus:outline-hidden focus:bg-white focus:border-gray-500'
-            value={selectedRole}
-            onChange={(e) => setSelectedRole(e.target.value)}>
-            {roles.map((role) => (
-              <option key={role.roleid} value={role.roleid}>
-                {role.name}
-              </option>
-            ))}
-          </select>
-          <div className='flex justify-between gap-10 mt-5'>
-            <button
-              type='button'
-              className='px-2 py-1 text-sm text-white transition bg-red-500 rounded-sm font-heading hover:bg-red-700 sm:text-lg sm:py-2 sm:px-4'
-              onClick={handleClose}>
-              {t('ui:cancel')}
-            </button>
-            <button
-              type='button'
-              className='px-2 py-1 text-sm text-white transition bg-green-500 rounded-sm font-heading hover:bg-green-700 sm:text-lg sm:py-2 sm:px-4'
-              onClick={handleRoleChange}>
-              {t('ui:profileInfo.buttons.changeRole')}
-            </button>
+          {/* dialog */}
+          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl border border-metropolia-main-orange/25 overflow-hidden">
+            <div className="px-6 py-5 border-b border-gray-100">
+              <h2 className="text-lg sm:text-xl font-heading text-gray-900">
+                {t('profileInfo.roleChange.title')}
+              </h2>
+              <p className="mt-1 text-sm text-gray-600 font-body">
+                {t('profileInfo.roleChange.selectTitle')}
+              </p>
+            </div>
+
+            <div className="px-6 py-5">
+              <select
+                title={t('profileInfo.roleChange.selectTitle')}
+                className="block w-full px-4 py-3 rounded-xl border border-gray-200 bg-white
+                           text-gray-900 font-body
+                           focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange/40"
+                value={selectedRole}
+                onChange={(e) => setSelectedRole(e.target.value)}
+              >
+                {roles.map((role) => (
+                  <option key={role.roleid} value={role.roleid}>
+                    {role.name}
+                  </option>
+                ))}
+              </select>
+
+              <div className="mt-5 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-xl text-sm font-heading
+                             bg-gray-100 text-gray-800 hover:bg-gray-200 transition
+                             focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  onClick={handleClose}
+                >
+                  {t('cancel')}
+                </button>
+
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-xl text-sm font-heading
+                             bg-metropolia-main-orange text-white hover:brightness-95 transition
+                             focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange/40"
+                  onClick={handleRoleChange}
+                >
+                  {t('profileInfo.buttons.changeRole')}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

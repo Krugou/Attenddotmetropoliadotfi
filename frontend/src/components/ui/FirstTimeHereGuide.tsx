@@ -82,7 +82,7 @@ const FirstTimeHereGuide: React.FC<FirstTimeHereGuideProps> = ({
         <div className='h-2'>
           <button
             onClick={handleClose}
-            aria-label={t('ui:close', 'Close')}
+            aria-label={t('close', 'Close')}
             className='absolute p-2 rounded-full text-metropolia-main-grey dark:text-metropolia-support-white top-2 right-2 hover:bg-metropolia-main-grey/10 dark:hover:bg-metropolia-support-white/10'>
             <span className='' aria-hidden='true'>
               &times;

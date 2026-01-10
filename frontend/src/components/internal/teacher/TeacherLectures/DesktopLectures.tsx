@@ -32,6 +32,15 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
     navigate(`/teacher/lectures/${lectureId}`);
   };
 
+  const getTimeOfDayLabel = (value: string) => {
+    const normalized = value?.toLowerCase().trim();
+
+    if (normalized === 'am') return t('teacher:lectures.timeOfDay.am');
+    if (normalized === 'pm') return t('teacher:lectures.timeOfDay.pm');
+
+    return value;
+  };
+
   return (
     <div className='space-y-4'>
       <div className="flex justify-end">
@@ -121,7 +130,7 @@ const DesktopLectures: React.FC<DesktopLecturesProps> = ({lectures}) => {
                   <td className='p-4 font-medium'>
                     {new Date(lecture.start_date).toLocaleDateString()}
                   </td>
-                  <td className='p-4 font-medium'>{lecture.timeofday}</td>
+                  <td className='p-4 font-medium'>{getTimeOfDayLabel(lecture.timeofday)}</td>
                   <td className='p-4'>
                     <div className='inline-flex px-4 py-2 rounded-lg bg-gray-50'>
                       <span className='font-bold text-metropolia-trend-green'>

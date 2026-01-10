@@ -45,7 +45,7 @@ const TeacherPracticumDetail: React.FC = () => {
   return (
     <DetailPageLayout
       title={practicumData?.name || t('teacher:practicum.detail.title')}
-      backLabel={t('teacher:practicum.detail.backToWorklog')}
+      backLabel={t('teacher:practicum.details.backToWorklog')}
       onBack={() =>
         navigate(user?.role === 'admin' ? '/teacher/practicum' : `/${user?.role}/practicum`)
       }
@@ -60,7 +60,6 @@ const TeacherPracticumDetail: React.FC = () => {
               <PracticumData
                 practicumData={[practicumData]}
                 disableHover
-                hideEntriesButton
               />
             )}
           </div>

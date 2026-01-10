@@ -89,7 +89,7 @@ const AttendanceRoom: React.FC = () => {
     // Check if the token is available
     if (!token) {
       // If not, display an error message and exit the function
-      toast.error(t('ui:errors.noToken'));
+      toast.error(t('errors.noToken'));
       return;
     }
 
@@ -450,7 +450,7 @@ const AttendanceRoom: React.FC = () => {
               iconClass='text-metropolia-support-yellow-dark text-2xl mx-2'
               tooltipClass='bg-white text-black p-3 rounded shadow-lg max-w-xs z-50'
               heading={t(
-                'ui:labels.userAccessInformation',
+                'labels.userAccessInformation',
                 'User Access Information',
               )}
               attendees={arrayOfStudents}

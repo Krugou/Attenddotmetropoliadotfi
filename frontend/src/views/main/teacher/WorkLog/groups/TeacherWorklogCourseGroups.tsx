@@ -188,7 +188,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
   if (loading) {
     return (
       <div className='flex items-center justify-center p-8'>
-        <div className='text-xl font-body'>{t('ui:loading')}</div>
+        <div className='text-xl font-body'>{t('loading')}</div>
       </div>
     );
   }
@@ -212,14 +212,14 @@ const TeacherWorklogCourseGroups: React.FC = () => {
             />
             <GeneralLinkButton
               path={`/teacher/worklog`}
-              text={t('ui:back')}
+              text={t('back')}
             />
           </div>
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
             className='px-4 py-2 text-white rounded-lg bg-metropolia-main-orange hover:bg-metropolia-secondary-orange transition-colors duration-200'>
             {showCreateForm
-              ? t('ui:cancel')
+              ? t('cancel')
               : t('teacher:worklog.groups.createGroup')}
           </button>
         </div>
@@ -246,7 +246,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   required
                 />
                 <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-                  {charCount}/100 {t('ui:characters')}
+                  {charCount}/100 {t('characters')}
                 </p>
               </div>
 
@@ -300,7 +300,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   type='button'
                   onClick={() => setShowCreateForm(false)}
                   className='px-4 py-2 border rounded-sm font-body hover:bg-gray-50'>
-                  {t('ui:cancel')}
+                  {t('cancel')}
                 </button>
                 <button
                   type='submit'
@@ -310,7 +310,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                       ? 'bg-gray-300 cursor-not-allowed'
                       : 'bg-metropolia-main-orange text-white hover:opacity-90'
                   }`}>
-                  {isCreatingGroup ? t('ui:creating') : t('ui:create')}
+                  {isCreatingGroup ? t('creating') : t('create')}
                 </button>
               </div>
             </form>
@@ -340,7 +340,7 @@ const TeacherWorklogCourseGroups: React.FC = () => {
                   </p>
                   <GeneralLinkButton
                     path={`/teacher/worklog/group/${courseid}/${group.group_id}`}
-                    text={t('ui:view')}
+                    text={t('view')}
                   />
                 </div>
               </div>

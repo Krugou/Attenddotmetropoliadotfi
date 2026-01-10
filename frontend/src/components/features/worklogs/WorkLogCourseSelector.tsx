@@ -40,10 +40,10 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
     return (
       <div className='p-6 text-center bg-metropolia-support-white rounded-xl shadow-lg border-2 border-metropolia-main-grey/10 transition-transform duration-300 hover:scale-[1.02]'>
         <p className='text-lg font-heading text-metropolia-main-grey'>
-          {t('ui:worklog.noCourses')}
+          {t('worklog.noCourses')}
         </p>
         <p className='text-sm font-body text-metropolia-main-grey/70 mt-3 animate-pulse'>
-          {t('ui:worklog.redirecting')}
+          {t('worklog.redirecting')}
         </p>
       </div>
     );
@@ -68,15 +68,15 @@ const WorkLogCourseSelector: React.FC<WorkLogCourseSelectorProps> = ({
   return (
     <div>
       <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
-        {t('ui:worklog.selectCourse')}
+        {t('worklog.selectCourse')}
       </label>
       <div className='relative'>
         <select
           value={selectedCourse || ''}
           onChange={onCourseChange}
           disabled={hasActiveEntry}
-          aria-label={t('ui:worklog.selectCourse')}
-          title={t('ui:worklog.selectCourse')}
+          aria-label={t('worklog.selectCourse')}
+          title={t('worklog.selectCourse')}
           className='w-full p-3 border-2 rounded-lg font-body focus:border-metropolia-main-orange focus:ring-2 focus:ring-metropolia-main-orange/20 transition-colors duration-200 appearance-none pr-10'>
           {courses.map((course) => (
             <option

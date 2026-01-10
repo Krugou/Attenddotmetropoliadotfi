@@ -74,14 +74,13 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
         label: t('teacher:toasts.topNav.lectures'),
         icon: <MenuBook fontSize="small" />,
         items: [
-          // Etusivu poistettu täältä (on nyt oma ylävalinta)
-          {
-            path: '/teacher/attendance/createlecture',
-            label: t('teacher:mainView.cards.createLecture.title'),
-          },
           {
             path: '/teacher/lectures',
             label: t('teacher:mainView.cards.lectureStats.title'),
+          },
+          {
+            path: '/teacher/attendance/createlecture',
+            label: t('teacher:mainView.cards.createLecture.title'),
           },
         ],
       },
@@ -95,12 +94,12 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
             label: t('teacher:mainView.cards.yourCourses.title'),
           },
           {
-            path: '/teacher/courses/create',
-            label: t('teacher:mainView.cards.createCourse.title'),
-          },
-          {
             path: '/teacher/courses/stats',
             label: t('teacher:mainView.cards.attendanceStats.title'),
+          },
+          {
+            path: '/teacher/courses/create',
+            label: t('teacher:mainView.cards.createCourse.title'),
           },
           {
             path: '/teacher/worklog',
@@ -110,10 +109,6 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
             path: '/teacher/worklog/create',
             label: t('teacher:mainView.cards.createWorkLogCourse.title'),
           },
-          {
-            path: '/teacher/lateenrollment',
-            label: t('teacher:mainView.cards.lateEnrollment.title'),
-          },
         ],
       },
       {
@@ -122,12 +117,16 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
         icon: <People fontSize="small" />,
         items: [
           {
+            path: '/teacher/students',
+            label: t('teacher:mainView.cards.manageStudents.title'),
+          },
+          {
             path: '/teacher/courses/activity',
             label: t('teacher:mainView.cards.studentActivity.title'),
           },
           {
-            path: '/teacher/students',
-            label: t('teacher:mainView.cards.manageStudents.title'),
+            path: '/teacher/lateenrollment',
+            label: t('teacher:mainView.cards.lateEnrollment.title'),
           },
         ],
       },
@@ -180,7 +179,7 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
     [virtualPathname],
   );
 
-  const activeGroupId: NavGroupId = useMemo(() => {
+  const activeGroupId: NavGroupId | null = useMemo(() => {
     const pathname = getVirtualPathname(location.pathname);
 
     let best: { groupId: NavGroupId; pathLen: number } | null = null;
@@ -195,7 +194,8 @@ const TeacherTopNav: React.FC<TeacherTopNavProps> = ({t}) => {
         }
       }
     }
-    return best?.groupId ?? 'lectures';
+
+    return best?.groupId ?? null;
   }, [location.pathname, navGroups]);
 
   const activeItemPathByGroup = useMemo(() => {

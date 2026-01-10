@@ -24,7 +24,7 @@ interface StudentAttendanceTableProps {
 const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
   attendanceData,
 }) => {
-  const {t} = useTranslation(['admin', 'common']);
+  const {t} = useTranslation(['common']);
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Attendance;
     direction: 'asc' | 'desc';
@@ -85,11 +85,11 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
   const getStatusText = (status: number) => {
     switch (status) {
       case 0:
-        return t('ui:attendance.status.absent');
+        return t('attendance.status.absent');
       case 1:
-        return t('ui:attendance.status.present');
+        return t('attendance.status.present');
       case 2:
-        return t('ui:attendance.status.acceptedAbsence');
+        return t('attendance.status.acceptedAbsence');
       default:
         return '';
     }
@@ -138,10 +138,10 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
       <div className='hidden md:block'>
         <div className='min-w-full overflow-hidden rounded-lg shadow-sm'>
           <p className='text-sm text-gray-500 mb-2 italic flex items-center gap-2'>
-            {t('ui:sorting.clickToSort')}
+            {t('sorting.clickToSort')}
             {sortConfig && (
               <span>
-                {t('ui:sorting.currentSort')}
+                {t('sorting.currentSort')}
                 <strong>{sortConfig.key}</strong> (
                 {t(`common:sorting.${sortConfig.direction}`)})
               </span>
@@ -151,23 +151,23 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
             <thead className='bg-gray-50'>
               <tr>
                 <SortableHeader
-                  label={t('ui:TeacherLectures.table.headers.topic')}
+                  label={t('table.headers.topic')}
                   field='topicname'
                 />
                 <SortableHeader
-                  label={t('ui:TeacherLectures.table.headers.date')}
+                  label={t('table.headers.date')}
                   field='start_date'
                 />
                 <SortableHeader
-                  label={t('ui:instructors')}
+                  label={t('instructors')}
                   field='teacher'
                 />
                 <SortableHeader
-                  label={t('ui:TeacherLectures.table.headers.timeOfDay')}
+                  label={t('table.headers.timeOfDay')}
                   field='timeofday'
                 />
                 <SortableHeader
-                  label={t('ui:attendance.status.title')}
+                  label={t('attendance.status.title')}
                   field='status'
                 />
               </tr>
@@ -214,29 +214,29 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
         <div className='flex items-center justify-between mb-4 bg-metropolia-support-white p-2 rounded transition-shadow duration-300  shadow-lg hover:shadow-xl'>
           <p className='text-sm text-gray-500 italic'>
             {sortConfig
-              ? `${t('ui:sorting.currentSort')} ${sortConfig.key} (${t(
+              ? `${t('sorting.currentSort')} ${sortConfig.key} (${t(
                   `common:sorting.${sortConfig.direction}`,
                 )})`
-              : t('ui:sorting.none')}
+              : t('sorting.none')}
           </p>
           <select
-            aria-label={t('ui:sorting.sortBy')}
+            aria-label={t('sorting.sortBy')}
             className='form-select text-sm border-gray-300 rounded-md'
             value={sortConfig?.key || ''}
             onChange={(e) => sortData(e.target.value as keyof Attendance)}>
-            <option value=''>{t('ui:sorting.sortBy')}</option>
+            <option value=''>{t('sorting.sortBy')}</option>
             <option value='topicname'>
-              {t('ui:TeacherLectures.table.headers.topic')}
+              {t('table.headers.topic')}
             </option>
             <option value='start_date'>
-              {t('ui:TeacherLectures.table.headers.date')}
+              {t('table.headers.date')}
             </option>
-            <option value='teacher'>{t('ui:instructors')}</option>
+            <option value='teacher'>{t('instructors')}</option>
             <option value='timeofday'>
-              {t('ui:TeacherLectures.table.headers.timeOfDay')}
+              {t('table.headers.timeOfDay')}
             </option>
             <option value='status'>
-              {t('ui:attendance.status.title')}
+              {t('attendance.status.title')}
             </option>
           </select>
         </div>
@@ -263,7 +263,7 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
             <div className='space-y-2'>
               <div className='flex justify-between text-sm'>
                 <span className='text-gray-500'>
-                  {t('ui:TeacherLectures.table.headers.date')}:
+                  {t('table.headers.date')}:
                 </span>
                 <span className='text-gray-700'>
                   {new Date(attendance.start_date).toLocaleDateString()}
@@ -271,13 +271,13 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
               </div>
               <div className='flex justify-between text-sm'>
                 <span className='text-gray-500'>
-                  {t('ui:instructors')}:
+                  {t('instructors')}:
                 </span>
                 <span className='text-gray-700'>{attendance.teacher}</span>
               </div>
               <div className='flex justify-between text-sm'>
                 <span className='text-gray-500'>
-                  {t('ui:TeacherLectures.table.headers.timeOfDay')}:
+                  {t('table.headers.timeOfDay')}:
                 </span>
                 <span className='text-gray-700'>{attendance.timeofday}</span>
               </div>

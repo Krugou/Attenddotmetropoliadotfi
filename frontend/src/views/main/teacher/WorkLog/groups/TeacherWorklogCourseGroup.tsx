@@ -270,12 +270,12 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           </div>
           <div className='p-6 bg-white rounded-lg shadow-sm'>
             <h3 className='mb-2 text-lg font-heading'>
-              {t('ui:worklog.entries.total')}: {totalHours.toFixed(1)}h
+              {t('worklog.entries.total')}: {totalHours.toFixed(1)}h
             </h3>
           </div>
           <div className='p-6 bg-white rounded-lg shadow-sm'>
             <h3 className='mb-2 text-lg font-heading'>
-              {t('ui:worklog.entries.entries')}:{' '}
+              {t('worklog.entries.entries')}:{' '}
               {groupDetails.entries.length}
             </h3>
           </div>
@@ -311,7 +311,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                     <button
                       onClick={() => handleRemoveStudent(student.userid)}
                       className='text-red-600 hover:text-red-800 transition-colors'
-                      title={t('ui:remove')}>
+                      title={t('remove')}>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         className='h-5 w-5'
@@ -417,7 +417,7 @@ const TeacherWorklogCourseGroup: React.FC = () => {
                           <button
                             onClick={() => handleDeleteEntry(entry.entry_id, entry.start_time)}
                             className='text-red-600 hover:text-red-800 transition-colors p-1'
-                            title={t('ui:delete')}>
+                            title={t('delete')}>
                             <DeleteIcon fontSize="small" />
                           </button>
                         </td>
@@ -559,10 +559,10 @@ const TeacherWorklogCourseGroup: React.FC = () => {
           <Button
             onClick={() => setDeleteEntryDialog({ open: false, entryId: null, entryDate: '' })}
           >
-            {t('ui:cancel')}
+            {t('cancel')}
           </Button>
           <Button onClick={handleConfirmDeleteEntry} color="error" autoFocus>
-            {t('ui:delete')}
+            {t('delete')}
           </Button>
         </DialogActions>
       </Dialog>

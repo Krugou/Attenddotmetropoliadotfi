@@ -49,7 +49,7 @@ const Logout = () => {
     // Delay the navigation by 1 second
     const timeoutId = setTimeout(() => {
       // Display a success toast message with translated text
-      toast.success(t('ui:logout.success', 'Logged out successfully!'));
+      toast.success(t('logout.success', 'Logged out successfully!'));
 
       // Navigate back to the home page
       navigate('/');

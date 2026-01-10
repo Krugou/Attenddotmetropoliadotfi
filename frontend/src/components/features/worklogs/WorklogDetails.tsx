@@ -128,7 +128,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
           maxLength={100}
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {nameCharCount}/100 {t('ui:characters')}
+          {nameCharCount}/100 {t('characters')}
         </p>
       </div>
 
@@ -166,7 +166,7 @@ const WorklogDetails: React.FC<WorklogDetailsProps> = ({
           className='p-2 border rounded-lg w-full'
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {charCount}/500 {t('ui:characters')}
+          {charCount}/500 {t('characters')}
         </p>
       </div>
 

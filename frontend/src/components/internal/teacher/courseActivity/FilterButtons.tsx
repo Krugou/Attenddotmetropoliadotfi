@@ -25,7 +25,7 @@ export const FilterButtons: React.FC<FilterButtonsProps> = ({
               ? 'bg-metropolia-main-orange text-white shadow-md scale-105'
               : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-metropolia-main-orange hover:text-metropolia-main-orange'
           }`}>
-        {t('ui:allTime')}
+        {t('allTime')}
       </button>
       <button
         onClick={() => setFilterPeriod('week')}
@@ -35,7 +35,7 @@ export const FilterButtons: React.FC<FilterButtonsProps> = ({
               ? 'bg-metropolia-main-orange text-white shadow-md scale-105'
               : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-metropolia-main-orange hover:text-metropolia-main-orange'
           }`}>
-        {t('ui:lastWeek')}
+        {t('inLastWeek')}
       </button>
       <button
         onClick={() => setFilterPeriod('month')}
@@ -45,7 +45,7 @@ export const FilterButtons: React.FC<FilterButtonsProps> = ({
               ? 'bg-metropolia-main-orange text-white shadow-md scale-105'
               : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-metropolia-main-orange hover:text-metropolia-main-orange'
           }`}>
-        {t('ui:lastMonth')}
+        {t('inLastMonth')}
       </button>
       {threshold && typeof threshold === 'number' && (
         <button
@@ -56,7 +56,7 @@ export const FilterButtons: React.FC<FilterButtonsProps> = ({
                 ? 'bg-metropolia-main-orange text-white shadow-md scale-105'
                 : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-metropolia-main-orange hover:text-metropolia-main-orange'
             }`}>
-          {t('ui:belowThreshold', {threshold})}
+          {t('belowThreshold', {threshold})}
         </button>
       )}
     </div>

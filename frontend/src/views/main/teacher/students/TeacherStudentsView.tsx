@@ -1,17 +1,17 @@
-import WarningIcon from '@mui/icons-material/Warning';
 import Autocomplete from '@mui/material/Autocomplete';
 import {Pagination} from '@mui/material';
-
 import TextField from '@mui/material/TextField';
 import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
+//import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
 import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {useCourses} from '../../../../hooks/courseHooks';
 import {useTranslation} from 'react-i18next';
 import Loader from '../../../../utils/Loader';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import Tooltip from '@mui/material/Tooltip';
 
 /**
  * Student interface.
@@ -74,6 +74,8 @@ const TeacherStudentsView: React.FC = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [studentsPerPage] = useState(100);
   const {t} = useTranslation(['teacher']);
+  type SearchMode = 'name' | 'course';
+  const [searchMode, setSearchMode] = useState<SearchMode>('name');
 
   /**
    * Generic function to fetch students with error handling
@@ -258,131 +260,230 @@ const TeacherStudentsView: React.FC = () => {
     setPage(value);
   };
 
+
+  const handleModeChange = (mode: SearchMode) => {
+    setSearchMode(mode);
+
+    if (mode === 'name') {
+      // kurssi pois päältä -> takas nimihakuun
+      setSelectedCourse(null);
+      // searchStudents(searchTerm);
+    } else {
+      // nimi pois päältä -> kurssihakuun
+      setSearchTerm('');
+      // searchStudents('');
+    }
+  };
+
   return (
-    <div className='w-full mx-auto 2xl:w-9/12'>
-      <div className='flex flex-col items-center gap-5 sm:gap-0 sm:flex-row'>
-        <h1 className='p-3 mb-4 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit'>
-          {t('teacher:studentsView.title')}
-        </h1>
-      </div>
-      <div className='w-full max-h-[40em] 2xl:max-h-[60em] overflow-y-scroll rounded-xl bg-gray-100 p-2 sm:p-5'>
-        <div className='ml-0 lg:ml-4'>
-          <GeneralLinkButton
-            path={
-              user?.role === 'admin'
-                ? '/counselor/mainview'
-                : `/${user?.role}/mainview`
-            }
-            text={t('teacher:studentsView.buttons.backToMainview')}
-          />
-        </div>
-        <div className='flex flex-col items-center justify-between md:flex-row'>
-          <div className='w-8/12 sm:w-[15em] mt-5 lg:ml-4 ml-0 mb-4'>
-            <TextField
-              value={searchTerm}
-              onChange={(e) => searchStudents(e.target.value)}
-              label={t('teacher:studentsView.search.byName')}
-              className='bg-white'
-            />
+    <div className="w-full">
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6">
+        <section className="bg-gray-50/70 rounded-2xl border border-gray-200 shadow-sm p-5 sm:p-6 md:p-8">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <Tooltip title={t('teacher:studentsView.buttons.backToMainview')} arrow>
+                <Link
+                  to={
+                    user?.role === 'admin'
+                      ? '/counselor/mainview'
+                      : `/${user?.role}/mainview`
+                  }
+                  aria-label={t('teacher:studentsView.buttons.backToMainview')}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full text-metropolia-main-orange hover:bg-metropolia-main-orange/10 transition-colors shrink-0"
+                >
+                  <ArrowBackRoundedIcon fontSize="medium" />
+                </Link>
+              </Tooltip>
+
+              <h1 className="text-2xl sm:text-3xl font-heading truncate">
+                {t('teacher:studentsView.title')}
+              </h1>
+            </div>
+            <div className="w-10 h-10 shrink-0" />
           </div>
 
-          <Autocomplete
-            className='sm:w-[15em] w-10/12 mr-0 md:mr-4'
-            freeSolo
-            options={courses.map(
-              (course: SelectedCourse) => `${course.name} ${course.code}`,
-            )}
-            onChange={(_, value) => handleCourseSelect(value as string)}
-            value={
-              selectedCourse
-                ? `${selectedCourse.name} ${selectedCourse.code}`
-                : null
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t('teacher:studentsView.search.byCourse')}
-                margin='normal'
-                variant='outlined'
-                className='bg-white'
-              />
-            )}
-          />
-        </div>
-        <p className='flex items-center p-4 text-lg text-yellow-600'>
-          <WarningIcon fontSize='large' />
-          <span className='ml-2'>
-            {t(
-              `teacher:studentsView.info.${
-                selectedCourse ? 'searchingCourse' : 'searchingAll'
-              }`,
-            )}
-          </span>
-        </p>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-          {filteredStudents.map((student) => (
-            <Link
-              key={student.userid}
-              to={
-                user?.role === 'admin'
-                  ? `/counselor/students/${student.userid}`
-                  : `/${user?.role}/students/${student.userid}`
-              }
-              className='max-w-full mx-1 mb-4 transition duration-300 bg-white rounded-sm shadow-lg lg:mx-2 xl:mx-4 w-12/12 hover:bg-gray-200'>
-              <div className='flex flex-col px-4 py-2 text-sm lg:px-4 lg:py-4 md:text-base'>
-                <div className='mb-2 text-lg underline font-heading underline-offset-8 decoration-metropolia-main-orange'>
-                  {student.first_name} {student.last_name}
+          {/* Content card (scroll area) */}
+          <div className="mt-5 rounded-2xl border border-gray-200 bg-white/70 shadow-sm">
+            {/* Filters bar */}
+            <div className="p-4 sm:p-5 border-b border-gray-200 ">
+              <div className="grid gap-3 md:grid-cols-[1fr_260px] md:items-center">
+                {/* Search input */}
+                <div className="w-full min-w-0 ">
+                  {searchMode === 'name' ? (
+                    <TextField
+                      value={searchTerm}
+                      onChange={(e) => searchStudents(e.target.value)}
+                      label={t('teacher:studentsView.search.byName')}
+                      className="bg-white w-full"
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: '12px',
+                          height: 56,
+                          backgroundColor: '#fff',
+                        },
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#e5e7eb',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#d1d5db',
+                        },
+                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#ff5a00',
+                        },
+                      }}
+                    />
+                  ) : (
+                    <Autocomplete
+                      className="w-full"
+                      freeSolo
+                      options={courses.map(
+                        (course: SelectedCourse) => `${course.name} ${course.code}`,
+                      )}
+                      onChange={(_, value) => handleCourseSelect(value as string)}
+                      value={selectedCourse ? `${selectedCourse.name} ${selectedCourse.code}` : null}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('teacher:studentsView.search.byCourse')}
+                          variant="outlined"
+                          className="bg-white"
+                          sx={{
+                            '& .MuiOutlinedInput-root': {
+                              borderRadius: '12px',
+                              height: 56,
+                            },
+                          }}
+                        />
+                      )}
+                    />
+                  )}
                 </div>
-                {student.email && (
-                  <p>{t('teacher:studentsView.studentCard.email')}</p>
-                )}
-                <p className='break-all'>{student.email}</p>
-                <div className='flex flex-col gap-3 mt-3'>
-                  {student.username && (
-                    <p>
-                      {t('teacher:studentsView.studentCard.username')}{' '}
-                      {student.username}
-                    </p>
-                  )}
-                  {student.studentnumber && (
-                    <p>
-                      {t('teacher:studentsView.studentCard.studentNumber')}{' '}
-                      {student.studentnumber}
-                    </p>
-                  )}
-                  {student.group_name && (
-                    <p>
-                      {t('teacher:studentsView.studentCard.studentGroup')}{' '}
-                      {student.group_name}
-                    </p>
-                  )}
-                  {student.created_at && (
-                    <p>
-                      {t('teacher:studentsView.studentCard.accountCreated')}{' '}
-                      {new Date(student.created_at).toLocaleString()}
-                    </p>
-                  )}
-                  <div className='flex flex-wrap items-center justify-between p-2'>
-                    <p className='text-blue-500'>
-                      {t('teacher:studentsView.studentCard.clickDetails')}
-                    </p>
+
+                {/* Mode toggle (right side) */}
+                <div className="flex md:justify-end">
+                  <div className="inline-flex h-[56px] items-center rounded-xl border border-gray-200 bg-white p-1 w-full md:w-[260px]">
+                    <button
+                      type="button"
+                      onClick={() => handleModeChange('name')}
+                      className={[
+                        'h-full flex-1 px-4 text-sm rounded-lg font-body transition-colors whitespace-nowrap',
+                        searchMode === 'name'
+                          ? 'bg-orange-50 text-metropolia-main-orange'
+                          : 'text-gray-700 hover:bg-gray-50',
+                      ].join(' ')}
+                    >
+                      {t('teacher:studentsView.search.modes.name')}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleModeChange('course')}
+                      className={[
+                        'h-full flex-1 px-4 text-sm rounded-lg font-body transition-colors whitespace-nowrap',
+                        searchMode === 'course'
+                          ? 'bg-orange-50 text-metropolia-main-orange'
+                          : 'text-gray-700 hover:bg-gray-50',
+                      ].join(' ')}
+                    >
+                      {t('teacher:studentsView.search.modes.course')}
+                    </button>
                   </div>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
-        {totalPages > 1 && (
-          <div className='flex justify-center p-4'>
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={handlePageChange}
-              variant='outlined'
-              shape='rounded'
-            />
+            </div>
+
+            {/* Scrollable list area */}
+            <div className="max-h-[40em] 2xl:max-h-[60em] overflow-y-auto p-4 sm:p-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredStudents.map((student) => (
+                  <Link
+                    key={student.userid}
+                    to={
+                      user?.role === 'admin'
+                        ? `/counselor/students/${student.userid}`
+                        : `/${user?.role}/students/${student.userid}`
+                    }
+                    className={[
+                      'group block rounded-2xl border border-gray-200 bg-white shadow-sm transition',
+                      'hover:border-metropolia-main-orange/40 hover:shadow-md hover:-translate-y-[1px]',
+                      'focus:outline-none focus:ring-2 focus:ring-metropolia-main-orange/30',
+                    ].join(' ')}
+                  >
+                    <div className="p-4 sm:p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="text-lg font-heading text-gray-900 truncate">
+                            {student.first_name} {student.last_name}
+                          </h3>
+                          <p className="mt-1 text-sm text-gray-600 break-words">
+                            {student.email}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 space-y-2 text-sm text-gray-800 font-body">
+                        {student.username && (
+                          <div className="flex gap-2">
+                          <span className="text-gray-500">
+                            {t('teacher:studentsView.studentCard.username')}
+                          </span>
+                            <span className="font-medium break-words">
+                            {student.username}
+                          </span>
+                          </div>
+                        )}
+
+                        {student.studentnumber && (
+                          <div className="flex gap-2">
+                          <span className="text-gray-500">
+                            {t('teacher:studentsView.studentCard.studentNumber')}
+                          </span>
+                            <span className="font-medium">
+                            {student.studentnumber}
+                          </span>
+                          </div>
+                        )}
+
+                        {student.group_name && (
+                          <div className="flex gap-2">
+                          <span className="text-gray-500">
+                            {t('teacher:studentsView.studentCard.studentGroup')}
+                          </span>
+                            <span className="font-medium break-words">
+                            {student.group_name}
+                          </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="mt-5 flex items-center justify-between">
+                      <span className="text-sm text-metropolia-main-orange font-body">
+                        {t('teacher:studentsView.studentCard.clickDetails')}
+                      </span>
+                        <span className="text-gray-300 group-hover:text-metropolia-main-orange/40 transition">
+                        →
+                      </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="flex justify-center pt-6">
+                  <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
+                    variant="outlined"
+                    shape="rounded"
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        )}
+        </section>
       </div>
     </div>
   );

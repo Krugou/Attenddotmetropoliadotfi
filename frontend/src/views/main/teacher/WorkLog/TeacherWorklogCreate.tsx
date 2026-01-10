@@ -61,7 +61,7 @@ const WorkLogCreate = () => {
       !formData.startDate ||
       !formData.endDate
     ) {
-      setError(t('ui:errors.fillRequiredFields'));
+      setError(t('errors.fillRequiredFields'));
       return;
     }
 
@@ -267,7 +267,7 @@ const WorkLogCreate = () => {
               })
             }
             className='px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300'>
-            {t('ui:reset')}
+            {t('reset')}
           </button>
           <button
             type='submit'

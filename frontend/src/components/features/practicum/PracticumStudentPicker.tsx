@@ -34,7 +34,7 @@ const PracticumStudentPicker: React.FC<Props> = ({students, setStudents}) => {
 
       const token = localStorage.getItem('userToken');
       if (!token) {
-        toast.error(t('ui:errors.noToken'));
+        toast.error(t('errors.noToken'));
         return;
       }
 
@@ -56,7 +56,7 @@ const PracticumStudentPicker: React.FC<Props> = ({students, setStudents}) => {
         setMatchingStudents(found);
         setSearchStatus(found.length > 0 ? 'found' : 'notFound');
       } catch {
-        toast.error(t('ui:errors.searchFailed'));
+        toast.error(t('errors.searchFailed'));
       } finally {
         setIsSearching(false);
       }
@@ -127,7 +127,7 @@ const PracticumStudentPicker: React.FC<Props> = ({students, setStudents}) => {
               type="button"
               onClick={removeSelected}
               className="text-metropolia-support-red p-2 hover:bg-gray-100 rounded-full"
-              aria-label={t('ui:remove')}
+              aria-label={t('remove')}
             >
               ✕
             </button>
@@ -163,10 +163,10 @@ const PracticumStudentPicker: React.FC<Props> = ({students, setStudents}) => {
                 {isSearching ? (
                   <span className="inline-flex items-center justify-center">
                     <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                    {t('ui:checking')}
+                    {t('checking')}
                   </span>
                 ) : (
-                  t('ui:check')
+                  t('check')
                 )}
               </button>
             </div>

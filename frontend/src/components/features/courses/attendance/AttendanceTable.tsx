@@ -70,13 +70,13 @@ interface AttendanceTableProps {
  * A table component that displays the attendance of students for specific classes.
  */
 const AttendanceTable: React.FC<AttendanceTableProps> = ({
-  filteredAttendanceData,
-  student,
-  allAttendances,
-  updateView,
-}) => {
+                                                           filteredAttendanceData,
+                                                           student,
+                                                           allAttendances,
+                                                           updateView,
+                                                         }) => {
   const {user} = useContext(UserContext);
-  const {t} = useTranslation(['admin', 'common']);
+  const {t} = useTranslation(['teacher']);
   const handleStatusChange = async (newStatus: number, attendanceid?) => {
     try {
       const token: string | null = localStorage.getItem('userToken');
@@ -94,104 +94,171 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
     }
   };
 
+  const statusMeta = (status: number) => {
+    switch (status) {
+      case 1:
+        return {
+          label: t('attendance.status.present'),
+          dot: 'bg-green-500',
+          pill: 'bg-green-50 text-green-800 border-green-200',
+        };
+      case 2:
+        return {
+          label: t('attendance.status.acceptedAbsence'),
+          dot: 'bg-orange-500',
+          pill: 'bg-orange-50 text-orange-800 border-orange-200',
+        };
+      default:
+        return {
+          label: t('attendance.status.absent'),
+          dot: 'bg-red-500',
+          pill: 'bg-red-50 text-red-800 border-red-200',
+        };
+    }
+  };
+
+  const statusSelectSx = (status: number) => {
+    const common = {
+      minWidth: 170,
+      borderRadius: 2,
+      fontSize: '0.875rem',
+      '& .MuiSelect-select': {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+      },
+    } as const;
+
+    if (status === 1) {
+      return {
+        ...common,
+        backgroundColor: 'rgba(34,197,94,0.12)',
+        '& .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(34,197,94,0.45)'},
+        '&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(34,197,94,0.70)'},
+      };
+    }
+
+    if (status === 2) {
+      return {
+        ...common,
+        backgroundColor: 'rgba(249,115,22,0.12)',
+        '& .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(249,115,22,0.45)'},
+        '&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(249,115,22,0.70)'},
+      };
+    }
+
+    return {
+      ...common,
+      backgroundColor: 'rgba(239,68,68,0.10)',
+      '& .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(239,68,68,0.45)'},
+      '&:hover .MuiOutlinedInput-notchedOutline': {borderColor: 'rgba(239,68,68,0.70)'},
+    };
+  };
+
   return (
-    <TableContainer className='overflow-x-auto border-gray-300 border-x border-t max-h-[20em] mt-5 mb-5 rounded-lg shadow-sm'>
-      <Table className='min-w-full divide-y divide-gray-200'>
-        <TableHead className='sticky top-0 z-10 bg-white'>
+    <TableContainer
+      className="mt-5 mb-5 overflow-x-auto rounded-2xl border border-gray-200 bg-white/95 shadow-md">
+      <Table className="min-w-full table-fixed">
+        <TableHead
+          className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b-2 border-metropolia-main-orange/20">
           <TableRow>
-            <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('ui:TeacherLectures.table.headers.date')}
+            <TableCell className="w-[110px] px-3 py-2 text-[10px] md:text-[11px] font-semibold tracking-wider text-left text-gray-500 uppercase">
+              {t('TeacherLectures.table.headers.date')}
             </TableCell>
-            {student && (
-              <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-                {t('ui:user')}
+
+            {(student || allAttendances) && (
+              <TableCell className="min-w-0 w-[110px] px-3 py-2 text-[10px] md:text-[11px] font-semibold tracking-wider text-left text-gray-500 uppercase">
+                {t('TeacherLectures.table.headers.student')}
               </TableCell>
             )}
-            {allAttendances && (
-              <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-                {t('ui:user')}
-              </TableCell>
-            )}
-            <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('ui:instructors')}
+
+            <TableCell className="w-[110px] px-3 py-2 text-[10px] md:text-[11px] font-semibold tracking-wider text-left text-gray-500 uppercase hidden lg:table-cell">
+              {t('TeacherLectures.table.headers.topicName')}
             </TableCell>
-            <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('ui:TeacherLectures.table.headers.timeOfDay')}
-            </TableCell>
-            <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('ui:TeacherLectures.table.headers.topicName')}
-            </TableCell>
-            <TableCell className='px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase'>
-              {t('ui:status')}
+
+            <TableCell className="w-[130px] md:w-[170px] px-3 py-2 text-[10px] md:text-[11px] font-semibold tracking-wider text-right text-gray-500 uppercase">
+              {t('TeacherLectures.table.headers.status')}
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody className='bg-white divide-y divide-gray-200'>
-          {filteredAttendanceData.map((attendance, index) => (
-            <TableRow
-              key={index}
-              className={`border-b hover:bg-gray-50 ${
-                attendance.status === 0
-                  ? 'bg-red-200'
-                  : attendance.status === 1
-                  ? 'bg-green-200'
-                  : 'bg-orange-200'
-              }`}>
-              <TableCell className='px-6 py-4 whitespace-nowrap'>
-                {new Date(attendance.start_date).toLocaleDateString()}
-              </TableCell>
-              {student && (
-                <TableCell className='px-6 py-4 whitespace-nowrap'>
-                  {student.last_name} {student.first_name}
+
+        <TableBody>
+          {filteredAttendanceData.map((attendance: any, index) => {
+            const meta = statusMeta(attendance.status);
+
+            return (
+              <TableRow
+                key={index}
+                className={[
+                  'border-b border-gray-100',
+                  'hover:bg-gray-50 transition-colors',
+                  index % 2 === 0 ? 'bg-white' : 'bg-gray-50/40',
+                ].join(' ')}
+              >
+                <TableCell
+                  className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                  {new Date(attendance.start_date).toLocaleDateString()}
                 </TableCell>
-              )}
-              {allAttendances && (
-                <TableCell className='px-6 py-4 whitespace-nowrap'>
-                  {attendance.last_name} {attendance.first_name}
+
+                {student && (
+                  <TableCell
+                    className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                    {student.last_name} {student.first_name}
+                  </TableCell>
+                )}
+
+                {allAttendances && (
+                  <TableCell
+                    className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                    {attendance.last_name} {attendance.first_name}
+                  </TableCell>
+                )}
+
+                <TableCell
+                  className="px-4 py-3 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">
+                  {attendance.topicname}
                 </TableCell>
-              )}
-              <TableCell className='px-6 py-4 whitespace-nowrap'>
-                {attendance.teacher}
-              </TableCell>
-              <TableCell className='px-6 py-4 whitespace-nowrap'>
-                {attendance.timeofday}
-              </TableCell>
-              <TableCell className='px-6 py-4 whitespace-nowrap'>
-                {attendance.topicname}
-              </TableCell>
-              <TableCell className='px-6 py-4 whitespace-nowrap'>
-                {user?.role !== 'student' && (
-                  <Select
-                    value={attendance.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        e.target.value as number,
-                        attendance.attendanceid,
-                      )
-                    }>
-                    <MenuItem value={0}>
-                      {t('ui:attendance.status.absent')}
-                    </MenuItem>
-                    <MenuItem value={1}>
-                      {t('ui:attendance.status.present')}
-                    </MenuItem>
-                    <MenuItem value={2}>
-                      {t('ui:attendance.status.acceptedAbsence')}
-                    </MenuItem>
-                  </Select>
-                )}
-                {user?.role === 'student' && (
-                  <p>
-                    {attendance.status === 0
-                      ? t('ui:attendance.status.absent')
-                      : attendance.status === 1
-                      ? t('ui:attendance.status.present')
-                      : t('ui:attendance.status.acceptedAbsence')}
-                  </p>
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
+
+                <TableCell className="px-4 py-3 whitespace-nowrap text-right">
+                  {user?.role !== 'student' ? (
+                    <Select
+                      size="small"
+                      value={attendance.status}
+                      onChange={e =>
+                        handleStatusChange(e.target.value as number, attendance.attendanceid)
+                      }
+                      sx={statusSelectSx(attendance.status)}
+                      renderValue={value => {
+                        const m = statusMeta(value as number);
+                        return (
+                          <span
+                            className="inline-flex items-center gap-2 font-medium">
+                            <span className={`h-2 w-2 rounded-full ${m.dot}`} />
+                            {m.label}
+                          </span>
+                        );
+                      }}
+                    >
+                      <MenuItem
+                        value={0}>{t('attendance.status.absent')}</MenuItem>
+                      <MenuItem
+                        value={1}>{t('attendance.status.present')}</MenuItem>
+                      <MenuItem
+                        value={2}>{t('attendance.status.acceptedAbsence')}</MenuItem>
+                    </Select>
+                  ) : (
+                    <span
+                      className={`inline-flex items-center gap-2 px-2 py-1 rounded-full border text-xs font-medium ${meta.pill}`}>
+                      <span className={`h-2 w-2 rounded-full ${meta.dot}`} />
+                      {meta.label}
+                    </span>
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

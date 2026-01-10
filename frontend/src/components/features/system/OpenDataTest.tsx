@@ -14,7 +14,7 @@ const OpenDataTest: React.FC<OpenDataTestProps> = ({token}) => {
     const checkOpenData = async () => {
       const isConnected = await testOpenDataConnection(token);
       if (!isConnected) {
-        toast.error(t('ui:errors.openDataConnectionFailed'), {
+        toast.error(t('errors.openDataConnectionFailed'), {
           toastId: 'opendata-error',
         });
       }

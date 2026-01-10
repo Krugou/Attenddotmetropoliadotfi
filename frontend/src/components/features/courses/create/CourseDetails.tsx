@@ -144,7 +144,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
           maxLength={100}
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {courseNameCharCount}/100 {t('ui:characters')}
+          {courseNameCharCount}/100 {t('characters')}
         </p>
       </div>
 
@@ -158,7 +158,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
           maxLength={100}
         />
         <p className='mt-1 text-sm text-gray-500 text-right font-body'>
-          {groupCharCount}/100 {t('ui:characters')}
+          {groupCharCount}/100 {t('characters')}
         </p>
       </div>
 

@@ -1,7 +1,7 @@
-import GetAppIcon from '@mui/icons-material/GetApp';
-import PrintIcon from '@mui/icons-material/Print';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
-import Button from '@mui/material/Button';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import TableChartIcon from '@mui/icons-material/TableChart';
+//import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import React, {useContext, useEffect, useState} from 'react';
 import Calendar from 'react-calendar';
@@ -11,6 +11,8 @@ import {UserContext} from '../../../../contexts/UserContext';
 import apiHooks from '../../../../api';
 import {exportToExcel, exportToPDF} from '../../../../utils/exportData';
 import {useTranslation} from 'react-i18next';
+import { Link } from 'react-router-dom';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 /**
  * TeacherCourseAttendances component.
@@ -113,117 +115,191 @@ const TeacherCourseAttendances: React.FC = () => {
   };
 
   return (
-    <div className='w-full p-4 bg-gray-100 rounded-lg md:w-3/4'>
-      <h1 className='mb-5 text-3xl text-center font-heading'>
-        {t('teacher:courseAttendances.title')}
-      </h1>
-      <div className='flex justify-center m-4 '>
-        <div className='flex flex-col items-center justify-around sm:flex-row sm:space-x-4 w-full'>
-          <div className='w-full sm:w-1/2 lg:w-1/3'>
-            <h2 className='p-2 text-center text-white bg-metropolia-secondary-orange'>
-              {t('teacher:courseAttendances.search.heading')}
-            </h2>
-            <Calendar
-              className='w-full md:w-3/4 mb-4 sm:mb-0'
-              // @ts-ignore
-              onChange={handleDateChange}
-              value={selectedDate}
-              tileContent={({date}) => {
-                const calendarDate = new Date(date).toLocaleDateString();
-                const isLectureStartDate =
-                  lectureStartDates.includes(calendarDate);
-                return isLectureStartDate ? (
-                  <div className='w-full h-full bg-yellow-300'></div>
-                ) : null;
-              }}
-            />
-          </div>
-          <div className='flex items-center'>
-            <Button
-              variant='contained'
-              color='primary'
-              startIcon={<ShowChartIcon />}
-              className='mt-4 h-fit sm:mt-0'
-              onClick={() => navigate(`/teacher/courses/stats/${courseId}`)}>
-              {t('teacher:courseAttendances.buttons.statistics')}
-            </Button>
-          </div>
-        </div>
-      </div>
-      {selectedDate && (
-        <div className='w-full p-5 m-auto bg-white'>
-          {filteredAttendances.length > 0 ? (
-            <>
-              <div className='flex justify-around mt-4 '>
-                <Tooltip
-                  title={t('teacher:courseAttendances.buttons.printPdf')}>
-                  <button
-                    onClick={handlePrintToPdf}
-                    className='p-2 text-white rounded-sm bg-metropolia-main-orange'
-                    title={t('teacher:courseAttendances.buttons.printPdf')}>
-                    <PrintIcon fontSize='large' />
-                  </button>
-                </Tooltip>
-                <div className='flex flex-col'>
-                  <h2 className='text-2xl text-center'>
-                    {t('teacher:courseAttendances.table.title', {
-                      date: selectedDate.toLocaleDateString(),
-                    })}
-                  </h2>
-                  {user?.role !== 'student' && (
-                    <button
-                      className='p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
-                      onClick={handleToggleOwnAttendances}>
-                      {t(
-                        `teacher:courseAttendances.buttons.toggleView.${
-                          showOwnAttendances ? 'showAll' : 'showOwn'
-                        }`,
-                      )}
-                    </button>
-                  )}
-                </div>
-                <Tooltip
-                  title={t('teacher:courseAttendances.buttons.exportExcel')}>
-                  <button
-                    onClick={handleExportToExcel}
-                    className='p-2 text-white rounded-sm bg-metropolia-main-orange'
-                    title={t('teacher:courseAttendances.buttons.exportExcel')}>
-                    <GetAppIcon fontSize='large' />
-                  </button>
-                </Tooltip>
-              </div>
+    <div className="w-full">
+      <div className="mx-auto w-full max-w-[1400px] px-6">
+        {/* Page card */}
+        <section className="bg-gray-50/70 rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <Tooltip title={t('teacher:courseAttendances.buttons.backToCourses')} arrow>
+                <Link
+                  to={
+                    user?.role === 'admin' || user?.role === 'counselor'
+                      ? '/counselor/courses'
+                      : '/teacher/courses'
+                  }
+                  aria-label={t('teacher:courseAttendances.buttons.backToCourses')}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full text-metropolia-main-orange hover:bg-metropolia-main-orange/10 transition-colors shrink-0"
+                >
+                  <ArrowBackRoundedIcon fontSize="medium" />
+                </Link>
+              </Tooltip>
 
-              <AttendanceTable
-                filteredAttendanceData={filteredAttendances}
-                allAttendances={true}
-                updateView={updateView}
-              />
-            </>
-          ) : (
-            <div className='flex flex-col items-center justify-center'>
-              {user?.role !== 'student' && (
-                <button
-                  className='w-1/2 p-2 m-2 text-white rounded-sm bg-metropolia-main-orange'
-                  onClick={handleToggleOwnAttendances}>
-                  {t(
-                    `teacher:courseAttendances.buttons.toggleView.${
-                      showOwnAttendances ? 'showAll' : 'showOwn'
-                    }`,
-                  )}
-                </button>
-              )}
-              <p className='text-xl '>
-                {t(
-                  `teacher:courseAttendances.search.noAttendances.${
-                    showOwnAttendances ? 'own' : 'all'
-                  }`,
-                  {date: selectedDate.toDateString()},
-                )}
-              </p>
+              <h1 className="text-3xl font-heading truncate">
+                {t('teacher:courseAttendances.title')}
+              </h1>
             </div>
-          )}
-        </div>
-      )}
+
+            <div className="w-10 h-10 shrink-0" />
+          </div>
+
+          {/* Filters / calendar row */}
+          <div className="mt-6 grid items-start gap-6 lg:grid-cols-[420px_1fr]">
+            {/* Calendar card */}
+            <div className="bg-white border rounded-xl h-fit self-start">
+
+              <div className="p-4">
+                <Calendar
+                  className="w-full rounded-xl "
+                  // @ts-ignore
+                  onChange={handleDateChange}
+                  value={selectedDate}
+                  tileContent={({date}) => {
+                    const calendarDate = new Date(date).toLocaleDateString();
+                    const isLectureStartDate = lectureStartDates.includes(calendarDate);
+
+                    return isLectureStartDate ? (
+                      <div className="w-full h-full rounded bg-yellow-200/70" />
+                    ) : null;
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Right side card */}
+            <div className="bg-white border rounded-xl shadow-sm self-start min-w-0">
+              {selectedDate ? (
+                filteredAttendances.length > 0 ? (
+                  <>
+                    {/* Card header: title + actions (oikealla) */}
+                    <div className="p-4 md:p-5 border-b border-gray-100 flex items-start justify-between gap-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="min-w-0">
+                        <h2 className="text-xl md:text-2xl font-heading break-words">
+                          {t('teacher:courseAttendances.table.title', {
+                            date: selectedDate.toLocaleDateString(),
+                          })}
+                        </h2>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 justify-end sm:flex-nowrap sm:justify-end">
+                        {/* Segmented toggle */}
+                        {user?.role !== 'student' && (
+                          <div className="inline-flex rounded-xl border border-gray-200 bg-white p-1">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (showOwnAttendances) handleToggleOwnAttendances();
+                              }}
+                              className={[
+                                'px-3 py-2 text-sm rounded-lg font-body transition-colors',
+                                !showOwnAttendances
+                                  ? 'bg-orange-50 text-metropolia-main-orange'
+                                  : 'text-gray-700 hover:bg-gray-50',
+                              ].join(' ')}
+                            >
+                              {t('teacher:courseAttendances.toggle.all')}
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (!showOwnAttendances) handleToggleOwnAttendances();
+                              }}
+                              className={[
+                                'px-3 py-2 text-sm rounded-lg font-body transition-colors',
+                                showOwnAttendances
+                                  ? 'bg-orange-50 text-metropolia-main-orange'
+                                  : 'text-gray-700 hover:bg-gray-50',
+                              ].join(' ')}
+                            >
+                              {t('teacher:courseAttendances.toggle.own')}
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Actions: Stats + PDF + Excel */}
+                        <Tooltip title={t('teacher:courseAttendances.buttons.statistics')}>
+                          <button
+                            type="button"
+                            onClick={() => navigate(`/teacher/courses/stats/${courseId}`)}
+                            aria-label={t('teacher:courseAttendances.buttons.statistics')}
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-metropolia-main-orange text-white shadow-sm hover:bg-metropolia-secondary-orange transition-colors">
+                            <ShowChartIcon fontSize="medium" />
+                          </button>
+                        </Tooltip>
+
+                        <Tooltip title={t('teacher:courseAttendances.buttons.printPdf')}>
+                          <button
+                            type="button"
+                            onClick={handlePrintToPdf}
+                            aria-label={t('teacher:courseAttendances.buttons.printPdf')}
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-metropolia-main-orange text-white shadow-sm hover:bg-metropolia-secondary-orange transition-colors"
+                          >
+                            <PictureAsPdfIcon fontSize="medium" sx={{color: 'white'}} />
+                          </button>
+                        </Tooltip>
+
+                        <Tooltip title={t('teacher:courseAttendances.buttons.exportExcel')}>
+                          <button
+                            type="button"
+                            onClick={handleExportToExcel}
+                            aria-label={t('teacher:courseAttendances.buttons.exportExcel')}
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-metropolia-main-orange text-white shadow-sm hover:bg-metropolia-secondary-orange transition-colors"
+                          >
+                            <TableChartIcon fontSize="medium" sx={{color: 'white'}} />
+                          </button>
+                        </Tooltip>
+                      </div>
+                    </div>
+
+                    {/* Card content (table) */}
+                    <div className="p-4 md:p-5">
+                      <div className="w-full overflow-x-auto">
+                        <div className="min-w-[700px]">
+                          <AttendanceTable
+                            filteredAttendanceData={filteredAttendances}
+                            allAttendances={true}
+                            updateView={updateView}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="p-6 md:p-8">
+                    <div className="flex flex-col items-center justify-center py-8">
+                      {user?.role !== 'student' && (
+                        <button
+                          className="px-3 py-2 rounded-lg border border-metropolia-main-orange text-metropolia-main-orange bg-orange-50 hover:bg-orange-100 transition-colors font-body"
+                          onClick={handleToggleOwnAttendances}
+                        >
+                          {t(
+                            `teacher:courseAttendances.buttons.toggleView.${
+                              showOwnAttendances ? 'showAll' : 'showOwn'
+                            }`,
+                          )}
+                        </button>
+                      )}
+
+                      <p className="mt-4 text-lg text-gray-700 font-body text-center">
+                        {t(
+                          `teacher:courseAttendances.search.noAttendances.${
+                            showOwnAttendances ? 'own' : 'all'
+                          }`,
+                          {date: selectedDate.toDateString()},
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div className="p-6 text-gray-600 font-body" />
+              )}
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

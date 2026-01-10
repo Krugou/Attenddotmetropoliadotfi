@@ -4,35 +4,35 @@ export const useColumnConfig = () => {
   const {t} = useTranslation();
 
   const columns = [
-    {key: 'name', label: t('ui:name'), defaultVisible: true},
-    {key: 'courseName', label: t('ui:course'), defaultVisible: true},
-    {key: 'code', label: t('ui:courseCode'), defaultVisible: false},
-    {key: 'email', label: t('ui:email'), defaultVisible: true},
+    {key: 'name', label: t('name'), defaultVisible: true},
+    {key: 'courseName', label: t('course'), defaultVisible: true},
+    {key: 'code', label: t('courseCode'), defaultVisible: true},
+    {key: 'email', label: t('email'), defaultVisible: false},
     {
       key: 'studentNumber',
-      label: t('ui:studentNumber'),
+      label: t('studentNumber'),
       defaultVisible: true,
     },
-    {key: 'groupName', label: t('ui:group'), defaultVisible: true},
+    {key: 'groupName', label: t('group'), defaultVisible: true},
     {
       key: 'attendance.total',
-      label: t('ui:totalLectures'),
-      defaultVisible: true,
+      label: t('totalLectures'),
+      defaultVisible: false,
     },
     {
       key: 'attendance.attended',
-      label: t('ui:attendedLectures'),
-      defaultVisible: true,
+      label: t('attendedLectures'),
+      defaultVisible: false,
     },
     {
       key: 'attendance.percentage',
-      label: t('ui:attendancePercentage'),
+      label: t('attendancePercentage'),
       defaultVisible: true,
     },
     {
       key: 'attendance.lastAttendance',
-      label: t('ui:lastAttendance'),
-      defaultVisible: true,
+      label: t('lastAttendance'),
+      defaultVisible: false,
     },
   ];
 

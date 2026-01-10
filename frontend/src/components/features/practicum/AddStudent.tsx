@@ -152,7 +152,7 @@ function AddStudent({students, setStudents}: Props) {
                 type="button"
                 onClick={removeStudent}
                 className="text-metropolia-support-red p-2 hover:bg-gray-100 rounded-full"
-                aria-label={t('ui:remove')}
+                aria-label={t('remove')}
               >
                 ✕
               </button>

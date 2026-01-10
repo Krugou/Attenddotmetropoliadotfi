@@ -65,13 +65,13 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
       onClick={(e) => e.stopPropagation()}>
       <div className='p-4 bg-white rounded-sm shadow-lg max-w-lg mx-auto mt-10'>
         <h2 className='text-2xl mb-4'>
-          {t('ui:editTopics.title', {courseName})}
+          {t('editTopics.title', {courseName})}
         </h2>
         {!counselor && (
           <TextField
             value={newTopic}
             onChange={(e) => setNewTopic(e.target.value)}
-            label={t('ui:editTopics.newTopicLabel')}
+            label={t('editTopics.newTopicLabel')}
             variant='outlined'
             className='mb-6'
             fullWidth
@@ -110,24 +110,24 @@ const EditTopicsModal: React.FC<EditTopicsModalProps> = ({
         ))}
         {counselor ? (
           <p className='text-sm text-gray-500 mb-4'>
-            {t('ui:editTopics.counselorHelpText')}
+            {t('editTopics.counselorHelpText')}
           </p>
         ) : (
           <p className='text-sm text-gray-500 mb-4'>
-            {t('ui:editTopics.teacherHelpText')}
+            {t('editTopics.teacherHelpText')}
           </p>
         )}
         <div className='flex justify-between mt-6'>
           <button
             onClick={resetData}
             className='p-2 text-white rounded-sm transition hover:bg-red-700 bg-metropolia-support-red'>
-            {t('ui:reset')}
+            {t('reset')}
           </button>
           {counselor && (
             <button
               onClick={() => handleSave && handleSave(usercourseid)}
               className='p-2 text-white rounded-sm transition hover:bg-green-600 bg-metropolia-trend-green'>
-              {t('ui:editTopics.saveTopics')}
+              {t('editTopics.saveTopics')}
             </button>
           )}
         </div>

@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Socket} from 'socket.io-client';
-import {useTranslation} from 'react-i18next';
+import React, { useEffect, useRef, useState } from 'react';
+import { Socket } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
 import SkeletonLoader from '../../../ui/SkeletonLoader.tsx';
 import ConfirmDialog from '../../../ui/modals/ConfirmDialog.tsx';
 
@@ -21,6 +21,7 @@ interface Props {
   scrollTabToggle: boolean;
   widerNamesToggle: boolean;
 }
+
 /**
  * CourseStudents component.
  *
@@ -54,7 +55,7 @@ const CourseStudents: React.FC<Props> = ({
   const [remainingTime, setRemainingTime] = useState<number>(60);
   const scrollInterval = useRef<number | null>(null);
   const scrollDirectionRef = useRef(1);
-  const {t} = useTranslation('teacher');
+  const { t } = useTranslation('teacher');
 
   // New: menu choosing status
   const [showStatusMenu, setShowStatusMenu] = useState(false);
@@ -65,91 +66,74 @@ const CourseStudents: React.FC<Props> = ({
     studentnumber: string;
   } | null>(null);
 
+  // Key fix: only trigger success when coursestudents transitions from >0 to 0
+  const prevLenRef = useRef<number | null>(null);
+
+  // Reset UI + guards when lecture changes
+  useEffect(() => {
+    prevLenRef.current = null;
+    setLectureSuccess(false);
+    setShowSuccessModal(false);
+    setShowStatusMenu(false);
+    setSelectedStudent(null);
+    setRemainingTime(60);
+  }, [lectureid, setLectureSuccess]);
+
   // Use an effect hook to handle countdown and lecture finish
   useEffect(() => {
-    // Declare a variable to hold the ID of the timer
-    let timerId;
+    let timerId: number | undefined;
 
-    // If there are no students in the course and the remaining time is greater than 0
-    if (coursestudents.length === 0 && remainingTime > 0) {
-      // Start a timer that decreases the remaining time by 1 every second
-      timerId = setInterval(() => {
+    if (!loading && coursestudents.length === 0 && lectureSuccess && remainingTime > 0) {
+      timerId = window.setInterval(() => {
         setRemainingTime((prevTime) => prevTime - 1);
       }, 1000);
-    }
-    // If the remaining time is 0
-    else if (remainingTime === 0) {
-      // If the socket is defined, emit a 'lecturefinishedwithbutton' event with the lecture ID
+    } else if (!loading && coursestudents.length === 0 && lectureSuccess && remainingTime === 0) {
       if (socket) {
         socket.emit('lectureFinishedWithButton', lectureid);
       }
-      // Reset the remaining time to 5
       setRemainingTime(5);
     }
 
-    // Return a cleanup function that clears the timer when the component unmounts
     return () => {
       if (timerId) {
         clearInterval(timerId);
       }
     };
-  }, [coursestudents, remainingTime, socket, lectureid]); // This effect depends on the coursestudents, remainingTime, socket, and lectureid variables
+  }, [coursestudents, remainingTime, socket, lectureid, loading, lectureSuccess]);
 
   // Function to handle the mouse down event
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Check if scrollContainerRef is defined
     if (scrollContainerRef.current) {
-      // If the user presses the mouse button, set the isDragging state to true
       setIsDragging(true);
-
-      // Calculate the initial X position of the mouse when the button is pressed
-      // Subtract the left offset of the scroll container to get the position relative to the container
       setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-
-      // Store the current scroll position of the scroll container
       setScrollLeft(scrollContainerRef.current.scrollLeft);
     }
   };
 
   // Function to handle the mouse end event
   const onMouseEnd = () => {
-    // When the mouse button is released, set the isDragging state to false
     setIsDragging(false);
   };
 
   // Use an effect hook to handle bounce group changes
   useEffect(() => {
-    // Set an interval to change the bounce group every 4 seconds
     const interval = window.setInterval(() => {
-      // Update the bounce group state
-      // If the previous group is not null, increment it by 1 and take the remainder when divided by 2
-      // This ensures that the bounce group alternates between 0 and 1
-      // If the previous group is null, set it to 0
       setBounceGroup((prevGroup) =>
         prevGroup !== null ? (prevGroup + 1) % 2 : 0,
       );
-    }, 4000); // Change every 4 seconds
+    }, 4000);
 
-    // Return a cleanup function that clears the interval when the component unmounts
     return () => clearInterval(interval);
-  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
+  }, []);
 
   // Function to handle mouse move event
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // If not dragging or scrollContainerRef is not set, exit the function
     if (!isDragging || !scrollContainerRef.current) return;
 
-    // Prevent the default event behavior
     e.preventDefault();
 
-    // Calculate the new x position of the mouse
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
-
-    // Calculate the distance the mouse has moved (walk)
-    // Multiply by 3 to increase the speed of the scroll (scroll-fast)
     const walk = (x - startX) * 2;
-
-    // Update the scroll position of the scroll container
     scrollContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -158,22 +142,17 @@ const CourseStudents: React.FC<Props> = ({
     if (isAnimationStopped) return;
     const element = scrollContainerRef.current;
     if (!element) return;
-    // Set an interval to continuously scroll the container
+
     scrollInterval.current = window.setInterval(() => {
-      // If we've reached the right end of the container, change direction to left
       if (
         scrollPositionRef.current >=
         element.scrollWidth - element.clientWidth
       ) {
         scrollDirectionRef.current = -1;
-      }
-      // If we've reached the left end of the container, change direction to right
-      else if (scrollPositionRef.current <= 0) {
+      } else if (scrollPositionRef.current <= 0) {
         scrollDirectionRef.current = 1;
       }
-      // Update the scroll position
       scrollPositionRef.current += scrollDirectionRef.current;
-      // Apply the new scroll position to the container
       element.scrollLeft = scrollPositionRef.current;
     }, 90);
   };
@@ -183,7 +162,6 @@ const CourseStudents: React.FC<Props> = ({
     if (!isAnimationStopped) {
       scrollSlowly();
     }
-    // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (scrollInterval.current !== null) {
         clearInterval(scrollInterval.current);
@@ -191,15 +169,37 @@ const CourseStudents: React.FC<Props> = ({
     };
   }, [coursestudents, isAnimationStopped]);
 
+  // Success logic: trigger ONLY on transition from >0 to 0 (prevents initial empty flash)
   useEffect(() => {
-    if (!loading) {
-      if (coursestudents.length < 1) {
-        setLectureSuccess(true);
-        setShowSuccessModal(true);
-      } else {
+    if (loading) return;
+
+    const currentLen = coursestudents.length;
+
+    // initialize prevLen on first non-loading run
+    if (prevLenRef.current === null) {
+      prevLenRef.current = currentLen;
+
+      // Also keep UI consistent on initial load
+      if (currentLen > 0) {
         setLectureSuccess(false);
         setShowSuccessModal(false);
       }
+      return;
+    }
+
+    const prevLen = prevLenRef.current;
+    prevLenRef.current = currentLen;
+
+
+    if (prevLen > 0 && currentLen === 0) {
+      setLectureSuccess(true);
+      setShowSuccessModal(true);
+      return;
+    }
+
+    if (currentLen > 0) {
+      setLectureSuccess(false);
+      setShowSuccessModal(false);
     }
   }, [coursestudents, loading, setLectureSuccess]);
 
@@ -210,7 +210,7 @@ const CourseStudents: React.FC<Props> = ({
     setShowSuccessModal(false);
   };
 
-  // New: Clicking student's name opens menu with options to mark student as present or excused.
+  //Clicking student's name opens menu with options to mark student as present or excused.
   const handleStudentClick = (student: {
     first_name: string;
     last_name: string;
@@ -221,7 +221,7 @@ const CourseStudents: React.FC<Props> = ({
     setShowStatusMenu(true);
   };
 
-  // New: sends socket status (1=present, 2=excused)
+  // sends socket status (1=present, 2=excused)
   const handleSetStatus = (status: number) => {
     if (socket && selectedStudent) {
       console.log('emit manualStudentInsert', {
@@ -331,7 +331,7 @@ const CourseStudents: React.FC<Props> = ({
         )}
       </div>
 
-      {/* New: status menu*/}
+      {}
       {showStatusMenu && selectedStudent && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40'>
           <div className='bg-white rounded-lg shadow-xl p-4 max-w-sm w-full'>
@@ -348,10 +348,7 @@ const CourseStudents: React.FC<Props> = ({
               <button
                 className='flex-1 px-3 py-2 rounded-md bg-metropolia-trend-green text-white font-semibold hover:bg-green-600 transition'
                 onClick={() => handleSetStatus(1)}>
-                {t(
-                  'teacher:courseStudents.markPresent',
-                  'Merkitse paikalla',
-                )}
+                {t('teacher:courseStudents.markPresent', 'Merkitse paikalla')}
               </button>
               <button
                 className='flex-1 px-3 py-2 rounded-md bg-metropolia-support-blue text-white font-semibold hover:bg-blue-600 transition'
