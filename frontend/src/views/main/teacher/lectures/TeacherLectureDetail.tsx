@@ -29,7 +29,7 @@ interface Lecture {
 }
 
 const TeacherLectureDetail = () => {
-  const {t} = useTranslation(['translation']);
+  const { t } = useTranslation('teacher');
   const {lectureid} = useParams();
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
@@ -129,7 +129,7 @@ const TeacherLectureDetail = () => {
         <button
           onClick={() => navigate('/teacher/lectures')}
           className='px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200'>
-          {t('teacher:TeacherLectures.details.back')}
+          {t('TeacherLectures.details.back')}
         </button>
         <div className='space-x-2'>
           <button
@@ -141,19 +141,19 @@ const TeacherLectureDetail = () => {
               )
             }
             className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors rounded-lg bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'>
-            {t('teacher:TeacherLectures.details.editAttendances')}
+            {t('TeacherLectures.details.editAttendances')}
           </button>
           {lecture?.state === 'open' && (
             <button
               onClick={handleClose}
               className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors rounded-lg bg-metropolia-trend-green hover:bg-green-700'>
-              {t('teacher:TeacherLectures.details.closeLecture')}
+              {t('TeacherLectures.details.closeLecture')}
             </button>
           )}
           <button
             onClick={handleDelete}
             className='px-4 py-2 text-sm cursor-pointer font-medium text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700'>
-            {t('teacher:TeacherLectures.details.deleteLecture')}
+            {t('TeacherLectures.details.deleteLecture')}
           </button>
         </div>
       </div>
@@ -161,7 +161,7 @@ const TeacherLectureDetail = () => {
       <div className='p-6 '>
         {lecture.attended === 0 && (
           <div className='mb-4 text-sm text-metropolia-support-red font-heading'>
-            {t('teacher:TeacherLectures.details.warning')}
+            {t('TeacherLectures.details.warning')}
           </div>
         )}
 
@@ -178,7 +178,7 @@ const TeacherLectureDetail = () => {
           <div className='grid grid-cols-2 gap-4'>
             <div>
               <div className='mb-1 text-sm text-gray-600 font-heading'>
-                {t('teacher:TeacherLectures.details.date')}
+                {t('TeacherLectures.details.date')}
               </div>
               <div className='font-medium'>
                 {new Date(lecture.start_date).toLocaleDateString()}
@@ -186,7 +186,7 @@ const TeacherLectureDetail = () => {
             </div>
             <div>
               <div className='mb-1 text-sm text-gray-600 font-heading'>
-                {t('teacher:TeacherLectures.details.time')}
+                {t('TeacherLectures.details.time')}
               </div>
               <div className='font-medium'>{lecture.timeofday}</div>
             </div>
@@ -195,7 +195,7 @@ const TeacherLectureDetail = () => {
           <div className='p-4 rounded-lg bg-gray-50'>
             <div className='flex items-center justify-between mb-4'>
               <span className='text-sm text-gray-600 font-heading'>
-                {t('teacher:TeacherLectures.details.attendance')}
+                {t('TeacherLectures.details.attendance')}
               </span>
               <div>
                 <span className='font-bold text-metropolia-trend-green'>
@@ -210,7 +210,7 @@ const TeacherLectureDetail = () => {
 
             <div className='flex items-center justify-between'>
               <span className='text-sm text-gray-600 font-heading'>
-                {t('teacher:TeacherLectures.details.ratio')}
+                {t('TeacherLectures.details.ratio')}
               </span>
               <span className='font-bold'>
                 {Math.round(
@@ -225,7 +225,7 @@ const TeacherLectureDetail = () => {
 
           <div className='flex items-center justify-between'>
             <div className='text-sm text-gray-600 font-heading'>
-              {t('teacher:TeacherLectures.details.status')}
+              {t('TeacherLectures.details.status')}
             </div>
             <span
               className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -257,8 +257,8 @@ const TeacherLectureDetail = () => {
                   : 'text-metropolia-main-grey'
               }`}>
               {action === 'delete'
-                ? t('teacher:TeacherLectures.details.confirmDialog.title', {action})
-                : t('teacher:TeacherLectures.details.confirmDialog.title', {action})}
+                ? t('TeacherLectures.details.confirmDialog.title', {action})
+                : t('TeacherLectures.details.confirmDialog.title', {action})}
             </h3>
           </DialogTitle>
           <DialogContent className='p-0'>
@@ -269,17 +269,17 @@ const TeacherLectureDetail = () => {
                     <p className='text-metropolia-support-red'>
                       <span className='font-bold block mb-2'>
                         {t(
-                          'teacher:TeacherLectures.details.confirmDialog.important.title',
+                          'TeacherLectures.details.confirmDialog.important.title',
                         )}
                       </span>
                       {t(
-                        'teacher:TeacherLectures.details.confirmDialog.important.message',
+                        'TeacherLectures.details.confirmDialog.important.message',
                       )}
                     </p>
                   </div>
                 </div>
               ) : (
-                t('teacher:TeacherLectures.details.confirmDialog.message')
+                t('TeacherLectures.details.confirmDialog.message')
               )}
             </DialogContentText>
           </DialogContent>
@@ -287,7 +287,7 @@ const TeacherLectureDetail = () => {
             <button
               onClick={handleDialogClose}
               className='px-4 py-2 text-sm font-medium text-metropolia-main-grey bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors'>
-              {t('teacher:TeacherLectures.details.confirmDialog.cancel')}
+              {t('TeacherLectures.details.confirmDialog.cancel')}
             </button>
             <button
               onClick={handleConfirm}
@@ -297,7 +297,7 @@ const TeacherLectureDetail = () => {
                   : 'bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark'
               }`}
               autoFocus>
-              {t('teacher:TeacherLectures.details.confirmDialog.confirm')}
+              {t('TeacherLectures.details.confirmDialog.confirm')}
             </button>
           </DialogActions>
         </div>

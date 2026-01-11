@@ -15,7 +15,7 @@ interface StudentDetailsProps {
   studentGroups: StudentGroup[];
   studentGroupId: number | null;
   setStudentGroupId: (id: number | null) => void;
-  t: TFunction<['admin']>;
+  t: TFunction<['common']>;
 }
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({
@@ -30,14 +30,14 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({
   return (
     <>
       <FormInput
-        label={t('admin:ui.studentNumber')}
+        label={t('studentNumber')}
         placeholder='123456'
         value={studentNumber}
         onChange={setStudentNumber}
       />
       {isStudentNumberTaken && (
         <h2 className='text-metropolia-support-red mb-2'>
-          {t('admin:newUser.studentNumberTaken')}
+          {t('studentNumberTaken')}
         </h2>
       )}
       <StudentGroupSelect

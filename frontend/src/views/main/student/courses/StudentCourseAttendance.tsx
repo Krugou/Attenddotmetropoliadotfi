@@ -189,7 +189,7 @@ const StudentCourseAttendance: React.FC = () => {
           <div className='flex flex-row items-center justify-between  w-full space-x-4 bg-metropolia-support-white p-4 rounded'>
             <div className='w-full max-w-md '>
               <label className='block mb-2 text-sm font-medium text-metropolia-main-grey'>
-                {t('admin:ui.searchByDate')}:
+                {t('student:searchByDate')}:
               </label>
               <input
                 type='text'

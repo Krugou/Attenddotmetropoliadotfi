@@ -146,23 +146,23 @@ const AdminUsers: React.FC = () => {
         <div className='flex flex-col items-center justify-center h-64 gap-4'>
           <Loader />
           <p className='text-metropolia-main-grey animate-pulse font-medium'>
-            {t('admin:ui.loading')}
+            {t('ui.loading')}
           </p>
         </div>
       ) : users.length === 0 ? (
         <div className='flex flex-col items-center justify-center h-64 gap-3 text-center'>
           <p className='text-lg font-semibold text-metropolia-main-grey'>
-            {t('admin:ui.noUsersAvailable')}
+            {t('ui.noUsersAvailable')}
           </p>
           <p className='text-sm text-metropolia-main-grey/70'>
-            {t('admin:ui.createFirstUser')}
+            {t('ui.createFirstUser')}
           </p>
         </div>
       ) : (
         <>
           <div className='flex justify-between items-center mb-8'>
             <GeneralLinkButton
-              text={t('admin:users.createNewUser')}
+              text={t('users.createNewUser')}
               path='/admin/newuser/'
               className='transition-transform hover:scale-105 bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark shadow-lg hover:shadow-xl'
             />
@@ -182,8 +182,8 @@ const AdminUsers: React.FC = () => {
                 )}
                 <span className='hidden sm:inline'>
                   {showInactive
-                    ? t('admin:users.hideInactive')
-                    : t('admin:users.showInactive')}
+                    ? t('users.hideInactive')
+                    : t('users.showInactive')}
                 </span>
                 <span className='ml-1 inline-flex items-center justify-center w-6 h-6 bg-white text-metropolia-main-grey text-xs font-medium rounded-full'>
                   {inactiveUsersCount}
@@ -211,9 +211,9 @@ const AdminUsers: React.FC = () => {
               onSearchFieldChange={setSearchField}
               onClearSearch={clearSearch}
               searchFields={searchFields}
-              placeholder={t('admin:ui.searchPlaceholder')}
-              searchLabel={t('admin:ui.search')}
-              searchInLabel={t('admin:ui.searchIn')}
+              placeholder={t('ui.searchPlaceholder')}
+              searchLabel={t('ui.search')}
+              searchInLabel={t('ui.searchIn')}
               resultsCount={filteredUsers.length}
             />
           </div>

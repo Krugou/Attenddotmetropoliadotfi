@@ -1,27 +1,27 @@
 {
   "course": {
-    "attendaceOfCourse": "Närvaro på kurs",
+    "attendaceOfCourse": "Kursens närvaro",
     "sortTopics": "Sortera ämnen",
     "showAttendanceStats": "Visa närvarostatistik",
     "showAttendanceTable": "Visa närvarotabell",
     "all": "Alla",
     "yourCourses": "Dina kurser",
     "showEndedCourses": "Visa avslutade kurser",
+    "attendanceOverview": "Närvaroöversikt",
+    "attendanceWarning": "Närvarovarning",
     "onTrack": "På rätt spår",
-    "needsImprovement": "Behöver förbättras",
-    "attendanceWarning": "Närvaro varning",
-    "attendanceOverview": "Närvaroöversikt"
+    "needsImprovement": "Behöver förbättras"
   },
   "helpVideos": {
-    "title": "Studentens hjälpvideor",
-    "courseAccess": "Hur får jag tillgång till min kurs och närvarodetaljer",
-    "joinLecture": "Hur går jag med i en föreläsning?"
+    "title": "Hjälpvideor för studerande",
+    "courseAccess": "Hur får jag tillgång till min kurs och närvarouppgifter?",
+    "joinLecture": "Hur deltar jag i en föreläsning?"
   },
   "mainView": {
-    "title": "Student",
+    "title": "Studerande",
     "qrScanner": {
-      "title": "Närvarosökare med QR",
-      "description": "Skanna QR för att markera närvaro"
+      "title": "QR-skanner för närvaro",
+      "description": "Skanna QR-kod för att markera närvaro"
     },
     "profile": {
       "title": "Din profil",
@@ -36,22 +36,22 @@
       "description": "Se instruktioner för alla tillgängliga uppgifter"
     },
     "qrScannerCamera": {
-      "title": "Närvarosökare med QR och kameraval",
-      "description": "Skanna QR för att markera närvaro med kameraval"
+      "title": "QR-skanner för närvaro med kameraval",
+      "description": "Skanna QR-kod för att markera närvaro med val av kamera"
     },
     "workLog": {
-      "title": "Arbetsloggsböcker",
-      "description": "Logga dina arbetsloggar"
+      "title": "Arbetsloggregistrering",
+      "description": "Registrera dina arbetsloggar"
     },
     "workLogs": {
-      "title": "Dina arbetsloggsböcker",
+      "title": "Dina arbetsloggkurser",
       "description": "Visa och hantera dina arbetsloggar"
     }
   },
   "profile": {
-    "title": "Studentprofil",
-    "studentGroup": "Studentgrupp",
-    "noData": "Inga användardata tillgängliga.",
+    "title": "Studerandeprofil",
+    "studentGroup": "Studerandegrupp",
+    "noData": "Ingen användardata tillgänglig.",
     "myCourses": "Mina kurser"
   },
   "qrScanner": {
@@ -64,13 +64,14 @@
   "toasts": {
     "errors": {
       "invalidQr": "Ogiltig QR-kod",
-      "noStudent": "Inga studentuppgifter tillgängliga, logga in igen",
+      "noStudent": "Inga studerandeuppgifter tillgängliga, logga in igen",
       "scanError": "Fel vid skanning av QR-kod",
       "tooSlow": "Du var för långsam, försök igen {{studentId}}"
     },
     "success": {
-      "savedToLecture": "Du har sparats till föreläsningen",
-      "alreadySaved": "Du har redan sparats till föreläsningen"
+      "savedToLecture": "Du har registrerats på föreläsningen",
+      "alreadySaved": "Du är redan registrerad på föreläsningen"
     }
-  }
+  },
+  "searchByDate": "Sök efter datum"
 }

@@ -22,7 +22,7 @@ import { useResetUserForm } from '../../../../hooks/useResetUserForm.ts'
  */
 
 const AdminNewUser: React.FC = () => {
-  const { t } = useTranslation(['admin']);
+  const { t } = useTranslation(['common']);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -154,16 +154,12 @@ const AdminNewUser: React.FC = () => {
 
   return (
     <>
-      <h1 className='p-3 mb-5 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit shadow-md'>
-        {t('admin:newUser.addNew')}
-        {userType === 'student' ? 'Student' : 'Staff'} {t('admin:ui.user')}
-      </h1>
       <div className='relative bg-white rounded-lg w-fit shadow-lg'>
         <Container>
           <form onSubmit={handleSubmit} className='mt-4 mb-4'>
             <div className='flex flex-col'>
-              <h2 className='mb-5 text-xl text-center font-heading text-metropolia-main-grey'>
-                {t('admin:newUser.userDetails')}
+              <h2 className='mb-5 mt-5 text-3xl text-center font-heading text-metropolia-main-grey'>
+                {t('addNew')}
               </h2>
 
               <UserTypeSelector userType={userType} setUserType={setUserType} t={t} />
@@ -173,24 +169,24 @@ const AdminNewUser: React.FC = () => {
               )}
 
               <FormInput
-                label={t('admin:ui.email')}
+                label={t('email')}
                 placeholder='Matti.Meikäläinen@metropolia.fi'
                 value={email}
                 onChange={setEmail}
               />
               {isEmailTaken && (
                 <h2 className='text-metropolia-support-red mb-2'>
-                  {t('admin:newUser.emailTaken')}
+                  {t('emailTaken')}
                 </h2>
               )}
               <FormInput
-                label={t('admin:ui.firstName')}
+                label={t('firstName')}
                 placeholder='Matti'
                 value={firstName}
                 onChange={setFirstName}
               />
               <FormInput
-                label={t('admin:ui.lastName')}
+                label={t('lastName')}
                 placeholder='Meikäläinen'
                 value={lastName}
                 onChange={setLastName}

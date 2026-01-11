@@ -1,369 +1,372 @@
 {
   "common": {
-    "code": "Kod",
-    "startDate": "Startdatum",
-    "endDate": "Slutdatum",
-    "topics": "Ämnen",
+    "absent": "Frånvarande",
+    "actions": "Åtgärder",
     "additionalInfo": "Ytterligare information",
-    "courseCreatedAt": "Kurs skapad",
-    "ammountOfStudents": "Antal studenter",
-    "instructors": "Instruktörer",
-    "lectureId": "Föreläsnings-ID",
-    "courseId": "Kurs-ID",
+    "allFields": "Alla fält",
+    "ammountOfStudents": "Antal studerande",
     "attendanceId": "Närvaro-ID",
-    "userCourseId": "Användar-kurs-ID",
-    "name": "Namn",
-    "status": "Status",
-    "delete": "Radera",
     "cancel": "Avbryt",
+    "clearSearch": "Rensa sökning",
     "close": "Stäng",
-    "details": "Detaljer",
+    "code": "Kod",
     "confirm": "Bekräfta",
-    "noCoursesAvailable": "Inga kurser tillgängliga",
-    "noUsersAvailable": "Inga användare tillgängliga",
-    "noDataAvailable": "Inga data tillgängliga",
-    "loading": "Laddar...",
-    "saving": "Sparar ändringar...",
-    "user": "Användare",
-    "firstName": "Förnamn",
-    "lastName": "Efternamn",
-    "email": "E-post",
-    "studentNumber": "Studentnummer",
-    "searchByDate": "Sök efter datum",
+    "confirmDelete": "Bekräfta borttagning",
+    "course": "Kurs",
+    "courseCreatedAt": "Kurs skapad",
+    "courseId": "Kurs-ID",
+    "createFirstCourse": "Skapa första kursen",
+    "createFirstUser": "Skapa första användaren",
+    "createFirstWorkLog": "Skapa första arbetsloggkursen",
+    "date": "Datum",
+    "delete": "Ta bort",
     "deleteModal": {
-      "title": "Bekräftelse",
-      "messages": {
-        "student": "Är du säker på att du vill ta bort studenten från den här kursen? Detta kommer också att ta bort all närvarodata för denna student på kursen.",
-        "course": "Är du säker på att du vill ta bort den här kursen?"
-      },
       "buttons": {
         "cancel": "AVBRYT",
-        "delete": "RADERA"
-      }
+        "delete": "TA BORT"
+      },
+      "messages": {
+        "course": "Är du säker på att du vill ta bort denna kurs?",
+        "student": "Är du säker på att du vill ta bort studenten från kursen? Detta tar även bort all närvarodata för studenten i kursen."
+      },
+      "title": "Bekräftelse"
     },
-    "search": "Sök",
-    "searchPlaceholder": "Sök i alla fält",
-    "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga",
-    "confirmDelete": "Bekräfta radering",
-    "studentGroup": "Studentgrupp",
-    "createFirstWorkLog": "Skapa första arbetsstilskursen",
-    "searchIn": "Söka in",
-    "refresh": "Uppdatera",
-    "allFields": "Alla fält",
-    "createFirstCourse": "Skapa första kursen",
-    "noResultsFound": "Inga resultat hittades",
-    "tryDifferentSearch": "Prova annorlunda sökning",
-    "clearSearch": "Tydlig sökning",
-    "createFirstUser": "Skapa första användare",
+    "deleting": "Tar bort...",
+    "details": "Detaljer",
+    "email": "E-post",
+    "endDate": "Slutdatum",
     "error": "Fel",
-    "retry": "Försöka igen",
-    "course": "Kurs",
-    "date": "Datum",
-    "actions": "Handlingar",
-    "present": "Presentera",
-    "absent": "Frånvarande",
-    "deleting": "Radera ...",
+    "firstName": "Förnamn",
+    "instructors": "Lärare",
+    "lastName": "Efternamn",
+    "lectureId": "Föreläsnings-ID",
+    "loading": "Laddar...",
+    "name": "Namn",
+    "noCoursesAvailable": "Inga kurser tillgängliga",
+    "noDataAvailable": "Ingen data tillgänglig",
     "noCoursesMatch": "Inga kurser matchar de aktuella filtren",
-    "noUsersMatch": "Inga användare matchar de aktuella filtren"
+    "noResultsFound": "Inga resultat hittades",
+    "noUsersAvailable": "Inga användare tillgängliga",
+    "noUsersMatch": "Inga användare matchar de aktuella filtren",
+    "noWorkLogsAvailable": "Inga arbetsloggkurser tillgängliga",
+    "present": "Närvarande",
+    "refresh": "Uppdatera",
+    "retry": "Försök igen",
+    "saving": "Sparar ändringar...",
+    "search": "Sök",
+    "searchByDate": "Sök efter datum",
+    "searchIn": "Sök i",
+    "searchPlaceholder": "Sök i alla fält",
+    "startDate": "Startdatum",
+    "status": "Status",
+    "studentGroup": "Studerandegrupp",
+    "studentNumber": "Studerandenummer",
+    "topics": "Ämnen",
+    "tryDifferentSearch": "Försök med en annan sökning",
+    "user": "Användare",
+    "userCourseId": "Användar-kurs-ID"
   },
-  "mainView": {
-    "teacherDashboard": "Lärarpanel",
-    "teacherDashboardDesc": "Få tillgång till och hantera dina undervisningsmoduler",
-    "counselorDashboard": "Rådgivarens panel",
-    "counselorDashboardDesc": "Få tillgång till och hantera studentvägledningstjänster",
-    "courseManagement": "Kursförvaltning",
-    "courseManagementDesc": "Skapa, uppdatera och ta bort kurser",
-    "userManagement": "Användarhantering",
-    "userManagementDesc": "Hantera användarkonton och behörigheter",
-    "userRegistration": "Användarregistrering",
-    "userRegistrationDesc": "Registrera en ny användare",
-    "lectureManagement": "Föreläsningshantering",
-    "lectureManagementDesc": "Visa och hantera alla föreläsningar",
-    "serverConfiguration": "Serverinställningar",
-    "serverConfigurationDesc": "Hantera serverinställningar och konfigurationer",
-    "serverDashboard": "Serverpanel",
-    "serverDashboardDesc": "Visa serverstatistik och användning",
-    "workLog": "Hantering av arbetsloggsböcker",
-    "workLogDesc": "Visa och hantera arbetsloggar",
-    "studentDashboard": "Studentpanel",
-    "studentDashboardDesc": "Visa och hantera studentdata",
-    "otherDashboards": "Andra instrumentpaneler",
-    "otherDashboardsDesc": "Åtkomst till ytterligare systempaneler och övervakningsverktyg"
+  "admin:logs": {
+    "details": {
+      "message": ""
+    },
+    "errorTitle": ""
+  },
+  "adminProfile": {
+    "noData": "Ingen användardata tillgänglig.",
+    "profile": "Administratörsprofil"
+  },
+  "adminStats": {
+    "active": "Aktiv",
+    "administratorStatistics": "Administratörsstatistik",
+    "approvedEntries": "Användare utstämplade",
+    "attendanceCount": "Närvaroantal",
+    "attendanceCounts": "Närvarotal",
+    "attendanceRatio": "Närvarokvot",
+    "attendanceStatistics": "Närvarostatistik",
+    "courseCount": "Antal kurser",
+    "courseCounts": "Kursantal",
+    "courseStatistics": "Kursstatistik",
+    "delayedEntries": "Möjliga instämplingsfel",
+    "distribution": "Veckovis fördelning av sparade föreläsningar per dag",
+    "distributtion": "Veckovis fördelning av sparade föreläsningar per dag",
+    "entryCount": "Antal registreringar",
+    "loggedInPercentage": "Andel studerande som har loggat in minst en gång",
+    "pendingEntries": "Användare instämplade",
+    "regularCourses": "Ordinarie kurser",
+    "total": "Totalt",
+    "totalCourses": "Totalt antal kurser",
+    "totalEntries": "Totalt antal registreringar",
+    "totalLectures": "Totalt antal föreläsningar",
+    "userCount": "Antal användare",
+    "userCounts": "Användarantal",
+    "userStatistics": "Användarstatistik",
+    "worklogCourses": "Arbetsloggkurser",
+    "worklogEntries": "Arbetsloggposter",
+    "worklogStatistics": "Arbetsloggstatistik",
+    "totalWorklogCourses": "Totalt antal arbetsloggkurser",
+    "worklogCoursesActive": "Aktiva arbetsloggkurser",
+    "coursesActive": "Aktiva kurser"
+  },
+  "attendance": {
+    "buttons": {
+      "hideQRCode": ""
+    }
   },
   "courses": {
-    "modify": {
-      "mainTitle": "Ändra kurs",
-      "modifyTeachers": "Ändra lärare",
-      "modifyTopics": "Ändra ämnen",
-      "loading": "Laddar kursdetaljer..."
-    },
     "delete": {
-      "deleteCourse": "Kurs raderad",
-      "confirmDelete": "Är du säker på att du vill radera den här kursen?",
-      "success": "Kursen raderades framgångsrikt"
-    },
-    "success": {
-      "modifySuccess": "Kursen ändrades framgångsrikt",
-      "saveSuccess": "Ändringar sparade framgångsrikt"
+      "confirmDelete": "Är du säker på att du vill ta bort denna kurs?",
+      "deleteCourse": "Kursen har tagits bort",
+      "success": "Kursen har tagits bort"
     },
     "errors": {
-      "unknown": "Ett okänt fel inträffade",
       "loadFailed": "Misslyckades med att ladda kursdetaljer",
+      "modifyError": "Fel vid ändring av kurs",
+      "permissionDenied": "Du har inte behörighet att ändra denna kurs",
       "saveFailed": "Misslyckades med att spara ändringar",
-      "permissionDenied": "Du har inte tillstånd att ändra den här kursen",
-      "modifyError": "Fel vid ändring av kurs"
+      "unknown": "Ett okänt fel inträffade"
     },
     "error": {
       "modifyError": "Fel vid ändring av kurs"
     },
+    "finish": "Slutför",
     "info": {
       "topicChange": "Ämnen har ändrats"
     },
-    "finish": "Slutför"
-  },
-  "lectures": {
-    "error": {
-      "lectureOrCourseID": "Kurs-ID eller Föreläsnings-ID är inte tillgängligt",
-      "deleteAttendance": "Fel vid radering av närvaro",
-      "missingIds": "Kurs -ID eller föreläsnings -ID saknas",
-      "fetchAttendances": "Det gick inte att hämta närvarouppgifter",
-      "unknown": "Ett okänt fel inträffade"
-    },
-    "alternative": {
-      "showAllLectures": "Visa alla föreläsningar",
-      "showOpenLecture": "Visa endast öppna föreläsningar",
-      "sortByNewest": "Sortera efter nyaste",
-      "sortByOldest": "Sortera efter äldsta",
-      "shrinkTable": "Krymp tabell",
-      "expandTable": "Expandera till full",
-      "hideStats": "Dölj statistik",
-      "showStats": "Visa statistik",
-      "columns": "Kolumner"
-    },
-    "stats": {
-      "totalLectures": "Totala föreläsningar",
-      "attendanceRatio": "Närvaroförhållande",
-      "highestAttendance": "Högst närvaro",
-      "lowestAttendance": "Lägst närvaro",
-      "highestNotAttended": "Högst frånvaro",
-      "lowestNotAttended": "Lägst frånvaro"
-    },
-    "tableContent": {
-      "teacherEmail": "Lärarens e-post",
-      "courseName": "Kursnamn",
-      "courseCode": "Kurskod",
-      "topicName": "Ämnesnamn",
-      "date": "Datum",
-      "dayTime": "fm/em",
-      "attendance": "Närvaro",
-      "totalAttendance": "Total närvaro",
-      "currentTopicStudentCount": "Nuvarande ämnesstudentantal",
-      "ratio": "Förhållande(%)",
-      "state": "Tillstånd",
-      "actions": "Åtgärder",
-      "lectureId": "Föreläsnings -ID"
-    },
-    "dialog": {
-      "dialogText": "Denna åtgärd kan inte ångras."
-    },
-    "noData": {
-      "noOpenLectures": "Inga öppna föreläsningar tillgängliga",
-      "noLecturesFound": "Inga föreläsningar hittades",
-      "tryShowingAll": "Prova att visa alla föreläsningar istället för bara öppna",
-      "tryDifferentSearch": "Prova att justera dina sökkriterier"
-    },
-    "delete": {
-      "deleteAttendance": "Radera närvaro",
-      "title": "Radera närvaro",
-      "deleteAttendanceConfirm": "Är du säker på att du vill ta bort detta närvaro? \nDenna åtgärd kan inte ångras."
-    },
-    "table": {
-      "headers": {
-        "timeOfDay": "fm/em",
-        "date": "Datum"
-      }
-    },
-    "info": {
-      "noData": "Inga närvarouppgifter tillgängliga för denna föreläsning"
+    "modify": {
+      "loading": "Laddar kursdetaljer...",
+      "mainTitle": "Ändra kurs",
+      "modifyTeachers": "Ändra lärare",
+      "modifyTopics": "Ändra ämnen"
     },
     "success": {
-      "deleteAttendance": "Närvaron raderades framgångsrikt"
-    },
-    "detail": {
-      "title": "Föreläsnings närvaroinformation",
-      "totalAttendances": "{{greve}} Totala deltagare",
-      "noData": "Inga närvarouppgifter tillgängliga",
-      "duplicate": "Duplicera",
-      "noAttendanceData": "Inga närvarouppgifter hittades för denna föreläsning"
+      "modifySuccess": "Kursen har ändrats",
+      "saveSuccess": "Ändringar sparades"
     }
-  },
-  "adminStats": {
-    "userStatistics": "Användarstatistik",
-    "attendanceStatistics": "Närvarostatistik",
-    "administratorStatistics": "Administratörsstatistik",
-    "distributtion": "Veckofördelning av sparade föreläsningar efter dag",
-    "loggedInPercentage": "Procentandel studenter som har loggat in minst en gång",
-    "userCount": "Antal användare",
-    "userCounts": "Användarantal",
-    "attendanceCount": "Närvaroantal",
-    "attendanceCounts": "Närvaroantal",
-    "totalLectures": "Totala föreläsningar",
-    "attendanceRatio": "Närvaroförhållande",
-    "distribution": "Veckofördelning av sparade föreläsningar efter dag",
-    "total": "Totalt",
-    "active": "Aktiva",
-    "courseStatistics": "Kursstatistik",
-    "courseCount": "Antal kurser",
-    "courseCounts": "Kursantal",
-    "totalCourses": "Totala kurser",
-    "regularCourses": "Vanliga kurser",
-    "worklogCourses": "Arbetsdagbokskurser",
-    "pendingEntries": "Inloggade användare",
-    "approvedEntries": "Utloggade användare",
-    "delayedEntries": "Möjliga inloggningsfel",
-    "totalEntries": "Totalt antal poster",
-    "entryCount": "Antal poster",
-    "worklogEntries": "Arbetsdagboksposter",
-    "worklogStatistics": "Arbetsdagboksstatistik",
-    "coursesActive": "Aktiva kurser",
-    "totalWorklogCourses": "Totala arbetsstilskurser",
-    "worklogCoursesActive": "Aktiva arbetslogkurser"
   },
   "dashboard": {
     "title": "Serverpanel"
   },
+  "editUser": {
+    "createdAt": "Skapad",
+    "email": "E-post",
+    "errors": {
+      "emailTaken": "Studentens e-postadress används redan",
+      "studentEmailTaken": "Studentens e-postadress används redan",
+      "studentNumberTaken": "Studerandenumret används redan"
+    },
+    "firstName": "Förnamn",
+    "gdprOptions": {
+      "accepted": "Godkänd",
+      "notAccepted": "Ej godkänd"
+    },
+    "lastName": "Efternamn",
+    "role": "Roll",
+    "saveButton": "Spara",
+    "studentGroup": "Studerandegrupp",
+    "studentNumber": "Studerandenummer",
+    "title": "Redigera användare",
+    "username": "Användarnamn"
+  },
+  "feedback": {
+    "confirmDelete": "Är du säker på att du vill ta bort denna feedback?",
+    "description": "Ge feedback till utvecklarna",
+    "filterFeedback": "Filtrera feedback efter ämne nedan",
+    "noFeedbackAvailable": "Ingen feedback har lämnats ännu.",
+    "title": "Feedback",
+    "topic": "Välj ämne"
+  },
+  "guide": {
+    "errorLogs": "Felloggar",
+    "errorLogsText": "Detta område visar loggar som specifikt är relaterade till fel som uppstått i systemet och hjälper vid felsökning och debuggningsarbete.",
+    "guideText": "Detta är guiden för administratörer. Den innehåller instruktioner och information om hur man navigerar och använder de olika funktionerna i administratörspanelen.",
+    "logs": "Loggar",
+    "logsText": "Här kan administratörer se detaljerade loggar över systemaktiviteter, inklusive användaråtgärder, fel och andra viktiga händelser.",
+    "statistics": "Statistik",
+    "statisticsText": "Detta avsnitt innehåller statistisk data och analys som är relevant för systemets prestanda och användarinteraktioner.",
+    "title": "Guide",
+    "userFeedback": "Användarfeedback",
+    "userFeedbackText": "Administratörer kan ta del av och granska feedback som skickats in av användare för att bättre förstå användarupplevelser och åtgärda eventuella problem.",
+    "serverStatus": "Serverstatus",
+    "serverStatusText": "Övervaka system- och databasprestanda i realtid, inklusive CPU-användning, minnesanvändning, databasanslutningar, frågestatistik och serverns drifttid. Använd denna information för att säkerställa optimal systemprestanda och identifiera potentiella flaskhalsar."
+  },
   "lectureChart": {
     "days": {
-      "sunday": "Söndag",
-      "monday": "Måndag",
-      "tuesday": "Tisdag",
-      "wednesday": "Onsdag",
-      "thursday": "Torsdag",
       "friday": "Fredag",
-      "saturday": "Lördag"
+      "monday": "Måndag",
+      "saturday": "Lördag",
+      "sunday": "Söndag",
+      "thursday": "Torsdag",
+      "tuesday": "Tisdag",
+      "wednesday": "Onsdag"
     },
     "label": "Antal föreläsningar"
   },
+  "lectures": {
+    "alternative": {
+      "columns": "Kolumner",
+      "expandTable": "Expandera till helskärm",
+      "hideStats": "Dölj statistik",
+      "showAllLectures": "Visa alla föreläsningar",
+      "showOpenLecture": "Visa endast öppna föreläsningar",
+      "showStats": "Visa statistik",
+      "shrinkTable": "Minimera tabell",
+      "sortByNewest": "Sortera efter nyast",
+      "sortByOldest": "Sortera efter äldst"
+    },
+    "delete": {
+      "deleteAttendance": "Ta bort närvaro",
+      "title": "Ta bort närvaro",
+      "deleteAttendanceConfirm": "Är du säker på att du vill ta bort denna närvaro? Denna åtgärd kan inte ångras."
+    },
+    "detail": {
+      "title": "Detaljer om föreläsningsnärvaro",
+      "totalAttendances": "{{count}} närvarotillfällen totalt",
+      "noData": "Ingen närvarodata tillgänglig",
+      "duplicate": "Duplicera",
+      "noAttendanceData": "Ingen närvarodata hittades för denna föreläsning"
+    },
+    "dialog": {
+      "dialogText": "Denna åtgärd kan inte ångras."
+    },
+    "error": {
+      "deleteAttendance": "Fel vid borttagning av närvaro",
+      "lectureOrCourseID": "Kurs-ID eller föreläsnings-ID är inte tillgängligt",
+      "missingIds": "Kurs-ID eller föreläsnings-ID saknas",
+      "fetchAttendances": "Misslyckades med att hämta närvarodata",
+      "unknown": "Ett okänt fel inträffade"
+    },
+    "info": {
+      "noData": "Ingen närvarodata tillgänglig för denna föreläsning"
+    },
+    "noData": {
+      "noLecturesFound": "Inga föreläsningar hittades",
+      "noOpenLectures": "Inga öppna föreläsningar tillgängliga",
+      "tryDifferentSearch": "Försök justera dina sökkriterier",
+      "tryShowingAll": "Försök visa alla föreläsningar istället för endast öppna"
+    },
+    "stats": {
+      "attendanceRatio": "Närvarokvot",
+      "highestAttendance": "Högst närvaro",
+      "highestNotAttended": "Högst frånvaro",
+      "lowestAttendance": "Lägst närvaro",
+      "lowestNotAttended": "Lägst frånvaro",
+      "totalLectures": "Totalt antal föreläsningar"
+    },
+    "success": {
+      "deleteAttendance": "Närvaron har tagits bort"
+    },
+    "table": {
+      "headers": {
+        "actions": "Åtgärder",
+        "attendance": "Närvaro",
+        "courseCode": "Kurskod",
+        "courseName": "Kursnamn",
+        "date": "Datum",
+        "lectureId": "Föreläsnings-ID",
+        "ratio": "Kvot (%)",
+        "state": "Status",
+        "studentsWithTopic": "Studerande i denna ämnesgrupp",
+        "technicalDetails": "Tekniska detaljer",
+        "timeOfDay": "AM/PM",
+        "topicName": "Ämnesnamn",
+        "totalAttendance": "Total närvaro"
+      }
+    },
+    "tableContent": {
+      "actions": "Åtgärder",
+      "attendance": "Närvaro",
+      "courseCode": "Kurskod",
+      "courseName": "Kursnamn",
+      "currentTopicStudentCount": "Antal studerande i aktuellt ämne",
+      "date": "Datum",
+      "dayTime": "am/pm",
+      "ratio": "Kvot (%)",
+      "state": "Status",
+      "teacherEmail": "Lärarens e-post",
+      "topicName": "Ämnesnamn",
+      "totalAttendance": "Total närvaro",
+      "lectureId": "Föreläsnings-ID"
+    }
+  },
   "lecturesByDay": {
+    "dayOfWeek": "Veckodag",
     "lectureCount": "Antal föreläsningar",
-    "numberOfLectures": "Antal föreläsningar",
-    "dayOfWeek": "Veckodag"
+    "numberOfLectures": "Antal föreläsningar"
   },
-  "feedback": {
-    "title": "Feedback",
-    "description": "Ge feedback till utvecklarna",
-    "filterFeedback": "Filtrera feedback efter ämne nedan",
-    "topic": "Välj ämne",
-    "noFeedbackAvailable": "Ingen feedback har ännu lämnats. Håll utkik!",
-    "confirmDelete": "Är du säker på att du vill radera denna feedback?"
-  },
-  "guide": {
-    "title": "Guide",
-    "guideText": "Detta är guiden för administratörer. Den ger instruktioner och information om hur man navigerar och använder de olika funktionerna i administratörspanelen.",
-    "statistics": "Statistik",
-    "statisticsText": "Detta avsnitt ger statistiska data och analys som är relevanta för systemets prestanda och användarinteraktioner.",
-    "logs": "Loggar",
-    "logsText": "Här kan administratörer visa detaljerade loggar över systemaktiviteter, inklusive användaråtgärder, fel och andra viktiga händelser.",
+  "logs": {
+    "details": {
+      "message": "Meddelande",
+      "time": "Tid",
+      "userEmail": "Användarens e-post"
+    },
+    "errorLogsLabel": "Felloggar:",
+    "errorTitle": "Administratörsfelloggar",
+    "logsLabel": "Loggar:",
+    "noErrorLogs": "Inga felloggar hittades.",
+    "noLogs": "Inga loggar hittades.",
+    "resetReload": "Återställ / ladda om",
+    "showOlder": "Visa äldre",
+    "showOlderErrors": "Visa äldre felloggar",
+    "showOlderLogs": "Visa äldre loggar",
+    "title": "Administratörsloggar",
     "errorLogs": "Felloggar",
-    "errorLogsText": "Detta område visar loggar som specifikt är relaterade till fel som inträffar inom systemet, vilket underlättar felsökning och felkorrigering.",
-    "userFeedback": "Användarfeedback",
-    "userFeedbackText": "Administratörer kan få tillgång till och granska feedback som lämnats in av användare, vilket hjälper till att förstå användarnas upplevelser och hantera eventuella problem eller bekymmer.",
-    "serverStatus": "Serverstatus",
-    "serverStatusText": "Övervaka system- och databasprestanda i realtid, inklusive CPU-användning, minnesanvändning, databasanslutningar, frågestatistik och upptid för servern. \nAnvänd denna information för att säkerställa optimal systemprestanda och identifiera potentiella flaskhalsar."
+    "systemLogs": "Systemloggar",
+    "showing": "Visar {{count}} av {{limit}} rader",
+    "refresh": "Uppdatera",
+    "showMore": "Visa mer",
+    "loadMore": "Ladda fler loggar",
+    "lineNumber": "Rad {{number}}",
+    "noLogsAvailable": "Inga loggar tillgängliga"
+  },
+  "mainView": {
+    "counselorDashboard": "Studievägledarpanel",
+    "counselorDashboardDesc": "Hantera och visa studievägledningstjänster",
+    "courseManagement": "Kurshantering",
+    "courseManagementDesc": "Skapa, uppdatera och ta bort kurser",
+    "lectureManagement": "Föreläsningshantering",
+    "lectureManagementDesc": "Visa och hantera alla föreläsningar",
+    "serverConfiguration": "Serverkonfiguration",
+    "serverConfigurationDesc": "Hantera serverinställningar och konfigurationer",
+    "serverDashboard": "Serverpanel",
+    "serverDashboardDesc": "Visa serverstatistik och användning",
+    "studentDashboard": "Studerandepanel",
+    "studentDashboardDesc": "Visa studerandemoduler",
+    "teacherDashboard": "Lärarpanel",
+    "teacherDashboardDesc": "Hantera och visa dina undervisningsmoduler",
+    "userManagement": "Användarhantering",
+    "userManagementDesc": "Hantera användarkonton och behörigheter",
+    "userRegistration": "Användarregistrering",
+    "userRegistrationDesc": "Registrera en ny användare",
+    "workLog": "Arbetsloggshantering",
+    "workLogDesc": "Visa och hantera alla arbetsloggar",
+    "otherDashboards": "Övriga paneler",
+    "otherDashboardsDesc": "Visa ytterligare systempaneler och övervakningsverktyg"
   },
   "newUser": {
     "addNew": "Lägg till ny",
-    "userDetails": "Användardetaljer",
-    "userType": "Användartyp",
-    "optionStudent": "Student",
+    "emailTaken": "E-postadressen används redan",
+    "optionStudent": "Studerande",
     "optionTeacher": "Lärare",
-    "staffRole": "Personalroll",
     "staffRolTitle": "Välj personalroll",
-    "emailTaken": "E-post upptagen",
-    "studentNumberTaken": "Studentnummer upptaget",
-    "selectUserTypeInstruction": "Välj om du vill skapa en ny student eller en personal. \nPersonal kan tilldelas olika roller med olika behörigheter, medan studenter kommer att tilldelas specifika studentgrupper."
-  },
-  "adminProfile": {
-    "noData": "Inga användardata tillgängliga.",
-    "profile": "Administratörsprofil"
+    "staffRole": "Personalroll",
+    "studentNumberTaken": "Studerandenumret används redan",
+    "userDetails": "Användaruppgifter",
+    "userType": "Användartyp",
+    "selectUserTypeInstruction": "Välj om du vill skapa en ny studerande eller en personalmedlem. Personalmedlemmar kan tilldelas olika roller med varierande behörigheter, medan studerande tilldelas specifika studerandegrupper."
   },
   "settings": {
-    "serverSettings": "Serverinställningar",
-    "serverSettingsDesc": "Välkommen till inställningsavsnittet. Här kan du konfigurera de parametrar som styr inställningarna för insamling av närvaro och ställa in kraven för närvaro. Justera dessa inställningar för att bäst passa dina behov.",
+    "attendanceThreshold": "Närvarogräns",
     "currentSettings": "Aktuella inställningar",
-    "speedOfHash": "Hashhastighet",
-    "hashSpeedMultiplier": "Hashhastighetsmultiplikator för nätverksuppdatering",
+    "hashSpeedMultiplier": "Hash-hastighetsmultiplikator för nätverkssynkronisering",
     "leeway": "Tolerans",
+    "serverSettings": "Serverinställningar",
+    "serverSettingsDesc": "Välkommen till inställningssektionen. Här kan du konfigurera parametrarna för inställningarna på sidan för närvaroregistrering och ange närvarokravets gränsvärde. Justera inställningarna efter dina behov.",
+    "speedOfHash": "Hash-hastighet",
     "timeOut": "Tidsgräns",
-    "attendanceThreshold": "Närvarotröskel",
     "updateSettings": "Uppdatera inställningar"
   },
-  "editUser": {
-    "title": "Redigera användare",
-    "createdAt": "Skapat",
-    "lastName": "Efternamn",
-    "firstName": "Förnamn",
-    "email": "E-post",
-    "username": "Användarnamn",
-    "role": "Roll",
-    "gdprOptions": {
-      "notAccepted": "Inte accepterat",
-      "accepted": "Accepterat"
-    },
-    "studentNumber": "Studentnummer",
-    "studentGroup": "Studentgrupp",
-    "saveButton": "Spara",
-    "errors": {
-      "emailTaken": "Student-e-posten upptagen",
-      "studentNumberTaken": "Studentnumret är upptaget",
-      "studentEmailTaken": "E-postadressen är redan i användning"
-    }
-  },
-  "logs": {
-    "title": "Adminloggar",
-    "errorTitle": "Admin felloggar",
-    "showOlder": "Visa äldre",
-    "showOlderLogs": "Visa äldre loggar",
-    "showOlderErrors": "Visa äldre felloggar",
-    "resetReload": "Återställ/Ladda om",
-    "noLogs": "inga loggar hittades.",
-    "noErrorLogs": "inga felloggar hittades.",
-    "logsLabel": "Loggar:",
-    "errorLogsLabel": "Felloggar:",
-    "details": {
-      "userEmail": "Användarens e-post",
-      "time": "Tid",
-      "message": "Meddelande"
-    }
-  },
   "worklog": {
-    "name": "Namn",
-    "code": "Kod",
-    "startDate": "Startdatum",
-    "endDate": "Slutdatum",
-    "requiredHours": "Obligatoriska timmar",
-    "description": "Beskrivning",
-    "createNewWorkLog": "Skapa ny arbetstidslogg",
-    "noCourses": "Inga kurser tillgängliga ännu",
-    "redirecting": "Omdirigerar till huvudvyn...",
-    "status": {
-      "0": "Status: Fel",
-      "1": "Status: Instämplad",
-      "2": "Status: Utstämplad",
-      "3": "Status: Kontrollerad"
-    },
-    "dialog": {
-      "clockIn": "Stämpla in på kurs",
-      "clockOut": "Stämpla ut från kurs",
-      "confirm": "Är du säker?",
-      "description": "Ange beskrivning",
-      "requiredDescription": "Beskrivning krävs för instämpling"
-    },
-    "error": {
-      "fetchFailed": "Kunde inte hämta data",
-      "requiredFields": "Vänligen fyll i alla obligatoriska fält",
-      "codeExists": "Koden finns redan"
-    },
     "actions": {
       "clockIn": "Stämpla in",
       "clockOut": "Stämpla ut",
@@ -371,57 +374,94 @@
       "in": "In",
       "out": "Ut"
     },
-    "notifications": {
-      "clockedIn": "Stämplat in kl {{time}}",
-      "clockedOut": "Stämplat ut kl {{time}}",
-      "editClicked": "Redigering klickad kl {{time}}"
-    },
-    "tooltips": {
-      "modify": "Ändra post",
-      "delete": "Ta bort post"
-    },
     "aria": {
       "clockIn": "Knapp för instämpling",
       "clockOut": "Knapp för utstämpling",
-      "edit": "Knapp för att redigera poster"
+      "edit": "Knapp för redigering av poster"
     },
-    "selectCourse": "Välj kurs",
     "clockIn": "Stämpla in",
     "clockOut": "Stämpla ut",
-    "optionalDescription": "Valfri beskrivning",
-    "messages": {
-      "clockedIn": "Stämplat in kl {{time}} med anledning: {{description}}",
-      "clockedOut": "Stämplat ut kl {{time}}",
-      "clockedOutWithReason": "Stämplat ut kl {{time}} med anledning: {{description}}",
-      "editClicked": "Redigering klickad kl {{time}}",
-      "failedToLog": "Misslyckades med att logga arbetstid",
-      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
-      "failedToFetch": "Misslyckades med att hämta kurser"
-    },
+    "code": "Kod",
+    "createNewWorkLog": "Skapa ny arbetslogg",
     "delete": {
-      "confirm": "Är du säker på att du vill radera denna post?",
-      "success": "Posten raderades framgångsrikt",
-      "error": "Misslyckades med att radera posten"
+      "confirm": "Är du säker på att du vill ta bort denna post?",
+      "error": "Misslyckades med att ta bort posten",
+      "success": "Posten har tagits bort"
+    },
+    "description": "Beskrivning",
+    "dialog": {
+      "clockIn": "Stämpla in på kurs",
+      "clockOut": "Stämpla ut från kurs",
+      "confirm": "Är du säker?",
+      "description": "Ange beskrivning",
+      "requiredDescription": "Beskrivning krävs för instämpling"
     },
     "edit": {
-      "success": "Posten uppdaterades framgångsrikt",
-      "error": "Misslyckades med att uppdatera posten"
+      "error": "Misslyckades med att uppdatera posten",
+      "success": "Posten har uppdaterats"
     },
+    "endDate": "Slutdatum",
     "entries": {
+      "course": "Kurs",
+      "date": "Datum",
+      "description": "Beskrivning",
+      "duration": "Varaktighet",
+      "endTime": "Sluttid",
+      "entries": "poster",
+      "hours": "Timmar",
+      "startTime": "Starttid",
+      "status": "Status",
       "time": "Tid",
-      "duration": "Varaktighet"
+      "title": "Arbetsloggposter",
+      "total": "Totalt"
+    },
+    "error": {
+      "codeExists": "Koden finns redan",
+      "fetchFailed": "Misslyckades med att hämta data",
+      "requiredFields": "Fyll i alla obligatoriska fält"
+    },
+    "logger": {
+      "title": "Arbetsloggpost"
+    },
+    "messages": {
+      "clockedIn": "Stämplade in kl. {{time}} med orsak: {{description}}",
+      "clockedOut": "Stämplade ut kl. {{time}}",
+      "clockedOutWithReason": "Stämplade ut kl. {{time}} med orsak: {{description}}",
+      "editClicked": "Redigering klickad kl. {{time}}",
+      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetsposter",
+      "failedToFetch": "Misslyckades med att hämta kurser",
+      "failedToLog": "Misslyckades med att logga arbetspost"
+    },
+    "name": "Namn",
+    "noCourses": "Inga kurser tillgängliga ännu",
+    "notifications": {
+      "clockedIn": "Stämplade in kl. {{time}}",
+      "clockedOut": "Stämplade ut kl. {{time}}",
+      "editClicked": "Redigering klickad kl. {{time}}"
+    },
+    "optionalDescription": "Valfri beskrivning",
+    "redirecting": "Omdirigerar till huvudvyn...",
+    "requiredHours": "Krav på timmar",
+    "selectCourse": "Välj kurs",
+    "startDate": "Startdatum",
+    "status": {
+      "0": "Status: Fel",
+      "1": "Status: Instämplad",
+      "2": "Status: Utstämplad",
+      "3": "Status: Kontrollerad"
+    },
+    "tooltips": {
+      "delete": "Ta bort post",
+      "modify": "Ändra post"
     }
   },
-  "admin:logs": {
-    "errorTitle": ""
-  },
   "serverStatus": {
-    "usage": "Användande",
     "system": "System",
     "uptime": "Drifttid",
-    "loadAverage": "Belastningsgenomsnitt",
+    "usage": "Användning",
+    "loadAverage": "Genomsnittlig belastning",
     "totalMemory": "Totalt minne",
-    "freeMemory": "Fritt minne",
+    "freeMemory": "Ledigt minne",
     "database": "Databas",
     "connections": "Anslutningar",
     "threads": "Trådar",
@@ -430,13 +470,13 @@
   },
   "course": {
     "name": "Namn",
-    "code": "Koda",
-    "studentGroup": "Studentgrupp",
+    "code": "Kod",
+    "studentGroup": "Studerandegrupp",
     "topics": "Ämnen",
     "showOlder": "Visa äldre kurser",
     "hideOlder": "Dölj äldre kurser",
     "showAll": "Visa alla kurser",
-    "showOlderToSeeMore": "Försök att visa äldre kurser för att se fler resultat"
+    "showOlderToSeeMore": "Försök visa äldre kurser för att se fler resultat"
   },
   "users": {
     "lastName": "Efternamn",
@@ -444,12 +484,22 @@
     "email": "E-post",
     "username": "Användarnamn",
     "role": "Roll",
-    "studentnumber": "Studentnummer",
-    "created_at": "Skapat",
-    "activeStatus": "Aktivitetsstatus",
+    "studentnumber": "Studerandenummer",
+    "created_at": "Skapad",
+    "activeStatus": "Aktiv status",
     "showInactive": "Visa inaktiva",
     "hideInactive": "Dölj inaktiva",
     "showAll": "Visa alla användare",
-    "showInactiveToSeeMore": "Försök att visa inaktiva användare för att se fler resultat"
+    "showInactiveToSeeMore": "Försök visa inaktiva användare för att se fler resultat",
+    "createNewUser": "Skapa ny användare"
+  },
+  "ui": {
+    "loading": "Laddar...",
+    "noUsersAvailable": "Inga användare",
+    "createFirstUser": "Skapa första användaren",
+    "searchPlaceholder": "Sök användare",
+    "search": "Sök",
+    "searchIn": "Sökalternativ",
+    "allFields": "Alla fält"
   }
 }

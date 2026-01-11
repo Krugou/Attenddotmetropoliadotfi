@@ -1,7 +1,7 @@
 {
   "welcome": {
-    "title": "Välkommen till Metropolia Attendance! Låt oss börja",
-    "description": "Snälla hjälp oss att förbättra genom att ge oss feedback via feedbackalternativet."
+    "title": "Välkommen till Metropolia Attend! Nu sätter vi igång",
+    "description": "Hjälp oss gärna att förbättra tjänsten genom att ge feedback via alternativet Feedback."
   },
   "languages": {
     "en": "Engelska",
@@ -14,25 +14,22 @@
     },
     "errors": {
       "noToken": "Ingen token tillgänglig",
-      "changeFailed": "Kunde inte ändra språk"
+      "changeFailed": "Misslyckades med att byta språk"
     },
     "success": {
-      "changed": "Språket ändrades framgångsrikt"
-    },
-    "filter": {
-      "allCourses": "Alla kurser"
+      "changed": "Språket har ändrats"
     }
   },
   "login": {
     "title": "Logga in med ditt Metropolia-konto",
     "username": "Användarnamn",
     "password": "Lösenord",
-    "usernamePlaceholder": "Ange ditt Metropolia användarnamn",
-    "passwordPlaceholder": "Ange ditt Metropolia lösenord",
+    "usernamePlaceholder": "Ange ditt Metropolia-användarnamn",
+    "passwordPlaceholder": "Ange ditt Metropolia-lösenord",
     "signIn": "Logga in",
     "togglePassword": "{{action}} lösenord",
     "forgotPassword": "Återställ ditt lösenord (öppnas i ny flik)",
-    "forgotPasswordLink": "Glömt ditt lösenord?",
+    "forgotPasswordLink": "Glömt lösenordet?",
     "microsoftSignIn": "Logga in med Microsoft",
     "or": "ELLER"
   },
@@ -43,35 +40,58 @@
   "deleteModal": {
     "title": "Bekräftelse",
     "messages": {
-      "student": "Är du säker på att du vill ta bort studenten från denna kurs? Detta kommer också att ta bort all närvarodata för denna student på kursen.",
+      "student": "Är du säker på att du vill ta bort studenten från kursen? Detta tar även bort all närvarodata för studenten i kursen.",
       "course": "Är du säker på att du vill ta bort denna kurs?"
     },
     "buttons": {
       "cancel": "AVBRYT",
-      "delete": "RADERA"
+      "delete": "TA BORT"
     }
   },
   "reset": "Återställ",
   "errors": {
-    "emailTaken": "E-post upptagen",
-    "studentNumberTaken": "Studentnummer upptagen",
-    "noToken": "Ingen tillgänglig token",
+    "emailTaken": "E-postadressen används redan",
+    "studentNumberTaken": "Studerandenumret används redan",
+    "noToken": "Ingen token tillgänglig",
     "fillRequiredFields": "Fyll i alla obligatoriska fält",
-    "openDataConnectionFailed": "Anslutning till Metropolias Open Data API kunde inte upprättas. Viss systemfunktionalitet kan vara begränsad. Kontakta din systemadministratör.",
+    "openDataConnectionFailed": "Anslutning till Metropolias Open Data-API kunde inte upprättas. Vissa funktioner i systemet kan vara begränsade. Kontakta systemadministratören.",
     "searchFailed": "Sökningen misslyckades.",
-    "selectionRequired": "Urval krävs",
-    "fetchFailed": "Hämtning",
-    "enrollmentFailed": "Anmälan misslyckades",
-    "fetchCourseDetailsFailed": "Misslyckades med att hämta kursinformation",
-    "coursesNotLoaded": "Kurser kunde inte laddas",
-    "fetchStudentsFailed": "Misslyckades med att hämta studentdata",
+    "selectionRequired": "Val krävs",
+    "fetchFailed": "Hämtning misslyckades",
+    "enrollmentFailed": "Registreringen misslyckades",
+    "fetchCourseDetailsFailed": "Misslyckades med att hämta kursdetaljer",
+    "coursesNotLoaded": "Kurserna kunde inte laddas",
+    "fetchStudentsFailed": "Misslyckades med att hämta studerandedata",
     "fetchWorklogCoursesFailed": "Misslyckades med att hämta arbetsloggkurser"
   },
   "email": "E-post",
   "firstName": "Förnamn",
   "lastName": "Efternamn",
-  "studentNumber": "Studentnummer",
+  "studentNumber": "Studerandenummer",
+  "studentNumberTaken": "Studerandenumret används redan",
   "showEndedCourses": "Visa avslutade kurser",
+  "hideEndedCourses": "Dölj avslutade kurser",
+  "yes": "Ja",
+  "no": "Nej",
+  "required": "obligatorisk",
+  "save": "Spara ändringar",
+  "cancel": "Avbryt",
+  "delete": "Ta bort",
+  "remove": "Ta bort",
+  "characters": "tecken",
+  "check": "Kontrollera",
+  "checking": "Kontrollerar...",
+  "create": "Skapa",
+  "creating": "Skapar...",
+  "back": "Tillbaka",
+  "close": "Stäng",
+  "confirm": "Bekräfta",
+  "view": "Visa",
+  "user": "Användare",
+  "loading": "Laddar...",
+  "metropoliaLoading": "Attend laddar...",
+  "userDetails": "Användaruppgifter",
+  "addNew": "Lägg till ny användare",
   "attendance": {
     "status": {
       "absent": "Frånvarande",
@@ -81,40 +101,22 @@
     }
   },
   "notifications": {
-    "success": "Operationen slutfördes framgångsrikt",
-    "error": "Ett fel uppstod vid behandling av din begäran",
+    "success": "Åtgärden slutfördes",
+    "error": "Ett fel uppstod vid behandlingen av din begäran",
     "savingChanges": "Sparar ändringar...",
-    "saveSuccess": "Ändringar sparades framgångsrikt",
-    "saveError": "Det gick inte att spara ändringarna",
-    "deletingItem": "Raderar objekt...",
-    "deleteSuccess": "Objektet raderades framgångsrikt",
-    "deleteError": "Det gick inte att radera objektet",
+    "saveSuccess": "Ändringarna sparades",
+    "saveError": "Misslyckades med att spara ändringar",
+    "deletingItem": "Tar bort objekt...",
+    "deleteSuccess": "Objektet har tagits bort",
+    "deleteError": "Misslyckades med att ta bort objekt",
     "loadingError": "Fel vid laddning av data",
     "sessionExpired": "Din session har gått ut, logga in igen"
   },
-  "yes": "Ja",
-  "no": "Nej",
-  "hideEndedCourses": "Dölj avslutade kurser",
-  "required": "obligatoriskt",
-  "cancel": "Avbryt",
-  "delete": "Radera",
-  "remove": "Ta bort",
-  "characters": "tecken",
-  "check": "Kontrollera",
-  "checking": "Kontrollerar...",
-  "create": "Skapa",
-  "creating": "Skapar...",
-  "back": "Tillbaka",
-  "close": "Stäng detta fönster",
-  "save": "Spara ändringar",
-  "confirm": "Bekräfta",
-  "view": "Visa",
-  "user": "Användare",
   "editTopics": {
     "title": "Redigera ämnen för {{courseName}}",
     "newTopicLabel": "Nytt ämne",
-    "counselorHelpText": "Endast markerade ämnen kommer att inkluderas i kursen",
-    "teacherHelpText": "Endast markerade ämnen kommer att inkluderas i kursen, att ta bort dem från vyn kommer också att utesluta dem.",
+    "counselorHelpText": "Endast markerade ämnen inkluderas i kursen",
+    "teacherHelpText": "Endast markerade ämnen inkluderas i kursen, borttagning från vyn exkluderar dem också.",
     "saveTopics": "Spara nya ämnen"
   },
   "courseSelect": {
@@ -122,55 +124,66 @@
     "placeholder": "Välj en kurs"
   },
   "studentGroupSelect": {
-    "label": "Studentgrupp",
-    "notInSystem": "Inte i systemet ännu"
+    "label": "Studerandegrupp",
+    "notInSystem": "Inte ännu i systemet"
   },
   "mainViewTitle": {
-    "dashboard": "Panel"
+    "dashboard": "Översikt",
+    "teacher": "Lärarpanel",
+    "student": "Studerandepanel",
+    "admin": "Administratörspanel",
+    "counselor": "Studievägledarpanel",
+    "default": "Översikt"
   },
   "errorAlert": {
     "title": "Fel",
-    "backToLogin": "Tillbaka till inloggningen",
+    "backToLogin": "Tillbaka till inloggning",
     "close": "Stäng"
   },
   "newStudent": {
-    "title": "Sen anmälan",
-    "studentDetails": "Studentdetaljer",
+    "title": "Sen registrering",
+    "studentDetails": "Studerandeuppgifter",
+    "selection": {
+      "title": "Kurstyp",
+      "modeHelp": "Välj om studeranden ska läggas till i en kurs eller i en arbetsloggkurs"
+    },
     "errors": {
-      "fillAllFields": "Vänligen fyll i alla fält",
-      "addFailed": "Lyckades inte lägga till ny studentanvändare",
-      "studentNumberTaken": "Studentnumret är redan upptaget"
+      "fillAllFields": "Fyll i alla fält",
+      "addFailed": "Misslyckades med att lägga till ny studerande",
+      "studentNumberTaken": "Studerandenumret används redan"
     },
     "success": {
-      "userAdded": "Ny studentanvändare tillagd framgångsrikt"
+      "userAdded": "Ny studerande har lagts till"
     },
     "note": {
-      "title": "Notera!",
-      "checkDetails": "Vänligen se till att detaljerna stämmer innan du lägger till studenten.",
-      "contactAdmin": "Om du har lagt till en student med felaktiga detaljer, kontakta din administratör."
+      "title": "Obs!",
+      "checkDetails": "Kontrollera att uppgifterna är korrekta innan du lägger till studeranden.",
+      "contactAdmin": "Om du har lagt till en studerande med felaktiga uppgifter, kontakta din administratör på attend@metropolia.fi."
     },
     "addButton": "Lägg till ny användare",
-    "goToStudents": "Rådgivarstudenter redigerar",
-    "guideHowToAddStudentToCourse": "Ändra med profilknappen till rådgivarrollen och lägg till dem med hjälp av rådgivarstudentervy",
-    "subtitle": "Om studenten redan är i system (studentinformation redan tagits)"
+    "goToStudents": "Redigera studerande (studievägledare)",
+    "guideHowToAddStudentToCourse": "Byt till studievägledarroll via profilknappen och lägg till studeranden via vyn för studievägledarens studerande",
+    "subtitle": "Om studeranden redan finns i systemet (studerandeuppgifterna är redan upptagna)"
   },
   "serverStatus": {
-    "vpnNotConnected": "Du är för närvarande inte ansluten till Metropolias interna nätverk. Klicka här för att få VPN-instruktioner",
+    "vpnNotConnected": "Du är för närvarande inte ansluten till Metropolias interna nätverk. Klicka här för att se VPN-instruktionerna",
     "version": "Version",
     "connection": "Serveranslutning",
-    "reloadNeeded": "Vänligen uppdatera sidan tills denna text försvinner",
-    "vpnConnected": "Ansluten till Metropolia Internt Network",
-    "vpnConnection": "Inre anslutning",
-    "refreshNow": "uppdatera nu."
+    "reloadNeeded": "Uppdatera sidan tills denna text försvinner",
+    "vpnConnected": "Ansluten till Metropolias interna nätverk",
+    "vpnConnection": "Intern anslutning",
+    "refreshNow": "Uppdatera nu"
   },
   "successAlert": {
-    "title": "Framgång"
+    "title": "Lyckades"
   },
   "profileInfo": {
     "labels": {
       "name": "Namn",
       "username": "Användarnamn",
       "email": "E-post",
+      "studentNumber": "Studerandenummer",
+      "studentGroup": "Studerandegrupp",
       "accountCreated": "Konto skapat",
       "role": "Roll",
       "language": "Språk",
@@ -179,13 +192,13 @@
     },
     "buttons": {
       "change": "Ändra",
-      "changeRole": "Ändra roll"
+      "changeRole": "Byt roll"
     },
     "roleChange": {
-      "title": "Ändra roll",
+      "title": "Byt roll",
       "selectTitle": "Rollval",
-      "success": "Rollen ändrades framgångsrikt, vänligen logga in igen",
-      "error": "Lyckades inte ändra roll"
+      "success": "Rollen har ändrats, logga in igen",
+      "error": "Misslyckades med att byta roll"
     },
     "sections": {
       "personal": "Personlig information",
@@ -193,19 +206,22 @@
       "preferences": "Inställningar"
     },
     "errors": {
-      "roleFetchFailed": "Kunde inte hämta rollinformation"
+      "roleFetchFailed": "Misslyckades med att hämta rollinformation"
     }
   },
   "worklog": {
+    "selectCourseLabel": "Arbetsloggkurs",
     "enrollment": {
-      "switchToRegular": "kurs",
-      "switchToWorklog": "arbetslogg"
+      "switchToRegular": "Kurs",
+      "switchToWorklog": "Arbetslogg"
     },
     "entries": {
       "title": "Arbetsloggposter",
       "date": "Datum",
       "startTime": "Starttid",
       "endTime": "Sluttid",
+      "start": "Start",
+      "end": "Slut",
       "duration": "Varaktighet",
       "course": "Kurs",
       "description": "Beskrivning",
@@ -220,20 +236,32 @@
       "edit": "Redigera poster",
       "in": "In",
       "out": "Ut",
-      "showMassEntry": "Veckovis poster",
-      "hideMassEntry": "Dölj veckovis poster",
-      "cancel": "Avboka",
-      "confirm": "Lägg fortfarande till post."
+      "showMassEntry": "Veckoposter",
+      "hideMassEntry": "Dölj veckoposter",
+      "cancel": "Avbryt",
+      "confirm": "Lägg till post"
     },
     "notifications": {
-      "clockedIn": "Stämplat in kl {{time}}",
-      "clockedOut": "Stämplat ut kl {{time}}",
-      "editClicked": "Redigering klickad kl {{time}}"
+      "clockedIn": "Stämplade in kl. {{time}}",
+      "clockedOut": "Stämplade ut kl. {{time}}",
+      "editClicked": "Redigerad kl. {{time}}"
     },
     "aria": {
       "clockIn": "Knapp för instämpling",
       "clockOut": "Knapp för utstämpling",
-      "edit": "Knapp för att redigera poster"
+      "edit": "Knapp för redigering av poster"
+    },
+    "edit": {
+      "title": "Redigera arbetslogg",
+      "success": "Posten har uppdaterats",
+      "error": "Misslyckades med att uppdatera posten"
+    },
+    "error": {
+      "fetchFailed": "Misslyckades med att hämta data",
+      "requiredFields": "Fyll i alla obligatoriska fält",
+      "codeExists": "Koden finns redan",
+      "descriptionRequired": "Beskrivning krävs",
+      "noDaysSelected": "Välj minst en dag"
     },
     "status": {
       "0": "Status: Fel",
@@ -241,39 +269,55 @@
       "2": "Status: Utstämplad",
       "3": "Status: Kontrollerad"
     },
-    "edit": {
-      "title": "Redigera arbetslogg",
-      "success": "Posten uppdaterades framgångsrikt",
-      "error": "Misslyckades med att uppdatera posten"
-    },
-    "error": {
-      "fetchFailed": "Kunde inte hämta data",
-      "requiredFields": "Vänligen fyll i alla obligatoriska fält",
-      "codeExists": "Koden finns redan",
-      "descriptionRequired": "Beskrivning är obligatorisk",
-      "noDaysSelected": "Välj minst en dag"
-    },
-    "selectCourse": "Välj kurs",
+    "selectCourse": "Välj en kurs",
     "clockIn": "Stämpla in",
     "clockOut": "Stämpla ut",
+    "description": "Beskrivning",
     "optionalDescription": "Valfri beskrivning",
+    "requiredDescription": "Obligatorisk beskrivning",
+    "tooltips": {
+      "modify": "Ändra post",
+      "delete": "Ta bort post"
+    },
+    "logger": {
+      "title": "Arbetsloggpost"
+    },
+    "dialog": {
+      "clockIn": "Stämpla in på kurs",
+      "clockOut": "Stämpla ut från kurs",
+      "confirm": "Är du säker?",
+      "description": "Ange beskrivning",
+      "requiredDescription": "Beskrivning krävs för instämpling"
+    },
     "messages": {
-      "failedToLog": "Misslyckades med att logga arbetstid",
-      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetspass",
+      "failedToLog": "Misslyckades med att logga arbetspost",
+      "failedToCheck": "Misslyckades med att kontrollera aktiva arbetsposter",
       "failedToFetch": "Misslyckades med att hämta kurser",
       "massEntriesAdded": "{{count}} poster har lagts till",
       "failedToAddEntries": "Misslyckades med att lägga till poster",
-      "entryAdded": "Post tillagd framgångsrikt.",
-      "entryClosed": "Post stängd."
+      "entryAdded": "Posten har lagts till.",
+      "entryClosed": "Posten har stängts."
     },
+    "confirmation": {
+      "duplicateEntryWarning": "Du har redan en post för denna kurs idag. Vill du ändå lägga till en ny post?",
+      "title": "Bekräftelse"
+    },
+    "name": "Namn",
+    "code": "Kod",
+    "startDate": "Startdatum",
+    "endDate": "Slutdatum",
+    "requiredHours": "Krav på timmar",
+    "createNewWorkLog": "Skapa ny arbetslogg",
+    "noCourses": "Inga kurser tillgängliga ännu",
+    "redirecting": "Omdirigerar till huvudvyn...",
     "delete": {
-      "confirm": "Är du säker på att du vill radera denna post?",
-      "success": "Posten har raderats framgångsrikt",
-      "error": "Det gick inte att radera posten"
+      "confirm": "Är du säker på att du vill ta bort denna post?",
+      "success": "Posten har tagits bort",
+      "error": "Misslyckades med att ta bort posten"
     },
     "filter": {
-      "course": "Välj en kurs",
       "allCourses": "Alla kurser",
+      "course": "Välj en kurs",
       "clearDate": "Rensa datum"
     },
     "table": {
@@ -289,7 +333,9 @@
       "table": "Tabell"
     },
     "search": {
-      "placeholder": "Sök efter beskrivning..."
+      "placeholder": "Sök på beskrivning, kursnamn eller kod...",
+      "noResults": "Inga resultat hittades",
+      "tryDifferentTerms": "Inga träffar för \"{{searchTerm}}\". Prova andra sökord eller filter."
     },
     "sort": {
       "date": "Sortera efter datum",
@@ -297,10 +343,8 @@
       "duration": "Sortera efter varaktighet",
       "description": "Sortera efter beskrivning"
     },
-    "requiredDescription": "Obligatorisk beskrivning",
-    "description": "Beskrivning",
     "massEntry": {
-      "title": "Veckovis poster",
+      "title": "Veckoposter",
       "descriptionPlaceholder": "Vad arbetade du med den här veckan?",
       "selectDays": "Välj dagar",
       "previousWeek": "Föregående vecka",
@@ -309,25 +353,14 @@
       "submitting": "Lägger till poster...",
       "hoursTooltip": "Arbetade timmar"
     },
-    "confirmation": {
-      "duplicateEntryWarning": "Du har redan en post för denna kurs idag. Vill du fortfarande lägga till en ny post?",
-      "title": "Bekräftelse"
-    },
-    "tooltips": {
-      "modify": "Modifiera post",
-      "delete": "Radera post"
-    },
-    "logger": {
-      "title": "Arbetsloggsregistrering"
-    },
-    "practicum": "Praktikinträde",
+    "practicum": "Praktikpost",
     "stats": {
       "labels": {
-        "student": "Student",
+        "student": "Studerande",
         "hours": "Timmar",
         "progress": "Framsteg",
-        "required": "Krävt",
-        "completed": "Slutfört",
+        "required": "Krav",
+        "completed": "Avklarat",
         "remaining": "Återstående"
       }
     }
@@ -342,97 +375,265 @@
       }
     }
   },
+  "attendanceTable": {
+    "headers": {
+      "student": "Studerande",
+      "selectedTopics": "Kursavsnitt"
+    },
+    "values": {
+      "na": "Ingen närvarodata",
+      "all": "Alla"
+    },
+    "tooltips": {
+      "noLectures": "Inga föreläsningar tillgängliga"
+    }
+  },
+  "createCourse": {
+    "title": "Skapa kurs",
+    "subtitle": "Välj metod",
+    "modes": {
+      "easy": {
+        "title": "Enkelt läge",
+        "description": "Skapa en kurs enkelt med hjälp av studerandedata"
+      },
+      "custom": {
+        "title": "Anpassat läge",
+        "description": "Skapa en kurs med egna uppgifter"
+      }
+    }
+  },
+  "createCourseEasy": {
+    "title": "Lägg till en kurs med hjälp av en Metropolia Excel-fil",
+    "fileUpload": {
+      "checkDetails": "Granska kursuppgifterna från Open Data"
+    },
+    "buttons": {
+      "next": "Nästa"
+    },
+    "students": {
+      "title": "Granska studerandelistan",
+      "description": "Kontrollera att studerandedata som importerats från Excel är korrekt"
+    }
+  },
+  "addTeachers": {
+    "title": "Kurslärare",
+    "addAnother": "Lägg till lärare",
+    "emailLabel": "E-post",
+    "description": "Lägg till lärare till kursen med hjälp av deras e-postadress",
+    "errors": {
+      "notFound": "Ingen personal hittades med denna e-postadress",
+      "checkFailed": "E-postverifiering misslyckades"
+    },
+    "aria": {
+      "deleteInstructor": "Ta bort lärare"
+    }
+  },
+  "courseDetails": {
+    "title": "Fyll i kursuppgifterna",
+    "labels": {
+      "courseCode": "Kurskod",
+      "courseName": "Kursnamn",
+      "studentGroup": "Studerandegrupp",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum"
+    },
+    "errors": {
+      "codeExists": "En kurs med denna kod finns redan."
+    },
+    "success": {
+      "codeRestored": "Den ursprungliga kurskoden har återställts."
+    }
+  },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Visa alla kolumner",
+      "hideExtraColumns": "Dölj extra kolumner",
+      "addStudent": "Lägg till studerande",
+      "sortColumn": "Sortera kolumn",
+      "deleteStudent": "Ta bort studerande",
+      "cancel": "Avbryt",
+      "delete": "Ta bort"
+    },
+    "headers": {
+      "lastName": "Efternamn",
+      "firstName": "Förnamn",
+      "email": "E-post",
+      "studentnumber": "Studerandenummer",
+      "admingroups": "Administrativ grupp",
+      "arrivalgroup": "Ankomstgrupp",
+      "educationform": "Studieform",
+      "evaluation": "Bedömning",
+      "program": "Program",
+      "registration": "Registrering",
+      "name": "Namn",
+      "actions": "Åtgärder"
+    },
+    "dialog": {
+      "title": "Ta bort studerande",
+      "message": "Är du säker på att du vill ta bort studeranden {{name}}?"
+    },
+    "aria": {
+      "sortColumn": "Sortera kolumn",
+      "deleteStudent": "Ta bort studerande",
+      "confirmNewStudent": "Bekräfta ny studerande",
+      "cancelNewStudent": "Avbryt tillägg av ny studerande"
+    }
+  },
+  "topicsGroup": {
+    "title": "Ämnesdetaljer",
+    "buttons": {
+      "deleteGroup": "Ta bort vald grupp",
+      "createCustom": "Skapa anpassad grupp",
+      "selectExisting": "Välj befintlig grupp",
+      "apply": "Använd",
+      "addNewTopic": "Lägg till nytt ämne",
+      "removeTopic": "Ta bort anpassat ämne"
+    },
+    "labels": {
+      "customTopicGroup": "Anpassad ämnesgrupp",
+      "customTopics": "Anpassade ämnen"
+    },
+    "placeholders": {
+      "customTopicGroup": "Anpassad ämnesgrupp",
+      "customTopic": "Anpassat ämne"
+    },
+    "dialog": {
+      "title": "Ta bort ämnesgrupp",
+      "message": "Är du säker på att du vill ta bort denna ämnesgrupp?"
+    },
+    "errors": {
+      "groupExists": "Denna ämnesgrupp finns redan",
+      "emptyTopics": "Fyll i alla tomma anpassade ämnen innan du använder"
+    },
+    "success": {
+      "groupSaved": "Ämnesgruppen har sparats för användaren {{email}}"
+    },
+    "tooltips": {
+      "customGroup": "Lägg till en anpassad ämnesgrupp här, till exempel: \"customGroup\"",
+      "customTopic": "Lägg till anpassade ämnen här, till exempel: \"exam\"",
+      "removeTopic": "Ta bort anpassat ämne",
+      "selectCourseGroup": "Välj kursgrupp"
+    }
+  },
   "feedback": {
-    "header": "Hjälp oss att utvecklas, {{username}}, genom att ge feedback.",
-    "topicLabel": "Feedback ämne",
-    "textLabel": "Feedback text",
-    "selectTopic": "Välj ämne",
+    "header": "Hjälp oss att förbättra tjänsten genom att dela din feedback",
+    "topicLabel": "Feedbackämne",
+    "textLabel": "Feedbacktext",
+    "selectTopic": "Välj ett ämne",
     "placeholder": "Skriv din feedback här...",
     "submit": "Skicka",
-    "submitSuccess": "Din feedback har skickats framgångsrikt!",
-    "submitError": "Det uppstod ett fel när feedbacken skulle skickas.",
+    "submitSuccess": "Din feedback har skickats!",
+    "submitError": "Ett fel uppstod när feedbacken skulle skickas.",
     "topics": {
-      "Qr Code Scanning": "QR-kodskanning",
+      "Qr Code Scanning": "QR-kodsskanning",
       "User Interface / Accessibility": "Användargränssnitt / Tillgänglighet",
       "Attendance info": "Närvaroinformation",
-      "Course Creation": "Kursskapande",
+      "Course Creation": "Kurskapande",
       "Lecture Creation": "Föreläsningsskapande",
-      "Attendance gathering": "Närvaroregistrering",
-      "Course/Student info": "Kurs-/Studentinformation",
+      "Attendance gathering": "Närvaroinsamling",
+      "Course/Student info": "Kurs-/studerandeinformation",
       "Other": "Övrigt"
     }
   },
   "logout": {
-    "success": "Utloggad framgångsrikt!"
+    "success": "Du har loggats ut"
   },
   "header": {
     "developmentMode": "I utvecklingsläge",
     "profile": "Profil",
     "logout": "Logga ut",
-    "sessionExpired": "Din session har löpt ut, logga in igen."
+    "sessionExpired": "Din session har gått ut, logga in igen."
   },
   "footer": {
-    "appName": "Metropolia Närvaroapp",
+    "appName": "Metropolia Attend",
     "developedBy": "Utvecklad av",
     "metropolia": "Metropolia",
     "about": "Om:",
-    "navigation": "Navigation",
+    "navigation": "Navigering",
     "links": {
       "about": "Om",
       "team": "Team",
       "help": "Hjälp",
-      "oma": "OMA Intranet",
+      "oma": "OMA-intranät",
       "wiki": "Metropolia Wiki",
-      "lukkarit": "Scheman"
+      "lukkarit": "Schema"
     }
   },
   "loginStart": "Logga in",
   "status": "Status",
-  "instructors": "Instruktörer",
+  "instructors": "Lärare",
   "openLectureCard": {
-    "title": "Öppen föreläsning hittad, kod: {{code}} ämne: {{topic}} !",
-    "description": "Klicka för att fortsätta"
+    "title": "Närvaroinsamling pågår",
+    "subtitle": "{{code}}, {{topic}}",
+    "description": "{{code}}, {{topic}}"
   },
-  "loading": "Belastning...",
-  "metropoliaLoading": "Metropolia närvaro App Loading ...",
   "sorting": {
-    "clickToSort": "Klicka på kolumnrubriken för att sortera",
-    "currentSort": "Sorterad: ",
+    "clickToSort": "Klicka på kolumnrubriker för att sortera",
+    "currentSort": "Sorteras för närvarande efter: ",
     "sortBy": "Sortera efter",
-    "none": "ingen sortering",
+    "none": "ingen",
     "asc": "stigande",
     "desc": "fallande"
   },
-  "noToken": "Inget tecken",
-  "total": "Total",
-  "inLastWeek": "Förra veckan",
-  "inLastMonth": "Förra månaden",
-  "belowThreshold": "Under tröskeln",
+  "noToken": "Ingen token",
+  "passing": "Godkänd",
+  "failing": "Underkänd",
+  "never": "Aldrig",
+  "total": "totalt",
+  "inLastWeek": "Under senaste veckan",
+  "inLastMonth": "Under senaste månaden",
+  "belowThreshold": "Under gränsvärdet",
+  "lastMonth": "Förra månaden",
+  "lastWeek": "Förra veckan",
+  "allTime": "Totalt",
   "columns": "Kolumner",
   "name": "Namn",
   "course": "Kurs",
   "courseCode": "Kurskod",
   "group": "Grupp",
-  "totalLectures": "Totala föreläsningar",
-  "attendedLectures": "Deltog i föreläsningar",
-  "lastAttendance": "Sista närvaro",
+  "totalLectures": "Totalt antal föreläsningar",
+  "attendedLectures": "Deltagna föreläsningar",
+  "lastAttendance": "Senaste närvaro",
   "attendancePercentage": "Närvaroprocent",
+  "search": "Sök",
+  "numberOfDays": "Antal dagar",
+  "practicum": "Praktikpost",
   "labels": {
-    "userAccessInformation": "Användaråtkomstinformation"
+    "userAccessInformation": "Information om användaråtkomst"
+  },
+  "dateDisplay": {
+    "justNow": "just nu",
+    "minutesAgo": "{{count}} minut sedan",
+    "minutesAgo_plural": "{{count}} minuter sedan",
+    "hoursAgo": "{{count}} timme sedan",
+    "hoursAgo_plural": "{{count}} timmar sedan",
+    "daysAgo": "{{count}} dag sedan",
+    "daysAgo_plural": "{{count}} dagar sedan",
+    "invalidDate": "Ogiltigt datum"
   },
   "lateEnrollment": {
     "selectMode": "Välj läge",
-    "newStudent": "Nystudent",
-    "existingStudent": "Befintlig student.",
+    "newStudent": "Ny studerande",
+    "existingStudent": "Befintlig studerande",
     "backToOptions": "Tillbaka till alternativ",
-    "findExistingStudent": "Hitta befintlig student",
-    "noStudentsFound": "Inga studenter hittades.",
+    "findExistingStudent": "Sök befintlig studerande",
+    "noStudentsFound": "Inga studerande hittades.",
     "searchPlaceholder": "Matti Meikäläinen",
     "selectCourse": "Välj kurs",
     "viewDetails": "Visa detaljer",
-    "addToCourse": "Lägga till kursen",
-    "studentAddedToCourse": "Student läggs till kursen",
-    "noAvailableCourses": "Inga tillgängliga kurser"
+    "addToCourse": "Lägg till i kurs",
+    "studentAddedToCourse": "Studerande har lagts till i kursen",
+    "noAvailableCourses": "Inga tillgängliga kurser",
+    "selectModeHelp": "Välj om du vill lägga till en ny studerande eller registrera en befintlig",
+    "newStudentShort": "Lägg till en studerande som ännu inte finns i systemet",
+    "existingStudentShort": "Sök i systemet och registrera till kursen",
+    "recommended": "Rekommenderad"
   },
-  "practicum": "Praktikinträde"
+  "table": {
+    "headers": {
+      "topic": "Ämne",
+      "date": "Datum",
+      "timeOfDay": "fm/em"
+    }
+  }
 }

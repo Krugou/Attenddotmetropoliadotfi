@@ -2,12 +2,12 @@
   "navigation": {
     "help": "Ohje",
     "backToLogin": "Takaisin kirjautumiseen",
-    "helpMessage": "Tarvitsetko apua? \nNapsauta yllä olevaa ohjepainiketta aloittaaksesi!"
+    "helpMessage": "Tarvitsetko apua?\nNapsauta yllä olevaa ohjepainiketta aloittaaksesi!"
   },
   "help": {
     "title": "Ohjekeskus",
     "gettingStarted": {
-      "title": "Aloittaminen",
+      "title": "Aloitus",
       "description": "Tämän sovelluksen käyttämiseen tarvitset:",
       "item1": "Metropolian tunnukset",
       "item2": "Pääsyn Metropolian verkkoon tai VPN-yhteyden",
@@ -18,7 +18,7 @@
       "title": "Yleiset ongelmat",
       "login": {
         "title": "Etkö pääse kirjautumaan?",
-        "description": "Varmista, että olet yhteydessä Metropolian verkkoon tai VPN:ään"
+        "description": "Varmista, että olet yhteydessä Metropolian verkkoon tai VPN-yhteyteen"
       },
       "connection": {
         "title": "Yhteysongelmia?",
@@ -29,8 +29,8 @@
         "description": "Jos käytät iPhonea, varmista että iCloud Private Relay on pois päältä, sillä se voi häiritä VPN-yhteyttä. Voit poistaa sen käytöstä kohdasta Asetukset > Apple ID > iCloud > Private Relay."
       },
       "scaling": {
-        "description": "Tämä verkkosivusto on rakennettu käyttämällä 100%: n näytön skaalausta mielessä. \nJos laite käyttää erilaisia ​​skaalausasetuksia, sisältö saattaa näyttää liian suurelta tai liian pieneltä. \nSäädä selaimen zoomaus tai järjestelmänäytön skaalaus optimaalisen katselun saavuttamiseksi.",
-        "title": "Skaalausongelmia?"
+        "title": "Skaalausongelmia?",
+        "description": "Tämä verkkosivusto on rakennettu 100 % näytön skaalausta silmällä pitäen. Jos laitteesi käyttää erilaisia skaalausasetuksia, sisältö saattaa näyttää liian suurelta tai liian pieneltä. Säädä selaimen zoomausta tai järjestelmän näytön skaalausta optimaalisen katselun saavuttamiseksi."
       }
     },
     "contact": {
@@ -55,5 +55,10 @@
     "description": "Metropolia Attendance on kattava läsnäolon seurantajärjestelmä, joka on suunniteltu erityisesti Metropolia Ammattikorkeakoululle. Tämä alusta edustaa merkittävää edistysaskelta opiskelijoiden osallistumisen hallinnan ja kirjaamisen modernisoinnissa.",
     "modernization": "Järjestelmämme tehostaa perinteistä läsnäolon kirjaamisprosessia korvaamalla manuaaliset paperimenetelmät tehokkaalla digitaalisella ratkaisulla. Se tarjoaa reaaliaikaisen seurannan, automaattisen raportoinnin ja saumattoman integraation Metropolian olemassa olevaan digitaaliseen infrastruktuuriin.",
     "benefits": "Opiskelijoille alusta tarjoaa helpon tavan merkitä läsnäolonsa ja seurata osallistumishistoriaansa. Opettajat hyötyvät automaattisesta läsnäolon hallinnasta, mikä mahdollistaa keskittymisen enemmän opettamiseen ja vähemmän hallinnollisiin tehtäviin."
+  },
+  "attendance": {
+    "labels": {
+      "socketConnected": ""
+    }
   }
 }

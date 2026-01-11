@@ -1,7 +1,7 @@
 {
   "welcome": {
-    "title": "Tervetuloa Metropolian Attendance-sovellukseen! Aloitetaan",
-    "description": "Auta meitä parantamaan antamalla meille palautetta palautevaihtoehdon avulla."
+    "title": "Tervetuloa Metropolian Attend-sovellukseen!",
+    "description": "Auta meitä parantamaan sovellusta antamalla palautetta tukiosiossa"
   },
   "languages": {
     "en": "Englanti",
@@ -24,13 +24,13 @@
     "title": "Kirjaudu sisään Metropolian tunnuksilla",
     "username": "Käyttäjätunnus",
     "password": "Salasana",
-    "usernamePlaceholder": "Syötä Metropolian käyttäjätunnuksesi",
-    "passwordPlaceholder": "Syötä Metropolian salasanasi",
+    "usernamePlaceholder": "Syötä Metropolian käyttäjätunnus",
+    "passwordPlaceholder": "Syötä Metropolian salasana",
     "signIn": "Kirjaudu sisään",
     "togglePassword": "{{action}} salasana",
     "forgotPassword": "Nollaa salasanasi (avautuu uuteen välilehteen)",
     "forgotPasswordLink": "Unohditko salasanasi?",
-    "microsoftSignIn": "Kirjaudu sisään Microsoftin kanssa",
+    "microsoftSignIn": "Kirjaudu sisään Microsoft Authenticator:lla",
     "or": "TAI"
   },
   "dialog": {
@@ -40,7 +40,7 @@
   "deleteModal": {
     "title": "Vahvistus",
     "messages": {
-      "student": "Haluatko varmasti poistaa opiskelijan tältä kurssilta? Tämä poistaa myös kaikki opiskelijan läsnäolotiedot kurssilta.",
+      "student": "Haluatko varmasti poistaa opiskelijan tältä kurssilta? Tämä poistaa myös opiskelijan kurssin läsnäolot.",
       "course": "Haluatko varmasti poistaa tämän kurssin?"
     },
     "buttons": {
@@ -50,14 +50,14 @@
   },
   "reset": "Nollaa",
   "errors": {
-    "emailTaken": "Sähköposti on varattu",
-    "studentNumberTaken": "Opiskelijanumero on varattu",
+    "emailTaken": "Sähköposti on jo käytössä",
+    "studentNumberTaken": "Opiskelijanumero on jo käytössä",
     "noToken": "Ei saatavilla olevaa tunnusta",
     "fillRequiredFields": "Täytä kaikki vaaditut kentät",
-    "openDataConnectionFailed": "Yhteyttä Metropolian Open Data -rajapintaan ei voitu muodostaa. Osa järjestelmän toiminnoista saattaa olla rajoitettuja. Ota yhteyttä järjestelmänvalvojaan.",
+    "openDataConnectionFailed": "Yhteyttä Metropolian Open Data -rajapintaan ei voitu muodostaa. Osa järjestelmän toiminnoista saattaa olla rajoitettuja. Ota yhteyttä järjestelmänvalvojaan attend@metropolia.fi",
     "searchFailed": "Haku epäonnistui.",
     "selectionRequired": "Valinta vaaditaan",
-    "fetchFailed": "Hae epäonnistui",
+    "fetchFailed": "Haku epäonnistui",
     "enrollmentFailed": "Ilmoittautuminen epäonnistui",
     "fetchCourseDetailsFailed": "Kurssin tietojen hakeminen epäonnistui",
     "coursesNotLoaded": "Kursseja ei voitu ladata",
@@ -68,7 +68,30 @@
   "firstName": "Etunimi",
   "lastName": "Sukunimi",
   "studentNumber": "Opiskelijanumero",
+  "studentNumberTaken": "Opiskelijanumero on jo käytössä",
   "showEndedCourses": "Näytä päättyneet kurssit",
+  "hideEndedCourses": "Piilota päättyneet kurssit",
+  "yes": "Kyllä",
+  "no": "Ei",
+  "required": "Pakollinen",
+  "save": "Tallenna muutokset",
+  "cancel": "Peruuta",
+  "delete": "Poista",
+  "remove": "Poista",
+  "characters": "merkkiä",
+  "check": "Tarkista",
+  "checking": "Tarkistetaan...",
+  "create": "Luo",
+  "creating": "Luodaan...",
+  "back": "Takaisin",
+  "close": "Sulje",
+  "confirm": "Vahvista",
+  "view": "Näytä",
+  "user": "Käyttäjä",
+  "loading": "Ladataan...",
+  "metropoliaLoading": "Attend lataa...",
+  "userDetails": "Käyttäjän tiedot",
+  "addNew": "Lisää uusi käyttäjä",
   "attendance": {
     "status": {
       "absent": "Poissa",
@@ -79,7 +102,7 @@
   },
   "notifications": {
     "success": "Toiminto suoritettu onnistuneesti",
-    "error": "Tapahtui virhe pyynnön käsittelyssä",
+    "error": "Pyynnön käsittelyssä tapahtui virhe",
     "savingChanges": "Tallennetaan muutoksia...",
     "saveSuccess": "Muutokset tallennettu onnistuneesti",
     "saveError": "Muutosten tallentaminen epäonnistui",
@@ -89,17 +112,6 @@
     "loadingError": "Virhe tietojen lataamisessa",
     "sessionExpired": "Istuntosi on vanhentunut, kirjaudu sisään uudelleen"
   },
-  "yes": "Kyllä",
-  "no": "Ei",
-  "hideEndedCourses": "Piilota päättyneet kurssit",
-  "required": "pakollinen",
-  "create": "Luo",
-  "creating": "Luodaan...",
-  "back": "Takaisin",
-  "confirm": "Vahvista",
-  "view": "Näytä",
-  "close": "Sulje",
-  "user": "Käyttäjä",
   "editTopics": {
     "title": "Muokkaa aiheita kurssille {{courseName}}",
     "newTopicLabel": "Uusi aihe",
@@ -133,7 +145,7 @@
     "studentDetails": "Opiskelijan tiedot",
     "selection": {
       "title": "Kurssimuoto",
-      "modeHelp": "Valitse lisätäänkö opiskelija kurssille vai työpäiväkirjaan."
+      "modeHelp": "Valitse lisätäänkö opiskelija kurssille vai työaikakirjauskurssille"
     },
     "errors": {
       "fillAllFields": "Täytä kaikki kentät",
@@ -141,26 +153,26 @@
       "studentNumberTaken": "Opiskelijan numero on jo varattu"
     },
     "success": {
-      "userAdded": "Uusi opiskelijakäyttäjä lisätty onnistuneesti"
+      "userAdded": "Uusi opiskelija lisätty onnistuneesti"
     },
     "note": {
       "title": "Huom!",
-      "checkDetails": "Varmista, että tiedot ovat oikein, ennen kuin lisäät opiskelijan.",
-      "contactAdmin": "Jos olet lisännyt opiskelijan väärillä tiedoilla, ota yhteyttä ylläpitäjään."
+      "checkDetails": "Varmista, että tiedot ovat oikein, ennen kuin lisäät opiskelijan",
+      "contactAdmin": "Jos olet lisännyt opiskelijan väärillä tiedoilla, ota yhteyttä ylläpitäjään attend@metropolia.fi"
     },
     "addButton": "Lisää uusi käyttäjä",
-    "goToStudents": "Opintoohjaaja opiskelija editointi",
-    "guideHowToAddStudentToCourse": "Vaihda profiili -painiketta neuvonantajan rooliin ja lisää ne neuvonantajan opiskelijoiden katselemalla",
-    "subtitle": "Jos opiskelija on jo järjestelmässä (opiskelijoiden yksityiskohdat jo löytyvät)"
+    "goToStudents": "Opiskelijat",
+    "guideHowToAddStudentToCourse": "Lisääminen onnistuu Opinto-ohjaajan hallintapaneelin kautta",
+    "subtitle": "Jos opiskelija on jo järjestelmässä (opiskelijan tiedot löytyvät järjestelmästä)"
   },
   "serverStatus": {
-    "vpnNotConnected": "Et ole tällä hetkellä kytketty Metropolian sisäiseen verkkoon. Klikkaa tästä saadaksesi VPN-ohjeet",
+    "vpnNotConnected": "Et ole yhdistettynä Metropolian sisäiseen verkkoon. Klikkaa tästä saadaksesi VPN-ohjeet",
     "version": "Versio",
     "connection": "Palvelinyhteys",
     "reloadNeeded": "Päivitä sivu, kunnes tämä teksti katoaa",
-    "vpnConnected": "Kytketty Metropolian sisäiseen verkkoon",
+    "vpnConnected": "Yhdteys Metropolian sisäiseen verkkoon muodostettu",
     "vpnConnection": "Sisäinen yhteys",
-    "refreshNow": "Päivitä nyt."
+    "refreshNow": "Päivitä nyt"
   },
   "successAlert": {
     "title": "Onnistui"
@@ -198,7 +210,7 @@
     }
   },
   "worklog": {
-    "selectCourseLabel": "Työpäiväkirjan kurssi",
+    "selectCourseLabel": "Työaikakirjauskurssi",
     "enrollment": {
       "switchToRegular": "Kurssi",
       "switchToWorklog": "Työpäiväkirja"
@@ -227,23 +239,17 @@
       "showMassEntry": "Viikkomerkinnät",
       "hideMassEntry": "Piilota viikkomerkinnät",
       "cancel": "Peruuta",
-      "confirm": "Lisää edelleen merkintä."
+      "confirm": "Lisää merkintä"
     },
     "notifications": {
-      "clockedIn": "Kirjauduttu sisään klo {{time}}",
-      "clockedOut": "Kirjauduttu ulos klo {{time}}",
-      "editClicked": "Muokkaus klikattu klo {{time}}"
+      "clockedIn": "Sisäänkirjaus klo {{time}}",
+      "clockedOut": "Uloskirjaus klo {{time}}",
+      "editClicked": "Muokattu klo {{time}}"
     },
     "aria": {
       "clockIn": "Sisäänkirjautumispainike",
       "clockOut": "Uloskirjautumispainike",
       "edit": "Muokkaa merkintöjä -painike"
-    },
-    "status": {
-      "0": "Status: Virhe",
-      "1": "Status: Sisäänkirjautunut",
-      "2": "Status: Uloskirjautunut",
-      "3": "Status: Tarkistettu"
     },
     "edit": {
       "title": "Muokkaa työaikakirjausta",
@@ -256,6 +262,12 @@
       "codeExists": "Koodi on jo käytössä",
       "descriptionRequired": "Kuvaus on pakollinen",
       "noDaysSelected": "Valitse vähintään yksi päivä"
+    },
+    "status": {
+      "0": "Status: Virhe",
+      "1": "Status: Sisäänkirjautunut",
+      "2": "Status: Uloskirjautunut",
+      "3": "Status: Tarkistettu"
     },
     "selectCourse": "Valitse kurssi",
     "clockIn": "Kirjaudu sisään",
@@ -283,11 +295,11 @@
       "failedToFetch": "Kurssien haku epäonnistui",
       "massEntriesAdded": "{{count}} merkintää lisätty onnistuneesti",
       "failedToAddEntries": "Merkintöjen lisääminen epäonnistui",
-      "entryAdded": " Syöttö lisättiin onnistuneesti.",
-      "entryClosed": "Syöttö suljettu."
+      "entryAdded": " Merkintä lisättiin onnistuneesti.",
+      "entryClosed": "Merkintä suljettu."
     },
     "confirmation": {
-      "duplicateEntryWarning": "Sinulla on jo kirjaus tälle kurssille tänään. Haluatko silti lisätä uuden kirjauksen?",
+      "duplicateEntryWarning": "Sinulla on jo kurssikirjaus tälle päivälle. Haluatko silti lisätä uuden kirjauksen?",
       "title": "Vahvistus"
     },
     "name": "Nimi",
@@ -321,7 +333,9 @@
       "table": "Taulukko"
     },
     "search": {
-      "placeholder": "Etsi kuvausta, kurssin nimeä tai koodia..."
+      "placeholder": "Etsi kuvausta, kurssin nimeä tai koodia...",
+      "noResults": "Ei tuloksia",
+      "tryDifferentTerms": "Hakusanalla \"{{searchTerm}}\" ei löytynyt osumia. Kokeile toista hakusanaa tai suodattimia."
     },
     "sort": {
       "date": "Lajittele päivämäärän mukaan",
@@ -371,7 +385,7 @@
       "all": "Kaikki"
     },
     "tooltips": {
-      "noLectures": "Ei luentoja saatavilla tästä aiheesta"
+      "noLectures": "Ei luentoja saatavilla"
     }
   },
   "createCourse": {
@@ -398,7 +412,7 @@
     },
     "students": {
       "title": "Tarkista opiskelijalista",
-      "description": "Tarkista että Excelistä tuodut opiskelijatiedot ovat oikein."
+      "description": "Tarkista että Excelistä tuodut opiskelijatiedot ovat oikein"
     }
   },
   "addTeachers": {
@@ -407,8 +421,9 @@
     "emailLabel": "Sähköposti",
     "description": "Lisää opettajat kurssille sähköpostiosoitteella",
     "errors": {
-      "notFound": "Tällä sähköpostilla ei löydy henkilöstöä järjestelmästä.",
-      "checkFailed": "Sähköpostin tarkistus epäonnistui."},
+      "notFound": "Tällä sähköpostilla ei löydy henkilöstöä järjestelmästä",
+      "checkFailed": "Sähköpostin tarkistus epäonnistui"
+    },
     "aria": {
       "deleteInstructor": "Poista opettaja"
     }
@@ -487,8 +502,8 @@
       "message": "Haluatko varmasti poistaa aihealueen?"
     },
     "errors": {
-      "groupExists": "Tämä aihealue on jo olemassa.",
-      "emptyTopics": "Täytä kaikki tyhjät mukautetut aiheet ennen kuin käytät."
+      "groupExists": "Tämä aihealue on jo olemassa",
+      "emptyTopics": "Täytä kaikki tyhjät mukautetut aiheet ennen kuin käytät"
     },
     "success": {
       "groupSaved": "Aihealue tallennettu onnistuneesti käyttäjälle {{email}}"
@@ -501,7 +516,7 @@
     }
   },
   "feedback": {
-    "header": "Auta meitä kehittymään antamalla palautetta.",
+    "header": "Auta meitä kehittymään antamalla palautetta",
     "topicLabel": "Palautteen aihe",
     "textLabel": "Palautteen teksti",
     "selectTopic": "Valitse aihe",
@@ -534,6 +549,7 @@
     "developedBy": "Kehittänyt",
     "metropolia": "Metropolia",
     "navigation": "Navigointi",
+    "about": "Tietoa:",
     "links": {
       "about": "Tietoa",
       "team": "Tiimi",
@@ -551,15 +567,6 @@
     "subtitle": "{{code}}, {{topic}}",
     "description": "{{code}}, {{topic}}"
   },
-  "save": "Tallenna muutokset",
-  "cancel": "Peruuta",
-  "delete": "Poista",
-  "remove": "Poista",
-  "characters": "merkkiä",
-  "check": "Tarkista",
-  "checking": "Tarkistetaan...",
-  "loading": "Ladataan...",
-  "metropoliaLoading": "Metropolian läsnäolosovellus lataa...",
   "sorting": {
     "clickToSort": "Klikkaa sarakeotsikkoa lajitellaksesi",
     "currentSort": "Lajiteltu: ",
@@ -568,11 +575,16 @@
     "asc": "nouseva",
     "desc": "laskeva"
   },
-  "noToken": "Ei merkki",
+  "noToken": "Ei tokenia",
+  "passing": "Hyväksytty",
+  "failing": "Alle rajan",
+  "never": "Ei koskaan",
   "total": "kpl",
   "inLastWeek": "Viime viikolla",
   "inLastMonth": "Viime kuussa",
-  "belowThreshold": "Kynnyksen alapuolella",
+  "belowThreshold": "Alle rajan",
+  "lastWeek": "Viime viikolla",
+  "lastMonth": "Viime kuussa",
   "allTime": "Kaikki",
   "columns": "Kolumnit",
   "name": "Nimi",
@@ -583,8 +595,21 @@
   "attendedLectures": "Osallistutut",
   "lastAttendance": "Viimeisin osallistuminen",
   "attendancePercentage": "Osallistumisprosentti",
+  "search": "Etsi",
+  "numberOfDays": "Päiviä yhteensä",
+  "practicum": "Harjoittelu",
   "labels": {
     "userAccessInformation": "Käyttäjän käyttötiedot"
+  },
+  "dateDisplay": {
+    "justNow": "juuri nyt",
+    "minutesAgo": "{{count}} minuutti sitten",
+    "minutesAgo_plural": "{{count}} minuuttia sitten",
+    "hoursAgo": "{{count}} tunti sitten",
+    "hoursAgo_plural": "{{count}} tuntia sitten",
+    "daysAgo": "{{count}} päivä sitten",
+    "daysAgo_plural": "{{count}} päivää sitten",
+    "invalidDate": "Virheellinen päivämäärä"
   },
   "lateEnrollment": {
     "selectMode": "Valitse tila",
@@ -592,19 +617,23 @@
     "existingStudent": "Nykyinen opiskelija",
     "backToOptions": "Takaisin vaihtoehtoihin",
     "findExistingStudent": "Löydä nykyinen opiskelija",
-    "noStudentsFound": "Ei oppilaita löytänyt.",
+    "noStudentsFound": "Ei löydettyjä opiskelijoita",
     "searchPlaceholder": "Matti Meikäläinen",
     "selectCourse": "Valitse kurssi",
     "viewDetails": "Katso yksityiskohdat",
-    "addToCourse": "Lisätä",
+    "addToCourse": "Lisää",
     "studentAddedToCourse": "Opiskelija lisätty kurssille",
     "noAvailableCourses": "Ei käytettävissä olevia kursseja",
-    "selectModeHelp": "Valitse lisätäänkö uusi opiskelija vai ilmoitetaanko jo olemassa oleva.",
-    "newStudentShort": "Lisää opiskelija, jota ei vielä ole järjestelmässä.",
-    "existingStudentShort": "Etsi järjestelmästä ja ilmoita kurssille.",
+    "selectModeHelp": "Valitse lisätäänkö uusi opiskelija vai ilmoitetaanko jo olemassa oleva",
+    "newStudentShort": "Lisää opiskelija, jota ei vielä ole järjestelmässä",
+    "existingStudentShort": "Etsi järjestelmästä ja ilmoita kurssille",
     "recommended": "Suositus"
   },
-  "practicum": "Harjoittelu",
-  "passing": "Hyväksytty",
-  "failing": "Alle rajan"
+  "table": {
+    "headers": {
+      "topic": "Aihe",
+      "date": "Päivämäärä",
+      "timeOfDay": "ap/ip"
+    }
+  }
 }

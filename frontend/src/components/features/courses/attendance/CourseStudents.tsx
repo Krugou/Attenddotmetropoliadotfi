@@ -333,12 +333,11 @@ const CourseStudents: React.FC<Props> = ({
 
       {}
       {showStatusMenu && selectedStudent && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40'>
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/60'>
           <div className='bg-white rounded-lg shadow-xl p-4 max-w-sm w-full'>
             <h3 className='text-lg font-semibold mb-2'>
               {t(
-                'teacher:courseStudents.chooseStatus',
-                'Valitse tila opiskelijalle',
+                'teacher:courseStudents.manualInsert',
               )}
             </h3>
             <p className='mb-4'>
@@ -348,14 +347,13 @@ const CourseStudents: React.FC<Props> = ({
               <button
                 className='flex-1 px-3 py-2 rounded-md bg-metropolia-trend-green text-white font-semibold hover:bg-green-600 transition'
                 onClick={() => handleSetStatus(1)}>
-                {t('teacher:courseStudents.markPresent', 'Merkitse paikalla')}
+                {t('teacher:courseStudents.manualPresent')}
               </button>
               <button
                 className='flex-1 px-3 py-2 rounded-md bg-metropolia-support-blue text-white font-semibold hover:bg-blue-600 transition'
                 onClick={() => handleSetStatus(2)}>
                 {t(
-                  'teacher:courseStudents.markExcused',
-                  'Hyväksytty poissaolo',
+                  'teacher:courseStudents.manualExcused'
                 )}
               </button>
             </div>

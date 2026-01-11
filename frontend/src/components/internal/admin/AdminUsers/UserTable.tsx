@@ -23,10 +23,10 @@ const UserTable: React.FC<UserTableProps> = ({
   const navigate = useNavigate();
 
   const columns: (keyof User)[] = [
+    'first_name',
     'last_name',
     'email',
     'username',
-    'first_name',
     'role',
     'student_number',
     'created_at',
