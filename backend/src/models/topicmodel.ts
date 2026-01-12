@@ -1,19 +1,15 @@
-import {FieldPacket, ResultSetHeader, RowDataPacket} from 'mysql2';
+//model
+import { FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 import createPool from '../config/createPool.js';
-const pool = createPool('ADMIN');
-/**
- * @interface Topic
- * @description Defines the structure of a Topic object.
- */
+
+const pool = createPool('ADMIN'); // DB pool (ADMIN connection)
+
+// Types
 interface Topic {
   topicid: number;
   topicname: string;
-  // other fields...
 }
-/**
- * @interface TopicModel
- * @description Defines the structure of a TopicModel object.
- */
+
 interface TopicModel {
   fetchAllTopics(): Promise<[RowDataPacket[], FieldPacket[]]>;
   findByTopicId(id: number): Promise<Topic | null>;
@@ -24,181 +20,110 @@ interface TopicModel {
   findTopicIdUsingTopicName(topic: string): Promise<RowDataPacket[] | null>;
   insertTopic(topic: string): Promise<ResultSetHeader>;
   checkIfTopicExists(topic: string): Promise<RowDataPacket[] | null>;
-
   getTopicNamesByUsercourseid(usercourseid: number): Promise<RowDataPacket[]>;
-
-  // other methods...
 }
 
-/**
- * @description TopicModel implementation.
- */
+// SQL statements
+const SQL = {
+  all: 'SELECT * FROM topics',
+  byId: 'SELECT * FROM topics WHERE topicid = ? LIMIT 1',
+  insert: 'INSERT INTO topics (topicname) VALUES (?)',
+  updateName: 'UPDATE topics SET topicname = ? WHERE topicid = ?',
+  deleteById: 'DELETE FROM topics WHERE topicid = ?',
+  count: 'SELECT COUNT(*) AS count FROM topics',
+  existsByName: 'SELECT * FROM topics WHERE topicname = ?',
+  idByName: 'SELECT topicid FROM topics WHERE topicname = ?',
+  byUserCourseId: `
+    SELECT t.topicid, t.topicname FROM usercourses uc
+                                         JOIN courses c ON uc.courseid = c.courseid
+                                         JOIN coursetopics ct ON ct.courseid = c.courseid
+                                         JOIN topics t ON ct.topicid = t.topicid
+    WHERE uc.usercourseid = ?`,
+} as const;
+
+// Helpers
+const queryRows = async <T extends RowDataPacket[]>(
+  sql: string,
+  params: unknown[] = [],
+): Promise<T> => {
+  const [rows] = await pool.promise().query<T>(sql, params);
+  return rows; // rows only
+};
+
+const exec = async (sql: string, params: unknown[] = []): Promise<void> => {
+  await pool.promise().query(sql, params); // fire-and-forget (no result needed)
+};
+
+// For calls that must return [rows, fields]
+const queryWithFields = (
+  sql: string,
+): Promise<[RowDataPacket[], FieldPacket[]]> =>
+  pool.promise().query<RowDataPacket[]>(sql);
+
+// Implementation
 const topicModel: TopicModel = {
-  /**
-   * @method fetchAllTopics
-   * @description Fetches all topics from the database.
-   * @returns {Promise<[RowDataPacket[], FieldPacket[]]>} A promise that resolves to an array of RowDataPacket and FieldPacket.
-   */
-  async fetchAllTopics() {
-    try {
-      return await pool
-        .promise()
-        .query<RowDataPacket[]>('SELECT * FROM topics');
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  },
-  /**
-   * @method findByTopicId
-   * @description Finds a topic by its ID.
-   * @param {number} id - The ID of the topic to find.
-   * @returns {Promise<Topic | null>} A promise that resolves to a Topic object or null if the topic is not found.
-   */
-  async findByTopicId(id) {
-    try {
-      const [rows] = await pool
-        .promise()
-        .query<RowDataPacket[]>('SELECT * FROM topics WHERE topicid = ?', [id]);
-      return (rows[0] as Topic) || null;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  },
-  /**
-   * @method insertIntoTopic
-   * @description Inserts a new topic into the database.
-   * @param {string} topicname - The name of the topic to insert.
-   * @returns {Promise<void>} A promise that resolves when the insertion is complete.
-   */
-  async insertIntoTopic(topicname) {
-    try {
-      await pool
-        .promise()
-        .query('INSERT INTO topics (topicname) VALUES (?)', [topicname]);
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
+  // List all topics (returns rows + field metadata)
+  fetchAllTopics() {
+    console.log('row 76, topicmodel.ts, fetchAllTopics() called');
+    return queryWithFields(SQL.all);
   },
 
-  /**
-   * @method updateTopicName
-   * @description Updates the name of a topic.
-   * @param {number} id - The ID of the topic to update.
-   * @param {string} topicname - The new name of the topic.
-   * @returns {Promise<void>} A promise that resolves when the update is complete.
-   */
-  async updateTopicName(id, topicname) {
-    try {
-      await pool
-        .promise()
-        .query('UPDATE topics SET topicname = ? WHERE topicid = ?', [
-          topicname,
-          id,
-        ]);
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
+  // Get a single topic by id (or null)
+  async findByTopicId(id: number) {
+    console.log('row 82, topicmodel.ts, findByTopicId() called');
+    const rows = await queryRows<RowDataPacket[]>(SQL.byId, [id]);
+    return (rows[0] as Topic) || null;
   },
-  /**
-   * @method deleteByTopicId
-   * @description Deletes a topic by its ID.
-   * @param {number} id - The ID of the topic to delete.
-   * @returns {Promise<void>} A promise that resolves when the deletion is complete.
-   */
-  async deleteByTopicId(id) {
-    try {
-      await pool.promise().query('DELETE FROM topics WHERE topicid = ?', [id]);
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
+
+  // Simple insert by name (no return)
+  async insertIntoTopic(topicname: string) {
+    console.log('row 88, topicmodel.ts, insertIntoTopic() called');
+    await exec(SQL.insert, [topicname]);
   },
-  /**
-   * @method countTopics
-   * @description Counts the number of topics in the database.
-   * @returns {Promise<number>} A promise that resolves to the number of topics.
-   */
+
+  // Update topic name
+  async updateTopicName(id: number, topicname: string) {
+    console.log('row 94, topicmodel.ts, updateTopicName() called');
+    await exec(SQL.updateName, [topicname, id]);
+  },
+
+  // Delete topic by id
+  async deleteByTopicId(id: number) {
+    console.log('row 100, topicmodel.ts, deleteByTopicId() called');
+    await exec(SQL.deleteById, [id]);
+  },
+
+  // Count all topics
   async countTopics() {
-    try {
-      const [rows] = await pool
-        .promise()
-        .query<RowDataPacket[]>('SELECT COUNT(*) as count FROM topics');
-      return rows[0].count;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
+    console.log('row 106, topicmodel.ts, countTopics() called');
+    const rows = await queryRows<RowDataPacket[]>(SQL.count);
+    return (rows[0] as RowDataPacket & { count: number }).count;
   },
-  /**
-   * Checks if a topic exists.
-   * @param topic - The name of the topic.
-   * @returns A promise that resolves to the existing topic, if any.
-   */
-  async checkIfTopicExists(topic: string) {
-    const [existingCourseTopic] = await pool
-      .promise()
-      .query<RowDataPacket[]>('SELECT * FROM topics WHERE topicname = ?', [
-        topic,
-      ]);
-    return existingCourseTopic;
-  },
-  /**
-   * Inserts a topic.
-   * @param topic - The name of the topic.
-   * @returns A promise that resolves when the insertion is complete.
-   */
-  async insertTopic(topic: string) {
-    const [topicResult] = await pool
-      .promise()
-      .query<ResultSetHeader>('INSERT INTO topics (topicname) VALUES (?)', [
-        topic,
-      ]);
 
-    return topicResult;
+  // Check if topic exists by name
+  async checkIfTopicExists(topic: string) {
+    console.log('row 112, topicmodel.ts, checkIfTopicExists() called');
+    return queryRows<RowDataPacket[]>(SQL.existsByName, [topic]);
   },
-  /**
-   * Finds a topic ID using the topic name.
-   * @param topic - The name of the topic.
-   * @returns A promise that resolves to the topic ID.
-   */
+
+  // Insert topic and return ResultSetHeader
+  async insertTopic(topic: string) {
+    console.log('row 118, topicmodel.ts, insertTopic() called');
+    const [result] = await pool.promise().query<ResultSetHeader>(SQL.insert, [topic]);
+    return result;
+  },
+
+  // Get topic id using topic name
   async findTopicIdUsingTopicName(topic: string) {
-    const [topicResult] = await pool
-      .promise()
-      .query<RowDataPacket[]>(
-        'SELECT topicid FROM topics WHERE topicname = ?',
-        [topic],
-      );
-    return topicResult;
+    console.log('row 124, topicmodel.ts, findTopicIdUsingTopicName() called');
+    return queryRows<RowDataPacket[]>(SQL.idByName, [topic]);
   },
-  /**
-   * Gets topic names by user course ID.
-   * @param usercourseid - The ID of the user course.
-   * @returns A promise that resolves to the topic names.
-   */
+
+  // List topics for a usercourse (derived via course -> coursetopics)
   async getTopicNamesByUsercourseid(usercourseid: number) {
-    const [topicResult] = await pool.promise().query<RowDataPacket[]>(
-      `SELECT
-				topics.topicid,
-				topics.topicname
-			FROM
-				usercourses
-			JOIN
-				courses ON usercourses.courseid = courses.courseid
-			JOIN
-				coursetopics ON coursetopics.courseid = courses.courseid
-			JOIN
-				topics ON coursetopics.topicid = topics.topicid
-			WHERE
-				usercourses.usercourseid = ?;`,
-      [usercourseid],
-    );
-    return topicResult;
+    console.log('row 130, topicmodel.ts, getTopicNamesByUsercourseid() called');
+    return queryRows<RowDataPacket[]>(SQL.byUserCourseId, [usercourseid]);
   },
-  // other methods...
 };
 
 export default topicModel;

@@ -53,8 +53,8 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [backend/src/routes/secureroutes.ts](/backend/src/routes/secureroutes.ts) | TypeScript | 190 | 32 | 6 | 228 |
 | [backend/src/routes/userroutes.ts](/backend/src/routes/userroutes.ts) | TypeScript | 213 | 28 | 10 | 251 |
 | [backend/src/sockets/socketHandlers.ts](/backend/src/sockets/socketHandlers.ts) | TypeScript | 486 | 126 | 36 | 648 |
-| [backend/src/tests/checkRole.test.ts](/backend/src/tests/checkRole.test.ts) | TypeScript | 43 | 2 | 6 | 51 |
-| [backend/src/types.ts](/backend/src/types.ts) | TypeScript | 86 | 117 | 8 | 211 |
+| [backend/src/tests/checkRole.test.ts](/backend/src/tests/Middleware/checkRole.test.ts) | TypeScript | 43 | 2 | 6 | 51 |
+| [backend/src/lecture.ts](/backend/src/types.ts) | TypeScript | 86 | 117 | 8 | 211 |
 | [backend/src/utils/auth.ts](/backend/src/utils/auth.ts) | TypeScript | 58 | 8 | 1 | 67 |
 | [backend/src/utils/checkRole.ts](/backend/src/utils/checkRole.ts) | TypeScript | 10 | 6 | 2 | 18 |
 | [backend/src/utils/doFetch.ts](/backend/src/utils/doFetch.ts) | TypeScript | 34 | 16 | 7 | 57 |
@@ -76,61 +76,61 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [frontend/postcss.config.js](/frontend/postcss.config.js) | JavaScript | 6 | 0 | 1 | 7 |
 | [frontend/src/App.tsx](/frontend/src/App.tsx) | TypeScript JSX | 32 | 6 | 5 | 43 |
 | [frontend/src/components/Logo.tsx](/frontend/src/components/Logo.tsx) | TypeScript JSX | 19 | 9 | 3 | 31 |
-| [frontend/src/components/main/ErrorAlert.tsx](/frontend/src/components/main/ErrorAlert.tsx) | TypeScript JSX | 43 | 16 | 4 | 63 |
-| [frontend/src/components/main/MovingLogo.tsx](/frontend/src/components/main/MovingLogo.tsx) | TypeScript JSX | 9 | 0 | 3 | 12 |
-| [frontend/src/components/main/NewStudentUser.tsx](/frontend/src/components/main/NewStudentUser.tsx) | TypeScript JSX | 245 | 5 | 26 | 276 |
-| [frontend/src/components/main/ServerStatus.tsx](/frontend/src/components/main/ServerStatus.tsx) | TypeScript JSX | 73 | 33 | 6 | 112 |
-| [frontend/src/components/main/SuccessAlert.tsx](/frontend/src/components/main/SuccessAlert.tsx) | TypeScript JSX | 30 | 16 | 2 | 48 |
-| [frontend/src/components/main/admin/AdminLogsTable.tsx](/frontend/src/components/main/admin/AdminLogsTable.tsx) | TypeScript JSX | 87 | 0 | 4 | 91 |
-| [frontend/src/components/main/admin/EditUserView.tsx](/frontend/src/components/main/admin/EditUserView.tsx) | TypeScript JSX | 289 | 35 | 24 | 348 |
-| [frontend/src/components/main/admin/LecturesByDayChart.tsx](/frontend/src/components/main/admin/LecturesByDayChart.tsx) | TypeScript JSX | 78 | 0 | 7 | 85 |
-| [frontend/src/components/main/background/BackgroundContainer.tsx](/frontend/src/components/main/background/BackgroundContainer.tsx) | TypeScript JSX | 38 | 9 | 5 | 52 |
-| [frontend/src/components/main/buttons/GeneralLinkButton.tsx](/frontend/src/components/main/buttons/GeneralLinkButton.tsx) | TypeScript JSX | 18 | 6 | 2 | 26 |
-| [frontend/src/components/main/buttons/NavigationButton.tsx](/frontend/src/components/main/buttons/NavigationButton.tsx) | TypeScript JSX | 22 | 7 | 4 | 33 |
-| [frontend/src/components/main/buttons/StartViewButton.tsx](/frontend/src/components/main/buttons/StartViewButton.tsx) | TypeScript JSX | 14 | 3 | 3 | 20 |
-| [frontend/src/components/main/buttons/StepButton.tsx](/frontend/src/components/main/buttons/StepButton.tsx) | TypeScript JSX | 27 | 7 | 2 | 36 |
-| [frontend/src/components/main/cards/Card.tsx](/frontend/src/components/main/cards/Card.tsx) | TypeScript JSX | 29 | 9 | 3 | 41 |
-| [frontend/src/components/main/cards/FeedbackCard.tsx](/frontend/src/components/main/cards/FeedbackCard.tsx) | TypeScript JSX | 15 | 0 | 4 | 19 |
-| [frontend/src/components/main/course/CourseData.tsx](/frontend/src/components/main/course/CourseData.tsx) | TypeScript JSX | 196 | 27 | 14 | 237 |
-| [frontend/src/components/main/course/CreateCourseCustom.tsx](/frontend/src/components/main/course/CreateCourseCustom.tsx) | TypeScript JSX | 178 | 60 | 7 | 245 |
-| [frontend/src/components/main/course/CreateCourseEasy.tsx](/frontend/src/components/main/course/CreateCourseEasy.tsx) | TypeScript JSX | 293 | 21 | 20 | 334 |
-| [frontend/src/components/main/course/StudentCourseGrid.tsx](/frontend/src/components/main/course/StudentCourseGrid.tsx) | TypeScript JSX | 390 | 37 | 17 | 444 |
-| [frontend/src/components/main/course/attendance/AttendanceStatsTable.tsx](/frontend/src/components/main/course/attendance/AttendanceStatsTable.tsx) | TypeScript JSX | 208 | 25 | 12 | 245 |
-| [frontend/src/components/main/course/attendance/AttendanceTable.tsx](/frontend/src/components/main/course/attendance/AttendanceTable.tsx) | TypeScript JSX | 164 | 19 | 11 | 194 |
-| [frontend/src/components/main/course/attendance/Attendees.tsx](/frontend/src/components/main/course/attendance/Attendees.tsx) | TypeScript JSX | 51 | 9 | 3 | 63 |
-| [frontend/src/components/main/course/attendance/CheckOpenLectures.tsx](/frontend/src/components/main/course/attendance/CheckOpenLectures.tsx) | TypeScript JSX | 47 | 0 | 7 | 54 |
-| [frontend/src/components/main/course/attendance/CourseStudents.tsx](/frontend/src/components/main/course/attendance/CourseStudents.tsx) | TypeScript JSX | 189 | 49 | 19 | 257 |
-| [frontend/src/components/main/course/createcourse/AddTeachers.tsx](/frontend/src/components/main/course/createcourse/AddTeachers.tsx) | TypeScript JSX | 85 | 14 | 10 | 109 |
-| [frontend/src/components/main/course/createcourse/CourseDetails.tsx](/frontend/src/components/main/course/createcourse/CourseDetails.tsx) | TypeScript JSX | 117 | 12 | 8 | 137 |
-| [frontend/src/components/main/course/createcourse/CreateCourseProgress.tsx](/frontend/src/components/main/course/createcourse/CreateCourseProgress.tsx) | TypeScript JSX | 37 | 11 | 3 | 51 |
-| [frontend/src/components/main/course/createcourse/StepButtons.tsx](/frontend/src/components/main/course/createcourse/StepButtons.tsx) | TypeScript JSX | 43 | 12 | 2 | 57 |
-| [frontend/src/components/main/course/createcourse/StudentList.tsx](/frontend/src/components/main/course/createcourse/StudentList.tsx) | TypeScript JSX | 224 | 16 | 6 | 246 |
-| [frontend/src/components/main/course/createcourse/TopicsGroupAndTopics.tsx](/frontend/src/components/main/course/createcourse/TopicsGroupAndTopics.tsx) | TypeScript JSX | 359 | 44 | 15 | 418 |
-| [frontend/src/components/main/course/createcourse/coursedetails/InputField.tsx](/frontend/src/components/main/course/createcourse/coursedetails/InputField.tsx) | TypeScript JSX | 38 | 9 | 2 | 49 |
-| [frontend/src/components/main/dropdown/VideoDropdown.tsx](/frontend/src/components/main/dropdown/VideoDropdown.tsx) | TypeScript JSX | 52 | 15 | 4 | 71 |
-| [frontend/src/components/main/modals/AttendanceInstructions.tsx](/frontend/src/components/main/modals/AttendanceInstructions.tsx) | TypeScript JSX | 66 | 0 | 5 | 71 |
-| [frontend/src/components/main/modals/ConfirmDialog.tsx](/frontend/src/components/main/modals/ConfirmDialog.tsx) | TypeScript JSX | 61 | 0 | 6 | 67 |
-| [frontend/src/components/main/modals/DeleteLectureModal.tsx](/frontend/src/components/main/modals/DeleteLectureModal.tsx) | TypeScript JSX | 96 | 17 | 5 | 118 |
-| [frontend/src/components/main/modals/DeleteModal.tsx](/frontend/src/components/main/modals/DeleteModal.tsx) | TypeScript JSX | 60 | 15 | 3 | 78 |
-| [frontend/src/components/main/modals/EditTopicsModal.tsx](/frontend/src/components/main/modals/EditTopicsModal.tsx) | TypeScript JSX | 120 | 16 | 3 | 139 |
-| [frontend/src/components/main/modals/WelcomeModal.tsx](/frontend/src/components/main/modals/WelcomeModal.tsx) | TypeScript JSX | 34 | 11 | 5 | 50 |
-| [frontend/src/components/main/newUser/CourseSelect.tsx](/frontend/src/components/main/newUser/CourseSelect.tsx) | TypeScript JSX | 41 | 1 | 5 | 47 |
-| [frontend/src/components/main/newUser/FormInput.tsx](/frontend/src/components/main/newUser/FormInput.tsx) | TypeScript JSX | 24 | 0 | 4 | 28 |
-| [frontend/src/components/main/newUser/StudentGroupSelect.tsx](/frontend/src/components/main/newUser/StudentGroupSelect.tsx) | TypeScript JSX | 36 | 1 | 3 | 40 |
-| [frontend/src/components/main/newUser/SubmitButton.tsx](/frontend/src/components/main/newUser/SubmitButton.tsx) | TypeScript JSX | 18 | 0 | 4 | 22 |
-| [frontend/src/components/main/titles/MainViewTitle.tsx](/frontend/src/components/main/titles/MainViewTitle.tsx) | TypeScript JSX | 12 | 13 | 4 | 29 |
-| [frontend/src/components/profiles/ProfileInfo.tsx](/frontend/src/components/profiles/ProfileInfo.tsx) | TypeScript JSX | 130 | 27 | 10 | 167 |
+| [frontend/src/components/main/ErrorAlert.tsx](/frontend/src/components/ui/modals/ErrorAlert.tsx) | TypeScript JSX | 43 | 16 | 4 | 63 |
+| [frontend/src/components/main/MovingLogo.tsx](/frontend/src/components/ui/logo/MovingLogo.tsx) | TypeScript JSX | 9 | 0 | 3 | 12 |
+| [frontend/src/components/main/NewStudentUser.tsx](/frontend/src/components/features/students/NewStudentUser.tsx) | TypeScript JSX | 245 | 5 | 26 | 276 |
+| [frontend/src/components/main/ServerStatus.tsx](/frontend/src/components/features/system/ServerStatus.tsx) | TypeScript JSX | 73 | 33 | 6 | 112 |
+| [frontend/src/components/main/SuccessAlert.tsx](/frontend/src/components/features/system/SuccessAlert.tsx) | TypeScript JSX | 30 | 16 | 2 | 48 |
+| [frontend/src/components/main/admin/AdminLogsTable.tsx](/frontend/src/components/internal/admin/AdminLogs/AdminLogsTable.tsx) | TypeScript JSX | 87 | 0 | 4 | 91 |
+| [frontend/src/components/main/admin/EditUserView.tsx](/frontend/src/components/features/users/EditUserView.tsx) | TypeScript JSX | 289 | 35 | 24 | 348 |
+| [frontend/src/components/main/admin/LecturesByDayChart.tsx](/frontend/src/components/internal/admin/AdminStats/LecturesByDayChart.tsx) | TypeScript JSX | 78 | 0 | 7 | 85 |
+| [frontend/src/components/main/background/BackgroundContainer.tsx](/frontend/src/components/features/layout/BackgroundContainer.tsx) | TypeScript JSX | 38 | 9 | 5 | 52 |
+| [frontend/src/components/main/buttons/GeneralLinkButton.tsx](/frontend/src/components/ui/buttons/GeneralLinkButton.tsx) | TypeScript JSX | 18 | 6 | 2 | 26 |
+| [frontend/src/components/main/buttons/NavigationButton.tsx](/frontend/src/components/ui/buttons/NavigationButton.tsx) | TypeScript JSX | 22 | 7 | 4 | 33 |
+| [frontend/src/components/main/buttons/StartViewButton.tsx](/frontend/src/components/ui/buttons/StartViewButton.tsx) | TypeScript JSX | 14 | 3 | 3 | 20 |
+| [frontend/src/components/main/buttons/StepButton.tsx](/frontend/src/components/ui/buttons/StepButton.tsx) | TypeScript JSX | 27 | 7 | 2 | 36 |
+| [frontend/src/components/main/cards/NavigationCard.tsx](/frontend/src/components/ui/cards/NavigationCard.tsx) | TypeScript JSX | 29 | 9 | 3 | 41 |
+| [frontend/src/components/main/cards/FeedbackCard.tsx](/frontend/src/components/features/feedback/FeedbackCard.tsx) | TypeScript JSX | 15 | 0 | 4 | 19 |
+| [frontend/src/components/main/course/CourseData.tsx](/frontend/src/components/features/courses/CourseData.tsx) | TypeScript JSX | 196 | 27 | 14 | 237 |
+| [frontend/src/components/main/course/CreateCourseCustom.tsx](/frontend/src/components/features/courses/create/CreateCourseCustom.tsx) | TypeScript JSX | 178 | 60 | 7 | 245 |
+| [frontend/src/components/main/course/CreateCourseEasy.tsx](/frontend/src/components/features/courses/create/CreateCourseEasy.tsx) | TypeScript JSX | 293 | 21 | 20 | 334 |
+| [frontend/src/components/main/course/StudentCourseGrid.tsx](/frontend/src/components/features/courses/StudentCourseGrid.tsx) | TypeScript JSX | 390 | 37 | 17 | 444 |
+| [frontend/src/components/main/course/attendance/AttendanceStatsTable.tsx](/frontend/src/components/features/courses/attendance/AttendanceStatsTable.tsx) | TypeScript JSX | 208 | 25 | 12 | 245 |
+| [frontend/src/components/main/course/attendance/AttendanceTable.tsx](/frontend/src/components/features/courses/attendance/AttendanceTable.tsx) | TypeScript JSX | 164 | 19 | 11 | 194 |
+| [frontend/src/components/main/course/attendance/Attendees.tsx](/frontend/src/components/features/courses/attendance/Attendees.tsx) | TypeScript JSX | 51 | 9 | 3 | 63 |
+| [frontend/src/components/main/course/attendance/CheckOpenLectures.tsx](/frontend/src/components/features/courses/attendance/CheckOpenLectures.tsx) | TypeScript JSX | 47 | 0 | 7 | 54 |
+| [frontend/src/components/main/course/attendance/CourseStudents.tsx](/frontend/src/components/features/courses/attendance/CourseStudents.tsx) | TypeScript JSX | 189 | 49 | 19 | 257 |
+| [frontend/src/components/main/course/createcourse/AddTeachers.tsx](/frontend/src/components/features/courses/create/AddTeachers.tsx) | TypeScript JSX | 85 | 14 | 10 | 109 |
+| [frontend/src/components/main/course/createcourse/CourseDetails.tsx](/frontend/src/components/features/courses/create/CourseDetails.tsx) | TypeScript JSX | 117 | 12 | 8 | 137 |
+| [frontend/src/components/main/course/createcourse/CreateCourseProgress.tsx](/frontend/src/components/features/courses/create/CreateCourseProgress.tsx) | TypeScript JSX | 37 | 11 | 3 | 51 |
+| [frontend/src/components/main/course/createcourse/StepButtons.tsx](/frontend/src/components/features/courses/create/StepButtons.tsx) | TypeScript JSX | 43 | 12 | 2 | 57 |
+| [frontend/src/components/main/course/createcourse/StudentList.tsx](/frontend/src/components/features/courses/create/StudentList.tsx) | TypeScript JSX | 224 | 16 | 6 | 246 |
+| [frontend/src/components/main/course/createcourse/TopicsGroupAndTopics.tsx](/frontend/src/components/features/courses/create/TopicsGroupAndTopics.tsx) | TypeScript JSX | 359 | 44 | 15 | 418 |
+| [frontend/src/components/main/course/createcourse/coursedetails/TextInputField.tsx](/frontend/src/components/ui/inputs/TextInputField.tsx) | TypeScript JSX | 38 | 9 | 2 | 49 |
+| [frontend/src/components/main/dropdown/VideoDropdown.tsx](/frontend/src/components/ui/VideoDropdown.tsx) | TypeScript JSX | 52 | 15 | 4 | 71 |
+| [frontend/src/components/main/modals/AttendanceInstructions.tsx](/frontend/src/components/ui/modals/AttendanceInstructions.tsx) | TypeScript JSX | 66 | 0 | 5 | 71 |
+| [frontend/src/components/main/modals/ConfirmDialog.tsx](/frontend/src/components/ui/modals/ConfirmDialog.tsx) | TypeScript JSX | 61 | 0 | 6 | 67 |
+| [frontend/src/components/main/modals/DeleteLectureModal.tsx](/frontend/src/components/features/courses/attendance/DeleteLectureModal.tsx) | TypeScript JSX | 96 | 17 | 5 | 118 |
+| [frontend/src/components/main/modals/DeleteModal.tsx](/frontend/src/components/ui/modals/DeleteModal.tsx) | TypeScript JSX | 60 | 15 | 3 | 78 |
+| [frontend/src/components/main/modals/EditTopicsModal.tsx](/frontend/src/components/features/courses/EditTopicsModal.tsx) | TypeScript JSX | 120 | 16 | 3 | 139 |
+| [frontend/src/components/main/modals/WelcomeModal.tsx](/frontend/src/components/ui/modals/WelcomeModal.tsx) | TypeScript JSX | 34 | 11 | 5 | 50 |
+| [frontend/src/components/main/newUser/CourseSelect.tsx](/frontend/src/components/ui/inputs/CourseSelect.tsx) | TypeScript JSX | 41 | 1 | 5 | 47 |
+| [frontend/src/components/main/newUser/FormInput.tsx](/frontend/src/components/ui/inputs/FormInput.tsx) | TypeScript JSX | 24 | 0 | 4 | 28 |
+| [frontend/src/components/main/newUser/StudentGroupSelect.tsx](/frontend/src/components/ui/inputs/StudentGroupSelect.tsx) | TypeScript JSX | 36 | 1 | 3 | 40 |
+| [frontend/src/components/main/newUser/SubmitButton.tsx](/frontend/src/components/ui/buttons/SubmitButton.tsx) | TypeScript JSX | 18 | 0 | 4 | 22 |
+| [frontend/src/components/main/titles/MainViewTitle.tsx](/frontend/src/components/ui/titles/MainViewTitle.tsx) | TypeScript JSX | 12 | 13 | 4 | 29 |
+| [frontend/src/components/profiles/ProfileInfo.tsx](/frontend/src/components/features/users/ProfileInfo.tsx) | TypeScript JSX | 130 | 27 | 10 | 167 |
 | [frontend/src/contexts/UserContext.tsx](/frontend/src/contexts/UserContext.tsx) | TypeScript JSX | 41 | 25 | 3 | 69 |
 | [frontend/src/css/index.css](/frontend/src/css/index.css) | CSS | 29 | 0 | 5 | 34 |
 | [frontend/src/css/logo.css](/frontend/src/css/logo.css) | CSS | 67 | 0 | 11 | 78 |
 | [frontend/src/hooks/ApiHooks.ts](/frontend/src/hooks/ApiHooks.ts) | TypeScript | 1,006 | 13 | 51 | 1,070 |
 | [frontend/src/hooks/courseHooks.ts](/frontend/src/hooks/courseHooks.ts) | TypeScript | 36 | 15 | 3 | 54 |
 | [frontend/src/main.tsx](/frontend/src/main.tsx) | TypeScript JSX | 9 | 7 | 2 | 18 |
-| [frontend/src/routes/AdminRoutes.tsx](/frontend/src/routes/AdminRoutes.tsx) | TypeScript JSX | 30 | 9 | 2 | 41 |
+| [frontend/src/routes/AdminRoutes.tsx](/frontend/src/routes/admin/AdminRoutes.tsx) | TypeScript JSX | 30 | 9 | 2 | 41 |
 | [frontend/src/routes/AllRoutes.tsx](/frontend/src/routes/AllRoutes.tsx) | TypeScript JSX | 36 | 1 | 6 | 43 |
-| [frontend/src/routes/CounselorRoutes.tsx](/frontend/src/routes/CounselorRoutes.tsx) | TypeScript JSX | 26 | 9 | 3 | 38 |
+| [frontend/src/routes/CounselorRoutes.tsx](/frontend/src/routes/counselor/CounselorRoutes.tsx) | TypeScript JSX | 26 | 9 | 3 | 38 |
 | [frontend/src/routes/StudentRoutes.tsx](/frontend/src/routes/StudentRoutes.tsx) | TypeScript JSX | 31 | 9 | 4 | 44 |
-| [frontend/src/routes/TeacherRoutes.tsx](/frontend/src/routes/TeacherRoutes.tsx) | TypeScript JSX | 30 | 9 | 5 | 44 |
+| [frontend/src/routes/TeacherRoutes.tsx](/frontend/src/routes/teacher/TeacherRoutes.tsx) | TypeScript JSX | 30 | 9 | 5 | 44 |
 | [frontend/src/routes/admin/AdminCourseRoutes.tsx](/frontend/src/routes/admin/AdminCourseRoutes.tsx) | TypeScript JSX | 17 | 9 | 2 | 28 |
 | [frontend/src/routes/admin/AdminLectureRoutes.tsx](/frontend/src/routes/admin/AdminLectureRoutes.tsx) | TypeScript JSX | 15 | 0 | 3 | 18 |
 | [frontend/src/routes/admin/AdminSettingsRoutes.tsx](/frontend/src/routes/admin/AdminSettingsRoutes.tsx) | TypeScript JSX | 13 | 9 | 2 | 24 |
@@ -149,24 +149,24 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [frontend/src/views/main/Login.tsx](/frontend/src/views/main/Login.tsx) | TypeScript JSX | 114 | 16 | 6 | 136 |
 | [frontend/src/views/main/StartView.tsx](/frontend/src/views/main/StartView.tsx) | TypeScript JSX | 16 | 8 | 3 | 27 |
 | [frontend/src/views/main/Team.tsx](/frontend/src/views/main/Team.tsx) | TypeScript JSX | 15 | 0 | 3 | 18 |
-| [frontend/src/views/main/admin/AdminCourses.tsx](/frontend/src/views/main/admin/AdminCourses.tsx) | TypeScript JSX | 149 | 25 | 9 | 183 |
-| [frontend/src/views/main/admin/AdminDashboard.tsx](/frontend/src/views/main/admin/AdminDashboard.tsx) | TypeScript JSX | 93 | 0 | 6 | 99 |
+| [frontend/src/views/main/admin/AdminCourses.tsx](/frontend/src/views/main/admin/courses/AdminCourses.tsx) | TypeScript JSX | 149 | 25 | 9 | 183 |
+| [frontend/src/views/main/admin/AdminDashboard.tsx](/frontend/src/views/main/admin/dashboard/AdminDashboard.tsx) | TypeScript JSX | 93 | 0 | 6 | 99 |
 | [frontend/src/views/main/admin/AdminErrorLogs.tsx](/frontend/src/views/main/admin/AdminErrorLogs.tsx) | TypeScript JSX | 70 | 3 | 11 | 84 |
 | [frontend/src/views/main/admin/AdminFeedback.tsx](/frontend/src/views/main/admin/AdminFeedback.tsx) | TypeScript JSX | 178 | 0 | 4 | 182 |
 | [frontend/src/views/main/admin/AdminGuide.tsx](/frontend/src/views/main/admin/AdminGuide.tsx) | TypeScript JSX | 35 | 0 | 3 | 38 |
-| [frontend/src/views/main/admin/AdminLectures.tsx](/frontend/src/views/main/admin/AdminLectures.tsx) | TypeScript JSX | 400 | 7 | 21 | 428 |
+| [frontend/src/views/main/admin/AdminLectures.tsx](/frontend/src/views/main/admin/lectures/AdminLectures.tsx) | TypeScript JSX | 400 | 7 | 21 | 428 |
 | [frontend/src/views/main/admin/AdminLogs.tsx](/frontend/src/views/main/admin/AdminLogs.tsx) | TypeScript JSX | 68 | 3 | 11 | 82 |
 | [frontend/src/views/main/admin/AdminMainView.tsx](/frontend/src/views/main/admin/AdminMainView.tsx) | TypeScript JSX | 55 | 8 | 3 | 66 |
-| [frontend/src/views/main/admin/AdminNewUser.tsx](/frontend/src/views/main/admin/AdminNewUser.tsx) | TypeScript JSX | 256 | 9 | 24 | 289 |
+| [frontend/src/views/main/admin/AdminNewUser.tsx](/frontend/src/views/main/admin/users/AdminNewUser.tsx) | TypeScript JSX | 256 | 9 | 24 | 289 |
 | [frontend/src/views/main/admin/AdminProfile.tsx](/frontend/src/views/main/admin/AdminProfile.tsx) | TypeScript JSX | 18 | 19 | 3 | 40 |
 | [frontend/src/views/main/admin/AdminSettings.tsx](/frontend/src/views/main/admin/AdminSettings.tsx) | TypeScript JSX | 169 | 8 | 9 | 186 |
 | [frontend/src/views/main/admin/AdminStats.tsx](/frontend/src/views/main/admin/AdminStats.tsx) | TypeScript JSX | 213 | 1 | 20 | 234 |
-| [frontend/src/views/main/admin/AdminUsers.tsx](/frontend/src/views/main/admin/AdminUsers.tsx) | TypeScript JSX | 134 | 13 | 6 | 153 |
-| [frontend/src/views/main/admin/Courses/AdminCourseDetail.tsx](/frontend/src/views/main/admin/Courses/AdminCourseDetail.tsx) | TypeScript JSX | 166 | 20 | 17 | 203 |
-| [frontend/src/views/main/admin/Courses/AdminCourseModify.tsx](/frontend/src/views/main/admin/Courses/AdminCourseModify.tsx) | TypeScript JSX | 208 | 14 | 12 | 234 |
-| [frontend/src/views/main/admin/Lectures/AdminLectureDetail.tsx](/frontend/src/views/main/admin/Lectures/AdminLectureDetail.tsx) | TypeScript JSX | 188 | 2 | 8 | 198 |
-| [frontend/src/views/main/admin/Users/AdminUserModify.tsx](/frontend/src/views/main/admin/Users/AdminUserModify.tsx) | TypeScript JSX | 57 | 64 | 5 | 126 |
-| [frontend/src/views/main/counselor/CounselorCourseStats.tsx](/frontend/src/views/main/counselor/CounselorCourseStats.tsx) | TypeScript JSX | 6 | 0 | 2 | 8 |
+| [frontend/src/views/main/admin/AdminUsers.tsx](/frontend/src/views/main/admin/users/AdminUsers.tsx) | TypeScript JSX | 134 | 13 | 6 | 153 |
+| [frontend/src/views/main/admin/Courses/AdminCourseDetail.tsx](/frontend/src/views/main/admin/courses/AdminCourseDetail.tsx) | TypeScript JSX | 166 | 20 | 17 | 203 |
+| [frontend/src/views/main/admin/Courses/AdminCourseModify.tsx](/frontend/src/views/main/admin/courses/AdminCourseModify.tsx) | TypeScript JSX | 208 | 14 | 12 | 234 |
+| [frontend/src/views/main/admin/Lectures/AdminLectureDetail.tsx](/frontend/src/views/main/admin/lectures/AdminLectureDetail.tsx) | TypeScript JSX | 188 | 2 | 8 | 198 |
+| [frontend/src/views/main/admin/Users/AdminUserModify.tsx](/frontend/src/views/main/admin/users/AdminUserModify.tsx) | TypeScript JSX | 57 | 64 | 5 | 126 |
+| [frontend/src/views/main/counselor/CounselorCourseStats.tsx](/frontend/src/views/main/counselor/courses/CounselorCourseStats.tsx) | TypeScript JSX | 6 | 0 | 2 | 8 |
 | [frontend/src/views/main/counselor/CounselorHelpVideos.tsx](/frontend/src/views/main/counselor/CounselorHelpVideos.tsx) | TypeScript JSX | 34 | 47 | 4 | 85 |
 | [frontend/src/views/main/counselor/CounselorMainView.tsx](/frontend/src/views/main/counselor/CounselorMainView.tsx) | TypeScript JSX | 35 | 8 | 3 | 46 |
 | [frontend/src/views/main/counselor/CounselorProfile.tsx](/frontend/src/views/main/counselor/CounselorProfile.tsx) | TypeScript JSX | 20 | 23 | 3 | 46 |
@@ -182,21 +182,21 @@ Total : 200 files,  19803 codes, 4186 comments, 1649 blanks, all 25638 lines
 | [frontend/src/views/main/student/StudentProfile.tsx](/frontend/src/views/main/student/StudentProfile.tsx) | TypeScript JSX | 30 | 15 | 5 | 50 |
 | [frontend/src/views/main/student/StudentQrScanner.tsx](/frontend/src/views/main/student/StudentQrScanner.tsx) | TypeScript JSX | 125 | 16 | 10 | 151 |
 | [frontend/src/views/main/student/StudentQrSelectScanner.tsx](/frontend/src/views/main/student/StudentQrSelectScanner.tsx) | TypeScript JSX | 165 | 16 | 12 | 193 |
-| [frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoom.tsx](/frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoom.tsx) | TypeScript JSX | 363 | 74 | 24 | 461 |
-| [frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoomReload.tsx](/frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoomReload.tsx) | TypeScript JSX | 11 | 16 | 6 | 33 |
-| [frontend/src/views/main/teacher/Attendance/TeacherCreateLecture.tsx](/frontend/src/views/main/teacher/Attendance/TeacherCreateLecture.tsx) | TypeScript JSX | 497 | 39 | 38 | 574 |
-| [frontend/src/views/main/teacher/Courses/TeacherCourseAttendances.tsx](/frontend/src/views/main/teacher/Courses/TeacherCourseAttendances.tsx) | TypeScript JSX | 184 | 12 | 10 | 206 |
-| [frontend/src/views/main/teacher/Courses/TeacherCourseDetail.tsx](/frontend/src/views/main/teacher/Courses/TeacherCourseDetail.tsx) | TypeScript JSX | 62 | 9 | 4 | 75 |
-| [frontend/src/views/main/teacher/Courses/TeacherCourseModify.tsx](/frontend/src/views/main/teacher/Courses/TeacherCourseModify.tsx) | TypeScript JSX | 229 | 11 | 22 | 262 |
-| [frontend/src/views/main/teacher/Courses/TeacherCourseStats.tsx](/frontend/src/views/main/teacher/Courses/TeacherCourseStats.tsx) | TypeScript JSX | 224 | 29 | 19 | 272 |
-| [frontend/src/views/main/teacher/Courses/TeacherCourses.tsx](/frontend/src/views/main/teacher/Courses/TeacherCourses.tsx) | TypeScript JSX | 107 | 12 | 7 | 126 |
-| [frontend/src/views/main/teacher/Courses/TeacherCreateCourse.tsx](/frontend/src/views/main/teacher/Courses/TeacherCreateCourse.tsx) | TypeScript JSX | 25 | 7 | 4 | 36 |
-| [frontend/src/views/main/teacher/Lectures/TeacherLectures.tsx](/frontend/src/views/main/teacher/Lectures/TeacherLectures.tsx) | TypeScript JSX | 177 | 2 | 11 | 190 |
-| [frontend/src/views/main/teacher/Students/TeacherLateEnrollment.tsx](/frontend/src/views/main/teacher/Students/TeacherLateEnrollment.tsx) | TypeScript JSX | 10 | 0 | 3 | 13 |
-| [frontend/src/views/main/teacher/Students/TeacherStudentAttendances.tsx](/frontend/src/views/main/teacher/Students/TeacherStudentAttendances.tsx) | TypeScript JSX | 169 | 30 | 17 | 216 |
-| [frontend/src/views/main/teacher/Students/TeacherStudentDetail.tsx](/frontend/src/views/main/teacher/Students/TeacherStudentDetail.tsx) | TypeScript JSX | 169 | 26 | 12 | 207 |
-| [frontend/src/views/main/teacher/Students/TeacherStudentModify.tsx](/frontend/src/views/main/teacher/Students/TeacherStudentModify.tsx) | TypeScript JSX | 46 | 14 | 6 | 66 |
-| [frontend/src/views/main/teacher/Students/TeacherStudentsView.tsx](/frontend/src/views/main/teacher/Students/TeacherStudentsView.tsx) | TypeScript JSX | 207 | 19 | 15 | 241 |
+| [frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoom.tsx](/frontend/src/views/main/teacher/attendance/TeacherAttendanceRoom.tsx) | TypeScript JSX | 363 | 74 | 24 | 461 |
+| [frontend/src/views/main/teacher/Attendance/TeacherAttendanceRoomReload.tsx](/frontend/src/views/main/teacher/attendance/TeacherAttendanceRoomReload.tsx) | TypeScript JSX | 11 | 16 | 6 | 33 |
+| [frontend/src/views/main/teacher/Attendance/TeacherCreateLecture.tsx](/frontend/src/views/main/teacher/attendance/TeacherCreateLecture.tsx) | TypeScript JSX | 497 | 39 | 38 | 574 |
+| [frontend/src/views/main/teacher/Courses/TeacherCourseAttendances.tsx](/frontend/src/views/main/teacher/courses/TeacherCourseAttendances.tsx) | TypeScript JSX | 184 | 12 | 10 | 206 |
+| [frontend/src/views/main/teacher/Courses/TeacherCourseDetail.tsx](/frontend/src/views/main/teacher/courses/TeacherCourseDetail.tsx) | TypeScript JSX | 62 | 9 | 4 | 75 |
+| [frontend/src/views/main/teacher/Courses/TeacherCourseModify.tsx](/frontend/src/views/main/teacher/courses/TeacherCourseModify.tsx) | TypeScript JSX | 229 | 11 | 22 | 262 |
+| [frontend/src/views/main/teacher/Courses/TeacherCourseStats.tsx](/frontend/src/views/main/teacher/courses/TeacherCourseStats.tsx) | TypeScript JSX | 224 | 29 | 19 | 272 |
+| [frontend/src/views/main/teacher/Courses/TeacherCourses.tsx](/frontend/src/views/main/teacher/courses/TeacherCourses.tsx) | TypeScript JSX | 107 | 12 | 7 | 126 |
+| [frontend/src/views/main/teacher/Courses/TeacherCreateCourse.tsx](/frontend/src/views/main/teacher/courses/TeacherCreateCourse.tsx) | TypeScript JSX | 25 | 7 | 4 | 36 |
+| [frontend/src/views/main/teacher/Lectures/TeacherLectures.tsx](/frontend/src/views/main/teacher/lectures/TeacherLectures.tsx) | TypeScript JSX | 177 | 2 | 11 | 190 |
+| [frontend/src/views/main/teacher/Students/TeacherLateEnrollment.tsx](/frontend/src/views/main/teacher/students/TeacherLateEnrollment.tsx) | TypeScript JSX | 10 | 0 | 3 | 13 |
+| [frontend/src/views/main/teacher/Students/TeacherStudentAttendances.tsx](/frontend/src/views/main/teacher/students/TeacherStudentAttendances.tsx) | TypeScript JSX | 169 | 30 | 17 | 216 |
+| [frontend/src/views/main/teacher/Students/TeacherStudentDetail.tsx](/frontend/src/views/main/teacher/students/TeacherStudentDetail.tsx) | TypeScript JSX | 169 | 26 | 12 | 207 |
+| [frontend/src/views/main/teacher/Students/TeacherStudentModify.tsx](/frontend/src/views/main/teacher/students/TeacherStudentModify.tsx) | TypeScript JSX | 46 | 14 | 6 | 66 |
+| [frontend/src/views/main/teacher/Students/TeacherStudentsView.tsx](/frontend/src/views/main/teacher/students/TeacherStudentsView.tsx) | TypeScript JSX | 207 | 19 | 15 | 241 |
 | [frontend/src/views/main/teacher/TeacherHelpVideos.tsx](/frontend/src/views/main/teacher/TeacherHelpVideos.tsx) | TypeScript JSX | 51 | 5 | 4 | 60 |
 | [frontend/src/views/main/teacher/TeacherMainView.tsx](/frontend/src/views/main/teacher/TeacherMainView.tsx) | TypeScript JSX | 110 | 13 | 7 | 130 |
 | [frontend/src/views/main/teacher/TeacherProfile.tsx](/frontend/src/views/main/teacher/TeacherProfile.tsx) | TypeScript JSX | 36 | 6 | 7 | 49 |

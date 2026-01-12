@@ -1,17 +1,17 @@
 import React, {useContext, useEffect} from 'react';
 import {Route, Routes, useLocation, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import BackgroundContainer from '../components/main/background/BackgroundContainerTest';
+import BackgroundContainer from '../components/features/layout/BackgroundContainerTest.tsx';
 import {UserContext} from '../contexts/UserContext';
 import Logout from '../views/Logout';
 import Gdpr from '../views/main/Gdpr';
 import Login from '../views/main/Login';
 import StartView from '../views/main/StartView';
 import MicrosoftCallback from '../views/main/MicrosoftCallback';
-import AdminRoutes from './AdminRoutes';
-import CounselorRoutes from './CounselorRoutes';
+import AdminRoutes from './admin/AdminRoutes.tsx';
+import CounselorRoutes from './counselor/CounselorRoutes.tsx';
 import StudentRoutes from './StudentRoutes';
-import TeacherRoutes from './TeacherRoutes';
+import TeacherRoutes from './teacher/TeacherRoutes.tsx';
 import NoUserHelp from '../views/main/NoUserHelp';
 import About from '../views/main/About';
 import Team from '../views/main/Team';
@@ -35,7 +35,7 @@ const AllRoutes = () => {
 
   // Update document title based on current path
   useEffect(() => {
-    const title = user ? `JakSec - ${user.role} ` : `JakSec`;
+    const title = user ? `Attend - ${user.role} ` : `Attend`;
     document.title = title;
   }, [user, location]);
 

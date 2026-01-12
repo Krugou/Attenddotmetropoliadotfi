@@ -6,9 +6,9 @@ import apiHooks from '../../../../api';
 import {UserContext} from '../../../../contexts/UserContext';
 import WorkLogCourseSelector, {
   UnifiedCourse,
-} from '../../../../components/worklog/WorkLogCourseSelector';
-import WorkLogActionButtons from '../../../../components/worklog/WorkLogActionButtons';
-import WorkLogModal from '../../../../components/worklog/WorkLogModal';
+} from '../../../../components/features/worklogs/WorkLogCourseSelector.tsx';
+import WorkLogActionButtons from '../../../../components/features/worklogs/WorkLogActionButtons.tsx';
+import WorkLogModal from '../../../../components/features/worklogs/WorkLogModal.tsx';
 import type {ActiveEntry, WorkLogEntry} from '../../../../types/worklog';
 import dayjs from 'dayjs';
 import {
@@ -551,10 +551,10 @@ const StudentWorkLogLogger: React.FC = () => {
 
         // Use the appropriate API call based on course type
         if (selectedCourseData.type === 'practicum') {
-          // @ts-expect-error
+
           await apiHooks.createWorkLogEntryPracticum(params, token);
         } else {
-          // @ts-expect-error
+
           await apiHooks.createWorkLogEntry(params, token);
         }
       }

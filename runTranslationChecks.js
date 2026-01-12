@@ -15,7 +15,7 @@ const extractTranslationKeys = (dir, fileList = []) => {
       const regex = /t\(['"`](?:([^:'"`]+):)?([^'"`]+)['"`]\)/g;
       let match;
       while ((match = regex.exec(content)) !== null) {
-        const namespace = match[1] || 'common'; // Default to 'common' if no namespace
+        const namespace = match[1] || 'common'; // Default to 'ui' if no namespace
         const key = match[2];
         fileList.push(`${namespace}:${key}`);
       }

@@ -1,88 +1,62 @@
-import {RowDataPacket} from 'mysql2';
+import { RowDataPacket } from 'mysql2';
 import createPool from '../config/createPool.js';
 
+// DB pool (ADMIN connection)
 const pool = createPool('ADMIN');
-/**
- * Role interface.
- */
+
+// Types
 interface Role {
   roleid: number;
   rolename: string;
-  // other fields...
 }
 
-/**
- * RoleModel interface.
- */
+// Public API for role model
 interface RoleModel {
-  /**
-   * Finds a role by its ID.
-   * @param id - The ID of the role.
-   * @returns A promise that resolves to the role or null if not found.
-   */
+  // Find a role by its numeric ID
   findByRoleId(id: number): Promise<Role | null>;
 
-  /**
-   * Inserts a new role.
-   * @param rolename - The name of the role.
-   * @returns A promise that resolves when the insertion is complete.
-   */
+  // Insert a new role (by name)
   insertIntoRole(rolename: string): Promise<void>;
 
-  /**
-   * Fetches roles for teachers and counselors.
-   * @returns A promise that resolves to an array of roles.
-   */
+  // Get only teacher & counselor roles
   fetchTeacherAndCounselorRoles(): Promise<RowDataPacket[]>;
 
-  /**
-   * Fetches all roles.
-   * @returns A promise that resolves to an array of all roles.
-   */
+  // Get all roles
   fetchAllRoles(): Promise<RowDataPacket[]>;
-
-  // other methods...
 }
+
 const roleModel: RoleModel = {
-  /**
-   * Fetches all roles.
-   * @returns A promise that resolves to an array of all roles.
-   */
+  // Get all roles
   async fetchAllRoles() {
     try {
-      const [results] = await pool
-        .promise()
-        .query<RowDataPacket[]>('SELECT * FROM roles');
+      console.log('row 53, rolemodel.ts, fetchAllRoles()');
+      const [results] = await pool.promise().query<RowDataPacket[]>('SELECT * FROM roles');
       return results;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   },
-  /**
-   * Fetches roles for teachers and counselors.
-   * @returns A promise that resolves to an array of roles.
-   */
+
+  // Get only teacher and counselor roles
+  // NOTE: This query uses column "name". If your schema uses "rolename", update accordingly.
   async fetchTeacherAndCounselorRoles() {
     try {
+      console.log('row 69, rolemodel.ts, fetchTeacherAndCounselorRoles()');
       const [rows] = await pool
         .promise()
-        .query<RowDataPacket[]>(
-          "SELECT * FROM roles WHERE name IN ('teacher', 'counselor')",
-        );
+        .query<RowDataPacket[]>("SELECT * FROM roles WHERE name IN ('teacher', 'counselor')");
       return rows;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   },
-  /**
-   * Finds a role by its ID.
-   * @param id - The ID of the role.
-   * @returns A promise that resolves to the role or null if not found.
-   */
-  async findByRoleId(id) {
+
+  // Find a single role by roleid
+  async findByRoleId(id: number) {
     try {
+      console.log('row 88, rolemodel.ts, findByRoleId()');
       const [rows] = await pool
         .promise()
         .query<RowDataPacket[]>('SELECT * FROM roles WHERE roleid = ?', [id]);
@@ -92,23 +66,17 @@ const roleModel: RoleModel = {
       return Promise.reject(error);
     }
   },
-  /**
-   * Inserts a new role.
-   * @param rolename - The name of the role.
-   * @returns A promise that resolves when the insertion is complete.
-   */
-  async insertIntoRole(rolename) {
+
+  // Insert a new role row
+  async insertIntoRole(rolename: string) {
     try {
-      await pool
-        .promise()
-        .query('INSERT INTO roles (rolename) VALUES (?)', [rolename]);
+      console.log('row 105, rolemodel.ts, insertIntoRole()');
+      await pool.promise().query('INSERT INTO roles (rolename) VALUES (?)', [rolename]);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   },
-
-  // other methods...
 };
 
 export default roleModel;

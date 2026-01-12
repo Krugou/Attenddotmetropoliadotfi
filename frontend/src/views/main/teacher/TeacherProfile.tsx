@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import ProfileInfo from '../../../components/profiles/ProfileInfo';
+import ProfileInfo from '../../../components/features/users/ProfileInfo.tsx';
 import {UserContext} from '../../../contexts/UserContext';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom'; // Import useNavigate
@@ -31,10 +31,10 @@ const TeacherProfile: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center w-11/12 p-5 font-body bg-white rounded-lg sm:w-fit h-fit sm:p-10'>
-      <h1 className='mt-5 mb-8 text-xl font-heading sm:text-4xl'>
+    <div className="flex flex-col items-center justify-center w-full max-w-2xl p-5 sm:p-10 font-body bg-white rounded-lg">
+      <h2 className='mt-5 mb-8 text-l font-heading sm:text-3xl'>
         {t('teacher:profile.title')}
-      </h1>
+      </h2>
       <div className='mb-4 text-md sm:text-xl'>
         <ProfileInfo user={user} />
       </div>
