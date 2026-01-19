@@ -1,122 +1,109 @@
-import {RowDataPacket} from 'mysql2';
+//model
+import { RowDataPacket } from 'mysql2';
 import createPool from '../config/createPool.js';
-/**
- * Interface for student and topics data.
- */
+
+const pool = createPool('ADMIN');
+
+// Types for lightweight student info
 interface StudentAndTopics {
   first_name: string;
   last_name: string;
   userid: number;
 }
-const pool = createPool('ADMIN');
-/**
- * Model for managing user courses.
- */
-const usercoursesModel = {
-  /**
-   * Checks if a user course exists.
-   * @param userId - The ID of the user.
-   * @param courseId - The ID of the course.
-   * @returns A promise that resolves to the existing user course, if any.
-   */
-  async checkIfUserCourseExists(userId: number, courseId: number) {
-    const [existingUserCourse] = await pool
-      .promise()
-      .query<RowDataPacket[]>(
-        'SELECT * FROM usercourses WHERE userid = ? AND courseid = ?',
-        [userId, courseId],
-      );
 
+// SQL
+const SQL = {
+  // Exists check for (userid, courseid)
+  exists: 'SELECT * FROM usercourses WHERE userid = ? AND courseid = ?',
+
+  // usercourseid by studentnumber (via users.userid) + courseid
+  getId: `
+    SELECT usercourseid
+    FROM usercourses
+    WHERE userid IN (SELECT userid FROM users WHERE studentnumber = ?)
+      AND courseid = ?`,
+
+  // Insert relation
+  insert: 'INSERT INTO usercourses (userid, courseid) VALUES (?, ?)',
+
+  // Delete by pair (userid, courseid)
+  deleteByUserCoursePair: 'DELETE FROM usercourses WHERE userid = ? AND courseid = ?',
+
+  // Fetch by usercourseid
+  byUsercourseId: 'SELECT * FROM usercourses WHERE usercourseid = ?',
+
+  // Delete by usercourseid
+  deleteByUsercourseId: 'DELETE FROM usercourses WHERE usercourseid = ?',
+
+  // Basic student info for a usercourse
+  studentInfoByUsercourseId: `
+    SELECT u.first_name, u.last_name, u.userid
+    FROM users u
+           JOIN usercourses uc ON u.userid = uc.userid
+    WHERE uc.usercourseid = ?`,
+} as const;
+
+// model
+const usercoursesModel = {
+  // Check if (userid, courseid) exists
+  async checkIfUserCourseExists(userId: number, courseId: number) {
+    console.log('row 23, usercoursemodel.ts, checkIfUserCourseExists() called');
+    const [existingUserCourse] = await pool.promise().query<RowDataPacket[]>(
+      SQL.exists,
+      [userId, courseId],
+    );
     return existingUserCourse;
   },
-  /**
-   * Gets the ID of a user course.
-   * @param studentnumber - The student number.
-   * @param courseid - The ID of the course.
-   * @returns A promise that resolves to the ID of the user course.
-   */
+
+  // Get usercourseid by studentnumber + courseid
   async getUserCourseId(studentnumber: string, courseid: number) {
-    const [usercourseResult] = await pool
-      .promise()
-      .query(
-        'SELECT usercourseid FROM usercourses WHERE userid IN (SELECT userid FROM users WHERE studentnumber = ?) AND courseid = ?',
-        [studentnumber, courseid],
-      );
+    console.log('row 40, usercoursemodel.ts, getUserCourseId() called');
+    const [usercourseResult] = await pool.promise().query<RowDataPacket[]>(
+      SQL.getId,
+      [studentnumber, courseid],
+    );
     return usercourseResult;
   },
-  /**
-   * Inserts a user course.
-   * @param userId - The ID of the user.
-   * @param courseId - The ID of the course.
-   * @returns A promise that resolves when the insertion is complete.
-   */
+
+  // Insert (userid, courseid)
   async insertUserCourse(userId: number, courseId: number) {
-    const result = await pool
-      .promise()
-      .query('INSERT INTO usercourses (userid, courseid) VALUES (?, ?)', [
-        userId,
-        courseId,
-      ]);
-
+    console.log('row 56, usercoursemodel.ts, insertUserCourse() called');
+    const result = await pool.promise().query(SQL.insert, [userId, courseId]);
     return result;
   },
-  /**
-   * Deletes a user course.
-   * @param userId - The ID of the user.
-   * @param courseId - The ID of the course.
-   * @returns A promise that resolves when the deletion is complete.
-   */
+
+  // Delete by (userid, courseid)
   async deleteUserCourse(userId: number, courseId: number) {
-    const result = await pool
-      .promise()
-      .query('DELETE FROM usercourses WHERE userid = ? AND courseid = ?', [
-        userId,
-        courseId,
-      ]);
-
+    console.log('row 73, usercoursemodel.ts, deleteUserCourse() called');
+    const result = await pool.promise().query(SQL.deleteByUserCoursePair, [userId, courseId]);
     return result;
   },
-  /**
-   * Gets a user course by its ID.
-   * @param usercourseid - The ID of the user course.
-   * @returns A promise that resolves to the user course.
-   */
+
+  // Fetch row by usercourseid
   async getUserCourseByUsercourseid(usercourseid: number) {
-    const [usercourseResult] = await pool
-      .promise()
-      .query('SELECT * FROM usercourses WHERE usercourseid = ?', usercourseid);
+    console.log('row 89, usercoursemodel.ts, getUserCourseByUsercourseid() called');
+    const [usercourseResult] = await pool.promise().query<RowDataPacket[]>(
+      SQL.byUsercourseId,
+      [usercourseid],
+    );
     return usercourseResult;
   },
-  /**
-   * Deletes a user course by its ID.
-   * @param usercourseid - The ID of the user course.
-   * @returns A promise that resolves when the deletion is complete.
-   */
+
+  // Delete row by usercourseid
   async deleteUserCourseByUsercourseid(usercourseid: number) {
-    const result = await pool
-      .promise()
-      .query('DELETE FROM usercourses WHERE usercourseid = ?', usercourseid);
+    console.log('row 101, usercoursemodel.ts, deleteUserCourseByUsercourseid() called');
+    const result = await pool.promise().query(SQL.deleteByUsercourseId, [usercourseid]);
     return result;
   },
-  /**
-   * Gets student information by user course ID.
-   * @param usercourseid - The ID of the user course.
-   * @returns A promise that resolves to the student information.
-   */
+
+  // Minimal student info for a given usercourseid
   async getStudentInfoByUsercourseid(usercourseid: number) {
     try {
+      console.log('row 114, usercoursemodel.ts, getStudentInfoByUsercourseid() called');
       const [rows] = await pool.promise().query<RowDataPacket[]>(
-        `SELECT
-					users.first_name,
-					users.last_name,
-					users.userid
-				FROM users
-				JOIN usercourses ON users.userid = usercourses.userid
-				WHERE usercourses.usercourseid = ?
-			`,
+        SQL.studentInfoByUsercourseId,
         [usercourseid],
       );
-
       const data: StudentAndTopics[] = JSON.parse(JSON.stringify(rows));
       return data;
     } catch (error) {

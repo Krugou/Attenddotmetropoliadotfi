@@ -4,6 +4,7 @@ import logger from './logger.js';
 config();
 const getToken = async () => {
   try {
+    console.log("row 7, getToken.ts, admin login to get token use dev account from .env file")
     // admin login to get token use dev account from .env file
     const response = await doFetch('http://localhost:3002/users/', {
       method: 'post',

@@ -3,7 +3,7 @@ import CounselorStatistics from '../../../assets/videos/CounselorStatistics.mp4'
 import CounselorStudentAttendance from '../../../assets/videos/CounselorStudentAttendance.mp4';
 import CounselorStudentDetails from '../../../assets/videos/CounselorStudentDetails.mp4';
 import RoleChange from '../../../assets/videos/RoleChange.mp4';
-import VideoDropdown from '../../../components/main/dropdown/VideoDropdown';
+import VideoDropdown from '../../../components/ui/VideoDropdown.tsx';
 import {useTranslation} from 'react-i18next';
 
 /**

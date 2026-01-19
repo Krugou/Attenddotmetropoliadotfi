@@ -2,23 +2,23 @@
   "navigation": {
     "help": "Hjälp",
     "backToLogin": "Tillbaka till inloggning",
-    "helpMessage": "Behöver du hjälp? \nKlicka på Hjälpknappen ovan för att komma igång!"
+    "helpMessage": "Behöver du hjälp?\nKlicka på hjälpknappen ovan för att komma igång!"
   },
   "help": {
     "title": "Hjälpcenter",
     "gettingStarted": {
-      "title": "Komma igång",
-      "description": "För att använda denna applikation behöver du ha:",
-      "item1": "Metropolia inloggningsuppgifter",
+      "title": "Kom igång",
+      "description": "För att använda denna applikation behöver du:",
+      "item1": "Metropolias användaruppgifter",
       "item2": "Tillgång till Metropolias nätverk eller VPN",
-      "item3": "Google Chrome webbläsare (rekommenderas för bästa upplevelse)",
-      "pwa": "Denna applikation är byggd som en progressiv webbapp (PWA) optimerad för Chrome. För bästa upplevelse rekommenderar vi Chrome-webbläsaren där du kan installera den som en skrivbordsapplikation. På mobila enheter kan du lägga till appen på startskärmen: på Android, tryck på menyn (⋮) och välj \"Lägg till på startskärmen\", på iOS tryck på delningsknappen och välj \"Lägg till på hemskärmen\"."
+      "item3": "Webbläsaren Google Chrome (rekommenderas för bästa upplevelse)",
+      "pwa": "Denna applikation är byggd som en progressiv webbapp (PWA) och optimerad för Chrome. För bästa upplevelse rekommenderar vi att använda Chrome, där du kan installera den som ett skrivbordsprogram. På mobila enheter kan du lägga till appen på hemskärmen: på Android trycker du på menyn (⋮) och väljer \"Lägg till på hemskärmen\", på iOS trycker du på delningsknappen och väljer \"Lägg till på hemskärmen\"."
     },
     "commonIssues": {
       "title": "Vanliga problem",
       "login": {
-        "title": "Kan inte logga in?",
-        "description": "Se till att du är ansluten till Metropolias nätverk eller VPN"
+        "title": "Kan du inte logga in?",
+        "description": "Kontrollera att du är ansluten till Metropolias nätverk eller VPN"
       },
       "connection": {
         "title": "Anslutningsproblem?",
@@ -26,22 +26,22 @@
       },
       "iphone": {
         "title": "Problem med iPhone?",
-        "description": "Om du använder en iPhone, se till att iCloud Private Relay är inaktiverat eftersom det kan störa VPN-anslutningen. Du kan inaktivera det i Inställningar > Apple-ID > iCloud > Private Relay."
+        "description": "Om du använder en iPhone, se till att iCloud Private Relay är avstängt, eftersom det kan störa VPN-anslutningen. Du kan stänga av det via Inställningar > Apple-ID > iCloud > Private Relay."
       },
       "scaling": {
-        "description": "Denna webbplats är byggd med 100% displayskalning i åtanke. \nOm din enhet använder olika skalningsinställningar kan innehållet vara för stort eller för litet. \nJustera din webbläsarzoom eller systemdisplayskalning för optimal visning.",
-        "title": "Skalningsfrågor?"
+        "title": "Problem med skärm­skalning?",
+        "description": "Denna webbplats är utformad för 100 % skärm­skalning. Om din enhet använder andra skalningsinställningar kan innehållet se för stort eller för litet ut. Justera webbläsarens zoomnivå eller systemets skärm­skalning för optimal visning."
       }
     },
     "contact": {
       "title": "Behöver du mer hjälp?",
-      "description": "Om du behöver ytterligare hjälp, kontakta Metropolias support:",
-      "email": "E-post: kimmo.sauren@metropolia.fi"
+      "description": "Om du behöver ytterligare hjälp, vänligen kontakta Metropolias support:",
+      "email": "E-post: attend@metropolia.fi"
     }
   },
   "team": {
     "title": "Utvecklingsteam",
-    "originalTeam": "Ursprungligt utvecklingsteam",
+    "originalTeam": "Ursprungliga utvecklingsteamet",
     "additionalTeam": "Ytterligare utveckling",
     "jakDescription": "Initialerna bildar akronymen \"JAK\"",
     "roles": {
@@ -52,8 +52,13 @@
   },
   "about": {
     "title": "Om Metropolia Attendance-appen",
-    "description": "Metropolia Attendance är ett omfattande närvarohanteringssystem särskilt utformat för Metropolia yrkeshögskola. Denna plattform representerar ett betydande steg framåt i moderniseringen av hur vi hanterar och registrerar studenternas deltagande i akademiska aktiviteter.",
-    "modernization": "Vårt system effektiviserar den traditionella närvarohanteringsprocessen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder realtidsspårning, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
-    "benefits": "För studenter erbjuder plattformen ett enkelt sätt att markera sin närvaro och följa sin deltagandehistorik. Lärare drar nytta av automatiserad närvarohantering, vilket låter dem fokusera mer på undervisning och mindre på administrativa uppgifter."
+    "description": "Metropolia Attendance är ett heltäckande system för närvarohantering som är särskilt utformat för Metropolia yrkeshögskola. Plattformen representerar ett viktigt steg i moderniseringen av hur studerandes deltagande hanteras och registreras.",
+    "modernization": "Vårt system effektiviserar den traditionella närvarohanteringen genom att ersätta manuella pappersbaserade metoder med en effektiv digital lösning. Det erbjuder spårning i realtid, automatiserad rapportering och sömlös integration med Metropolias befintliga digitala infrastruktur.",
+    "benefits": "För studerande erbjuder plattformen ett enkelt sätt att markera närvaro och följa sin deltagandehistorik. Lärare drar nytta av automatiserad närvarohantering, vilket gör att de kan fokusera mer på undervisning och mindre på administrativa uppgifter."
+  },
+  "attendance": {
+    "labels": {
+      "socketConnected": ""
+    }
   }
 }

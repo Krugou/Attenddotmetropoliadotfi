@@ -1,64 +1,64 @@
 {
+  "navigation": {
+    "help": "Help",
+    "backToLogin": "Back to login",
+    "helpMessage": "Need help?\nClick the help button above to get started!"
+  },
+  "help": {
+    "title": "Help Center",
+    "gettingStarted": {
+      "title": "Getting Started",
+      "description": "To use this application, you need:",
+      "item1": "Metropolia credentials",
+      "item2": "Access to the Metropolia network or VPN",
+      "item3": "Google Chrome browser (recommended for the best experience)",
+      "pwa": "This application is built as a Progressive Web App (PWA) and optimized for Chrome. For the best experience, we recommend using Chrome, where you can install it as a desktop application. On mobile devices, you can add the app to your home screen: on Android, tap the menu (⋮) and select \"Add to Home screen\", on iOS tap the share button and choose \"Add to Home Screen\"."
+    },
+    "commonIssues": {
+      "title": "Common Issues",
+      "login": {
+        "title": "Cannot log in?",
+        "description": "Make sure you are connected to the Metropolia network or VPN"
+      },
+      "connection": {
+        "title": "Connection issues?",
+        "description": "Check your internet connection and try refreshing the page"
+      },
+      "iphone": {
+        "title": "Issues with iPhone?",
+        "description": "If you are using an iPhone, make sure iCloud Private Relay is disabled, as it may interfere with VPN connectivity. You can disable it in Settings > Apple ID > iCloud > Private Relay."
+      },
+      "scaling": {
+        "title": "Display scaling issues?",
+        "description": "This website is designed with 100% display scaling in mind. If your device uses different scaling settings, the content may appear too large or too small. Adjust your browser zoom or system display scaling for optimal viewing."
+      }
+    },
+    "contact": {
+      "title": "Need more help?",
+      "description": "If you need additional assistance, please contact Metropolia support:",
+      "email": "Email: attend@metropolia.fi"
+    }
+  },
+  "team": {
+    "title": "Development Team",
+    "originalTeam": "Original Development Team",
+    "additionalTeam": "Additional Development",
+    "jakDescription": "The initials form the acronym \"JAK\"",
+    "roles": {
+      "originalDev": "Original Developer",
+      "additionalDev": "Additional Developer"
+    },
+    "viewGithub": "View GitHub profile"
+  },
   "about": {
-    "benefits": "For students, the platform offers an easy way to mark their attendance and track their participation history. Teachers benefit from automated attendance management, allowing them to focus more on teaching and less on administrative tasks.",
-    "description": "Metropolia Attendance is a comprehensive attendance tracking system specifically designed for Metropolia University of Applied Sciences. This platform represents a significant step forward in modernizing how we manage and record student participation in academic activities.",
-    "modernization": "Our system streamlines the traditional attendance-taking process, replacing manual paper-based methods with an efficient digital solution. It provides real-time tracking, automated reporting, and seamless integration with Metropolia's existing digital infrastructure.",
-    "title": "About Metropolia Attendance app"
+    "title": "About the Metropolia Attendance app",
+    "description": "Metropolia Attendance is a comprehensive attendance tracking system designed specifically for Metropolia University of Applied Sciences. This platform represents a significant step forward in modernizing how student participation is managed and recorded.",
+    "modernization": "Our system streamlines the traditional attendance-taking process by replacing manual paper-based methods with an efficient digital solution. It provides real-time tracking, automated reporting, and seamless integration with Metropolia’s existing digital infrastructure.",
+    "benefits": "For students, the platform offers an easy way to mark attendance and track participation history. Teachers benefit from automated attendance management, allowing them to focus more on teaching and less on administrative tasks."
   },
   "attendance": {
     "labels": {
       "socketConnected": ""
     }
-  },
-  "help": {
-    "commonIssues": {
-      "connection": {
-        "description": "Check your internet connection and try refreshing the page",
-        "title": "Connection Issues?"
-      },
-      "iphone": {
-        "description": "If using an iPhone, make sure to disable iCloud Private Relay as it may interfere with VPN connectivity. You can disable it in Settings > Apple ID > iCloud > Private Relay.",
-        "title": "Issues with iPhone?"
-      },
-      "login": {
-        "description": "Make sure you are connected to Metropolia network or VPN",
-        "title": "Cannot Log In?"
-      },
-      "title": "Common Issues",
-      "scaling": {
-        "description": "This website is built using 100% display scaling in mind. If your device uses different scaling settings, the content might appear too big or too small. Adjust your browser zoom or system display scaling for optimal viewing.",
-        "title": "Display Scaling Issues?"
-      }
-    },
-    "contact": {
-      "description": "If you need additional assistance, please contact Metropolia support:",
-      "email": "Email: kimmo.sauren@metropolia.fi",
-      "title": "Need More Help?"
-    },
-    "gettingStarted": {
-      "description": "To use this application, you need to have:",
-      "item1": "Metropolia credentials",
-      "item2": "Access to Metropolia network or VPN",
-      "item3": "Google Chrome browser (recommended for best experience)",
-      "pwa": "This application is built as a Progressive Web App (PWA) optimized for Chrome. For the best experience, we recommend using Chrome browser where you can install it as a desktop application. On mobile devices, you can add the app to your home screen: on Android, tap the menu (⋮) and select \"Add to Home screen\", on iOS tap the share button and choose \"Add to Home Screen\".",
-      "title": "Getting Started"
-    },
-    "title": "Help Center"
-  },
-  "navigation": {
-    "backToLogin": "Back to Login",
-    "help": "Help",
-    "helpMessage": "Need help? Click the help button above to get started!"
-  },
-  "team": {
-    "additionalTeam": "Additional Development",
-    "jakDescription": "The initials form the acronym \"JAK\"",
-    "originalTeam": "Original Development Team",
-    "roles": {
-      "additionalDev": "Additional Developer",
-      "originalDev": "Original Developer"
-    },
-    "title": "Development Team",
-    "viewGithub": "View GitHub Profile"
   }
 }

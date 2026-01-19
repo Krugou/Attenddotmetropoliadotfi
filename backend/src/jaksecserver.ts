@@ -1,5 +1,5 @@
 /**
- * @fileoverview Main server setup and configuration for the Metropolia Attendance Application.
+ * @fileoverview Main server setup and configuration for the Metropolia attendance Application.
  * This file handles Express setup, middleware configuration, route integration, and server initialization.
  *
  * @module JakSecServer
@@ -27,14 +27,16 @@ import feedbackRoutes from './routes/feedbackroutes.js';
 import microsoftAuthRoutes from './routes/microsoftAuthRoutes.js';
 import SocketHandlers from './sockets/socketHandlers.js';
 import logger from './utils/logger.js';
+import express from 'express';
+import {createServer} from 'http';
+import passport from './utils/pass.js';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
 /**
  * Load environment variables from .env file
  */
 config();
-
-import express from 'express';
-import {createServer} from 'http';
-import passport from './utils/pass.js';
 
 /**
  * Express application instance
@@ -79,6 +81,7 @@ const port = 3002;
  * @type {Date}
  */
 const startTime = new Date();
+
 /**
  * Middleware Configuration
  * @description Sets up essential middleware for the application
@@ -133,13 +136,13 @@ app.use('/auth/microsoft', microsoftAuthRoutes);
 /**
  * Simple GET route for debugging
  */
-
 app.get('/metrostation/', (_req: Request, res: Response) => {
   res.json({
     message: 'API is working',
     builddate: process.env.VITE_REACT_APP_BUILD_DATE,
   });
 });
+
 /**
  * Use secure routes for /secure path with JWT authentication
  * This sets up secure routes that require JWT authentication under the /secure path.
@@ -198,6 +201,21 @@ app.use(
   feedbackRoutes,
 );
 
+// ESM-compatible __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve frontend build (Vite output) from ../jaksec
+const frontendDir = path.join(__dirname, '../jaksec');
+
+// Static files for frontend (JS, CSS, assets)
+app.use(express.static(frontendDir));
+
+// SPA fallback – return index.html for any non-API route
+app.get('*', (_req: Request, res: Response) => {
+  res.sendFile(path.join(frontendDir, 'index.html'));
+});
+
 /**
  * Server Initialization
  * @description Starts the HTTP server on the specified port
@@ -210,7 +228,7 @@ app.use(
  *
  * @example
  * // Server startup log
- * "Metropolia Attendance App REST + DATABASE SERVER Started at: http://localhost:3002/"
+ * "Metropolia attendance App REST + DATABASE SERVER Started at: http://localhost:3002/"
  */
 http.listen(port, () => {
   logger.info(

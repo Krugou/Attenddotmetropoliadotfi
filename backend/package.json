@@ -2,27 +2,26 @@
   "name": "attendanceappbackend",
   "type": "module",
   "version": "1.0.0",
-  "module": "commonjs",
   "scripts": {
     "start": "npm run dev",
-    "sW": "npm i && concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon nodejs/jaksecserver.js\"",
-    "notscsW": "npm i && concurrently  \"nodemon --delay 1s nodejs/jaksecfileserver.js\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
-    "test": "jest",
-    "devBackend": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" ",
-    "devBuild": "npm i && concurrently \"tsc --watch\"  \"nodemon --delay 1s nodejs/jaksecserver.js\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\"",
-    "tsc": "npm i && tsc",
-    "tscW": " npm i && tsc --watch",
-    "docs": " npm i && typedoc src",
-    "docs:watch": " npm i && nodemon --watch 'src/**/*.ts' --exec npm run docs",
+    "dev": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecserver.js\" \"nodemon --delay 1s nodejs/jaksecfileserver.js\"",
+    "dev:backend": "concurrently \"tsc --watch\" \"nodemon --delay 1s nodejs/jaksecserver.js\"",
+    "dev:fileserver": "nodemon --delay 1s nodejs/jaksecfileserver.js",
     "build": "tsc && tsc src/jaksecbackupsql.ts --outDir nodejs",
-    "sqlBackup": "tsc src/jaksecbackupsql.ts --outDir nodejs  && node nodejs/jaksecbackupsql.js",
-    "sqltest": "node src/jaksecbackupsql.cjs"
+    "start:prod": "node nodejs/jaksecserver.js",
+    "docs": "typedoc src",
+    "docs:watch": "nodemon --watch 'src/**/*.ts' --exec npm run docs",
+    "sql:backup": "tsc src/jaksecbackupsql.ts --outDir nodejs && node nodejs/jaksecbackupsql.js",
+    "test": "jest",
+    "lint": "eslint './src/**/*.ts'",
+    "testReport": "node --loader ts-node/esm src/jobs/weekly-attendance-report.ts"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "docdash": "^2.0.2",
     "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
@@ -31,6 +30,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.12.0",
     "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.9",
     "nodemon": "^3.1.9",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -38,7 +38,6 @@
     "pino": "^9.6.0",
     "rotating-file-stream": "^3.2.5",
     "socket.io": "^4.8.1",
-    "typescript": "^5.7.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
@@ -47,30 +46,18 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/multer": "^1.4.12",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.18.9",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@types/socket.io": "^3.0.2",
-    "@types/supertest": "^6.0.2",
+    "@types/supertest": "^6.0.3",
     "concurrently": "^9.1.2",
-    "typedoc": "^0.27.6"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.14",
+    "typescript": "^5.9.3"
   }
 }

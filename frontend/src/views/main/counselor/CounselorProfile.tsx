@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import ProfileInfo from '../../../components/profiles/ProfileInfo';
+import ProfileInfo from '../../../components/features/users/ProfileInfo.tsx';
 import {UserContext} from '../../../contexts/UserContext';
 import {useTranslation} from 'react-i18next';
 /**

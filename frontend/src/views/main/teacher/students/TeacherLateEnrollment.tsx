@@ -1,0 +1,591 @@
+import React, {useState, useContext, useEffect} from 'react';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import NewStudentUser from '../../../../components/features/students/NewStudentUser.tsx';
+import {UserContext} from '../../../../contexts/UserContext';
+import apiHooks from '../../../../api';
+import {toast} from 'react-toastify';
+import {useTranslation} from 'react-i18next';
+import TextField from '@mui/material/TextField';
+import Loader from '../../../../utils/Loader';
+import {Link, useNavigate} from 'react-router-dom';
+import {Modal, Autocomplete} from '@mui/material';
+import {useCourses} from '../../../../hooks/courseHooks';
+
+/**
+ * Student interface.
+ * Defines the shape of a Student object.
+ */
+interface Student {
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  studentnumber: number;
+  roleid: number;
+  studentgroupid: number;
+  created_at: string;
+  userid: number;
+  group_name: string;
+}
+
+/**
+ * Course interface represents the structure of a course.
+ */
+interface Course {
+  courseid: number;
+  course_name: string;
+  startDate: string;
+  endDate: string;
+  code: string;
+  student_group: number | null;
+  topic_names: string;
+  selected_topics: string;
+  instructor_name: string;
+  usercourseid: number;
+}
+
+/**
+ * SelectedCourse interface.
+ * Defines the shape of a course that can be selected for enrollment.
+ */
+interface SelectedCourse {
+  name: string;
+  code: string;
+  courseid: number;
+  start_date: string;
+  end_date: string;
+  studentgroup_name: string;
+  topic_names: string;
+  selected_topics: string;
+  created_at: string;
+}
+
+/**
+ * TeacherLateEnrollment component.
+ * This component provides options to either add a completely new student
+ * or find and enroll an existing student from the database.
+ */
+const TeacherLateEnrollment: React.FC = () => {
+  const {t} = useTranslation(['common', 'teacher']);
+  const navigate = useNavigate();
+  const [enrollmentMode, setEnrollmentMode] = useState<
+    'new' | 'existing' | null
+  >(null);
+  const {user} = useContext(UserContext);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [students, setStudents] = useState<Student[]>([]);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [editCourseOpen, setEditCourseOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<SelectedCourse | null>(
+    null,
+  );
+  const [studentCourses, setStudentCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<SelectedCourse[]>([]);
+
+  // Use useCourses hook to get courses based on user role
+  const {courses: editCourses} =
+    user?.role !== 'student' ? useCourses() : {courses: []};
+
+  // Effect to fetch student's existing courses when a student is selected
+  useEffect(() => {
+    if (selectedStudent) {
+      fetchStudentCourses(selectedStudent.userid);
+    }
+  }, [selectedStudent]);
+
+  useEffect(() => {
+    if (editCourses && studentCourses.length > 0) {
+      const filtered = editCourses.filter(
+        (course) =>
+          !studentCourses.some(
+            // @ts-expect-error
+            (studentCourse) => studentCourse.courseid === course.courseid,
+          ),
+      );
+      setFilteredCourses(filtered);
+    } else {
+      setFilteredCourses(editCourses || []);
+    }
+  }, [editCourses, studentCourses]);
+
+  // Fetch student's existing courses
+  const fetchStudentCourses = async (studentId: number) => {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      toast.error(t('errors.noToken'));
+      return;
+    }
+
+    try {
+      const response = await apiHooks.getUserInfoByUserid(
+        token,
+        studentId.toString(),
+      );
+      setStudentCourses(response.courses || []);
+    } catch (error) {
+      console.error('Error fetching student courses:', error);
+      toast.error(t('errors.fetchFailed'));
+    }
+  };
+
+  // Handle opening and closing the course selection modal
+  const handleOpenEditCourse = (student: Student) => {
+    setSelectedStudent(student);
+    setEditCourseOpen(true);
+  };
+
+  const handleCloseEditCourse = () => {
+    setEditCourseOpen(false);
+    setSelectedCourse(null);
+  };
+
+  // Handle course selection from autocomplete
+  const handleCourseSelect = (value: string | null) => {
+    if (!value) {
+      setSelectedCourse(null);
+      return;
+    }
+
+    const selected = filteredCourses.find(
+      (course) => `${course.name} ${course.code}` === value,
+    );
+    setSelectedCourse(selected || null);
+  };
+
+  // Add student to selected course
+  const handleAddStudentToCourse = async () => {
+    if (!selectedStudent || !selectedCourse) {
+      toast.error(t('errors.selectionRequired'));
+      return;
+    }
+
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      toast.error(t('errors.noToken'));
+      return;
+    }
+
+    try {
+      await apiHooks.updateStudentCourses(
+        token,
+        selectedStudent.userid,
+        selectedCourse.courseid,
+      );
+
+      toast.success(t('lateEnrollment.studentAddedToCourse'));
+      handleCloseEditCourse();
+
+      // Navigate to student detail page after adding to course
+      navigate(`/teacher/students/${selectedStudent.userid}`);
+    } catch (error) {
+      console.error('Error adding student to course:', error);
+      toast.error(t('errors.enrollmentFailed'));
+    }
+  };
+
+  // Search for existing students in the database
+  const searchStudents = async (searchQuery: string): Promise<void> => {
+    // -----------------------------
+    // 1. Store search term in state
+    // -----------------------------
+    setSearchTerm(searchQuery);
+
+    // Stop if user information is missing
+    if (!user?.userid) return;
+
+    // -----------------------------
+    // 2. Read auth token
+    // -----------------------------
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      toast.error(t('errors.noToken'));
+      return;
+    }
+
+    // -----------------------------
+    // 3. Normalize search input
+    // -----------------------------
+    const q = searchQuery.trim();
+
+    // If input is empty, clear results and stop
+    if (q === '') {
+      setStudents([]);
+      return;
+    }
+
+    // -----------------------------
+    // 4. Enable loading indicator
+    // -----------------------------
+    setLoading(true);
+
+    try {
+      let fetchedStudents: Student[] = [];
+
+      // ---------------------------------------
+      // 5. Fetch students based on user role
+      // ---------------------------------------
+      // Teacher: only students taught by the teacher
+      if (user.role === 'teacher') {
+        fetchedStudents = await apiHooks.getStudentsByInstructorId(
+          user.userid,
+          token,
+        );
+      }
+      // Counselor/Admin: fetch all users
+      else if (['counselor', 'admin'].includes(user.role)) {
+        fetchedStudents = await apiHooks.fetchUsers(token);
+      }
+
+      // ---------------------------------------
+      // 6. Filter fetched students locally
+      // ---------------------------------------
+      const filtered = fetchedStudents.filter((student) => {
+        // Only allow students (roleid === 1)
+        if (student.roleid !== 1) return false;
+
+        // -----------------------------
+        // 6a. Prepare search values
+        // -----------------------------
+        const qTrim = searchQuery.trim();
+        const qLower = qTrim.toLowerCase();
+        if (!qTrim) return false;
+
+        // Detect numeric-only search (student number)
+        const isNumericQuery = /^\d+$/.test(qTrim);
+
+        // -----------------------------
+        // 6b. Normalize student name fields
+        // -----------------------------
+        const first = String(student.first_name ?? '').trim().toLowerCase();
+        const last = String(student.last_name ?? '').trim().toLowerCase();
+        const full = `${first} ${last}`.trim();
+
+        // -----------------------------
+        // 6c. Name prefix matching
+        // -----------------------------
+        // Example: "ma" matches "matti", "maija"
+        const nameMatch =
+          first.startsWith(qLower) ||
+          last.startsWith(qLower) ||
+          full.startsWith(qLower);
+
+        // -----------------------------
+        // 6d. Student number prefix matching
+        // -----------------------------
+        // Only applied if search query is numeric
+        const studentNo = String(student.studentnumber ?? '');
+        const studentNoMatch = isNumericQuery && studentNo.startsWith(qTrim);
+
+        // -----------------------------
+        // 6e. Accept if either matches
+        // -----------------------------
+        return nameMatch || studentNoMatch;
+      });
+
+      // -----------------------------
+      // 7. Save filtered results
+      // -----------------------------
+      setStudents(filtered);
+    } catch (error) {
+      console.error('Error searching students:', error);
+      toast.error(t('errors.searchFailed'));
+    } finally {
+      // -----------------------------
+      // 8. Disable loading indicator
+      // -----------------------------
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="w-full px-4 mx-auto max-w-[600px]">
+      {/* Enrollment mode selection */}
+      {!enrollmentMode ? (
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+          <div className="flex flex-col items-center gap-6">
+            <h1 className="text-2xl text-center font-heading text-gray-800">
+              {t('newStudent.title')}
+            </h1>
+
+            <div className="text-center">
+              <p className="mt-2 text-lg font-body font-medium text-metropolia-main-grey">
+                {t('lateEnrollment.selectMode')}
+              </p>
+            </div>
+
+            <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* Uusi opiskelija (primary) */}
+              <button
+                type="button"
+                onClick={() => setEnrollmentMode('new')}
+                className={[
+                  'w-full rounded-xl border p-4 text-left transition-all',
+                  'border-metropolia-main-orange/30 bg-orange-50/50',
+                  'hover:border-metropolia-main-orange/60 hover:bg-orange-50',
+                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-metropolia-main-orange/30',
+                ].join(' ')}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-base font-heading font-semibold text-gray-700">
+                      {t('lateEnrollment.newStudent')}
+                    </div>
+                    <div className="mt-1 text-sm text-metropolia-main-grey/70 font-body">
+                      {t('lateEnrollment.newStudentShort')}
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* Nykyinen opiskelija (neutral) */}
+              <button
+                type="button"
+                onClick={() => setEnrollmentMode('existing')}
+                className={[
+                  'w-full rounded-xl border p-4 text-left transition-all',
+                  'border-gray-200 bg-white',
+                  'hover:border-gray-300 hover:bg-gray-50',
+                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-metropolia-main-orange/30',
+                ].join(' ')}
+              >
+                <div className="text-base font-heading font-semibold text-gray-700">
+                  {t('lateEnrollment.existingStudent')}
+                </div>
+                <div className="mt-1 text-sm text-metropolia-main-grey/70 font-body">
+                  {t('lateEnrollment.existingStudentShort')}
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : enrollmentMode === 'new' ? (
+        /* New student enrollment form */
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+          <button
+            type="button"
+            onClick={() => setEnrollmentMode(null)}
+            className="mb-2 flex items-center gap-1 text-sm font-medium text-metropolia-main-grey hover:underline"
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+            {t('lateEnrollment.backToOptions')}
+          </button>
+
+          <NewStudentUser />
+        </div>
+      ) : (
+        /* Existing student search and enrollment */
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+          <button
+            type="button"
+            onClick={() => setEnrollmentMode(null)}
+            className="mb-2 flex items-center gap-1 text-sm font-medium text-metropolia-main-grey hover:underline"
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+            {t('lateEnrollment.backToOptions')}
+          </button>
+
+          <h1 className="p-3 mb-2 ml-auto mr-auto text-2xl text-center bg-white rounded-lg font-heading w-fit text-metropolia-main-grey">
+            {t('newStudent.title')}
+          </h1>
+
+          <h2 className="mb-2 text-l font-heading text-metropolia-main-grey">
+            {t('lateEnrollment.findExistingStudent')}
+          </h2>
+
+          {/* Search input */}
+          <div className="mb-6">
+            <TextField
+              value={searchTerm}
+              onChange={(e) => searchStudents(e.target.value)}
+              label={t('teacher:studentsView.search.byName')}
+              className="w-full bg-white"
+              fullWidth
+              variant="outlined"
+              placeholder={t('lateEnrollment.searchPlaceholder')}
+            />
+          </div>
+
+          {/* Loading indicator */}
+          {loading && <Loader />}
+
+          {/* Search results */}
+          <div className="mt-4">
+            {!loading && searchTerm && students.length === 0 ? (
+              <p className="text-metropolia-support-red">
+                {t('lateEnrollment.noStudentsFound')}
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {students.map((student) => (
+                  <div
+                    key={student.userid}
+                    className="p-4 bg-white border border-gray-100 rounded-xl shadow-sm transition-shadow duration-200 hover:shadow-md"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-lg font-semibold font-heading text-metropolia-main-grey">
+                        {student.first_name} {student.last_name}
+                      </h3>
+
+                      <p className="text-sm break-all text-metropolia-main-grey">
+                        {student.email}
+                      </p>
+
+                      <p className="text-sm text-metropolia-main-grey">
+                        {t('teacher:studentsView.studentCard.studentNumber')}{' '}
+                        {student.studentnumber}
+                      </p>
+
+                      <p className="text-sm text-metropolia-main-grey">
+                        {t('teacher:studentsView.studentCard.studentGroup')}{' '}
+                        {student.group_name}
+                      </p>
+
+                      <div className="flex flex-wrap mt-3 gap-2">
+                        <button
+                          onClick={() => handleOpenEditCourse(student)}
+                          className="px-3 py-1.5 text-sm font-medium transition-colors duration-200 text-white rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark"
+                        >
+                          {t('lateEnrollment.addToCourse')}
+                        </button>
+
+                        <Link
+                          to={`/teacher/students/${student.userid}`}
+                          className="px-3 py-1.5 text-sm font-medium transition-colors duration-200 rounded-md text-metropolia-support-white bg-metropolia-support-blue hover:bg-metropolia-support-blue-dark"
+                        >
+                          {t('lateEnrollment.viewDetails')}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Course selection modal */}
+          <Modal open={editCourseOpen} onClose={handleCloseEditCourse}>
+            <div className="flex items-center justify-center min-h-screen px-4">
+              <div className="w-full max-w-xl bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+                <h3 className="mb-4 text-xl font-heading text-metropolia-main-grey">
+                  {t('lateEnrollment.selectCourse')} - {selectedStudent?.first_name}{' '}
+                  {selectedStudent?.last_name}
+                </h3>
+
+                <div>
+                  {filteredCourses.length > 0 ? (
+                    <>
+                      <Autocomplete
+                        className="sm:w-[20em] w-full"
+                        freeSolo
+                        options={filteredCourses.map(
+                          (course) => `${course.name} ${course.code}`,
+                        )}
+                        onChange={(_, value) => handleCourseSelect(value)}
+                        value={
+                          selectedCourse
+                            ? `${selectedCourse.name} ${selectedCourse.code}`
+                            : null
+                        }
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={t('teacher:studentCourse.labels.searchCourses')}
+                            margin="normal"
+                            variant="outlined"
+                          />
+                        )}
+                      />
+
+                      {selectedCourse && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-xl">
+                          <h4 className="font-medium text-metropolia-main-grey">
+                            {selectedCourse?.name} {selectedCourse?.code}
+                          </h4>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
+                              {t('teacher:studentCourse.labels.topics')}:
+                            </span>{' '}
+                            {selectedCourse?.topic_names
+                              ? Array.from(
+                                new Set(
+                                  selectedCourse.topic_names
+                                    .split(',')
+                                    .map((topic) => topic.trim()),
+                                ),
+                              )
+                                .filter(Boolean)
+                                .join(', ')
+                              : ''}
+                          </p>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
+                              {t('teacher:studentCourse.labels.startDate')}:
+                            </span>{' '}
+                            {new Date(
+                              selectedCourse?.start_date,
+                            ).toLocaleDateString()}
+                          </p>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
+                              {t('teacher:studentCourse.labels.endDate')}:
+                            </span>{' '}
+                            {new Date(
+                              selectedCourse?.end_date,
+                            ).toLocaleDateString()}
+                          </p>
+
+                          <p className="mt-2 text-sm">
+                            <span className="font-medium">
+                              {t('teacher:studentCourse.labels.studentGroup')}:
+                            </span>{' '}
+                            {selectedCourse?.studentgroup_name}
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="flex justify-between mt-6">
+                        <button
+                          className="px-4 py-2 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300"
+                          onClick={handleCloseEditCourse}
+                        >
+                          {t('cancel')}
+                        </button>
+
+                        <button
+                          className="px-4 py-2 font-medium text-white transition-colors duration-200 rounded-md bg-metropolia-main-orange hover:bg-metropolia-main-orange-dark disabled:opacity-50 disabled:cursor-not-allowed"
+                          onClick={handleAddStudentToCourse}
+                          disabled={!selectedCourse}
+                        >
+                          {t('teacher:studentCourse.buttons.addToCourse')}
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="p-4 text-center bg-gray-50 rounded-xl">
+                      <p className="text-metropolia-support-red">
+                        {t('lateEnrollment.noAvailableCourses')}
+                      </p>
+
+                      <button
+                        className="px-4 py-2 mt-4 font-medium transition-colors duration-200 rounded-md text-metropolia-main-grey bg-gray-200 hover:bg-gray-300"
+                        onClick={handleCloseEditCourse}
+                      >
+                        {t('close')}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Modal>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TeacherLateEnrollment;
