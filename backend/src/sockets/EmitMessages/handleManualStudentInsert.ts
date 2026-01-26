@@ -39,6 +39,7 @@ export class ManualStudentInsertError extends Error {
  * @param lectureid - The ID of the lecture
  * @param notYetPresentStudents - Reference to the global record of students not yet present
  * @param presentStudents - Reference to the global record of students currently present
+ * @param status - Attendance status (1 = present, 2 = excused absence)
  * @throws {ManualStudentInsertError} When student insertion fails
  */
 export const handleManualStudentInsert = async (
@@ -48,12 +49,19 @@ export const handleManualStudentInsert = async (
   lectureid: number,
   notYetPresentStudents: AttendanceRecord,
   presentStudents: AttendanceRecord,
+  status: number = 1,
 ): Promise<void> => {
   try {
+    console.log(
+      'row 53, handleManualStudentInsert.ts, handleManualStudentInsert()',
+    );
     // Role validation
     if (
       !['teacher', 'admin', 'counselor'].some((role) =>
-        socket.user?.role.includes(role),
+          socket.user?.role.includes(role),
+        console.log(
+          'row 58, handleManualStudentInsert.ts, if teacher, admin or counselor',
+        ),
       )
     ) {
       socket.emit('error', {
@@ -71,6 +79,9 @@ export const handleManualStudentInsert = async (
     // Validate studentId input
     if (!studentId) {
       io.to(socket.id).emit('manualStudentInsertFailedEmpty', lectureid);
+      console.log(
+        'row 76, handleManualStudentInsert.ts, if studentId (empty -> failed)',
+      );
       return;
     }
 
@@ -82,15 +93,16 @@ export const handleManualStudentInsert = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
+        Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({
-        status: '1',
+        status: status.toString(), // 1 = present, 2 = excused absence
         date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         studentnumber: studentId,
         lectureid,
       }),
     });
+    console.log('row 97, handleManualStudentInsert.ts, api call');
 
     // Transfer the student from not-yet-present to present
     const notPresentList = notYetPresentStudents[lectureid] || [];
@@ -100,6 +112,7 @@ export const handleManualStudentInsert = async (
 
     if (idx !== -1) {
       const [insertedStudent] = notPresentList.splice(idx, 1);
+      // lisätään silti present-listaan, riippumatta status-arvosta
       presentStudents[lectureid].push(insertedStudent);
     } else {
       logger.error('Student not found in not-yet-present list');
@@ -116,8 +129,11 @@ export const handleManualStudentInsert = async (
     );
     io.to(socket.id).emit('manualStudentInsertSuccess', lectureid);
 
+    console.log(
+      'row 123, handleManualStudentInsert.ts, Emit updated attendance info',
+    );
     logger.info(
-      `Manual insertion of student ID ${studentId} was successful for lecture ID ${lectureid}`,
+      `Manual insertion of student ID ${studentId} was successful for lecture ID ${lectureid} with status ${status}`,
     );
   } catch (error) {
     logger.error(

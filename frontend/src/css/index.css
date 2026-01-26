@@ -120,3 +120,19 @@
 	scrollbar-width: none; /* for Firefox */
 	-ms-overflow-style: none; /* for Internet Explorer and Edge */
 }
+
+@keyframes dropdown-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-enter {
+    animation: dropdown-enter 150ms ease-out;
+}
+

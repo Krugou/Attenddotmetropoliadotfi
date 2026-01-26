@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import GeneralLinkButton from '../../../../components/main/buttons/GeneralLinkButton';
-import AddTeachers from '../../../../components/main/course/createcourse/AddTeachers';
+import GeneralLinkButton from '../../../../components/ui/buttons/GeneralLinkButton.tsx';
+import AddTeachers from '../../../../components/features/courses/create/AddTeachers';
 import apiHooks from '../../../../api';
 import {useTranslation} from 'react-i18next';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import WorklogDetails from '../../../../components/main/worklog/WorklogDetails';
+import WorklogDetails from '../../../../components/features/worklogs/WorklogDetails.tsx';
 
 interface WorkLogDetail {
   work_log_course_id: string;
@@ -66,7 +66,7 @@ const TeacherWorklogCourseModify: React.FC = () => {
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching worklog:', error);
-          toast.error(t('common:worklog.error.fetchFailed'));
+          toast.error(t('worklog.error.fetchFailed'));
           setIsLoading(false);
         }
       }
@@ -108,12 +108,12 @@ const TeacherWorklogCourseModify: React.FC = () => {
     if (!token) throw new Error('No token available');
 
     if (!name || !code || !startDate || !endDate || requiredHours <= 0) {
-      toast.error(t('common:worklog.error.requiredFields'));
+      toast.error(t('worklog.error.requiredFields'));
       return;
     }
 
     if (codeExists && code !== worklogData?.code) {
-      toast.error(t('common:worklog.error.codeExists'));
+      toast.error(t('worklog.error.codeExists'));
       return;
     }
 

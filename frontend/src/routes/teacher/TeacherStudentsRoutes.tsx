@@ -1,10 +1,10 @@
 // routes/TeacherStudentsRoutes.tsx
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import TeacherStudentAttendances from '../../views/main/teacher/Students/TeacherStudentAttendances';
-import TeacherStudentDetail from '../../views/main/teacher/Students/TeacherStudentDetail.tsx';
-import TeacherStudentModify from '../../views/main/teacher/Students/TeacherStudentModify.tsx';
-import TeacherStudentsView from '../../views/main/teacher/Students/TeacherStudentsView.tsx';
+import TeacherStudentAttendances from '../../views/main/teacher/students/TeacherStudentAttendances';
+import TeacherStudentDetail from '../../views/main/teacher/students/TeacherStudentDetail.tsx';
+import TeacherStudentModify from '../../views/main/teacher/students/TeacherStudentModify.tsx';
+import TeacherStudentsView from '../../views/main/teacher/students/TeacherStudentsView.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView.tsx';
 /**
  * TeacherStudentsRoutes component.

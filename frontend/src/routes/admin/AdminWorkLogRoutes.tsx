@@ -1,15 +1,15 @@
-import React from 'react';
+ import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import AdminMainView from '../../views/main/admin/AdminMainView';
-import AdminWorkLogs from '../../views/main/admin/AdminWorkLogs';
+import AdminWorkLogs from '../../views/main/admin/worklogs/AdminWorkLogs.tsx';
 import TeacherWorklogCourseModify from '../../views/main/teacher/WorkLog/TeacherWorklogCourseModify';
 import TeacherWorklogCourseStats from '../../views/main/teacher/WorkLog/TeacherWorklogCourseStats';
 import TeacherWorklogCourseDetail from '../../views/main/teacher/WorkLog/TeacherWorklogCourseDetail';
-import TeacherWorklogCourseGroups from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroups';
+import TeacherWorklogCourseGroups from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroups';
 import TeacherWorklogCourseEntries from '../../views/main/teacher/WorkLog/TeacherWorklogCourseEntries';
-import TeacherWorklogCourseGroup from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroup';
-import TeacherWorklogCourseGroupStats from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroupStats';
-import TeacherWorklogCourseGroupEntries from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroupEntries';
+import TeacherWorklogCourseGroup from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroup';
+import TeacherWorklogCourseGroupStats from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroupStats';
+import TeacherWorklogCourseGroupEntries from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroupEntries';
 
 /**
  * AdminWorkLogRoutes component.

@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "title": "Welcome to Metropolia Attendance App! Let's get started",
+    "title": "Welcome to Metropolia Attend! Let's get started",
     "description": "Please help us improve by giving us feedback via the Feedback option."
   },
   "languages": {
@@ -62,17 +62,19 @@
     "fetchCourseDetailsFailed": "Failed to fetch course details",
     "coursesNotLoaded": "Courses could not be loaded",
     "fetchStudentsFailed": "Failed to fetch students data",
-    "fetchWorklogCoursesFailed": "Failed to fetch worklog courses"
+    "fetchWorklogCoursesFailed": "Failed to fetch work log courses"
   },
   "email": "Email",
   "firstName": "First Name",
   "lastName": "Last Name",
   "studentNumber": "Student Number",
+  "studentNumberTaken": "Student number is taken",
   "showEndedCourses": "Show ended courses",
   "hideEndedCourses": "Hide ended courses",
   "yes": "Yes",
   "no": "No",
   "required": "required",
+  "save": "Save Changes",
   "cancel": "Cancel",
   "delete": "Delete",
   "remove": "Remove",
@@ -83,10 +85,13 @@
   "creating": "Creating...",
   "back": "Back",
   "close": "Close",
-  "save": "Save Changes",
   "confirm": "Confirm",
   "view": "View",
   "user": "User",
+  "loading": "Loading...",
+  "metropoliaLoading": "Attend loading...",
+  "userDetails": "User details",
+  "addNew": "Add new user",
   "attendance": {
     "status": {
       "absent": "Absent",
@@ -123,7 +128,12 @@
     "notInSystem": "Not in system yet"
   },
   "mainViewTitle": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "teacher": "Teacher's dashboard",
+    "student": "Student's dashboard",
+    "admin": "Admin's dashboard",
+    "counselor": "Counselor's dashboard",
+    "default": "Dashboard"
   },
   "errorAlert": {
     "title": "Error",
@@ -133,6 +143,10 @@
   "newStudent": {
     "title": "Late enrollment",
     "studentDetails": "Student Details",
+    "selection": {
+      "title": "Course type",
+      "modeHelp": "Choose whether to add the student to a course or a work log course"
+    },
     "errors": {
       "fillAllFields": "Please fill in all fields",
       "addFailed": "Failed to add new student user",
@@ -144,12 +158,12 @@
     "note": {
       "title": "Note!",
       "checkDetails": "Please make sure the details are right before adding the student.",
-      "contactAdmin": "If you have added a student with incorrect details, contact your administrator."
+      "contactAdmin": "If you have added a student with incorrect details, contact your administrator at attend@metropolia.fi."
     },
     "addButton": "Add New User",
-    "subtitle": "If student is already in system (student details already taken)",
+    "goToStudents": "Counselor Students edit",
     "guideHowToAddStudentToCourse": "Change using profile button to counselor role and add them using counselor students view",
-    "goToStudents": "Counselor Students edit"
+    "subtitle": "If student is already in system (student details already taken)"
   },
   "serverStatus": {
     "vpnNotConnected": "You are presently not linked to the internal network of Metropolia. Click here to access the VPN instructions",
@@ -158,7 +172,7 @@
     "reloadNeeded": "Please reload the page until this text disappears",
     "vpnConnected": "Connected to Metropolia internal network",
     "vpnConnection": "Internal Connection",
-    "refreshNow": "refresh now."
+    "refreshNow": "Refresh now"
   },
   "successAlert": {
     "title": "Success"
@@ -168,6 +182,8 @@
       "name": "Name",
       "username": "Username",
       "email": "Email",
+      "studentNumber": "Student number",
+      "studentGroup": "Student group",
       "accountCreated": "Account created",
       "role": "Role",
       "language": "Language",
@@ -180,7 +196,7 @@
     },
     "roleChange": {
       "title": "Change Role",
-      "selectTitle": "Role Selection",
+      "selectTitle": "Role selection",
       "success": "Role changed successfully, please log in again",
       "error": "Failed to change role"
     },
@@ -194,15 +210,18 @@
     }
   },
   "worklog": {
+    "selectCourseLabel": "Work log course",
     "enrollment": {
       "switchToRegular": "Course",
-      "switchToWorklog": "Worklog"
+      "switchToWorklog": "Work log"
     },
     "entries": {
       "title": "Work Log Entries",
       "date": "Date",
       "startTime": "Start Time",
       "endTime": "End Time",
+      "start": "Start",
+      "end": "End",
       "duration": "Duration",
       "course": "Course",
       "description": "Description",
@@ -220,12 +239,12 @@
       "showMassEntry": "Weekly Entries",
       "hideMassEntry": "Hide Weekly Entries",
       "cancel": "Cancel",
-      "confirm": "Still Add Entry."
+      "confirm": "Add Entry"
     },
     "notifications": {
       "clockedIn": "Clocked in at {{time}}",
       "clockedOut": "Clocked out at {{time}}",
-      "editClicked": "Edit clicked at {{time}}"
+      "editClicked": "Edited at {{time}}"
     },
     "aria": {
       "clockIn": "Clock in button",
@@ -233,7 +252,7 @@
       "edit": "Edit entries button"
     },
     "edit": {
-      "title": "Edit worklog",
+      "title": "Edit work log",
       "success": "Entry updated successfully",
       "error": "Failed to update entry"
     },
@@ -244,10 +263,24 @@
       "descriptionRequired": "Description is required",
       "noDaysSelected": "Please select at least one day"
     },
+    "status": {
+      "0": "Status: Error",
+      "1": "Status: Clocked In",
+      "2": "Status: Clocked Out",
+      "3": "Status: Checked"
+    },
+    "selectCourse": "Select a course",
+    "clockIn": "Clock In",
+    "clockOut": "Clock Out",
+    "description": "Description",
+    "optionalDescription": "Optional description",
     "requiredDescription": "Required description",
     "tooltips": {
       "modify": "Modify entry",
       "delete": "Delete entry"
+    },
+    "logger": {
+      "title": "Work Log Entry"
     },
     "dialog": {
       "clockIn": "Clock in to course",
@@ -265,28 +298,18 @@
       "entryAdded": "Entry added successfully.",
       "entryClosed": "Entry Closed."
     },
+    "confirmation": {
+      "duplicateEntryWarning": "You already have an entry for this course today. Do you still want to add a new entry?",
+      "title": "Confirmation"
+    },
     "name": "Name",
     "code": "Code",
     "startDate": "Start Date",
     "endDate": "End Date",
     "requiredHours": "Required Hours",
-    "description": "Description",
-    "createNewWorkLog": "Create new worklog",
+    "createNewWorkLog": "Create new work log",
     "noCourses": "No courses available yet",
     "redirecting": "Redirecting to main view...",
-    "logger": {
-      "title": "Work Log Entry"
-    },
-    "status": {
-      "0": "Status: Error",
-      "1": "Status: Clocked In",
-      "2": "Status: Clocked Out",
-      "3": "Status: Checked"
-    },
-    "selectCourse": "Select a course",
-    "clockIn": "Clock In",
-    "clockOut": "Clock Out",
-    "optionalDescription": "Optional description",
     "delete": {
       "confirm": "Are you sure you want to delete this entry?",
       "success": "Entry deleted successfully",
@@ -306,8 +329,8 @@
       "status": "Status"
     },
     "view": {
-      "table": "Table",
-      "card": "Card"
+      "card": "Card",
+      "table": "Table"
     },
     "search": {
       "placeholder": "Search by description, course name or code...",
@@ -329,10 +352,6 @@
       "submit": "Add Selected Entries",
       "submitting": "Adding Entries...",
       "hoursTooltip": "Hours worked"
-    },
-    "confirmation": {
-      "duplicateEntryWarning": "You already have an entry for this course today. Do you still want to add a new entry?",
-      "title": "Confirmation"
     },
     "practicum": "Practicum Entry",
     "stats": {
@@ -356,8 +375,148 @@
       }
     }
   },
+  "attendanceTable": {
+    "headers": {
+      "student": "Student",
+      "selectedTopics": "Course sections"
+    },
+    "values": {
+      "na": "No attendance data",
+      "all": "All"
+    },
+    "tooltips": {
+      "noLectures": "No lectures available"
+    }
+  },
+  "createCourse": {
+    "title": "Create course",
+    "subtitle": "Choose a method",
+    "modes": {
+      "easy": {
+        "title": "Easy mode",
+        "description": "Create a course easily using student data"
+      },
+      "custom": {
+        "title": "Custom mode",
+        "description": "Create a course using your own data"
+      }
+    }
+  },
+  "createCourseEasy": {
+    "title": "Add a course using a Metropolia Excel file",
+    "fileUpload": {
+      "checkDetails": "Review the course details from Open Data"
+    },
+    "buttons": {
+      "next": "Next"
+    },
+    "students": {
+      "title": "Review student list",
+      "description": "Check that the student data imported from Excel is correct"
+    }
+  },
+  "addTeachers": {
+    "title": "Course instructors",
+    "addAnother": "Add instructor",
+    "emailLabel": "Email",
+    "description": "Add instructors to the course using their email address",
+    "errors": {
+      "notFound": "No staff member found with this email address",
+      "checkFailed": "Email verification failed"
+    },
+    "aria": {
+      "deleteInstructor": "Remove instructor"
+    }
+  },
+  "courseDetails": {
+    "title": "Fill in your course details",
+    "labels": {
+      "courseCode": "Course code",
+      "courseName": "Course name",
+      "studentGroup": "Student group",
+      "startDate": "Start date",
+      "endDate": "End date"
+    },
+    "errors": {
+      "codeExists": "A course with this code already exists."
+    },
+    "success": {
+      "codeRestored": "The original course code has been restored."
+    }
+  },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Show all columns",
+      "hideExtraColumns": "Hide extra columns",
+      "addStudent": "Add student",
+      "sortColumn": "Sort column",
+      "deleteStudent": "Delete student",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "headers": {
+      "lastName": "Last name",
+      "firstName": "First name",
+      "email": "Email",
+      "studentnumber": "Student number",
+      "admingroups": "Administrative group",
+      "arrivalgroup": "Arrival group",
+      "educationform": "Mode of study",
+      "evaluation": "Evaluation",
+      "program": "Program",
+      "registration": "Registration",
+      "name": "Name",
+      "actions": "Actions"
+    },
+    "dialog": {
+      "title": "Delete student",
+      "message": "Are you sure you want to delete student {{name}}?"
+    },
+    "aria": {
+      "sortColumn": "Sort column",
+      "deleteStudent": "Delete student",
+      "confirmNewStudent": "Confirm new student",
+      "cancelNewStudent": "Cancel adding new student"
+    }
+  },
+  "topicsGroup": {
+    "title": "Topic details",
+    "buttons": {
+      "deleteGroup": "Delete selected group",
+      "createCustom": "Create custom group",
+      "selectExisting": "Select existing group",
+      "apply": "Apply",
+      "addNewTopic": "Add new topic",
+      "removeTopic": "Remove custom topic"
+    },
+    "labels": {
+      "customTopicGroup": "Custom topic group",
+      "customTopics": "Custom topics"
+    },
+    "placeholders": {
+      "customTopicGroup": "Custom topic group",
+      "customTopic": "Custom topic"
+    },
+    "dialog": {
+      "title": "Delete topic group",
+      "message": "Are you sure you want to delete this topic group?"
+    },
+    "errors": {
+      "groupExists": "This topic group already exists",
+      "emptyTopics": "Please fill in all empty custom topics before applying"
+    },
+    "success": {
+      "groupSaved": "Topic group saved successfully for user {{email}}"
+    },
+    "tooltips": {
+      "customGroup": "Add a custom topic group here, for example: \"customGroup\"",
+      "customTopic": "Add custom topics here, for example: \"exam\"",
+      "removeTopic": "Remove custom topic",
+      "selectCourseGroup": "Select course group"
+    }
+  },
   "feedback": {
-    "header": "Help us improve, {{username}} by sharing your feedback.",
+    "header": "Help us improve by sharing your feedback",
     "topicLabel": "Feedback Topic",
     "textLabel": "Feedback Text",
     "selectTopic": "Select a topic",
@@ -386,7 +545,7 @@
     "sessionExpired": "Your session has expired, please login again."
   },
   "footer": {
-    "appName": "Metropolia Attendance App",
+    "appName": "Metropolia Attend",
     "developedBy": "Developed by",
     "metropolia": "Metropolia",
     "about": "About:",
@@ -404,11 +563,10 @@
   "status": "Status",
   "instructors": "Instructors",
   "openLectureCard": {
-    "title": "Open lecture found, code: {{code}} topic: {{topic}} !",
-    "description": "Click to continue"
+    "title": "Attendance collection in progress",
+    "subtitle": "{{code}}, {{topic}}",
+    "description": "{{code}}, {{topic}}"
   },
-  "metropoliaLoading": "Metropolia Attendance App loading...",
-  "loading": "Loading...",
   "sorting": {
     "clickToSort": "Click column headers to sort",
     "currentSort": "Currently sorted by: ",
@@ -419,26 +577,30 @@
   },
   "noToken": "No token",
   "passing": "Passing",
-  "failing": "Falling",
+  "failing": "Failing",
   "never": "Never",
-  "lastAttendance": "Last Attendance",
-  "attendancePercentage": "Attendance Percentage",
-  "attendedLectures": "Attended Lectures",
-  "totalLectures": "Total Lectures",
-  "group": "Group",
-  "courseCode": "Course Code",
-  "course": "Course",
-  "name": "Name",
-  "search": "Search",
-  "numberOfDays": "Number Of Days",
+  "total": "total",
+  "inLastWeek": "In Last Week",
+  "inLastMonth": "In Last Month",
   "belowThreshold": "Below Threshold",
   "lastMonth": "Last Month",
   "lastWeek": "Last Week",
   "allTime": "All Time",
-  "total": "Total",
-  "inLastWeek": "In Last Week",
-  "inLastMonth": "In Last Month",
   "columns": "Columns",
+  "name": "Name",
+  "course": "Course",
+  "courseCode": "Course Code",
+  "group": "Group",
+  "totalLectures": "Total Lectures",
+  "attendedLectures": "Attended Lectures",
+  "lastAttendance": "Last Attendance",
+  "attendancePercentage": "Attendance Percentage",
+  "search": "Search",
+  "numberOfDays": "Number Of Days",
+  "practicum": "Practicum Entry",
+  "labels": {
+    "userAccessInformation": "User Access Information"
+  },
   "dateDisplay": {
     "justNow": "just now",
     "minutesAgo": "{{count}} minute ago",
@@ -448,9 +610,6 @@
     "daysAgo": "{{count}} day ago",
     "daysAgo_plural": "{{count}} days ago",
     "invalidDate": "Invalid date"
-  },
-  "labels": {
-    "userAccessInformation": "User Access Information"
   },
   "lateEnrollment": {
     "selectMode": "Select Mode",
@@ -464,7 +623,17 @@
     "viewDetails": "View details",
     "addToCourse": "Add to course",
     "studentAddedToCourse": "Student added to course",
-    "noAvailableCourses": "No available courses"
+    "noAvailableCourses": "No available courses",
+    "selectModeHelp": "Choose whether to add a new student or enroll an existing one",
+    "newStudentShort": "Add a student who is not yet in the system",
+    "existingStudentShort": "Search the system and enroll in the course",
+    "recommended": "Recommended"
   },
-  "practicum": "Practicum Entry"
+  "table": {
+    "headers": {
+      "topic": "Topic",
+      "date": "Date",
+      "timeOfDay": "am/pm"
+    }
+  }
 }

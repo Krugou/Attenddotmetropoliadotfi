@@ -1,57 +1,42 @@
 import createPool from './config/createPool.js';
 import logger from './utils/logger.js';
 
-/**
- * Custom error class for user deactivation related errors
- */
+// Custom error used when user deactivation fails
 class DeactivationError extends Error {
-  /**
-   * @param {string} message - Error message
-   * @param {unknown} cause - The original error that caused this error
-   */
   constructor(message: string, public cause?: unknown) {
     super(message);
     this.name = 'DeactivationError';
   }
 }
 
-/**
- * Custom error class for database connection issues
- */
+// Custom error used when database connection or retries fail
 class DatabaseConnectionError extends Error {
-  /**
-   * @param {string} message - Error message
-   * @param {unknown} cause - The original error that caused this connection error
-   */
   constructor(message: string, public cause?: unknown) {
     super(message);
     this.name = 'DatabaseConnectionError';
   }
 }
 
-/**
- * Database connection result type
- */
+// Represents an active database connection with lifecycle helpers
 type ConnectionResult = {
   pool: any;
   testConnection: () => Promise<void>;
   cleanup: () => Promise<void>;
 };
 
-/**
- * User role type for database connections
- */
+// Supported database user roles
 type UserRole = 'ADMIN' | 'TEACHER' | 'COUNSELOR' | 'STUDENT';
 
-/**
- * Creates and tests a database connection with retry functionality
- *
- * @param userRole - The database userRole to use for connection
- * @param maxRetries - Maximum number of connection attempts
- * @param retryDelayMs - Delay between retry attempts in milliseconds
- * @returns A Promise resolving to connection result object
- * @throws DatabaseConnectionError if connection fails after all retries
- */
+// Converts unknown errors into readable log output
+const formatError = (error: unknown): string => {
+  if (error instanceof Error) {
+    const stack = error.stack ? `\n${error.stack}` : '';
+    return `${error.name}: ${error.message}${stack}`;
+  }
+  return String(error);
+};
+
+// Creates a database connection pool with retry logic and health checks
 const createDatabaseConnection = async (
   userRole: UserRole = 'ADMIN',
   maxRetries: number = 3,
@@ -59,11 +44,11 @@ const createDatabaseConnection = async (
 ): Promise<ConnectionResult> => {
   const pool = createPool(userRole);
 
-  // Pure function for delay
+  // Simple async delay helper
   const delay = (ms: number): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
-  // Higher-order function for retry logic
+  // Generic retry wrapper for database operations
   const withRetry = async <T>(
     operation: () => Promise<T>,
     description: string,
@@ -78,8 +63,7 @@ const createDatabaseConnection = async (
       } catch (error) {
         lastError = error;
         logger.warn(
-          `${description} attempt ${attempt}/${retries} failed:`,
-          error,
+          `${description} attempt ${attempt}/${retries} failed: ${formatError(error)}`,
         );
 
         if (attempt < retries) {
@@ -89,11 +73,12 @@ const createDatabaseConnection = async (
       }
     }
 
+    // All retries failed
     logger.error(`Failed ${description} after ${retries} attempts`);
     throw new DatabaseConnectionError(`Failed ${description}`, lastError);
   };
 
-  // Test connection function
+  // Verifies that the database connection is usable
   const testConnection = async (): Promise<void> => {
     await withRetry(
       () => pool.promise().query('SELECT 1'),
@@ -104,60 +89,52 @@ const createDatabaseConnection = async (
     logger.info('Database connection established successfully');
   };
 
-  // Cleanup function
+  // Closes the database connection pool
   const cleanup = async (): Promise<void> => {
     try {
       await pool.promise().end();
       logger.info('Database connection pool closed');
     } catch (error) {
-      logger.error('Error while cleaning up database resources:', error);
+      logger.error(
+        `Error while cleaning up database resources: ${formatError(error)}`,
+      );
     }
   };
 
-  // Test the connection initially
+  // Test connection immediately after creation
   await testConnection();
 
-  return {pool, testConnection, cleanup};
+  return { pool, testConnection, cleanup };
 };
 
-/**
- * Result type for deactivation operation
- */
+// Result object returned after user deactivation
 type DeactivationResult = {
   deactivatedCount: number;
 };
 
-/**
- * Deactivates users that were created more than the specified years ago
- *
- * @param connection - Database connection object
- * @param yearsThreshold - The number of years threshold for deactivation
- * @returns Promise resolving to a DeactivationResult
- * @throws DeactivationError if the operation fails
- */
+// Deactivates users whose accounts are older than the given year threshold
 const deactivateOldUsers = async (
   connection: ConnectionResult,
   yearsThreshold: number = 4,
 ): Promise<DeactivationResult> => {
-  // Input validation - pure function
+  // Ensures input is valid before running database updates
   const validateInput = (years: number): void => {
     if (years <= 0) {
       throw new DeactivationError('Years threshold must be a positive number');
     }
   };
 
-  // Database update - side effect
+  // Executes the UPDATE query and returns number of affected rows
   const performDeactivation = async (years: number): Promise<number> => {
     const [result] = await connection.pool.promise().query(
       `UPDATE users
-      SET activeStatus = 0
-      WHERE
-        created_at < DATE_SUB(NOW(), INTERVAL ? YEAR)
-        AND activeStatus = 1`,
+       SET activeStatus = 0
+       WHERE
+         created_at < DATE_SUB(NOW(), INTERVAL ? YEAR)
+         AND activeStatus = 1`,
       [years],
     );
 
-    // Properly type the MySQL result
     type MySQLUpdateResult = {
       affectedRows: number;
       insertId: number;
@@ -167,7 +144,7 @@ const deactivateOldUsers = async (
     return (result as MySQLUpdateResult).affectedRows;
   };
 
-  // Log result - side effect
+  // Logs a summary of the deactivation result
   const logResult = (count: number, years: number): void => {
     if (count > 0) {
       logger.info(
@@ -179,85 +156,76 @@ const deactivateOldUsers = async (
   };
 
   try {
-    // Function composition pattern
     validateInput(yearsThreshold);
     await connection.testConnection();
+
     const deactivatedCount = await performDeactivation(yearsThreshold);
     logResult(deactivatedCount, yearsThreshold);
 
-    return {deactivatedCount};
+    return { deactivatedCount };
   } catch (error) {
-    logger.error('Error deactivating old users:', error);
+    logger.error(`Error deactivating old users: ${formatError(error)}`);
     throw new DeactivationError('Failed to deactivate old users', error);
   }
 };
 
-/**
- * Main function to execute the deactivation process
- */
+// Main entry point for scheduled / standalone execution
 const main = async (): Promise<void> => {
   let connection: ConnectionResult | null = null;
 
   try {
-    // Establish database connection
     connection = await createDatabaseConnection();
 
     logger.info('Starting weekly user deactivation process');
     const result = await deactivateOldUsers(connection);
+
     logger.info(
       `Weekly deactivation completed: ${result.deactivatedCount} users deactivated`,
     );
   } catch (error) {
     if (error instanceof DatabaseConnectionError) {
-      logger.error('Database connection error in housekeeping script:', error);
+      logger.error(
+        `Database connection error in housekeeping script: ${formatError(error)}`,
+      );
       logger.error(
         'Please check database credentials and authentication plugins configuration',
       );
     } else {
-      logger.error('Fatal error in housekeeping script:', error);
+      logger.error(`Fatal error in housekeeping script: ${formatError(error)}`);
     }
     process.exitCode = 1;
   } finally {
-    // Clean up resources
     if (connection) {
       await connection.cleanup();
     }
 
-    // Allow time for logging to complete, then exit
+    // Small delay to ensure logs are flushed before exit
     setTimeout(() => {
       process.exit(process.exitCode || 0);
     }, 1000);
   }
 };
 
-// Lazily evaluated singleton database connection for API use
+// Shared singleton database connection for service usage
 let connectionPromise: Promise<ConnectionResult> | null = null;
 
-/**
- * Gets the shared database connection, creating it if necessary
- * @returns Promise resolving to the database connection
- */
+// Lazily initializes and reuses a single database connection
 const getSharedConnection = (): Promise<ConnectionResult> => {
   if (!connectionPromise) {
     connectionPromise = createDatabaseConnection().catch((error) => {
-      logger.error('Failed to initialize shared database connection:', error);
-      connectionPromise = null; // Reset for future retry
+      logger.error(
+        `Failed to initialize shared database connection: ${formatError(error)}`,
+      );
+      connectionPromise = null;
       throw error;
     });
   }
   return connectionPromise;
 };
 
-/**
- * UserDeactivationService implementation for the API
- * Uses functional core with imperative shell pattern
- */
+// Service wrapper intended for programmatic usage
 const userDeactivationService = {
-  /**
-   * Deactivates users that were created more than the specified years ago
-   * @param yearsThreshold - The threshold in years for user deactivation
-   * @returns Promise resolving to the deactivation results
-   */
+  // Public API for triggering user deactivation
   deactivateOldUsers: async (
     yearsThreshold: number = 5,
   ): Promise<DeactivationResult> => {
@@ -265,14 +233,12 @@ const userDeactivationService = {
       const connection = await getSharedConnection();
       return await deactivateOldUsers(connection, yearsThreshold);
     } catch (error) {
-      logger.error('Error in userDeactivationService:', error);
+      logger.error(`Error in userDeactivationService: ${formatError(error)}`);
       throw error;
     }
   },
 
-  /**
-   * Cleans up resources used by the service
-   */
+  // Cleans up shared resources when the service is shut down
   cleanup: async (): Promise<void> => {
     if (connectionPromise) {
       try {
@@ -280,12 +246,15 @@ const userDeactivationService = {
         await connection.cleanup();
         connectionPromise = null;
       } catch (error) {
-        logger.error('Error cleaning up shared connection:', error);
+        logger.error(
+          `Error cleaning up shared connection: ${formatError(error)}`,
+        );
       }
     }
   },
 };
 
+// Execute script when run directly
 main();
 
 export {

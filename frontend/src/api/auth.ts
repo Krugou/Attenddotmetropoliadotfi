@@ -1,109 +1,102 @@
-'use strict';
-
-import {API_CONFIG} from '../config';
-import {doFetch} from '../utils/doFetch';
-import type {LoginInputs} from '../types/auth';
+import { API_CONFIG } from '../config';
+import { doFetch } from '../utils/doFetch';
+import { createOptions } from '../utils/apiHelper';
+import type { LoginInputs } from '../types/auth';
 
 const baseUrl = API_CONFIG.baseUrl;
 
-// ── Authentication / User related endpoints ──
+// ── Authentication API Endpoints ──
 
+/**
+ * Login with username and password.
+ */
 export const postLogin = async (inputs: LoginInputs) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+  return doFetch(
+    `${baseUrl}users`,
+    createOptions('POST', null, {
       username: inputs.username,
       password: inputs.password,
-    }),
-  };
-
-  return await doFetch(baseUrl + 'users', options);
+    })
+  );
 };
 
 /**
- * Microsoft authentication endpoints
+ * Start Microsoft login flow.
  */
 export const initiateMicrosoftLogin = async () => {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  return await doFetch(baseUrl + 'auth/microsoft/login', options);
+  return doFetch(
+    `${baseUrl}auth/microsoft/login`,
+    createOptions('GET')
+  );
 };
 
+/**
+ * Complete Microsoft login with auth code.
+ */
 export const handleMicrosoftCallback = async (code: string) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({code}),
-  };
-  return await doFetch(baseUrl + 'auth/microsoft/callback', options);
+  return doFetch(
+    `${baseUrl}auth/microsoft/callback`,
+    createOptions('POST', null, { code })
+  );
 };
 
+/**
+ * Fetch user data from secure endpoint using token.
+ */
 export const getUserInfoByToken = async (token: string) => {
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
-
-  return doFetch(baseUrl + 'secure/', options);
+  return doFetch(`${baseUrl}secure/`, createOptions('GET', token));
 };
 
+/**
+ * Mark GDPR consent accepted for a user.
+ */
 export const updateGdprStatus = async (userid: number, token: string) => {
-  const options = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-    },
-  };
-  const url = `${baseUrl}secure/accept-gdpr/${userid}`;
-  return doFetch(url, options);
+  return doFetch(
+    `${baseUrl}secure/accept-gdpr/${userid}`,
+    createOptions('PUT', token)
+  );
 };
 
-// Removed admin endpoints:
-//   - fetchUserById
-//   - updateUser
-//   - fetchUsers
-//   - getUserFeedback
-//   - deleteUserFeedback
-// These endpoints have been moved to /api/admin.ts
-
+/**
+ * Fetch course-related user info by user ID.
+ */
 export const getUserInfoByUserid = async (token: string, id: string) => {
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
-  return await doFetch(baseUrl + 'courses/' + id, options);
+  return doFetch(`${baseUrl}courses/${id}`, createOptions('GET', token));
 };
 
-// ── User feedback endpoints (can be used by both regular and admin routes) ──
-
+/**
+ * Submit user feedback (accessible to all users).
+ */
 export const postUserFeedback = async (
-  inputs: {topic: string; text: string; userId: number},
-  token: string,
+  inputs: { topic: string; text: string; userId: number },
+  token: string
 ) => {
-  const response = await doFetch(baseUrl + 'feedback', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(inputs),
-  });
-  return response;
+  return doFetch(
+    `${baseUrl}feedback`,
+    createOptions('POST', token, inputs)
+  );
 };
+
+/**
+ * Fetch students for an instructor.
+ * Optional `q` query filters by name/studentnumber on the backend when supported:
+ * GET /courses/students/:userid?q=...
+ *
+ * This is an additive helper; it does not change existing API calls.
+ */
+export const getStudentsByInstructorId = async (
+  userid: number,
+  token: string,
+  q?: string
+) => {
+  const qs = q && q.trim() ? `?q=${encodeURIComponent(q.trim())}` : '';
+  return doFetch(
+    `${baseUrl}courses/students/${userid}${qs}`,
+    createOptions('GET', token)
+  );
+};
+
+// ── Export as API object ──
 
 export const authApi = {
   postLogin,
@@ -113,4 +106,7 @@ export const authApi = {
   postUserFeedback,
   initiateMicrosoftLogin,
   handleMicrosoftCallback,
+
+  // Additive export (won't break existing imports)
+  getStudentsByInstructorId,
 };

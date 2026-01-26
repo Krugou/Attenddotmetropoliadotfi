@@ -219,7 +219,7 @@ Files
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\routes\userroutes.ts                                              | TypeScript     |       -175 |        -30 |        -11 |       -216 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\sockets\socketHandlers.ts                                         | TypeScript     |       -488 |       -125 |        -35 |       -648 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\tests\checkRole.test.ts                                           | TypeScript     |        -43 |         -2 |         -6 |        -51 |
-| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\types.ts                                                          | TypeScript     |        -86 |       -117 |         -8 |       -211 |
+| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\lecture.ts                                                          | TypeScript     |        -86 |       -117 |         -8 |       -211 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\utils\auth.ts                                                     | TypeScript     |        -40 |         -9 |         -1 |        -50 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\utils\checkRole.ts                                                | TypeScript     |        -10 |         -6 |         -2 |        -18 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\backend\src\utils\doFetch.ts                                                  | TypeScript     |        -34 |        -16 |         -7 |        -57 |
@@ -247,7 +247,7 @@ Files
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\buttons\NavigationButton.tsx                     | TypeScript JSX |        -22 |         -7 |         -4 |        -33 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\buttons\StartViewButton.tsx                      | TypeScript JSX |        -14 |         -3 |         -3 |        -20 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\buttons\StepButton.tsx                           | TypeScript JSX |        -27 |         -7 |         -2 |        -36 |
-| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\cards\Card.tsx                                   | TypeScript JSX |        -25 |         -9 |         -3 |        -37 |
+| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\cards\NavigationCard.tsx                                   | TypeScript JSX |        -25 |         -9 |         -3 |        -37 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\CourseData.tsx                            | TypeScript JSX |       -196 |        -27 |        -14 |       -237 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\CreateCourseCustom.tsx                    | TypeScript JSX |       -178 |        -60 |         -7 |       -245 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\CreateCourseEasy.tsx                      | TypeScript JSX |       -293 |        -21 |        -20 |       -334 |
@@ -262,7 +262,7 @@ Files
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\createcourse\StepButtons.tsx              | TypeScript JSX |        -43 |        -12 |         -2 |        -57 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\createcourse\StudentList.tsx              | TypeScript JSX |       -224 |        -16 |         -6 |       -246 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\createcourse\TopicsGroupAndTopics.tsx     | TypeScript JSX |       -359 |        -44 |        -15 |       -418 |
-| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\createcourse\coursedetails\InputField.tsx | TypeScript JSX |        -38 |         -9 |         -2 |        -49 |
+| c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\course\createcourse\coursedetails\TextInputField.tsx | TypeScript JSX |        -38 |         -9 |         -2 |        -49 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\dropdown\VideoDropdown.tsx                       | TypeScript JSX |        -52 |        -15 |         -4 |        -71 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\modals\AttendanceInstructions.tsx                | TypeScript JSX |        -68 |          0 |         -5 |        -73 |
 | c:\Users\moxch\OneDrive\Asiakirjat\GitHub\JakSurveillance\frontend\src\components\main\modals\ConfirmDialog.tsx                         | TypeScript JSX |        -61 |          0 |         -6 |        -67 |
@@ -396,7 +396,7 @@ Files
 | h:\inde\JakSurveillance\backend\src\routes\userroutes.ts                                                                                | TypeScript     |        213 |         28 |         10 |        251 |
 | h:\inde\JakSurveillance\backend\src\sockets\socketHandlers.ts                                                                           | TypeScript     |        486 |        126 |         36 |        648 |
 | h:\inde\JakSurveillance\backend\src\tests\checkRole.test.ts                                                                             | TypeScript     |         43 |          2 |          6 |         51 |
-| h:\inde\JakSurveillance\backend\src\types.ts                                                                                            | TypeScript     |         86 |        117 |          8 |        211 |
+| h:\inde\JakSurveillance\backend\src\lecture.ts                                                                                            | TypeScript     |         86 |        117 |          8 |        211 |
 | h:\inde\JakSurveillance\backend\src\utils\auth.ts                                                                                       | TypeScript     |         58 |          8 |          1 |         67 |
 | h:\inde\JakSurveillance\backend\src\utils\checkRole.ts                                                                                  | TypeScript     |         10 |          6 |          2 |         18 |
 | h:\inde\JakSurveillance\backend\src\utils\doFetch.ts                                                                                    | TypeScript     |         34 |         16 |          7 |         57 |
@@ -431,7 +431,7 @@ Files
 | h:\inde\JakSurveillance\frontend\src\components\main\buttons\NavigationButton.tsx                                                       | TypeScript JSX |         22 |          7 |          4 |         33 |
 | h:\inde\JakSurveillance\frontend\src\components\main\buttons\StartViewButton.tsx                                                        | TypeScript JSX |         14 |          3 |          3 |         20 |
 | h:\inde\JakSurveillance\frontend\src\components\main\buttons\StepButton.tsx                                                             | TypeScript JSX |         27 |          7 |          2 |         36 |
-| h:\inde\JakSurveillance\frontend\src\components\main\cards\Card.tsx                                                                     | TypeScript JSX |         29 |          9 |          3 |         41 |
+| h:\inde\JakSurveillance\frontend\src\components\main\cards\NavigationCard.tsx                                                                     | TypeScript JSX |         29 |          9 |          3 |         41 |
 | h:\inde\JakSurveillance\frontend\src\components\main\cards\FeedbackCard.tsx                                                             | TypeScript JSX |         15 |          0 |          4 |         19 |
 | h:\inde\JakSurveillance\frontend\src\components\main\course\CourseData.tsx                                                              | TypeScript JSX |        196 |         27 |         14 |        237 |
 | h:\inde\JakSurveillance\frontend\src\components\main\course\CreateCourseCustom.tsx                                                      | TypeScript JSX |        178 |         60 |          7 |        245 |
@@ -448,7 +448,7 @@ Files
 | h:\inde\JakSurveillance\frontend\src\components\main\course\createcourse\StepButtons.tsx                                                | TypeScript JSX |         43 |         12 |          2 |         57 |
 | h:\inde\JakSurveillance\frontend\src\components\main\course\createcourse\StudentList.tsx                                                | TypeScript JSX |        224 |         16 |          6 |        246 |
 | h:\inde\JakSurveillance\frontend\src\components\main\course\createcourse\TopicsGroupAndTopics.tsx                                       | TypeScript JSX |        359 |         44 |         15 |        418 |
-| h:\inde\JakSurveillance\frontend\src\components\main\course\createcourse\coursedetails\InputField.tsx                                   | TypeScript JSX |         38 |          9 |          2 |         49 |
+| h:\inde\JakSurveillance\frontend\src\components\main\course\createcourse\coursedetails\TextInputField.tsx                                   | TypeScript JSX |         38 |          9 |          2 |         49 |
 | h:\inde\JakSurveillance\frontend\src\components\main\dropdown\VideoDropdown.tsx                                                         | TypeScript JSX |         52 |         15 |          4 |         71 |
 | h:\inde\JakSurveillance\frontend\src\components\main\modals\AttendanceInstructions.tsx                                                  | TypeScript JSX |         66 |          0 |          5 |         71 |
 | h:\inde\JakSurveillance\frontend\src\components\main\modals\ConfirmDialog.tsx                                                           | TypeScript JSX |         61 |          0 |          6 |         67 |

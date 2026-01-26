@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import {UserContext} from '../../contexts/UserContext';
 import {authApi} from '../../api/auth';
 import Loader from '../../utils/Loader';
-import ErrorAlert from '../../components/main/ErrorAlert.tsx';
+import ErrorAlert from '../../components/ui/modals/ErrorAlert.tsx';
 
 /**
  * MicrosoftCallback component.

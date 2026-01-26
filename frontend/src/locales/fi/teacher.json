@@ -1,8 +1,12 @@
 {
+  "dialog": {
+    "confirm": "Hyväksy",
+    "cancel": "Peruuta"
+  },
   "createLecture": {
     "title": "Luo uusi luento",
     "courseSection": {
-      "heading": "Valitse haluamasi kurssi ja aihe.",
+      "heading": "Valitse haluamasi kurssi ja aihe",
       "courseLabel": "Kurssi:",
       "topicLabel": "Aihe:",
       "tooltips": {
@@ -16,60 +20,70 @@
       }
     },
     "dateSection": {
-      "heading": "Valitse haluamasi päivämäärä ja aika.",
+      "heading": "Valitse haluamasi päivämäärä ja aika",
       "calendar": {
         "label": "Kalenteri",
-        "tooltip": "Klikkaa avaaaksesi kalenterin",
+        "tooltip": "Klikkaa avataksesi kalenterin",
         "multipleDates": "Useita päivämääriä"
       },
       "timeOfDay": {
         "label": "Vuorokaudenaika",
-        "tooltip": "Valitse vuorokaudenaika"
+        "tooltip": "Valitse vuorokaudenaika",
+        "options": {
+          "am": "Aamupäivä",
+          "pm": "Iltapäivä"
+        }
       }
     },
-    "doubleCheckMessage": "Varmista, että valitsit oikean kurssin ja aiheen.",
+    "doubleCheckMessage": "Varmista, että valitsit oikean kurssin ja aiheen",
     "buttons": {
       "open": "Avaa"
     },
     "errors": {
       "noToken": "Ei tokenia saatavilla",
-      "multipleDates": "Ei voida luoda läsnäoloa useille päivämäärille",
+      "multipleDates": "Läsnäoloa ei voida luoda usealle päivämäärälle",
       "noTimeOfDay": "Vuorokaudenaikaa ei valittu",
       "noTopicOrCourse": "Aihetta tai kurssia ei ole valittu",
       "createLecture": "Virhe luentoa luodessa"
     },
     "success": {
-      "lectureCreated": "Luento luotu onnistuneesti luennon ID:llä {{id}}",
+      "lectureCreated": "Luento luotu onnistuneesti ID:llä {{id}}",
       "lectureDeleted": "Luento poistettu onnistuneesti",
       "lectureClosed": "Luento suljettu onnistuneesti"
     },
     "info": {
-      "clickToStart": "Klikkaa avaa uudelleen aloittaaksesi uuden luennon"
+      "clickToStart": "Klikkaa aloittaaksesi uuden luennon"
     }
   },
   "courseAttendances": {
-    "title": "Opettajan kurssin läsnäolot",
+    "title": "Kurssin läsnäolot",
     "search": {
       "heading": "Etsi läsnäoloja päiväkohtaisesti",
       "noAttendances": {
-        "own": "Ei omia läsnäoloja löytynyt päivältä {{date}}",
-        "all": "Ei läsnäoloja löytynyt päivältä {{date}}"
+        "own": "Ei omia läsnäoloja päivältä {{date}}",
+        "all": "Ei läsnäoloja päivältä {{date}}"
       }
     },
     "buttons": {
       "statistics": "Läsnäolotilastot",
       "printPdf": "Tulosta PDF:ksi",
       "exportExcel": "Vie Exceliin",
+      "backToCourses": "Takaisin kursseihin",
       "toggleView": {
-        "showAll": "Näytä kaikki kurssin luentojen läsnäolot tänään",
-        "showOwn": "Näytä omat kurssin luentojen läsnäolot tänään"
+        "showAll": "Näytä kaikki kurssin luentojen läsnäolot",
+        "showOwn": "Näytä omat kurssin luentojen läsnäolot"
       }
     },
     "table": {
       "title": "Läsnäolot päivämäärältä {{date}}"
+    },
+    "toggle": {
+      "all" : "Kaikki",
+      "own" : "Omat"
     }
   },
   "courseDetail": {
+    "title": "Kurssin tiedot",
     "buttons": {
       "backToCourses": "Takaisin kursseihin"
     }
@@ -91,7 +105,7 @@
     "loading": "Ladataan..."
   },
   "courses": {
-    "title": "Omat kurssini",
+    "title": "Omat kurssisi",
     "buttons": {
       "backToMainview": "Takaisin päänäkymään",
       "addNewCourse": "Lisää uusi kurssi"
@@ -101,37 +115,17 @@
     }
   },
   "courseStats": {
-    "title": "Läsnäolotilastot kurssia kohden",
+    "title": "Kurssikohtaiset läsnäolotilastot",
     "search": {
-      "label": "Etsi kursseja",
-      "noCourse": "Ei kurssia valittu"
+      "label": "Etsi tai valitse kurssi",
+      "noCourse": "Ei valittua kurssia"
     },
     "buttons": {
       "printPdf": "Tulosta PDF:ksi",
       "exportExcel": "Vie Exceliin"
-    }
-  },
-  "createCourse": {
-    "title": "Luo kurssi",
-    "subtitle": "Valitse reitti",
-    "modes": {
-      "easy": {
-        "title": "Helppo tila",
-        "description": "Luo kurssi helposti opiskelijatiedoillasi"
-      },
-      "custom": {
-        "title": "Mukautettu tila",
-        "description": "Luo kurssi omilla tiedoillasi"
-      }
-    }
-  },
-  "createCourseEasy": {
-    "title": "Lisää kurssi Metropolian Excel-tiedoston avulla",
-    "fileUpload": {
-      "checkDetails": "Tarkista kurssin tiedot avoimista tiedoista"
     },
-    "buttons": {
-      "next": "Seuraava"
+    "errors": {
+      "noCourseSelected": "Ei valittua kurssia"
     }
   },
   "lectures": {
@@ -140,6 +134,10 @@
       "totalLectures": "Luennot yhteensä",
       "attendanceRatio": "Läsnäoloprosentti"
     },
+    "timeOfDay": {
+      "am": "aamupäivä",
+      "pm": "iltapäivä"
+    },
     "table": {
       "headers": {
         "lectureId": "Luennon ID",
@@ -147,10 +145,10 @@
         "courseCode": "Kurssin koodi",
         "topicName": "Aiheen nimi",
         "date": "Päivämäärä",
-        "timeOfDay": "ap/ip",
+        "timeOfDay": "Vuorokaudenaika",
         "attendance": "Läsnäolo",
-        "totalAttendance": "Läsnäolo yhteensä",
-        "studentsWithTopic": "Opiskelijat tämän aiheen kanssa",
+        "totalAttendance": "Läsnäoloja yhteensä",
+        "studentsWithTopic": "Opiskelijoita tässä aiheessa",
         "ratio": "Suhdeluku(%)",
         "state": "Tila",
         "actions": "Toiminnot",
@@ -178,15 +176,15 @@
       "deleteLecture": "Poista luento",
       "confirmDialog": {
         "title": "Haluatko varmasti {{action}} luennon?",
-        "message": "Tätä toimintoa ei voi peruuttaa.",
+        "message": "Tätä toimintoa ei voi peruuttaa",
         "cancel": "Peruuta",
         "confirm": "Vahvista",
         "important": {
-          "title": "⚠️ Tärkeää:",
+          "title": "Tärkeää:",
           "message": "Tätä toimintoa ei voi perua. Luento poistetaan pysyvästi, eikä sitä lasketa mukaan kokonaisläsnäoloprosenttiin."
         }
       },
-      "editAttendances": "Muokkaa Oppilaiden Läsnäoloja"
+      "editAttendances": "Muokkaa oppilaiden Läsnäoloja"
     }
   },
   "studentAttendances": {
@@ -224,19 +222,42 @@
     },
     "search": {
       "byName": "Hae nimen perusteella",
-      "byCourse": "Hae kurssin perusteella"
+      "byCourse": "Hae kurssin perusteella",
+      "modes": {
+        "name": "Hae nimellä",
+        "course": "Hae kurssilla"
+      }
     },
     "info": {
-      "searchingCourse": "Haetaan vain valituista kurssin opiskelijoista.",
-      "searchingAll": "Haetaan kaikista opiskelijoista."
+      "searchingCourse": "Haetaan vain valitun kurssin opiskelijoista",
+      "searchingAll": "Haetaan kaikista opiskelijoista"
     },
     "studentCard": {
       "email": "Sähköposti:",
       "username": "Käyttäjänimi:",
-      "studentNumber": "Opiskelijan numero:",
+      "studentNumber": "Opiskelijanumero:",
       "studentGroup": "Opiskelijaryhmä:",
       "accountCreated": "Tili luotu:",
       "clickDetails": "Klikkaa saadaksesi lisätietoja"
+    }
+  },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Näytä kaikki kolumnit",
+      "hideExtraColumns": "Piiloita ylimääräiset kolumnit",
+      "addStudent": "Lisää opiskelija",
+      "sortColumn": "Suodata kolumnit",
+      "deleteStudent": "Poista opiskelija",
+      "cancel": "Peruuta",
+      "delete": "Poista"
+    },
+    "dialog": {
+      "title": "Poista opiskelija",
+      "message": "Haluatko poistaa opiskelijan ryhmästä?"
+    },
+    "aria": {
+      "sortColumn": "Järjestä kolumni",
+      "deleteStudent": "Poista opiskelija"
     }
   },
   "helpVideos": {
@@ -265,7 +286,7 @@
       },
       "manageStudents": {
         "title": "Hallitse opiskelijoita",
-        "description": "Hallitse opiskelijoidesi tietoja"
+        "description": "Hallitse opiskelijoiden tietoja"
       },
       "yourCourses": {
         "title": "Kurssisi",
@@ -273,116 +294,41 @@
       },
       "createLecture": {
         "title": "Luo uusi luento",
-        "description": "Avaa läsnäolon kerääminen"
+        "description": "Aloita läsnäolojen kerääminen"
       },
       "attendanceStats": {
-        "title": "Näytä läsnäolotilastot",
-        "description": "Avaa läsnäolotilastojen sivu"
+        "title": "Kurssikohtaiset läsnäolot",
+        "description": "Näytä kurssikohtaiset läsnäolotilastot"
       },
       "lateEnrollment": {
         "title": "Myöhäinen ilmoittautuminen",
         "description": "Ilmoita opiskelijat kursseille"
       },
       "lectureStats": {
-        "title": "Luentotilastosi",
-        "description": "Näytä luentojesi tilastot"
+        "title": "Luentotilastot",
+        "description": "Näytä luentotilastot"
       },
       "createWorkLogCourse": {
-        "title": "Luo työpäiväkirjakurssi",
-        "description": "Luo uusi työpäiväkirjakurssi työpäiväkirjojasi varten"
+        "title": "Luo seurantajakso",
+        "description": "Luo uusi seurantajakso työpäiväkirjoja tai hajoittelua varten"
       },
       "yourWorkLogCourses": {
-        "title": "Työpäiväkirjakurssisi",
-        "description": "Näytä kaikki työpäiväkirjakurssisi"
+        "title": "Seurantajaksosi",
+        "description": "Näytä kaikki työpäiväkirjakurssit ja harjoittelut"
       },
       "studentActivity": {
-        "title": "Opiskelija aktiivisuus",
+        "title": "Alhaiset läsnäolot",
         "description": "Näytä opiskelijoiden alhaiset toiminnan yksityiskohdat"
       }
     }
   },
   "profile": {
-    "title": "Opettajan profiili",
-    "noData": "Ei käyttäjätietoja saatavilla.",
+    "title": "Omat tiedot",
+    "noData": "Ei käyttäjätietoja saatavilla",
     "myCourses": "Omat kurssit"
   },
-  "addTeachers": {
-    "title": "Lisää opettajia",
-    "addAnother": "Lisää toinen opettaja",
-    "emailLabel": "Sähköposti"
-  },
-  "courseDetails": {
-    "title": "Täytä kurssisi tiedot",
-    "labels": {
-      "courseCode": "Kurssin koodi",
-      "courseName": "Kurssin nimi",
-      "studentGroup": "Opiskelijaryhmä",
-      "startDate": "Aloituspäivämäärä",
-      "endDate": "Päättymispäivämäärä"
-    },
-    "errors": {
-      "codeExists": "Kurssilla tällä koodilla on jo olemassa."
-    },
-    "success": {
-      "codeRestored": "Ensimmäinen kurssikoodi on palautettu."
-    }
-  },
-  "studentList": {
-    "buttons": {
-      "showAllColumns": "Näytä kaikki sarakkeet",
-      "hideExtraColumns": "Piilota ylimääräiset sarakkeet",
-      "addStudent": "Lisää opiskelija",
-      "sortColumn": "Lajittele sarake",
-      "deleteStudent": "Poista opiskelija",
-      "cancel": "Peruuta",
-      "delete": "Poista"
-    },
-    "dialog": {
-      "title": "Poista opiskelija",
-      "message": "Haluatko varmasti poistaa tämän opiskelijan?"
-    },
-    "aria": {
-      "sortColumn": "Lajittele sarake",
-      "deleteStudent": "Poista opiskelija"
-    }
-  },
-  "topicsGroup": {
-    "title": "Aiheen tiedot",
-    "buttons": {
-      "deleteGroup": "Poista valittu ryhmä",
-      "createCustom": "Luo mukautettu ryhmä",
-      "selectExisting": "Valitse olemassa oleva ryhmä",
-      "apply": "Käytä",
-      "addNewTopic": "Lisää uusi aihe",
-      "removeTopic": "Poista mukautettu aihe"
-    },
-    "labels": {
-      "customTopicGroup": "Mukautettu aihealue",
-      "customTopics": "Mukautetut aiheet"
-    },
-    "placeholders": {
-      "customTopicGroup": "Mukautettu aihealue",
-      "customTopic": "Mukautettu aihe"
-    },
-    "dialog": {
-      "title": "Poista aihealue",
-      "message": "Haluatko varmasti poistaa aihealueen?"
-    },
-    "errors": {
-      "groupExists": "Tämä aihealue on jo olemassa.",
-      "emptyTopics": "Täytä kaikki tyhjät mukautetut aiheet ennen kuin käytät."
-    },
-    "success": {
-      "groupSaved": "Aihealue tallennettu onnistuneesti käyttäjälle {{email}}"
-    },
-    "tooltips": {
-      "customGroup": "lisää mukautettu aihealue tähän, esimerkki: \"customGroup\"",
-      "customTopic": "lisää mukautetut aiheet tähän, esimerkki: \"exam\"",
-      "removeTopic": "Poista mukautettu aihe",
-      "selectCourseGroup": "Valitse kurssiryhmä"
-    }
-  },
   "courseData": {
+    "title": "Täytä kurssin tiedot",
     "labels": {
       "description": "Kuvaus",
       "startDate": "Aloituspäivä:",
@@ -395,7 +341,9 @@
       "studentAmount": "Opiskelijoiden määrä",
       "instructors": "Opettajat",
       "amountOfStudents": "Opiskelijoiden määrä",
-      "courseCreatedAt": "Kurssi luotu"
+      "courseCreatedAt": "Kurssi luotu",
+      "courseCode": "Kurssikoodi",
+      "courseName": "Kurssin nimi"
     },
     "buttons": {
       "viewDetails": "Näytä tiedot",
@@ -405,14 +353,20 @@
       "courseEnded": "Kurssi on päättynyt",
       "modifyCourse": "Muokkaa tätä kurssia",
       "deleteCourse": "Poista tämä kurssi"
+    },
+    "errors": {
+      "codeExists": "Kurssi tällä koodilla on jo olemassa"
+    },
+    "success": {
+      "codeRestored": "Kurssikoodi palautettu"
     }
   },
   "studentCourse": {
     "labels": {
-      "assignedTopics": "Määritetyt aihealueet:",
+      "assignedTopics": "Määritetyt aiheet:",
       "allTopics": "Kaikki kurssilla olevat aiheet:",
-      "startDate": "Aloituspäivämäärä:",
-      "endDate": "Päättymispäivämäärä:",
+      "startDate": "Aloituspäivä:",
+      "endDate": "Päättymispäivä:",
       "instructors": "Opettajat",
       "searchCourses": "Hae kursseja",
       "studentGroup": "Opiskelijaryhmä",
@@ -420,7 +374,7 @@
     },
     "buttons": {
       "attendance": "Läsnäolo",
-      "editTopics": "Muokkaa opiskelijan aiheita",
+      "editTopics": "Muokkaa aiheita",
       "addStudent": "Lisää opiskelija toiselle kurssille",
       "addToCourse": "Lisää opiskelija kurssille"
     },
@@ -447,7 +401,7 @@
   },
   "deleteLecture": {
     "title": "Käsittele ensin aiemmat luennot",
-    "subtitle": "Tälle kurssille on jo avoin luento.",
+    "subtitle": "Tälle kurssille on jo avoin luento",
     "details": {
       "date": "Päivämäärä:",
       "timeOfDay": "Vuorokaudenaika:",
@@ -455,40 +409,149 @@
       "courseCode": "Kurssin koodi:",
       "topicName": "Aiheen nimi:"
     },
-    "question": "Haluatko poistaa sen vai lopettaa sen?",
-    "explanation": "Luento lopettaminen merkitsee poissaolot kaikille jäljellä oleville opiskelijoille, joita ei ole vielä merkitty läsnäoleviksi merkitsemällä ne 'ei läsnäoleviksi'. Deletoiminen tarkoittaa luennon täydellistä poistamista tietokannasta.",
+    "question": "Haluatko poistaa luennon vai lopettaa luennon?",
+    "explanation": "Luennon lopettaminen merkitsee poissaolot kaikille jäljellä oleville opiskelijoille, joita ei ole vielä merkitty läsnäoleviksi. Deletoiminen tarkoittaa luennon täydellistä poistamista tietokannasta.",
     "buttons": {
-      "close": "Sulje tämä ikkuna",
+      "close": "Sulje ikkuna",
       "delete": "Poista aiempi luento",
       "finish": "Lopeta aiempi luento"
     }
   },
+  "addTeachers": {
+    "title": "Lisää opettajia",
+    "addAnother": "Lisää toinen opettaja",
+    "emailLabel": "Email"
+  },
+  "topicsGroup": {
+    "title": "Aiheen lisätiedot",
+    "buttons": {
+      "deleteGroup": "Poista valittu ryhmä",
+      "createCustom": "Luo mukautettu ryhmä",
+      "selectExisting": "Valitse olemassaoleva ryhmä",
+      "apply": "Jatka",
+      "addNewTopic": "Lisää uusi aihe",
+      "removeTopic": "Poista mukautettu aihe"
+    },
+    "labels": {
+      "customTopicGroup": "Mukautettu aiheryhmä",
+      "customTopics": "Mukautetut aiheet"
+    },
+    "placeholders": {
+      "customTopicGroup": "Mukautettu aiheryhmä",
+      "customTopic": "Mukautettu aihe"
+    },
+    "dialog": {
+      "title": "Poista aiheryhmä",
+      "message": "Haluatko varmasti poistaa aiheryhmän?"
+    },
+    "errors": {
+      "groupExists": "Aiheryhmä on jo olemassa",
+      "emptyTopics": "Täytä kaikki mukautetut aiheet ennen jatkamista"
+    },
+    "success": {
+      "groupSaved": "Aiheryhmä tallennettu onnistuneesti käyttäjälle {{email}}"
+    },
+    "tooltips": {
+      "customGroup": "Lisää mukautettu aiheryhmä, esim: \"customGroup\"",
+      "customTopic": "Lisää mukautettu aihe, esim: \"exam\"",
+      "removeTopic": "Poista mukautettu aihe",
+      "selectCourseGroup": "Valitse kurssiryhmä"
+    }
+  },
+  "createCourse": {
+    "title": "Luo kurssi",
+    "subtitle": "Valitse reitti",
+    "modes": {
+      "easy": {
+        "title": "Helppo tila",
+        "description": "Luo kurssi helposti Excel-tidostosta opiskelijatiedoillasi"
+      },
+      "custom": {
+        "title": "Mukautettu tila",
+        "description": "Luo kurssi omilla tiedoillasi"
+      }
+    }
+  },
+  "createCourseEasy": {
+    "title": "Liitä kurssi Metropolian Excel-tiedostolla",
+    "fileUpload": {
+      "checkDetails": "Tarkista kurssin tiedot avoimesta datasta"
+    },
+    "buttons": {
+      "next": "Jatka"
+    }
+  },
+  "courseDetails": {
+    "title": "Täytä kurssin tiedot",
+    "labels": {
+      "description": "Kuvaus",
+      "startDate": "Aloituspäivä",
+      "endDate": "Lopetuspäivä",
+      "code": "Koodi:",
+      "studentGroup": "Opiskelijaryhmä",
+      "topics": "Aiheet:",
+      "additionalInfo": "Lisätiedot",
+      "courseCreated": "Kurssi luotu:",
+      "studentAmount": "Opiskelijoita",
+      "instructors": "Opettajat",
+      "amountOfStudents": "Opiskelijamäärä",
+      "courseCreatedAt": "Kurssi luotu",
+      "courseCode": "Kurssikoodi",
+      "courseName": "Kurssin nimi"
+    },
+    "buttons": {
+      "viewDetails": "Näytä tiedot",
+      "viewAttendances": "Näytä läsnäolot"
+    },
+    "tooltips": {
+      "courseEnded": "Kurssi on päättynyt",
+      "modifyCourse": "Muokkaa kurssia",
+      "deleteCourse": "Poista kurssi"
+    },
+    "errors": {
+      "codeExists": "Tämä kurssikoodi on jo olemassa"
+    },
+    "success": {
+      "codeRestored": "Kurssikoodi palautettu"
+    }
+  },
   "worklog": {
+    "title": "Omat seurantajaksosi",
+    "detail": {
+      "backtogroups": "Takaisin ryhmiin",
+      "title": "Työpäiväkirjan tiedot",
+      "backToWorklog": "Takaisin seurantajaksoihin"
+    },
     "create": {
-      "title": "Lisää uusi työaikakirjauskurssi",
-      "subtitle": "Valitse tilojen väliltä",
+      "title": "Luo uusi seurantajakso",
+      "subtitle": "Valitse luontitapa",
       "modes": {
         "easy": {
-          "title": "Helppo tila",
+          "title": "Työpäiväkirja",
+          "subtitle": "Helppo tila",
           "description": "Luo työpäiväkirjakurssi Excel-tiedostolla"
         },
         "custom": {
-          "title": "Mukautettu tila",
+          "title": "Työpäiväkirja",
+          "subtitle": "Mukautettu tila",
           "description": "Luo työpäiväkirjakurssi manuaalisesti"
         },
-        "practicum":{
+        "practicum": {
           "title": "Harjoittelu",
-          "description": "Luo  harjoittelijoitelu"
+          "description": "Luo  harjoittelu"
         }
+      }
+    },
+    "custom": {
+      "header": {
+        "title": "Työpäiväkirjakurssin perustiedot",
+        "subtitle": "Täytä kurssin tiedot"
       }
     },
     "errors": {
       "createFailed": "Työpäiväkirjakurssin luominen epäonnistui",
-      "groupNotFound": "Ryhmää ei löydy"
-    },
-    "detail": {
-      "backtogroups": "Takaisin ryhmiin",
-      "backToWorklog": "Takaisin työpäiväkirjaan"
+      "groupNotFound": "Ryhmää ei löydy",
+      "studentsNotFound": "Kaikkia opiskelijoita ei löydy järjestelmästä. Lisää puuttuvat opiskelijat ennen jatkamista."
     },
     "details": {
       "title": "Työpäiväkirjan tiedot",
@@ -497,12 +560,13 @@
       "description": "Kuvaus",
       "requiredHours": "Vaaditut tunnit",
       "startDate": "Aloituspäivä",
-      "endDate": "Päättymispäivä"
+      "endDate": "Päättymispäivä",
+      "studentName": "Opiskelijan nimi"
     },
     "data": {
       "courseCode": "Kurssikoodi",
-      "startDate": "Aloituspäivämäärä",
-      "endDate": "Päättymispäivämäärä",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä",
       "requiredHours": "Vaaditut tunnit",
       "description": "Kuvaus",
       "courseEnded": "Kurssi on päättynyt",
@@ -511,7 +575,7 @@
       "viewCourse": "Näytä kurssi",
       "courseCreatedAt": "Kurssi luotu",
       "studentCount": "Opiskelijamäärä",
-      "instructors": "Opettajat",
+      "instructor": "Opettajat",
       "noInstructors": "Ei määritettyjä opettajia",
       "additionalInfo": "Lisätiedot",
       "deleteSuccess": "Työpäiväkirjakurssi poistettu onnistuneesti",
@@ -524,18 +588,45 @@
     "modify": {
       "title": "Muokkaa työpäiväkirjakurssia",
       "loading": "Ladataan...",
-      "backToWorklog": "Takaisin työpäiväkirjaan",
+      "backToWorklog": "Takaisin seurantakursseihin",
       "instructors": "Muokkaa opettajia",
       "save": "Tallenna muutokset",
       "success": "Työpäiväkirjakurssi muokattu onnistuneesti"
+    },
+    "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
+    "form": {
+      "checking": "Tarkistetaan...",
+      "success": {
+        "codeRestored": "Koodi on palautettu"
+      },
+      "name": "Kurssin nimi",
+      "code": "Kurssikoodi",
+      "description": "Kurssin kuvaus",
+      "submit": "Luo kurssi",
+      "startDate": "Aloituspäivä",
+      "endDate": "Lopetuspäivä",
+      "requiredHours": "Vaaditut tunnit",
+      "nameRequired": "Nimi on pakollinen",
+      "descriptionRequired": "Kuvaus on pakollinen",
+      "startDateRequired": "Aloituspäivä on pakollinen",
+      "endDateRequired": "Päättymispäivä on pakollinen",
+      "endDateError": "Päättymispäivän on oltava aloituspäivän jälkeen",
+      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0",
+      "errors": {
+        "codeExists": "Työaikakirjauskurssi tällä koodilla on jo olemassa"
+      }
+    },
+    "success": {
+      "courseCreated": "Työaikakirjauskurssi luotu onnistuneesti",
+      "codeRestored": "Koodi on palautettu"
     },
     "groups": {
       "students": {
         "title": "Kurssin opiskelijat",
         "select": "Valitse opiskelijat lisättäväksi ryhmiin"
       },
-      "errors":{
-        "nameRequired":"Nimi on pakollinen",
+      "errors": {
+        "nameRequired": "Nimi on pakollinen",
         "createFailed": "Ryhmän luominen epäonnistui: {{message}}",
         "unknown": "Ryhmän luomisessa tapahtui tuntematon virhe",
         "failedToRemove": "Opiskelijan poistaminen ryhmästä epäonnistui"
@@ -549,25 +640,33 @@
       "studentRemoved": "Opiskelija poistettu ryhmästä onnistuneesti",
       "studentCount": "{{count}} opiskelijaa",
       "title": "Kurssin ryhmät",
+      "subtitle": "Tarkastele työaikakirjausryhmiä tai luo uusi ryhmä",
       "createGroup": "Luo ryhmä",
       "createNew": "Luo uusi ryhmä",
       "groupName": "Ryhmän nimi",
       "selectStudents": "Valitse opiskelijat",
       "groupsTitle": "Olemassa olevat ryhmät",
-      "noGroups": "Ryhmiä ei ole vielä luotu.",
+      "noGroups": "Ryhmiä ei ole vielä luotu",
+      "group": "Ryhmä",
+      "groupDetailsSubtitle": "Ryhmän tiedot",
+      "viewGroup": "Ryhmä",
       "createSuccess": "Ryhmä luotu onnistuneesti",
-      "stats": "Katso tilastot",
-      "addToGroup": "lisää opiskelijat ryhmään",
-      "back": "takaisin",
-      "close": "Sulje",
-      "save": "Tallenna",
       "entries": "Ryhmämerkinnät",
-      "addStudentsToGroup": "Lisää opiskelijat ryhmään"
+      "stats": "Tilastot",
+      "addToGroup": "lisää opiskelijat ryhmään",
+      "addStudentsToGroup": "Lisää opiskelijat ryhmään",
+      "back": "Takaisin",
+      "close": "Sulje",
+      "save": "Tallenna"
     },
     "entries": {
       "name": " Nimi",
       "date": "Päivämäärä",
       "hours": "Tunnit",
+      "start": "Sisään",
+      "end": "Ulos",
+      "total": "Kirjatut tunnit",
+      "entries": "Kirjauksia yht",
       "description": "Kuvaus",
       "status": "Tila",
       "time": "Aika",
@@ -595,41 +694,42 @@
       "remaining": "Jäljellä",
       "required": "Vaadittu",
       "totalCompleted": "Suoritettu yhteensä",
-      "noHoursCompleted": "Kukaan opiskelija ei ole suorittanut tunteja"
+      "noHoursCompleted": "Kukaan opiskelija ei ole suorittanut tunteja",
+      "labels": {
+        "required": "Vaadittu",
+        "completed": "Suoritettu",
+        "remaining": "Jäljellä",
+        "progress": "Edistyminen",
+        "student": "Opiskelija",
+        "hours": "Tunnit"
+      }
     },
     "deleteSuccess": "Työaikakirjaus poistettu onnistuneesti",
     "noInstructors": "Ei määritettyjä opettajia",
     "error": {
       "codeExists": "Työaikakirjaus tällä koodilla on jo olemassa"
     },
-    "success": {
-      "codeRestored": "Koodi on palautettu",
-      "courseCreated": "Työlokin kurssi luotu onnistuneesti"
-    },
-    "form": {
-      "checking": "Tarkistetaan...",
-      "success": {
-        "codeRestored": "Koodi on palautettu"
+    "createEasy": {
+      "title": "Lisää uusi työaikakirjauskurssi Excelillä",
+      "fileUpload": {
+        "clickToUpload": "Klikkaa tästä ladataksesi tiedosto",
+        "uploadExcel": "Lataa Excel-tiedosto",
+        "fileSelectedChange": "Tiedosto valittu – klikkaa uudelleen vaihtaaksesi",
+        "noFileSelected": "Ei tiedostoa valittuna",
+        "checkDetails": "Tarkista kurssin tiedot avoimista tiedoista"
       },
-      "name": "Kurssinimi",
-      "code": "Kurssikoodi",
-      "description": "Kurssin kuvaus",
-      "submit": "Luoda kurssi",
-      "startDate": "Aloituspäivä",
-      "requiredHours": "Vaadittu tunti",
-      "endDate": "Päätepäivä",
-      "nameRequired": "Nimi on pakollinen",
-      "descriptionRequired": "Kuvaus on pakollinen",
-      "startDateRequired": "Aloituspäivä on pakollinen",
-      "endDateRequired": "Päättymispäivä on pakollinen",
-      "endDateError": "Päättymispäivän on oltava aloituspäivän jälkeen",
-      "requiredHoursError": "Vaadittujen tuntien määrän on oltava suurempi kuin 0",
-      "errors":{
-        "codeExists": "Työaikakirjaus tällä koodilla on jo olemassa"
-        }
-    },
-    "modifySuccess": "Työaikakirjaus muokattu onnistuneesti",
-    "title": "Työaikakirjaukset"
+      "buttons": {
+        "next": "Seuraava"
+      },
+      "toasts": {
+        "excelUploaded": "Excel-tiedosto ladattu",
+        "excelUploadFailed": "Excel-tiedoston lataus epäonnistui",
+        "excelUploadFailedCheckFile": "Excel-tiedoston lataus epäonnistui, tarkista tiedosto",
+        "worklogCreated": "Työpäiväkirjakurssi luotu",
+        "worklogCreateFailed": "Työpäiväkirjakurssin luonti epäonnistui",
+        "worklogCreateNoId": "Työpäiväkirjakurssin luonti epäonnistui – ID puuttuu"
+      }
+    }
   },
   "attendance": {
     "errors": {
@@ -640,7 +740,12 @@
       "socketNotConnected": "Yhteyttä ei ole muodostettu",
       "insertStudent": "Virhe lisätessä opiskelijaa",
       "emptyStudentNumber": "Opiskelijanumero on tyhjä",
-      "removeStudent": "Virhe poistaessa opiskelijaa"
+      "removeStudent": "Virhe poistaessa opiskelijaa",
+      "status": {
+        "absent": "Poissa",
+        "present": "Läsnä",
+        "acceptedAbsence": "Hyväksytty poissaolo"
+      }
     },
     "success": {
       "infoRetrieved": "Luennon tiedot haettu onnistuneesti",
@@ -663,12 +768,12 @@
       "resetTimer": "Nollaa ajastin",
       "cancelLecture": "Peruuta luento",
       "finishLecture": "Lopeta luento",
-      "toggleScrollView": "Vaihda vieritystilaa",
-      "toggleWiderNames": "Vaihda leveämpiä nimiä",
+      "toggleScrollView": "Vieritys päälle / pois",
+      "toggleWiderNames": "Leveämmät nimet päälle / pois",
       "hideQRCode": "Piilota QR-koodi",
       "showQRCode": "Näytä QR-koodi",
-      "finishNow": "Lopeta nyt",
-      "waitForTimer": "Odota ajastinta"
+      "waitForTimer": "Odota ajastinta",
+      "finishNow": "Lopeta nyt"
     },
     "dialogs": {
       "cancelLecture": {
@@ -676,8 +781,8 @@
         "message": "Haluatko varmasti peruuttaa luennon? Tämä poistaa luennon tietokannasta. Toimintoa ei voi kumota."
       },
       "success": {
-        "title": "Kaikki opiskelijat paikalla!",
-        "allPresent": "Kaikki ovat saapuneet!",
+        "title": "Kaikki opiskelijat paikalla",
+        "allPresent": "Kaikki opiskelijat ovat saapuneet",
         "options": "Voit lopettaa nyt tai odottaa {{seconds}} sekuntia automaattista lopetusta.",
         "finishing": "Lopetetaan luento automaattisesti..."
       }
@@ -717,25 +822,32 @@
         "widerNames": "Leveämmät nimet",
         "hideQR": "Piilota QR-koodi"
       }
+    },
+    "status": {
+      "absent": "Poissa",
+      "present": "Läsnä",
+      "acceptedAbsence": "Hyväksytty poissaolo"
     }
   },
   "courseStudents": {
     "allStudentsHere": "Kaikki opiskelijat ovat paikalla. Automaattinen lopetus {{seconds}} sekunnissa",
     "finishingLecture": "Lopettaa luentoa...",
-    "manualInsert": "Opiskelijan manuaalinen lisäys"
+    "manualInsert": "Opiskelijan manuaalinen lisäys",
+    "manualPresent":"Paikalla",
+    "manualExcused": "Hyväksytty poissaolo"
   },
   "courseActivity": {
-    "back": "Takaisin Mainview",
-    "title": "Opiskelijat, joilla on vähän aktiivisuutta kursseilla",
-    "studentsNotAttending": "Opiskelijat eivät osallistu"
+    "back": "Takaisin päänäkymään",
+    "title": "Alhaiset läsnäolot",
+    "studentsNotAttending": "Opiskelijat, joilla on liian vähän läsnäoloja:"
   },
   "practicum": {
     "title": "Harjoittelut",
     "createTitle": "Luo uusi harjoittelu",
     "modifyTitle": "Muokkaa harjoittelua",
     "form": {
-      "name": "harjoittelun nimi",
-      "description": "harjoittelu kuvaus",
+      "name": "Harjoittelun nimi",
+      "description": "Harjoittelu kuvaus",
       "startDate": "Aloituspäivä",
       "endDate": "Päättymispäivä",
       "requiredHours": "Vaaditut tunnit",
@@ -754,7 +866,8 @@
       "description": "Kuvaus",
       "requiredHours": "Vaaditut tunnit",
       "startDate": "Aloituspäivä",
-      "endDate": "Päättymispäivä"
+      "endDate": "Päättymispäivä",
+      "backToWorklog": "Takaisin seurantajaksoihin"
     },
     "data": {
       "startDate": "Aloituspäivä",
@@ -765,11 +878,11 @@
       "modifyPracticum": "Muokkaa tätä harjoittelua",
       "deletePracticum": "Poista tämä harjoittelu",
       "viewPracticum": "Näytä harjoittelu",
+      "viewEntries": "Näytä merkinnät",
       "createdAt": "Luotu",
       "studentCount": "Opiskelijamäärä",
       "instructors": "Ohjaajat",
       "additionalInfo": "Lisätiedot",
-      "viewEntries": "Näytä merkinnät",
       "studentName": "Oppilaan nimi"
     },
     "steps": {
@@ -789,15 +902,15 @@
     "modifySuccess": "Harjoittelu muokattu onnistuneesti",
     "addStudent": "Lisää opiskelija",
     "selectStudent": "Valitse opiskelija",
-    "studentPlaceholder": "Kirjoita etsiäksesi opiskelijoita",
+    "studentPlaceholder": "Etsi opiskelijoita",
     "searchExistingStudents": "Etsi olemassa olevia opiskelijoita",
     "noStudentsFound": "Opiskelijoita ei löytynyt",
     "selectedStudent": "Valittu opiskelija",
+    "studentSelected": "Opiskelija valittu onnistuneesti",
     "backToPracticums": "Takaisin harjoitteluihin",
     "save": "Tallenna muutokset",
     "create": "Luo harjoittelu",
     "searchByName": "Etsi nimellä",
-    "studentSelected": "Opiskelija valittu onnistuneesti",
     "endDateMustBeAfterStartDate": "Päättymispäivän on oltava aloituspäivän jälkeen",
     "entryStatus": {
       "0": "Tila: Virhe",
@@ -819,27 +932,29 @@
       "description": "Luo uusi harjoittelu työharjoittelun seurantaan"
     },
     "entries": {
-      "title": "Harjoittelumerkinnät",
-      "totalEntries": "Merkintöjen kokonaismäärä",
-      "totalHours": "Kirjatut tunnit yhteensä",
+      "title": "Harjoittelukirjaukset",
+      "totalEntries": "Kirjauksia yht",
+      "totalHours": "Kirjatut tunnit yht",
       "studentName": "Opiskelijan nimi",
       "noStudent": "Ei opiskelijaa määritetty",
       "progress": "Edistyminen",
       "required": "vaadittu",
-      "allEntries": "Kaikki merkinnät",
-      "noEntries": "Tälle harjoittelulle ei löydy merkintöjä",
+      "allEntries": "Työaikakirjaukset",
+      "noEntries": "Tälle harjoittelulle ei löydy kirjauksia",
       "date": "Päivämäärä",
       "startTime": "Aloitusaika",
       "endTime": "Lopetusaika",
+      "start": "Aloitus",
+      "end": "Lopetus",
       "hours": "Tunnit",
       "description": "Kuvaus",
       "status": "Tila",
       "actions": "Toiminnot",
-      "deleted": "Merkintä poistettu onnistuneesti",
-      "confirmDelete": "Poista merkintä",
-      "confirmDeleteMessage": "Haluatko varmasti poistaa tämän merkinnän päivältä {{date}}?",
+      "deleted": "Kirjaus poistettu onnistuneesti",
+      "confirmDelete": "Poista kirjaus",
+      "confirmDeleteMessage": "Haluatko varmasti poistaa tämän kirjauksen päivältä {{date}}?",
       "errors": {
-        "failedToDelete": "Merkinnän poistaminen epäonnistui"
+        "failedToDelete": "Kirjauksen poistaminen epäonnistui"
       }
     },
     "findStudent": "Etsi opiskelija",
@@ -859,7 +974,28 @@
     "success": {
       "saved": "Tallennettu onnistuneesti",
       "deleted": "Poistettu onnistuneesti",
-      "updated": "Päivitetty onnistuneesti"
+      "updated": "Päivitetty onnistuneesti",
+      "mainView": {
+        "greeting": "Hei!",
+        "greetingWithName": "Hei {{name}}!",
+        "todayIs": "Tänään on {{date}}",
+        "cards": {
+          "createLecture": {
+            "title": "Luo uusi luento",
+            "description": "Avaa uusi luento ja aloita läsnäolojen kerääminen."
+          }
+        }
+      },
+      "topNav": {
+        "home": "Etusivu",
+        "menuLabel": "Etusivu",
+        "lectures": "Luennot",
+        "courses": "Kurssit",
+        "students": "Opiskelijat",
+        "help": "Tuki",
+        "feedback": "Palaute",
+        "lecturesHome": "Etusivu (luennot)"
+      }
     },
     "error": {
       "saveFailed": "Tallentaminen epäonnistui",
@@ -868,6 +1004,81 @@
       "loadStatsFailed": "Tilastojen lataaminen epäonnistui",
       "addStudentsFailed": "Opiskelijoiden lisääminen epäonnistui",
       "tokenMissing": "Käyttäjätunniste puuttuu"
+    },
+    "topNav": {
+      "home": "Etusivu",
+      "lectures": "Luennot",
+      "courses": "Kurssit",
+      "stats": "Tilastot",
+      "students": "Opiskelijat",
+      "help": "Tuki",
+      "feedback": "Palaute",
+      "lecturesHome": "Etusivu",
+      "menuLabel": "Valikko"
+    },
+    "mainViewTitle": {
+      "dashboard": "Opettajan hallintapaneeli"
+    },
+    "mainView": {
+      "greeting": "Hei!",
+      "greetingWithName": "Hei {{name}}!",
+      "todayIs": "Tänään on {{date}}",
+      "cards": {
+        "createLecture": {
+          "title": "Luo uusi luento",
+          "description": "Avaa uusi luento ja aloita läsnäolojen kerääminen."
+        }
+      }
+    }
+  },
+  "mainViewTitle": {
+    "dashboard": "Opettajan hallintapaneeli"
+  },
+  "mobile": {
+    "headers": {
+      "date": "Päivämäärä",
+      "timeOfDay": "Aika",
+      "attendance": "Läsnäolo",
+      "ratio": "Suhde",
+      "state": "Tila"
+    },
+    "noAttendees": "Huom! Tällä luennolla on 0 läsnäolijaa, joten läsnäolokeräys on saattanut epäonnistua.",
+    "edit": "Muokkaa",
+    "noData": "Ei näytettäviä luentoja."
+  },
+  "TeacherLectures": {
+    "details": {
+      "back": "Takaisin luentoihin",
+      "editAttendances": "Muokkaa läsnäoloja",
+      "closeLecture": "Sulje luento",
+      "deleteLecture": "Poista luento",
+      "warning": "Yhtään opiskelijaa ei ole merkitty läsnäolleeksi.",
+      "date": "Päivämäärä",
+      "time": "Aika",
+      "attendance": "Läsnäolo",
+      "ratio": "Läsnäoloprosentti",
+      "status": "Tila",
+      "confirmDialog": {
+        "title": "Vahvista toiminto",
+        "message": "Haluatko varmasti suorittaa tämän toiminnon?",
+        "cancel": "Peruuta",
+        "confirm": "Vahvista",
+        "important": {
+          "title": "Huomio",
+          "message": "Luento poistetaan pysyvästi eikä sitä voi palauttaa."
+        }
+      }
+    },
+    "table": {
+      "headers": {
+        "date": "Päivämäärä",
+        "timeOfDay": "Ajankohta",
+        "topicName": "Aihe",
+        "instructors": "Opettajat",
+        "student": "Opiskelija",
+        "status": "Läsnäolon tila"
+      }
     }
   }
 }
+

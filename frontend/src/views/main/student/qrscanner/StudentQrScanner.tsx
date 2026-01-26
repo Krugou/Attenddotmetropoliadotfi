@@ -93,8 +93,8 @@ const StudentQrScanner: React.FC = () => {
         console.log('secureHash', secureHash);
         console.log('lectureid', lectureid);
         let studentId;
-        if (user && user.studentnumber) {
-          studentId = user.studentnumber;
+        if (user && user.student_number) {
+          studentId = user.student_number;
         } else {
           toast.error(t('student:toasts.errors.noStudent'));
           navigate('/login');
@@ -168,7 +168,7 @@ const StudentQrScanner: React.FC = () => {
         <p>{t('student:qrScanner.loading')}</p>
       ) : (
         user &&
-        user.studentnumber && (
+        user.student_number && (
           <Scanner
             components={scannerComponents}
             onScan={onNewScanResult}

@@ -1,7 +1,7 @@
 {
   "course": {
     "attendaceOfCourse": "Kurssin läsnäolo",
-    "sortTopics": "Lajittele aiheet",
+    "sortTopics": "Lajittele aiheen mukaan",
     "showAttendanceStats": "Näytä läsnäolotilastot",
     "showAttendanceTable": "Näytä läsnäolotaulukko",
     "all": "Kaikki",
@@ -69,8 +69,9 @@
       "tooSlow": "Olit liian hidas, yritä uudelleen {{studentId}}"
     },
     "success": {
-      "savedToLecture": "Sinut on tallennettu luennolle",
-      "alreadySaved": "Sinut on jo tallennettu luennolle"
+      "savedToLecture": "Sinut on kirjattu luennolle",
+      "alreadySaved": "Sinut on jo kirjattu luennolle"
     }
-  }
+  },
+  "searchByDate": "Hae päivämäärällä"
 }

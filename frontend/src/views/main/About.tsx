@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 
 /**
- * About component displays detailed information about the Metropolia Attendance system
+ * About component displays detailed information about the Metropolia attendance system
  */
 const About: React.FC = () => {
   const {t} = useTranslation(['noUser']);

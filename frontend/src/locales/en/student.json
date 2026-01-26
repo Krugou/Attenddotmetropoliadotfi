@@ -40,12 +40,12 @@
       "description": "Scan QR to mark attendance with camera selection"
     },
     "workLog": {
-      "title": "Worklog course logger",
-      "description": "Log your worklogs"
+      "title": "Work log course logger",
+      "description": "Log your work logs"
     },
     "workLogs": {
-      "title": "Your Worklog courses",
-      "description": "View and manage your worklogs"
+      "title": "Your Work log courses",
+      "description": "View and manage your work logs"
     }
   },
   "profile": {
@@ -72,5 +72,6 @@
       "savedToLecture": "You have been saved into lecture",
       "alreadySaved": "You have been saved into lecture already"
     }
-  }
+  },
+  "searchByDate": "Search by date"
 }

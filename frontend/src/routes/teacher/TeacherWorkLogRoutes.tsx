@@ -1,16 +1,16 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import TeacherWorkLogs from '../../views/main/teacher/WorkLog/TeacherWorkLogs';
-import TeacherModeSelection from '../../views/main/teacher/WorkLog/TeacherModeSelection';
+import TeacherCreateWorklog from '../../views/main/teacher/WorkLog/TeacherCreateWorklog.tsx';
 import TeacherMainView from '../../views/main/teacher/TeacherMainView';
 import TeacherWorklogCourseModify from '../../views/main/teacher/WorkLog/TeacherWorklogCourseModify';
 import TeacherWorklogCourseStats from '../../views/main/teacher/WorkLog/TeacherWorklogCourseStats';
 import TeacherWorklogCourseDetail from '../../views/main/teacher/WorkLog/TeacherWorklogCourseDetail';
-import TeacherWorklogCourseGroup from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroup';
-import TeacherWorklogCourseGroups from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroups';
-import TeacherWorklogCourseGroupStats from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroupStats';
+import TeacherWorklogCourseGroup from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroup';
+import TeacherWorklogCourseGroups from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroups';
+import TeacherWorklogCourseGroupStats from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroupStats';
 import TeacherWorklogCourseEntries from '../../views/main/teacher/WorkLog/TeacherWorklogCourseEntries';
-import TeacherWorklogCourseGroupEntries from '../../views/main/teacher/WorkLog/Groups/TeacherWorklogCourseGroupEntries';
+import TeacherWorklogCourseGroupEntries from '../../views/main/teacher/WorkLog/groups/TeacherWorklogCourseGroupEntries';
 
 /**
  * TeacherWorkLogRoutes component.
@@ -28,7 +28,7 @@ const TeacherWorkLogRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path='/' element={<TeacherWorkLogs />} />
-      <Route path='create' element={<TeacherModeSelection />} />
+      <Route path='create' element={<TeacherCreateWorklog />} />
       <Route path=':courseid/modify' element={<TeacherWorklogCourseModify />} />
       <Route path='stats/:courseid?' element={<TeacherWorklogCourseStats />} />
       <Route path=':courseid' element={<TeacherWorklogCourseDetail />} />

@@ -1,8 +1,12 @@
 {
+  "dialog": {
+    "confirm": "Bekräfta",
+    "cancel": "Avbryt"
+  },
   "createLecture": {
     "title": "Skapa ny föreläsning",
     "courseSection": {
-      "heading": "Välj din föredragna kurs och ämne.",
+      "heading": "Välj önskad kurs och ämne.",
       "courseLabel": "Kurs:",
       "topicLabel": "Ämne:",
       "tooltips": {
@@ -16,7 +20,7 @@
       }
     },
     "dateSection": {
-      "heading": "Välj ditt föredragna datum och tid.",
+      "heading": "Välj önskat datum och tid.",
       "calendar": {
         "label": "Kalender",
         "tooltip": "Klicka för att öppna kalendern",
@@ -24,42 +28,47 @@
       },
       "timeOfDay": {
         "label": "Tid på dagen",
-        "tooltip": "Välj tid på dagen"
+        "tooltip": "Välj tid på dagen",
+        "options": {
+          "am": "FM",
+          "pm": "EM"
+        }
       }
     },
-    "doubleCheckMessage": "Kontrollera noga att du har valt rätt kurs och ämne.",
+    "doubleCheckMessage": "Kontrollera att du har valt rätt kurs och ämne.",
     "buttons": {
       "open": "Öppna"
     },
     "errors": {
       "noToken": "Ingen token tillgänglig",
       "multipleDates": "Kan inte skapa närvaro för flera datum",
-      "noTimeOfDay": "Tid på dagen ej vald",
-      "noTopicOrCourse": "Ämne eller kurs ej vald",
+      "noTimeOfDay": "Tid på dagen har inte valts",
+      "noTopicOrCourse": "Ämne eller kurs har inte valts",
       "createLecture": "Fel vid skapande av föreläsning"
     },
     "success": {
-      "lectureCreated": "Föreläsning skapad framgångsrikt med ID {{id}}",
-      "lectureDeleted": "Föreläsning raderad framgångsrikt",
-      "lectureClosed": "Föreläsning avslutad framgångsrikt"
+      "lectureCreated": "Föreläsningen skapades med föreläsnings-ID {{id}}",
+      "lectureDeleted": "Föreläsningen har tagits bort",
+      "lectureClosed": "Föreläsningen har stängts"
     },
     "info": {
-      "clickToStart": "Klicka på öppna igen för att starta en ny föreläsning"
+      "clickToStart": "Klicka på Öppna igen för att starta en ny föreläsning"
     }
   },
   "courseAttendances": {
-    "title": "Närvaro för lärares kurs",
+    "title": "Närvaro för lärarens kurser",
     "search": {
       "heading": "Hitta närvaro baserat på dag",
       "noAttendances": {
-        "own": "Inga egna närvaro hittades för {{date}}",
-        "all": "Inga närvaro hittades för {{date}}"
+        "own": "Ingen egen närvaro hittades för {{date}}",
+        "all": "Ingen närvaro hittades för {{date}}"
       }
     },
     "buttons": {
       "statistics": "Närvarostatistik",
-      "printPdf": "Skriv ut till pdf",
+      "printPdf": "Skriv ut som PDF",
       "exportExcel": "Exportera till Excel",
+      "backToCourses": "Tillbaka till kurser",
       "toggleView": {
         "showAll": "Visa all föreläsningsnärvaro för denna kurs idag",
         "showOwn": "Visa egen föreläsningsnärvaro för denna kurs idag"
@@ -67,9 +76,14 @@
     },
     "table": {
       "title": "Närvaro för {{date}}"
+    },
+    "toggle": {
+      "all": "Alla",
+      "own": "Egen"
     }
   },
   "courseDetail": {
+    "title": "Kursinformation",
     "buttons": {
       "backToCourses": "Tillbaka till kurser"
     }
@@ -104,41 +118,25 @@
     "title": "Närvarostatistik per kurs",
     "search": {
       "label": "Sök kurser",
-      "noCourse": "Kurs ej vald"
+      "noCourse": "Ingen kurs vald"
     },
     "buttons": {
-      "printPdf": "Skriv ut till pdf",
+      "printPdf": "Skriv ut som PDF",
       "exportExcel": "Exportera till Excel"
-    }
-  },
-  "createCourse": {
-    "title": "Skapa kurs",
-    "subtitle": "Välj mellan alternativ",
-    "modes": {
-      "easy": {
-        "title": "Enkelt läge",
-        "description": "Skapa en kurs enkelt med din egen studentdatafil"
-      },
-      "custom": {
-        "title": "Anpassat läge",
-        "description": "Skapa en kurs med dina egna detaljer"
-      }
-    }
-  },
-  "createCourseEasy": {
-    "title": "Infoga kurs enligt Metropolia Excel-fil",
-    "fileUpload": {
-      "checkDetails": "Kontrollera kursinformation från öppna data"
     },
-    "buttons": {
-      "next": "Nästa"
+    "errors": {
+      "noCourseSelected": "Ingen kurs vald"
     }
   },
   "lectures": {
     "title": "Dina sparade föreläsningar",
     "stats": {
-      "totalLectures": "Totala föreläsningar",
-      "attendanceRatio": "Närvaroförhållande"
+      "totalLectures": "Totalt antal föreläsningar",
+      "attendanceRatio": "Närvarokvot"
+    },
+    "timeOfDay": {
+      "am": "FM",
+      "pm": "EM"
     },
     "table": {
       "headers": {
@@ -150,15 +148,15 @@
         "timeOfDay": "fm/em",
         "attendance": "Närvaro",
         "totalAttendance": "Total närvaro",
-        "studentsWithTopic": "Studenter med detta ämne",
-        "ratio": "Förhållande(%)",
-        "state": "Tillstånd",
+        "studentsWithTopic": "Studerande med detta ämne",
+        "ratio": "Kvot (%)",
+        "state": "Status",
         "actions": "Åtgärder",
         "technicalDetails": "Tekniska detaljer"
       },
-      "noData": "Inga data tillgängliga",
+      "noData": "Ingen data tillgänglig",
       "tooltips": {
-        "attendance": "Total närvaro samlad: {{total}}"
+        "attendance": "Total insamlad närvaro: {{total}}"
       },
       "buttons": {
         "showTechnical": "Visa tekniska detaljer",
@@ -172,31 +170,31 @@
       "date": "Datum",
       "time": "Tid",
       "attendance": "Närvaro",
-      "ratio": "Förhållande",
+      "ratio": "Kvot",
       "status": "Status",
       "closeLecture": "Stäng föreläsning",
-      "deleteLecture": "Radera föreläsning",
+      "deleteLecture": "Ta bort föreläsning",
       "confirmDialog": {
         "title": "Är du säker på att du vill {{action}} föreläsningen?",
-        "message": "Denna åtgärd kan inte ångras.",
+        "message": "Denna åtgärd kan inte ångras",
         "cancel": "Avbryt",
         "confirm": "Bekräfta",
         "important": {
-          "title": "⚠️ Viktigt:",
-          "message": "Denna åtgärd kan inte ångras. Föreläsningen kommer att tas bort permanent och kommer inte att räknas med i det totala närvaroresultatet."
+          "title": "Viktigt:",
+          "message": "Denna åtgärd kan inte ångras. Föreläsningen tas bort permanent och kommer inte att räknas med i den totala närvarostatistiken."
         }
       },
-      "editAttendances": "Redigera studentdeltagare"
+      "editAttendances": "Redigera studerandes närvaro"
     }
   },
   "studentAttendances": {
     "loading": "Laddar...",
-    "noData": "Inga data tillgängliga",
+    "noData": "Ingen data tillgänglig",
     "search": {
       "placeholder": "Sök efter datum"
     },
     "buttons": {
-      "printPdf": "Skriv ut till pdf",
+      "printPdf": "Skriv ut som PDF",
       "exportExcel": "Exportera till Excel"
     },
     "sort": {
@@ -206,50 +204,73 @@
   },
   "studentModify": {
     "labels": {
-      "name": "Studentens namn",
-      "email": "Studentens e-post"
+      "name": "Studerandens namn",
+      "email": "Studerandens e-post"
     },
     "buttons": {
-      "submit": "Redigera student"
+      "submit": "Ändra studerande"
     },
     "ariaLabels": {
-      "name": "Studentens namn",
-      "email": "Studentens e-post"
+      "name": "Studerandens namn",
+      "email": "Studerandens e-post"
     }
   },
   "studentsView": {
-    "title": "Dina studenter",
+    "title": "Dina studerande",
     "buttons": {
       "backToMainview": "Tillbaka till huvudvyn"
     },
     "search": {
-      "byName": "Sök efter namn",
-      "byCourse": "Sök efter kurs"
+      "byName": "Sök på namn",
+      "byCourse": "Sök på kurs",
+      "modes": {
+        "name": "Sök på namn",
+        "course": "Sök på kurskod"
+      }
     },
     "info": {
-      "searchingCourse": "Söker endast bland studenter på vald kurs.",
-      "searchingAll": "Söker bland alla studenter."
+      "searchingCourse": "Söker endast bland studerande på den valda kursen.",
+      "searchingAll": "Söker bland alla studerande."
     },
     "studentCard": {
       "email": "E-post:",
       "username": "Användarnamn:",
-      "studentNumber": "Studentnummer:",
-      "studentGroup": "Studentgrupp:",
+      "studentNumber": "Studerandenummer:",
+      "studentGroup": "Studerandegrupp:",
       "accountCreated": "Konto skapat:",
       "clickDetails": "Klicka för detaljer"
     }
   },
+  "studentList": {
+    "buttons": {
+      "showAllColumns": "Visa alla kolumner",
+      "hideExtraColumns": "Dölj extra kolumner",
+      "addStudent": "Lägg till studerande",
+      "sortColumn": "Sortera kolumn",
+      "deleteStudent": "Ta bort studerande",
+      "cancel": "Avbryt",
+      "delete": "Ta bort"
+    },
+    "dialog": {
+      "title": "Ta bort studerande",
+      "message": "Är du säker på att du vill ta bort denna studerande?"
+    },
+    "aria": {
+      "sortColumn": "Sortera kolumn",
+      "deleteStudent": "Ta bort studerande"
+    }
+  },
   "helpVideos": {
-    "title": "Lärarens hjälpvideor",
+    "title": "Hjälpvideor för lärare",
     "videos": {
       "createCourse": "Hur skapar jag en kurs?",
-      "createAttendance": "Hur skapar jag en närvaro?",
-      "accessAttendance": "Hur får jag tillgång till närvarodata på min kurs?",
-      "accessStudentDetails": "Hur får jag tillgång till mina studenters detaljer?",
-      "accessCourseDetails": "Hur får jag tillgång till och ändrar mina kursdetaljer?",
-      "accessStudentAttendance": "Hur får jag tillgång till mina studenters närvaro?",
-      "changeRole": "Hur ändrar jag min roll?",
-      "studentJoin": "Hur kan mina studenter delta i min föreläsning?"
+      "createAttendance": "Hur skapar jag närvaro?",
+      "accessAttendance": "Hur får jag tillgång till närvarodata per kurs?",
+      "accessStudentDetails": "Hur får jag tillgång till mina studerandes uppgifter?",
+      "accessCourseDetails": "Hur får jag tillgång till och ändrar mina kursuppgifter?",
+      "accessStudentAttendance": "Hur får jag tillgång till mina studerandes närvaro?",
+      "changeRole": "Hur byter jag roll?",
+      "studentJoin": "Hur kan mina studerande delta i min föreläsning?"
     }
   },
   "mainView": {
@@ -257,99 +278,154 @@
     "cards": {
       "createCourse": {
         "title": "Skapa ny kurs",
-        "description": "Skapa en ny kurs för dina studenter"
+        "description": "Skapa en ny kurs för dina studerande"
       },
       "instructions": {
         "title": "Instruktioner",
         "description": "Se instruktioner för alla tillgängliga uppgifter"
       },
       "manageStudents": {
-        "title": "Hantera studenter",
-        "description": "Hantera detaljerna för dina studenter"
+        "title": "Hantera studerande",
+        "description": "Hantera dina studerandes uppgifter"
       },
       "yourCourses": {
         "title": "Dina kurser",
-        "description": "Visa alla dina kurser"
+        "description": "Visa dina kurser"
       },
       "createLecture": {
         "title": "Skapa ny föreläsning",
-        "description": "Öppna närvarosamling"
+        "description": "Öppna närvaroinsamling"
       },
       "attendanceStats": {
         "title": "Visa närvarostatistik",
         "description": "Öppna sidan för närvarostatistik"
       },
       "lateEnrollment": {
-        "title": "Sen anmälan",
-        "description": "Registrera studenter på kurser"
+        "title": "Sen registrering",
+        "description": "Registrera studerande på kurser"
       },
       "lectureStats": {
         "title": "Statistik för dina föreläsningar",
         "description": "Visa statistik för dina föreläsningar"
       },
       "createWorkLogCourse": {
-        "title": "Skapa arbetsdagbokskurs",
-        "description": "Skapa en ny arbetsdagbokskurs för dina arbetsdagböcker"
+        "title": "Skapa arbetsloggkurs",
+        "description": "Skapa en ny arbetsloggkurs eller praktik"
       },
       "yourWorkLogCourses": {
-        "title": "Dina arbetsdagbokskurser",
-        "description": "Visa alla dina arbetsdagbokskurser"
+        "title": "Dina arbetsloggkurser",
+        "description": "Visa dina arbetsloggkurser och praktikperioder"
       },
       "studentActivity": {
-        "title": "Studentaktivitet",
-        "description": "Visa student låg aktivitetsdetaljer"
+        "title": "Studerandeaktivitet",
+        "description": "Visa detaljer om studerandes låga aktivitet"
       }
     }
   },
   "profile": {
     "title": "Lärarprofil",
-    "noData": "Inga användardata tillgängliga.",
+    "noData": "Ingen användardata tillgänglig",
     "myCourses": "Mina kurser"
+  },
+  "courseData": {
+    "title": "Fyll i kursuppgifter",
+    "labels": {
+      "description": "Beskrivning",
+      "startDate": "Startdatum:",
+      "endDate": "Slutdatum:",
+      "code": "Kod:",
+      "studentGroup": "Studerandegrupp:",
+      "topics": "Ämnen:",
+      "additionalInfo": "Ytterligare information",
+      "courseCreated": "Kurs skapad:",
+      "studentAmount": "Antal studerande",
+      "instructors": "Lärare",
+      "amountOfStudents": "Antal studerande",
+      "courseCreatedAt": "Kurs skapad",
+      "courseCode": "Kurskod",
+      "courseName": "Kursnamn"
+    },
+    "buttons": {
+      "viewDetails": "Visa detaljer",
+      "viewAttendances": "Visa närvaro"
+    },
+    "tooltips": {
+      "courseEnded": "Kursen har avslutats",
+      "modifyCourse": "Ändra denna kurs",
+      "deleteCourse": "Ta bort denna kurs"
+    },
+    "errors": {
+      "codeExists": "Kurskoden finns redan"
+    },
+    "success": {
+      "codeRestored": "Kurskoden har återställts"
+    }
+  },
+  "studentCourse": {
+    "labels": {
+      "assignedTopics": "Tilldelade ämnen:",
+      "allTopics": "Alla ämnen på kursen:",
+      "startDate": "Startdatum:",
+      "endDate": "Slutdatum:",
+      "instructors": "Lärare",
+      "searchCourses": "Sök kurser",
+      "studentGroup": "Studerandegrupp",
+      "topics": "Ämnen"
+    },
+    "buttons": {
+      "attendance": "Närvaro",
+      "editTopics": "Redigera ämnen",
+      "addStudent": "Lägg till studerande till en annan kurs",
+      "addToCourse": "Lägg till studerande till kursen"
+    },
+    "tooltips": {
+      "courseEnded": "Kursen har avslutats",
+      "removeStudent": "Ta bort studerande från kursen"
+    },
+    "noTopics": "Du har inga tilldelade ämnen på denna kurs"
+  },
+  "attendanceInstructions": {
+    "title": "Hej, du hittade de hemliga instruktionerna på denna sida!",
+    "intro": "Läs instruktionerna noggrant innan du utför några åtgärder.",
+    "instructions": {
+      "timer": "För att förlänga den automatiska avslutningstimern, uppdatera timern genom att trycka på knappen \"Återställ timer\", med hänsyn till den automatiska avslutningstiden som är inställd i serverinställningarna. Detta laddar om sidan och uppdaterar timern internt via serverns bakgrundstjänst.",
+      "studentList": "För att flytta den nedre listan med studerande, klicka och håll nere på studerandenas namn med musen eller pekplattan. Dra sedan listan i sidled för att visa fler studerandenamn som kan vara dolda.",
+      "navigation": "Undvik att navigera bort från denna sida, förutom vid uppdatering enligt den första instruktionen eller om du stänger din internetanslutning, eftersom detta kan leda till att QR-uppdateringar misslyckas eller att anslutningen till servern bryts. Detta är viktigt för att säkerställa att allt fungerar korrekt.",
+      "manualAttendance": "Manuell registrering av studerandes närvaro kan göras genom att klicka på studerandenas namn på sidan. Om du klickar på namn i den nedre listan markeras studerande som \"Närvarande\". Om du klickar på namn i listan till höger markeras studerande som \"Ej närvarande\" och de flyttas tillbaka till den nedre listan.",
+      "finishLecture": "Avsluta föreläsningen genom att klicka på knappen \"Avsluta föreläsning\". Detta markerar alla återstående studerande i den nedre listan som \"ej närvarande\".",
+      "cancelLecture": "För att avbryta föreläsningen, tryck på knappen \"Avbryt föreläsning\". Detta tar bort föreläsningen från databasen."
+    },
+    "buttons": {
+      "close": "Stäng"
+    }
+  },
+  "deleteLecture": {
+    "title": "Hantera föregående föreläsning först",
+    "subtitle": "Det finns redan en öppen föreläsning för denna kurs",
+    "details": {
+      "date": "Datum:",
+      "timeOfDay": "Tid på dagen:",
+      "teacherEmail": "Lärarens e-post:",
+      "courseCode": "Kurskod:",
+      "topicName": "Ämnesnamn:"
+    },
+    "question": "Vill du ta bort eller avsluta denna föreläsning?",
+    "explanation": "Att avsluta föreläsningen innebär att närvaro registreras för alla återstående studerande som ännu inte har markerats som närvarande genom att sätta dem som \"ej närvarande\". Att ta bort föreläsningen innebär däremot att den helt raderas från databasen.",
+    "buttons": {
+      "close": "Stäng fönstret",
+      "delete": "Ta bort föregående föreläsning",
+      "finish": "Avsluta föregående föreläsning"
+    }
   },
   "addTeachers": {
     "title": "Lägg till lärare",
-    "addAnother": "Lägg till en annan lärare",
+    "addAnother": "Lägg till en lärare till",
     "emailLabel": "E-post"
-  },
-  "courseDetails": {
-    "title": "Vänligen fyll i dina kursdetaljer",
-    "labels": {
-      "courseCode": "Kurskod",
-      "courseName": "Kursnamn",
-      "studentGroup": "Studentgrupp",
-      "startDate": "Startdatum",
-      "endDate": "Slutdatum"
-    },
-    "errors": {
-      "codeExists": "En kurs med denna kod finns redan."
-    },
-    "success": {
-      "codeRestored": "Den första kurskoden har återställts."
-    }
-  },
-  "studentList": {
-    "buttons": {
-      "showAllColumns": "Visa alla kolumner",
-      "hideExtraColumns": "Dölj extra kolumner",
-      "addStudent": "Lägg till student",
-      "sortColumn": "Sortera kolumn",
-      "deleteStudent": "Radera student",
-      "cancel": "Avbryt",
-      "delete": "Radera"
-    },
-    "dialog": {
-      "title": "Radera student",
-      "message": "Är du säker på att du vill radera denna student?"
-    },
-    "aria": {
-      "sortColumn": "Sortera kolumn",
-      "deleteStudent": "Radera student"
-    }
   },
   "topicsGroup": {
     "title": "Ämnesdetaljer",
     "buttons": {
-      "deleteGroup": "Radera vald grupp",
+      "deleteGroup": "Ta bort vald grupp",
       "createCustom": "Skapa anpassad grupp",
       "selectExisting": "Välj befintlig grupp",
       "apply": "Tillämpa",
@@ -365,37 +441,63 @@
       "customTopic": "Anpassat ämne"
     },
     "dialog": {
-      "title": "Radera ämnesgrupp",
-      "message": "Är du säker på att du vill radera ämnesgruppen?"
+      "title": "Ta bort ämnesgrupp",
+      "message": "Är du säker på att du vill ta bort ämnesgruppen?"
     },
     "errors": {
-      "groupExists": "Denna ämnesgrupp finns redan.",
+      "groupExists": "Den här ämnesgruppen finns redan.",
       "emptyTopics": "Fyll i alla tomma anpassade ämnen innan du tillämpar."
     },
     "success": {
-      "groupSaved": "Ämnesgrupp sparades framgångsrikt för {{email}}"
+      "groupSaved": "Ämnesgruppen har sparats för {{email}}"
     },
     "tooltips": {
-      "customGroup": "lägg till anpassad ämnesgrupp här exempel: \"anpassadGrupp\"",
-      "customTopic": "lägg till anpassade ämnen här exempel: \"tentamen\"",
+      "customGroup": "lägg till anpassad ämnesgrupp, till exempel: \"customGroup\"",
+      "customTopic": "lägg till anpassade ämnen, till exempel: \"exam\"",
       "removeTopic": "Ta bort anpassat ämne",
       "selectCourseGroup": "Välj kursgrupp"
     }
   },
-  "courseData": {
+  "createCourse": {
+    "title": "Skapa kurs",
+    "subtitle": "Välj metod",
+    "modes": {
+      "easy": {
+        "title": "Enkelt läge",
+        "description": "Skapa en kurs enkelt med din egen Excel-fil för studerande"
+      },
+      "custom": {
+        "title": "Anpassat läge",
+        "description": "Skapa en kurs med egna anpassade uppgifter"
+      }
+    }
+  },
+  "createCourseEasy": {
+    "title": "Lägg till kurs via Metropolias Excel-fil",
+    "fileUpload": {
+      "checkDetails": "Kontrollera kursuppgifter från öppna data"
+    },
+    "buttons": {
+      "next": "Nästa"
+    }
+  },
+  "courseDetails": {
+    "title": "Vänligen fyll i kursens uppgifter",
     "labels": {
       "description": "Beskrivning",
-      "startDate": "Startdatum:",
-      "endDate": "Slutdatum:",
+      "startDate": "Startdatum",
+      "endDate": "Slutdatum",
       "code": "Kod:",
-      "studentGroup": "Studentgrupp:",
+      "studentGroup": "Studerandegrupp",
       "topics": "Ämnen:",
       "additionalInfo": "Ytterligare information",
       "courseCreated": "Kurs skapad:",
-      "studentAmount": "Antal studenter",
-      "instructors": "Instruktörer",
-      "amountOfStudents": "Antal studenter",
-      "courseCreatedAt": "Kurs skapad"
+      "studentAmount": "Antal studerande",
+      "instructors": "Lärare",
+      "amountOfStudents": "Antal studerande",
+      "courseCreatedAt": "Kurs skapad",
+      "courseCode": "Kurskod",
+      "courseName": "Kursnamn"
     },
     "buttons": {
       "viewDetails": "Visa detaljer",
@@ -404,193 +506,62 @@
     "tooltips": {
       "courseEnded": "Kursen har avslutats",
       "modifyCourse": "Ändra denna kurs",
-      "deleteCourse": "Radera denna kurs"
-    }
-  },
-  "studentCourse": {
-    "labels": {
-      "assignedTopics": "Tilldelade ämnen:",
-      "allTopics": "Alla ämnen på kursen:",
-      "startDate": "Startdatum:",
-      "endDate": "Slutdatum:",
-      "instructors": "Instruktörer",
-      "searchCourses": "Sök kurser",
-      "studentGroup": "Studentgrupp",
-      "topics": "Ämnen"
+      "deleteCourse": "Ta bort denna kurs"
     },
-    "buttons": {
-      "attendance": "Närvaro",
-      "editTopics": "Redigera ämnen för student",
-      "addStudent": "Lägg till student till annan kurs",
-      "addToCourse": "Lägg till student till kurs"
-    },
-    "tooltips": {
-      "courseEnded": "Kursen har avslutats",
-      "removeStudent": "Ta bort student från kurs"
-    },
-    "noTopics": "Du har inga tilldelade ämnen på denna kurs"
-  },
-  "attendanceInstructions": {
-    "title": "Hej, du har hittat de hemliga instruktionerna på den här sidan!",
-    "intro": "Läs instruktionerna noggrant innan du utför några åtgärder.",
-    "instructions": {
-      "timer": "För att förlänga den övergripande autoupplösningstimern, uppdatera timern genom att trycka på \"Återställ timer\"-knappen, med hänsyn till den automatiska slutförandetiden som är inställd i serverinställningarna. Detta laddar om sidan och uppdaterar internt timern genom serverns bakgrundstjänst.",
-      "studentList": "För att omplacera den nedre listan över studenter, klicka och håll på namn av studenterna med musen/pekplattan. Dra sedan åt sidan för att visa ytterligare studentnamn som kan vara dolda från vyn om det behövs.",
-      "navigation": "Undvik att navigera bort från den här sidan, utom att uppdatera som angivet i det första alternativet, eller stänga din internetanslutning, eftersom det kan leda till att QR-uppdateringar misslyckas eller förlorad anslutning med servern. Detta är avgörande för att säkerställa att allt fungerar som avsett.",
-      "manualAttendance": "Manuell insättning av studentnärvara kan utföras genom att klicka på studenternas namn på sidan. Klicka på namn i nedre listan markerar studenter som 'Närvarande'. Klicka på namn i högra sidan markerar studenter som 'Inte närvarande', och de kommer att återgå till den nedre listan.",
-      "finishLecture": "Avsluta föreläsningen genom att klicka på \"Avsluta föreläsning\"-knappen. Denna åtgärd kommer att markera de återstående studenterna i nedre listan som \"inte närvarande\".",
-      "cancelLecture": "För att avbryta föreläsningen, tryck helt enkelt på \"Avbryt föreläsning\"-knappen. Denna åtgärd kommer att ta bort föreläsningen från databasen."
-    },
-    "buttons": {
-      "close": "Stäng"
-    }
-  },
-  "deleteLecture": {
-    "title": "Ta itu med tidigare föreläsning först",
-    "subtitle": "Det finns redan en öppen föreläsning för denna kurs.",
-    "details": {
-      "date": "Datum:",
-      "timeOfDay": "Tid på dagen:",
-      "teacherEmail": "Lärarens e-post:",
-      "courseCode": "Kurskod:",
-      "topicName": "Ämnesnamn:"
-    },
-    "question": "Vill du radera den eller avsluta den?",
-    "explanation": "Avsluta föreläsningen innebär att man registrerar närvaro för alla återstående studenter som ännu inte har markerats som närvarande genom att markera dem som \"inte närvarande\". Radering betyder å andra sidan att föreläsningen tas bort helt och hållet från databasen.",
-    "buttons": {
-      "close": "Stäng detta fönster",
-      "delete": "Radera tidigare föreläsning",
-      "finish": "Avsluta tidigare föreläsning"
-    }
-  },
-  "attendance": {
     "errors": {
-      "noUser": "Ingen användarinformation tillgänglig",
-      "noLectureId": "Inget föreläsnings-ID angivet",
-      "lectureClosed": "Föreläsningen är redan stängd",
-      "getLectureInfo": "Fel vid hämtning av föreläsningsinformation",
-      "socketNotConnected": "Socket är inte ansluten",
-      "insertStudent": "Fel vid insättning av student",
-      "emptyStudentNumber": "Studentnumret är tomt",
-      "removeStudent": "Fel vid borttagning av student"
+      "codeExists": "En kurs med denna kod finns redan."
     },
     "success": {
-      "infoRetrieved": "Föreläsningsinformation hämtad framgångsrikt",
-      "studentInserted": "Student tillagd framgångsrikt",
-      "studentRemoved": "Student borttagen framgångsrikt",
-      "lectureCanceled": "Föreläsning avbruten framgångsrikt",
-      "lectureFinished": "Föreläsningen avslutad",
-      "socketConnected": "Ansluten till servern"
-    },
-    "labels": {
-      "allStudentsPresent": "Alla studenter är här!",
-      "autoFinish": "Automatiskt avslut om {{minutes}} minuter {{seconds}} sekunder",
-      "connectionLatency": "Anslutningsfördröjning: {{latency}}ms",
-      "studentInserted": "Student tillagd framgångsrikt",
-      "studentRemoved": "Student borttagen framgångsrikt",
-      "studentNumberEmpty": "Studentnumret är tomt",
-      "lectureCanceled": "Föreläsning avbruten framgångsrikt",
-      "lectureFinished": "Föreläsning avslutad",
-      "loadingComponent": "Laddar närvarorum...",
-      "socketConnected": "Ansluten till servern",
-      "socketConnectionFailed": "Anslutning till servern misslyckades",
-      "socketReconnecting": "Försöker återansluta..."
-    },
-    "instructions": {
-      "qrScanning": "Visa denna QR-kod för studenter att skanna",
-      "manualInput": "Du kan också manuellt markera studenter som närvarande/frånvarande",
-      "viewMode": "Växla vylägen för att hantera närvaro bättre"
-    },
-    "buttons": {
-      "resetTimer": "Återställ timer",
-      "cancelLecture": "Avbryt föreläsning",
-      "finishLecture": "Avsluta föreläsning",
-      "toggleScrollView": "Växla rullningsvy",
-      "toggleWiderNames": "Växla bredare namn",
-      "hideQRCode": "Dölj QR-kod",
-      "showQRCode": "Visa QR-kod",
-      "finishNow": "Slut nu",
-      "waitForTimer": "Vänta på timern"
-    },
-    "tooltips": {
-      "attendanceStats": "{{attended}} Närvarande, {{notAttended}} Frånvarande, Totalt: {{total}}",
-      "deleteLecture": "Radera denna föreläsning",
-      "finishLecture": "Avsluta föreläsningen och markera resterande studenter i nedre listan som frånvarande",
-      "settings": "Alternativa inställningar"
-    },
-    "cards": {
-      "info": "Föreläsningsinformation",
-      "course": "Kurs",
-      "topic": "Ämne"
-    },
-    "dialogs": {
-      "cancelLecture": {
-        "title": "Avbryta föreläsning?",
-        "message": "Är du säker på att du vill avbryta denna föreläsning? Detta kommer att radera föreläsningen från databasen och kan inte ångras."
-      },
-      "success": {
-        "title": "Alla studenter är närvarande!",
-        "allPresent": "Alla har anlänt!",
-        "options": "Du kan avsluta nu eller vänta {{seconds}} sekunder på automatiskt avslut.",
-        "finishing": "Avslutar föreläsningen automatiskt..."
-      }
-    },
-    "settings": {
-      "title": "Inställningar",
-      "guide": "Guide",
-      "showSettings": "Visa inställningar",
-      "showGuide": "Visa guide",
-      "close": "Stäng",
-      "networkStatus": {
-        "title": "Nätverksstatus",
-        "connectionLatency": "Anslutningsfördröjning:",
-        "excellent": "Utmärkt anslutning",
-        "good": "Bra anslutning",
-        "poor": "Dålig anslutning"
-      },
-      "toggles": {
-        "stopAnimation": "Stoppa animation",
-        "enableScroll": "Aktivera rullning",
-        "widerNames": "Bredare namn",
-        "hideQR": "Dölj QR-kod"
-      }
+      "codeRestored": "Den första kurskoden har återställts."
     }
   },
   "worklog": {
+    "title": "Dina arbetsloggkurser",
     "detail": {
       "backtogroups": "Tillbaka till grupper",
-      "backToWorklog": "Tillbaka till arbetsdagböcker"
+      "title": "Arbetsloggdetaljer",
+      "backToWorklog": "Tillbaka till arbetslogg"
+    },
+    "create": {
+      "title": "Lägg till ny arbetsloggkurs",
+      "subtitle": "Välj mellan lägen",
+      "modes": {
+        "easy": {
+          "title": "Arbetslogg",
+          "subtitle": "Enkelt läge",
+          "description": "Skapa en arbetsloggkurs med en Excel-fil"
+        },
+        "custom": {
+          "title": "Arbetslogg",
+          "subtitle": "Anpassat läge",
+          "description": "Skapa en arbetsloggkurs manuellt"
+        },
+        "practicum": {
+          "title": "Praktik",
+          "description": "Skapa en praktik­kurs"
+        }
+      }
+    },
+    "custom": {
+      "header": {
+        "title": "Uppgifter för arbetsloggkurs",
+        "subtitle": "Fyll i kursinformation"
+      }
+    },
+    "errors": {
+      "createFailed": "Misslyckades med att skapa arbetsloggkurs",
+      "groupNotFound": "Gruppen hittades inte",
+      "studentsNotFound": "Alla studerande hittades inte i systemet. Lägg till saknade studerande innan du fortsätter"
     },
     "details": {
-      "title": "Arbetsdagbokskurs",
+      "title": "Arbetsloggdetaljer",
       "name": "Kursnamn",
       "code": "Kurskod",
       "description": "Beskrivning",
       "requiredHours": "Obligatoriska timmar",
       "startDate": "Startdatum",
-      "endDate": "Slutdatum"
-    },
-    "create": {
-      "title": "Lägg till ny arbetsdagbokskurs",
-      "subtitle": "Välj mellan alternativ",
-      "modes": {
-        "easy": {
-          "title": "Enkelt läge",
-          "description": "Skapa en arbetsdagbokskurs med Excel-fil"
-        },
-        "custom": {
-          "title": "Anpassat läge",
-          "description": "Skapa en arbetsdagbokskurs manuellt"
-        },
-        "practicum": {
-          "title": "Praktikläge",
-          "description": "Skapa ett praktikum för praktikspårning"
-        }
-      }
-    },
-    "errors": {
-      "groupNotFound": "Grupp inte hittad",
-      "createFailed": "Det gick inte att skapa arbetsloggskursen"
+      "endDate": "Slutdatum",
+      "studentName": "Studerandens namn"
     },
     "data": {
       "courseCode": "Kurskod",
@@ -600,86 +571,29 @@
       "description": "Beskrivning",
       "courseEnded": "Kursen har avslutats",
       "modifyCourse": "Ändra denna kurs",
-      "deleteCourse": "Radera denna kurs",
+      "deleteCourse": "Ta bort denna kurs",
       "viewCourse": "Visa kurs",
       "courseCreatedAt": "Kurs skapad",
-      "studentCount": "Antal studenter",
+      "studentCount": "Antal studerande",
       "instructors": "Lärare",
       "noInstructors": "Inga lärare tilldelade",
       "additionalInfo": "Ytterligare information",
-      "deleteSuccess": "Arbetsloggskurs raderades framgångsrikt",
+      "deleteSuccess": "Arbetsloggkursen har tagits bort",
       "createdAt": "Skapad",
       "viewGroups": "Visa grupper",
-      "studentName": "Studentens namn"
+      "viewEntries": "Visa poster",
+      "viewPracticum": "Visa praktik",
+      "studentName": "Studerandens namn"
     },
     "modify": {
-      "title": "Ändra arbetsloggskurs",
+      "title": "Ändra arbetsloggkurs",
       "loading": "Laddar...",
-      "backToWorklog": "Tillbaka till arbetsloggen",
+      "backToWorklog": "Tillbaka till arbetsloggar",
       "instructors": "Ändra lärare",
       "save": "Spara ändringar",
-      "success": "Arbetsloggskurs ändrades framgångsrikt"
+      "success": "Arbetsloggkursen har ändrats"
     },
-    "groups": {
-      "addToGroup": "Lägg till i grupp",
-      "back": "Tillbaka",
-      "addStudentsToGroup": "Lägg till studenter i gruppen",
-      "errors": {
-        "nameRequired": "Gruppnamn krävs",
-        "createFailed": "Det gick inte att skapa gruppen: {{message}}",
-        "unknown": "Ett okänt fel uppstod när gruppen skapades",
-        "failedToRemove": "Misslyckades med att ta bort studenten från gruppen"
-      },
-      "warnings": {
-        "studentsNotAdded": "Studenter har inte lagts till i gruppen"
-      },
-      "students": {
-        "title": "Kursens studenter",
-        "select": "Välj studenter att lägga till i grupper"
-      },
-      "allStudentsAssigned": "Alla studenter har tilldelats",
-      "addStudents": "Lägg till valda studenter",
-      "studentsAdded": "Studenter har lagts till i gruppen",
-      "studentRemoved": "Student borttagen från gruppen framgångsrikt",
-      "studentCount": "{{count}} studenter",
-      "title": "Kursgrupper",
-      "createGroup": "Skapa grupp",
-      "createNew": "Skapa ny grupp",
-      "groupName": "Gruppnamn",
-      "selectStudents": "Välj studenter",
-      "groupsTitle": "Befintliga grupper",
-      "noGroups": "Inga grupper har skapats ännu.",
-      "createSuccess": "Gruppen skapades framgångsrikt",
-      "stats": "Visa statistik",
-      "entries": "Gruppposter",
-      "save": ""
-    },
-    "status": {
-      "0": "Fel",
-      "1": "Inloggad",
-      "2": "Utloggad",
-      "3": "Kontrollerad"
-    },
-    "stats": {
-      "title": "Arbetsloggstatistik",
-      "courseProgress": "Kursframsteg",
-      "studentProgress": "Studentframsteg",
-      "totalProgress": "Totalt framsteg",
-      "completed": "Slutfört",
-      "remaining": "Återstående",
-      "required": "Krävt",
-      "totalCompleted": "Totalt slutfört",
-      "noHoursCompleted": "Inga studenter har slutfört några timmar"
-    },
-    "deleteSuccess": "Arbetslogg raderad framgångsrikt",
-    "noInstructors": "Inga lärare tilldelade",
-    "error": {
-      "codeExists": "En arbetslogg med denna kod finns redan"
-    },
-    "success": {
-      "codeRestored": "Koden har återställts",
-      "courseCreated": "Arbetsloggkurs skapades framgångsrikt"
-    },
+    "modifySuccess": "Arbetsloggkursen har ändrats",
     "form": {
       "checking": "Kontrollerar...",
       "success": {
@@ -690,8 +604,8 @@
       "description": "Kursbeskrivning",
       "submit": "Skapa kurs",
       "startDate": "Startdatum",
-      "requiredHours": "Obligatoriska timmar",
       "endDate": "Slutdatum",
+      "requiredHours": "Obligatoriska timmar",
       "nameRequired": "Namn krävs",
       "descriptionRequired": "Beskrivning krävs",
       "startDateRequired": "Startdatum krävs",
@@ -699,59 +613,243 @@
       "endDateError": "Slutdatum måste vara efter startdatum",
       "requiredHoursError": "Obligatoriska timmar måste vara större än 0",
       "errors": {
-        "codeExists": "En arbetslogg med denna kod finns redan"
+        "codeExists": "En arbetsloggkurs med denna kod finns redan"
       }
     },
-    "modifySuccess": "Arbetslogg ändrad framgångsrikt",
-    "title": "Arbetsloggar",
+    "success": {
+      "courseCreated": "Arbetsloggkurs skapad",
+      "codeRestored": "Koden har återställts"
+    },
+    "groups": {
+      "students": {
+        "title": "Kursens studerande",
+        "select": "Välj studerande att lägga till i grupper"
+      },
+      "errors": {
+        "nameRequired": "Namn krävs",
+        "createFailed": "Misslyckades med att skapa grupp: {{message}}",
+        "unknown": "Ett okänt fel uppstod vid skapande av grupp",
+        "failedToRemove": "Misslyckades med att ta bort studerande från grupp"
+      },
+      "warnings": {
+        "studentsNotAdded": "Inga studerande har lagts till i denna grupp"
+      },
+      "allStudentsAssigned": "Alla studerande har tilldelats grupper",
+      "addStudents": "Lägg till valda studerande",
+      "studentsAdded": "Studerande har lagts till i gruppen",
+      "studentRemoved": "Studerande har tagits bort från gruppen",
+      "studentCount": "{{count}} studerande",
+      "title": "Kursgrupper",
+      "subtitle": "Granska befintliga arbetslogggrupper eller skapa en ny grupp",
+      "createGroup": "Skapa grupp",
+      "createNew": "Skapa ny grupp",
+      "groupName": "Gruppnamn",
+      "selectStudents": "Välj studerande",
+      "groupsTitle": "Befintliga grupper",
+      "noGroups": "Inga grupper har skapats ännu",
+      "group": "Grupp",
+      "groupDetailsSubtitle": "Gruppdetaljer",
+      "viewGroup": "Grupp",
+      "createSuccess": "Grupp skapad",
+      "entries": "Gruppposter",
+      "stats": "Statistik",
+      "addToGroup": "Lägg till studerande i grupp",
+      "addStudentsToGroup": "Lägg till studerande i grupp",
+      "back": "Tillbaka",
+      "close": "Stäng",
+      "save": "Spara"
+    },
     "entries": {
       "name": "Namn",
-      "title": "Praktikummärkningar",
-      "totalEntries": "Totalt antal märkningar",
-      "totalHours": "Totalt loggade timmar",
-      "studentName": "Studentens namn",
-      "noStudent": "Ingen student tilldelad",
-      "progress": "Framsteg",
-      "required": "krävs",
-      "allEntries": "Alla poster",
-      "noEntries": "Inga poster hittades för detta praktikum",
       "date": "Datum",
-      "startTime": "Starttid",
-      "endTime": "Sluttid",
       "hours": "Timmar",
+      "start": "Start",
+      "end": "Slut",
+      "total": "Loggade timmar",
+      "entries": "Poster",
       "description": "Beskrivning",
       "status": "Status",
+      "time": "Tid",
+      "duration": "Varaktighet",
       "actions": "Åtgärder",
-      "deleted": "Inlägg raderat framgångsrikt",
-      "confirmDelete": "Radera inlägg",
-      "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg från {{date}}?",
+      "deleted": "Posten har tagits bort",
+      "confirmDelete": "Ta bort post",
+      "confirmDeleteMessage": "Är du säker på att du vill ta bort posten från {{date}}?",
       "errors": {
-        "failedToDelete": "Misslyckades med att radera inlägget"
+        "failedToDelete": "Misslyckades med att ta bort posten"
+      }
+    },
+    "status": {
+      "0": "Status: Fel",
+      "1": "Status: Inloggad",
+      "2": "Status: Utloggad",
+      "3": "Status: Kontrollerad"
+    },
+    "stats": {
+      "title": "Arbetsloggstatistik",
+      "courseProgress": "Kursens framsteg",
+      "studentProgress": "Studerandes framsteg",
+      "totalProgress": "Totala framsteg",
+      "completed": "Slutfört",
+      "remaining": "Återstående",
+      "required": "Krävs",
+      "totalCompleted": "Totalt slutfört",
+      "noHoursCompleted": "Inga studerande har slutfört några timmar",
+      "labels": {
+        "required": "Krävs",
+        "completed": "Slutfört",
+        "remaining": "Återstående",
+        "progress": "Framsteg",
+        "student": "Studerande",
+        "hours": "Timmar"
+      }
+    },
+    "deleteSuccess": "Arbetsloggkursen har tagits bort",
+    "noInstructors": "Inga lärare tilldelade",
+    "error": {
+      "codeExists": "En arbetsloggkurs med denna kod finns redan"
+    },
+    "createEasy": {
+      "title": "Lägg till ny arbetsloggkurs med Excel",
+      "fileUpload": {
+        "clickToUpload": "Klicka här för att ladda upp en fil",
+        "uploadExcel": "Ladda upp en Excel-fil",
+        "fileSelectedChange": "Fil vald – klicka igen för att ändra",
+        "noFileSelected": "Ingen fil vald",
+        "checkDetails": "Kontrollera kursuppgifter från öppna data"
       },
-      "time": "Tid"
+      "buttons": {
+        "next": "Nästa"
+      },
+      "toasts": {
+        "excelUploaded": "Excel-filen har laddats upp",
+        "excelUploadFailed": "Misslyckades med att ladda upp Excel-filen",
+        "excelUploadFailedCheckFile": "Misslyckades med att ladda upp Excel-filen, kontrollera filen",
+        "worklogCreated": "Arbetsloggkurs skapad",
+        "worklogCreateFailed": "Misslyckades med att skapa arbetsloggkurs",
+        "worklogCreateNoId": "Misslyckades med att skapa arbetsloggkurs – ID saknas"
+      }
+    }
+  },
+  "attendance": {
+    "errors": {
+      "noUser": "Ingen användarinformation tillgänglig",
+      "noLectureId": "Ingen föreläsnings-ID angiven",
+      "lectureClosed": "Föreläsningen är redan stängd",
+      "getLectureInfo": "Fel vid hämtning av föreläsningsinformation",
+      "socketNotConnected": "Socket är inte ansluten",
+      "insertStudent": "Fel vid tillägg av studerande",
+      "emptyStudentNumber": "Studerandenummer är tomt",
+      "removeStudent": "Fel vid borttagning av studerande",
+      "status": {
+        "absent": "Frånvarande",
+        "present": "Närvarande",
+        "acceptedAbsence": "Godkänd frånvaro"
+      }
+    },
+    "success": {
+      "infoRetrieved": "Föreläsningsinformation hämtades",
+      "studentInserted": "Studerande lades till",
+      "studentRemoved": "Studerande togs bort",
+      "lectureCanceled": "Föreläsningen avbröts",
+      "lectureFinished": "Föreläsningen avslutades",
+      "socketConnected": "Ansluten till servern"
+    },
+    "labels": {
+      "allStudentsPresent": "Alla studerande är här!",
+      "autoFinish": "Automatiskt avslut om {{minutes}} minuter {{seconds}} sekunder",
+      "connectionLatency": "Anslutningslatens: {{latency}} ms",
+      "loadingComponent": "Laddar närvarorum...",
+      "socketConnected": "Ansluten till servern",
+      "socketConnectionFailed": "Serveranslutningen misslyckades",
+      "socketReconnecting": "Återansluter..."
+    },
+    "buttons": {
+      "resetTimer": "Återställ timer",
+      "cancelLecture": "Avbryt föreläsning",
+      "finishLecture": "Avsluta föreläsning",
+      "toggleScrollView": "Växla rullningsläge",
+      "toggleWiderNames": "Växla bredare namn",
+      "hideQRCode": "Dölj QR-kod",
+      "showQRCode": "Visa QR-kod",
+      "waitForTimer": "Vänta på timer",
+      "finishNow": "Avsluta nu"
+    },
+    "dialogs": {
+      "cancelLecture": {
+        "title": "Avbryt föreläsning?",
+        "message": "Är du säker på att du vill avbryta denna föreläsning? Detta tar bort föreläsningen från databasen och kan inte ångras."
+      },
+      "success": {
+        "title": "Alla studerande närvarande",
+        "allPresent": "Alla har anlänt",
+        "options": "Du kan avsluta nu eller vänta {{seconds}} sekunder på automatiskt avslut.",
+        "finishing": "Föreläsningen avslutas automatiskt..."
+      }
+    },
+    "tooltips": {
+      "attendanceStats": "{{attended}} närvarande, {{notAttended}} frånvarande, totalt: {{total}}",
+      "deleteLecture": "Ta bort denna föreläsning",
+      "finishLecture": "Avsluta föreläsningen och markera resterande studerande i den nedre listan som frånvarande",
+      "settings": "Alternativa inställningar"
+    },
+    "cards": {
+      "info": "Föreläsningsinformation",
+      "course": "Kurs",
+      "topic": "Ämne"
+    },
+    "instructions": {
+      "qrScanning": "Visa denna QR-kod för studerande att skanna",
+      "manualInput": "Du kan också markera studerande som närvarande eller frånvarande manuellt",
+      "viewMode": "Byt visningsläge för att hantera närvaro mer effektivt"
+    },
+    "settings": {
+      "title": "Inställningar",
+      "guide": "Guide",
+      "showSettings": "Visa inställningar",
+      "showGuide": "Visa guide",
+      "close": "Stäng",
+      "networkStatus": {
+        "title": "Nätverksstatus",
+        "connectionLatency": "Anslutningslatens:",
+        "excellent": "Utmärkt anslutning",
+        "good": "Bra anslutning",
+        "poor": "Dålig anslutning"
+      },
+      "toggles": {
+        "stopAnimation": "Stoppa animation",
+        "enableScroll": "Aktivera rullning",
+        "widerNames": "Bredare namn",
+        "hideQR": "Dölj QR-kod"
+      }
+    },
+    "status": {
+      "absent": "Frånvarande",
+      "present": "Närvarande",
+      "acceptedAbsence": "Godkänd frånvaro"
     }
   },
   "courseStudents": {
-    "allStudentsHere": "Alla studenter är här. Automatisk avslutning om {{seconds}} sekunder",
-    "finishingLecture": "Avslutar föreläsning...",
-    "manualInsert": "Manuell insättning av student"
+    "allStudentsHere": "Alla studerande är här. Avslutas automatiskt om {{seconds}} sekunder",
+    "finishingLecture": "Avslutar föreläsningen...",
+    "manualInsert": "Manuell registrering av studerande"
   },
   "courseActivity": {
-    "back": "Tillbaka till MainView",
-    "title": "Studenter med låg aktivitet i kurser",
-    "studentsNotAttending": "Studenter som inte deltar"
+    "back": "Tillbaka till huvudvyn",
+    "title": "Studerande med låg aktivitet i kurser",
+    "studentsNotAttending": "Studerande som inte deltar"
   },
   "practicum": {
-    "title": "Praktikum",
-    "createTitle": "Skapa nytt praktikum",
-    "modifyTitle": "Ändra praktikum",
+    "title": "Praktik",
+    "createTitle": "Skapa ny praktik",
+    "modifyTitle": "Ändra praktik",
     "form": {
-      "name": "Kursnamn",
-      "description": "Kursbeskrivning",
+      "name": "Praktiknamn",
+      "description": "Praktikbeskrivning",
       "startDate": "Startdatum",
       "endDate": "Slutdatum",
       "requiredHours": "Obligatoriska timmar",
-      "submit": "Skapa praktikum",
+      "submit": "Skapa praktik",
       "nameRequired": "Namn krävs",
       "descriptionRequired": "Beskrivning krävs",
       "startDateRequired": "Startdatum krävs",
@@ -760,56 +858,57 @@
       "requiredHoursError": "Obligatoriska timmar måste vara större än 0"
     },
     "details": {
-      "title": "Praktikum-detaljer",
-      "name": "Namn",
-      "code": "Kurskod",
+      "title": "Praktikdetaljer",
+      "name": "Praktiknamn",
+      "code": "Praktikkod",
       "description": "Beskrivning",
       "requiredHours": "Obligatoriska timmar",
       "startDate": "Startdatum",
-      "endDate": "Slutdatum"
+      "endDate": "Slutdatum",
+      "backToWorklog": "Tillbaka till arbetsloggar"
     },
     "data": {
       "startDate": "Startdatum",
       "endDate": "Slutdatum",
       "requiredHours": "Obligatoriska timmar",
       "description": "Beskrivning",
-      "practicumEnded": "Praktikum har avslutats",
-      "modifyPracticum": "Ändra detta praktikum",
-      "deletePracticum": "Radera detta praktikum",
-      "viewPracticum": "Visa praktikum",
+      "practicumEnded": "Praktiken har avslutats",
+      "modifyPracticum": "Ändra denna praktik",
+      "deletePracticum": "Ta bort denna praktik",
+      "viewPracticum": "Visa praktik",
+      "viewEntries": "Visa poster",
       "createdAt": "Skapad",
-      "studentCount": "Antal studenter",
+      "studentCount": "Antal studerande",
       "instructors": "Handledare",
       "additionalInfo": "Ytterligare information",
-      "viewEntries": "Visa poster",
-      "studentName": "Studentens namn"
+      "studentName": "Studerandens namn"
     },
     "steps": {
-      "details": "Praktikum-detaljer",
-      "students": "Lägg till studenter",
+      "details": "Praktikuppgifter",
+      "students": "Lägg till studerande",
       "instructors": "Lägg till handledare",
       "next": "Nästa",
       "previous": "Föregående",
-      "submit": "Skapa praktikum"
+      "submit": "Skapa praktik"
     },
     "noInstructors": "Inga handledare tilldelade",
-    "deleteSuccess": "Praktikum raderades framgångsrikt",
-    "createdSuccessfully": "Praktikum skapades framgångsrikt",
-    "studentAssigned": "Student tilldelades framgångsrikt",
-    "studentAssignmentFailed": "Misslyckades med att tilldela student",
-    "fillRequiredFields": "Vänligen fyll i alla obligatoriska fält",
-    "modifySuccess": "Praktikum ändrades framgångsrikt",
-    "addStudent": "Lägg till student",
-    "selectStudent": "Välj student",
-    "studentPlaceholder": "Skriv för att söka studenter",
-    "searchExistingStudents": "Sök efter befintliga studenter",
-    "noStudentsFound": "Inga studenter hittades",
-    "selectedStudent": "Vald student",
-    "backToPracticums": "Tillbaka till praktikum",
+    "deleteSuccess": "Praktiken har tagits bort",
+    "createdSuccessfully": "Praktiken har skapats",
+    "studentAssigned": "Studerande har tilldelats praktiken",
+    "studentAssignmentFailed": "Misslyckades med att tilldela studerande till praktiken",
+    "fillRequiredFields": "Fyll i alla obligatoriska fält",
+    "modifySuccess": "Praktiken har ändrats",
+    "addStudent": "Lägg till studerande",
+    "selectStudent": "Välj studerande",
+    "studentPlaceholder": "Sök studerande",
+    "searchExistingStudents": "Sök befintliga studerande",
+    "noStudentsFound": "Inga studerande hittades",
+    "selectedStudent": "Vald studerande",
+    "studentSelected": "Studerande vald",
+    "backToPracticums": "Tillbaka till praktik",
     "save": "Spara ändringar",
-    "create": "Skapa praktikum",
-    "searchByName": "Sök efter namn",
-    "studentSelected": "Student valdes framgångsrikt",
+    "create": "Skapa praktik",
+    "searchByName": "Sök på namn",
     "endDateMustBeAfterStartDate": "Slutdatum måste vara efter startdatum",
     "entryStatus": {
       "0": "Status: Fel",
@@ -818,68 +917,165 @@
       "3": "Status: Kontrollerad"
     },
     "workHours": "Arbetstimmar",
-    "studentName": "Studentens namn",
-    "studentEmail": "Studentens e-post",
+    "studentName": "Studerandens namn",
+    "studentEmail": "Studerandens e-post",
     "stepButtons": {
       "previous": "Föregående",
       "next": "Nästa",
-      "submit": "Skicka in",
-      "create": "Skapa praktikum"
+      "submit": "Skicka",
+      "create": "Skapa praktik"
     },
     "createMode": {
-      "title": "Skapa praktikum",
-      "description": "Skapa ett nytt praktikum för praktikspårning"
+      "title": "Skapa praktik",
+      "description": "Skapa en ny praktik för uppföljning av arbetsplatsförlagd utbildning"
     },
     "entries": {
-      "title": "Praktikummärkningar",
-      "totalEntries": "Totalt antal märkningar",
+      "title": "Praktikposter",
+      "totalEntries": "Totalt antal poster",
       "totalHours": "Totalt loggade timmar",
-      "studentName": "Studentens namn",
-      "noStudent": "Ingen student tilldelad",
+      "studentName": "Studerandens namn",
+      "noStudent": "Ingen studerande tilldelad",
       "progress": "Framsteg",
       "required": "krävs",
       "allEntries": "Alla poster",
-      "noEntries": "Inga poster hittades för detta praktikum",
+      "noEntries": "Inga poster hittades för denna praktik",
       "date": "Datum",
       "startTime": "Starttid",
       "endTime": "Sluttid",
+      "start": "Start",
+      "end": "Slut",
       "hours": "Timmar",
       "description": "Beskrivning",
       "status": "Status",
       "actions": "Åtgärder",
-      "deleted": "Inlägg raderat framgångsrikt",
-      "confirmDelete": "Radera inlägg",
-      "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg från {{date}}?",
+      "deleted": "Posten har tagits bort",
+      "confirmDelete": "Ta bort post",
+      "confirmDeleteMessage": "Är du säker på att du vill ta bort posten från {{date}}?",
       "errors": {
-        "failedToDelete": "Misslyckades med att radera inlägget"
+        "failedToDelete": "Misslyckades med att ta bort posten"
       }
     },
-    "findStudent": "Hitta student",
-    "searchStudentByName": "Sök student med namn, e-post eller studentnummer",
-    "searchPlaceholder": "Ange namn, e-post eller studentnummer",
-    "matchingStudents": "Matchande studenter",
-    "checkStudentGuide": "Kontrollera om studenten finns i systemet baserat på namn, e-post eller studentnummer.",
-    "lateEnrollmentLink": "Om studenten inte hittas kan du lägga till studenten i systemet här"
+    "findStudent": "Sök studerande",
+    "searchStudentByName": "Sök studerande på namn, e-post eller studerandenummer",
+    "searchPlaceholder": "Ange namn, e-post eller studerandenummer",
+    "matchingStudents": "Matchande studerande",
+    "checkStudentGuide": "Kontrollera om studeranden finns i systemet baserat på namn, e-post eller studerandenummer.",
+    "lateEnrollmentLink": "Om studeranden inte hittas kan du lägga till hen i systemet här"
   },
   "buttons": {
     "previous": "Föregående",
     "next": "Nästa",
-    "createCourse": "Skapa kurs",
-    "createWorklog": "Skapa arbetslogg"
+    "createWorklog": "Skapa arbetslogg",
+    "createCourse": "Skapa kurs"
   },
   "toasts": {
     "success": {
-      "saved": "Sparad framgångsrikt",
-      "deleted": "Raderad framgångsrikt",
-      "updated": "Uppdaterad framgångsrikt"
+      "saved": "Sparades",
+      "deleted": "Raderades",
+      "updated": "Uppdaterades",
+      "mainView": {
+        "greeting": "Hej!",
+        "greetingWithName": "Hej {{name}}!",
+        "todayIs": "Idag är det {{date}}",
+        "cards": {
+          "createLecture": {
+            "title": "Skapa ny föreläsning",
+            "description": "Öppna en ny föreläsning och börja samla närvaro"
+          }
+        }
+      },
+      "topNav": {
+        "home": "Hem",
+        "menuLabel": "Hem",
+        "lectures": "Föreläsningar",
+        "courses": "Kurser",
+        "students": "Studerande",
+        "help": "Support",
+        "feedback": "Feedback",
+        "lecturesHome": "Hem (föreläsningar)"
+      }
     },
     "error": {
-      "saveFailed": "Misslyckades att spara",
-      "deleteFailed": "Misslyckades att radera",
-      "updateFailed": "Misslyckades att uppdatera",
-      "loadStatsFailed": "Misslyckades att ladda statistik",
-      "addStudentsFailed": "Misslyckades att lägga till studenter",
-      "tokenMissing": "Användartokenet saknas"
+      "saveFailed": "Misslyckades med att spara",
+      "deleteFailed": "Misslyckades med att radera",
+      "updateFailed": "Misslyckades med att uppdatera",
+      "loadStatsFailed": "Misslyckades med att ladda statistik",
+      "addStudentsFailed": "Misslyckades med att lägga till studerande",
+      "tokenMissing": "Användartoken saknas"
+    },
+    "topNav": {
+      "home": "Hem",
+      "lectures": "Föreläsningar",
+      "courses": "Kurser",
+      "stats": "Statistik",
+      "students": "Studerande",
+      "help": "Hjälp",
+      "feedback": "Feedback",
+      "lecturesHome": "Hem (föreläsningar)",
+      "menuLabel": "Meny"
+    },
+    "mainViewTitle": {
+      "dashboard": "Lärarens instrumentpanel"
+    },
+    "mainView": {
+      "greeting": "Hej!",
+      "greetingWithName": "Hej {{name}}!",
+      "todayIs": "Idag är det {{date}}",
+      "cards": {
+        "createLecture": {
+          "title": "Skapa ny föreläsning",
+          "description": "Öppna en ny föreläsning och börja samla närvaro."
+        }
+      }
+    }
+  },
+  "mainViewTitle": {
+    "dashboard": "Lärarvy"
+  },
+  "mobile": {
+    "headers": {
+      "date": "Datum",
+      "timeOfDay": "Tid",
+      "attendance": "Närvaro",
+      "ratio": "Andel",
+      "state": "Status"
+    },
+    "noAttendees": "Obs! Det finns 0 deltagare på denna föreläsning, så närvaroinsamlingen kan ha misslyckats.",
+    "edit": "Redigera",
+    "noData": "Inga föreläsningar att visa."
+  },
+  "TeacherLectures": {
+    "details": {
+      "back": "Tillbaka till föreläsningar",
+      "editAttendances": "Redigera närvaro",
+      "closeLecture": "Stäng föreläsning",
+      "deleteLecture": "Ta bort föreläsning",
+      "warning": "Inga studerande har markerats som närvarande.",
+      "date": "Datum",
+      "time": "Tid",
+      "attendance": "Närvaro",
+      "ratio": "Närvarograd",
+      "status": "Status",
+      "confirmDialog": {
+        "title": "Bekräfta åtgärd",
+        "message": "Är du säker på att du vill utföra denna åtgärd?",
+        "cancel": "Avbryt",
+        "confirm": "Bekräfta",
+        "important": {
+          "title": "Varning",
+          "message": "Föreläsningen kommer att raderas permanent och kan inte återställas."
+        }
+      }
+    },
+    "table": {
+      "headers": {
+        "date": "Datum",
+        "timeOfDay": "Tid",
+        "topicName": "Ämne",
+        "instructors": "Lärare",
+        "student": "Studerande",
+        "status": "Närvarostatus"
+      }
     }
   }
 }
